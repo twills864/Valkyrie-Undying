@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Assets
 {
-    public class Player : MonoBehaviour
+    public class Player : FrameRunner
     {
         Rigidbody2D Body => GetComponent<Rigidbody2D>();
         Renderer Renderer => GetComponent<Renderer>();
@@ -18,6 +18,8 @@ namespace Assets
         [SerializeField]
         private float MobileYOffset = 100;
         private static float MobileY;
+
+        public override string LogTagColor => "#60D3FF";
 
         private void Start()
         {
@@ -35,6 +37,16 @@ namespace Assets
                 SetMobilePosition(SpaceUtil.WorldPositionUnderMouse());
             else if (Input.GetMouseButton(1))
                 SetPosition(SpaceUtil.WorldPositionUnderMouse());
+
+//#if UNITY_EDITOR
+//            if (MobileY == 0)
+//            {
+//                // Application.Quit() does not work in the editor so
+//                // UnityEditor.EditorApplication.isPlaying need to be set to false to end the game
+//                UnityEditor.EditorApplication.isPlaying = false;
+//                //Application.Quit();
+//            }
+//#endif
         }
 
         public void Init()
@@ -59,6 +71,11 @@ namespace Assets
         {
             var ret = BoxMap.Top;
             return ret;
+        }
+
+        public override void RunFrame(float deltaTime)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

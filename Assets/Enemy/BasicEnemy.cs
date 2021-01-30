@@ -29,4 +29,9 @@ public class BasicEnemy : Enemy
         CurrentHealth -= bullet.Damage;
         UpdateHealthBar();
     }
+
+    public override void RunFrame(float deltaTime)
+    {
+        throw new System.NotImplementedException();
+    }
 }

@@ -1,4 +1,5 @@
 ﻿using Assets.Util.AssetsDebug;
+using Assets.Util;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -35,7 +36,6 @@ namespace Assets.Util
             return GameManager.CreateFleetingText(text, position);
         }
 
-
         public static Color GetRandomPlayerColor()
         {
             const float fixedColor = 0.5f;
@@ -65,54 +65,51 @@ namespace Assets.Util
 
         private static void InputSpace(KeyCode keyCode)
         {
-            Debug.Log(keyCode);
             GameManager.SpawnBasicBullet();
             //GameManager.CreateFleetingText("Test " + RandomUtil.General.Int(), SpaceUtil.WorldPositionUnderMouse());
         }
 
         private static void InputEnter(KeyCode keyCode)
         {
-            Debug.Log(keyCode);
         }
 
         private static void InputW(KeyCode keyCode)
         {
-            Debug.Log(keyCode);
         }
 
         private static void InputA(KeyCode keyCode)
         {
-            Debug.Log(keyCode);
+
         }
 
         private static void InputS(KeyCode keyCode)
         {
-            Debug.Log(keyCode);
+
         }
 
         private static void InputD(KeyCode keyCode)
         {
-            Debug.Log(keyCode);
+
         }
 
         private static void InputUp(KeyCode keyCode)
         {
-            Debug.Log(keyCode);
+
         }
 
         private static void InputLeft(KeyCode keyCode)
         {
-            Debug.Log(keyCode);
+
         }
 
         private static void InputDown(KeyCode keyCode)
         {
-            Debug.Log(keyCode);
+
         }
 
         private static void InputRight(KeyCode keyCode)
         {
-            Debug.Log(keyCode);
+
         }
 
 
@@ -166,6 +163,49 @@ namespace Assets.Util
         }
 
         #endregion Input Engine
+
+
+
+        #region Dirty
+        [Obsolete("Repent for your sins if you use this in a serious way")]
+        public static void DirtyConsole(object message, MonoBehaviour monoInstance = null)
+        {
+            //if(classType.GetType().IsSubclassOf(typeof(MonoBehaviour)))
+            var frame = new System.Diagnostics.StackTrace(true).GetFrame(1);
+
+            string fileName = /*FormatFileName*/(frame.GetFileName());
+            int lineNum = frame.GetFileLineNumber();
+            int colomn = frame.GetFileColumnNumber();
+
+
+            string msg = message
+                + "\nFILE: " + fileName + " LINE: " + lineNum + "\n" + StackTraceUtility.ExtractStackTrace();
+
+            var methods = typeof(UnityEngine.Debug).GetMethods(System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
+            //Debug.LogWarning(msg, (UnityEngine.Object)monoInstance.gameObject);
+            var mUnityLog = typeof(UnityEngine.Debug).GetMethod("LogPlayerBuildError", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
+            mUnityLog.Invoke(null, new object[] { msg, fileName, lineNum, colomn });
+
+            var test1 = new
+            {
+                parameters = mUnityLog.GetParameters(),
+                body = mUnityLog.GetMethodBody(),
+                mUnityLog.MethodHandle,
+                mUnityLog.CustomAttributes
+            };
+
+            var mUnityLog2 = typeof(UnityEngine.Debug).GetMethod("LogSticky", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
+            var test = new
+            {
+                parameters = mUnityLog2.GetParameters(),
+                body = mUnityLog2.GetMethodBody(),
+                mUnityLog2.MethodHandle,
+                mUnityLog2.CustomAttributes
+            };
+
+            mUnityLog2.Invoke(null, new object[] { 1, LogType.Log, LogOption.NoStacktrace, "Fourth String", GameManager });
+        }
+        #endregion Dirty
     }
 
 }

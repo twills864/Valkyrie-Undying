@@ -8,29 +8,22 @@ namespace Assets.Util
 {
     // Variation of a circular array that returns ones element at a time.
     // Mostly used for debugging
-    public class CircularSelector<T>
+    public class CircularSelector<T> : List<T>
     {
-        private List<T> List { get; set; }
         private int Index = 0;
 
-        public T Current => List[Index];
+        public T Current => this[Index];
+
         public void Increment()
         {
             Index++;
-            Index %= List.Count;
+            Index %= Count;
         }
-
-        public CircularSelector()
+        public T GetAndIncrement()
         {
-            List = new List<T>();
-        }
-        public CircularSelector(IEnumerable<T> items)
-        {
-            List = items.ToList();
-        }
-        public CircularSelector(List<T> list)
-        {
-            List = list;
+            T ret = Current;
+            Increment();
+            return ret;
         }
     }
 }

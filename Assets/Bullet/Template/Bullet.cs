@@ -5,10 +5,12 @@ using UnityEngine;
 
 namespace Assets.Bullet
 {
-    public abstract class Bullet : MonoBehaviour
+    public abstract class Bullet : PooledObject
     {
         protected abstract int BaseDamage { get; }
         public virtual int Damage => BaseDamage;
+
+        public override string LogTagColor => "#B381FE";
 
         protected abstract void _Update(float deltaTime);
         private void Update()
@@ -16,9 +18,10 @@ namespace Assets.Bullet
             _Update(Time.deltaTime);
         }
 
-        protected virtual void _Init() { }
-        public void Init()
+        protected abstract void _Init();
+        public override void Init()
         {
+            Debug.Log("");
             _Init();
         }
 

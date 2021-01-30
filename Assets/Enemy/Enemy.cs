@@ -1,11 +1,12 @@
-﻿using Assets.Bullet;
+﻿using Assets;
+using Assets.Bullet;
 using Assets.Util;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public abstract class Enemy : MonoBehaviour
+public abstract class Enemy : PooledObject
 {
     public int CurrentHealth { get; set; }
 
@@ -20,7 +21,9 @@ public abstract class Enemy : MonoBehaviour
 
     public void UpdateHealthBar() => HealthBar.SetText(CurrentHealth);
 
-    public void Init()
+    public override string LogTagColor => "#FFB697";
+
+    public override void Init()
     {
         HealthBar = FindChildEnemyHealthBar();
         HealthBar.Init();

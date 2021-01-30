@@ -14,14 +14,5 @@ namespace Assets.Util
             T ret = Current();
             return ret;
         }
-
-        public FuncPool(List<Func<T>> list) : base(list)
-        {
-        }
-
-        public static implicit operator FuncPool<T>(Func<T>[] funcs)
-        {
-            return new FuncPool<T>(funcs.ToList());
-        }
     }
 }

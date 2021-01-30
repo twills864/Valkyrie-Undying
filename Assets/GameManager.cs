@@ -30,6 +30,7 @@ namespace Assets
 
         void Start()
         {
+            //Application.SetStackTraceLogType(LogType.Log, StackTraceLogType.None);
             Init();
 
             _Camera = Camera.main;
