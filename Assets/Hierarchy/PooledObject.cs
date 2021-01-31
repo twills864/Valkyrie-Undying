@@ -1,4 +1,5 @@
 ﻿using Assets.Util;
+using Assets.Util.ObjectPooling;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,22 +9,20 @@ using UnityEngine;
 
 namespace Assets
 {
-    public abstract class PooledObject : FrameRunner
+    public abstract class PooledObject : ManagedVelocityObject
     {
-        public List<PooledObject> Pool { get; set; }
+        //public List<PooledObject> Pool { get; set; }
 
-        public new abstract void Init();
-        public void Init(Vector2 position)
-        {
-            Debug.Log("");
-            gameObject.transform.position = position;
-            Init();
-        }
-
-        public void Deactivate()
+        public virtual void DeactivateSelf()
         {
             gameObject.SetActive(false);
-            Pool.Add(this);
+            PoolManager.SendHome(this);
+            //Pool.Add(this);
+        }
+
+        public virtual void ActivateSelf()
+        {
+            gameObject.SetActive(true);
         }
     }
 }

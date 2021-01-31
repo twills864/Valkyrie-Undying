@@ -8,13 +8,8 @@ public class EnemyHealthBar : MonoBehaviour
 
     public void Start()
     {
-        Init();
-    }
-    public void Init()
-    {
         TextMesh = GetComponent<TextMesh>();
     }
-
     public void SetText(int health)
     {
         SetText(health.ToString());

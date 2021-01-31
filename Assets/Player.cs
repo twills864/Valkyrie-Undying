@@ -8,6 +8,8 @@ namespace Assets
 {
     public class Player : FrameRunner
     {
+        public static Player Instance { get; private set; }
+
         Rigidbody2D Body => GetComponent<Rigidbody2D>();
         Renderer Renderer => GetComponent<Renderer>();
 
@@ -51,6 +53,8 @@ namespace Assets
 
         public void Init()
         {
+            Instance = this;
+
             var targetY = Camera.main.ScreenToWorldPoint(new Vector3(0, MobileYOffset));
             MobileY = targetY.y;
 

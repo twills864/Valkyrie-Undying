@@ -11,11 +11,8 @@ namespace Assets
 {
     public abstract class FrameRunner : Loggable
     {
-        public abstract void RunFrame(float deltaTime);
+        public float TotalTime { get; set; }
 
-        protected void Init()
-        {
-            Debug.Log("");
-        }
+        public abstract void RunFrame(float deltaTime);
     }
 }

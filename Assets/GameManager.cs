@@ -1,10 +1,14 @@
-﻿using Assets.Bullet;
+﻿using Assets.Bullets;
+using Assets.Constants;
+using Assets.Enemies;
 using Assets.Util;
 using Assets.Util.AssetsDebug;
+using Assets.Util.ObjectPooling;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -28,6 +32,11 @@ namespace Assets
         [SerializeField]
         private Enemy _DebugEnemy;
 
+        [SerializeField]
+        private Component BulletManager;
+
+        private TrackedObjectList<Bullet> Bullets = new TrackedObjectList<Bullet>();
+
         void Start()
         {
             //Application.SetStackTraceLogType(LogType.Log, StackTraceLogType.None);
@@ -43,8 +52,17 @@ namespace Assets
 
         public void SpawnBasicBullet()
         {
-            var bullet = Instantiate(_BasicBullet);
-            bullet.transform.position = Player.FirePosition();
+            //var bullet = Instantiate(_BasicBullet);
+            var pos = Player.FirePosition();
+
+            var bullet = PoolManager.Get<BasicBullet>();
+            bullet.Init(pos);
+            //bullet.transform.position = Player.FirePosition();
+
+            var basic = BulletManager.transform.Find("Basic");
+            bullet.transform.SetParent(basic);
+
+            Bullets.Add(bullet);
         }
 
         private void Init()
@@ -56,6 +74,8 @@ namespace Assets
 
             _Destructor.Init();
             _DebugEnemy.Init();
+
+            InitPoolManager();
         }
 
         private Color DefaultPlayerColor => new Color(96f / 255f, 211f / 255f, 255f / 255f);
@@ -70,7 +90,31 @@ namespace Assets
         // Update is called once per frame
         void Update()
         {
+            RemoveInactiveElements();
+            PoolManager.DebugInfo();
+
             DebugUtil.HandleInput();
+
+            float deltaTime = Time.deltaTime;
+
+#if DEBUG
+            var distinctBullets = Bullets.Distinct().ToList();
+            if(distinctBullets.Count != Bullets.Count)
+            {
+
+            }
+#endif
+
+            Bullets.RemoveInactiveElements();
+            for (int i = 0; i < Bullets.Count; i++)
+            {
+                var bullet = Bullets[i];
+                bullet.RunFrame(deltaTime);
+            }
+        }
+        private void RemoveInactiveElements()
+        {
+            Bullets.RemoveInactiveElements();
         }
 
         private void OnGUI()
@@ -97,6 +141,11 @@ namespace Assets
         {
             PlayerColor = color;
             Player.GetComponent<SpriteRenderer>().color = PlayerColor;
+
+            foreach(var bullet in Bullets)
+            {
+                bullet.GetComponent<SpriteRenderer>().color = PlayerColor;
+            }
         }
 
         public FleetingText CreateFleetingText(string text, Vector2 worldPosition)
@@ -109,6 +158,16 @@ namespace Assets
             newFleetingText.Init(text, position);
 
             return newFleetingText;
+        }
+
+
+
+        // This class was created for ease and speed of development.
+        // It should be replaced with a hard-coded version upon release.
+        public void InitPoolManager()
+        {
+            var privatePrefabs = ReflectionUtil.GetPrivatePoolablePrefabFields(this);
+            PoolManager.InitPool(privatePrefabs);
         }
     }
 }
