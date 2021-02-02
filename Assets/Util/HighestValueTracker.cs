@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace Assets.Util
 {
+    /// <summary>
+    /// Stores a value, and remembers the historical highest value ever assigned.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class HighestValueTracker<T> where T : IComparable
     {
         private T _value;

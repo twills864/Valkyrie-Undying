@@ -10,8 +10,20 @@ namespace Assets.Util
 {
     public static class SpaceUtil
     {
+        /// <summary>
+        /// A BoxMap that represents the screen measured in pixels.
+        /// </summary>
         public static BoxMap ScreenMap { get; set; }
+
+        /// <summary>
+        /// A BoxMap that represents the screen measured in world space.
+        /// </summary>
         public static BoxMap WorldMap { get; set; }
+
+        /// <summary>
+        /// Represents the size of the WorldMap.
+        /// Used to resize elements to match the size of the current world.
+        /// </summary>
         public static Vector2 WorldMapSize { get; set; }
         public static void Init()
         {
@@ -27,6 +39,7 @@ namespace Assets.Util
 
             WorldMap = new BoxMap(mappedZero, WorldMapSize);
         }
+
 
         public static void SetRightToPosition(MonoBehaviour element, Vector2 pos)
         {

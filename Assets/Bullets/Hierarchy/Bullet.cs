@@ -13,12 +13,19 @@ namespace Assets.Bullets
         protected int BaseDamage;
         public virtual int Damage => BaseDamage;
 
+
+
         protected virtual void OnTriggerExit2D(Collider2D collision)
         {
             if (CollisionUtil.IsDestructor(collision))
             {
-                DeactivateSelf();
+                CollideWithDestructor();
             }
+        }
+
+        protected virtual void CollideWithDestructor()
+        {
+            DeactivateSelf();
         }
     }
 }

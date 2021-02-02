@@ -7,6 +7,10 @@ using System.Threading.Tasks;
 
 namespace Assets.Util
 {
+    /// <summary>
+    /// Represents a string object using member variables that are parsed and assigned
+    /// when the source string is assigned.
+    /// </summary>
     public abstract class ParsedText
     {
         private string _source;

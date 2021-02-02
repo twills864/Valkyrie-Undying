@@ -40,19 +40,19 @@ namespace Assets.Util
         public static Color GetRandomPlayerColor()
         {
             const float fixedColor = 0.5f;
-            var fixedColorSelector = RandomUtil.General.Int(3);
+            var fixedColorSelector = RandomUtil.Int(3);
 
             Color ret;
             switch (fixedColorSelector)
             {
                 case 0:
-                    ret = new Color(fixedColor, RandomUtil.General.Float(), RandomUtil.General.Float());
+                    ret = new Color(fixedColor, RandomUtil.Float(), RandomUtil.Float());
                     break;
                 case 1:
-                    ret = new Color(RandomUtil.General.Float(), fixedColor, RandomUtil.General.Float());
+                    ret = new Color(RandomUtil.Float(), fixedColor, RandomUtil.Float());
                     break;
                 case 2:
-                    ret = new Color(RandomUtil.General.Float(), RandomUtil.General.Float(), fixedColor);
+                    ret = new Color(RandomUtil.Float(), RandomUtil.Float(), fixedColor);
                     break;
                 default:
                     throw new Exception($"UNKNOWN FIXEDCOLOR {fixedColorSelector}");
@@ -95,7 +95,7 @@ namespace Assets.Util
 
         private static void InputUp(KeyCode keyCode)
         {
-
+            GameManager.DebugIncrementFireType();
         }
 
         private static void InputLeft(KeyCode keyCode)
@@ -105,7 +105,7 @@ namespace Assets.Util
 
         private static void InputDown(KeyCode keyCode)
         {
-
+            GameManager.DebugDecrementFireType();
         }
 
         private static void InputRight(KeyCode keyCode)

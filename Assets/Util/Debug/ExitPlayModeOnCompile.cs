@@ -11,7 +11,8 @@ public static class ExitPlayModeOnCompile
         // causes our static constructor to be called again.
         if (EditorApplication.isPlaying)
         {
-            LogUtil.Log("Recompiled, stopping!");
+            Debug.Log("Recompiled, stopping!");
+            //LogUtil.Log("Recompiled, stopping!");
             //Debug.LogWarning("Stopping Editor because of AssemblyReload.");
             EditorApplication.isPlaying = false;
         }

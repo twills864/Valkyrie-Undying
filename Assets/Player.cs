@@ -27,10 +27,10 @@ namespace Assets
         {
             BoxMap = new TrackedBoxMap(this);
 
-            DebugUI.SetDebugLabel("BoxMapTop", () => BoxMap.Top);
-            DebugUI.SetDebugLabel("FirePosition", () => FirePosition());
-            DebugUI.SetDebugLabel("PlayerPosition", () => transform.position);
-            DebugUI.SetDebugLabel("PlayerLocalPosition", () => transform.localPosition);
+            //DebugUI.SetDebugLabel("BoxMapTop", () => BoxMap.Top);
+            //DebugUI.SetDebugLabel("FirePosition", () => FirePosition());
+            //DebugUI.SetDebugLabel("PlayerPosition", () => transform.position);
+            //DebugUI.SetDebugLabel("PlayerLocalPosition", () => transform.localPosition);
         }
 
         void Update()

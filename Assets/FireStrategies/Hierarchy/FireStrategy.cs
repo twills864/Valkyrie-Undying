@@ -1,5 +1,6 @@
 ﻿using Assets.Bullets;
 using Assets.Util;
+using Assets.Util.ObjectPooling;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,17 +12,15 @@ namespace Assets.FireStrategies
 {
     public abstract class FireStrategy
     {
-        private Bullet BulletPrefab { get; set; }
-        private FrameTimer Timer { get; set; }
-
-        protected abstract FrameTimer DefaultTimer { get; }
-
-        public FireStrategy(Bullet bulletPrefab)
+        public abstract LoopingFrameTimer FireTimer { get; }
+        public abstract Bullet GetBullet();
+    }
+    public abstract class FireStrategy<TBullet> : FireStrategy where TBullet : Bullet
+    {
+        public override Bullet GetBullet()
         {
-            BulletPrefab = bulletPrefab;
-            Timer = DefaultTimer;
+            TBullet ret = PoolManager.Instance.BulletPool.Get<TBullet>();
+            return ret;
         }
-
-
     }
 }

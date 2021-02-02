@@ -1,6 +1,7 @@
 ﻿using Assets.Bullets;
 using Assets.Constants;
 using Assets.Enemies;
+using Assets.FireStrategies;
 using Assets.Util;
 using Assets.Util.AssetsDebug;
 using Assets.Util.ObjectPooling;
@@ -33,12 +34,20 @@ namespace Assets
         private Enemy _DebugEnemy;
 
         [SerializeField]
-        private Component BulletManager;
+        private PoolManager _PoolManager;
 
-        private TrackedObjectList<Bullet> Bullets = new TrackedObjectList<Bullet>();
+        public int DefaultFireTypeIndex => FireStrategies.Count - 1;
+        private LoopingFrameTimer FireTimer;
+        private FireStrategy CurrentFireStrategy => FireStrategies[FireStrategies.Index];
+        private CircularSelector<FireStrategy> FireStrategies = new CircularSelector<FireStrategy>
+        {
+            new BasicStrategy(),
+            new TestFastStrategy(),
+        };
 
         void Start()
         {
+            DebugUI.SetDebugLabel("CurrentFireType", () => CurrentFireStrategy.GetType().Name);
             //Application.SetStackTraceLogType(LogType.Log, StackTraceLogType.None);
             Init();
 
@@ -48,34 +57,44 @@ namespace Assets
             PlayerColor = InitPlayerColor();
             Player.GetComponent<SpriteRenderer>().color = PlayerColor;
             Player.Init();
+
+
+            FireTimer = CurrentFireStrategy.FireTimer;
+            SetFireType(DefaultFireTypeIndex);
         }
 
         public void SpawnBasicBullet()
         {
             //var bullet = Instantiate(_BasicBullet);
             var pos = Player.FirePosition();
+            //var bullet = PoolManager.Instance.BulletPool.Basic.Get();
 
-            var bullet = PoolManager.Get<BasicBullet>();
+            var bullet = _PoolManager.BulletPool.Get<BasicBullet>();
             bullet.Init(pos);
             //bullet.transform.position = Player.FirePosition();
 
-            var basic = BulletManager.transform.Find("Basic");
-            bullet.transform.SetParent(basic);
+            //var basic = BulletManager.transform.Find("Basic");
+            //bullet.transform.SetParent(basic);
 
-            Bullets.Add(bullet);
+            //Bullets.Add(bullet);
+        }
+        public void FireBullet(Bullet bullet)
+        {
+            var pos = Player.FirePosition();
+            bullet.Init(pos);
         }
 
         private void Init()
         {
             SpaceUtil.Init();
-            DebugUi.Init(this);
+            DebugUi.Init(this, this.FireStrategies);
             DebugUtil.Init(DebugUi, this);
             RandomUtil.Init();
 
             _Destructor.Init();
             _DebugEnemy.Init();
 
-            InitPoolManager();
+            _PoolManager.Init();
         }
 
         private Color DefaultPlayerColor => new Color(96f / 255f, 211f / 255f, 255f / 255f);
@@ -90,31 +109,41 @@ namespace Assets
         // Update is called once per frame
         void Update()
         {
-            RemoveInactiveElements();
-            PoolManager.DebugInfo();
+            //PoolManager.DebugInfo();
 
             DebugUtil.HandleInput();
 
+            if (Input.GetMouseButton(2))
+                _DebugEnemy.transform.position = SpaceUtil.WorldPositionUnderMouse();
+
             float deltaTime = Time.deltaTime;
 
-#if DEBUG
-            var distinctBullets = Bullets.Distinct().ToList();
-            if(distinctBullets.Count != Bullets.Count)
+            if (FireTimer.UpdateActivates(deltaTime))
             {
-
+                var bullet = CurrentFireStrategy.GetBullet();
+                FireBullet(bullet);
             }
-#endif
 
-            Bullets.RemoveInactiveElements();
-            for (int i = 0; i < Bullets.Count; i++)
-            {
-                var bullet = Bullets[i];
-                bullet.RunFrame(deltaTime);
-            }
+
+
+            _PoolManager.RunPoolFrames(deltaTime, deltaTime);
         }
-        private void RemoveInactiveElements()
+
+        public void SetFireType(int index, bool skipDropDown = false)
         {
-            Bullets.RemoveInactiveElements();
+            FireStrategies.Index = index;
+            FireTimer = CurrentFireStrategy.FireTimer;
+
+            if (!skipDropDown)
+                DebugUi.DropdownFireType.value = FireStrategies.Index;
+        }
+        public void DebugIncrementFireType()
+        {
+            SetFireType(FireStrategies.Index + 1);
+        }
+        public void DebugDecrementFireType()
+        {
+            SetFireType(FireStrategies.Index - 1);
         }
 
         private void OnGUI()
@@ -142,10 +171,7 @@ namespace Assets
             PlayerColor = color;
             Player.GetComponent<SpriteRenderer>().color = PlayerColor;
 
-            foreach(var bullet in Bullets)
-            {
-                bullet.GetComponent<SpriteRenderer>().color = PlayerColor;
-            }
+            _PoolManager.RecolorPlayerActivity(color);
         }
 
         public FleetingText CreateFleetingText(string text, Vector2 worldPosition)
@@ -162,12 +188,12 @@ namespace Assets
 
 
 
-        // This class was created for ease and speed of development.
-        // It should be replaced with a hard-coded version upon release.
-        public void InitPoolManager()
-        {
-            var privatePrefabs = ReflectionUtil.GetPrivatePoolablePrefabFields(this);
-            PoolManager.InitPool(privatePrefabs);
-        }
+        //// This class was created for ease and speed of development.
+        //// It should be replaced with a hard-coded version upon release.
+        //public void InitPoolManager()
+        //{
+        //    var privatePrefabs = ReflectionUtil.GetPrivatePoolablePrefabFields(this);
+        //    PoolManager.InitPool(privatePrefabs);
+        //}
     }
 }

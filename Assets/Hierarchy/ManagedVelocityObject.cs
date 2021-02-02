@@ -7,6 +7,9 @@ using UnityEngine;
 
 namespace Assets
 {
+    /// <summary>
+    /// Represents an object with a velocity that will be manually managed.
+    /// </summary>
     public abstract class ManagedVelocityObject : FrameRunner
     {
         public virtual Vector2 Velocity { get; set; }

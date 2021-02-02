@@ -1,6 +1,8 @@
-﻿using Assets.Util.AssetsDebug;
+﻿using Assets.FireStrategies;
+using Assets.Util.AssetsDebug;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,7 +24,7 @@ namespace Assets.Util
         public Text TextFireLevel;
 
 
-        public void Init(GameManager gameManager)
+        public void Init(GameManager gameManager, CircularSelector<FireStrategy> fireStrategies)
         {
             GameManager = gameManager;
             DebugTextBox = new DebugTextBox(InputField);
@@ -35,6 +37,13 @@ namespace Assets.Util
 
             var dropdownFireTypePos = SpaceUtil.ScreenMap.Right + new Vector2(-DebugBorderOffset, 0);
             SpaceUtil.SetRightToPosition(DropdownFireType, dropdownFireTypePos);
+
+            var strategiesToAdd = fireStrategies.Select(x => x.GetType().Name).ToList();
+            DropdownFireType.AddOptions(strategiesToAdd);
+            DropdownFireType.onValueChanged.AddListener(delegate
+            {
+                GameManager.SetFireType(DropdownFireType.value, true);
+            });
 
             const int sliderFireLevelYOffset = 15;
             var sliderFireLevelPos = SpaceUtil.ScreenMap.Right + new Vector2(-DebugBorderOffset, DebugBorderOffset + sliderFireLevelYOffset);

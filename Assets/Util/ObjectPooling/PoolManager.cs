@@ -1,57 +1,67 @@
-﻿using Assets.Constants;
+﻿using Assets.Bullets;
+using Assets.Constants;
+using Assets.Enemies;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace Assets.Util.ObjectPooling
 {
-    // This class was created for ease and speed of development.
-    // It should be replaced with a hard-coded version upon release.
-    public static class PoolManager
+    /// <summary>
+    /// Manages each Object Pool contained within the main game scene.
+    /// </summary>
+    public class PoolManager : MonoBehaviour
     {
-        public static Dictionary<Type, ObjectPool<PooledObject>> AllPools
-             = new Dictionary<Type, ObjectPool<PooledObject>>();
+        /// <summary>
+        /// A static reference to the single instance of the Pool Manager.
+        /// </summary>
+        public static PoolManager Instance { get; private set; }
 
-        public static TReturn Get<TReturn>() where TReturn : PooledObject
+        [SerializeField]
+        public BulletPoolList BulletPool;
+        //public EnemyPoolList EnemyPool;
+
+        /// <summary>
+        /// An array of each Object Pool managed by this class.
+        /// </summary>
+        private PoolList[] AllPoolLists => new PoolList[]
         {
-            var pool = AllPools[typeof(TReturn)];
-            var ret = pool.Get<TReturn>();
-            ret.ActivateSelf();
-            return ret;
+            BulletPool
+        };
+
+
+        public void Init()
+        {
+            foreach(var pool in AllPoolLists)
+                pool.Init();
         }
 
-        public static void SendHome<T>(T item) where T : PooledObject
+        private void Awake()
         {
-            var type = item.GetType();
-
-            var pool = AllPools[type];
-            pool.Add(item);
+            Instance = this;
         }
 
-        public static void InitPool(IEnumerable<PooledObject> prefabs)
+        /// <summary>
+        /// Calls RunFrames() on each Object Pool managed by this class.
+        /// </summary>
+        /// <param name="bulletDt">Delta time as experienced by each bullet.</param>
+        /// <param name="enemyDt">Delta time as experienced by each enemy.</param>
+        public void RunPoolFrames(float bulletDt, float enemyDt)
         {
-            foreach(var prefab in prefabs)
-            {
-                var type = prefab.GetType();
-
-                // AllPools.Add() will throw an exception if we've already added such a prefab
-                AllPools.Add(type, new ObjectPool<PooledObject>(prefab));
-            }
+            BulletPool.RunFrames(bulletDt);
+            // EnemyPool.RunFrames(enemyDt);
         }
 
-        public static void DebugInfo()
+        /// <summary>
+        /// Calls RecolorObjects() on each player-based Object Pool managed by this class.
+        /// </summary>
+        /// <param name="color">The color to give to each object.</param>
+        public void RecolorPlayerActivity(Color color)
         {
-            foreach (var kvp in AllPools)
-            {
-                var pool = kvp.Value;
-                if (pool.HasHadActivity)
-                {
-                    var type = kvp.Key;
-                    DebugUI.SetDebugLabel(type.Name, pool.DebugInfo);
-                }
-            }
+            BulletPool.RecolorElements(color);
         }
     }
 }

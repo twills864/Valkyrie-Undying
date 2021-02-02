@@ -8,6 +8,7 @@ using UnityEngine.UI;
 
 namespace Assets.Enemies
 {
+
     public abstract class Enemy : PooledObject
     {
         public override string LogTagColor => "#FFB697";

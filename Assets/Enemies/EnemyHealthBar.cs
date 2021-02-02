@@ -6,7 +6,7 @@ public class EnemyHealthBar : MonoBehaviour
 {
     private TextMesh TextMesh { get; set; }
 
-    public void Start()
+    private void Awake()
     {
         TextMesh = GetComponent<TextMesh>();
     }
