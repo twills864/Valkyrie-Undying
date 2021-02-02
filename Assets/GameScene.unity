@@ -439,7 +439,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Select Weapon...
+  m_Text: 
 --- !u!222 &110918572
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1185,6 +1185,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2283172988922006683, guid: 3722a63a8db008943be2dc745f89f1f3,
+        type: 3}
+      propertyPath: m_FontSize
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 2283172989307125899, guid: 3722a63a8db008943be2dc745f89f1f3,
         type: 3}
       propertyPath: m_Name
@@ -2560,13 +2565,7 @@ MonoBehaviour:
   m_ItemImage: {fileID: 0}
   m_Value: 0
   m_Options:
-    m_Options:
-    - m_Text: Select Weapon...
-      m_Image: {fileID: 0}
-    - m_Text: Option A
-      m_Image: {fileID: 0}
-    - m_Text: Option B
-      m_Image: {fileID: 0}
+    m_Options: []
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -2742,7 +2741,7 @@ MonoBehaviour:
   _FleetingText: {fileID: -551167582147300100, guid: 2af817e2fda31d24d89c2aa5bd0d7e71,
     type: 3}
   _Destructor: {fileID: 6556364}
-  _DebugEnemy: {fileID: 0}
+  _DebugEnemy: {fileID: 419320935}
   _PoolManager: {fileID: 1328750981}
 --- !u!4 &1640542552
 Transform:
