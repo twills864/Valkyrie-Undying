@@ -13,13 +13,13 @@ namespace Assets.FireStrategies
     public abstract class FireStrategy
     {
         public abstract LoopingFrameTimer FireTimer { get; }
-        public abstract Bullet GetBullet();
+        public abstract Bullet[] GetBullets();
     }
     public abstract class FireStrategy<TBullet> : FireStrategy where TBullet : Bullet
     {
-        public override Bullet GetBullet()
+        public override Bullet[] GetBullets()
         {
-            TBullet ret = PoolManager.Instance.BulletPool.Get<TBullet>();
+            TBullet[] ret = new TBullet[] { PoolManager.Instance.BulletPool.Get<TBullet>() };
             return ret;
         }
     }

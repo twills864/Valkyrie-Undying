@@ -1,5 +1,6 @@
 ﻿using Assets;
 using Assets.Bullets;
+using Assets.EnemyFireStrategies;
 using Assets.Util;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ namespace Assets.Enemies
     {
         public override string LogTagColor => "#FFB697";
 
+        public int PointValue { get; set; }
         public int CurrentHealth { get; set; }
 
         // The health this enemy spawns with at the start of the game
@@ -24,13 +26,33 @@ namespace Assets.Enemies
         [SerializeField]
         public EnemyHealthBar HealthBar;
 
+        public virtual Vector2 FirePosition => BoxMap.Bottom;
+
         public void UpdateHealthBar() => HealthBar.SetText(CurrentHealth);
 
+        protected TrackedBoxMap BoxMap { get; set; }
+
+        protected abstract EnemyFireStrategy DefaultEnemyFireStrategy { get; }
+        public EnemyFireStrategy FireStrategy { get; protected set; }
+
+
+        protected virtual LoopingFrameTimer DefaultFireTimer => DefaultEnemyFireStrategy.FireTimer;
+        public LoopingFrameTimer FireTimer { get; protected set; }
 
         public override void Init()
         {
             base.Init();
+            OnActivate();
+        }
+
+        protected override void OnActivate()
+        {
+            BoxMap = new TrackedBoxMap(this);
+            FireStrategy = DefaultEnemyFireStrategy;
+            FireTimer = DefaultFireTimer;
+
             CurrentHealth = BaseSpawnHealth;
+            PointValue = CurrentHealth;
 
             HealthBar = FindChildEnemyHealthBar();
             UpdateHealthBar();
@@ -38,11 +60,17 @@ namespace Assets.Enemies
 
         public override void RunFrame(float deltaTime)
         {
-            throw new System.NotImplementedException();
+            if(FireTimer.UpdateActivates(deltaTime))
+            {
+                var bullets = FireStrategy.GetBullets();
+                foreach (var bullet in bullets)
+                    bullet.transform.position = FirePosition;
+            }
         }
 
         private void Start()
         {
+
             Init();
         }
 
@@ -60,7 +88,10 @@ namespace Assets.Enemies
             if (DamageKills(bullet.Damage))
             {
                 // Kill enemy
+                DeactivateSelf();
+                CreateFleetingTextAtCenter(PointValue);
             }
+            bullet.DeactivateSelf();
         }
         private void OnTriggerEnter2D(Collider2D collision)
         {
@@ -69,6 +100,18 @@ namespace Assets.Enemies
                 Bullet bullet = collision.GetComponent<Bullet>();
                 CollideWithBullet(bullet);
             }
+        }
+
+        protected virtual void OnTriggerExit2D(Collider2D collision)
+        {
+            if (CollisionUtil.IsDestructor(collision))
+            {
+                CollideWithDestructor();
+            }
+        }
+        protected virtual void CollideWithDestructor()
+        {
+            DeactivateSelf();
         }
 
         private EnemyHealthBar FindChildEnemyHealthBar()

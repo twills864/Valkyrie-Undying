@@ -15,5 +15,13 @@ namespace Assets.Bullets
         protected float PermanentVelocityY;
 
         public sealed override Vector2 Velocity => new Vector2(PermanentVelocityX, PermanentVelocityY);
+
+        protected void OnPermanentVelocityBulletInit() { }
+        protected override sealed void OnConstantVelocityBulletInit()
+        {
+            base.OnConstantVelocityBulletInit();
+            OnPermanentVelocityBulletInit();
+
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Enemies;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -90,7 +91,19 @@ namespace Assets.Util
             element.transform.position = newPos;
         }
 
+        public static Vector2 RandomEnemySpawnPosition(Enemy enemy)
+        {
+            Vector2 size = ((RectTransform)enemy.transform).rect.size;
 
+            float spawnY = WorldMap.Top.y + size.y;
+
+            float spawnXMin = WorldMap.Left.x + size.x;
+            float spawnXMax = WorldMap.Right.x - size.x;
+            float spawnX = RandomUtil.Float(spawnXMin, spawnXMax);
+
+            var ret = new Vector2(spawnX, spawnY);
+            return ret;
+        }
 
 
 

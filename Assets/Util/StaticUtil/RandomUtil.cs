@@ -158,5 +158,22 @@ namespace Assets.Util
         }
 
         #endregion Bool
+
+        #region Collections
+
+        /// <summary>
+        /// Returns a random element of a given array with equal probabilities.
+        /// </summary>
+        /// <typeparam name="T">The type of the array.</typeparam>
+        /// <param name="source">The array.</param>
+        /// <returns>A random element from the array.</returns>
+        public static T RandomElement<T>(T[] source)
+        {
+            int index = Int(source.Length);
+            T ret = source[index];
+            return ret;
+        }
+
+        #endregion Collections
     }
 }

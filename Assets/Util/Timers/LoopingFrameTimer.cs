@@ -34,7 +34,7 @@ namespace Assets.Util
         }
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private string DebuggerDisplay
+        protected virtual string DebuggerDisplay
         {
             get
             {

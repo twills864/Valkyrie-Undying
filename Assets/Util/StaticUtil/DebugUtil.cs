@@ -72,6 +72,7 @@ namespace Assets.Util
 
         private static void InputEnter(KeyCode keyCode)
         {
+            GameManager.SpawnBasicEnemy();
         }
 
         private static void InputW(KeyCode keyCode)

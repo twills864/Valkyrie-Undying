@@ -20,16 +20,18 @@ namespace Assets.Util.ObjectPooling
         /// </summary>
         public static PoolManager Instance { get; private set; }
 
-        [SerializeField]
         public BulletPoolList BulletPool;
-        //public EnemyPoolList EnemyPool;
+        public EnemyPoolList EnemyPool;
+        public EnemyBulletPoolList EnemyBulletPool;
 
         /// <summary>
         /// An array of each Object Pool managed by this class.
         /// </summary>
         private PoolList[] AllPoolLists => new PoolList[]
         {
-            BulletPool
+            BulletPool,
+            EnemyPool,
+            EnemyBulletPool
         };
 
 
@@ -52,7 +54,8 @@ namespace Assets.Util.ObjectPooling
         public void RunPoolFrames(float bulletDt, float enemyDt)
         {
             BulletPool.RunFrames(bulletDt);
-            // EnemyPool.RunFrames(enemyDt);
+            EnemyPool.RunFrames(enemyDt);
+            EnemyBulletPool.RunFrames(enemyDt);
         }
 
         /// <summary>

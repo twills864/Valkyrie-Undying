@@ -53,6 +53,7 @@ namespace Assets.Util
             T ret = firstInactive ?? CreateNewPooledObject();
             ret.ActivateSelf();
             ret.SpawnId = NextSpawnId;
+            ret.name = ret.SpawnName;
 
             return ret;
         }
@@ -64,6 +65,7 @@ namespace Assets.Util
         private T CreateNewPooledObject()
         {
             var ret = UnityEngine.Object.Instantiate(ObjectPrefab);
+            ret.InitialName = ret.name;
             Add(ret);
             return ret;
         }

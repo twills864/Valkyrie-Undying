@@ -17,6 +17,8 @@ namespace Assets
 {
     public class GameManager : MonoBehaviour
     {
+        public static GameManager Instance { get; set; }
+
         public Player Player;
         public DebugUI DebugUi;
         public Color PlayerColor;
@@ -45,6 +47,13 @@ namespace Assets
             new TestFastStrategy(),
         };
 
+        private LoopingFrameTimer EnemyTimer = new LoopingFrameTimer(3.0f);
+
+        private void Awake()
+        {
+            Instance = this;
+            SetFrameRate();
+        }
         void Start()
         {
             DebugUI.SetDebugLabel("CurrentFireType", () => CurrentFireStrategy.GetType().Name);
@@ -63,6 +72,13 @@ namespace Assets
             SetFireType(DefaultFireTypeIndex);
         }
 
+        public void SpawnBasicEnemy()
+        {
+            var pos = SpaceUtil.WorldMap.Center;
+            var enemy = _PoolManager.EnemyPool.Get<BasicEnemy>();
+            enemy.Init(pos);
+        }
+
         public void SpawnBasicBullet()
         {
             //var bullet = Instantiate(_BasicBullet);
@@ -78,7 +94,12 @@ namespace Assets
 
             //Bullets.Add(bullet);
         }
-        public void FireBullet(Bullet bullet)
+        public void FirePlayerBullets(Bullet[] bullets)
+        {
+            foreach (var bullet in bullets)
+                FirePlayerBullet(bullet);
+        }
+        public void FirePlayerBullet(Bullet bullet)
         {
             var pos = Player.FirePosition();
             bullet.Init(pos);
@@ -120,8 +141,14 @@ namespace Assets
 
             if (FireTimer.UpdateActivates(deltaTime))
             {
-                var bullet = CurrentFireStrategy.GetBullet();
-                FireBullet(bullet);
+                var bullets = CurrentFireStrategy.GetBullets();
+                FirePlayerBullets(bullets);
+            }
+
+            if(EnemyTimer.UpdateActivates(deltaTime))
+            {
+                var enemy = _PoolManager.EnemyPool.GetRandomEnemy();
+                enemy.Init(SpaceUtil.RandomEnemySpawnPosition(enemy));
             }
 
 
@@ -148,11 +175,6 @@ namespace Assets
 
         private void OnGUI()
         {
-        }
-
-        private void Awake()
-        {
-            SetFrameRate();
         }
 
         private void SetFrameRate()

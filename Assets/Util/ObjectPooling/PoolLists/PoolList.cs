@@ -20,16 +20,27 @@ namespace Assets.Util.ObjectPooling
     /// </summary>
     public abstract class PoolList<T> : PoolList where T : PooledObject
     {
+
+
         /// <summary>
-        /// Returns each pool represented by this PoolList.
+        /// An array representation of each pool represented by this PoolList.
         /// </summary>
-        protected IEnumerable<ObjectPool<T>> Pools => PoolMap.Values;
+        protected ObjectPool<T>[] Pools { get; private set; }
 
         /// <summary>
         /// A dictionary in which each pool represented by this PoolList
         /// is indexed by the type of the pool.
         /// </summary>
-        protected Dictionary<Type, ObjectPool<T>> PoolMap { get; private set; }
+        protected Dictionary<Type, ObjectPool<T>> PoolMap
+        {
+            get => _poolMap;
+            private set
+            {
+                _poolMap = value;
+                Pools = _poolMap.Values.ToArray();
+            }
+        }
+        private Dictionary<Type, ObjectPool<T>> _poolMap;
 
         public override void Init()
         {
@@ -42,8 +53,17 @@ namespace Assets.Util.ObjectPooling
         /// </summary>
         protected void LoadPoolMap()
         {
-            var prefabTypes = ReflectionUtil.GetPrivatePoolablePrefabFields(this);
-            PoolMap = prefabTypes.ToDictionary(x => x.GetType(), x => new ObjectPool<T>((T)x));
+            try
+            {
+                var prefabTypes = ReflectionUtil.GetPrivatePoolablePrefabFields(this);
+                PoolMap = prefabTypes.ToDictionary(x => x.GetType(), x => new ObjectPool<T>((T)x));
+            }
+            catch (Exception ex)
+            {
+                var prefabTypes = ReflectionUtil.GetPrivatePoolablePrefabFields(this);
+                var prefabs = ReflectionUtil.GetPrivatePoolablePrefabFields(this);
+                throw;
+            }
         }
 
         /// <summary>
@@ -54,10 +74,17 @@ namespace Assets.Util.ObjectPooling
         /// <returns>A fresh instance of <typeparamref name="TGet"/> from the appropriate Object Pool.</returns>
         public TGet Get<TGet>() where TGet : T
         {
-            var type = typeof(TGet);
-            var pool = PoolMap[type];
-            var ret = (TGet)pool.Get();
-            return ret;
+            try
+            {
+                var type = typeof(TGet);
+                var pool = PoolMap[type];
+                var ret = (TGet)pool.Get();
+                return ret;
+            } catch (Exception ex)
+            {
+                var type = typeof(TGet);
+                throw;
+            }
         }
 
         /// <summary>

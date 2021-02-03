@@ -21,6 +21,16 @@ namespace Assets
         public int SpawnId;
 
         /// <summary>
+        /// The name initially given to this object by Unity.
+        /// </summary>
+        public string InitialName { get; set; }
+
+        /// <summary>
+        /// The name that will be assigned to this object when it's spawned.
+        /// </summary>
+        public string SpawnName => $"{InitialName} {SpawnId}";
+
+        /// <summary>
         /// Subclass-specific functionality to happen when an object is activated.
         /// </summary>
         protected virtual void OnActivate() { }
@@ -31,6 +41,7 @@ namespace Assets
         public void ActivateSelf()
         {
             gameObject.SetActive(true);
+            name = SpawnName;
             OnActivate();
         }
 
@@ -46,6 +57,16 @@ namespace Assets
         {
             gameObject.SetActive(false);
             OnDeactivate();
+        }
+
+        /// <summary>
+        /// Calls GameManager.CreateFleetingText() using the given <paramref name="text"/>
+        /// at the center of this object.
+        /// </summary>
+        /// <param name="text">The text to display.</param>
+        public void CreateFleetingTextAtCenter(object text)
+        {
+            GameManager.Instance.CreateFleetingText(text.ToString(), this.transform.position);
         }
     }
 }

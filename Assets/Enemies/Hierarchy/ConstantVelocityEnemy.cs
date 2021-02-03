@@ -9,6 +9,7 @@ namespace Assets.Enemies
     {
         public override void RunFrame(float deltaTime)
         {
+            base.RunFrame(deltaTime);
             transform.Translate(deltaTime * Velocity);
         }
     }
