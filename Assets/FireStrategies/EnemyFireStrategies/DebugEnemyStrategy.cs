@@ -11,7 +11,7 @@ namespace Assets.FireStrategies
 {
     public class DebugEnemyStrategy : EnemyFireStrategy<BasicEnemyBullet>
     {
-        public override LoopingFrameTimer FireTimer =>
+        public override LoopingFrameTimer DefaultFireTimer =>
             new LoopingFrameTimer(float.MaxValue);
     }
 }

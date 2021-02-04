@@ -88,6 +88,19 @@ namespace Assets.Util.ObjectPooling
         }
 
         /// <summary>
+        /// Accesses the Object Pool indexed by<typeparamref name="T"/>
+        /// and returns a given number of fresh instances from that Pool.
+        /// </summary>
+        /// <typeparam name="TGet">The type of object to return.</typeparam>
+        /// <param name="amountToGet">The number of fresh instances to get.</param>
+        /// <returns>A fresh instance of <typeparamref name="TGet"/> from the appropriate Object Pool.</returns>
+        public TGet[] Get<TGet>(int amountToGet) where TGet : T
+        {
+            var ret = Enumerable.Range(0, amountToGet).Select(x => Get<TGet>()).ToArray();
+            return ret;
+        }
+
+        /// <summary>
         /// Calls RunFrames() on each Object Pool in this list
         /// using a given delta time.
         /// </summary>

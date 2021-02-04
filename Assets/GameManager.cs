@@ -26,6 +26,7 @@ namespace Assets
 
         private Camera _Camera;
 
+        #region Prefabs
         [SerializeField]
         private BasicBullet _BasicBullet;
         [SerializeField]
@@ -38,13 +39,15 @@ namespace Assets
         [SerializeField]
         private PoolManager _PoolManager;
 
+        #endregion Prefabs
+
         public int DefaultFireTypeIndex => FireStrategies.Count - 1;
         private LoopingFrameTimer FireTimer;
         private FireStrategy CurrentFireStrategy => FireStrategies[FireStrategies.Index];
         private CircularSelector<FireStrategy> FireStrategies = new CircularSelector<FireStrategy>
         {
             new BasicStrategy(),
-            new TestFastStrategy(),
+            new ShotgunStrategy(),
         };
 
         private LoopingFrameTimer EnemyTimer = new LoopingFrameTimer(3.0f);
@@ -57,6 +60,7 @@ namespace Assets
         void Start()
         {
             DebugUI.SetDebugLabel("CurrentFireType", () => CurrentFireStrategy.GetType().Name);
+            DebugUI.SetDebugLabel("FirePos", () => Player.FirePosition());
             //Application.SetStackTraceLogType(LogType.Log, StackTraceLogType.None);
             Init();
 
@@ -68,31 +72,8 @@ namespace Assets
             Player.Init();
 
 
-            FireTimer = CurrentFireStrategy.FireTimer;
+            FireTimer = CurrentFireStrategy.DefaultFireTimer;
             SetFireType(DefaultFireTypeIndex);
-        }
-
-        public void SpawnBasicEnemy()
-        {
-            var pos = SpaceUtil.WorldMap.Center;
-            var enemy = _PoolManager.EnemyPool.Get<BasicEnemy>();
-            enemy.Init(pos);
-        }
-
-        public void SpawnBasicBullet()
-        {
-            //var bullet = Instantiate(_BasicBullet);
-            var pos = Player.FirePosition();
-            //var bullet = PoolManager.Instance.BulletPool.Basic.Get();
-
-            var bullet = _PoolManager.BulletPool.Get<BasicBullet>();
-            bullet.Init(pos);
-            //bullet.transform.position = Player.FirePosition();
-
-            //var basic = BulletManager.transform.Find("Basic");
-            //bullet.transform.SetParent(basic);
-
-            //Bullets.Add(bullet);
         }
         public void FirePlayerBullets(Bullet[] bullets)
         {
@@ -101,8 +82,7 @@ namespace Assets
         }
         public void FirePlayerBullet(Bullet bullet)
         {
-            var pos = Player.FirePosition();
-            bullet.Init(pos);
+            // Does nothing yet; Will add OnFire() powerup functionality later
         }
 
         private void Init()
@@ -141,7 +121,7 @@ namespace Assets
 
             if (FireTimer.UpdateActivates(deltaTime))
             {
-                var bullets = CurrentFireStrategy.GetBullets();
+                var bullets = CurrentFireStrategy.GetBullets(Player.FirePosition());
                 FirePlayerBullets(bullets);
             }
 
@@ -159,7 +139,9 @@ namespace Assets
         public void SetFireType(int index, bool skipDropDown = false)
         {
             FireStrategies.Index = index;
-            FireTimer = CurrentFireStrategy.FireTimer;
+            FireTimer = CurrentFireStrategy.DefaultFireTimer;
+            FireTimer.ActivateSelf();
+
 
             if (!skipDropDown)
                 DebugUi.DropdownFireType.value = FireStrategies.Index;

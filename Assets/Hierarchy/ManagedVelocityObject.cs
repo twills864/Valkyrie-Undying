@@ -24,16 +24,11 @@ namespace Assets
             set => Velocity = new Vector2(Velocity.x, value);
         }
 
-        public virtual void Init() { }
-        public virtual void Init(Vector2 position)
+        public abstract void OnInit();
+        public void Init() => OnInit();
+        public void Init(Vector2 position)
         {
             transform.position = position;
-            Init();
-        }
-        public virtual void Init(Vector2 position, Vector2 velocity)
-        {
-            transform.position = position;
-            Velocity = velocity;
             Init();
         }
     }

@@ -14,6 +14,8 @@ namespace Assets.Util
 {
     public static class DebugUtil
     {
+        public static string DebugEnemyName = "DebugEnemy";
+
         public static DebugUI DebugUi { get; set; }
         private static GameManager GameManager { get; set; }
 
@@ -66,13 +68,10 @@ namespace Assets.Util
 
         private static void InputSpace(KeyCode keyCode)
         {
-            GameManager.SpawnBasicBullet();
-            //GameManager.CreateFleetingText("Test " + RandomUtil.General.Int(), SpaceUtil.WorldPositionUnderMouse());
         }
 
         private static void InputEnter(KeyCode keyCode)
         {
-            GameManager.SpawnBasicEnemy();
         }
 
         private static void InputW(KeyCode keyCode)

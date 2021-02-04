@@ -11,6 +11,8 @@ namespace Assets.FireStrategies
 {
     public class BasicEnemyStrategy : EnemyFireStrategy<BasicEnemyBullet>
     {
-        public override LoopingFrameTimer FireTimer => new LoopingFrameTimerWithRandomVariation(1.0f, 0.5f);
+        public override LoopingFrameTimer DefaultFireTimer =>
+            new LoopingFrameTimerWithRandomVariation(3.0f, 0.5f);
+
     }
 }

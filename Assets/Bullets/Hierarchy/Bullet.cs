@@ -13,6 +13,11 @@ namespace Assets.Bullets
         protected int BaseDamage;
         public virtual int Damage => BaseDamage;
 
+        protected virtual void OnBulletInit() { }
+        public override sealed void OnInit()
+        {
+            OnBulletInit();
+        }
 
 
         protected virtual void OnTriggerExit2D(Collider2D collision)

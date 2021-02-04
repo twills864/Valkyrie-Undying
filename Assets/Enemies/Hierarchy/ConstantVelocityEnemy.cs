@@ -7,10 +7,11 @@ namespace Assets.Enemies
 {
     public abstract class ConstantVelocityEnemy : Enemy
     {
-        public override void RunFrame(float deltaTime)
+        protected virtual void OnConstantVelocityEnemyFrame(float deltaTime) { }
+        protected sealed override void OnEnemyFrame(float deltaTime)
         {
-            base.RunFrame(deltaTime);
             transform.Translate(deltaTime * Velocity);
+            base.OnEnemyFrame(deltaTime);
         }
     }
 }

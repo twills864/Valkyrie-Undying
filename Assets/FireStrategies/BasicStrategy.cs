@@ -10,6 +10,6 @@ namespace Assets.FireStrategies
 {
     public class BasicStrategy : FireStrategy<BasicBullet>
     {
-        public override LoopingFrameTimer FireTimer => new LoopingFrameTimer(0.5f);
+        public override LoopingFrameTimer DefaultFireTimer => new LoopingFrameTimer(0.5f);
     }
 }

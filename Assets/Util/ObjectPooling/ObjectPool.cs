@@ -65,6 +65,7 @@ namespace Assets.Util
         private T CreateNewPooledObject()
         {
             var ret = UnityEngine.Object.Instantiate(ObjectPrefab);
+            ret.Init();
             ret.InitialName = ret.name;
             Add(ret);
             return ret;

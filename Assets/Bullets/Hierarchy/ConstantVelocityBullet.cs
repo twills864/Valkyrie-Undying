@@ -8,14 +8,17 @@ namespace Assets.Bullets
     public abstract class ConstantVelocityBullet : Bullet
     {
         protected virtual void OnConstantVelocityBulletInit() { }
-        public override sealed void Init(Vector2 position)
+        protected override sealed void OnBulletInit()
         {
-            base.Init(position);
+            base.OnBulletInit();
             OnConstantVelocityBulletInit();
         }
-        public override void RunFrame(float deltaTime)
+
+        protected virtual void RunConstantVelocityBulletFrame(float deltaTime) { }
+        public sealed override void RunFrame(float deltaTime)
         {
             transform.Translate(deltaTime * Velocity);
+            RunConstantVelocityBulletFrame(deltaTime);
         }
     }
 }

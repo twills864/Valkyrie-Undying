@@ -17,6 +17,7 @@ namespace Assets.Util
             :base(activationInterval - plusOrMinusVariance)
         {
             Variance = plusOrMinusVariance * 2;
+            Elapsed += RandomUtil.Float(Variance);
         }
 
         public override void Increment(float deltaTime)

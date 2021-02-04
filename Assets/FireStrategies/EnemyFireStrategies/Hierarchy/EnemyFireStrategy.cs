@@ -10,16 +10,27 @@ using UnityEngine;
 
 namespace Assets.EnemyFireStrategies
 {
-    public abstract class EnemyFireStrategy
+    public abstract class EnemyFireStrategy : FireStrategies.FireStrategy
     {
-        public abstract LoopingFrameTimer FireTimer { get; }
-        public abstract EnemyBullet[] GetBullets();
+        public LoopingFrameTimer FireTimer { get; set; }
+
+        public EnemyFireStrategy()
+        {
+            FireTimer = DefaultFireTimer;
+        }
+
+        public void Reset()
+        {
+            FireTimer.Reset();
+        }
     }
+
     public abstract class EnemyFireStrategy<TBullet> : EnemyFireStrategy where TBullet : EnemyBullet
     {
-        public override EnemyBullet[] GetBullets()
+        public override Bullets.Bullet[] GetBullets(Vector2 enemyFirePos)
         {
             TBullet[] ret = new TBullet[] { PoolManager.Instance.EnemyBulletPool.Get<TBullet>() };
+            ret[0].transform.position = enemyFirePos;
             return ret;
         }
     }

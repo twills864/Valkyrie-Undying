@@ -12,7 +12,7 @@ namespace Assets.Util.ObjectPooling
     {
         [SerializeField]
         private BasicBullet BasicPrefab;
-        //[SerializeField]
-        //private ShotgunBullet ShotgunPrefab;
+        [SerializeField]
+        private ShotgunBullet ShotgunPrefab;
     }
 }

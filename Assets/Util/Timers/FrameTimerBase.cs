@@ -25,6 +25,24 @@ namespace Assets.Util
             return Activated;
         }
 
+        /// <summary>
+        /// Resets this timer, setting Elapsed to 0, and Activated to false.
+        /// </summary>
+        public void Reset()
+        {
+            Elapsed = 0;
+            Activated = false;
+        }
+
+        /// <summary>
+        /// Forces this timer to activate itself by setting its elapsed time
+        /// equal to its activation interval.
+        /// </summary>
+        public void ActivateSelf()
+        {
+            Elapsed = ActivationInterval;
+        }
+
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         protected string DebuggerDisplayBase
         {

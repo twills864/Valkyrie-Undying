@@ -36,45 +36,51 @@ namespace Assets.Enemies
         public EnemyFireStrategy FireStrategy { get; protected set; }
 
 
-        protected virtual LoopingFrameTimer DefaultFireTimer => DefaultEnemyFireStrategy.FireTimer;
-        public LoopingFrameTimer FireTimer { get; protected set; }
+        public LoopingFrameTimer FireTimer => FireStrategy.FireTimer;
 
-        public override void Init()
-        {
-            base.Init();
-            OnActivate();
-        }
-
-        protected override void OnActivate()
+        protected virtual void OnEnemyInit() { }
+        public sealed override void OnInit()
         {
             BoxMap = new TrackedBoxMap(this);
             FireStrategy = DefaultEnemyFireStrategy;
-            FireTimer = DefaultFireTimer;
-
-            CurrentHealth = BaseSpawnHealth;
-            PointValue = CurrentHealth;
-
             HealthBar = FindChildEnemyHealthBar();
-            UpdateHealthBar();
+            OnActivate();
         }
 
-        public override void RunFrame(float deltaTime)
+        protected virtual void OnEnemyActivate() { }
+        protected sealed override void OnActivate()
+        {
+            FireStrategy.Reset();
+            CurrentHealth = BaseSpawnHealth;
+            PointValue = CurrentHealth;
+            UpdateHealthBar();
+
+            OnEnemyActivate();
+        }
+
+        protected virtual void OnEnemyFrame(float deltaTime) { }
+        public sealed override void RunFrame(float deltaTime)
         {
             if(FireTimer.UpdateActivates(deltaTime))
-            {
-                var bullets = FireStrategy.GetBullets();
-                foreach (var bullet in bullets)
-                    bullet.transform.position = FirePosition;
-            }
+                FireBullets();
+
+            OnEnemyFrame(deltaTime);
+        }
+
+        protected virtual void FireBullets()
+        {
+            var bullets = FireStrategy.GetBullets(FirePosition);
         }
 
         private void Start()
         {
-
-            Init();
+            //BoxMap = new TrackedBoxMap(this);
+            //FireStrategy = DefaultEnemyFireStrategy;
+            //HealthBar = FindChildEnemyHealthBar();
+            //Init();
         }
 
-        public bool DamageKills(int damage)
+        public virtual bool DamageKills(int damage)
         {
             CurrentHealth -= damage;
             if (CurrentHealth <= 0)
@@ -86,19 +92,32 @@ namespace Assets.Enemies
         protected virtual void CollideWithBullet(Bullet bullet)
         {
             if (DamageKills(bullet.Damage))
-            {
-                // Kill enemy
-                DeactivateSelf();
-                CreateFleetingTextAtCenter(PointValue);
-            }
+                KillEnemy();
+
             bullet.DeactivateSelf();
         }
+
+
+        protected virtual void OnDeath() { }
+        protected void KillEnemy()
+        {
+            // Kill enemy
+            DeactivateSelf();
+            CreateFleetingTextAtCenter(PointValue);
+            OnDeath();
+        }
+
         private void OnTriggerEnter2D(Collider2D collision)
         {
             if (CollisionUtil.IsPlayerBullet(collision))
             {
                 Bullet bullet = collision.GetComponent<Bullet>();
                 CollideWithBullet(bullet);
+            }
+            else if (CollisionUtil.IsPlayer(collision))
+            {
+                if (Player.Instance.CollideWithEnemy(this))
+                    DeactivateSelf();
             }
         }
 

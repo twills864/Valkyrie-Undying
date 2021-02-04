@@ -45,3 +45,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BasicPrefab: {fileID: 385087358628592150, guid: d9d920ac3e75e3c40a26756f87ab5da9,
     type: 3}
+  ShotgunPrefab: {fileID: 9130137281552897155, guid: e102288797baf564e89b34b6ffa79ea2,
+    type: 3}

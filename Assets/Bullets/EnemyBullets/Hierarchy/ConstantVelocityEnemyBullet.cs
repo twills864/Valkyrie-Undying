@@ -8,9 +8,9 @@ namespace Assets.EnemyBullets
     public abstract class ConstantVelocityEnemyBullet : EnemyBullet
     {
         protected virtual void OnConstantVelocityEnemyBulletInit() { }
-        public override sealed void Init(Vector2 position)
+        protected override sealed void OnBulletInit()
         {
-            base.Init(position);
+            base.OnBulletInit();
             OnConstantVelocityEnemyBulletInit();
         }
         public override void RunFrame(float deltaTime)
