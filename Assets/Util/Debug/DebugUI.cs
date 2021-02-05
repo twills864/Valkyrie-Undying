@@ -66,6 +66,7 @@ namespace Assets.Util
         {
             int level = (int) slider.value;
             TextFireLevel.text = level.ToString();
+            GameManager.WeaponLevel = level;
         }
 
         #endregion Debug Input

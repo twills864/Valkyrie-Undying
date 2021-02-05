@@ -1,4 +1,5 @@
-﻿using Assets.EnemyBullets;
+﻿using Assets.Bullets;
+using Assets.EnemyBullets;
 using Assets.Util;
 using Assets.Util.ObjectPooling;
 using System;
@@ -10,6 +11,7 @@ using UnityEngine;
 
 namespace Assets.EnemyFireStrategies
 {
+    // TODO: Remove subclassing from FireStrategies.FireStrategy
     public abstract class EnemyFireStrategy : FireStrategies.FireStrategy
     {
         public LoopingFrameTimer FireTimer { get; set; }
@@ -22,6 +24,13 @@ namespace Assets.EnemyFireStrategies
         public void Reset()
         {
             FireTimer.Reset();
+        }
+
+        public abstract Bullets.Bullet[] GetBullets(Vector2 enemyFirePos);
+
+        public override Bullet[] GetBullets(int weaponLevel, Vector2 playerFirePos)
+        {
+            return GetBullets(playerFirePos);
         }
     }
 

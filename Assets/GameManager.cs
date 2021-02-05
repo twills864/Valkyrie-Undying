@@ -41,6 +41,10 @@ namespace Assets
 
         #endregion Prefabs
 
+        #region Player Weapons
+
+        public int WeaponLevel { get; set; }
+
         public int DefaultFireTypeIndex => FireStrategies.Count - 1;
         private LoopingFrameTimer FireTimer;
         private FireStrategy CurrentFireStrategy => FireStrategies[FireStrategies.Index];
@@ -49,6 +53,8 @@ namespace Assets
             new BasicStrategy(),
             new ShotgunStrategy(),
         };
+
+        #endregion Player Weapons
 
         private LoopingFrameTimer EnemyTimer = new LoopingFrameTimer(3.0f);
 
@@ -121,7 +127,7 @@ namespace Assets
 
             if (FireTimer.UpdateActivates(deltaTime))
             {
-                var bullets = CurrentFireStrategy.GetBullets(Player.FirePosition());
+                var bullets = CurrentFireStrategy.GetBullets(WeaponLevel, Player.FirePosition());
                 FirePlayerBullets(bullets);
             }
 

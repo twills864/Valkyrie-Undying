@@ -16,7 +16,7 @@ namespace Assets.Util
         /// <param name="source">The source string to parse.</param>
         /// <param name="startIndexExclusive">The index before the start of the substring.</param>
         /// <param name="endIndexExclusive">The index after the end of the substring.</param>
-        /// <returns>The substring represented by the given indexes.</returns>
+        /// <returns>The substring represented by the given indices.</returns>
         public static string TextBetween(string source, int startIndexExclusive, int endIndexExclusive)
         {
             string ret = source.Substring(startIndexExclusive + 1, endIndexExclusive - startIndexExclusive - 1);

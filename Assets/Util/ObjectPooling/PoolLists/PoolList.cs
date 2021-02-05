@@ -96,7 +96,7 @@ namespace Assets.Util.ObjectPooling
         /// <returns>A fresh instance of <typeparamref name="TGet"/> from the appropriate Object Pool.</returns>
         public TGet[] Get<TGet>(int amountToGet) where TGet : T
         {
-            var ret = Enumerable.Range(0, amountToGet).Select(x => Get<TGet>()).ToArray();
+            TGet[] ret = LinqUtil.Array(amountToGet, () => Get<TGet>());
             return ret;
         }
 

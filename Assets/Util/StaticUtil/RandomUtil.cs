@@ -157,21 +157,90 @@ namespace Assets.Util
             return ret;
         }
 
+        /// <summary>
+        /// Returns a given number of random bool,
+        /// each with an equal chance of returning true or false.
+        /// </summary>
+        /// <param name="numToGet">The number of bools to get.</param>
+        public static bool[] Bools(int numToGet)
+        {
+            var ret = LinqUtil.Array(numToGet, () => Bool());
+            return ret;
+        }
+
+        /// <summary>
+        /// Returns a given number of true bools
+        /// randomly shuffled throughout an array of the requested size.
+        /// </summary>
+        /// <param name="sizeOfArray">The size of the array.</param>
+        /// <param name="numTrue">The number of true bools within the array.</param>
+        /// <returns>The given number of true bools shuffled throughout the array.</returns>
+        public static bool[] ShuffledBools(int sizeOfArray, int numTrue)
+        {
+#if DEBUG
+            if (numTrue > sizeOfArray)
+            {
+                var message = "numTrue must not be greater than sizeOfArray " +
+                    $"({numTrue} > {sizeOfArray}). " +
+                    "(Did you reverse the order of the parameters?)";
+                throw new ArgumentException(message, "numTrue");
+            }
+#endif
+            bool[] ret = new bool[sizeOfArray];
+            for (int i = 0; i < numTrue; i++)
+                ret[i] = true;
+
+            Shuffle(ret);
+            return ret;
+        }
+
         #endregion Bool
 
         #region Collections
 
         /// <summary>
-        /// Returns a random element of a given array with equal probabilities.
+        /// Returns a random element of a given IList&lt;<typeparamref name="T"/>&gt; with equal probabilities.
         /// </summary>
-        /// <typeparam name="T">The type of the array.</typeparam>
-        /// <param name="source">The array.</param>
-        /// <returns>A random element from the array.</returns>
-        public static T RandomElement<T>(T[] source)
+        /// <typeparam name="T">The type of the IList&lt;<typeparamref name="T"/>&gt;.</typeparam>
+        /// <param name="source">The IList&lt;<typeparamref name="T"/>&gt;.</param>
+        /// <returns>A random element from the IList&lt;<typeparamref name="T"/>&gt;.</returns>
+        public static T RandomElement<T>(IList<T> source)
         {
-            int index = Int(source.Length);
+            int index = Int(source.Count);
             T ret = source[index];
             return ret;
+        }
+
+        /// <summary>
+        /// Swaps the elements within a given source IList&lt;<typeparamref name="T"/>&gt;
+        /// located at the given indices.
+        /// </summary>
+        /// <typeparam name="T">The type of the source IList&lt;<typeparamref name="T"/>&gt;</typeparam>.
+        /// <param name="source">The source IList&lt;<typeparamref name="T"/>&gt;.</param>
+        /// <param name="index1">The first index to swap.</param>
+        /// <param name="index2">The second index to swap.</param>
+        private static void Swap<T>(IList<T> source, int index1, int index2)
+        {
+            T value = source[index2];
+            source[index2] = source[index1];
+            source[index1] = value;
+        }
+
+        /// <summary>
+        /// Rearranges a given IList&lt;<typeparamref name="T"/>&gt; to a completely random order.
+        /// Based on the Fisher-Yates shuffle algorithm.
+        /// </summary>
+        /// <typeparam name="T">The type of the IList&lt;<typeparamref name="T"/>&gt;.</typeparam>
+        /// <param name="source">The array to be shuffled</param>
+        /// <see cref="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm.</see>
+        public static void Shuffle<T>(IList<T> source)
+        {
+            int i = source.Count;
+            while (i > 1)
+            {
+                int j = Int(i--);
+                Swap(source, i, j);
+            }
         }
 
         #endregion Collections

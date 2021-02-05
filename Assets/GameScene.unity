@@ -1702,6 +1702,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 385087358628592150, guid: d9d920ac3e75e3c40a26756f87ab5da9,
         type: 3}
+    - target: {fileID: 327579223985843940, guid: 1303ca71261795a4ca45b4d33e29312a,
+        type: 3}
+      propertyPath: ShotgunPrefab
+      value: 
+      objectReference: {fileID: 9130137281552897155, guid: e102288797baf564e89b34b6ffa79ea2,
+        type: 3}
     - target: {fileID: 7087998230121083430, guid: 1303ca71261795a4ca45b4d33e29312a,
         type: 3}
       propertyPath: m_Name
