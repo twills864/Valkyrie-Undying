@@ -12,22 +12,17 @@ namespace Assets.FireStrategies
 {
     public abstract class FireStrategy
     {
-        public abstract LoopingFrameTimer DefaultFireTimer { get; }
-        public abstract Bullet[] GetBullets(int weaponLevel, Vector2 playerFirePos);
+        public abstract LoopingFrameTimer FireTimer { get; protected set; }
+        public void Reset() => FireTimer.Reset();
+
+        //public abstract Bullet ObjectPrefab { get; }
     }
     public abstract class FireStrategy<TBullet> : FireStrategy where TBullet : Bullet
     {
         protected TBullet ObjectPrefab { get; }
-        public override Bullet[] GetBullets(int weaponLevel, Vector2 playerFirePos)
-        {
-            TBullet[] ret = new TBullet[] { PoolManager.Instance.BulletPool.Get<TBullet>() };
-            ret[0].transform.position = playerFirePos;
-            return ret;
-        }
 
-        public FireStrategy()
+        public FireStrategy() : this(null)
         {
-            ObjectPrefab = null;
         }
         public FireStrategy(TBullet bulletPrefab)
         {

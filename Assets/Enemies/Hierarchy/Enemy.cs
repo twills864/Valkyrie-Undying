@@ -1,6 +1,7 @@
 ﻿using Assets;
 using Assets.Bullets;
-using Assets.EnemyFireStrategies;
+using Assets.Bullets.PlayerBullets;
+using Assets.FireStrategies.EnemyFireStrategies;
 using Assets.Util;
 using System.Collections;
 using System.Collections.Generic;
@@ -32,17 +33,13 @@ namespace Assets.Enemies
 
         protected TrackedBoxMap BoxMap { get; set; }
 
-        protected abstract EnemyFireStrategy DefaultEnemyFireStrategy { get; }
-        public EnemyFireStrategy FireStrategy { get; protected set; }
-
-
+        public abstract EnemyFireStrategy FireStrategy { get; protected set; }
         public LoopingFrameTimer FireTimer => FireStrategy.FireTimer;
 
         protected virtual void OnEnemyInit() { }
         public sealed override void OnInit()
         {
             BoxMap = new TrackedBoxMap(this);
-            FireStrategy = DefaultEnemyFireStrategy;
             HealthBar = FindChildEnemyHealthBar();
             OnActivate();
         }
@@ -89,7 +86,7 @@ namespace Assets.Enemies
             UpdateHealthBar();
             return false;
         }
-        protected virtual void CollideWithBullet(Bullet bullet)
+        protected virtual void CollideWithBullet(PlayerBullet bullet)
         {
             if (DamageKills(bullet.Damage))
                 KillEnemy();
@@ -111,7 +108,7 @@ namespace Assets.Enemies
         {
             if (CollisionUtil.IsPlayerBullet(collision))
             {
-                Bullet bullet = collision.GetComponent<Bullet>();
+                PlayerBullet bullet = collision.GetComponent<PlayerBullet>();
                 CollideWithBullet(bullet);
             }
             else if (CollisionUtil.IsPlayer(collision))

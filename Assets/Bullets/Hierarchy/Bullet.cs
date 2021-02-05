@@ -7,26 +7,11 @@ namespace Assets.Bullets
 {
     public abstract class Bullet : PooledObject
     {
-        public override string LogTagColor => "#B381FE";
-
-        [SerializeField]
-        protected int BaseDamage;
-        public virtual int Damage => BaseDamage;
-
         protected virtual void OnBulletInit() { }
         public override sealed void OnInit()
         {
             OnBulletInit();
         }
-
-        protected virtual void OnTriggerEnter2D(Collider2D collision)
-        {
-            if (CollisionUtil.IsPlayerBullet(collision))
-            {
-                Log("Bullet self-collision!");
-            }
-        }
-
 
         protected virtual void OnTriggerExit2D(Collider2D collision)
         {

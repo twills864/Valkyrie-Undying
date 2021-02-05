@@ -88,6 +88,21 @@ namespace Assets.Util.ObjectPooling
         }
 
         /// <summary>
+        /// Accesses the object pool indexed by<typeparamref name="TGet"/>,
+        /// returns a fresh instance from that pool,
+        /// and sets its initial position to the specified position.
+        /// </summary>
+        /// <typeparam name="TGet">The type of object to return.</typeparam>
+        /// <param name="position">The position to give to the fresh instance.</param>
+        /// <returns></returns>
+        public TGet Get<TGet>(Vector2 position) where TGet : T
+        {
+            var ret = Get<TGet>();
+            ret.transform.position = position;
+            return ret;
+        }
+
+        /// <summary>
         /// Accesses the Object Pool indexed by <typeparamref name="T"/>
         /// and returns a given number of fresh instances from that Pool.
         /// </summary>

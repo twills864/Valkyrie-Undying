@@ -1,4 +1,5 @@
-﻿using Assets.EnemyBullets;
+﻿using Assets.Bullets.EnemyBullets;
+using Assets.EnemyBullets;
 using System;
 using System.Collections.Generic;
 using System.Linq;

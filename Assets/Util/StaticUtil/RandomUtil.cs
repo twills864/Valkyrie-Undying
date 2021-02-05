@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -9,6 +10,7 @@ namespace Assets.Util
     public static class RandomUtil
     {
         private static System.Random Random { get; set; }
+            = new Random();
 
         public static void Init()
         {
@@ -219,11 +221,12 @@ namespace Assets.Util
         /// <param name="source">The source IList&lt;<typeparamref name="T"/>&gt;.</param>
         /// <param name="index1">The first index to swap.</param>
         /// <param name="index2">The second index to swap.</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static void Swap<T>(IList<T> source, int index1, int index2)
         {
-            T value = source[index2];
-            source[index2] = source[index1];
-            source[index1] = value;
+            T value = source[index1];
+            source[index1] = source[index2];
+            source[index2] = value;
         }
 
         /// <summary>

@@ -1,4 +1,5 @@
 ﻿using Assets.FireStrategies;
+using Assets.FireStrategies.PlayerFireStrategies;
 using Assets.Util.AssetsDebug;
 using System;
 using System.Collections.Generic;
@@ -24,7 +25,7 @@ namespace Assets.Util
         public Text TextFireLevel;
 
 
-        public void Init(GameManager gameManager, CircularSelector<FireStrategy> fireStrategies)
+        public void Init(GameManager gameManager, CircularSelector<PlayerFireStrategy> fireStrategies)
         {
             GameManager = gameManager;
             DebugTextBox = new DebugTextBox(InputField);

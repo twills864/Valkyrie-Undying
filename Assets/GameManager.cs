@@ -1,7 +1,9 @@
 ﻿using Assets.Bullets;
+using Assets.Bullets.PlayerBullets;
 using Assets.Constants;
 using Assets.Enemies;
 using Assets.FireStrategies;
+using Assets.FireStrategies.PlayerFireStrategies;
 using Assets.Util;
 using Assets.Util.AssetsDebug;
 using Assets.Util.ObjectPooling;
@@ -47,8 +49,8 @@ namespace Assets
 
         public int DefaultFireTypeIndex => FireStrategies.Count - 1;
         private LoopingFrameTimer FireTimer;
-        private FireStrategy CurrentFireStrategy => FireStrategies[FireStrategies.Index];
-        private CircularSelector<FireStrategy> FireStrategies;
+        private PlayerFireStrategy CurrentFireStrategy => FireStrategies[FireStrategies.Index];
+        private CircularSelector<PlayerFireStrategy> FireStrategies;
 
         #endregion Player Weapons
 
@@ -67,12 +69,12 @@ namespace Assets
 
             _PoolManager.Init();
 
-            FireStrategies = new CircularSelector<FireStrategy>
+            FireStrategies = new CircularSelector<PlayerFireStrategy>
             {
                 new BasicStrategy(),
                 new ShotgunStrategy(_PoolManager.BulletPool.GetPrefab<ShotgunBullet>()),
             };
-            FireTimer = CurrentFireStrategy.DefaultFireTimer;
+            FireTimer = CurrentFireStrategy.FireTimer;
             SetFireType(DefaultFireTypeIndex);
 
             Init();
@@ -143,12 +145,13 @@ namespace Assets
 
 
             _PoolManager.RunPoolFrames(deltaTime, deltaTime);
+            _DebugEnemy.RunFrame(deltaTime);
         }
 
         public void SetFireType(int index, bool skipDropDown = false)
         {
             FireStrategies.Index = index;
-            FireTimer = CurrentFireStrategy.DefaultFireTimer;
+            FireTimer = CurrentFireStrategy.FireTimer;
             FireTimer.ActivateSelf();
 
 

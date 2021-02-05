@@ -1,4 +1,5 @@
-﻿using Assets.Enemies;
+﻿using Assets.Bullets.EnemyBullets;
+using Assets.Enemies;
 using Assets.EnemyBullets;
 using Assets.Util;
 using Assets.Util.AssetsDebug;
@@ -17,7 +18,6 @@ namespace Assets
 
         public Vector2 Size => Renderer.bounds.size;
         private TrackedBoxMap BoxMap { get; set; }
-
 
         [SerializeField]
         private float MobileYOffset = 100;

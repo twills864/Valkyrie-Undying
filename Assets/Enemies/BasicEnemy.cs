@@ -1,6 +1,5 @@
-﻿
-using Assets.EnemyFireStrategies;
-using Assets.FireStrategies;
+﻿using Assets.FireStrategies;
+using Assets.FireStrategies.EnemyFireStrategies;
 using Assets.Util;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,7 +12,7 @@ namespace Assets.Enemies
         public override int BaseSpawnHealth => 100;
         public override float SpawnHealthScaleRate => 1.0f;
 
-        protected override EnemyFireStrategy DefaultEnemyFireStrategy
-            => new BasicEnemyStrategy();
+        public override EnemyFireStrategy FireStrategy { get; protected set; }
+            = new BasicEnemyStrategy();
     }
 }

@@ -1,6 +1,6 @@
 ﻿using Assets.Bullets;
-using Assets.EnemyFireStrategies;
 using Assets.FireStrategies;
+using Assets.FireStrategies.EnemyFireStrategies;
 using Assets.Util;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,7 +13,7 @@ namespace Assets.Enemies
         public override int BaseSpawnHealth => 250;
         public override float SpawnHealthScaleRate => 2.5f;
 
-        protected override EnemyFireStrategy DefaultEnemyFireStrategy
-            => new TankEnemyStrategy();
+        public override EnemyFireStrategy FireStrategy { get; protected set; }
+            = new TankEnemyStrategy();
     }
 }
