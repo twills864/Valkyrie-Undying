@@ -17,7 +17,7 @@ namespace Assets.Util
         /// <summary>
         /// The prefab of the object contained in this pool.
         /// </summary>
-        private T ObjectPrefab { get; }
+        public T ObjectPrefab { get; }
 
         private int _nextSpawnId = 0;
         /// <summary>

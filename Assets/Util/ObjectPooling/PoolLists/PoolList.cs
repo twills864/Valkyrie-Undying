@@ -88,7 +88,7 @@ namespace Assets.Util.ObjectPooling
         }
 
         /// <summary>
-        /// Accesses the Object Pool indexed by<typeparamref name="T"/>
+        /// Accesses the Object Pool indexed by <typeparamref name="T"/>
         /// and returns a given number of fresh instances from that Pool.
         /// </summary>
         /// <typeparam name="TGet">The type of object to return.</typeparam>
@@ -97,6 +97,20 @@ namespace Assets.Util.ObjectPooling
         public TGet[] Get<TGet>(int amountToGet) where TGet : T
         {
             TGet[] ret = LinqUtil.Array(amountToGet, () => Get<TGet>());
+            return ret;
+        }
+
+        /// <summary>
+        /// Accesses the Object Pool indexed by <typeparamref name="T"/>
+        /// and returns the associated prefab from that Pool.
+        /// </summary>
+        /// <typeparam name="TGet">The type of object to return.</typeparam>
+        /// <returns>The associated prefab.</returns>
+        public TGet GetPrefab<TGet>() where TGet : T
+        {
+            var dbType = typeof(TGet);
+            var map = PoolMap[typeof(TGet)];
+            var ret = (TGet) map.ObjectPrefab;
             return ret;
         }
 

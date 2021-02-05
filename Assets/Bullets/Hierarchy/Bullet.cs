@@ -19,6 +19,14 @@ namespace Assets.Bullets
             OnBulletInit();
         }
 
+        protected virtual void OnTriggerEnter2D(Collider2D collision)
+        {
+            if (CollisionUtil.IsPlayerBullet(collision))
+            {
+                Log("Bullet self-collision!");
+            }
+        }
+
 
         protected virtual void OnTriggerExit2D(Collider2D collision)
         {

@@ -48,11 +48,7 @@ namespace Assets
         public int DefaultFireTypeIndex => FireStrategies.Count - 1;
         private LoopingFrameTimer FireTimer;
         private FireStrategy CurrentFireStrategy => FireStrategies[FireStrategies.Index];
-        private CircularSelector<FireStrategy> FireStrategies = new CircularSelector<FireStrategy>
-        {
-            new BasicStrategy(),
-            new ShotgunStrategy(),
-        };
+        private CircularSelector<FireStrategy> FireStrategies;
 
         #endregion Player Weapons
 
@@ -63,11 +59,22 @@ namespace Assets
             Instance = this;
             SetFrameRate();
         }
-        void Start()
+        private void Start()
         {
             DebugUI.SetDebugLabel("CurrentFireType", () => CurrentFireStrategy.GetType().Name);
             DebugUI.SetDebugLabel("FirePos", () => Player.FirePosition());
             //Application.SetStackTraceLogType(LogType.Log, StackTraceLogType.None);
+
+            _PoolManager.Init();
+
+            FireStrategies = new CircularSelector<FireStrategy>
+            {
+                new BasicStrategy(),
+                new ShotgunStrategy(_PoolManager.BulletPool.GetPrefab<ShotgunBullet>()),
+            };
+            FireTimer = CurrentFireStrategy.DefaultFireTimer;
+            SetFireType(DefaultFireTypeIndex);
+
             Init();
 
             _Camera = Camera.main;
@@ -76,10 +83,6 @@ namespace Assets
             PlayerColor = InitPlayerColor();
             Player.GetComponent<SpriteRenderer>().color = PlayerColor;
             Player.Init();
-
-
-            FireTimer = CurrentFireStrategy.DefaultFireTimer;
-            SetFireType(DefaultFireTypeIndex);
         }
         public void FirePlayerBullets(Bullet[] bullets)
         {
@@ -101,7 +104,7 @@ namespace Assets
             _Destructor.Init();
             _DebugEnemy.Init();
 
-            _PoolManager.Init();
+
         }
 
         private Color DefaultPlayerColor => new Color(96f / 255f, 211f / 255f, 255f / 255f);

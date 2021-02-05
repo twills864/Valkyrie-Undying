@@ -13,7 +13,7 @@ namespace Assets.FireStrategies
 {
     public class ShotgunStrategy : FireStrategy<ShotgunBullet>
     {
-        private const float ShotgunSpeedY = 8.0f;
+        private const float ShotgunSpeedY = 10.0f;
 
         private const int NumGuaranteedPellets = 3;
         private const int NumAdditionalPelletLanes = GameConstants.MaxWeaponLevel + 1;
@@ -26,14 +26,23 @@ namespace Assets.FireStrategies
         public override LoopingFrameTimer DefaultFireTimer => new LoopingFrameTimer(0.75f);
 
         // Maps loop indexes to their matching assigned lane index
-        private int[] LanesPositionMap { get; set; }
+        private Vector2[] LanesVelocityMap { get; set; }
+        private Vector2[] LanesPositionMap { get; set; }
 
-        // TODO: Pre-load these in an Init()
-        private float BulletWidth;
-        private float BulletSpread;
+        private Vector2 BulletSize;
+        private float BulletOffsetX;
+        private float BulletOffsetY;
+        private float BulletSpreadX;
+        private float BulletSpreadY;
 
-        public ShotgunStrategy()
+        public ShotgunStrategy(ShotgunBullet bullet)
         {
+            BulletSize = bullet.GetComponent<Renderer>().bounds.size;
+            BulletOffsetX = bullet.BulletOffsetX;
+            BulletOffsetY = bullet.BulletOffsetY;
+            BulletSpreadX = bullet.BulletSpreadX;
+            BulletSpreadY = bullet.BulletSpreadY;
+
             FillAssignedLanesMap();
         }
 
@@ -61,10 +70,6 @@ namespace Assets.FireStrategies
 
             ShotgunBullet[] ret = PoolManager.Instance.BulletPool.Get<ShotgunBullet>(numToGet);
 
-            var first = ret[0];
-            BulletWidth = first.GetComponent<Renderer>().bounds.size.x + first.BulletOffset;
-            BulletSpread = first.BulletSpread;
-
             FireGuaranteedLanes(ret, playerFirePos);
 
             int nextFireIndex = NumGuaranteedPellets;
@@ -85,14 +90,11 @@ namespace Assets.FireStrategies
 
         private void FireLane(ShotgunBullet bullet, int laneIndex, Vector2 playerFirePos)
         {
-            int mappedIndex = LanesPositionMap[laneIndex];
-            float posX = mappedIndex * BulletWidth;
-
-            Vector2 newFirePos = playerFirePos;
-            newFirePos.x += posX;
-
-            bullet.Velocity = new Vector2(mappedIndex * BulletSpread, ShotgunSpeedY);
+            Vector2 newFirePos = playerFirePos + LanesPositionMap[laneIndex];
             bullet.transform.position = newFirePos;
+
+            Vector2 newVelocity = LanesVelocityMap[laneIndex];
+            bullet.Velocity = newVelocity;
         }
 
         // Guaranteed lanes
@@ -104,14 +106,13 @@ namespace Assets.FireStrategies
 
 
 
-
         private void FillAssignedLanesMap()
         {
-            LanesPositionMap = new int[TotalPelletLanes];
+            int[] lanesIndexOffsetMapMap = new int[TotalPelletLanes];
 
-            LanesPositionMap[0] = LeftGuaranteedLane - MiddleGuaranteedLane;
-            LanesPositionMap[1] = MiddleGuaranteedLane - MiddleGuaranteedLane;
-            LanesPositionMap[2] = RightGuaranteedLane - MiddleGuaranteedLane;
+            lanesIndexOffsetMapMap[0] = LeftGuaranteedLane - MiddleGuaranteedLane;
+            lanesIndexOffsetMapMap[1] = MiddleGuaranteedLane - MiddleGuaranteedLane;
+            lanesIndexOffsetMapMap[2] = RightGuaranteedLane - MiddleGuaranteedLane;
 
             int laneCounter = 3;
             for (int i = 0; i < TotalPelletLanes; i++)
@@ -120,9 +121,41 @@ namespace Assets.FireStrategies
                     && i != LeftGuaranteedLane
                     && i != RightGuaranteedLane)
                 {
-                    LanesPositionMap[laneCounter] = i - MiddleGuaranteedLane;
+                    lanesIndexOffsetMapMap[laneCounter] = i - MiddleGuaranteedLane;
                     laneCounter++;
                 }
+            }
+
+
+            LanesPositionMap = new Vector2[TotalPelletLanes];
+            LanesVelocityMap = new Vector2[TotalPelletLanes];
+
+            float[] isEvenPositionYOffsets = new float[2]
+            {
+                // Odd - Some Y offset
+                BulletOffsetY + BulletSize.y,
+
+                // Even - no Y offset
+                0
+            };
+
+            float[] isEvenVelocityYOffsets = new float[2]
+{
+                // Odd - Some Y spread
+                ShotgunSpeedY + BulletSpreadY,
+
+                // Even - no Y spread
+                ShotgunSpeedY
+            };
+
+            for (int i = 0; i < TotalPelletLanes; i++)
+            {
+                int newIndex = lanesIndexOffsetMapMap[i];
+                int isEvenIndex = MathUtil.IsEven(newIndex) ? 1 : 0;
+                LanesPositionMap[i] = new Vector2(newIndex * (BulletOffsetX + BulletSize.x),
+                    isEvenPositionYOffsets[isEvenIndex]);
+                LanesVelocityMap[i] = new Vector2(newIndex * BulletSpreadX,
+                    isEvenVelocityYOffsets[isEvenIndex]);
             }
         }
     }
