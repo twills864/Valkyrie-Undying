@@ -23,6 +23,7 @@ namespace Assets.Util.ObjectPooling
         public BulletPoolList BulletPool;
         public EnemyPoolList EnemyPool;
         public EnemyBulletPoolList EnemyBulletPool;
+        public UIElementPoolList UIElementPool;
 
         /// <summary>
         /// An array of each Object Pool managed by this class.
@@ -31,7 +32,8 @@ namespace Assets.Util.ObjectPooling
         {
             BulletPool,
             EnemyPool,
-            EnemyBulletPool
+            EnemyBulletPool,
+            UIElementPool
         };
 
 
@@ -56,6 +58,7 @@ namespace Assets.Util.ObjectPooling
             BulletPool.RunFrames(bulletDt);
             EnemyPool.RunFrames(enemyDt);
             EnemyBulletPool.RunFrames(enemyDt);
+            UIElementPool.RunFrames(bulletDt);
         }
 
         /// <summary>

@@ -1,73 +1,80 @@
-﻿using Assets.Util;
+﻿using Assets;
+using Assets.Util;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class FleetingText : MonoBehaviour
+namespace Assets.UI
 {
-    private Text TextField { get; set; }
-    private FrameTimer DestroyTimer { get; set; }
-    private FrameTimer StartFadeTimer { get; set; }
-    private FrameTimer FadeTimer { get; set; }
-    private bool CurrentyFading { get; set; }
-
-    [SerializeField]
-    private const float OpaqueTextTime = 1f;
-    [SerializeField]
-    private const float FadeTime = 0.5f;
-
-    [SerializeField]
-    private const float Speed = 100f;
-
-    void Start()
+    public class FleetingText : PooledObject
     {
-        TextField = GetComponent<Text>();
-        DestroyTimer = new FrameTimer(OpaqueTextTime + FadeTime);
-        StartFadeTimer = new FrameTimer(OpaqueTextTime);
-        FadeTimer = new FrameTimer(FadeTime);
-    }
+        private TextMesh TextField { get; set; }
+        private FrameTimer DestroyTimer { get; set; }
+        private FrameTimer StartFadeTimer { get; set; }
+        private FrameTimer FadeTimer { get; set; }
+        private bool CurrentyFading { get; set; }
 
-    // Update is called once per frame
-    void Update()
-    {
-        _Update(Time.deltaTime);
-    }
-
-    public void _Update(float deltaTime)
-    {
-        transform.Translate(0, deltaTime * Speed, 0);
-
-        // Check if timer is destroyed
-        if (DestroyTimer.UpdateActivates(deltaTime))
+        public string Text
         {
-            Destroy(gameObject);
-            Destroy(this);
+            get => TextField.text;
+            set => TextField.text = value;
         }
 
-        // Calculate start of fade
-        else if (!CurrentyFading)
+        public Color DefaultColor => new Color(1, 1, 1, 1);
+
+        [SerializeField]
+        private const float OpaqueTextTime = 1f;
+        [SerializeField]
+        private const float FadeTime = 0.5f;
+
+        [SerializeField]
+        private const float Speed = 1f;
+
+        public override void OnInit()
         {
-            CurrentyFading = StartFadeTimer.UpdateActivates(deltaTime);
+            TextField = GetComponent<TextMesh>();
+            DestroyTimer = new FrameTimer(OpaqueTextTime + FadeTime);
+            StartFadeTimer = new FrameTimer(OpaqueTextTime);
+            FadeTimer = new FrameTimer(FadeTime);
+
         }
 
-        // Calculate alpha value of fade
-        else
+        protected override void OnActivate()
         {
-            FadeTimer.Increment(deltaTime);
-
-            float alpha = FadeTimer.RatioRemaining;
-            var color = TextField.color;
-            color.a = alpha;
-            TextField.color = color;
+            TextField.color = DefaultColor;
+            DestroyTimer.Reset();
+            StartFadeTimer.Reset();
+            FadeTimer.Reset();
+            CurrentyFading = false;
         }
-    }
 
-    public void Init(string text, Vector2 position)
-    {
-        Start();
+        public override void RunFrame(float deltaTime)
+        {
+            transform.Translate(0, deltaTime * Speed, 0);
 
-        TextField.text = text;
-        transform.position = position;
+            // Check if timer is destroyed
+            if (DestroyTimer.UpdateActivates(deltaTime))
+            {
+                DeactivateSelf();
+            }
+
+            // Calculate start of fade
+            else if (!CurrentyFading)
+            {
+                CurrentyFading = StartFadeTimer.UpdateActivates(deltaTime);
+            }
+
+            // Calculate alpha value of fade
+            else
+            {
+                FadeTimer.Increment(deltaTime);
+
+                float alpha = FadeTimer.RatioRemaining;
+                var color = TextField.color;
+                color.a = alpha;
+                TextField.color = color;
+            }
+        }
     }
 }

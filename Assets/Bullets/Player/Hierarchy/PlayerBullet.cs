@@ -27,7 +27,8 @@ namespace Assets.Bullets.PlayerBullets
             if (CollisionUtil.IsPlayerBullet(collision))
             {
                 Log("Bullet self-collision!");
-                GameManager.Instance.CreateFleetingText("X", this.transform.position);
+                //GameManager.Instance.CreateFleetingText("X", this.transform.position);
+                DebugUtil.RedX(transform.position, "Player bullet collide");
             }
         }
     }

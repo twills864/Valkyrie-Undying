@@ -9,12 +9,15 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Assets.Util.ObjectPooling;
+using Assets.UI;
 
 namespace Assets.Util
 {
     public static class DebugUtil
     {
         public static string DebugEnemyName = "DebugEnemy";
+
+        public static Color ColorRed => new Color(1.0f, 0.5f, 0.5f);
 
         public static DebugUI DebugUi { get; set; }
         private static GameManager GameManager { get; set; }
@@ -165,48 +168,28 @@ namespace Assets.Util
 
         #endregion Input Engine
 
-
-
-        #region Dirty
-        [Obsolete("Repent for your sins if you use this in a serious way")]
-        public static void DirtyConsole(object message, MonoBehaviour monoInstance = null)
+        public static void RedX(Vector2 position)
         {
-            //if(classType.GetType().IsSubclassOf(typeof(MonoBehaviour)))
-            var frame = new System.Diagnostics.StackTrace(true).GetFrame(1);
+            const float XRadius = 0.3f;
 
-            string fileName = /*FormatFileName*/(frame.GetFileName());
-            int lineNum = frame.GetFileLineNumber();
-            int colomn = frame.GetFileColumnNumber();
+            Vector2 topLeft = position + new Vector2(-XRadius, XRadius);
+            Vector2 topRight = position + new Vector2(XRadius, XRadius);
+            Vector2 bottomRight = position + new Vector2(XRadius, -XRadius);
+            Vector2 bottomLeft = position + new Vector2(-XRadius, -XRadius);
 
-
-            string msg = message
-                + "\nFILE: " + fileName + " LINE: " + lineNum + "\n" + StackTraceUtility.ExtractStackTrace();
-
-            var methods = typeof(UnityEngine.Debug).GetMethods(System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
-            //Debug.LogWarning(msg, (UnityEngine.Object)monoInstance.gameObject);
-            var mUnityLog = typeof(UnityEngine.Debug).GetMethod("LogPlayerBuildError", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
-            mUnityLog.Invoke(null, new object[] { msg, fileName, lineNum, colomn });
-
-            var test1 = new
-            {
-                parameters = mUnityLog.GetParameters(),
-                body = mUnityLog.GetMethodBody(),
-                mUnityLog.MethodHandle,
-                mUnityLog.CustomAttributes
-            };
-
-            var mUnityLog2 = typeof(UnityEngine.Debug).GetMethod("LogSticky", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
-            var test = new
-            {
-                parameters = mUnityLog2.GetParameters(),
-                body = mUnityLog2.GetMethodBody(),
-                mUnityLog2.MethodHandle,
-                mUnityLog2.CustomAttributes
-            };
-
-            mUnityLog2.Invoke(null, new object[] { 1, LogType.Log, LogOption.NoStacktrace, "Fourth String", GameManager });
+            const float RayTime = 1.5f;
+            Debug.DrawLine(topLeft, bottomRight, ColorRed, RayTime);
+            Debug.DrawLine(bottomLeft, topRight, ColorRed, RayTime);
         }
-        #endregion Dirty
+        public static void RedX(Vector2 position, object message)
+        {
+            RedX(position);
+
+            const float YOffset = 0.5f;
+            var fleetingText = GameManager.Instance.CreateFleetingText(message.ToString(), position + new Vector2(0, YOffset));
+            var text = fleetingText.GetComponent<Text>();
+            text.color = ColorRed;
+        }
     }
 
 }

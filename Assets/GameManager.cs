@@ -4,6 +4,7 @@ using Assets.Constants;
 using Assets.Enemies;
 using Assets.FireStrategies;
 using Assets.FireStrategies.PlayerFireStrategies;
+using Assets.UI;
 using Assets.Util;
 using Assets.Util.AssetsDebug;
 using Assets.Util.ObjectPooling;
@@ -190,26 +191,11 @@ namespace Assets
             _PoolManager.RecolorPlayerActivity(color);
         }
 
-        public FleetingText CreateFleetingText(string text, Vector2 worldPosition)
+        public FleetingText CreateFleetingText(string message, Vector2 worldPosition)
         {
-            var newFleetingText = Instantiate(_FleetingText);
-            newFleetingText.transform.SetParent(_Canvas.transform, true);
-
-            var position = Camera.main.WorldToScreenPoint(worldPosition);
-
-            newFleetingText.Init(text, position);
-
-            return newFleetingText;
+            var text = _PoolManager.UIElementPool.Get<FleetingText>(worldPosition);
+            text.Text = message;
+            return text;
         }
-
-
-
-        //// This class was created for ease and speed of development.
-        //// It should be replaced with a hard-coded version upon release.
-        //public void InitPoolManager()
-        //{
-        //    var privatePrefabs = ReflectionUtil.GetPrivatePoolablePrefabFields(this);
-        //    PoolManager.InitPool(privatePrefabs);
-        //}
     }
 }
