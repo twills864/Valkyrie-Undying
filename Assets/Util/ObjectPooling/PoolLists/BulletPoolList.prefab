@@ -47,3 +47,5 @@ MonoBehaviour:
     type: 3}
   ShotgunPrefab: {fileID: 9130137281552897155, guid: e102288797baf564e89b34b6ffa79ea2,
     type: 3}
+  BurstPrefab: {fileID: 2032826281340202105, guid: 29a2ce476b3d7144c874282f0bf8d799,
+    type: 3}

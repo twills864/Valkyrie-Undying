@@ -9,8 +9,6 @@ namespace Assets.FireStrategies.PlayerFireStrategies
     /// <inheritdoc/>
     public class ShotgunStrategy : PlayerFireStrategy<ShotgunBullet>
     {
-        private const float ShotgunSpeedY = 10.0f;
-
         private const int NumGuaranteedPellets = 3;
         private const int NumAdditionalPelletLanes = GameConstants.MaxWeaponLevel + 1;
         private const int TotalPelletLanes = NumGuaranteedPellets + NumAdditionalPelletLanes;
@@ -26,6 +24,7 @@ namespace Assets.FireStrategies.PlayerFireStrategies
         private Vector2[] LanesVelocityMap { get; set; }
         private Vector2[] LanesPositionMap { get; set; }
 
+        private float BulletVelocityY;
         private Vector2 BulletSize;
         private float BulletOffsetX;
         private float BulletOffsetY;
@@ -34,6 +33,7 @@ namespace Assets.FireStrategies.PlayerFireStrategies
 
         public ShotgunStrategy(ShotgunBullet bullet)
         {
+            BulletVelocityY = bullet.BulletVelocityY;
             BulletSize = bullet.GetComponent<Renderer>().bounds.size;
             BulletOffsetX = bullet.BulletOffsetX;
             BulletOffsetY = bullet.BulletOffsetY;
@@ -139,10 +139,10 @@ namespace Assets.FireStrategies.PlayerFireStrategies
             float[] isEvenVelocityYOffsets = new float[2]
 {
                 // Odd - Some Y spread
-                ShotgunSpeedY + BulletSpreadY,
+                BulletVelocityY + BulletSpreadY,
 
                 // Even - no Y spread
-                ShotgunSpeedY
+                BulletVelocityY
             };
 
             for (int i = 0; i < TotalPelletLanes; i++)

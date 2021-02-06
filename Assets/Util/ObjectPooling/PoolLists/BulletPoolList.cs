@@ -11,5 +11,7 @@ namespace Assets.Util.ObjectPooling
         private BasicBullet BasicPrefab;
         [SerializeField]
         private ShotgunBullet ShotgunPrefab;
+        [SerializeField]
+        private BurstBullet BurstPrefab;
     }
 }

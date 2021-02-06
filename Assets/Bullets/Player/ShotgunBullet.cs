@@ -6,6 +6,9 @@ namespace Assets.Bullets.PlayerBullets
     public class ShotgunBullet : ConstantVelocityBullet
     {
         [SerializeField]
+        public float BulletVelocityY;
+
+        [SerializeField]
         public float BulletOffsetX;
         [SerializeField]
         public float BulletOffsetY;

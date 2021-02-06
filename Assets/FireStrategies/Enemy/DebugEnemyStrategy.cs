@@ -7,6 +7,6 @@ namespace Assets.FireStrategies.EnemyFireStrategies
     public class DebugEnemyStrategy : EnemyFireStrategy<BasicEnemyBullet>
     {
         public override LoopingFrameTimer FireTimer { get; protected set; }
-            = new LoopingFrameTimer(1.0f);
+            = new LoopingFrameTimer(3.0f);
     }
 }
