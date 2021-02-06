@@ -64,8 +64,8 @@ namespace Assets
         }
         private void Start()
         {
-            DebugUI.SetDebugLabel("CurrentFireType", () => CurrentFireStrategy.GetType().Name);
-            DebugUI.SetDebugLabel("FirePos", () => Player.FirePosition());
+            //DebugUI.SetDebugLabel("CurrentFireType", () => CurrentFireStrategy.GetType().Name);
+            //DebugUI.SetDebugLabel("FirePos", () => Player.FirePosition());
             //Application.SetStackTraceLogType(LogType.Log, StackTraceLogType.None);
 
             _PoolManager.Init();
@@ -76,7 +76,6 @@ namespace Assets
                 new ShotgunStrategy(_PoolManager.BulletPool.GetPrefab<ShotgunBullet>()),
             };
             FireTimer = CurrentFireStrategy.FireTimer;
-            SetFireType(DefaultFireTypeIndex);
 
             Init();
 
@@ -101,13 +100,15 @@ namespace Assets
         {
             SpaceUtil.Init();
             DebugUi.Init(this, this.FireStrategies);
+            SetFireType(DefaultFireTypeIndex);
+
             DebugUtil.Init(DebugUi, this);
             RandomUtil.Init();
 
             _Destructor.Init();
             _DebugEnemy.Init();
 
-
+            EnemyTimer.ActivateSelf();
         }
 
         private Color DefaultPlayerColor => new Color(96f / 255f, 211f / 255f, 255f / 255f);
@@ -154,7 +155,6 @@ namespace Assets
             FireStrategies.Index = index;
             FireTimer = CurrentFireStrategy.FireTimer;
             FireTimer.ActivateSelf();
-
 
             if (!skipDropDown)
                 DebugUi.DropdownFireType.value = FireStrategies.Index;

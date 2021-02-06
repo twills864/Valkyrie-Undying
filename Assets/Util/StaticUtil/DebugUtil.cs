@@ -77,6 +77,16 @@ namespace Assets.Util
         {
         }
 
+        private static void InputPageUp(KeyCode keyCode)
+        {
+            DebugUi.AddGameSpeed(0.5f);
+        }
+
+        private static void InputPageDown(KeyCode keyCode)
+        {
+            DebugUi.AddGameSpeed(-0.5f);
+        }
+
         private static void InputW(KeyCode keyCode)
         {
         }
@@ -148,6 +158,8 @@ namespace Assets.Util
             new KeyCodeAction(KeyCode.LeftArrow, InputLeft),
             new KeyCodeAction(KeyCode.DownArrow, InputDown),
             new KeyCodeAction(KeyCode.RightArrow, InputRight),
+            new KeyCodeAction(KeyCode.PageUp, InputPageUp),
+            new KeyCodeAction(KeyCode.PageDown, InputPageDown),
             new KeyCodeAction(KeyCode.Return, InputEnter),
             new KeyCodeAction(KeyCode.Space, InputSpace)
         };
@@ -187,7 +199,7 @@ namespace Assets.Util
 
             const float YOffset = 0.5f;
             var fleetingText = GameManager.Instance.CreateFleetingText(message.ToString(), position + new Vector2(0, YOffset));
-            var text = fleetingText.GetComponent<Text>();
+            var text = fleetingText.GetComponent<TextMesh>();
             text.color = ColorRed;
         }
     }

@@ -13,7 +13,7 @@ namespace Assets.FireStrategies
     public abstract class FireStrategy
     {
         public abstract LoopingFrameTimer FireTimer { get; protected set; }
-        public void Reset() => FireTimer.Reset();
+        public void Reset() => FireTimer.ResetAndActivateSelf();
 
         //public abstract Bullet ObjectPrefab { get; }
     }

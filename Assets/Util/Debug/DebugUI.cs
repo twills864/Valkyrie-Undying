@@ -24,6 +24,9 @@ namespace Assets.Util
         public Slider SliderFireLevel;
         public Text TextFireLevel;
 
+        public Slider SliderGameSpeed;
+        public Text TextGameSpeed;
+
 
         public void Init(GameManager gameManager, CircularSelector<PlayerFireStrategy> fireStrategies)
         {
@@ -50,9 +53,21 @@ namespace Assets.Util
             var sliderFireLevelPos = SpaceUtil.ScreenMap.Right + new Vector2(-DebugBorderOffset, DebugBorderOffset + sliderFireLevelYOffset);
             SpaceUtil.SetRightToPosition(SliderFireLevel, sliderFireLevelPos);
 
-            const int sliderFireLevelTextYOffset = 45;
+            const int sliderFireLevelTextYOffset = 35;
             var sliderFireLevelTextPos = SpaceUtil.ScreenMap.Right + new Vector2(-DebugBorderOffset, DebugBorderOffset + sliderFireLevelTextYOffset);
             SpaceUtil.SetRightToPosition(TextFireLevel, sliderFireLevelTextPos);
+
+
+            const int sliderGameSpeedYOffset = 180;
+            var sliderGameSpeedPos = SpaceUtil.ScreenMap.Right + new Vector2(-DebugBorderOffset, DebugBorderOffset + sliderGameSpeedYOffset);
+            SpaceUtil.SetRightToPosition(SliderGameSpeed, sliderGameSpeedPos);
+
+            const int sliderGameSpeedTextYOffset = 200;
+            var sliderGameSpeedTextPos = SpaceUtil.ScreenMap.Right + new Vector2(-DebugBorderOffset, DebugBorderOffset + sliderGameSpeedTextYOffset);
+            SpaceUtil.SetRightToPosition(TextGameSpeed, sliderGameSpeedTextPos);
+
+            //SliderFireLevel.value = 0;
+            //DebugSliderFireLevelChanged(SliderFireLevel);
         }
 
         #region Debug Input
@@ -68,6 +83,22 @@ namespace Assets.Util
             int level = (int) slider.value;
             TextFireLevel.text = level.ToString();
             GameManager.WeaponLevel = level;
+        }
+
+        public void DebugSliderGameSpeedChanged(Slider slider)
+        {
+            float scale = slider.value * 2;
+            scale = (float)Math.Round(scale, 0);
+            scale *= 0.5f;
+
+            TextGameSpeed.text = scale.ToString();
+            Time.timeScale = scale;
+        }
+
+        public void AddGameSpeed(float scale)
+        {
+            SliderGameSpeed.value += scale;
+            DebugSliderGameSpeedChanged(SliderGameSpeed);
         }
 
         #endregion Debug Input
