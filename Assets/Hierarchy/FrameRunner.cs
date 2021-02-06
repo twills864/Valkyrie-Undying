@@ -1,11 +1,4 @@
-﻿using Assets.Util;
-using LogUtilAssets;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using LogUtilAssets;
 
 namespace Assets
 {
@@ -14,6 +7,7 @@ namespace Assets
     /// instead of relying on Unity's implementation of Update().
     /// Useful for controlling delta times.
     /// </summary>
+    /// <inheritdoc/>
     public abstract class FrameRunner : Loggable
     {
         public float TotalTime { get; set; }

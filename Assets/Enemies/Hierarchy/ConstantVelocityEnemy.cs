@@ -1,10 +1,6 @@
-﻿using Assets.Util;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace Assets.Enemies
+﻿namespace Assets.Enemies
 {
+    /// <inheritdoc/>
     public abstract class ConstantVelocityEnemy : Enemy
     {
         protected virtual void OnConstantVelocityEnemyFrame(float deltaTime) { }

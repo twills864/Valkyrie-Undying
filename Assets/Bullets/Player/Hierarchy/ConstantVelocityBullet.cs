@@ -1,11 +1,6 @@
-﻿using Assets.Bullets.PlayerBullets;
-using Assets.Util;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace Assets.Bullets.PlayerBullets
+﻿namespace Assets.Bullets.PlayerBullets
 {
+    /// <inheritdoc/>
     public abstract class ConstantVelocityBullet : PlayerBullet
     {
         protected virtual void OnConstantVelocityBulletInit() { }

@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Assets.Util
@@ -12,6 +9,7 @@ namespace Assets.Util
     /// a Unity implementation of an object pool.
     /// </summary>
     /// <typeparam name="T">The type of object represented in this Object Pool.</typeparam>
+    /// <inheritdoc/>
     public class ObjectPool<T> : List<T> where T : PooledObject
     {
         /// <summary>

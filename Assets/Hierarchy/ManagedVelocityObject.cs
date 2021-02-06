@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets
 {
     /// <summary>
     /// Represents an object with a velocity that will be manually managed.
     /// </summary>
+    /// <inheritdoc/>
     public abstract class ManagedVelocityObject : FrameRunner
     {
         public virtual Vector2 Velocity { get; set; }

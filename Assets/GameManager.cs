@@ -1,23 +1,15 @@
 ﻿using Assets.Bullets;
 using Assets.Bullets.PlayerBullets;
-using Assets.Constants;
 using Assets.Enemies;
-using Assets.FireStrategies;
 using Assets.FireStrategies.PlayerFireStrategies;
 using Assets.UI;
 using Assets.Util;
-using Assets.Util.AssetsDebug;
 using Assets.Util.ObjectPooling;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Assets
 {
+    /// <inheritdoc/>
     public class GameManager : MonoBehaviour
     {
         public static GameManager Instance { get; set; }
@@ -64,10 +56,6 @@ namespace Assets
         }
         private void Start()
         {
-            //DebugUI.SetDebugLabel("CurrentFireType", () => CurrentFireStrategy.GetType().Name);
-            //DebugUI.SetDebugLabel("FirePos", () => Player.FirePosition());
-            //Application.SetStackTraceLogType(LogType.Log, StackTraceLogType.None);
-
             _PoolManager.Init();
 
             FireStrategies = new CircularSelector<PlayerFireStrategy>
@@ -191,9 +179,15 @@ namespace Assets
             _PoolManager.RecolorPlayerActivity(color);
         }
 
-        public FleetingText CreateFleetingText(string message, Vector2 worldPosition)
+        /// <summary>
+        /// Creates a Fleeting Text with a specified message at a specified position.
+        /// </summary>
+        /// <param name="message">The message to give the fleeting text.</param>
+        /// <param name="position">The position to place the fleeting text.</param>
+        /// <returns></returns>
+        public FleetingText CreateFleetingText(string message, Vector2 position)
         {
-            var text = _PoolManager.UIElementPool.Get<FleetingText>(worldPosition);
+            var text = _PoolManager.UIElementPool.Get<FleetingText>(position);
             text.Text = message;
             return text;
         }

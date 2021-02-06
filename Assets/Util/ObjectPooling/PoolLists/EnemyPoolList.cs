@@ -1,14 +1,9 @@
-﻿using Assets.Bullets;
-using Assets.Enemies;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Assets.Enemies;
 using UnityEngine;
 
 namespace Assets.Util.ObjectPooling
 {
+    /// <inheritdoc/>
     public class EnemyPoolList : PoolList<Enemy>
     {
         [SerializeField]

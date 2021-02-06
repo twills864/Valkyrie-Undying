@@ -1,14 +1,10 @@
 ﻿using Assets.EnemyBullets;
 using Assets.FireStrategies.EnemyFireStrategies;
 using Assets.Util;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Assets.FireStrategies
 {
+    /// <inheritdoc/>
     public class TankEnemyStrategy : EnemyFireStrategy<TankEnemyBullet>
     {
         public override LoopingFrameTimer FireTimer { get; protected set; }

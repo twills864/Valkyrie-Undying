@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Assets.Util
 {
@@ -206,6 +203,7 @@ namespace Assets.Util
         /// <typeparam name="T">The type of the IList&lt;<typeparamref name="T"/>&gt;.</typeparam>
         /// <param name="source">The IList&lt;<typeparamref name="T"/>&gt;.</param>
         /// <returns>A random element from the IList&lt;<typeparamref name="T"/>&gt;.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static T RandomElement<T>(IList<T> source)
         {
             int index = Int(source.Count);
@@ -236,6 +234,7 @@ namespace Assets.Util
         /// <typeparam name="T">The type of the IList&lt;<typeparamref name="T"/>&gt;.</typeparam>
         /// <param name="source">The array to be shuffled</param>
         /// <see cref="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm.</see>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void Shuffle<T>(IList<T> source)
         {
             int i = source.Count;

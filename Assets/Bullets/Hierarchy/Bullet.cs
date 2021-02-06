@@ -1,10 +1,9 @@
 ﻿using Assets.Util;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Bullets
 {
+    /// <inheritdoc/>
     public abstract class Bullet : PooledObject
     {
         protected virtual void OnBulletInit() { }

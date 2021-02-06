@@ -1,11 +1,6 @@
-﻿using Assets.Bullets.EnemyBullets;
-using Assets.Util;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace Assets.Bullets.EnemyBullets
+﻿namespace Assets.Bullets.EnemyBullets
 {
+    /// <inheritdoc/>
     public abstract class ConstantVelocityEnemyBullet : EnemyBullet
     {
         protected virtual void OnConstantVelocityEnemyBulletInit() { }

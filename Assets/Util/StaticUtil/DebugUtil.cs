@@ -1,15 +1,6 @@
-﻿using Assets.Util.AssetsDebug;
-using Assets.Util;
-using System;
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
-using Assets.Util.ObjectPooling;
-using Assets.UI;
 
 namespace Assets.Util
 {
@@ -26,20 +17,6 @@ namespace Assets.Util
         {
             DebugUi = debugUi;
             GameManager = gameManager;
-
-            //DebugUI.SetDebugLabel("Mouse", () => $"{SpaceUtil.WorldPositionUnderMouse()} {(Vector2)Input.mousePosition}");
-            //DebugUI.SetDebugLabel("int", () => DebugUi.DebugTextBox.GetInt(-9));
-            //DebugUI.SetDebugLabel("float", () => DebugUi.DebugTextBox.GetFloat(-8.1f));
-            //DebugUI.SetDebugLabel("double", () => DebugUi.DebugTextBox.GetDouble(-7.21));
-        }
-
-        public static FleetingText CreateFleetingText(string text, MonoBehaviour target)
-        {
-            return CreateFleetingText(text, target.transform.position);
-        }
-        public static FleetingText CreateFleetingText(string text, Vector2 position)
-        {
-            return GameManager.CreateFleetingText(text, position);
         }
 
         public static Color GetRandomPlayerColor()
@@ -180,6 +157,10 @@ namespace Assets.Util
 
         #endregion Input Engine
 
+        /// <summary>
+        /// Draws a red X for a brief time at the specified position.
+        /// </summary>
+        /// <param name="position">The position to draw the X.</param>
         public static void RedX(Vector2 position)
         {
             const float XRadius = 0.3f;
@@ -193,6 +174,13 @@ namespace Assets.Util
             Debug.DrawLine(topLeft, bottomRight, ColorRed, RayTime);
             Debug.DrawLine(bottomLeft, topRight, ColorRed, RayTime);
         }
+
+        /// <summary>
+        /// Draws a red X for a brief time at the specified position, and
+        /// displays a red Fleeting Text at this position.
+        /// </summary>
+        /// <param name="position">The position to draw the X.</param>
+        /// <param name="message">The message to display.</param>
         public static void RedX(Vector2 position, object message)
         {
             RedX(position);

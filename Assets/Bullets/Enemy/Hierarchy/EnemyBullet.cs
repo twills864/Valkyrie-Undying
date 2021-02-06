@@ -1,13 +1,9 @@
 ﻿using Assets.Util;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Assets.Bullets.EnemyBullets
 {
+    /// <inheritdoc/>
     public abstract class EnemyBullet : Bullet
     {
         public override string LogTagColor => "#FFA197";

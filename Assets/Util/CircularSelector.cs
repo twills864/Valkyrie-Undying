@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Assets.Util
 {
@@ -11,6 +7,7 @@ namespace Assets.Util
     /// a variation of a circular array that returns one element at a time.
     /// </summary>
     /// <typeparam name="T">The type of object represented in this Circular Selector.</typeparam>
+    /// <inheritdoc/>
     public class CircularSelector<T> : List<T>
     {
         private int _index;

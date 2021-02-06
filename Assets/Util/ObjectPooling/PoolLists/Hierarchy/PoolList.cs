@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Assets.Util.ObjectPooling
@@ -18,10 +16,9 @@ namespace Assets.Util.ObjectPooling
     /// <summary>
     /// A list of Object Pools that are grouped together by a common base class <typeparamref name="T"/>.
     /// </summary>
+    /// /// <inheritdoc/>
     public abstract class PoolList<T> : PoolList where T : PooledObject
     {
-
-
         /// <summary>
         /// An array representation of each pool represented by this PoolList.
         /// </summary>

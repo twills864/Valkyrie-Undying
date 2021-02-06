@@ -1,16 +1,11 @@
-﻿using Assets;
-using Assets.Bullets;
-using Assets.Bullets.PlayerBullets;
+﻿using Assets.Bullets.PlayerBullets;
 using Assets.FireStrategies.EnemyFireStrategies;
 using Assets.Util;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Assets.Enemies
 {
-
+    /// <inheritdoc/>
     public abstract class Enemy : PooledObject
     {
         public override string LogTagColor => "#FFB697";

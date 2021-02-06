@@ -1,13 +1,9 @@
 ﻿using Assets.Bullets;
 using Assets.Util;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Assets.FireStrategies.PlayerFireStrategies
 {
+    /// <inheritdoc/>
     public class BasicStrategy : PlayerFireStrategy<BasicBullet>
     {
         public override LoopingFrameTimer FireTimer { get; protected set; }

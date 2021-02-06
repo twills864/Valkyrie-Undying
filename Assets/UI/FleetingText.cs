@@ -1,12 +1,9 @@
-﻿using Assets;
-using Assets.Util;
-using System.Collections;
-using System.Collections.Generic;
+﻿using Assets.Util;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Assets.UI
 {
+    /// <inheritdoc/>
     public class FleetingText : PooledObject
     {
         private TextMesh TextField { get; set; }

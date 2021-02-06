@@ -1,17 +1,12 @@
-﻿using Assets.Bullets;
-using Assets.Bullets.PlayerBullets;
+﻿using Assets.Bullets.PlayerBullets;
 using Assets.Constants;
 using Assets.Util;
 using Assets.Util.ObjectPooling;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Assets.FireStrategies.PlayerFireStrategies
 {
+    /// <inheritdoc/>
     public class ShotgunStrategy : PlayerFireStrategy<ShotgunBullet>
     {
         private const float ShotgunSpeedY = 10.0f;

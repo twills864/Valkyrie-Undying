@@ -1,13 +1,8 @@
-﻿using Assets.Bullets;
-using Assets.FireStrategies;
-using Assets.FireStrategies.EnemyFireStrategies;
-using Assets.Util;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using Assets.FireStrategies.EnemyFireStrategies;
 
 namespace Assets.Enemies
 {
+    /// <inheritdoc/>
     public class DebugEnemy : Enemy
     {
         public override int BaseSpawnHealth => 100000;

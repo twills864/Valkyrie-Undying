@@ -1,20 +1,18 @@
 ﻿using Assets.Bullets.EnemyBullets;
 using Assets.Enemies;
-using Assets.EnemyBullets;
 using Assets.Util;
-using Assets.Util.AssetsDebug;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets
 {
+    /// <inheritdoc/>
     public class Player : FrameRunner
     {
         public static Player Instance { get; private set; }
 
         Rigidbody2D Body => GetComponent<Rigidbody2D>();
         Renderer Renderer => GetComponent<Renderer>();
+        LineRenderer LineRenderer => GetComponent<LineRenderer>();
 
         public Vector2 Size => Renderer.bounds.size;
         private TrackedBoxMap BoxMap { get; set; }
@@ -31,11 +29,6 @@ namespace Assets
         private void Start()
         {
             BoxMap = new TrackedBoxMap(this);
-
-            //DebugUI.SetDebugLabel("BoxMapTop", () => BoxMap.Top);
-            //DebugUI.SetDebugLabel("FirePosition", () => FirePosition());
-            //DebugUI.SetDebugLabel("PlayerPosition", () => transform.position);
-            //DebugUI.SetDebugLabel("PlayerLocalPosition", () => transform.localPosition);
         }
 
         void Update()
@@ -44,16 +37,6 @@ namespace Assets
                 SetMobilePosition(SpaceUtil.WorldPositionUnderMouse());
             else if (Input.GetMouseButton(1))
                 SetPosition(SpaceUtil.WorldPositionUnderMouse());
-
-//#if UNITY_EDITOR
-//            if (MobileY == 0)
-//            {
-//                // Application.Quit() does not work in the editor so
-//                // UnityEditor.EditorApplication.isPlaying need to be set to false to end the game
-//                UnityEditor.EditorApplication.isPlaying = false;
-//                //Application.Quit();
-//            }
-//#endif
         }
 
         public void Init()

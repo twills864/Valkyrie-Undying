@@ -1,17 +1,9 @@
-﻿using Assets.Util;
-using Assets.Util.ObjectPooling;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
-
-namespace Assets
+﻿namespace Assets
 {
     /// <summary>
     /// Represents an object that can be stored inside of an Object Pool.
     /// </summary>
+    /// <inheritdoc/>
     public abstract class PooledObject : ManagedVelocityObject
     {
         /// <summary>
@@ -36,7 +28,7 @@ namespace Assets
         protected virtual void OnActivate() { }
 
         /// <summary>
-        /// Activates this game object, and calls any subclass-specific implementation of OnActivate()
+        /// Activates this game object, and calls any subclass-specific implementation of OnActivate().
         /// </summary>
         public void ActivateSelf()
         {

@@ -1,9 +1,8 @@
-﻿using Assets.FireStrategies;
-using Assets.FireStrategies.PlayerFireStrategies;
-using Assets.Util.AssetsDebug;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Assets.FireStrategies.PlayerFireStrategies;
+using Assets.Util.AssetsDebug;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -167,7 +166,7 @@ namespace Assets.Util
             const int fpsLabelHeight = 250;
             const int fpsLabelOffset = -50;
 
-            var frameRate = (int)(1f / Time.deltaTime); //Time.captureFramerate;
+            var frameRate = (int)(1f / (Time.unscaledDeltaTime));
             var fpsLabelPos = new Rect(Screen.width - fpsLabelWidth - fpsLabelOffset - guiOffset.x, guiOffset.y, fpsLabelWidth, fpsLabelHeight);
             string fpsLabelMessage = $"{frameRate} fps";
 

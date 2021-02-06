@@ -1,6 +1,5 @@
-﻿using UnityEngine;
-using UnityEditor;
-using LogUtilAssets;
+﻿using UnityEditor;
+using UnityEngine;
 
 [InitializeOnLoad]
 public static class ExitPlayModeOnCompile

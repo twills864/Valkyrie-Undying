@@ -1,13 +1,9 @@
 ﻿using Assets.Util;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Assets.Bullets.PlayerBullets
 {
+    /// <inheritdoc/>
     public abstract class PlayerBullet : Bullet
     {
         public override string LogTagColor => "#B381FE";
@@ -27,7 +23,6 @@ namespace Assets.Bullets.PlayerBullets
             if (CollisionUtil.IsPlayerBullet(collision))
             {
                 Log("Bullet self-collision!");
-                //GameManager.Instance.CreateFleetingText("X", this.transform.position);
                 DebugUtil.RedX(transform.position, "Player bullet collide");
             }
         }

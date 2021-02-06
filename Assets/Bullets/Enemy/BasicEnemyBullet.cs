@@ -1,13 +1,6 @@
-﻿using Assets.Util;
-using LogUtilAssets;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq.Expressions;
-using UnityEngine;
-
-namespace Assets.Bullets.EnemyBullets
+﻿namespace Assets.Bullets.EnemyBullets
 {
+    /// <inheritdoc/>
     public class BasicEnemyBullet : PermanentVelocityEnemyBullet
     {
 
