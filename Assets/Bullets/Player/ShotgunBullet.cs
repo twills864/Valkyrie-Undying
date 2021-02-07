@@ -3,7 +3,7 @@
 namespace Assets.Bullets.PlayerBullets
 {
     /// <inheritdoc/>
-    public class ShotgunBullet : ConstantVelocityBullet
+    public class ShotgunBullet : PlayerBullet
     {
         [SerializeField]
         public float BulletVelocityY;

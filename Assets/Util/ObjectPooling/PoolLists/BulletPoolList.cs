@@ -27,7 +27,7 @@ namespace Assets.Util.ObjectPooling
         /// <returns>The initialized fresh instance of <typeparamref name="TGet"/> from the appropriate Object Pool.</returns>
         public TGet Get<TGet>(Vector2 position, int weaponLevel) where TGet : PlayerBullet
         {
-            var ret = base.Get<TGet>(position);
+            var ret = Get<TGet>(position);
             ret.BulletLevel = weaponLevel;
             return ret;
         }
@@ -46,7 +46,7 @@ namespace Assets.Util.ObjectPooling
         /// <returns>The initialized fresh instance of <typeparamref name="TGet"/> from the appropriate Object Pool.</returns>
         public TGet Get<TGet>(Vector2 position, Vector2 velocity, int weaponLevel) where TGet : PlayerBullet
         {
-            var ret = base.Get<TGet>(position);
+            var ret = Get<TGet>(position, velocity);
             ret.BulletLevel = weaponLevel;
             return ret;
         }

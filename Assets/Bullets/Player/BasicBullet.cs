@@ -3,7 +3,7 @@
 namespace Assets.Bullets.PlayerBullets
 {
     /// <inheritdoc/>
-    public class BasicBullet : PermanentVelocityBullet
+    public class BasicBullet : PermanentVelocityPlayerBullet
     {
     }
 }

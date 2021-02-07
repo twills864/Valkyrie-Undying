@@ -34,7 +34,7 @@ namespace Assets.UI
             DestroyTimer = new FrameTimer(OpaqueTextTime + FadeTime);
             StartFadeTimer = new FrameTimer(OpaqueTextTime);
             FadeTimer = new FrameTimer(FadeTime);
-
+            Velocity = new Vector2(0, Speed);
         }
 
         protected override void OnActivate()
@@ -46,10 +46,8 @@ namespace Assets.UI
             CurrentyFading = false;
         }
 
-        public override void RunFrame(float deltaTime)
+        protected override void OnManagedVelocityObjectFrameRun(float deltaTime)
         {
-            transform.Translate(0, deltaTime * Speed, 0);
-
             // Check if timer is destroyed
             if (DestroyTimer.UpdateActivates(deltaTime))
             {

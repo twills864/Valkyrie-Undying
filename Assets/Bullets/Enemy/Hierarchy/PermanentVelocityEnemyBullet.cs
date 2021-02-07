@@ -3,25 +3,21 @@
 namespace Assets.Bullets.EnemyBullets
 {
     /// <inheritdoc/>
-    public abstract class PermanentVelocityEnemyBullet : ConstantVelocityEnemyBullet
+    public abstract class PermanentVelocityEnemyBullet : EnemyBullet
     {
         [SerializeField]
         protected float PermanentVelocityX;
         [SerializeField]
         protected float PermanentVelocityY;
 
-        public sealed override Vector2 Velocity => new Vector2(PermanentVelocityX, PermanentVelocityY);
+        private Vector2 _velocity;
+        public sealed override Vector2 Velocity => _velocity;
 
-        protected void OnPermanentVelocityBulletInit() { }
-        protected override sealed void OnConstantVelocityEnemyBulletInit()
+        protected virtual void OnPermanentVelocityEnemyBulletInit() { }
+        protected sealed override void OnEnemyBulletInit()
         {
-            OnPermanentVelocityBulletInit();
-        }
-
-        protected virtual void RunPermanentVelocityEnemyBulletFrame(float deltaTime) { }
-        protected sealed override void RunConstantVelocityEnemyBulletFrame(float deltaTime)
-        {
-            RunPermanentVelocityEnemyBulletFrame(deltaTime);
+            _velocity = new Vector2(PermanentVelocityX, PermanentVelocityY);
+            OnPermanentVelocityEnemyBulletInit();
         }
     }
 }

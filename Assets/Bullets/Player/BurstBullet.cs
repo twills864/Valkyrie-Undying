@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Assets.Bullets.PlayerBullets
 {
     /// <inheritdoc/>
-    public class BurstBullet : ConstantVelocityBullet
+    public class BurstBullet : PlayerBullet
     {
         [SerializeField]
         public float BulletVelocityY;

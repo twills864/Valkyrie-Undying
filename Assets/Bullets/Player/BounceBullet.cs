@@ -22,9 +22,8 @@ namespace Assets.Bullets.PlayerBullets
         private Vector2 DefaultVelocity => new Vector2(0,Speed);
 
 
-        public override void RunFrame(float deltaTime)
+        protected override void OnManagedVelocityObjectFrameRun(float deltaTime)
         {
-            transform.Translate(deltaTime * Velocity, Space.World);
             transform.Rotate(0, 0, deltaTime * RotationSpeed);
         }
 

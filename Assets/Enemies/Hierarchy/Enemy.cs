@@ -37,6 +37,7 @@ namespace Assets.Enemies
             BoxMap = new TrackedBoxMap(this);
             HealthBar = FindChildEnemyHealthBar();
             OnActivate();
+            OnEnemyInit();
         }
 
         protected virtual void OnEnemyActivate() { }
@@ -51,7 +52,7 @@ namespace Assets.Enemies
         }
 
         protected virtual void OnEnemyFrame(float deltaTime) { }
-        public sealed override void RunFrame(float deltaTime)
+        protected sealed override void OnManagedVelocityObjectFrameRun(float deltaTime)
         {
             if(FireTimer.UpdateActivates(deltaTime))
                 FireBullets();

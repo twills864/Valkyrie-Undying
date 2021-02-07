@@ -27,5 +27,13 @@ namespace Assets
             transform.position = position;
             Init();
         }
+
+        protected virtual void OnManagedVelocityObjectFrameRun(float deltaTime) { }
+        public sealed override void RunFrame(float deltaTime)
+        {
+            transform.position += new Vector3(Velocity.x * deltaTime, Velocity.y * deltaTime, 0);
+            //transform.Translate(deltaTime * Velocity, Space.World);
+            OnManagedVelocityObjectFrameRun(deltaTime);
+        }
     }
 }
