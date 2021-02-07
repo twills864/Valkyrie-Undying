@@ -1,4 +1,5 @@
-﻿using Assets.Util;
+﻿using Assets.Enemies;
+using Assets.Util;
 using UnityEngine;
 
 namespace Assets.Bullets.PlayerBullets
@@ -22,6 +23,11 @@ namespace Assets.Bullets.PlayerBullets
         {
             if (CollisionUtil.IsPlayerBullet(collision))
                 MarkSelfCollision();
+        }
+
+        public virtual void OnCollideWithEnemy(Enemy enemy)
+        {
+            DeactivateSelf();
         }
 
         /// <summary>

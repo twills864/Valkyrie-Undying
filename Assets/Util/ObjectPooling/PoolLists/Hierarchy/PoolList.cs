@@ -148,5 +148,48 @@ namespace Assets.Util.ObjectPooling
             foreach (var pool in Pools)
                 pool.RecolorObjects(color);
         }
+
+        /// <summary>
+        /// Returns an IEnumerable of containing every active object
+        /// from every Object Pool in this PoolList.
+        /// </summary>
+        /// <returns>Every active object within this PoolList.</returns>
+        protected IEnumerable<T> GetAllActiveObjects()
+        {
+            var allActiveObjects = Pools.Select(x => x.ActiveObjects)
+                .SelectMany(x => x);
+            return allActiveObjects;
+        }
+
+        /// <summary>
+        /// Attempts to retrieve a random active object from this PoolList.
+        /// Returns false if there are no active objects to retrieve.
+        /// Returns true otherwise.
+        /// </summary>
+        /// <param name="randomObject">The random object that was retrieved.</param>
+        /// <returns>True if a random object was retrieved; false otherwise.</returns>
+        public bool TryGetRandomObject(out T randomObject)
+        {
+            var potentials = GetAllActiveObjects();
+            var ret = RandomUtil.TryGetRandomElement(potentials, out randomObject);
+            return ret;
+        }
+
+        /// <summary>
+        /// Attempts to retrieve a random active object from this PoolList
+        /// that isn't the specified <paramref name="exclusion"/>.
+        /// Returns false if there are no active objects to retrieve.
+        /// Returns true otherwise.
+        /// </summary>
+        /// <param name="exclusion"></param>
+        /// <param name="randomObject"></param>
+        /// <returns></returns>
+        public bool TryGetRandomObjectExcluding(T exclusion, out T randomObject)
+        {
+            var potentials = GetAllActiveObjects()
+                .Where(x => x != exclusion);
+            var ret = RandomUtil.TryGetRandomElement(potentials, out randomObject);
+            return ret;
+        }
     }
 }

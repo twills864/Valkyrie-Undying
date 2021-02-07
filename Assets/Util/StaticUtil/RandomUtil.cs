@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
 
 namespace Assets.Util
@@ -209,6 +210,54 @@ namespace Assets.Util
             int index = Int(source.Count);
             T ret = source[index];
             return ret;
+        }
+
+        /// <summary>
+        /// Attempts to retrieve a random element of a given IList&lt;<typeparamref name="T"/>&gt;.
+        /// Returns false if no element could be retrieved because the given <paramref name="source"/> was empty.
+        /// Returns true otherwise.
+        /// </summary>
+        /// <typeparam name="T">The type of the IList&lt;<typeparamref name="T"/>&gt;.</typeparam>
+        /// <param name="source">The IList&lt;<typeparamref name="T"/>&gt;.</param>
+        /// <param name="randomElement">The random element retrieved from the <paramref name="source"/>.</param>
+        /// <returns>True if a random element was retrieved; false otherwise.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool TryGetRandomElement<T>(IList<T> source, out T randomElement)
+        {
+            if(!source.Any())
+            {
+                randomElement = default;
+                return false;
+            }
+            else
+            {
+                randomElement = RandomElement(source);
+                return true;
+            }
+        }
+
+        /// <summary>
+        /// Attempts to retrieve a random element of a given IEnumerable&lt;<typeparamref name="T"/>&gt;.
+        /// Returns false if no element could be retrieved because the given <paramref name="source"/> was empty.
+        /// Returns true otherwise.
+        /// </summary>
+        /// <typeparam name="T">The type of the IEnumerable&lt;<typeparamref name="T"/>&gt;.</typeparam>
+        /// <param name="source">The IEnumerable&lt;<typeparamref name="T"/>&gt;.</param>
+        /// <param name="randomElement">The random element retrieved from the <paramref name="source"/>.</param>
+        /// <returns>True if a random element was retrieved; false otherwise.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool TryGetRandomElement<T>(IEnumerable<T> source, out T randomElement)
+        {
+            if (!source.Any())
+            {
+                randomElement = default;
+                return false;
+            }
+            else
+            {
+                randomElement = RandomElement(source.ToList());
+                return true;
+            }
         }
 
         /// <summary>

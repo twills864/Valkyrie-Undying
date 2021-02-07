@@ -1,5 +1,7 @@
-﻿using Assets.Enemies;
+﻿using System.Collections.Generic;
+using Assets.Enemies;
 using UnityEngine;
+using System.Linq;
 
 namespace Assets.Util.ObjectPooling
 {
@@ -11,7 +13,7 @@ namespace Assets.Util.ObjectPooling
         [SerializeField]
         private TankEnemy TankPrefab;
 
-        public Enemy GetRandomEnemy()
+        public Enemy SpawnRandomEnemy()
         {
             var randomPool = RandomUtil.RandomElement(Pools);
             var ret = randomPool.Get();

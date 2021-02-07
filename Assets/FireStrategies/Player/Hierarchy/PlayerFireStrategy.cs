@@ -1,4 +1,5 @@
-﻿using Assets.Bullets.PlayerBullets;
+﻿using System;
+using Assets.Bullets.PlayerBullets;
 using Assets.Constants;
 using Assets.Util.ObjectPooling;
 using UnityEngine;
@@ -43,6 +44,31 @@ namespace Assets.FireStrategies.PlayerFireStrategies
             TBullet[] ret = new TBullet[]
             {
                 PoolManager.Instance.BulletPool.Get<TBullet>(playerFirePos)
+            };
+
+            return ret;
+        }
+
+        protected virtual PlayerBullet[] GetBullets(int weaponLevel, Vector2 playerFirePos, Vector2 velocity)
+        {
+            TBullet bullet = PoolManager.Instance.BulletPool.Get<TBullet>(playerFirePos);
+            bullet.Velocity = velocity;
+            TBullet[] ret = new TBullet[]
+            {
+                bullet
+            };
+
+            return ret;
+        }
+
+        protected virtual PlayerBullet[] GetBullets(int weaponLevel, Vector2 playerFirePos, Vector2 velocity, Action<TBullet> action)
+        {
+            TBullet bullet = PoolManager.Instance.BulletPool.Get<TBullet>(playerFirePos);
+            bullet.Velocity = velocity;
+            action(bullet);
+            TBullet[] ret = new TBullet[]
+            {
+                bullet
             };
 
             return ret;

@@ -86,7 +86,7 @@ namespace Assets.Enemies
             if (DamageKills(bullet.Damage))
                 KillEnemy();
 
-            bullet.DeactivateSelf();
+            bullet.OnCollideWithEnemy(this);
         }
 
 

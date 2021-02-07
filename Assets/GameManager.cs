@@ -63,6 +63,7 @@ namespace Assets
                 new BasicStrategy(),
                 new ShotgunStrategy(_PoolManager.BulletPool.GetPrefab<ShotgunBullet>()),
                 new BurstStrategy(_PoolManager.BulletPool.GetPrefab<BurstBullet>()),
+                new BounceStrategy(_PoolManager.BulletPool.GetPrefab<BounceBullet>()),
             };
             FireTimer = CurrentFireStrategy.FireTimer;
 
@@ -129,7 +130,7 @@ namespace Assets
 
             if(EnemyTimer.UpdateActivates(deltaTime))
             {
-                var enemy = _PoolManager.EnemyPool.GetRandomEnemy();
+                var enemy = _PoolManager.EnemyPool.SpawnRandomEnemy();
                 enemy.Init(SpaceUtil.RandomEnemySpawnPosition(enemy));
             }
 
@@ -170,6 +171,17 @@ namespace Assets
             QualitySettings.vSyncCount = 0;
             Application.targetFrameRate = 60;
 #endif
+        }
+
+        public bool TryGetRandomEnemy(out Enemy enemy)
+        {
+            var ret = _PoolManager.EnemyPool.TryGetRandomObject(out enemy);
+            return ret;
+        }
+        public bool TryGetRandomEnemyExcluding(Enemy exclusion, out Enemy enemy)
+        {
+            var ret = _PoolManager.EnemyPool.TryGetRandomObjectExcluding(exclusion, out enemy);
+            return ret;
         }
 
         public void RecolorPlayerActivity(Color color)

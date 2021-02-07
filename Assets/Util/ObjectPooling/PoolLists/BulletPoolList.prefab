@@ -49,3 +49,5 @@ MonoBehaviour:
     type: 3}
   BurstPrefab: {fileID: 2032826281340202105, guid: 29a2ce476b3d7144c874282f0bf8d799,
     type: 3}
+  BouncePrefab: {fileID: 3523567493911383002, guid: 758b34a3cd94dda46bdbc415af624559,
+    type: 3}

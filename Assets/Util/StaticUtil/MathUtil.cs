@@ -1,4 +1,5 @@
 ﻿using System.Runtime.CompilerServices;
+using UnityEngine;
 
 namespace Assets.Util
 {
@@ -37,6 +38,22 @@ namespace Assets.Util
         public static bool IsOdd(int number)
         {
             return !IsEven(number);
+        }
+
+
+        /// <summary>
+        /// Calculates the vector between two points, then normalizes it to a given velocity.
+        /// </summary>
+        /// <param name="from">The source from which to start the vector measurement.</param>
+        /// <param name="to">The destination of the vector measurement.</param>
+        /// <param name="velocity">The velocity to give to the normalized direction vector.</param>
+        /// <returns></returns>
+        public static Vector2 VelocityVector(Vector2 from, Vector2 to, float velocity = 1.0f)
+        {
+            Vector2 ret = to - from;
+            ret.Normalize();
+            ret *= velocity;
+            return ret;
         }
     }
 }
