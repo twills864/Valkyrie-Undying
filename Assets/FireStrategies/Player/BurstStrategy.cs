@@ -41,8 +41,7 @@ namespace Assets.FireStrategies.PlayerFireStrategies
             if(weaponLevel == GameConstants.MaxWeaponLevel
                 || FireCounter < weaponLevel)
             {
-                ret = base.GetBullets(weaponLevel, playerFirePos);
-                ret[0].Velocity = NewVelocity();
+                ret = base.GetBullets(weaponLevel, playerFirePos, NewVelocity());
             }
             else
                 ret = new PlayerBullet[0];
