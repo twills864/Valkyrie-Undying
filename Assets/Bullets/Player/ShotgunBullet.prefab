@@ -136,7 +136,7 @@ MonoBehaviour:
   SpawnId: 0
   BaseDamage: 10
   BulletVelocityY: 10
-  BulletOffsetX: 0.1
+  BulletOffsetX: 0
   BulletOffsetY: 0
-  BulletSpreadX: 0.1
+  BulletSpreadX: 0.2
   BulletSpreadY: 0

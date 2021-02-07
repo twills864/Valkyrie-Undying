@@ -67,6 +67,7 @@ namespace Assets
                 new ShotgunStrategy(_PoolManager.BulletPool.GetPrefab<ShotgunBullet>()),
                 new BurstStrategy(_PoolManager.BulletPool.GetPrefab<BurstBullet>()),
                 new BounceStrategy(_PoolManager.BulletPool.GetPrefab<BounceBullet>()),
+                new AtomStrategy(_PoolManager.BulletPool.GetPrefab<AtomBullet>()),
             };
             FireTimer = CurrentFireStrategy.FireTimer;
 

@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using UnityEngine;
+
+using Random = System.Random;
 
 namespace Assets.Util
 {
@@ -236,6 +239,39 @@ namespace Assets.Util
         }
 
         #endregion Bool
+
+        #region Vectors
+
+        /// <summary>
+        /// Returns a vector of a specified <paramref name="length"/> in a pseudo-random direction.
+        /// </summary>
+        /// <param name="length">The length of the vector to return.</param>
+        /// <returns>The random-direction vector of the specified length.</returns>
+        public static Vector2 RandomDirectionVector(float length)
+        {
+            var ret = length * RandomDirectionVector();
+            return ret;
+        }
+
+        /// <summary>
+        /// Returns a unit vector in a pseudo-random direction.
+        /// </summary>
+        /// <returns>The random-direction unit vector.</returns>
+        public static Vector2 RandomDirectionVector()
+        {
+            const float VectorMax = 10000;
+            const float VectorHalf = VectorMax * 0.5f;
+
+            float x = Float(VectorMax) - VectorHalf;
+            float y = Float(VectorMax) - VectorHalf;
+
+            Vector2 ret = MathUtil.DefaultVectorIfZero(new Vector2(x, y));
+            ret.Normalize();
+
+            return ret;
+        }
+
+        #endregion Vectors
 
         #region Collections
 

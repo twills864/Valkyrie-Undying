@@ -14,6 +14,8 @@ namespace Assets.Util.ObjectPooling
         private BurstBullet BurstPrefab;
         [SerializeField]
         private BounceBullet BouncePrefab;
+        [SerializeField]
+        private AtomBullet AtomPrefab;
 
         /// <summary>
         /// Accesses the object pool indexed by<typeparamref name="TGet"/>,

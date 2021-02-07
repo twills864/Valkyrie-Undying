@@ -51,3 +51,5 @@ MonoBehaviour:
     type: 3}
   BouncePrefab: {fileID: 813606566361232998, guid: 758b34a3cd94dda46bdbc415af624559,
     type: 3}
+  AtomPrefab: {fileID: 1478482128875707549, guid: 387b8d872b4d81f4c95dd5d30383d804,
+    type: 3}

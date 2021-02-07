@@ -28,10 +28,16 @@ namespace Assets
             Init();
         }
 
+        public void ApplyVelocity(Vector2 velocity, float deltaTime)
+        {
+            transform.position += new Vector3(velocity.x * deltaTime, velocity.y * deltaTime, 0);
+        }
+
         protected virtual void OnManagedVelocityObjectFrameRun(float deltaTime) { }
         public sealed override void RunFrame(float deltaTime)
         {
-            transform.position += new Vector3(Velocity.x * deltaTime, Velocity.y * deltaTime, 0);
+            ApplyVelocity(Velocity, deltaTime);
+            //transform.position += new Vector3(Velocity.x * deltaTime, Velocity.y * deltaTime, 0);
             //transform.Translate(deltaTime * Velocity, Space.World);
             OnManagedVelocityObjectFrameRun(deltaTime);
         }
