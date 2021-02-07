@@ -6,6 +6,11 @@ namespace Assets.Util
     public static class MathUtil
     {
         /// <summary>
+        /// The default direction to apply if a sensitive Vector calculation results in Vector2.zero
+        /// </summary>
+        public static Vector2 DefaultVector => Vector2.up;
+
+        /// <summary>
         /// Calculates the result of <paramref name="dividen"/> modulo <paramref name="divisor"/>.
         /// </summary>
         /// <returns>The result of <paramref name="dividen"/> mod <paramref name="divisor"/></returns>
@@ -42,6 +47,17 @@ namespace Assets.Util
 
 
         /// <summary>
+        /// Returns MathUtil.DefaultVector if a specified <paramref name="vector"/> is equal to Vector2.zero.
+        /// </summary>
+        /// <param name="vector">The vector to compare3 to Vector2.zero.</param>
+        /// <returns>The original vector if it is not equal to Vector2.zero; MathUtil.DefaultVector2.zero otherwide.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector2 DefaultVectorIfZero(Vector2 vector)
+        {
+            var ret = vector != Vector2.zero ? vector : DefaultVector;
+            return ret;
+        }
+        /// <summary>
         /// Calculates the vector between two points, then normalizes it to a given velocity.
         /// </summary>
         /// <param name="from">The source from which to start the vector measurement.</param>
@@ -51,7 +67,12 @@ namespace Assets.Util
         public static Vector2 VelocityVector(Vector2 from, Vector2 to, float velocity = 1.0f)
         {
             Vector2 ret = to - from;
-            ret.Normalize();
+
+            if (ret == Vector2.zero)
+                ret = DefaultVector;
+            else
+                ret.Normalize();
+
             ret *= velocity;
             return ret;
         }

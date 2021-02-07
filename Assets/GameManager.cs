@@ -2,6 +2,7 @@
 using Assets.Bullets.PlayerBullets;
 using Assets.Enemies;
 using Assets.FireStrategies.PlayerFireStrategies;
+using Assets.ScreenEdgeColliders;
 using Assets.UI;
 using Assets.Util;
 using Assets.Util.ObjectPooling;
@@ -29,6 +30,8 @@ namespace Assets
         [SerializeField]
         private Destructor _Destructor;
         [SerializeField]
+        private ScreenEdgeColliderSet _ScreenEdgeColliderSet;
+        [SerializeField]
         private Enemy _DebugEnemy;
 
         [SerializeField]
@@ -47,7 +50,7 @@ namespace Assets
 
         #endregion Player Weapons
 
-        private LoopingFrameTimer EnemyTimer = new LoopingFrameTimer(3.0f);
+        private LoopingFrameTimer EnemyTimer = new LoopingFrameTimer(10.0f); // new LoopingFrameTimer(3.0f);
 
         private void Awake()
         {
@@ -96,6 +99,7 @@ namespace Assets
             RandomUtil.Init();
 
             _Destructor.Init();
+            _ScreenEdgeColliderSet.Init();
             _DebugEnemy.Init();
 
             EnemyTimer.ActivateSelf();

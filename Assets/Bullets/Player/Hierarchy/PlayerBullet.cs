@@ -1,4 +1,5 @@
-﻿using Assets.Enemies;
+﻿using Assets.Constants;
+using Assets.Enemies;
 using Assets.Util;
 using UnityEngine;
 
@@ -12,6 +13,9 @@ namespace Assets.Bullets.PlayerBullets
         [SerializeField]
         protected int BaseDamage;
         public virtual int Damage => BaseDamage;
+
+        public int BulletLevel { get; set; }
+        public bool IsMaxLevel => BulletLevel == GameConstants.MaxWeaponLevel;
 
         protected virtual void OnPlayerBulletInit() { }
         protected sealed override void OnBulletInit()

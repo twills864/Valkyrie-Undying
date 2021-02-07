@@ -1,4 +1,4 @@
-﻿using Assets.Bullets;
+﻿using Assets.Bullets.PlayerBullets;
 using Assets.Util;
 
 namespace Assets.FireStrategies.PlayerFireStrategies

@@ -37,7 +37,7 @@ namespace Assets.Util
                     ret = new Color(RandomUtil.Float(), RandomUtil.Float(), fixedColor);
                     break;
                 default:
-                    throw new Exception($"UNKNOWN FIXEDCOLOR {fixedColorSelector}");
+                    throw new Exception($"Unknown color selector {nameof(fixedColorSelector)}");
             }
 
             return ret;
@@ -85,7 +85,7 @@ namespace Assets.Util
 
         private static void InputUp(KeyCode keyCode)
         {
-            GameManager.DebugIncrementFireType();
+            GameManager.DebugDecrementFireType();
         }
 
         private static void InputLeft(KeyCode keyCode)
@@ -95,7 +95,7 @@ namespace Assets.Util
 
         private static void InputDown(KeyCode keyCode)
         {
-            GameManager.DebugDecrementFireType();
+            GameManager.DebugIncrementFireType();
         }
 
         private static void InputRight(KeyCode keyCode)

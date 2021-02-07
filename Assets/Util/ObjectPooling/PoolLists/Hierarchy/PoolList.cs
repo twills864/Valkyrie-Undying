@@ -87,15 +87,32 @@ namespace Assets.Util.ObjectPooling
         /// <summary>
         /// Accesses the object pool indexed by<typeparamref name="TGet"/>,
         /// returns a fresh instance from that pool,
-        /// and sets its initial position to the specified position.
+        /// and sets its initial position to a specified <paramref name="position"/>.
         /// </summary>
         /// <typeparam name="TGet">The type of object to return.</typeparam>
         /// <param name="position">The position to give to the fresh instance.</param>
-        /// <returns></returns>
+        /// <returns>The initialized fresh instance of <typeparamref name="TGet"/> from the appropriate Object Pool.</returns>
         public TGet Get<TGet>(Vector2 position) where TGet : T
         {
             var ret = Get<TGet>();
             ret.transform.position = position;
+            return ret;
+        }
+
+        /// <summary>
+        /// Accesses the object pool indexed by<typeparamref name="TGet"/>,
+        /// returns a fresh instance from that pool,
+        /// sets its initial position to a specified <paramref name="position"/>,
+        /// and sets its initial velocity to a specified <paramref name="velocity"/>.
+        /// </summary>
+        /// <typeparam name="TGet">The type of object to return.</typeparam>
+        /// <param name="position">The position to give to the fresh instance.</param>
+        /// <param name="velocity">The velocity to give to the fresh instance.</param>
+        /// <returns>The initialized fresh instance of <typeparamref name="TGet"/> from the appropriate Object Pool.</returns>
+        public TGet Get<TGet>(Vector2 position, Vector2 velocity) where TGet : T
+        {
+            var ret = Get<TGet>(position);
+            ret.Velocity = velocity;
             return ret;
         }
 

@@ -1,6 +1,6 @@
 ﻿using Assets.Bullets.PlayerBullets;
 
-namespace Assets.Bullets
+namespace Assets.Bullets.PlayerBullets
 {
     /// <inheritdoc/>
     public class BasicBullet : PermanentVelocityBullet

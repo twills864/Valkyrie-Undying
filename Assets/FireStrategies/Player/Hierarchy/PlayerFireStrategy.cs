@@ -39,20 +39,34 @@ namespace Assets.FireStrategies.PlayerFireStrategies
         {
         }
 
+        /// <summary>
+        /// Gets a single bullet from the associated Bullet Pool and wraps it into an array.
+        /// The default behavior for GetBullets().
+        /// </summary>
+        /// <param name="weaponLevel">The current weapon level.</param>
+        /// <param name="playerFirePos">The current position from which to fire the bullet.</param>
+        /// <returns>A single bullet wrapped in an array.</returns>
         public override PlayerBullet[] GetBullets(int weaponLevel, Vector2 playerFirePos)
         {
             TBullet[] ret = new TBullet[]
             {
-                PoolManager.Instance.BulletPool.Get<TBullet>(playerFirePos)
+                PoolManager.Instance.BulletPool.Get<TBullet>(playerFirePos, weaponLevel)
             };
 
             return ret;
         }
 
+        /// <summary>
+        /// Gets a single bullet from the associated Bullet Pool,
+        /// gives it a specified <paramref name="velocity"/>, and wraps it into an array.
+        /// </summary>
+        /// <param name="weaponLevel">The current weapon level.</param>
+        /// <param name="playerFirePos">The current position from which to fire the bullet.</param>
+        /// <param name="velocity">The velocity to give to the bullet.</param>
+        /// <returns>A single bullet wrapped in an array.</returns>
         protected virtual PlayerBullet[] GetBullets(int weaponLevel, Vector2 playerFirePos, Vector2 velocity)
         {
-            TBullet bullet = PoolManager.Instance.BulletPool.Get<TBullet>(playerFirePos);
-            bullet.Velocity = velocity;
+            TBullet bullet = PoolManager.Instance.BulletPool.Get<TBullet>(playerFirePos, velocity, weaponLevel);
             TBullet[] ret = new TBullet[]
             {
                 bullet
@@ -61,10 +75,26 @@ namespace Assets.FireStrategies.PlayerFireStrategies
             return ret;
         }
 
+
+        /// <summary>
+        /// Gets a single bullet from the associated Bullet Pool,
+        /// gives it a specified <paramref name="velocity"/>,
+        /// runs an associated <paramref name="action"/> on the bullet,
+        /// and wraps it into an array.
+        /// Useful, for example, for assigning protected subclass member variables.
+        /// </summary>
+        /// <param name="weaponLevel">The current weapon level.</param>
+        /// <param name="playerFirePos">The current position from which to fire the bullet.</param>
+        /// <param name="velocity">The velocity to give to the bullet.</param>
+        /// <param name="action">The action to perform on the array.</param>
+        /// <returns>A single bullet wrapped in an array.</returns>
+        /// <example>From BounceStrategy:
+        /// <code>PlayerBullet[] ret = GetBullets(weaponLevel, playerFirePos, InitialBulletVelocity,
+        /// x => x.BouncesLeft = PlusOneIfMaxLevel(weaponLevel) + 1);
+        ///    return ret;</code></example>
         protected virtual PlayerBullet[] GetBullets(int weaponLevel, Vector2 playerFirePos, Vector2 velocity, Action<TBullet> action)
         {
-            TBullet bullet = PoolManager.Instance.BulletPool.Get<TBullet>(playerFirePos);
-            bullet.Velocity = velocity;
+            TBullet bullet = PoolManager.Instance.BulletPool.Get<TBullet>(playerFirePos, velocity, weaponLevel);
             action(bullet);
             TBullet[] ret = new TBullet[]
             {
