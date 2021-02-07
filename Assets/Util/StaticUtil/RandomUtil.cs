@@ -125,6 +125,47 @@ namespace Assets.Util
 
         #endregion Double
 
+        #region Negative Values
+
+        /// <summary>
+        /// Returns a given number, or the negative of the given number, each with equal probability.
+        /// </summary>
+        /// <param name="input">The number to randomize.</param>
+        /// <returns>The result of the randomization.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static int RandomlyNegative(int input)
+        {
+            int ret = Bool() ? input : -input;
+            return ret;
+        }
+
+        /// <summary>
+        /// Returns a given number, or the negative of the given number, each with equal probability.
+        /// </summary>
+        /// <param name="input">The number to randomize.</param>
+        /// <returns>The result of the randomization.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static float RandomlyNegative(float input)
+        {
+            float ret = Bool() ? input : -input;
+            return ret;
+        }
+
+        /// <summary>
+        /// Returns a given number, or the negative of the given number, each with equal probability.
+        /// </summary>
+        /// <param name="input">The number to randomize.</param>
+        /// <returns>The result of the randomization.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double RandomlyNegative(double input)
+        {
+            double ret = Bool() ? input : -input;
+            return ret;
+        }
+
+
+        #endregion Negative Values
+
         #region Bool
 
         /// <summary>

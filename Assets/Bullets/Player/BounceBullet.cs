@@ -57,13 +57,23 @@ namespace Assets.Bullets.PlayerBullets
             if (GameManager.Instance.TryGetRandomEnemyExcluding(enemy, out Enemy newTarget))
                 SetTarget(newTarget);
             else
-                Velocity = DefaultVelocity;
+                BounceToRandomDirection();
         }
 
         private void SetTarget(Enemy newTarget)
         {
-            Velocity = MathUtil.VelocityVector(transform.position, newTarget.transform.position, Speed)
+            var velocity = MathUtil.VelocityVector(transform.position, newTarget.transform.position, Speed)
                         + newTarget.Velocity;
+            Velocity = velocity;
+        }
+
+        private void BounceToRandomDirection()
+        {
+            float x = RandomUtil.RandomlyNegative(1);
+            float y = RandomUtil.RandomlyNegative(1);
+
+            var velocity = MathUtil.VelocityVector(x, y, Speed);
+            Velocity = velocity;
         }
 
         #endregion Enemy Bounce

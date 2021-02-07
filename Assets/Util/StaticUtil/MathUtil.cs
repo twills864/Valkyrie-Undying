@@ -57,6 +57,22 @@ namespace Assets.Util
             var ret = vector != Vector2.zero ? vector : DefaultVector;
             return ret;
         }
+
+
+        /// <summary>
+        /// Normalizes a velocity vector with the given directional speeds to a given velocity.
+        /// </summary>
+        /// <param name="velocityX">The X speed of the velocity vector.</param>
+        /// <param name="velocityY">The Y speed of the velocity vector.</param>
+        /// <param name="velocity">The velocity to give to the normalized direction vector.</param>
+        /// <returns></returns>
+        public static Vector2 VelocityVector(float velocityX, float velocityY, float velocity = 1.0f)
+        {
+            var velocityVector = new Vector2(velocityX, velocityY);
+            var ret = VelocityVector(velocityVector, velocity);
+            return ret;
+        }
+
         /// <summary>
         /// Calculates the vector between two points, then normalizes it to a given velocity.
         /// </summary>
@@ -66,7 +82,19 @@ namespace Assets.Util
         /// <returns></returns>
         public static Vector2 VelocityVector(Vector2 from, Vector2 to, float velocity = 1.0f)
         {
-            Vector2 ret = to - from;
+            var ret = VelocityVector(to - from, velocity);
+            return ret;
+        }
+
+        /// <summary>
+        /// Normalizes a given velocity vector to a given velocity.
+        /// </summary>
+        /// <param name="velocityVector">The velocity vector to normalize.</param>
+        /// <param name="velocity">The velocity to give to the normalized direction vector.</param>
+        /// <returns></returns>
+        public static Vector2 VelocityVector(Vector2 velocityVector, float velocity = 1.0f)
+        {
+            var ret = velocityVector;
 
             if (ret == Vector2.zero)
                 ret = DefaultVector;
