@@ -47,8 +47,13 @@
         /// </summary>
         public void DeactivateSelf()
         {
-            gameObject.SetActive(false);
-            OnDeactivate();
+            // Setting an object to inactive may cause it to call the OnTriggerExit method
+            // with the Destructor, which could cause this method to be called twice in a row.
+            if (gameObject.activeSelf)
+            {
+                gameObject.SetActive(false);
+                OnDeactivate();
+            }
         }
 
         /// <summary>

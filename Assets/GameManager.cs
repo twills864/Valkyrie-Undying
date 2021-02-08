@@ -50,7 +50,7 @@ namespace Assets
 
         #endregion Player Weapons
 
-        private LoopingFrameTimer EnemyTimer = new LoopingFrameTimer(10.0f); // new LoopingFrameTimer(3.0f);
+        private LoopingFrameTimer EnemyTimer = new LoopingFrameTimer(3.0f);
 
         private void Awake()
         {
@@ -186,6 +186,12 @@ namespace Assets
         public bool TryGetRandomEnemyExcluding(Enemy exclusion, out Enemy enemy)
         {
             var ret = _PoolManager.EnemyPool.TryGetRandomObjectExcluding(exclusion, out enemy);
+            return ret;
+        }
+
+        public AtomTrail GetAtomTrail()
+        {
+            var ret = _PoolManager.UIElementPool.Get<AtomTrail>();
             return ret;
         }
 

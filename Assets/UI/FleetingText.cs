@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Assets.UI
 {
     /// <inheritdoc/>
-    public class FleetingText : PooledObject
+    public class FleetingText : UIElement
     {
         private TextMesh TextField { get; set; }
         private FrameTimer DestroyTimer { get; set; }
@@ -28,7 +28,7 @@ namespace Assets.UI
         [SerializeField]
         private const float Speed = 1f;
 
-        public override void OnInit()
+        protected override void OnUIElementInit()
         {
             TextField = GetComponent<TextMesh>();
             DestroyTimer = new FrameTimer(OpaqueTextTime + FadeTime);

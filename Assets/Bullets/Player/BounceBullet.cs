@@ -22,7 +22,7 @@ namespace Assets.Bullets.PlayerBullets
         private Vector2 DefaultVelocity => new Vector2(0,Speed);
 
 
-        protected override void OnManagedVelocityObjectFrameRun(float deltaTime)
+        protected override void OnPlayerBulletFrameRun(float deltaTime)
         {
             transform.Rotate(0, 0, deltaTime * RotationSpeed);
         }

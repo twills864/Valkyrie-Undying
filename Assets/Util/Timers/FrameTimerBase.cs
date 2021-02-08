@@ -36,6 +36,7 @@ namespace Assets.Util
         public void ActivateSelf()
         {
             Elapsed = ActivationInterval;
+            Activated = true;
         }
 
         /// <summary>

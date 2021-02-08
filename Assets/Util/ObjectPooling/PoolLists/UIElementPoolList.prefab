@@ -45,3 +45,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FleetingTextPrefab: {fileID: 7176427729835629659, guid: 2af817e2fda31d24d89c2aa5bd0d7e71,
     type: 3}
+  AtomTrialPrefab: {fileID: 1764110798744415782, guid: 4f2a84382f687294ba560b9751df67fc,
+    type: 3}

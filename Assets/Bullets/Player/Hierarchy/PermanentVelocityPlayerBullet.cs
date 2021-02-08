@@ -14,7 +14,7 @@ namespace Assets.Bullets.PlayerBullets
         public sealed override Vector2 Velocity => _velocity;
 
         protected virtual void RunPermanentVelocityBulletFrame(float deltaTime) { }
-        protected sealed override void OnManagedVelocityObjectFrameRun(float deltaTime)
+        protected override void OnPlayerBulletFrameRun(float deltaTime)
         {
             RunPermanentVelocityBulletFrame(deltaTime);
         }

@@ -34,6 +34,12 @@ namespace Assets.Bullets.PlayerBullets
             DeactivateSelf();
         }
 
+        protected virtual void OnPlayerBulletFrameRun(float deltaTime) { }
+        protected sealed override void OnManagedVelocityObjectFrameRun(float deltaTime)
+        {
+            OnPlayerBulletFrameRun(deltaTime);
+        }
+
         /// <summary>
         /// Debugging method that visualizes the location of this PlayerBullet
         /// colliding with another PlayerBullet.

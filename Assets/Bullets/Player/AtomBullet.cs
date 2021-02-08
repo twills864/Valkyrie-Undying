@@ -1,5 +1,6 @@
 ﻿using Assets.Bullets.PlayerBullets;
 using Assets.Enemies;
+using Assets.UI;
 using Assets.Util;
 using UnityEngine;
 
@@ -25,7 +26,7 @@ namespace Assets.Bullets.PlayerBullets
 
         private Vector2 MostRecentTargetVelocity { get; set; }
 
-        private TrailRenderer Trail { get; set; }
+        public AtomTrail Trail { get; set; }
 
         protected override void OnActivate()
         {
@@ -33,24 +34,26 @@ namespace Assets.Bullets.PlayerBullets
             Velocity = InitialVelocity;
             VelocityChanger.Init(InitialVelocity);
             MostRecentTargetVelocity = Vector2.zero;
-        }
 
+            Trail = GameManager.Instance.GetAtomTrail();
+        }
         protected override void OnDeactivate()
         {
-            Trail.Clear();
+            Trail.StartDeactivation();
+            Trail = null;
         }
 
         protected override void OnPlayerBulletInit()
         {
             InitialVelocity = new Vector2(0, Speed);
             VelocityChanger = new LinearVelocityChanger(this);
-            Trail = GetComponent<TrailRenderer>();
         }
 
 
-        protected override void OnManagedVelocityObjectFrameRun(float deltaTime)
+        protected override void OnPlayerBulletFrameRun(float deltaTime)
         {
             VelocityChanger.RunFrame(deltaTime);
+            Trail.transform.position = transform.position;
             ApplyVelocity(MostRecentTargetVelocity, deltaTime);
         }
 
