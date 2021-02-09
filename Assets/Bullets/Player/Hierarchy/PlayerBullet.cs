@@ -17,6 +17,8 @@ namespace Assets.Bullets.PlayerBullets
         public int BulletLevel { get; set; }
         public bool IsMaxLevel => BulletLevel == GameConstants.MaxWeaponLevel;
 
+        protected virtual bool ShouldMarkSelfCollision => true;
+
         protected virtual void OnPlayerBulletInit() { }
         protected sealed override void OnBulletInit()
         {
@@ -25,7 +27,7 @@ namespace Assets.Bullets.PlayerBullets
 
         protected virtual void OnTriggerEnter2D(Collider2D collision)
         {
-            if (CollisionUtil.IsPlayerBullet(collision))
+            if (CollisionUtil.IsPlayerBullet(collision) && ShouldMarkSelfCollision)
                 MarkSelfCollision();
         }
 

@@ -5,54 +5,21 @@ using UnityEngine;
 namespace Assets.Bullets.PlayerBullets
 {
     /// <inheritdoc/>
-    public class BounceBullet : PlayerBullet
+    public class BounceBullet : BouncingBullet
     {
         [SerializeField]
-        private int DamageAfterBounce;
-        [SerializeField]
-        public float Speed;
-        [SerializeField]
         private float RotationSpeed;
-
-        public int BouncesLeft { get; set; }
-
-        private int CurrentDamage { get; set; }
-        public override int Damage => CurrentDamage;
-
-        private Vector2 DefaultVelocity => new Vector2(0,Speed);
-
 
         protected override void OnPlayerBulletFrameRun(float deltaTime)
         {
             transform.Rotate(0, 0, deltaTime * RotationSpeed);
         }
 
-        protected override void OnActivate()
-        {
-            CurrentDamage = BaseDamage;
-            Velocity = DefaultVelocity;
-        }
-
-        public override void OnCollideWithEnemy(Enemy enemy)
-        {
-            if(BouncesLeft > 0)
-                Bounce(enemy);
-            else
-                DeactivateSelf();
-        }
-
-        private void OnBounce()
-        {
-            BouncesLeft--;
-            CurrentDamage = DamageAfterBounce;
-        }
 
         #region Enemy Bounce
 
-        private void Bounce(Enemy enemy)
+        protected override void OnBounce(Enemy enemy)
         {
-            OnBounce();
-
             if (GameManager.Instance.TryGetRandomEnemyExcluding(enemy, out Enemy newTarget))
                 SetTarget(newTarget);
             else
@@ -77,9 +44,6 @@ namespace Assets.Bullets.PlayerBullets
 
         #endregion Enemy Bounce
 
-
-        #region Max Level Screen Collision Bounce
-
         protected override void OnTriggerEnter2D(Collider2D collision)
         {
             if (CollisionUtil.IsScreenEdge(collision))
@@ -88,14 +52,16 @@ namespace Assets.Bullets.PlayerBullets
                 // Imagine the bullet touches the screen edge, doesn't have any bounces left, and gets deactivated.
                 // The bullet could theoretically miss an enemy behind the screen edge that it should have hit
                 // under normal deactivation rules.
-                if(IsMaxLevel && BouncesLeft > 0)
+                if (IsMaxLevel && BouncesLeft > 0)
                     BounceOffScreenEdge();
             }
         }
 
+        #region Max Level Screen Collision Bounce
+
         private void BounceOffScreenEdge()
         {
-            OnBounce();
+            ApplyBounceDebuff();
 
             if (GameManager.Instance.TryGetRandomEnemy(out Enemy newTarget))
                 SetTarget(newTarget);
