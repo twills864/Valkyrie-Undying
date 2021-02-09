@@ -1,5 +1,6 @@
 ﻿using Assets.Constants;
 using Assets.Enemies;
+using Assets.GameTasks;
 using Assets.Util;
 using UnityEngine;
 
@@ -9,6 +10,7 @@ namespace Assets.Bullets.PlayerBullets
     public abstract class PlayerBullet : Bullet
     {
         public override string LogTagColor => "#B381FE";
+        protected override GameTaskType TaskType => GameTaskType.Bullet;
 
         [SerializeField]
         protected int BaseDamage;

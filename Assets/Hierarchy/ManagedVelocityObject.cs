@@ -6,7 +6,7 @@ namespace Assets
     /// Represents an object with a velocity that will be manually managed.
     /// </summary>
     /// <inheritdoc/>
-    public abstract class ManagedVelocityObject : FrameRunner
+    public abstract class ManagedVelocityObject : GameTaskRunner
     {
         public virtual Vector2 Velocity { get; set; }
         public virtual float VelocityX

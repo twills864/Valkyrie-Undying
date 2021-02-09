@@ -1,7 +1,11 @@
-﻿using Assets.Bullets;
+﻿using System;
+using Assets.Bullets;
 using Assets.Bullets.PlayerBullets;
+using Assets.Constants;
 using Assets.Enemies;
 using Assets.FireStrategies.PlayerFireStrategies;
+using Assets.GameTasks;
+using Assets.GameTasks.GameTaskLists;
 using Assets.ScreenEdgeColliders;
 using Assets.UI;
 using Assets.Util;
@@ -49,6 +53,8 @@ namespace Assets
         private CircularSelector<PlayerFireStrategy> FireStrategies;
 
         #endregion Player Weapons
+
+        private GameTaskListManager GameTaskLists = new GameTaskListManager();
 
         private LoopingFrameTimer EnemyTimer = new LoopingFrameTimer(3.0f);
 
@@ -103,6 +109,12 @@ namespace Assets
             _ScreenEdgeColliderSet.Init();
             _DebugEnemy.Init();
 
+            // GameTask goal - make this line execute
+            var moveTo = new MoveTo(_DebugEnemy, SpaceUtil.WorldMap.Center,
+                _DebugEnemy.transform.position, TimeConstants.OneSecond);
+            _DebugEnemy.StartTask(moveTo);
+            //_DebugEnemy.StartTask(MoveTo.Create(SpaceUtil.ScreenMap.Center, TimeConstants.OneSecond));
+
             EnemyTimer.ActivateSelf();
         }
 
@@ -139,9 +151,8 @@ namespace Assets
                 enemy.Init(SpaceUtil.RandomEnemySpawnPosition(enemy));
             }
 
-
-
             _PoolManager.RunPoolFrames(deltaTime, deltaTime);
+            GameTaskLists.RunFrames(deltaTime);
             _DebugEnemy.RunFrame(deltaTime);
         }
 
@@ -194,6 +205,55 @@ namespace Assets
             var ret = _PoolManager.UIElementPool.Get<AtomTrail>();
             return ret;
         }
+
+        #region Add Game Tasks
+
+        public void StartTask(GameTask task, GameTaskType taskType)
+        {
+            switch (taskType)
+            {
+                case GameTaskType.Player:
+                    GameManager.Instance.AddPlayerTask(task);
+                    break;
+                case GameTaskType.Bullet:
+                    GameManager.Instance.AddBulletTask(task);
+                    break;
+                case GameTaskType.Enemy:
+                    GameManager.Instance.AddEnemyTask(task);
+                    break;
+                case GameTaskType.EnemyBullet:
+                    GameManager.Instance.AddEnemyBulletTask(task);
+                    break;
+                case GameTaskType.UIElement:
+                    GameManager.Instance.AddUIElementTask(task);
+                    break;
+                default:
+                    throw ExceptionUtil.ArgumentException(taskType);
+            }
+        }
+
+        public void AddPlayerTask(GameTask task)
+        {
+            GameTaskLists.PlayerGameTaskList.Add(task);
+        }
+        public void AddBulletTask(GameTask task)
+        {
+            GameTaskLists.BulletGameTaskList.Add(task);
+        }
+        public void AddEnemyTask(GameTask task)
+        {
+            GameTaskLists.EnemyGameTaskList.Add(task);
+        }
+        public void AddEnemyBulletTask(GameTask task)
+        {
+            GameTaskLists.EnemyBulletGameTaskList.Add(task);
+        }
+        public void AddUIElementTask(GameTask task)
+        {
+            GameTaskLists.UIElementGameTaskList.Add(task);
+        }
+
+        #endregion Add Game Tasks
 
         public void RecolorPlayerActivity(Color color)
         {
