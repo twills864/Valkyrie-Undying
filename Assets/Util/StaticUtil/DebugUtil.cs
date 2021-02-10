@@ -113,7 +113,7 @@ namespace Assets.Util
         {
             var _DebugEnemy = GameManager.Instance._DebugEnemy;
 
-            var gameTask = new VelocityForDuration(_DebugEnemy, new Vector2(5f, 5f), 1.5f);
+            var gameTask = new MoveSpeedForDuration(_DebugEnemy, new Vector2(5f, 5f), 1.5f);
 
             GameManager.Instance._DebugEnemy.StartTask(gameTask);
         }

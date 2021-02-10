@@ -1,5 +1,6 @@
 ﻿using Assets.Bullets.PlayerBullets;
 using Assets.Enemies;
+using Assets.GameTasks;
 using Assets.UI;
 using Assets.Util;
 using UnityEngine;
@@ -12,19 +13,22 @@ namespace Assets.Bullets.PlayerBullets
         [SerializeField]
         public float VelocityChangerDuration;
 
-        private LinearVelocityChanger VelocityChanger { get; set; }
+        //private LinearVelocityChanger VelocityChanger { get; set; }
+        private VelocityChange VelocityChange { get; set; }
         private Vector2 MostRecentTargetVelocity { get; set; }
+
 
         public AtomTrail Trail { get; set; }
 
         protected override void OnBouncingBulletInit()
         {
-            VelocityChanger = new LinearVelocityChanger(this);
+            //VelocityChanger = new LinearVelocityChanger(this);
+            VelocityChange = VelocityChange.Default(this, VelocityChangerDuration);
         }
 
         protected override void OnBouncingBulletActivate()
         {
-            VelocityChanger.Init(InitialVelocity);
+            VelocityChange.FinishSelf();
             MostRecentTargetVelocity = Vector2.zero;
 
             Trail = GameManager.Instance.GetAtomTrail();
@@ -37,7 +41,7 @@ namespace Assets.Bullets.PlayerBullets
 
         protected override void OnPlayerBulletFrameRun(float deltaTime)
         {
-            VelocityChanger.RunFrame(deltaTime);
+            VelocityChange.RunFrame(deltaTime);
             Trail.transform.position = transform.position;
 
             // Basic (and deliberately-flawed) homing system - apply velocity of most recent target
@@ -49,7 +53,7 @@ namespace Assets.Bullets.PlayerBullets
             MostRecentTargetVelocity = enemy.Velocity;
 
             var direction = RandomUtil.RandomDirectionVector(Speed);
-            VelocityChanger.Init(direction, -direction, VelocityChangerDuration);
+            VelocityChange.Init(direction, -direction);
         }
     }
 }

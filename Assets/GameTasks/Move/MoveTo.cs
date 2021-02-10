@@ -7,6 +7,7 @@ using UnityEngine;
 
 namespace Assets.GameTasks
 {
+    /// <inheritdoc/>
     public class MoveTo : FiniteMovementGameTask
     {
         private Vector2 Destination { get; set; }

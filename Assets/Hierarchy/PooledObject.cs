@@ -4,7 +4,7 @@
     /// Represents an object that can be stored inside of an Object Pool.
     /// </summary>
     /// <inheritdoc/>
-    public abstract class PooledObject : ManagedVelocityObject
+    public abstract class PooledObject : GameTaskRunner
     {
         /// <summary>
         /// An ID assigned to this object by its Object Pool when it's spawned.

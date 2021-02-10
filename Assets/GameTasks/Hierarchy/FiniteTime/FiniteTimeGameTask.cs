@@ -7,9 +7,14 @@ using Assets.Util;
 
 namespace Assets.GameTasks
 {
+    /// <inheritdoc/>
     public abstract class FiniteTimeGameTask : GameTask
     {
         private float _duration;
+
+        /// <summary>
+        /// The duration that this Task will run for.
+        /// </summary>
         public virtual float Duration
         {
             get => _duration;
@@ -33,6 +38,14 @@ namespace Assets.GameTasks
                 Timer.Increment(deltaTime);
                 OnFiniteTaskFrameRun(deltaTime);
             }
+        }
+
+        /// <summary>
+        /// Forces the completion of this Task by activating its Timer.
+        /// </summary>
+        public virtual void FinishSelf()
+        {
+            Timer.ActivateSelf();
         }
     }
 }

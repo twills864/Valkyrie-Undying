@@ -7,9 +7,9 @@ using UnityEngine;
 
 namespace Assets.GameTasks
 {
-    public class VelocityForDuration : FiniteMovementGameTask
+    public class MoveSpeedForDuration : FiniteMovementGameTask
     {
-        public VelocityForDuration(GameTaskRunner target, Vector2 velocity, float duration) : base(target, duration)
+        public MoveSpeedForDuration(GameTaskRunner target, Vector2 velocity, float duration) : base(target, duration)
         {
             Velocity = velocity;
         }

@@ -10,7 +10,7 @@ namespace Assets
     /// Useful for controlling delta times, among other things.
     /// </summary>
     /// <inheritdoc/>
-    public abstract class GameTaskRunner : FrameRunner
+    public abstract class GameTaskRunner : ManagedVelocityObject
     {
         public abstract GameTaskType TaskType { get; }
 

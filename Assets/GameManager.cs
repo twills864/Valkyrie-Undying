@@ -47,7 +47,7 @@ namespace Assets
 
         public int WeaponLevel { get; set; }
 
-        public int DefaultFireTypeIndex => 1; // FireStrategies.Count - 1;
+        public int DefaultFireTypeIndex => FireStrategies.Count - 1;
         private LoopingFrameTimer FireTimer;
         private PlayerFireStrategy CurrentFireStrategy => FireStrategies[FireStrategies.Index];
         private CircularSelector<PlayerFireStrategy> FireStrategies;
@@ -86,8 +86,7 @@ namespace Assets
             Player.GetComponent<SpriteRenderer>().color = PlayerColor;
             Player.Init();
 
-
-            GameTaskLists.SetDebugUi();
+            //GameTaskLists.SetDebugUi();
         }
         public void FirePlayerBullets(Bullet[] bullets)
         {
