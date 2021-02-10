@@ -47,7 +47,7 @@ namespace Assets
 
         public int WeaponLevel { get; set; }
 
-        public int DefaultFireTypeIndex => FireStrategies.Count - 1;
+        public int DefaultFireTypeIndex => 1; // FireStrategies.Count - 1;
         private LoopingFrameTimer FireTimer;
         private PlayerFireStrategy CurrentFireStrategy => FireStrategies[FireStrategies.Index];
         private CircularSelector<PlayerFireStrategy> FireStrategies;
@@ -111,12 +111,6 @@ namespace Assets
             _Destructor.Init();
             _ScreenEdgeColliderSet.Init();
             _DebugEnemy.Init();
-
-            // GameTask goal - make this line execute
-            var moveTo = new MoveTo(_DebugEnemy, SpaceUtil.WorldMap.Center,
-                _DebugEnemy.transform.position, TimeConstants.OneSecond);
-            _DebugEnemy.StartTask(moveTo);
-            //_DebugEnemy.StartTask(MoveTo.Create(SpaceUtil.ScreenMap.Center, TimeConstants.OneSecond));
 
             EnemyTimer.ActivateSelf();
         }

@@ -138,5 +138,5 @@ MonoBehaviour:
   BulletVelocityY: 10
   BulletOffsetX: 0.1
   BulletOffsetY: 0
-  BulletSpreadX: 2
+  BulletSpreadX: 3
   BulletSpreadY: 0
