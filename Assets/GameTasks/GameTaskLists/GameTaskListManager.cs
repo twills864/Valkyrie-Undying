@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Assets.Util;
 
 namespace Assets.GameTasks.GameTaskLists
 {
@@ -21,6 +22,39 @@ namespace Assets.GameTasks.GameTaskLists
             EnemyGameTaskList.RunFrames(deltaTime);
             EnemyBulletGameTaskList.RunFrames(deltaTime);
             UIElementGameTaskList.RunFrames(deltaTime);
+        }
+
+        private GameTaskList GetList(GameTaskType taskType)
+        {
+            GameTaskList ret;
+            switch (taskType)
+            {
+                case GameTaskType.Player:
+                    ret = PlayerGameTaskList;
+                    break;
+                case GameTaskType.Bullet:
+                    ret = BulletGameTaskList;
+                    break;
+                case GameTaskType.Enemy:
+                    ret = EnemyGameTaskList;
+                    break;
+                case GameTaskType.EnemyBullet:
+                    ret = EnemyBulletGameTaskList;
+                    break;
+                case GameTaskType.UIElement:
+                    ret = UIElementGameTaskList;
+                    break;
+                default:
+                    throw ExceptionUtil.ArgumentException(taskType);
+            }
+            return ret;
+        }
+
+
+        public void StartTask(GameTask task, GameTaskType taskType)
+        {
+            var list = GetList(taskType);
+            list.Add(task);
         }
 
         public void AddPlayerTask(GameTask task)
@@ -42,6 +76,24 @@ namespace Assets.GameTasks.GameTaskLists
         public void AddUIElementTask(GameTask task)
         {
             UIElementGameTaskList.Add(task);
+        }
+
+        public void GameTaskRunnerDeactivated(GameTaskRunner target)
+        {
+            var taskType = target.TaskType;
+            var list = GetList(taskType);
+
+            list.RemoveTasksRelatedToTarget(target);
+        }
+
+
+        public void SetDebugUi()
+        {
+            DebugUI.SetDebugLabel("PlayerGameTaskList", () => PlayerGameTaskList.Count);
+            DebugUI.SetDebugLabel("BulletGameTaskList", () => BulletGameTaskList.Count);
+            DebugUI.SetDebugLabel("EnemyGameTaskList", () => EnemyGameTaskList.Count);
+            DebugUI.SetDebugLabel("EnemyBulletGameTaskList", () => EnemyBulletGameTaskList.Count);
+            DebugUI.SetDebugLabel("UIElementGameTaskList", () => UIElementGameTaskList.Count);
         }
     }
 }

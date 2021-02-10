@@ -9,7 +9,7 @@ namespace Assets.UI
 {
     public abstract class UIElement : PooledObject
     {
-        protected override GameTaskType TaskType => GameTaskType.UIElement;
+        public override GameTaskType TaskType => GameTaskType.UIElement;
 
         protected virtual void OnUIElementInit() { }
         public sealed override void OnInit()

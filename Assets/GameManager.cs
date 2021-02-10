@@ -36,7 +36,7 @@ namespace Assets
         [SerializeField]
         private ScreenEdgeColliderSet _ScreenEdgeColliderSet;
         [SerializeField]
-        private Enemy _DebugEnemy;
+        public Enemy _DebugEnemy;
 
         [SerializeField]
         private PoolManager _PoolManager;
@@ -47,7 +47,7 @@ namespace Assets
 
         public int WeaponLevel { get; set; }
 
-        public int DefaultFireTypeIndex => FireStrategies.Count - 1;
+        public int DefaultFireTypeIndex => 1; // FireStrategies.Count - 1;
         private LoopingFrameTimer FireTimer;
         private PlayerFireStrategy CurrentFireStrategy => FireStrategies[FireStrategies.Index];
         private CircularSelector<PlayerFireStrategy> FireStrategies;
@@ -85,6 +85,9 @@ namespace Assets
             PlayerColor = InitPlayerColor();
             Player.GetComponent<SpriteRenderer>().color = PlayerColor;
             Player.Init();
+
+
+            GameTaskLists.SetDebugUi();
         }
         public void FirePlayerBullets(Bullet[] bullets)
         {
@@ -165,18 +168,7 @@ namespace Assets
             if (!skipDropDown)
                 DebugUi.DropdownFireType.value = FireStrategies.Index;
         }
-        public void DebugIncrementFireType()
-        {
-            SetFireType(FireStrategies.Index + 1);
-        }
-        public void DebugDecrementFireType()
-        {
-            SetFireType(FireStrategies.Index - 1);
-        }
 
-        private void OnGUI()
-        {
-        }
 
         private void SetFrameRate()
         {
@@ -189,6 +181,8 @@ namespace Assets
 #endif
         }
 
+        #region TryGetRandomEnemy
+
         public bool TryGetRandomEnemy(out Enemy enemy)
         {
             var ret = _PoolManager.EnemyPool.TryGetRandomObject(out enemy);
@@ -200,6 +194,8 @@ namespace Assets
             return ret;
         }
 
+        #endregion TryGetRandomEnemy
+
         public AtomTrail GetAtomTrail()
         {
             var ret = _PoolManager.UIElementPool.Get<AtomTrail>();
@@ -210,27 +206,14 @@ namespace Assets
 
         public void StartTask(GameTask task, GameTaskType taskType)
         {
-            switch (taskType)
-            {
-                case GameTaskType.Player:
-                    GameManager.Instance.AddPlayerTask(task);
-                    break;
-                case GameTaskType.Bullet:
-                    GameManager.Instance.AddBulletTask(task);
-                    break;
-                case GameTaskType.Enemy:
-                    GameManager.Instance.AddEnemyTask(task);
-                    break;
-                case GameTaskType.EnemyBullet:
-                    GameManager.Instance.AddEnemyBulletTask(task);
-                    break;
-                case GameTaskType.UIElement:
-                    GameManager.Instance.AddUIElementTask(task);
-                    break;
-                default:
-                    throw ExceptionUtil.ArgumentException(taskType);
-            }
+            GameTaskLists.StartTask(task, taskType);
         }
+
+        public void GameTaskRunnerDeactivated(GameTaskRunner target)
+        {
+            GameTaskLists.GameTaskRunnerDeactivated(target);
+        }
+
 
         public void AddPlayerTask(GameTask task)
         {
@@ -255,6 +238,8 @@ namespace Assets
 
         #endregion Add Game Tasks
 
+        #region Debug
+
         public void RecolorPlayerActivity(Color color)
         {
             PlayerColor = color;
@@ -262,6 +247,17 @@ namespace Assets
 
             _PoolManager.RecolorPlayerActivity(color);
         }
+
+        public void DebugIncrementFireType()
+        {
+            SetFireType(FireStrategies.Index + 1);
+        }
+        public void DebugDecrementFireType()
+        {
+            SetFireType(FireStrategies.Index - 1);
+        }
+
+        #endregion Debug
 
         /// <summary>
         /// Creates a Fleeting Text with a specified message at a specified position.

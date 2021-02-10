@@ -10,7 +10,7 @@ namespace Assets.Enemies
     public abstract class Enemy : PooledObject
     {
         public override string LogTagColor => "#FFB697";
-        protected override GameTaskType TaskType => GameTaskType.Enemy;
+        public override GameTaskType TaskType => GameTaskType.Enemy;
 
         public int PointValue { get; set; }
         public int CurrentHealth { get; set; }

@@ -8,7 +8,7 @@ namespace Assets.Bullets.EnemyBullets
     public abstract class EnemyBullet : Bullet
     {
         public override string LogTagColor => "#FFA197";
-        protected override GameTaskType TaskType => GameTaskType.EnemyBullet;
+        public override GameTaskType TaskType => GameTaskType.EnemyBullet;
 
         protected virtual void OnEnemyBulletInit() { }
         protected sealed override void OnBulletInit()

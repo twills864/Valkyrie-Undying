@@ -10,7 +10,7 @@ namespace Assets.Bullets.PlayerBullets
     public abstract class PlayerBullet : Bullet
     {
         public override string LogTagColor => "#B381FE";
-        protected override GameTaskType TaskType => GameTaskType.Bullet;
+        public override GameTaskType TaskType => GameTaskType.Bullet;
 
         [SerializeField]
         protected int BaseDamage;

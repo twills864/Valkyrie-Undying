@@ -11,12 +11,31 @@ namespace Assets.GameTasks.GameTaskLists
     {
         public void RunFrames(float deltaTime)
         {
-            for (int i = Count-1; i >= 0; i--)
+            for (int i = Count - 1; i >= 0; i--)
             {
                 var task = this[i];
 
+#if DEBUG
+                if(!task.Target.isActiveAndEnabled)
+                {
+                    task.Log("Disabled task is running in GameTaskList!");
+                    System.Diagnostics.Debugger.Break();
+                }
+#endif
+
                 task.RunFrame(deltaTime);
                 if (task.IsFinished)
+                    RemoveAt(i);
+            }
+        }
+
+        public void RemoveTasksRelatedToTarget(GameTaskRunner target)
+        {
+            for (int i = Count - 1; i >= 0; i--)
+            {
+                var task = this[i];
+
+                if (task.Target == target)
                     RemoveAt(i);
             }
         }

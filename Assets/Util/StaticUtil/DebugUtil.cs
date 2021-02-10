@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Assets.GameTasks;
 using UnityEngine;
 
 namespace Assets.Util
@@ -103,6 +104,19 @@ namespace Assets.Util
 
         }
 
+        private static void InputMouseBack(KeyCode keyCode)
+        {
+
+        }
+
+        private static void InputMouseForward(KeyCode keyCode)
+        {
+            var _DebugEnemy = GameManager.Instance._DebugEnemy;
+
+            var gameTask = new VelocityForDuration(_DebugEnemy, new Vector2(5f, 5f), 1.5f);
+
+            GameManager.Instance._DebugEnemy.StartTask(gameTask);
+        }
 
         #endregion Input Methods
 
@@ -138,7 +152,9 @@ namespace Assets.Util
             new KeyCodeAction(KeyCode.PageUp, InputPageUp),
             new KeyCodeAction(KeyCode.PageDown, InputPageDown),
             new KeyCodeAction(KeyCode.Return, InputEnter),
-            new KeyCodeAction(KeyCode.Space, InputSpace)
+            new KeyCodeAction(KeyCode.Space, InputSpace),
+            new KeyCodeAction(KeyCode.Mouse3, InputMouseBack),
+            new KeyCodeAction(KeyCode.Mouse4, InputMouseForward),
         };
 
         public static void HandleInput()

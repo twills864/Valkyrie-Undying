@@ -52,6 +52,7 @@
             if (gameObject.activeSelf)
             {
                 gameObject.SetActive(false);
+                ClearGameTasks();
                 OnDeactivate();
             }
         }

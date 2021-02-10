@@ -12,11 +12,16 @@ namespace Assets
     /// <inheritdoc/>
     public abstract class GameTaskRunner : FrameRunner
     {
-        protected abstract GameTaskType TaskType { get; }
+        public abstract GameTaskType TaskType { get; }
 
         public void StartTask(GameTask task)
         {
             GameManager.Instance.StartTask(task, TaskType);
+        }
+
+        protected void ClearGameTasks()
+        {
+            GameManager.Instance.GameTaskRunnerDeactivated(this);
         }
     }
 }

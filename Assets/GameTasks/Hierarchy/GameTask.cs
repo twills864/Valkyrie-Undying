@@ -4,31 +4,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Assets.Util;
+using LogUtilAssets;
 
 namespace Assets.GameTasks
 {
-    public abstract class GameTask
+    public abstract class GameTask : Loggable
     {
-        protected GameTaskRunner Target { get; }
+        public override string LogTagColor => "#FFFF00";
+
+        public GameTaskRunner Target { get; }
 
         public virtual bool IsFinished => Timer.Activated;
-        protected virtual FrameTimer Timer { get; set; }
+        protected virtual FrameTimerBase Timer { get; set; }
 
-        private float _duration;
-        public virtual float Duration
-        {
-            get => _duration;
-            set
-            {
-                _duration = value;
-                Timer = new FrameTimer(value);
-            }
-        }
 
-        public GameTask(GameTaskRunner target, float duration)
+        public GameTask(GameTaskRunner target)
         {
             Target = target;
-            Duration = duration;
         }
 
         public abstract void RunFrame(float deltaTime);
