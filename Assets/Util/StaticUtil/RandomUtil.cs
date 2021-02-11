@@ -338,22 +338,6 @@ namespace Assets.Util
         }
 
         /// <summary>
-        /// Swaps the elements within a given source IList&lt;<typeparamref name="T"/>&gt;
-        /// located at the given indices.
-        /// </summary>
-        /// <typeparam name="T">The type of the source IList&lt;<typeparamref name="T"/>&gt;</typeparam>.
-        /// <param name="source">The source IList&lt;<typeparamref name="T"/>&gt;.</param>
-        /// <param name="index1">The first index to swap.</param>
-        /// <param name="index2">The second index to swap.</param>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static void Swap<T>(IList<T> source, int index1, int index2)
-        {
-            T value = source[index1];
-            source[index1] = source[index2];
-            source[index2] = value;
-        }
-
-        /// <summary>
         /// Rearranges a given IList&lt;<typeparamref name="T"/>&gt; to a completely random order.
         /// Based on the Fisher-Yates shuffle algorithm.
         /// </summary>
@@ -367,7 +351,7 @@ namespace Assets.Util
             while (i > 1)
             {
                 int j = Int(i--);
-                Swap(source, i, j);
+                CodeUtil.Swap(source, i, j);
             }
         }
 

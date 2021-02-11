@@ -47,7 +47,7 @@ namespace Assets
 
         public int WeaponLevel { get; set; }
 
-        public int DefaultFireTypeIndex => 1; // FireStrategies.Count - 1;
+        public int DefaultFireTypeIndex => FireStrategies.Count - 1;
         private LoopingFrameTimer FireTimer;
         private PlayerFireStrategy CurrentFireStrategy => FireStrategies[FireStrategies.Index];
         private CircularSelector<PlayerFireStrategy> FireStrategies;
@@ -75,6 +75,7 @@ namespace Assets
                 new BounceStrategy(_PoolManager.BulletPool.GetPrefab<BounceBullet>()),
                 new AtomStrategy(_PoolManager.BulletPool.GetPrefab<AtomBullet>()),
                 new SpreadStrategy(_PoolManager.BulletPool.GetPrefab<SpreadBullet>()),
+                new FlakStrategy(_PoolManager.BulletPool.GetPrefab<FlakBullet>()),
             };
             FireTimer = CurrentFireStrategy.FireTimer;
 

@@ -55,3 +55,5 @@ MonoBehaviour:
     type: 3}
   SpreadPrefab: {fileID: 1656721678954545796, guid: 04020d0e1a9172f46962286367913876,
     type: 3}
+  FlakPrefab: {fileID: 4140722848682368475, guid: 4bec5945736431744bbd133f006d0c9e,
+    type: 3}

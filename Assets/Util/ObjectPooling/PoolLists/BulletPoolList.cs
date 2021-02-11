@@ -18,6 +18,8 @@ namespace Assets.Util.ObjectPooling
         private AtomBullet AtomPrefab;
         [SerializeField]
         private SpreadBullet SpreadPrefab;
+        [SerializeField]
+        private FlakBullet FlakPrefab;
 
         /// <summary>
         /// Accesses the object pool indexed by<typeparamref name="TGet"/>,
