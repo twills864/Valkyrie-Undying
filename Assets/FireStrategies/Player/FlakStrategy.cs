@@ -12,11 +12,11 @@ namespace Assets.FireStrategies.PlayerFireStrategies
     public class FlakStrategy : PlayerFireStrategy<FlakBullet>
     {
         private const int NumGuaranteedPellets = 1;
-        private const int NumAdditionalPelletLanes = 20;
+        private const int NumAdditionalPelletLanes = 14;
         private const int TotalPelletLanes = NumGuaranteedPellets + NumAdditionalPelletLanes;
 
         // Bullets fire in loose pyramid shape
-        const int RowsInPyramid = 6;
+        const int RowsInPyramid = 5;
 
         public override LoopingFrameTimer FireTimer { get; protected set; }
             = new LoopingFrameTimer(0.5f);
@@ -48,7 +48,7 @@ namespace Assets.FireStrategies.PlayerFireStrategies
         public override PlayerBullet[] GetBullets(int weaponLevel, Vector2 playerFirePos)
         {
 #if !FIREALL
-            int numAdditional = 2 * (1 + PlusOneIfMaxLevel(weaponLevel));
+            int numAdditional = 2 + PlusOneIfMaxLevel(weaponLevel);
             int numToGet = NumGuaranteedPellets + numAdditional;
 #else
             int numAdditional = TotalPelletLanes - NumGuaranteedPellets;

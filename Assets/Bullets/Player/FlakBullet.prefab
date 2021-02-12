@@ -134,9 +134,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SpawnId: 0
-  BaseDamage: 8
+  BaseDamage: 10
   BulletVelocityY: 10
   BulletOffsetX: 0.05
   BulletOffsetY: 0.05
-  BulletSpreadX: 1.3
+  BulletSpreadX: 1.5
   BulletSpreadY: 2.5
