@@ -9,6 +9,7 @@ using Assets.GameTasks.GameTaskLists;
 using Assets.Powerup;
 using Assets.ScreenEdgeColliders;
 using Assets.UI;
+using Assets.UI.PowerupMenu;
 using Assets.Util;
 using Assets.Util.ObjectPooling;
 using UnityEngine;
@@ -43,12 +44,6 @@ namespace Assets
         [SerializeField]
         private PoolManager _PoolManager;
 
-        [SerializeField]
-        private GameObject PowerupPanel;
-
-        [SerializeField]
-        private GameObject PowerupMenuPanel;
-
         #endregion Prefabs
 
         #region Player Weapons
@@ -69,6 +64,17 @@ namespace Assets
         public float PlayerFireDeltaTimeScale { get; set; } = 1f;
 
         #endregion Powerups
+
+        #region Powerup Menu
+
+        [SerializeField]
+        private PowerupMenu _PowerupMenu;
+        public void DebugTestPowerupMenu()
+        {
+            _PowerupMenu.AddTitlerow(RandomUtil.Int().ToString());
+        }
+
+        #endregion Powerup Menu
 
         private GameTaskListManager GameTaskLists = new GameTaskListManager();
 
