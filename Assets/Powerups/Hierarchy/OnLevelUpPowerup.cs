@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Assets.Powerup
+namespace Assets.Powerups
 {
-    public abstract class OnFirePowerup : Powerup
+    public abstract class OnLevelUpPowerup : Powerup
     {
-        public override void OnLevelUp() { }
     }
 }

@@ -6,7 +6,7 @@ using Assets.Enemies;
 using Assets.FireStrategies.PlayerFireStrategies;
 using Assets.GameTasks;
 using Assets.GameTasks.GameTaskLists;
-using Assets.Powerup;
+using Assets.Powerups;
 using Assets.ScreenEdgeColliders;
 using Assets.UI;
 using Assets.UI.PowerupMenu;
@@ -73,6 +73,21 @@ namespace Assets
         {
             _PowerupMenu.AddTitlerow(RandomUtil.Int().ToString());
         }
+
+        public void AddPowerupMenuTitleRow(string title)
+        {
+            _PowerupMenu.AddTitlerow(title);
+        }
+        public void AddPowerupMenuPowerupRow(Powerup powerup)
+        {
+            _PowerupMenu.AddPowerupRow(powerup);
+        }
+
+        public void SetPowerupMenuVisibility(bool visible)
+        {
+            _PowerupMenu.gameObject.SetActive(visible);
+        }
+
 
         #endregion Powerup Menu
 

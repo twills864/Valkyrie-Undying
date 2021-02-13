@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Assets.Util;
 
-namespace Assets.Powerup
+namespace Assets.Powerups
 {
     public interface IPowerupList
     {
@@ -23,13 +23,17 @@ namespace Assets.Powerup
 
         public void Init()
         {
+            GameManager.Instance.AddPowerupMenuTitleRow(GetType().Name);
+
             var types = ReflectionUtil.GetTypesSubclassableFrom<T>();
 
             foreach(var type in types)
             {
-                var newType = (T) ReflectionUtil.CreateNew(type);
-                newType.PowerupManagerIndex = PowerupManagerIndex;
-                this.Add(newType);
+                var newPowerup = (T) ReflectionUtil.CreateNew(type);
+                newPowerup.PowerupManagerIndex = PowerupManagerIndex;
+                this.Add(newPowerup);
+
+                GameManager.Instance.AddPowerupMenuPowerupRow(newPowerup);
             }
         }
     }

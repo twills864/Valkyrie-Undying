@@ -111,11 +111,17 @@ namespace Assets.Util
 
         private static void InputMouseForward(KeyCode keyCode)
         {
-            var _DebugEnemy = GameManager.Instance._DebugEnemy;
 
-            var gameTask = new MoveSpeedForDuration(_DebugEnemy, new Vector2(5f, 5f), 1.5f);
+        }
 
-            GameManager.Instance._DebugEnemy.StartTask(gameTask);
+        private static void InputKeypadPlus(KeyCode keyCode)
+        {
+            GameManager.SetPowerupMenuVisibility(true);
+        }
+
+        private static void InputKeypadMinus(KeyCode keyCode)
+        {
+            GameManager.SetPowerupMenuVisibility(false);
         }
 
         #endregion Input Methods
@@ -155,6 +161,8 @@ namespace Assets.Util
             new KeyCodeAction(KeyCode.Space, InputSpace),
             new KeyCodeAction(KeyCode.Mouse3, InputMouseBack),
             new KeyCodeAction(KeyCode.Mouse4, InputMouseForward),
+            new KeyCodeAction(KeyCode.KeypadPlus, InputKeypadPlus),
+            new KeyCodeAction(KeyCode.KeypadMinus, InputKeypadMinus),
         };
 
         public static void HandleInput()

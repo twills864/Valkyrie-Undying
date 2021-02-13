@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Assets.Powerups;
 using UnityEngine;
 
 namespace Assets.UI.PowerupMenu
@@ -24,6 +25,19 @@ namespace Assets.UI.PowerupMenu
             newTitle.Text = title;
 
             newTitle.transform.parent = PowerupPanelContent.transform;
+        }
+
+        public void AddPowerupRow(Powerup powerup)
+        {
+            var newRow = Instantiate(PowerupMenuPowerupRowPrefab);
+            newRow.Init(powerup);
+
+            newRow.transform.parent = PowerupPanelContent.transform;
+        }
+
+        public void OnMinimizeClick()
+        {
+            this.gameObject.SetActive(false);
         }
     }
 }

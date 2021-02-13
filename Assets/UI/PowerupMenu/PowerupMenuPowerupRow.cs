@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
+using Assets.Powerups;
 
 namespace Assets.UI.PowerupMenu
 {
@@ -22,6 +23,8 @@ namespace Assets.UI.PowerupMenu
         [SerializeField]
         private Button ButtonPlus;
 
+        public Powerup Powerup { get; set; }
+
         public string PowerupName
         {
             get => PowerupNameField.text;
@@ -36,7 +39,11 @@ namespace Assets.UI.PowerupMenu
                     ret = 0;
                 return ret;
             }
-            set => InputPowerLevel.text = value.ToString();
+            set
+            {
+                InputPowerLevel.text = value.ToString();
+                OnPowerLevelChanged(value);
+            }
         }
 
         public void IncrementPowerLevel()
@@ -46,6 +53,22 @@ namespace Assets.UI.PowerupMenu
         public void DecrementPowerLevel()
         {
             PowerLevel--;
+        }
+
+        private void OnPowerLevelChanged(int value)
+        {
+            Powerup.Level = value;
+        }
+
+        public void OnInputChanged()
+        {
+            OnPowerLevelChanged(PowerLevel);
+        }
+
+        public void Init(Powerup powerup)
+        {
+            Powerup = powerup;
+            PowerupName = powerup.GetType().Name;
         }
     }
 }

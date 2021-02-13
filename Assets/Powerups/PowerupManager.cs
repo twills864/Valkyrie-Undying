@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Assets.Util;
 
-namespace Assets.Powerup
+namespace Assets.Powerups
 {
     // Despite the name, more closely resembles PoolList than PoolManager
     // Or does it?
@@ -24,21 +24,23 @@ namespace Assets.Powerup
 
             UniqueIdGenerator ids = new UniqueIdGenerator(0);
 
+            void Init(IPowerupList list)
+            {
+                list.Init();
+                AllLists[list.PowerupManagerIndex] = list;
+            }
+
             OnFire = new OnFireList(ids);
-            OnFire.Init();
-            AllLists[OnFire.PowerupManagerIndex] = OnFire;
+            Init(OnFire);
 
             OnGetHit = new OnGetHitList(ids);
-            OnGetHit.Init();
-            AllLists[OnGetHit.PowerupManagerIndex] = OnGetHit;
+            Init(OnGetHit);
 
             OnHit = new OnHitList(ids);
-            OnHit.Init();
-            AllLists[OnHit.PowerupManagerIndex] = OnHit;
+            Init(OnHit);
 
             OnLevelUp = new OnLevelUpList(ids);
-            OnLevelUp.Init();
-            AllLists[OnLevelUp.PowerupManagerIndex] = OnLevelUp;
+            Init(OnLevelUp);
         }
 
         //public void LevelUp(Type type)

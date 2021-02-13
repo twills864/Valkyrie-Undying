@@ -19,6 +19,7 @@ namespace Assets.Util
 
         public InputField InputField;
         public Button Button;
+        public Button ButtonShowPowerupMenu;
         public Dropdown DropdownFireType;
         public Slider SliderFireLevel;
         public Text TextFireLevel;
@@ -40,6 +41,11 @@ namespace Assets.Util
 
             var dropdownFireTypePos = SpaceUtil.ScreenMap.Right + new Vector2(-DebugBorderOffset, 0);
             SpaceUtil.SetRightToPosition(DropdownFireType, dropdownFireTypePos);
+
+            const int showPowerupMenuButtonOffset = -50;
+            var showPowerupMenuButtonPos = SpaceUtil.ScreenMap.Right + new Vector2(-DebugBorderOffset, showPowerupMenuButtonOffset);
+            SpaceUtil.SetRightToPosition(ButtonShowPowerupMenu, showPowerupMenuButtonPos);
+
 
             var strategiesToAdd = fireStrategies.Select(x => x.GetType().Name).ToList();
             DropdownFireType.AddOptions(strategiesToAdd);
@@ -77,6 +83,11 @@ namespace Assets.Util
             GameManager.RecolorPlayerActivity(newRando);
 
             GameManager.Instance.DebugTestPowerupMenu();
+        }
+
+        public void ShowPowerupMenuButtonPressed(Button button)
+        {
+            GameManager.SetPowerupMenuVisibility(true);
         }
 
         public void DebugSliderFireLevelChanged(Slider slider)

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Assets.Powerup
+namespace Assets.Powerups
 {
-    public abstract class OnGetHitPowerup : Powerup
+    public abstract class OnHitPowerup : Powerup
     {
         public override void OnLevelUp() { }
     }
