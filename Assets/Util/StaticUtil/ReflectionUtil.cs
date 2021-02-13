@@ -84,5 +84,27 @@ namespace Assets.Util
             var ret = type.Assembly.GetTypes().Where(t => t.IsSubclassOf(type)).ToList();
             return ret;
         }
+
+        /// <summary>
+        /// Leverages the Activator class to create a new instance of the specified type.
+        /// </summary>
+        /// <typeparam name="T">The type of object to create.</typeparam>
+        /// <returns>The newly-created object.</returns>
+        public static T CreateNew<T>()
+        {
+            var ret = Activator.CreateInstance<T>();
+            return ret;
+        }
+
+        /// <summary>
+        /// Leverages the Activator class to create a new instance of the specified type.
+        /// </summary>
+        /// <param name="type">The type of object to create.</param>
+        /// <returns>The newly-created object.</returns>
+        public static object CreateNew(Type type)
+        {
+            var ret = Activator.CreateInstance(type);
+            return ret;
+        }
     }
 }

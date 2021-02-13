@@ -6,6 +6,7 @@ using Assets.Enemies;
 using Assets.FireStrategies.PlayerFireStrategies;
 using Assets.GameTasks;
 using Assets.GameTasks.GameTaskLists;
+using Assets.Powerup;
 using Assets.ScreenEdgeColliders;
 using Assets.UI;
 using Assets.Util;
@@ -27,6 +28,7 @@ namespace Assets
         private Camera _Camera;
 
         #region Prefabs
+
         [SerializeField]
         private BasicBullet _BasicBullet;
         [SerializeField]
@@ -41,6 +43,12 @@ namespace Assets
         [SerializeField]
         private PoolManager _PoolManager;
 
+        [SerializeField]
+        private GameObject PowerupPanel;
+
+        [SerializeField]
+        private GameObject PowerupMenuPanel;
+
         #endregion Prefabs
 
         #region Player Weapons
@@ -54,6 +62,14 @@ namespace Assets
 
         #endregion Player Weapons
 
+        #region Powerups
+
+        public PowerupManager _PowerupManager { get; set; }
+
+        public float PlayerFireDeltaTimeScale { get; set; } = 1f;
+
+        #endregion Powerups
+
         private GameTaskListManager GameTaskLists = new GameTaskListManager();
 
         private LoopingFrameTimer EnemyTimer = new LoopingFrameTimer(3.0f);
@@ -66,6 +82,9 @@ namespace Assets
         private void Start()
         {
             _PoolManager.Init();
+
+            _PowerupManager = new PowerupManager();
+            _PowerupManager.Init();
 
             FireStrategies = new CircularSelector<PlayerFireStrategy>
             {
@@ -137,7 +156,7 @@ namespace Assets
 
             float deltaTime = Time.deltaTime;
 
-            if (FireTimer.UpdateActivates(deltaTime))
+            if (FireTimer.UpdateActivates(deltaTime * PlayerFireDeltaTimeScale))
             {
                 var bullets = CurrentFireStrategy.GetBullets(WeaponLevel, Player.FirePosition());
                 FirePlayerBullets(bullets);
