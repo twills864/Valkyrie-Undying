@@ -22,6 +22,8 @@ namespace Assets.Util.ObjectPooling
         private SpreadBullet SpreadPrefab;
         [SerializeField]
         private FlakBullet FlakPrefab;
+        [SerializeField]
+        private TrampolineBullet TrampolinePrefab;
 
         #endregion Fired Bullets
 

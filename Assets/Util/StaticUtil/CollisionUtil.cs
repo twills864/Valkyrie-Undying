@@ -1,4 +1,5 @@
 ﻿using System.Runtime.CompilerServices;
+using Assets.ScreenEdgeColliders;
 using UnityEngine;
 
 namespace Assets.Util
@@ -32,6 +33,25 @@ namespace Assets.Util
         public static bool IsScreenEdge(Collider2D collision)
         {
             return collision.tag == TagScreenEdge;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsScreenEdge(Collider2D collision, out ScreenSide screenSide)
+        {
+            bool ret;
+            if(collision.tag == TagScreenEdge)
+            {
+                ret = true;
+
+                var collider = collision.GetComponent<ScreenEdgeCollider>();
+                screenSide = collider.ScreenSide;
+            }
+            else
+            {
+                ret = false;
+                screenSide = ScreenSide.Bottom;
+            }
+            return ret;
         }
     }
 

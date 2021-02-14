@@ -121,6 +121,7 @@ namespace Assets
                 new AtomStrategy(_PoolManager.BulletPool.GetPrefab<AtomBullet>()),
                 new SpreadStrategy(_PoolManager.BulletPool.GetPrefab<SpreadBullet>()),
                 new FlakStrategy(_PoolManager.BulletPool.GetPrefab<FlakBullet>()),
+                new TrampolineStrategy(_PoolManager.BulletPool.GetPrefab<TrampolineBullet>()),
             };
             FireTimer = CurrentFireStrategy.FireTimer;
 

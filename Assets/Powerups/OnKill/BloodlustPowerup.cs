@@ -15,11 +15,11 @@ namespace Assets.Powerups
     /// <inheritdoc/>
     public class BloodlustPowerup : OnKillPowerup
     {
-        private const float BaseDuration = 0.6f;
-        private const float DurationIncrease = 0.4f;
+        private const float BaseDuration = 0.3f;
+        private const float DurationIncrease = 0.3f;
 
-        private const float BaseSpeedScale = 1.1f;
-        private const float SpeedScaleIncrease = 0.2f;
+        private const float BaseSpeedScale = 1.2f;
+        private const float SpeedScaleIncrease = 0.1f;
 
         protected override LeveledValueCalculator InitialValueCalculator
             => new LeveledValueCalculator(BaseDuration, DurationIncrease);

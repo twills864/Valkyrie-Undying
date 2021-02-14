@@ -8,8 +8,12 @@ namespace Assets.ScreenEdgeColliders
     {
         private float ColliderWidth = 1.0f;
 
+        public ScreenSide ScreenSide { get; private set; }
+
         public void Init(ScreenSide side)
         {
+            ScreenSide = side;
+
             bool isWide;
             bool isNegativeOffset;
 
