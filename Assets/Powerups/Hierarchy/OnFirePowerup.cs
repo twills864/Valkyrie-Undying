@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Assets.Bullets;
+using Assets.Bullets.PlayerBullets;
 using UnityEngine;
 
 namespace Assets.Powerups
@@ -15,6 +16,6 @@ namespace Assets.Powerups
     public abstract class OnFirePowerup : Powerup
     {
         public override void OnLevelUp() { }
-        public abstract void OnFire(Vector2 position, Bullet[] bullets);
+        public abstract void OnFire(Vector2 position, PlayerBullet[] bullets);
     }
 }

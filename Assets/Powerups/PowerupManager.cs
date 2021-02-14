@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Assets.Bullets;
+using Assets.Bullets.PlayerBullets;
 using Assets.Enemies;
 using Assets.Util;
 using UnityEngine;
@@ -47,21 +48,21 @@ namespace Assets.Powerups
             Init(OnLevelUpList);
         }
 
-        public void OnFire(Vector2 firePosition, Bullet[] bullets)
+        public void OnFire(Vector2 firePosition, PlayerBullet[] bullets)
         {
-            foreach (var powerup in OnFireList)
+            foreach (var powerup in OnFireList.Where(x => x.IsActive))
                 powerup.OnFire(firePosition, bullets);
         }
 
-        public void OnHit(Enemy enemy)
+        public void OnHit(Enemy enemy, PlayerBullet bullet)
         {
-            foreach (var powerup in OnHitList)
-                powerup.OnHit(enemy);
+            foreach (var powerup in OnHitList.Where(x => x.IsActive))
+                powerup.OnHit(enemy, bullet);
         }
 
         public void OnGetHit()
         {
-            foreach (var powerup in OnGetHitList)
+            foreach (var powerup in OnGetHitList.Where(x => x.IsActive))
                 powerup.OnGetHit();
         }
     }

@@ -104,5 +104,30 @@ namespace Assets.Util
             ret *= velocity;
             return ret;
         }
+
+        /// <summary>
+        /// Returns a unit vector pointed at a given <paramref name="angle"/>.
+        /// </summary>
+        /// <param name="angle">The angle at which to point the vector.</param>
+        /// <returns>The unit vector at the given angle.</returns>
+        public static Vector2 VectorAtAngle(float angle)
+        {
+            var x = Mathf.Cos(angle);
+            var y = Mathf.Sin(angle);
+
+            var ret = new Vector2(x, y);
+            return ret;
+        }
+
+        /// <summary>
+        /// Returns a vector of a given length pointed at a given <paramref name="angle"/>.
+        /// </summary>
+        /// <param name="angle">The angle at which to point the vector.</param>
+        /// <returns>The vector at the given angle.</returns>
+        public static Vector2 VectorAtAngle(float angle, float length)
+        {
+            var ret = VectorAtAngle(angle) * length;
+            return ret;
+        }
     }
 }

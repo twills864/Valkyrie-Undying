@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Assets.Bullets.PlayerBullets;
 using Assets.Enemies;
 using Assets.Util;
 
@@ -22,11 +23,11 @@ namespace Assets.Powerups
 
         private float ShrapnelChance => ValueCalculator.Value;
 
-        public override void OnHit(Enemy enemy)
+        public override void OnHit(Enemy enemy, PlayerBullet bullet)
         {
             if(RandomUtil.Bool(ShrapnelChance))
             {
-                var shrapnelPos = enemy.RandomShrapnelPosition();
+                var shrapnelPos = enemy.ShrapnelPosition(bullet);
                 GameManager.Instance.CreateShrapnel(shrapnelPos);
             }
         }

@@ -90,7 +90,7 @@ namespace Assets.Enemies
                 KillEnemy();
 
             bullet.OnCollideWithEnemy(this);
-            GameManager.Instance.OnEnemyHit(this);
+            GameManager.Instance.OnEnemyHit(this, bullet);
         }
 
 
@@ -140,6 +140,19 @@ namespace Assets.Enemies
             return ret;
         }
 
+        public virtual Vector2 ShrapnelPosition(PlayerBullet bullet)
+        {
+            var collisionX = bullet.transform.position.x;
+            return ShrapnelPosition(collisionX);
+        }
+        public virtual Vector2 ShrapnelPosition(float collisionX)
+        {
+            var y = BoxMap.Top.y;
+
+            var ret = new Vector2(collisionX, y);
+            return ret;
+        }
+
         private EnemyHealthBar FindChildEnemyHealthBar()
         {
             var healthBarTransform = gameObject.transform.Find("EnemyHealthBar");
@@ -148,13 +161,13 @@ namespace Assets.Enemies
             return ret;
         }
 
-        private void Update()
-        {
-            const float redXTime = float.Epsilon;
-            DebugUtil.RedX(BoxMap.TopLeft, redXTime);
-            DebugUtil.RedX(BoxMap.TopRight, redXTime);
-            DebugUtil.RedX(BoxMap.BottomLeft, redXTime);
-            DebugUtil.RedX(BoxMap.BottomRight, redXTime);
-        }
+        //private void Update()
+        //{
+        //    const float redXTime = float.Epsilon;
+        //    DebugUtil.RedX(BoxMap.TopLeft, redXTime);
+        //    DebugUtil.RedX(BoxMap.TopRight, redXTime);
+        //    DebugUtil.RedX(BoxMap.BottomLeft, redXTime);
+        //    DebugUtil.RedX(BoxMap.BottomRight, redXTime);
+        //}
     }
 }

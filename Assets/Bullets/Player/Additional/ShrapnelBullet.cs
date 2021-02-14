@@ -15,6 +15,8 @@ namespace Assets.Bullets.PlayerBullets
         //    return base.CollidesWithEnemy(enemy);
         //}
 
+        protected override bool ShouldMarkSelfCollision => false;
+
         protected override void OnPlayerBulletInit()
         {
             Velocity = RandomUtil.RandomDirectionVectorTopQuarter(Speed);

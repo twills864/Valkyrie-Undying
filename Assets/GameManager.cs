@@ -50,7 +50,7 @@ namespace Assets
 
         public int WeaponLevel { get; set; }
 
-        public int DefaultFireTypeIndex => FireStrategies.Count - 1;
+        public int DefaultFireTypeIndex => 5; // FireStrategies.Count - 1;
         private LoopingFrameTimer FireTimer;
         private PlayerFireStrategy CurrentFireStrategy => FireStrategies[FireStrategies.Index];
         private CircularSelector<PlayerFireStrategy> FireStrategies;
@@ -233,9 +233,9 @@ namespace Assets
 
         #region OnEnemyHit
 
-        public void OnEnemyHit(Enemy enemy)
+        public void OnEnemyHit(Enemy enemy, PlayerBullet bullet)
         {
-            _PowerupManager.OnHit(enemy);
+            _PowerupManager.OnHit(enemy, bullet);
         }
 
         #endregion OnEnemyHit

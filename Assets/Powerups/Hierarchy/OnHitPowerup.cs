@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Assets.Bullets.PlayerBullets;
 using Assets.Enemies;
 
 namespace Assets.Powerups
@@ -14,6 +15,6 @@ namespace Assets.Powerups
     public abstract class OnHitPowerup : Powerup
     {
         public override void OnLevelUp() { }
-        public abstract void OnHit(Enemy enemy);
+        public abstract void OnHit(Enemy enemy, PlayerBullet bullet);
     }
 }

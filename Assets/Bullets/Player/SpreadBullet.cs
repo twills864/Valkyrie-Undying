@@ -9,12 +9,10 @@ namespace Assets.Bullets.PlayerBullets
         public float BulletVelocityY;
 
         [SerializeField]
-        public float BulletOffsetX;
+        public float FireRadius;
         [SerializeField]
-        public float BulletOffsetY;
+        public float AngleBetweenLanesInDegrees;
         [SerializeField]
-        public float BulletSpreadX;
-        [SerializeField]
-        public float BulletSpreadY;
+        public float DampX;
     }
 }
