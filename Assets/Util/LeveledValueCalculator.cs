@@ -24,9 +24,9 @@ namespace Assets.Util
         private float BaseValue;
         private float IncreasePerLevel;
 
-        public LeveledValueCalculator(float baseChance, float increasePerLevel)
+        public LeveledValueCalculator(float baseValue, float increasePerLevel)
         {
-            BaseValue = baseChance;
+            BaseValue = baseValue;
             IncreasePerLevel = increasePerLevel;
         }
     }

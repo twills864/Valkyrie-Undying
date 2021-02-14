@@ -83,6 +83,8 @@ namespace Assets.FireStrategies.PlayerFireStrategies
 
             Vector2 newVelocity = LanesVelocityMap[laneIndex];
             bullet.Velocity = newVelocity;
+
+            bullet.SetDamage(laneIndex == 0);
         }
 
         private void FireGuaranteedLanes(SpreadBullet[] ret, Vector2 playerFirePos)

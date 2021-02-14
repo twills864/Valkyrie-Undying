@@ -3,7 +3,6 @@
 namespace Assets.Util
 {
     /// <inheritdoc/>
-    [DebuggerDisplay("{DebuggerDisplay}")]
     public class FrameTimer : FrameTimerBase
     {
         public FrameTimer(float activationInterval)
@@ -25,15 +24,18 @@ namespace Assets.Util
             }
         }
 
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        protected virtual string DebuggerDisplay
+        public static FrameTimer Default()
         {
-            get
-            {
-                string active = Activated ? "Activated" : "Inactive";
-                string ret = $"({active}) {DebuggerDisplayBase}";
-                return ret;
-            }
+            var ret = new FrameTimer(1.0f);
+            ret.ActivateSelf();
+            return ret;
+        }
+
+        public override string ToString()
+        {
+            string active = Activated ? "Activated" : "Inactive";
+            string ret = $"({active}) {DebuggerDisplayBase}";
+            return ret;
         }
     }
 }

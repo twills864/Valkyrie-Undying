@@ -87,7 +87,7 @@ namespace Assets.Enemies
         protected virtual void CollideWithBullet(PlayerBullet bullet)
         {
             if (DamageKills(bullet.Damage))
-                KillEnemy();
+                KillEnemy(bullet);
 
             bullet.OnCollideWithEnemy(this);
             GameManager.Instance.OnEnemyHit(this, bullet);
@@ -95,9 +95,10 @@ namespace Assets.Enemies
 
 
         protected virtual void OnDeath() { }
-        protected void KillEnemy()
+        protected void KillEnemy(PlayerBullet bullet)
         {
             // Kill enemy
+            GameManager.Instance.OnEnemyKill(this, bullet);
             DeactivateSelf();
             CreateFleetingTextAtCenter(PointValue);
             OnDeath();

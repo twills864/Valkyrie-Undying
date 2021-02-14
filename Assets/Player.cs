@@ -10,9 +10,15 @@ namespace Assets
     {
         public static Player Instance { get; private set; }
 
-        Rigidbody2D Body => GetComponent<Rigidbody2D>();
-        Renderer Renderer => GetComponent<Renderer>();
-        LineRenderer LineRenderer => GetComponent<LineRenderer>();
+        public override string LogTagColor => "#60D3FF";
+
+        [SerializeField]
+        private GameObject BloodlustAuraObject;
+
+        private Rigidbody2D Body { get; set; }
+        private Renderer Renderer { get; set; }
+        private LineRenderer LineRenderer { get; set; }
+        private SpriteRenderer BloodlustAuraSprite { get; set; }
 
         public Vector2 Size => Renderer.bounds.size;
         private TrackedBoxMap BoxMap { get; set; }
@@ -21,14 +27,27 @@ namespace Assets
         private float MobileYOffset = 100;
         private static float MobileY;
 
-        public override string LogTagColor => "#60D3FF";
-
         private float MinX { get; set; }
         private float MaxX { get; set; }
+
+
+        #region Fire Speed
+
+        public float FireSpeedScale => BloodlustSpeedScale;
+        public float BloodlustSpeedScale { get; set; } = 1f;
+        private FrameTimer BloodlustTimer { get; set; }
+
+        #endregion Fire Speed
 
         private void Start()
         {
             BoxMap = new TrackedBoxMap(this);
+            BloodlustTimer = FrameTimer.Default();
+
+            Body = GetComponent<Rigidbody2D>();
+            Renderer = GetComponent<Renderer>();
+            BloodlustAuraSprite = BloodlustAuraObject.GetComponent<SpriteRenderer>();
+            LineRenderer = GetComponent<LineRenderer>();
         }
 
         void Update()
@@ -72,7 +91,22 @@ namespace Assets
 
         public override void RunFrame(float deltaTime)
         {
-            throw new System.NotImplementedException();
+            if (!BloodlustTimer.Activated && BloodlustTimer.UpdateActivates(deltaTime))
+                ResetBloodlust();
+        }
+
+        private void ResetBloodlust()
+        {
+            BloodlustSpeedScale = 1.0f;
+            BloodlustAuraObject.gameObject.SetActive(false);
+        }
+
+        public void SetBloodlust(float duration, float speedScale)
+        {
+            BloodlustTimer = new FrameTimer(duration);
+            BloodlustSpeedScale = speedScale;
+
+            BloodlustAuraObject.gameObject.SetActive(true);
         }
 
         /// <summary>

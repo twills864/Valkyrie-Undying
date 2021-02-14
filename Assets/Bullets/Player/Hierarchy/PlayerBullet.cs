@@ -59,7 +59,7 @@ namespace Assets.Bullets.PlayerBullets
         protected void MarkSelfCollision()
         {
             Log("Bullet self-collision!");
-            DebugUtil.RedX(transform.position);
+            DebugUtil.RedX(transform.position, 0.5f);
         }
     }
 }

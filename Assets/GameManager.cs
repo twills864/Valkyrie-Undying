@@ -50,7 +50,7 @@ namespace Assets
 
         public int WeaponLevel { get; set; }
 
-        public int DefaultFireTypeIndex => 5; // FireStrategies.Count - 1;
+        public int DefaultFireTypeIndex => FireStrategies.Count - 1;
         private LoopingFrameTimer FireTimer;
         private PlayerFireStrategy CurrentFireStrategy => FireStrategies[FireStrategies.Index];
         private CircularSelector<PlayerFireStrategy> FireStrategies;
@@ -192,7 +192,8 @@ namespace Assets
 
             float deltaTime = Time.deltaTime;
 
-            if (FireTimer.UpdateActivates(deltaTime * PlayerFireDeltaTimeScale))
+            Player.RunFrame(deltaTime);
+            if (FireTimer.UpdateActivates(deltaTime * PlayerFireDeltaTimeScale * Player.FireSpeedScale))
             {
                 var bullets = CurrentFireStrategy.GetBullets(WeaponLevel, Player.FirePosition());
                 FirePlayerBullets(bullets);
@@ -239,6 +240,21 @@ namespace Assets
         }
 
         #endregion OnEnemyHit
+
+        #region OnEnemyKill
+
+        public void OnEnemyKill(Enemy enemy, PlayerBullet bullet)
+        {
+            _PowerupManager.OnKill(enemy, bullet);
+        }
+
+        public void SetBloodlust(float duration, float speedScale)
+        {
+            Player.SetBloodlust(duration, speedScale);
+            FireTimer.ResetAndActivateSelf();
+        }
+
+        #endregion OnEnemyKill
 
         #region TryGetRandomEnemy
 

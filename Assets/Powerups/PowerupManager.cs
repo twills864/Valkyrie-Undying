@@ -18,6 +18,7 @@ namespace Assets.Powerups
     {
         private OnFireList OnFireList { get; set; }
         private OnHitList OnHitList { get; set; }
+        private OnKillList OnKillList { get; set; }
         private OnGetHitList OnGetHitList { get; set; }
         private OnLevelUpList OnLevelUpList { get; set; }
 
@@ -25,7 +26,7 @@ namespace Assets.Powerups
 
         public void Init()
         {
-            AllLists = new IPowerupList[4];
+            AllLists = new IPowerupList[5];
 
             UniqueIdGenerator ids = new UniqueIdGenerator(0);
 
@@ -40,6 +41,9 @@ namespace Assets.Powerups
 
             OnHitList = new OnHitList(ids);
             Init(OnHitList);
+
+            OnKillList = new OnKillList(ids);
+            Init(OnKillList);
 
             OnGetHitList = new OnGetHitList(ids);
             Init(OnGetHitList);
@@ -58,6 +62,12 @@ namespace Assets.Powerups
         {
             foreach (var powerup in OnHitList.Where(x => x.IsActive))
                 powerup.OnHit(enemy, bullet);
+        }
+
+        public void OnKill(Enemy enemy, PlayerBullet bullet)
+        {
+            foreach (var powerup in OnKillList.Where(x => x.IsActive))
+                powerup.OnKill(enemy, bullet);
         }
 
         public void OnGetHit()
