@@ -43,11 +43,6 @@ namespace Assets
         {
             BoxMap = new TrackedBoxMap(this);
             BloodlustTimer = FrameTimer.Default();
-
-            Body = GetComponent<Rigidbody2D>();
-            Renderer = GetComponent<Renderer>();
-            BloodlustAuraSprite = BloodlustAuraObject.GetComponent<SpriteRenderer>();
-            LineRenderer = GetComponent<LineRenderer>();
         }
 
         void Update()
@@ -61,6 +56,11 @@ namespace Assets
         public void Init()
         {
             Instance = this;
+
+            Body = GetComponent<Rigidbody2D>();
+            Renderer = GetComponent<Renderer>();
+            BloodlustAuraSprite = BloodlustAuraObject.GetComponent<SpriteRenderer>();
+            LineRenderer = GetComponent<LineRenderer>();
 
             var targetY = Camera.main.ScreenToWorldPoint(new Vector3(0, MobileYOffset));
             MobileY = targetY.y;
