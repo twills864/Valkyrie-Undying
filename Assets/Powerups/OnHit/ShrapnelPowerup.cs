@@ -8,12 +8,16 @@ using Assets.Util;
 
 namespace Assets.Powerups
 {
+    /// <summary>
+    /// Randomly spawns damaging shrapnel behind a hit enemy.
+    /// </summary>
+    /// <inheritdoc/>
     public class ShrapnelPowerup : OnHitPowerup
     {
         private const float ShrapnelChanceBase = 0.2f;
         private const float ShrapnelIncrease = 0.1f;
 
-        protected override LeveledValueCalculator DefaultValueCalculator
+        protected override LeveledValueCalculator InitialValueCalculator
             => new LeveledValueCalculator(ShrapnelChanceBase, ShrapnelIncrease);
 
         private float ShrapnelChance => ValueCalculator.Value;

@@ -19,11 +19,12 @@ namespace Assets.Powerups
         public PowerupList(int powerupManagerIndex)
         {
             PowerupManagerIndex = powerupManagerIndex;
+            PowerupListName = CalculatePowerupName();
         }
 
         public void Init()
         {
-            GameManager.Instance.AddPowerupMenuTitleRow(GetType().Name);
+            GameManager.Instance.AddPowerupMenuTitleRow(PowerupListName);
 
             var types = ReflectionUtil.GetTypesSubclassableFrom<T>();
 
@@ -35,6 +36,20 @@ namespace Assets.Powerups
 
                 GameManager.Instance.AddPowerupMenuPowerupRow(newPowerup);
             }
+        }
+
+        /// <summary>
+        /// The name used to represent this powerup list.
+        /// </summary>
+        public string PowerupListName { get; }
+
+        protected virtual string CalculatePowerupName()
+        {
+            string name = this.GetType().Name;
+            //name = name.Replace("Powerup", "");
+
+            string ret = StringUtil.AddSpacesBeforeCapitals(name);
+            return ret;
         }
     }
 }

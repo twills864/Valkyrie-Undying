@@ -81,8 +81,6 @@ namespace Assets.Util
         {
             Color newRando = DebugUtil.GetRandomPlayerColor();
             GameManager.RecolorPlayerActivity(newRando);
-
-            GameManager.Instance.DebugTestPowerupMenu();
         }
 
         public void ShowPowerupMenuButtonPressed(Button button)

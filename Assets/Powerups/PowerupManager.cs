@@ -3,19 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Assets.Bullets;
 using Assets.Enemies;
 using Assets.Util;
+using UnityEngine;
 
 namespace Assets.Powerups
 {
-    // Despite the name, more closely resembles PoolList than PoolManager
-    // Or does it?
+    /// <summary>
+    /// Manages each Powerup List contained within the main game scene.
+    /// </summary>
     public class PowerupManager
     {
-        private OnFireList OnFire { get; set; }
-        private OnGetHitList OnGetHit { get; set; }
-        private OnHitList OnHit { get; set; }
-        private OnLevelUpList OnLevelUp { get; set; }
+        private OnFireList OnFireList { get; set; }
+        private OnHitList OnHitList { get; set; }
+        private OnGetHitList OnGetHitList { get; set; }
+        private OnLevelUpList OnLevelUpList { get; set; }
 
         private IPowerupList[] AllLists { get; set; }
 
@@ -31,23 +34,35 @@ namespace Assets.Powerups
                 AllLists[list.PowerupManagerIndex] = list;
             }
 
-            OnFire = new OnFireList(ids);
-            Init(OnFire);
+            OnFireList = new OnFireList(ids);
+            Init(OnFireList);
 
-            OnGetHit = new OnGetHitList(ids);
-            Init(OnGetHit);
+            OnHitList = new OnHitList(ids);
+            Init(OnHitList);
 
-            OnHit = new OnHitList(ids);
-            Init(OnHit);
+            OnGetHitList = new OnGetHitList(ids);
+            Init(OnGetHitList);
 
-            OnLevelUp = new OnLevelUpList(ids);
-            Init(OnLevelUp);
+            OnLevelUpList = new OnLevelUpList(ids);
+            Init(OnLevelUpList);
         }
 
-        public void OnEnemyHit(Enemy enemy)
+        public void OnFire(Vector2 firePosition, Bullet[] bullets)
         {
-            foreach(var onHit in OnHit)
-                onHit.OnHit(enemy);
+            foreach (var powerup in OnFireList)
+                powerup.OnFire(firePosition, bullets);
+        }
+
+        public void OnHit(Enemy enemy)
+        {
+            foreach (var powerup in OnHitList)
+                powerup.OnHit(enemy);
+        }
+
+        public void OnGetHit()
+        {
+            foreach (var powerup in OnGetHitList)
+                powerup.OnGetHit();
         }
     }
 }

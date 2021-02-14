@@ -1,4 +1,7 @@
-﻿namespace Assets.Util
+﻿using System;
+using System.Text;
+
+namespace Assets.Util
 {
     public static class StringUtil
     {
@@ -43,6 +46,44 @@
         {
             string ret = source.Substring(0, endIndexExclusive);
             return ret;
+        }
+
+        /// <summary>
+        /// Adds a space before each capital letter after the first in a given input.
+        /// Based on a solution provided by StackOverflow user Binary Worrier.
+        /// https://stackoverflow.com/a/272929
+        /// </summary>
+        /// <param name="input">The string for which to add spaces.</param>
+        /// <param name="preserveAcronyms">Whether or not to preserve acronyms, such as "IDE."</param>
+        /// <returns>The input string with the requested spaces.</returns>
+        public static string AddSpacesBeforeCapitals(string input, bool preserveAcronyms = true)
+        {
+            if (String.IsNullOrWhiteSpace(input))
+                return String.Empty;
+
+            StringBuilder newText = new StringBuilder(input.Length * 2);
+            newText.Append(input[0]);
+
+            for (int i = 1; i < input.Length; i++)
+            {
+                if (Char.IsUpper(input[i]))
+                {
+                    bool PreviousLetterIsLowercase()
+                        => input[i - 1] != ' ' && !Char.IsUpper(input[i - 1]);
+
+                    // Acronym end is detected when the previous character is also uppercase,
+                    // and the next letter is not uppercase.
+                    bool AcronymEndDetected()
+                        => preserveAcronyms && Char.IsUpper(input[i - 1])
+                            && i < input.Length - 1 && !Char.IsUpper(input[i + 1]);
+
+                    if (PreviousLetterIsLowercase() || AcronymEndDetected())
+                        newText.Append(' ');
+                }
+                newText.Append(input[i]);
+            }
+
+            return newText.ToString();
         }
     }
 }

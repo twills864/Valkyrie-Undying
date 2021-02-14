@@ -68,7 +68,7 @@ namespace Assets.UI.PowerupMenu
         public void Init(Powerup powerup)
         {
             Powerup = powerup;
-            PowerupName = powerup.GetType().Name;
+            PowerupName = powerup.PowerupName;
         }
     }
 }

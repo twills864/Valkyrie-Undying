@@ -10,6 +10,7 @@ namespace Assets.Util
     {
         private MonoBehaviour Target { get; }
         private Renderer Renderer => Target.GetComponent<Renderer>();
+        private PolygonCollider2D PolygonCollider => Target.GetComponent<PolygonCollider2D>();
         private Vector2 Size => Renderer.bounds.size;
 
         public TrackedBoxMap(MonoBehaviour target)

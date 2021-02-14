@@ -148,13 +148,13 @@ namespace Assets.Enemies
             return ret;
         }
 
-        //private void Update()
-        //{
-        //    const float redXTime = float.Epsilon;
-        //    DebugUtil.RedX(BoxMap.TopLeft, redXTime);
-        //    DebugUtil.RedX(BoxMap.TopRight, redXTime);
-        //    DebugUtil.RedX(BoxMap.BottomLeft, redXTime);
-        //    DebugUtil.RedX(BoxMap.BottomRight, redXTime);
-        //}
+        private void Update()
+        {
+            const float redXTime = float.Epsilon;
+            DebugUtil.RedX(BoxMap.TopLeft, redXTime);
+            DebugUtil.RedX(BoxMap.TopRight, redXTime);
+            DebugUtil.RedX(BoxMap.BottomLeft, redXTime);
+            DebugUtil.RedX(BoxMap.BottomRight, redXTime);
+        }
     }
 }

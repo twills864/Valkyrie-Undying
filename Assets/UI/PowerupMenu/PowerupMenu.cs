@@ -19,7 +19,7 @@ namespace Assets.UI.PowerupMenu
         [SerializeField]
         private PowerupMenuPowerupRow PowerupMenuPowerupRowPrefab;
 
-        public void AddTitlerow(string title)
+        public void AddTitleRow(string title)
         {
             var newTitle = Instantiate(PowerupMenuTitleRowPrefab);
             newTitle.Text = title;

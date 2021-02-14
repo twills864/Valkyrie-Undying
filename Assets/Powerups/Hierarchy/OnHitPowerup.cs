@@ -7,6 +7,10 @@ using Assets.Enemies;
 
 namespace Assets.Powerups
 {
+    /// <summary>
+    /// Represents a powerup that will be applied when the player hits an enemy.
+    /// </summary>
+    /// <inheritdoc/>
     public abstract class OnHitPowerup : Powerup
     {
         public override void OnLevelUp() { }

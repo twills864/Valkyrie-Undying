@@ -7,18 +7,23 @@ using Assets.Util;
 
 namespace Assets.Powerups
 {
+    /// <summary>
+    /// Increases the rate at which the player fires their main cannon.
+    /// </summary>
+    /// <inheritdoc/>
     public class FireSpeedPowerup : OnLevelUpPowerup
     {
         private const float FireDeltaBase = 1.2f;
         private const float FireDeltaIncrease = 0.15f;
 
-        protected override LeveledValueCalculator DefaultValueCalculator
+        protected override LeveledValueCalculator InitialValueCalculator
             => new LeveledValueCalculator(FireDeltaBase, FireDeltaIncrease);
+
+        private float PlayerFireDeltaTimeScale => ValueCalculator.Value;
 
         public override void OnLevelUp()
         {
-            float playerFireDeltaTimeScale = ValueCalculator.Value;
-            GameManager.Instance.PlayerFireDeltaTimeScale = playerFireDeltaTimeScale;
+            GameManager.Instance.PlayerFireDeltaTimeScale = PlayerFireDeltaTimeScale;
         }
     }
 }

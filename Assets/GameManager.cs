@@ -61,7 +61,16 @@ namespace Assets
 
         public PowerupManager _PowerupManager { get; set; }
 
-        public float PlayerFireDeltaTimeScale { get; set; } = 1f;
+        private float _playerFireDeltaTimeScale = 1f;
+        public float PlayerFireDeltaTimeScale
+        {
+            get => _playerFireDeltaTimeScale;
+            set
+            {
+                _playerFireDeltaTimeScale = value;
+                CurrentFireStrategy.Reset();
+            }
+        }
 
         #endregion Powerups
 
@@ -69,14 +78,10 @@ namespace Assets
 
         [SerializeField]
         private PowerupMenu _PowerupMenu;
-        public void DebugTestPowerupMenu()
-        {
-            _PowerupMenu.AddTitlerow(RandomUtil.Int().ToString());
-        }
 
         public void AddPowerupMenuTitleRow(string title)
         {
-            _PowerupMenu.AddTitlerow(title);
+            _PowerupMenu.AddTitleRow(title);
         }
         public void AddPowerupMenuPowerupRow(Powerup powerup)
         {
@@ -230,7 +235,7 @@ namespace Assets
 
         public void OnEnemyHit(Enemy enemy)
         {
-            _PowerupManager.OnEnemyHit(enemy);
+            _PowerupManager.OnHit(enemy);
         }
 
         #endregion OnEnemyHit
