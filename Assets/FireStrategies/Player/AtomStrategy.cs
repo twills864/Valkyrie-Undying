@@ -14,7 +14,7 @@ namespace Assets.FireStrategies.PlayerFireStrategies
         public override LoopingFrameTimer FireTimer { get; protected set; }
             = new LoopingFrameTimer(0.4f);
 
-        public AtomStrategy(AtomBullet bullet)
+        public AtomStrategy(AtomBullet bullet) : base(bullet)
         {
             BulletSpeed = bullet.Speed;
             InitialBulletVelocity = new Vector2(0, BulletSpeed);

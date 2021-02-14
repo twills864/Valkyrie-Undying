@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Assets.Enemies;
 using Assets.Util;
 
 namespace Assets.Powerups
@@ -11,12 +12,12 @@ namespace Assets.Powerups
     // Or does it?
     public class PowerupManager
     {
-        public OnFireList OnFire { get; set; }
-        public OnGetHitList OnGetHit { get; set; }
-        public OnHitList OnHit { get; set; }
-        public OnLevelUpList OnLevelUp { get; set; }
+        private OnFireList OnFire { get; set; }
+        private OnGetHitList OnGetHit { get; set; }
+        private OnHitList OnHit { get; set; }
+        private OnLevelUpList OnLevelUp { get; set; }
 
-        public IPowerupList[] AllLists { get; set; }
+        private IPowerupList[] AllLists { get; set; }
 
         public void Init()
         {
@@ -43,9 +44,10 @@ namespace Assets.Powerups
             Init(OnLevelUp);
         }
 
-        //public void LevelUp(Type type)
-        //{
-        //    type.get
-        //}
+        public void OnEnemyHit(Enemy enemy)
+        {
+            foreach(var onHit in OnHit)
+                onHit.OnHit(enemy);
+        }
     }
 }

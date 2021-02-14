@@ -20,7 +20,7 @@ namespace Assets.FireStrategies.PlayerFireStrategies
         private float BulletSpreadX;
         private float BulletSpreadY;
 
-        public BurstStrategy(BurstBullet bullet)
+        public BurstStrategy(BurstBullet bullet) : base(bullet)
         {
             BulletVelocityY = bullet.BulletVelocityY;
             BulletSpreadX = bullet.BulletSpreadX;

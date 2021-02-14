@@ -31,7 +31,7 @@ namespace Assets.FireStrategies.PlayerFireStrategies
         private float BulletSpreadX;
         private float BulletSpreadY;
 
-        public ShotgunStrategy(ShotgunBullet bullet)
+        public ShotgunStrategy(ShotgunBullet bullet) : base(bullet)
         {
             BulletVelocityY = bullet.BulletVelocityY;
             BulletSize = bullet.GetComponent<Renderer>().bounds.size;

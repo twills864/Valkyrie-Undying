@@ -44,6 +44,11 @@ namespace Assets.Bullets.PlayerBullets
             OnPlayerBulletFrameRun(deltaTime);
         }
 
+        public virtual bool CollidesWithEnemy(Enemy enemy)
+        {
+            return true;
+        }
+
         /// <summary>
         /// Debugging method that visualizes the location of this PlayerBullet
         /// colliding with another PlayerBullet.

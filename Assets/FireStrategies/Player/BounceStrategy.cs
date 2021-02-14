@@ -13,7 +13,7 @@ namespace Assets.FireStrategies.PlayerFireStrategies
         private float BulletSpeed { get; set; }
         private Vector2 InitialBulletVelocity { get; set; }
 
-        public BounceStrategy(BounceBullet bullet)
+        public BounceStrategy(BounceBullet bullet) : base(bullet)
         {
             BulletSpeed = bullet.Speed;
             InitialBulletVelocity = new Vector2(0, BulletSpeed);

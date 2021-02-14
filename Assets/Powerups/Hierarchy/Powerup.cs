@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Assets.Util;
 
 namespace Assets.Powerups
 {
@@ -15,6 +16,7 @@ namespace Assets.Powerups
             set
             {
                 _level = value;
+                ValueCalculator.Level = value;
                 OnLevelUp();
             }
         }
@@ -23,5 +25,15 @@ namespace Assets.Powerups
         public int PowerupManagerIndex { get; set; }
 
         public abstract void OnLevelUp();
+
+        protected abstract LeveledValueCalculator DefaultValueCalculator { get; }
+        protected LeveledValueCalculator ValueCalculator { get; set; }
+
+        public Powerup()
+        {
+            ValueCalculator = DefaultValueCalculator;
+        }
+
+        private float CalculatedValue => ValueCalculator.Value;
     }
 }

@@ -6,6 +6,8 @@ namespace Assets.Util.ObjectPooling
     /// <inheritdoc/>
     public class BulletPoolList : PoolList<PlayerBullet>
     {
+        #region Fired Bullets
+
         [SerializeField]
         private BasicBullet BasicPrefab;
         [SerializeField]
@@ -20,6 +22,15 @@ namespace Assets.Util.ObjectPooling
         private SpreadBullet SpreadPrefab;
         [SerializeField]
         private FlakBullet FlakPrefab;
+
+        #endregion Fired Bullets
+
+        #region Additional Bullets
+
+        [SerializeField]
+        private ShrapnelBullet ShrapnelPrefab;
+
+        #endregion Additional Bullets
 
         /// <summary>
         /// Accesses the object pool indexed by<typeparamref name="TGet"/>,

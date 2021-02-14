@@ -130,15 +130,6 @@ namespace Assets
 
             //GameTaskLists.SetDebugUi();
         }
-        public void FirePlayerBullets(Bullet[] bullets)
-        {
-            foreach (var bullet in bullets)
-                FirePlayerBullet(bullet);
-        }
-        public void FirePlayerBullet(Bullet bullet)
-        {
-            // Does nothing yet; Will add OnFire() powerup functionality later
-        }
 
         private void Init()
         {
@@ -155,6 +146,25 @@ namespace Assets
 
             EnemyTimer.ActivateSelf();
         }
+
+        public void FirePlayerBullets(Bullet[] bullets)
+        {
+            foreach (var bullet in bullets)
+                FirePlayerBullet(bullet);
+        }
+        public void FirePlayerBullet(Bullet bullet)
+        {
+            // Does nothing yet; Will add OnFire() powerup functionality later
+        }
+
+        public void CreateShrapnel(Vector2 position)
+        {
+            var maxY = _Destructor.SizeHalf.y;
+
+            if (position.y < maxY)
+                _PoolManager.BulletPool.Get<ShrapnelBullet>(position);
+        }
+
 
         private Color DefaultPlayerColor => new Color(96f / 255f, 211f / 255f, 255f / 255f);
         private Color InitPlayerColor()
@@ -215,6 +225,15 @@ namespace Assets
             Application.targetFrameRate = 60;
 #endif
         }
+
+        #region OnEnemyHit
+
+        public void OnEnemyHit(Enemy enemy)
+        {
+            _PowerupManager.OnEnemyHit(enemy);
+        }
+
+        #endregion OnEnemyHit
 
         #region TryGetRandomEnemy
 

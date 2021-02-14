@@ -90,6 +90,7 @@ namespace Assets.Enemies
                 KillEnemy();
 
             bullet.OnCollideWithEnemy(this);
+            GameManager.Instance.OnEnemyHit(this);
         }
 
 
@@ -107,7 +108,8 @@ namespace Assets.Enemies
             if (CollisionUtil.IsPlayerBullet(collision))
             {
                 PlayerBullet bullet = collision.GetComponent<PlayerBullet>();
-                CollideWithBullet(bullet);
+                if(bullet.CollidesWithEnemy(this))
+                    CollideWithBullet(bullet);
             }
             else if (CollisionUtil.IsPlayer(collision))
             {
@@ -128,6 +130,16 @@ namespace Assets.Enemies
             DeactivateSelf();
         }
 
+        public virtual Vector2 RandomShrapnelPosition()
+        {
+            var topLeft = BoxMap.TopLeft;
+            var maxX = BoxMap.Right.x;
+            var x = RandomUtil.Float(topLeft.x, maxX);
+
+            var ret = new Vector2(x, topLeft.y);
+            return ret;
+        }
+
         private EnemyHealthBar FindChildEnemyHealthBar()
         {
             var healthBarTransform = gameObject.transform.Find("EnemyHealthBar");
@@ -135,5 +147,14 @@ namespace Assets.Enemies
             var ret = gObject.GetComponent<EnemyHealthBar>();
             return ret;
         }
+
+        //private void Update()
+        //{
+        //    const float redXTime = float.Epsilon;
+        //    DebugUtil.RedX(BoxMap.TopLeft, redXTime);
+        //    DebugUtil.RedX(BoxMap.TopRight, redXTime);
+        //    DebugUtil.RedX(BoxMap.BottomLeft, redXTime);
+        //    DebugUtil.RedX(BoxMap.BottomRight, redXTime);
+        //}
     }
 }

@@ -57,3 +57,5 @@ MonoBehaviour:
     type: 3}
   FlakPrefab: {fileID: 4140722848682368475, guid: 4bec5945736431744bbd133f006d0c9e,
     type: 3}
+  ShrapnelPrefab: {fileID: 1200275585357827002, guid: ef8f77b6b7123de4d93928b314e808ad,
+    type: 3}

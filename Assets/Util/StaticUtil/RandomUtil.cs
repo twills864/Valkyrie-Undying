@@ -84,7 +84,7 @@ namespace Assets.Util
         /// </summary>
         /// <returns>A random float [<paramref name="minInclusive"/>,
         /// <paramref name="maxExclusive"/>).</returns>
-        public static float Float(double minInclusive, double maxExclusive)
+        public static float Float(float minInclusive, float maxExclusive)
         {
             return (float)Double(minInclusive, maxExclusive);
         }
@@ -259,7 +259,7 @@ namespace Assets.Util
         /// <returns>The random-direction unit vector.</returns>
         public static Vector2 RandomDirectionVector()
         {
-            const float VectorMax = 10000;
+            const float VectorMax = 1;
             const float VectorHalf = VectorMax * 0.5f;
 
             float x = Float(VectorMax) - VectorHalf;
@@ -267,6 +267,34 @@ namespace Assets.Util
 
             Vector2 ret = MathUtil.DefaultVectorIfZero(new Vector2(x, y));
             ret.Normalize();
+
+            return ret;
+        }
+
+        /// <summary>
+        /// Returns a unit vector in a pseudo-random direction
+        /// between diagonal-top-left and diagonal-top-right
+        /// </summary>
+        /// <returns>The random-direction unit vector.</returns>
+        public static Vector2 RandomDirectionVectorTopQuarter()
+        {
+            float y = 1f;
+            float x = Float(-y, y);
+
+            Vector2 ret = new Vector2(x, y);
+            ret.Normalize();
+            return ret;
+        }
+
+        /// <summary>
+        /// Returns a vector of a specified <paramref name="length"/> in a pseudo-random direction
+        /// between diagonal-top-left and diagonal-top-right
+        /// </summary>
+        /// <returns>The random-direction unit vector.</returns>
+        public static Vector2 RandomDirectionVectorTopQuarter(float length)
+        {
+            Vector2 ret = RandomDirectionVectorTopQuarter();
+            ret *= length;
 
             return ret;
         }

@@ -185,7 +185,7 @@ namespace Assets.Util
         /// Draws a red X for a brief time at the specified position.
         /// </summary>
         /// <param name="position">The position to draw the X.</param>
-        public static void RedX(Vector2 position)
+        public static void RedX(Vector2 position, float rayTime = 1.5f)
         {
             const float XRadius = 0.3f;
 
@@ -194,9 +194,8 @@ namespace Assets.Util
             Vector2 bottomRight = position + new Vector2(XRadius, -XRadius);
             Vector2 bottomLeft = position + new Vector2(-XRadius, -XRadius);
 
-            const float RayTime = 1.5f;
-            Debug.DrawLine(topLeft, bottomRight, ColorRed, RayTime);
-            Debug.DrawLine(bottomLeft, topRight, ColorRed, RayTime);
+            Debug.DrawLine(topLeft, bottomRight, ColorRed, rayTime);
+            Debug.DrawLine(bottomLeft, topRight, ColorRed, rayTime);
         }
 
         /// <summary>

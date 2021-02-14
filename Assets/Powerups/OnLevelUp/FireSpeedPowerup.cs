@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Assets.Util;
 
 namespace Assets.Powerups
 {
@@ -11,12 +12,13 @@ namespace Assets.Powerups
         private const float FireDeltaBase = 1.2f;
         private const float FireDeltaIncrease = 0.15f;
 
-        private float PlayerFireDeltaTimeScale { get; set; }
+        protected override LeveledValueCalculator DefaultValueCalculator
+            => new LeveledValueCalculator(FireDeltaBase, FireDeltaIncrease);
 
         public override void OnLevelUp()
         {
-            PlayerFireDeltaTimeScale = FireDeltaBase + (FireDeltaIncrease * Level);
-            GameManager.Instance.PlayerFireDeltaTimeScale = PlayerFireDeltaTimeScale;
+            float playerFireDeltaTimeScale = ValueCalculator.Value;
+            GameManager.Instance.PlayerFireDeltaTimeScale = playerFireDeltaTimeScale;
         }
     }
 }
