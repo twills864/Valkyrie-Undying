@@ -45,7 +45,7 @@ namespace Assets.GameTasks.GameTaskLists
                     ret = UIElementGameTaskList;
                     break;
                 default:
-                    throw ExceptionUtil.ArgumentException(taskType);
+                    throw ExceptionUtil.ArgumentException(() => taskType);
             }
             return ret;
         }

@@ -23,5 +23,14 @@ namespace Assets.GameTasks
 
             Velocity = TotalPositionDifference / Duration;
         }
+
+        public MoveTo(GameTaskRunner target, Vector2 to, float duration) : base(target, duration)
+        {
+            Destination = to;
+            StartPosition = target.transform.position;
+            TotalPositionDifference = to - StartPosition;
+
+            Velocity = TotalPositionDifference / Duration;
+        }
     }
 }

@@ -106,12 +106,18 @@ namespace Assets.Util
 
         private static void InputMouseBack(KeyCode keyCode)
         {
+            var moveTo = new MoveTo(GameManager._DebugEnemy, SpaceUtil.WorldMap.Center, 1f);
+            var ease = new EaseIn(moveTo);
 
+            GameManager._DebugEnemy.StartTask(ease);
         }
 
         private static void InputMouseForward(KeyCode keyCode)
         {
+            var moveTo = new MoveTo(GameManager._DebugEnemy, SpaceUtil.WorldMap.Center, 1f);
+            var ease = new EaseOut(moveTo);
 
+            GameManager._DebugEnemy.StartTask(ease);
         }
 
         private static void InputKeypadPlus(KeyCode keyCode)

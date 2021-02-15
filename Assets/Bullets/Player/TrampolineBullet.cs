@@ -49,20 +49,7 @@ namespace Assets.Bullets.PlayerBullets
         {
             if (CollisionUtil.IsScreenEdge(collision, out ScreenSide screenSide))
             {
-                switch(screenSide)
-                {
-                    case ScreenSide.Left:
-                    case ScreenSide.Right:
-                        ReverseVelocityX();
-                        break;
-                    case ScreenSide.Top:
-                    case ScreenSide.Bottom:
-                        ReverseVelocityY();
-                        break;
-                    default:
-                        throw ExceptionUtil.ArgumentException(screenSide);
-                }
-                BounceOffScreenEdge();
+                BounceOffScreenEdge(screenSide);
             }
             else if(CollisionUtil.IsPlayer(collision))
             {
@@ -70,16 +57,21 @@ namespace Assets.Bullets.PlayerBullets
             }
         }
 
-        private void BounceOffScreenEdge()
+        private void BounceOffScreenEdge(ScreenSide screenSide)
         {
-            //ApplyBounceDebuff();
-
-            ReverseVelocityX();
-
-            //if (GameManager.Instance.TryGetRandomEnemy(out Enemy newTarget))
-            //    SetTarget(newTarget);
-            //else
-            //    SetTargetToCenter();
+            switch (screenSide)
+            {
+                case ScreenSide.Left:
+                case ScreenSide.Right:
+                    ReverseVelocityX();
+                    break;
+                case ScreenSide.Top:
+                case ScreenSide.Bottom:
+                    ReverseVelocityY();
+                    break;
+                default:
+                    throw ExceptionUtil.ArgumentException(() => screenSide);
+            }
         }
     }
 }

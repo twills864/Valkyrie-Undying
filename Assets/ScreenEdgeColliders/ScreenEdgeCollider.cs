@@ -39,7 +39,7 @@ namespace Assets.ScreenEdgeColliders
                     isNegativeOffset = true;
                     break;
                 default:
-                    throw new ArgumentException($"Unknown ScreenSide {side}", nameof(side));
+                    throw ExceptionUtil.ArgumentException(() => side);
             }
 
             float negativePositionMultiplier = isNegativeOffset ? -1f : 1f;
