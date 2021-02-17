@@ -8,18 +8,20 @@ namespace Assets.Util
         /// <summary>
         /// A BoxMap that represents the screen measured in pixels.
         /// </summary>
-        public static BoxMap ScreenMap { get; set; }
+        public static BoxMap ScreenMap { get; private set; }
 
         /// <summary>
         /// A BoxMap that represents the screen measured in world space.
         /// </summary>
-        public static BoxMap WorldMap { get; set; }
+        public static BoxMap WorldMap { get; private set; }
 
         /// <summary>
         /// Represents the size of the WorldMap.
         /// Used to resize elements to match the size of the current world.
         /// </summary>
-        public static Vector2 WorldMapSize { get; set; }
+        public static Vector2 WorldMapSize { get; private set; }
+
+        public static float InverseWorldMapHeight { get; private set; }
 
         public static void Init()
         {
@@ -34,6 +36,8 @@ namespace Assets.Util
             WorldMapSize = mappedScreen - mappedZero;
 
             WorldMap = new BoxMap(mappedZero, WorldMapSize);
+
+            InverseWorldMapHeight = 1f / WorldMapSize.y;
         }
 
         /// <summary>
@@ -156,7 +160,28 @@ namespace Assets.Util
             maxX = WorldMap.Right.x - width;
         }
 
+        /// <summary>
+        /// Returns the ratio of
+        /// </summary>
+        /// <param name="yPosition"></param>
+        /// <returns></returns>
+        public static float RatioOfScreenHeight(float yPosition)
+        {
+            float height = yPosition + (WorldMapSize.y * 0.5f);
+            float ratio = height * InverseWorldMapHeight;
+            return ratio;
+        }
 
+        /// <summary>
+        /// Returns the distance from a specified Y position to the top of the world space.
+        /// </summary>
+        /// <param name="yPosition">The Y position to find the distance from.</param>
+        /// <returns>The distance to the top of the world.</returns>
+        public static float WorldDistanceToTop(float yPosition)
+        {
+            float height = WorldMap.Top.y - yPosition;
+            return height;
+        }
 
 
 

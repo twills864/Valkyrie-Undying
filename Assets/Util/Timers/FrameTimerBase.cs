@@ -7,6 +7,7 @@ namespace Assets.Util
         public float Elapsed { get; protected set; }
         public float ActivationInterval { get; protected set; }
         public bool Activated { get; protected set; }
+        public float OverflowDeltaTime { get; protected set; }
 
         public float TimeUntilActivation => ActivationInterval - Elapsed;
         public float RatioComplete => Elapsed / ActivationInterval;
@@ -17,6 +18,13 @@ namespace Assets.Util
         public bool UpdateActivates(float deltaTime)
         {
             Increment(deltaTime);
+            return Activated;
+        }
+
+        public bool UpdateActivates(float deltaTime, out float overflowDeltaTime)
+        {
+            Increment(deltaTime);
+            overflowDeltaTime = OverflowDeltaTime;
             return Activated;
         }
 

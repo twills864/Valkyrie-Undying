@@ -22,7 +22,7 @@ namespace Assets.FireStrategies.PlayerFireStrategies
         public override PlayerBullet[] GetBullets(int weaponLevel, Vector2 playerFirePos)
         {
             PlayerBullet[] ret = GetBullets(weaponLevel, playerFirePos, InitialBulletVelocity,
-                x => x.BouncesLeft = PlusOneIfMaxLevel(weaponLevel) + 1);
+                x => x.OnSpawn(weaponLevel, playerFirePos));
             return ret;
         }
     }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Assets.GameTasks
 {
     /// <summary>
-    /// Modifies a time scale using the function y = 1 - (1-x)^2.
+    /// Modifies a time scale using the function y = x(2-x)
     /// Acts as a philosophical reversal of the EaseOut time scale.
     /// </summary>
     public class EaseIn : TimeModifyingGameTask
@@ -18,10 +18,7 @@ namespace Assets.GameTasks
 
         protected override float ModifyCompletionRatio(float currentRatioComplete)
         {
-            float x = 1 - currentRatioComplete;
-            float squared = x * x;
-
-            float ret = 1-squared;
+            float ret = currentRatioComplete * (2 - currentRatioComplete);
             return ret;
         }
     }

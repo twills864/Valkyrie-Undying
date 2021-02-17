@@ -21,6 +21,7 @@ namespace Assets.GameTasks
             InnerTask = innerTask;
 
 #if DEBUG
+            // TODO: Proper unit testing
             Debug.Assert(ModifyCompletionRatio(0) == 0);
             Debug.Assert(ModifyCompletionRatio(1) == 1);
 #endif

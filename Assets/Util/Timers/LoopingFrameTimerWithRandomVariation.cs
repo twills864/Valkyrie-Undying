@@ -22,11 +22,13 @@ namespace Assets.Util
             if (Elapsed < ActivationInterval)
             {
                 Activated = false;
+                OverflowDeltaTime = 0f;
             }
             else
             {
                 Activated = true;
-                Elapsed = Elapsed - ActivationInterval - RandomUtil.Float(Variance);
+                OverflowDeltaTime = Elapsed - ActivationInterval;
+                Elapsed = OverflowDeltaTime - RandomUtil.Float(Variance);
             }
         }
 

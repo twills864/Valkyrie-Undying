@@ -18,6 +18,7 @@ namespace Assets.Util
 
                 if (Elapsed >= ActivationInterval)
                 {
+                    OverflowDeltaTime = Elapsed - ActivationInterval;
                     Elapsed = ActivationInterval;
                     Activated = true;
                 }

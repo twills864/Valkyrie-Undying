@@ -25,6 +25,8 @@ namespace Assets.GameTasks
             }
         }
 
+        public float OverflowDeltaTime => Timer.OverflowDeltaTime;
+
         public FiniteTimeGameTask(GameTaskRunner target, float duration) : base(target)
         {
             Duration = duration;
@@ -39,6 +41,14 @@ namespace Assets.GameTasks
                 OnFiniteTaskFrameRun(deltaTime);
             }
         }
+
+        public void RunRemainingTime()
+        {
+            var deltaTime = Timer.TimeUntilActivation;
+            RunFrame(deltaTime);
+            Timer.ActivateSelf();
+        }
+
 
         /// <summary>
         /// Forces the completion of this Task by activating its Timer.

@@ -18,13 +18,13 @@ namespace Assets.Util
             if (Elapsed < ActivationInterval)
             {
                 Activated = false;
-                //overflowTime = 0f;
+                OverflowDeltaTime = 0f;
             }
             else
             {
                 Activated = true;
                 Elapsed -= ActivationInterval;
-                //overflowTime = Elapsed;
+                OverflowDeltaTime = Elapsed;
             }
         }
 

@@ -7,7 +7,7 @@ namespace Assets
     /// <inheritdoc/>
     public class Destructor : MonoBehaviour
     {
-        private const float Buffer = 2.0f;
+        public const float Buffer = 2.0f;
         private Vector2 BufferVector => new Vector2(Buffer, Buffer);
 
         private Vector2 _size;

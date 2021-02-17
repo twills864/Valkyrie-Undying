@@ -1,21 +1,63 @@
-﻿using Assets.Enemies;
+﻿using Assets.Constants;
+using Assets.Enemies;
+using Assets.GameTasks;
 using Assets.ScreenEdgeColliders;
 using Assets.Util;
 using UnityEngine;
 
 namespace Assets.Bullets.PlayerBullets
 {
+    /// <summary>
+    /// Travels across the screen with a y-position described by the following function:
+    /// f(t) = -(t-sqrt(mapHeight))^2 + mapHeight
+    /// </summary>
     /// <inheritdoc/>
     public class TrampolineBullet : BouncingBullet
     {
+        private const float ScreenBuffer = Destructor.Buffer;
+
         [SerializeField]
         private float RotationSpeed;
         [SerializeField]
-        private float BounceXVariance;
+        private float BounceXVarianceMin;
+        [SerializeField]
+        private float BounceXVarianceMax;
+
+        private float ElapsedTime { get; set; }
+        private float SqrtMapHeight { get; set; }
+        private float SpriteHeight { get; set; }
+
+        // Scales the velocity of the bullet so that it will have a
+        // velocity equal to Speed at f(0)
+        // f'(t) = -2(t - sqrt(mapHeight))
+        // f'(0) = Speed = 2(sqrt(mapHeight)) * SpeedScaled
+        // SpeedScaled = Speed / 2(sqrt(mapHeight))
+        private float SpeedScaled { get; set; }
+
+        protected override void OnBouncingBulletInit()
+        {
+            SqrtMapHeight = Mathf.Sqrt(SpaceUtil.WorldMapSize.y);
+            SpeedScaled = Speed / (2 * SqrtMapHeight);
+            SpriteHeight = GetComponent<SpriteRenderer>().size.y / 4;
+        }
+
+        public void OnSpawn(int weaponLevel, Vector2 playerFirePos)
+        {
+            BouncesLeft = 1 + weaponLevel + (weaponLevel == GameConstants.MaxWeaponLevel ? 1 : 0);
+            transform.position += new Vector3(0, SpriteHeight, 0);
+            ResetVelocityY();
+        }
 
         protected override void OnPlayerBulletFrameRun(float deltaTime)
         {
+            ElapsedTime += (SpeedScaled * deltaTime);
             transform.Rotate(0, 0, deltaTime * RotationSpeed);
+
+            // Recalculate y position
+            var x2 = (ElapsedTime - SqrtMapHeight);
+            x2 *= -x2;
+            float newY = x2 + SpaceUtil.WorldMap.Top.y;
+            transform.position = new Vector3(transform.position.x, newY, 0);
         }
 
         protected override void OnBounce(Enemy enemy)
@@ -25,7 +67,8 @@ namespace Assets.Bullets.PlayerBullets
 
         private void RandomizeVelocityX()
         {
-            var velocityX = RandomUtil.Float(-BounceXVariance, BounceXVariance);
+            var velocityX = RandomUtil.Float(BounceXVarianceMin, BounceXVarianceMax);
+            velocityX = RandomUtil.RandomlyNegative(velocityX);
             Velocity = new Vector2(velocityX, Velocity.y);
         }
 
@@ -36,8 +79,8 @@ namespace Assets.Bullets.PlayerBullets
 
         private void ResetVelocityY()
         {
-            var velocityY = Speed;
-            Velocity = new Vector2(Velocity.x, velocityY);
+            //dt = sqrt(MAP - y) + sqrt(MAP)
+            ElapsedTime = - Mathf.Sqrt(SpaceUtil.WorldMap.Top.y - transform.position.y) + SqrtMapHeight;
         }
 
         private void ReverseVelocityY()
@@ -54,6 +97,7 @@ namespace Assets.Bullets.PlayerBullets
             else if(CollisionUtil.IsPlayer(collision))
             {
                 ResetVelocityY();
+                RandomizeVelocityX();
             }
         }
 
@@ -67,7 +111,7 @@ namespace Assets.Bullets.PlayerBullets
                     break;
                 case ScreenSide.Top:
                 case ScreenSide.Bottom:
-                    ReverseVelocityY();
+                    //ReverseVelocityY();
                     break;
                 default:
                     throw ExceptionUtil.ArgumentException(() => screenSide);

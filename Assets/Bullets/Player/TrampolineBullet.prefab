@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5265433409197977155}
   - component: {fileID: 4729551510960159759}
   m_Layer: 0
-  m_Name: Trampoline
+  m_Name: TrampolineBullet
   m_TagString: PlayerBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -120,9 +120,10 @@ MonoBehaviour:
   SpawnId: 0
   BaseDamage: 40
   DamageAfterBounce: 40
-  Speed: 10
+  Speed: 15
   RotationSpeed: 1080
-  BounceXVariance: 10
+  BounceXVarianceMin: 4
+  BounceXVarianceMax: 8
 --- !u!60 &4729551510960159759
 PolygonCollider2D:
   m_ObjectHideFlags: 0
