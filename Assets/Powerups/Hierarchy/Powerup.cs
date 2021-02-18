@@ -54,13 +54,13 @@ namespace Assets.Powerups
         /// <summary>
         /// The value set to ValueCalculator on load.
         /// </summary>
-        protected abstract LeveledValueCalculator InitialValueCalculator { get; }
+        protected abstract LevelValueCalculator InitialValueCalculator { get; }
 
         /// <summary>
         /// The ValueCalculator that is used to calculate the relative power
         /// of this powerup.
         /// </summary>
-        protected LeveledValueCalculator ValueCalculator { get; set; }
+        protected LevelValueCalculator ValueCalculator { get; set; }
 
         public Powerup()
         {

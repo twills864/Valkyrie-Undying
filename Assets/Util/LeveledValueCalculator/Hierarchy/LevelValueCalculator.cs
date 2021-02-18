@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Assets.Util
 {
-    public class LeveledValueCalculator
+    public abstract class LevelValueCalculator
     {
         private int _level = 0;
         public int Level
@@ -15,19 +15,20 @@ namespace Assets.Util
             set
             {
                 _level = value;
-                Value = BaseValue + (_level * IncreasePerLevel);
+                Value = CalculateValue();
             }
         }
+        protected abstract float CalculateValue();
 
-        public float Value { get; private set; }
+        protected float BaseValue { get; }
+        protected float IncreasePerLevel { get; }
 
-        private float BaseValue;
-        private float IncreasePerLevel;
-
-        public LeveledValueCalculator(float baseValue, float increasePerLevel)
+        public LevelValueCalculator(float baseValue, float increasePerLevel)
         {
             BaseValue = baseValue;
             IncreasePerLevel = increasePerLevel;
         }
+
+        public float Value { get; private set; }
     }
 }

@@ -51,5 +51,17 @@ namespace Assets.Powerups
             string ret = StringUtil.AddSpacesBeforeCapitals(name);
             return ret;
         }
+
+        /// <summary>
+        /// Returns the instance of a given type of powerup within this list.
+        /// </summary>
+        /// <typeparam name="TPowerup">The type of powerup to get.</typeparam>
+        /// <returns>The instance of the given type of powerup.</returns>
+        public TPowerup Get<TPowerup>() where TPowerup : T
+        {
+            TPowerup ret = this.Where(x => x.GetType() == typeof(TPowerup))
+                .First() as TPowerup;
+            return ret;
+        }
     }
 }

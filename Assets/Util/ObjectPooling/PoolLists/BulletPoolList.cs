@@ -31,6 +31,8 @@ namespace Assets.Util.ObjectPooling
 
         [SerializeField]
         private ShrapnelBullet ShrapnelPrefab;
+        [SerializeField]
+        private RaindropBullet RaindropPrefab;
 
         #endregion Additional Bullets
 

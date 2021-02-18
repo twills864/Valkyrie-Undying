@@ -75,5 +75,35 @@ namespace Assets.Powerups
             foreach (var powerup in OnGetHitList.Where(x => x.IsActive))
                 powerup.OnGetHit();
         }
+
+        public TPowerup GetFirePowerup<TPowerup>() where TPowerup : OnFirePowerup
+        {
+            var ret = OnFireList.Get<TPowerup>();
+            return ret;
+        }
+
+        public TPowerup GetOnHitPowerup<TPowerup>() where TPowerup : OnHitPowerup
+        {
+            var ret = OnHitList.Get<TPowerup>();
+            return ret;
+        }
+
+        public TPowerup GetOnKillPowerup<TPowerup>() where TPowerup : OnKillPowerup
+        {
+            var ret = OnKillList.Get<TPowerup>();
+            return ret;
+        }
+
+        public TPowerup GetOnGetHitPowerup<TPowerup>() where TPowerup : OnGetHitPowerup
+        {
+            var ret = OnGetHitList.Get<TPowerup>();
+            return ret;
+        }
+
+        public TPowerup GetOnLevelUpPowerup<TPowerup>() where TPowerup : OnLevelUpPowerup
+        {
+            var ret = OnLevelUpList.Get<TPowerup>();
+            return ret;
+        }
     }
 }

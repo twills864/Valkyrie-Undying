@@ -18,8 +18,8 @@ namespace Assets.Powerups
         private const float ShrapnelChanceBase = 0.2f;
         private const float ShrapnelIncrease = 0.1f;
 
-        protected override LeveledValueCalculator InitialValueCalculator
-            => new LeveledValueCalculator(ShrapnelChanceBase, ShrapnelIncrease);
+        protected override LevelValueCalculator InitialValueCalculator
+            => new SumLevelValueCalculator(ShrapnelChanceBase, ShrapnelIncrease);
 
         private float ShrapnelChance => ValueCalculator.Value;
 

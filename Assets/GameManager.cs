@@ -72,6 +72,10 @@ namespace Assets
             }
         }
 
+        [SerializeField]
+        private RainCloud _RainCloud;
+        private RainCloudPowerup _RainCloudPowerup;
+
         #endregion Powerups
 
         #region Powerup Menu
@@ -112,6 +116,8 @@ namespace Assets
             _PowerupManager = new PowerupManager();
             _PowerupManager.Init();
 
+            _RainCloudPowerup = _PowerupManager.GetOnLevelUpPowerup<RainCloudPowerup>();
+
             FireStrategies = new CircularSelector<PlayerFireStrategy>
             {
                 new BasicStrategy(),
@@ -149,6 +155,7 @@ namespace Assets
             _Destructor.Init();
             _ScreenEdgeColliderSet.Init();
             _DebugEnemy.Init();
+            _RainCloud.Init();
 
             EnemyTimer.ActivateSelf();
         }
@@ -169,6 +176,11 @@ namespace Assets
 
             if (position.y < maxY)
                 _PoolManager.BulletPool.Get<ShrapnelBullet>(position);
+        }
+
+        public void CreateRaindrop(Vector2 position)
+        {
+            _PoolManager.BulletPool.Get<RaindropBullet>(position);
         }
 
 
@@ -205,6 +217,9 @@ namespace Assets
                 var enemy = _PoolManager.EnemyPool.SpawnRandomEnemy();
                 enemy.Init(SpaceUtil.RandomEnemySpawnPosition(enemy));
             }
+
+            if (_RainCloudPowerup.IsActive)
+                _RainCloud.RunFrame(deltaTime);
 
             _PoolManager.RunPoolFrames(deltaTime, deltaTime);
             GameTaskLists.RunFrames(deltaTime);

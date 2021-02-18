@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f559a9346b5bfe140ac6b38825dd6b2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BasicPrefab: {fileID: 385087358628592150, guid: d9d920ac3e75e3c40a26756f87ab5da9,
+  BasicPrefab: {fileID: 3580050880350489470, guid: 2bfe3e2bfa953ba42a8cd4e4bb8a0e80,
     type: 3}
   ShotgunPrefab: {fileID: 9130137281552897155, guid: e102288797baf564e89b34b6ffa79ea2,
     type: 3}
@@ -60,4 +60,6 @@ MonoBehaviour:
   TrampolinePrefab: {fileID: 5265433409197977155, guid: 7ccfda098443a994782c15b953891cb3,
     type: 3}
   ShrapnelPrefab: {fileID: 1200275585357827002, guid: ef8f77b6b7123de4d93928b314e808ad,
+    type: 3}
+  RaindropPrefab: {fileID: 1829378204603644531, guid: d9d920ac3e75e3c40a26756f87ab5da9,
     type: 3}

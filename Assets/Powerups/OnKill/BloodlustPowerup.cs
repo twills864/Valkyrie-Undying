@@ -21,13 +21,13 @@ namespace Assets.Powerups
         private const float BaseSpeedScale = 1.2f;
         private const float SpeedScaleIncrease = 0.1f;
 
-        protected override LeveledValueCalculator InitialValueCalculator
-            => new LeveledValueCalculator(BaseDuration, DurationIncrease);
+        protected override LevelValueCalculator InitialValueCalculator
+            => new SumLevelValueCalculator(BaseDuration, DurationIncrease);
 
         private float Duration => ValueCalculator.Value;
 
-        private LeveledValueCalculator SpeedScaleLevel =
-            new LeveledValueCalculator(BaseSpeedScale, SpeedScaleIncrease);
+        private SumLevelValueCalculator SpeedScaleLevel =
+            new SumLevelValueCalculator(BaseSpeedScale, SpeedScaleIncrease);
 
         private float SpeedScale => SpeedScaleLevel.Value;
 

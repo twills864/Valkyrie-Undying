@@ -3306,7 +3306,7 @@ MonoBehaviour:
   DebugUi: {fileID: 1502814535}
   PlayerColor: {r: 0, g: 0, b: 0, a: 0}
   _Canvas: {fileID: 1647769483}
-  _BasicBullet: {fileID: 385087358628592150, guid: d9d920ac3e75e3c40a26756f87ab5da9,
+  _BasicBullet: {fileID: 3580050880350489470, guid: 2bfe3e2bfa953ba42a8cd4e4bb8a0e80,
     type: 3}
   _FleetingText: {fileID: 7176427729835629659, guid: 2af817e2fda31d24d89c2aa5bd0d7e71,
     type: 3}
@@ -3314,6 +3314,7 @@ MonoBehaviour:
   _ScreenEdgeColliderSet: {fileID: 29231933}
   _DebugEnemy: {fileID: 232324998}
   _PoolManager: {fileID: 1328750981}
+  _RainCloud: {fileID: 2109226220}
   _PowerupMenu: {fileID: 2066797313}
 --- !u!4 &1640542552
 Transform:
@@ -3819,6 +3820,75 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1001 &2008250672
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1441824324401639200, guid: 4278e2e6581335945b022f3bf80a6423,
+        type: 3}
+      propertyPath: m_Name
+      value: RainCloud
+      objectReference: {fileID: 0}
+    - target: {fileID: 6407410072834737216, guid: 4278e2e6581335945b022f3bf80a6423,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 6407410072834737216, guid: 4278e2e6581335945b022f3bf80a6423,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6407410072834737216, guid: 4278e2e6581335945b022f3bf80a6423,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -4.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6407410072834737216, guid: 4278e2e6581335945b022f3bf80a6423,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6407410072834737216, guid: 4278e2e6581335945b022f3bf80a6423,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6407410072834737216, guid: 4278e2e6581335945b022f3bf80a6423,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6407410072834737216, guid: 4278e2e6581335945b022f3bf80a6423,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6407410072834737216, guid: 4278e2e6581335945b022f3bf80a6423,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6407410072834737216, guid: 4278e2e6581335945b022f3bf80a6423,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6407410072834737216, guid: 4278e2e6581335945b022f3bf80a6423,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6407410072834737216, guid: 4278e2e6581335945b022f3bf80a6423,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4278e2e6581335945b022f3bf80a6423, type: 3}
 --- !u!224 &2066797312 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4907775595829293905, guid: 239b7fbd00e1eca45ac4f9203b347dec,
@@ -3989,6 +4059,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2102051172}
   m_CullTransparentMesh: 0
+--- !u!114 &2109226220 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7143882570124379976, guid: 4278e2e6581335945b022f3bf80a6423,
+    type: 3}
+  m_PrefabInstance: {fileID: 2008250672}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d473460ab30f4db488345a169ada19bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1333008035106596709 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5454382870132088834, guid: 278aea63d4a131f45ac5a80bab02e01a,
