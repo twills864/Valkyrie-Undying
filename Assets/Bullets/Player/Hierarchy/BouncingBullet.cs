@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Assets.Bullets.PlayerBullets;
 using Assets.Enemies;
+using Assets.Util;
 using UnityEngine;
 
 namespace Assets.Bullets.PlayerBullets
@@ -39,6 +40,13 @@ namespace Assets.Bullets.PlayerBullets
             OnBouncingBulletActivate();
         }
 
+        protected virtual void OnBouncingBulletSpawn() { }
+        public sealed override void OnSpawn()
+        {
+            InitializeNumberBounces();
+            OnBouncingBulletSpawn();
+        }
+
         protected virtual void OnBouncingBulletDeactivate() { }
         protected sealed override void OnDeactivate()
         {
@@ -61,6 +69,11 @@ namespace Assets.Bullets.PlayerBullets
         {
             BouncesLeft--;
             CurrentDamage = DamageAfterBounce;
+        }
+
+        protected virtual void InitializeNumberBounces()
+        {
+            BouncesLeft = 1 + GameUtil.PlusOneIfMaxWeaponLevel(BulletLevel);
         }
 
     }

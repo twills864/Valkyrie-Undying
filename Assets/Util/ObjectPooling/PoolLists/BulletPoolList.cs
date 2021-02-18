@@ -48,6 +48,7 @@ namespace Assets.Util.ObjectPooling
         {
             var ret = Get<TGet>(position);
             ret.BulletLevel = weaponLevel;
+            ret.OnSpawn();
             return ret;
         }
 
@@ -67,6 +68,7 @@ namespace Assets.Util.ObjectPooling
         {
             var ret = Get<TGet>(position, velocity);
             ret.BulletLevel = weaponLevel;
+            ret.OnSpawn();
             return ret;
         }
 
@@ -80,7 +82,15 @@ namespace Assets.Util.ObjectPooling
         /// <returns>The array of fresh instances of <typeparamref name="TGet"/> from the appropriate Object Pool.</returns>
         public TGet[] Get<TGet>(int amountToGet, int weaponLevel) where TGet : PlayerBullet
         {
-            TGet[] ret = LinqUtil.Array(amountToGet, () => Get<TGet>());
+            TGet GetBullet()
+            {
+                var bullet = Get<TGet>();
+                bullet.BulletLevel = weaponLevel;
+                bullet.OnSpawn();
+                return bullet;
+            }
+
+            TGet[] ret = LinqUtil.Array(amountToGet, GetBullet);
             return ret;
         }
     }

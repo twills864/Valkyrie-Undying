@@ -41,9 +41,8 @@ namespace Assets.Bullets.PlayerBullets
             SpriteHeight = GetComponent<SpriteRenderer>().size.y / 4;
         }
 
-        public void OnSpawn(int weaponLevel, Vector2 playerFirePos)
+        protected override void OnBouncingBulletSpawn()
         {
-            BouncesLeft = 1 + weaponLevel + (weaponLevel == GameConstants.MaxWeaponLevel ? 1 : 0);
             transform.position += new Vector3(0, SpriteHeight, 0);
             ResetVelocityY();
         }

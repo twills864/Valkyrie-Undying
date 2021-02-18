@@ -21,8 +21,7 @@ namespace Assets.FireStrategies.PlayerFireStrategies
 
         public override PlayerBullet[] GetBullets(int weaponLevel, Vector2 playerFirePos)
         {
-            PlayerBullet[] ret = GetBullets(weaponLevel, playerFirePos, InitialBulletVelocity,
-                x => x.OnSpawn(weaponLevel, playerFirePos));
+            PlayerBullet[] ret = GetBullets(weaponLevel, playerFirePos, InitialBulletVelocity);
             return ret;
         }
     }

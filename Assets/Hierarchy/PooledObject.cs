@@ -28,6 +28,13 @@
         protected virtual void OnActivate() { }
 
         /// <summary>
+        /// Subclass-specific functionality to happen when an object is spawned.
+        /// Should be called by the parent PoolList after assigning position information,
+        /// velocity information, and subclass-specific information.
+        /// </summary>
+        public virtual void OnSpawn() { }
+
+        /// <summary>
         /// Activates this game object, and calls any subclass-specific implementation of OnActivate().
         /// </summary>
         public void ActivateSelf()
