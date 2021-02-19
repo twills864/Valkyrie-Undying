@@ -3306,7 +3306,7 @@ MonoBehaviour:
   DebugUi: {fileID: 1502814535}
   PlayerColor: {r: 0, g: 0, b: 0, a: 0}
   _Canvas: {fileID: 1647769483}
-  _BasicBullet: {fileID: 3580050880350489470, guid: 2bfe3e2bfa953ba42a8cd4e4bb8a0e80,
+  _BasicBullet: {fileID: 385087358628592150, guid: 53c3fe6e2f38cc84dad4076ea5480157,
     type: 3}
   _FleetingText: {fileID: 7176427729835629659, guid: 2af817e2fda31d24d89c2aa5bd0d7e71,
     type: 3}
@@ -3315,6 +3315,7 @@ MonoBehaviour:
   _DebugEnemy: {fileID: 232324998}
   _PoolManager: {fileID: 1328750981}
   _RainCloud: {fileID: 2109226220}
+  _RainCloudSpawner: {fileID: 2085788401}
   _PowerupMenu: {fileID: 2066797313}
 --- !u!4 &1640542552
 Transform:
@@ -3832,6 +3833,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: RainCloud
       objectReference: {fileID: 0}
+    - target: {fileID: 1441824324401639200, guid: 4278e2e6581335945b022f3bf80a6423,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6407410072834737216, guid: 4278e2e6581335945b022f3bf80a6423,
         type: 3}
       propertyPath: m_RootOrder
@@ -3905,6 +3911,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fde7a459d4b77d04c8412704a4e24713, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2085788401 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -8571030869818891619, guid: ec6fea656af81324588be2739d7d089e,
+    type: 3}
+  m_PrefabInstance: {fileID: 4698574346037316789}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2ea4a55e40c6224ca014e88987993d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2098331775
@@ -4083,6 +4101,69 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8534636d9dc521e46819bf0911042db8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &4698574346037316789
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4845579562699282, guid: ec6fea656af81324588be2739d7d089e, type: 3}
+      propertyPath: m_RootOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4845579562699282, guid: ec6fea656af81324588be2739d7d089e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4845579562699282, guid: ec6fea656af81324588be2739d7d089e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.92
+      objectReference: {fileID: 0}
+    - target: {fileID: 4845579562699282, guid: ec6fea656af81324588be2739d7d089e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4845579562699282, guid: ec6fea656af81324588be2739d7d089e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4845579562699282, guid: ec6fea656af81324588be2739d7d089e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4845579562699282, guid: ec6fea656af81324588be2739d7d089e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4845579562699282, guid: ec6fea656af81324588be2739d7d089e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4845579562699282, guid: ec6fea656af81324588be2739d7d089e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4845579562699282, guid: ec6fea656af81324588be2739d7d089e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4845579562699282, guid: ec6fea656af81324588be2739d7d089e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1717640498810277562, guid: ec6fea656af81324588be2739d7d089e,
+        type: 3}
+      propertyPath: m_Name
+      value: RainCloudSpawner
+      objectReference: {fileID: 0}
+    - target: {fileID: 1717640498810277562, guid: ec6fea656af81324588be2739d7d089e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ec6fea656af81324588be2739d7d089e, type: 3}
 --- !u!1001 &4907775594601422929
 PrefabInstance:
   m_ObjectHideFlags: 0

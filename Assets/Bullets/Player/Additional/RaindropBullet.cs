@@ -9,5 +9,8 @@ namespace Assets.Bullets.PlayerBullets
     public class RaindropBullet : PermanentVelocityPlayerBullet
     {
         protected override bool ShouldMarkSelfCollision => false;
+
+        public override int Damage => RaindropDamage;
+        public int RaindropDamage { get; set; }
     }
 }

@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f559a9346b5bfe140ac6b38825dd6b2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BasicPrefab: {fileID: 3580050880350489470, guid: 2bfe3e2bfa953ba42a8cd4e4bb8a0e80,
+  BasicPrefab: {fileID: 385087358628592150, guid: 53c3fe6e2f38cc84dad4076ea5480157,
     type: 3}
   ShotgunPrefab: {fileID: 9130137281552897155, guid: e102288797baf564e89b34b6ffa79ea2,
     type: 3}

@@ -5,7 +5,7 @@ namespace Assets.Util
     public abstract class FrameTimerBase
     {
         public float Elapsed { get; protected set; }
-        public float ActivationInterval { get; protected set; }
+        public float ActivationInterval { get; set; }
         public bool Activated { get; protected set; }
         public float OverflowDeltaTime { get; protected set; }
 

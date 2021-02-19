@@ -50,7 +50,7 @@ namespace Assets
 
         public int WeaponLevel { get; set; }
 
-        public int DefaultFireTypeIndex => FireStrategies.Count - 1;
+        public int DefaultFireTypeIndex => 0;// FireStrategies.Count - 1;
         private LoopingFrameTimer FireTimer;
         private PlayerFireStrategy CurrentFireStrategy => FireStrategies[FireStrategies.Index];
         private CircularSelector<PlayerFireStrategy> FireStrategies;
@@ -74,6 +74,8 @@ namespace Assets
 
         [SerializeField]
         private RainCloud _RainCloud;
+        [SerializeField]
+        private RainCloudSpawner _RainCloudSpawner;
         private RainCloudPowerup _RainCloudPowerup;
 
         #endregion Powerups
@@ -117,6 +119,9 @@ namespace Assets
             _PowerupManager.Init();
 
             _RainCloudPowerup = _PowerupManager.GetOnLevelUpPowerup<RainCloudPowerup>();
+
+            RainCloud.Instance = _RainCloud;
+            RainCloudSpawner.Instance = _RainCloudSpawner;
 
             FireStrategies = new CircularSelector<PlayerFireStrategy>
             {
@@ -178,9 +183,10 @@ namespace Assets
                 _PoolManager.BulletPool.Get<ShrapnelBullet>(position);
         }
 
-        public void CreateRaindrop(Vector2 position)
+        public void CreateRaindrop(Vector2 position, int damage)
         {
-            _PoolManager.BulletPool.Get<RaindropBullet>(position);
+            var raindrop = _PoolManager.BulletPool.Get<RaindropBullet>(position);
+            raindrop.RaindropDamage = damage;
         }
 
 
@@ -218,7 +224,9 @@ namespace Assets
                 enemy.Init(SpaceUtil.RandomEnemySpawnPosition(enemy));
             }
 
-            if (_RainCloudPowerup.IsActive)
+            if (_RainCloudSpawner.isActiveAndEnabled)
+                _RainCloudSpawner.RunFrame(deltaTime);
+            if (_RainCloud.isActiveAndEnabled)
                 _RainCloud.RunFrame(deltaTime);
 
             _PoolManager.RunPoolFrames(deltaTime, deltaTime);

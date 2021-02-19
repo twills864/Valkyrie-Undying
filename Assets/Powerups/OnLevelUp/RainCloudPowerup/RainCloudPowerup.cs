@@ -19,8 +19,7 @@ namespace Assets.Powerups
         protected override LevelValueCalculator InitialValueCalculator
             => new ProductLevelValueCalculator(FireSpeedBase, FireSpeedIncrease);
 
-        public float Firespeed => ValueCalculator.Value;
-
+        public float FireSpeed => ValueCalculator.Value;
 
         private const float DamageBase = 10;
         private const float DamageIncrease = 1;
@@ -31,8 +30,11 @@ namespace Assets.Powerups
 
         public override void OnLevelUp()
         {
+            if(Level == 1)
+                RainCloudSpawner.Instance.Activate();
+
             DamageCalculator.Level = Level;
-            //GameManager.Instance.PlayerFireDeltaTimeScale = PlayerFireDeltaTimeScale;
+            RainCloud.Instance.LevelUp(Damage, FireSpeed);
         }
     }
 }

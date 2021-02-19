@@ -42,7 +42,11 @@ namespace Assets.UI.PowerupMenu
             set
             {
                 InputPowerLevel.text = value.ToString();
-                OnPowerLevelChanged(value);
+
+                // OnPowerLevelChanged() is triggered through Unity when
+                // the InputPowerLevel text is changed.
+                // The above line is enough to trigger this event.
+                //OnPowerLevelChanged(value);
             }
         }
 

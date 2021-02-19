@@ -16,7 +16,7 @@ namespace Assets.Util
 
         protected override float CalculateValue()
         {
-            var ret = BaseValue + Mathf.Pow(IncreasePerLevel, Level);
+            var ret = BaseValue * Mathf.Pow(IncreasePerLevel, Level);
             return ret;
         }
     }
