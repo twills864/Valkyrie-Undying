@@ -19,7 +19,7 @@ namespace Assets.Bullets.PlayerBullets
             if(CollisionUtil.IsEnemyBullet(collision))
             {
                 var enemyBullet = collision.GetComponent<EnemyBullet>();
-                GameManager.Instance.ReflectBullet(enemyBullet);
+                GameManager.Instance.ReflectBulletFromPestControl(enemyBullet, this);
                 DeactivateSelf();
             }
         }

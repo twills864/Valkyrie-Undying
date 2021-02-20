@@ -16,25 +16,20 @@ namespace Assets.Powerups
     /// <inheritdoc/>
     public class PestControlPowerup : OnFirePowerup
     {
-        private const float NumPelletsBase = 0;
-        private const float NumPelletsIncrease = 1;
+        private const float ExponentRatio = 0.8f;
+        private const float MaxValue = 2f;
 
         protected override LevelValueCalculator InitialValueCalculator
-            => new SumLevelValueCalculator(NumPelletsBase, NumPelletsIncrease);
+            => new AsymptoteRatioLevelValueCalculator(ExponentRatio, MaxValue);
 
-        private float NumPellets => InitialValueCalculator.Level;
+        private float ChanceModifier => ValueCalculator.Value;
 
         public override void OnFire(Vector2 position, PlayerBullet[] bullets)
         {
-            int pestControlCounter = 0;
-
-            foreach(var bullet in bullets)
-            {
-                int damage = bullet.Damage;
-
-                if (RandomUtil.BoolPercent(damage))
-                    pestControlCounter++;
-            }
+            int pestControlCounter = bullets
+                .Select(bullet => bullet.PestControlChance * ChanceModifier)
+                .Where(chance => RandomUtil.Bool(chance))
+                .Count();
 
             if(pestControlCounter > 0)
                 GameManager.Instance.FirePestControl(position, pestControlCounter);

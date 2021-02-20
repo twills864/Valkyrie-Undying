@@ -14,12 +14,30 @@ namespace Assets.Bullets.PlayerBullets
         private int ReflectedDamage { get; set; }
         public override int Damage => ReflectedDamage;
 
-        public void Init(EnemyBullet source)
+        private void Init(EnemyBullet source)
         {
             transform.position = source.transform.position;
             transform.localScale = source.transform.localScale;
-            Velocity = -source.Velocity;
             ReflectedDamage = source.ReflectedDamage;
+        }
+
+        // Adopt velocity from Pest Control
+        public void RedirectFromPestControl(EnemyBullet source, PestControlBullet pestControl)
+        {
+            Init(source);
+
+            const float velocityScale = 0.75f;
+            Velocity = pestControl.Velocity * velocityScale;
+
+        }
+
+        // Reflect directly upwards
+        public void ReflectBack(EnemyBullet source)
+        {
+            Init(source);
+
+            const float velocityScale = 2f;
+            Velocity = -velocityScale * source.Velocity;
         }
     }
 }

@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Assets.Util
 {
+    /// <summary>
+    /// Calculates a value to be used for a given level of powerup or bullet.
+    /// </summary>
     public abstract class LevelValueCalculator
     {
         private int _level = 0;

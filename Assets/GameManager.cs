@@ -22,6 +22,8 @@ namespace Assets
     {
         public static GameManager Instance { get; set; }
 
+        private const bool AddingPowerup = true;
+
         public Player Player;
         public DebugUI DebugUi;
         public Color PlayerColor;
@@ -51,7 +53,7 @@ namespace Assets
 
         public int WeaponLevel { get; set; }
 
-        public int DefaultFireTypeIndex => 0;// FireStrategies.Count - 1;
+        public int DefaultFireTypeIndex => AddingPowerup ? 0 : FireStrategies.Count - 1;
         private LoopingFrameTimer FireTimer;
         private PlayerFireStrategy CurrentFireStrategy => FireStrategies[FireStrategies.Index];
         private CircularSelector<PlayerFireStrategy> FireStrategies;
@@ -164,6 +166,8 @@ namespace Assets
             _RainCloud.Init();
 
             EnemyTimer.ActivateSelf();
+
+            _PowerupMenu.gameObject.SetActive(AddingPowerup);
         }
 
         public void FirePlayerBullets(PlayerBullet[] bullets)
@@ -209,7 +213,14 @@ namespace Assets
         public void ReflectBullet(EnemyBullet target)
         {
             var reflectedBullet = _PoolManager.BulletPool.Get<ReflectedBullet>();
-            reflectedBullet.Init(target);
+            reflectedBullet.ReflectBack(target);
+            target.DeactivateSelf();
+        }
+
+        public void ReflectBulletFromPestControl(EnemyBullet target, PestControlBullet pestControl)
+        {
+            var reflectedBullet = _PoolManager.BulletPool.Get<ReflectedBullet>();
+            reflectedBullet.RedirectFromPestControl(target, pestControl);
             target.DeactivateSelf();
         }
 

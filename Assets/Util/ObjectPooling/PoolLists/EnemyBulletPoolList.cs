@@ -23,11 +23,14 @@ namespace Assets.Util.ObjectPooling
             var highBullets = new List<EnemyBullet>();
             var lowBullets = new List<EnemyBullet>();
 
-            foreach(var bullet in activeBullets)
+            float worldBottomY = SpaceUtil.WorldMap.Bottom.y;
+            foreach (var bullet in activeBullets)
             {
-                if (bullet.transform.position.y > Enemy.FireHeightFloor)
+                var posY = bullet.transform.position.y;
+
+                if (posY > Enemy.FireHeightFloor)
                     highBullets.Add(bullet);
-                else
+                else if(posY > worldBottomY)
                     lowBullets.Add(bullet);
             }
 

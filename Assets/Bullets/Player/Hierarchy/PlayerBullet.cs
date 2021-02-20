@@ -15,6 +15,7 @@ namespace Assets.Bullets.PlayerBullets
         [SerializeField]
         protected int BaseDamage;
         public virtual int Damage => BaseDamage;
+        public virtual float PestControlChance => Damage * 0.01f;
 
         public int BulletLevel { get; set; }
         public bool IsMaxLevel => BulletLevel == GameConstants.MaxWeaponLevel;
@@ -31,7 +32,15 @@ namespace Assets.Bullets.PlayerBullets
         protected void OnTriggerEnter2D(Collider2D collision)
         {
             if (CollisionUtil.IsPlayerBullet(collision) && ShouldMarkSelfCollision)
-                MarkSelfCollision();
+            {
+                var otherBullet = collision.GetComponent<PlayerBullet>();
+
+                if (otherBullet.ShouldMarkSelfCollision
+                    && this.GetType() == otherBullet.GetType())
+                {
+                    MarkSelfCollision();
+                }
+            }
 
             OnPlayerBulletTriggerEnter2D(collision);
         }
