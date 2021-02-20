@@ -2,8 +2,9 @@
 using Assets.Enemies;
 using UnityEngine;
 using System.Linq;
+using Assets.Util;
 
-namespace Assets.Util.ObjectPooling
+namespace Assets.ObjectPooling
 {
     /// <inheritdoc/>
     public class EnemyPoolList : PoolList<Enemy>

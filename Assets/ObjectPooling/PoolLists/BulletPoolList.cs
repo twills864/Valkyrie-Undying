@@ -1,7 +1,8 @@
 ﻿using Assets.Bullets.PlayerBullets;
+using Assets.Util;
 using UnityEngine;
 
-namespace Assets.Util.ObjectPooling
+namespace Assets.ObjectPooling
 {
     /// <inheritdoc/>
     public class BulletPoolList : PoolList<PlayerBullet>

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Assets.Util.ObjectPooling
+namespace Assets.ObjectPooling
 {
     public class PooledObjectTracker<T> where T : PooledObject
     {

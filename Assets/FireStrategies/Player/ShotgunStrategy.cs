@@ -1,7 +1,7 @@
 ﻿using Assets.Bullets.PlayerBullets;
 using Assets.Constants;
 using Assets.Util;
-using Assets.Util.ObjectPooling;
+using Assets.ObjectPooling;
 using UnityEngine;
 
 namespace Assets.FireStrategies.PlayerFireStrategies

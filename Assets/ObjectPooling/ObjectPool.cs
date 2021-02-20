@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Assets.Util;
 using UnityEngine;
 
-namespace Assets.Util
+namespace Assets.ObjectPooling
 {
     /// <summary>
     /// A subclass of List&lt;<typeparamref name="T"/>&gt; that represents

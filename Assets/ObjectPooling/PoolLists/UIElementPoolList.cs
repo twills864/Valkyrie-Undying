@@ -1,7 +1,7 @@
 ﻿using Assets.UI;
 using UnityEngine;
 
-namespace Assets.Util.ObjectPooling
+namespace Assets.ObjectPooling
 {
     // Will expand to other UI elements in the future
     /// <inheritdoc/>

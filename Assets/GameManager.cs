@@ -12,7 +12,7 @@ using Assets.ScreenEdgeColliders;
 using Assets.UI;
 using Assets.UI.PowerupMenu;
 using Assets.Util;
-using Assets.Util.ObjectPooling;
+using Assets.ObjectPooling;
 using UnityEngine;
 
 namespace Assets

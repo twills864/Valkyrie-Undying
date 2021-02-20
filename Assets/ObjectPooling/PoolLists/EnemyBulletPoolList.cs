@@ -4,9 +4,10 @@ using System.Linq;
 using Assets.Bullets.EnemyBullets;
 using Assets.Enemies;
 using Assets.EnemyBullets;
+using Assets.Util;
 using UnityEngine;
 
-namespace Assets.Util.ObjectPooling
+namespace Assets.ObjectPooling
 {
     /// <inheritdoc/>
     public class EnemyBulletPoolList : PoolList<EnemyBullet>

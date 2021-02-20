@@ -1,5 +1,5 @@
 ﻿using Assets.Bullets.EnemyBullets;
-using Assets.Util.ObjectPooling;
+using Assets.ObjectPooling;
 using UnityEngine;
 
 namespace Assets.FireStrategies.EnemyFireStrategies

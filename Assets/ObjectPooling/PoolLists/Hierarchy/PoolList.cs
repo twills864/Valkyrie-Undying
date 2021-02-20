@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Assets.Util;
 using UnityEngine;
 
-namespace Assets.Util.ObjectPooling
+namespace Assets.ObjectPooling
 {
     /// <summary>
     /// A list of Object Pools that are grouped together by a common base class.

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Assets.Util.ObjectPooling
+namespace Assets.ObjectPooling
 {
     /// <summary>
     /// Manages each Object Pool contained within the main game scene.
