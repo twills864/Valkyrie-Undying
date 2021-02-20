@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 namespace Assets.Util
@@ -21,6 +22,39 @@ namespace Assets.Util
             return ret;
         }
 
+        /// <summary>
+        /// Raises a given floating point number to a given integer <paramref name="exponent"/>.
+        /// Exponentiation by squaring has not yet proven to be consistently
+        /// and significantly faster than Mathf.Pow().
+        /// Therefore, Mathf.Pow() is used instead.
+        /// </summary>
+        /// <param name="baseNumber">The number to raise to a given exponent.</param>
+        /// <param name="exponent">The exponent to raise a given number to.</param>
+        /// <returns>The given number raised to the given exponent.</returns>
+        /// <seealso cref="https://gist.github.com/riyadparvez/5915147"/>
+        public static float Pow(float baseNumber, int exponent)
+        {
+            float ret = Mathf.Pow(baseNumber, exponent);
+            return ret;
+
+            #region Deprecated Exponentiation by Squaring
+            // Exponentiation by squaring code below, adapted from:
+            // https://gist.github.com/riyadparvez/5915147
+
+            //float result = 1.0f;
+            //while (exponent > 0)
+            //{
+            //    if (IsOdd(exponent))
+            //        result *= baseNumber;
+            //    exponent >>= 1;
+            //    baseNumber *= baseNumber;
+            //}
+
+            //return result;
+            #endregion Deprecated Exponentiation by Squaring
+        }
+
+        #region Even / Odd
 
         /// <summary>
         /// Returns true if a given <paramref name="number"/> is even; false otherwise;
@@ -30,7 +64,7 @@ namespace Assets.Util
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsEven(int number)
         {
-            bool ret = number % 2 == 0;
+            bool ret = (number & 1) == 0;
             return ret;
         }
 
@@ -42,9 +76,13 @@ namespace Assets.Util
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsOdd(int number)
         {
-            return !IsEven(number);
+            bool ret = (number & 1) == 1;
+            return ret;
         }
 
+        #endregion Even / Odd
+
+        #region Vector
 
         /// <summary>
         /// Returns MathUtil.DefaultVector if a specified <paramref name="vector"/> is equal to Vector2.zero.
@@ -129,5 +167,7 @@ namespace Assets.Util
             var ret = VectorAtAngle(angle) * length;
             return ret;
         }
+
+        #endregion Vector
     }
 }

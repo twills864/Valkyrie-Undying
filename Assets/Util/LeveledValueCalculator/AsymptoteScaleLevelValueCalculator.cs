@@ -27,7 +27,8 @@ namespace Assets.Util
 
         protected override float CalculateValue()
         {
-            var exponent = Scale * Mathf.Pow(IncreasePerLevel, (Level - 1));
+            var pow = Mathf.Pow(IncreasePerLevel, (Level - 1));
+            var exponent = Scale * pow;
 
             var ret = exponent + BaseValue;
             return ret;

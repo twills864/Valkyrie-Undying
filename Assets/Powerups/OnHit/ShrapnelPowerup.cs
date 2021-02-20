@@ -19,9 +19,9 @@ namespace Assets.Powerups
         private const float ShrapnelIncrease = 0.8f;
 
         protected override LevelValueCalculator InitialValueCalculator
-            => new AsymptoteScaleLevelValueCalculator(ShrapnelIncrease, 2f - ShrapnelChanceBase);
+            => new AsymptoteRatioLevelValueCalculator(0.2f, 0.8f);
 
-        private float ShrapnelChance => ValueCalculator.Value - 1 + ShrapnelChanceBase;
+        private float ShrapnelChance => ValueCalculator.Value;
 
         public override void OnHit(Enemy enemy, PlayerBullet bullet)
         {
