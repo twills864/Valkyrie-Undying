@@ -15,13 +15,13 @@ namespace Assets.Powerups
     /// <inheritdoc/>
     public class ShrapnelPowerup : OnHitPowerup
     {
-        private const float ShrapnelChanceBase = 0.2f;
-        private const float ShrapnelIncrease = 0.1f;
+        private const float ShrapnelChanceBase = 0.3f;
+        private const float ShrapnelIncrease = 0.8f;
 
         protected override LevelValueCalculator InitialValueCalculator
-            => new SumLevelValueCalculator(ShrapnelChanceBase, ShrapnelIncrease);
+            => new AsymptoteScaleLevelValueCalculator(ShrapnelIncrease, 2f - ShrapnelChanceBase);
 
-        private float ShrapnelChance => ValueCalculator.Value;
+        private float ShrapnelChance => ValueCalculator.Value - 1 + ShrapnelChanceBase;
 
         public override void OnHit(Enemy enemy, PlayerBullet bullet)
         {

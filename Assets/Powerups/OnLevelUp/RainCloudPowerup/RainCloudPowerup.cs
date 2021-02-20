@@ -13,7 +13,7 @@ namespace Assets.Powerups
     /// <inheritdoc/>
     public class RainCloudPowerup : OnLevelUpPowerup
     {
-        private const float FireSpeedBase = 0.6f;
+        private const float FireSpeedBase = 0.5f;
         private const float FireSpeedIncrease = 0.9f;
 
         protected override LevelValueCalculator InitialValueCalculator

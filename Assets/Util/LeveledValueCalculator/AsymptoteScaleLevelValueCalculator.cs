@@ -15,14 +15,14 @@ namespace Assets.Util
     /// exponentBase values close to 0 approach maxValue nearly instantly.
     /// "Balanced" values are usually between 0.6 and 0.8.
     /// </summary>
-    public class AsymptoteRatioLevelValueCalculator : LevelValueCalculator
+    public class AsymptoteScaleLevelValueCalculator : LevelValueCalculator
     {
         private float Scale { get; set; }
 
-        public AsymptoteRatioLevelValueCalculator(float exponentBase, float maxValue = 2.0f)
+        public AsymptoteScaleLevelValueCalculator(float exponentBase, float maxValue = 2.0f)
             : base(maxValue, exponentBase)
         {
-            Scale = -(maxValue - 1);
+            Scale = -(BaseValue - 1);
         }
 
         protected override float CalculateValue()

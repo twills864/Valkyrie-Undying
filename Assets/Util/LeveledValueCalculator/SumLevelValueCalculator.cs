@@ -6,6 +6,11 @@ using System.Threading.Tasks;
 
 namespace Assets.Util
 {
+    /// <summary>
+    /// Increases linearly using the following formula:
+    ///
+    /// y = BaseValue + ((x - 1) * IncreasePerLevel)
+    /// </summary>
     public class SumLevelValueCalculator : LevelValueCalculator
     {
         public SumLevelValueCalculator(float baseValue, float increasePerLevel)
@@ -15,7 +20,8 @@ namespace Assets.Util
 
         protected override float CalculateValue()
         {
-            var ret = BaseValue + (Level * IncreasePerLevel);
+            var x = Level - 1;
+            var ret = BaseValue + (x * IncreasePerLevel);
             return ret;
         }
     }

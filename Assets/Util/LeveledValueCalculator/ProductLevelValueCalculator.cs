@@ -7,6 +7,11 @@ using UnityEngine;
 
 namespace Assets.Util
 {
+    /// <summary>
+    /// Increases exponentially using the following formula:
+    ///
+    /// y = (BaseValue) * (IncreasePerLevel ^ (x - 1))
+    /// </summary>
     public class ProductLevelValueCalculator : LevelValueCalculator
     {
         public ProductLevelValueCalculator(float baseValue, float increasePerLevel)
@@ -16,7 +21,8 @@ namespace Assets.Util
 
         protected override float CalculateValue()
         {
-            var ret = BaseValue * Mathf.Pow(IncreasePerLevel, Level);
+            var x = Level - 1;
+            var ret = BaseValue * Mathf.Pow(IncreasePerLevel, x);
             return ret;
         }
     }

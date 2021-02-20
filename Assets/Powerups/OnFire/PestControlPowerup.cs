@@ -20,7 +20,7 @@ namespace Assets.Powerups
         private const float MaxValue = 2f;
 
         protected override LevelValueCalculator InitialValueCalculator
-            => new AsymptoteRatioLevelValueCalculator(ExponentRatio, MaxValue);
+            => new AsymptoteScaleLevelValueCalculator(ExponentRatio, MaxValue);
 
         private float ChanceModifier => ValueCalculator.Value;
 
