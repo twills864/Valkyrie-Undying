@@ -10,14 +10,10 @@ namespace Assets.Bullets.PlayerBullets
     {
         [SerializeField]
         private float Speed;
-        //public override bool CollidesWithEnemy(Enemy enemy)
-        //{
-        //    return base.CollidesWithEnemy(enemy);
-        //}
 
         protected override bool ShouldMarkSelfCollision => false;
 
-        protected override void OnPlayerBulletInit()
+        protected override void OnActivate()
         {
             Velocity = RandomUtil.RandomDirectionVectorTopQuarter(Speed);
         }

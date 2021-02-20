@@ -58,7 +58,7 @@ namespace Assets.FireStrategies.PlayerFireStrategies
                 shouldFireLanes = LinqUtil.UniformArray(NumAdditionalPelletLanes, true);
             }
 
-            SpreadBullet[] ret = PoolManager.Instance.BulletPool.Get<SpreadBullet>(numToGet);
+            SpreadBullet[] ret = PoolManager.Instance.BulletPool.GetMany<SpreadBullet>(numToGet);
 
             FireGuaranteedLanes(ret, playerFirePos);
 

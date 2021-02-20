@@ -24,7 +24,7 @@ namespace Assets
         private TrackedBoxMap BoxMap { get; set; }
 
         [SerializeField]
-        private float MobileYOffset = 100;
+        private float MobileYOffset;
         private static float MobileY;
 
         private float MinX { get; set; }
@@ -62,8 +62,10 @@ namespace Assets
             BloodlustAuraSprite = BloodlustAuraObject.GetComponent<SpriteRenderer>();
             LineRenderer = GetComponent<LineRenderer>();
 
-            var targetY = Camera.main.ScreenToWorldPoint(new Vector3(0, MobileYOffset));
-            MobileY = targetY.y;
+            //var targetY = Camera.main.ScreenToWorldPoint(new Vector3(0, MobileYOffset));
+            var heightHalf = Renderer.bounds.size.y * 0.5f;
+            MobileY = SpaceUtil.WorldMap.Bottom.y + heightHalf + MobileYOffset;
+            Enemy.FireHeightFloor = MobileY;
 
             SpaceUtil.GetWorldBoundsX(Size.x, out float _MinX, out float _MaxX);
             MinX = _MinX;

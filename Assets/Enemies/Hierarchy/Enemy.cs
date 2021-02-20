@@ -12,6 +12,11 @@ namespace Assets.Enemies
         public override string LogTagColor => "#FFB697";
         public override GameTaskType TaskType => GameTaskType.Enemy;
 
+        /// <summary>
+        /// Enemies below this Y limit will not be allowed to fire their weapons.
+        /// </summary>
+        public static float FireHeightFloor { get; set; }
+
         public int PointValue { get; set; }
         public int CurrentHealth { get; set; }
 
@@ -25,6 +30,8 @@ namespace Assets.Enemies
         public EnemyHealthBar HealthBar;
 
         public virtual Vector2 FirePosition => BoxMap.Bottom;
+        protected virtual bool CanFire(Vector2 firePosition) => firePosition.y > FireHeightFloor;
+
 
         public void UpdateHealthBar() => HealthBar.SetText(CurrentHealth);
 
@@ -64,7 +71,10 @@ namespace Assets.Enemies
 
         protected virtual void FireBullets()
         {
-            var bullets = FireStrategy.GetBullets(FirePosition);
+            if (CanFire(FirePosition))
+            {
+                var bullets = FireStrategy.GetBullets(FirePosition);
+            }
         }
 
         private void Start()

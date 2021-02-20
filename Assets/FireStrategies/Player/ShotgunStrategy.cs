@@ -65,7 +65,7 @@ namespace Assets.FireStrategies.PlayerFireStrategies
             }
 
 
-            ShotgunBullet[] ret = PoolManager.Instance.BulletPool.Get<ShotgunBullet>(numToGet);
+            ShotgunBullet[] ret = PoolManager.Instance.BulletPool.GetMany<ShotgunBullet>(numToGet);
 
             FireGuaranteedLanes(ret, playerFirePos);
 

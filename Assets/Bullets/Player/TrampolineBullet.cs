@@ -87,7 +87,7 @@ namespace Assets.Bullets.PlayerBullets
             Velocity = new Vector2(Velocity.x, -Velocity.y);
         }
 
-        protected override void OnTriggerEnter2D(Collider2D collision)
+        protected override void OnPlayerBulletTriggerEnter2D(Collider2D collision)
         {
             if (CollisionUtil.IsScreenEdge(collision, out ScreenSide screenSide))
             {

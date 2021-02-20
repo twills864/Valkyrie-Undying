@@ -27,10 +27,13 @@ namespace Assets.Bullets.PlayerBullets
             OnPlayerBulletInit();
         }
 
-        protected virtual void OnTriggerEnter2D(Collider2D collision)
+        protected virtual void OnPlayerBulletTriggerEnter2D(Collider2D collision) { }
+        protected void OnTriggerEnter2D(Collider2D collision)
         {
             if (CollisionUtil.IsPlayerBullet(collision) && ShouldMarkSelfCollision)
                 MarkSelfCollision();
+
+            OnPlayerBulletTriggerEnter2D(collision);
         }
 
         public virtual void OnCollideWithEnemy(Enemy enemy)

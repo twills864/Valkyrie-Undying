@@ -28,11 +28,14 @@ namespace Assets.Util.ObjectPooling
         #endregion Fired Bullets
 
         #region Additional Bullets
-
+        [SerializeField]
+        private ReflectedBullet ReflectedPrefab;
         [SerializeField]
         private ShrapnelBullet ShrapnelPrefab;
         [SerializeField]
         private RaindropBullet RaindropPrefab;
+        [SerializeField]
+        private PestControlBullet PestControlPrefab;
 
         #endregion Additional Bullets
 

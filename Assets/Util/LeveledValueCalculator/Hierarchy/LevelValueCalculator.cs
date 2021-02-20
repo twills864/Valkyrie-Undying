@@ -30,5 +30,7 @@ namespace Assets.Util
         }
 
         public float Value { get; private set; }
+
+        public static LevelValueCalculator Default() => new SumLevelValueCalculator(1, 1);
     }
 }

@@ -14,14 +14,14 @@ namespace Assets.Bullets.PlayerBullets
         [SerializeField]
         public float BulletSpreadY;
 
-        protected override void OnTriggerEnter2D(Collider2D collision)
-        {
-            if (CollisionUtil.IsPlayerBullet(collision))
-            {
-                var bullet = collision.GetComponent<PlayerBullet>();
-                if (bullet.GetType() != typeof(BurstBullet))
-                    MarkSelfCollision();
-            }
-        }
+        //protected override void OnPlayerBulletTriggerEnter2D(Collider2D collision)
+        //{
+        //    if (CollisionUtil.IsPlayerBullet(collision))
+        //    {
+        //        var bullet = collision.GetComponent<PlayerBullet>();
+        //        if (bullet.GetType() != typeof(BurstBullet))
+        //            MarkSelfCollision();
+        //    }
+        //}
     }
 }

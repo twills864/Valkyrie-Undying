@@ -123,9 +123,12 @@ namespace Assets.Util.ObjectPooling
         /// <typeparam name="TGet">The type of object to return.</typeparam>
         /// <param name="amountToGet">The number of fresh instances to get.</param>
         /// <returns>A fresh instance of <typeparamref name="TGet"/> from the appropriate Object Pool.</returns>
-        public TGet[] Get<TGet>(int amountToGet) where TGet : T
+        public TGet[] GetMany<TGet>(int amountToGet) where TGet : T
         {
-            TGet[] ret = LinqUtil.Array(amountToGet, () => Get<TGet>());
+            var type = typeof(TGet);
+            var pool = PoolMap[type];
+
+            TGet[] ret = pool.GetMany<TGet>(amountToGet);
             return ret;
         }
 
@@ -206,6 +209,19 @@ namespace Assets.Util.ObjectPooling
             var potentials = GetAllActiveObjects()
                 .Where(x => x != exclusion);
             var ret = RandomUtil.TryGetRandomElement(potentials, out randomObject);
+            return ret;
+        }
+
+        /// <summary>
+        /// Attempts to retrieve up to a specified number of random elements from this PoolList.
+        /// May retrieve fewer than the specified number if there are fewer active elements than requested.
+        /// </summary>
+        /// <param name="maxNumToGet">The upper limit of elements to get.</param>
+        /// <returns></returns>
+        public T[] GetUpToXRandomElements(int maxNumToGet)
+        {
+            var source = GetAllActiveObjects().ToArray();
+            var ret = RandomUtil.GetUpToXRandomElements(source, maxNumToGet);
             return ret;
         }
     }

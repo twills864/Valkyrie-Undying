@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 740a218694dc0734fb1e60c043608a20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BasicPrefab: {fileID: -144044614283539669, guid: d78efe713bf41f64db936fa44a884d4a,
+  BasicPrefab: {fileID: -303583071004373726, guid: fc3383beca5e3194c97bf5e945e6a68d,
     type: 3}
   TankPrefab: {fileID: 3855309089160610100, guid: ac39a4b5a0ce0694e813e59928b0e98b,
     type: 3}

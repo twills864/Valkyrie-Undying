@@ -44,7 +44,7 @@ namespace Assets.Bullets.PlayerBullets
 
         #endregion Enemy Bounce
 
-        protected override void OnTriggerEnter2D(Collider2D collision)
+        protected override void OnPlayerBulletTriggerEnter2D(Collider2D collision)
         {
             if (CollisionUtil.IsScreenEdge(collision))
             {

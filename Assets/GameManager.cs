@@ -1,5 +1,6 @@
 ﻿using System;
 using Assets.Bullets;
+using Assets.Bullets.EnemyBullets;
 using Assets.Bullets.PlayerBullets;
 using Assets.Constants;
 using Assets.Enemies;
@@ -165,14 +166,14 @@ namespace Assets
             EnemyTimer.ActivateSelf();
         }
 
-        public void FirePlayerBullets(Bullet[] bullets)
+        public void FirePlayerBullets(PlayerBullet[] bullets)
         {
-            foreach (var bullet in bullets)
-                FirePlayerBullet(bullet);
+            _PowerupManager.OnFire(Player.FirePosition(), bullets);
+
         }
-        public void FirePlayerBullet(Bullet bullet)
+        public void FirePlayerBullet(PlayerBullet bullet)
         {
-            // Does nothing yet; Will add OnFire() powerup functionality later
+            FirePlayerBullets(new PlayerBullet[] { bullet });
         }
 
         public void CreateShrapnel(Vector2 position)
@@ -187,6 +188,29 @@ namespace Assets
         {
             var raindrop = _PoolManager.BulletPool.Get<RaindropBullet>(position);
             raindrop.RaindropDamage = damage;
+        }
+
+        public void FirePestControl(Vector2 position, int numberToGet)
+        {
+            var targets = _PoolManager.EnemyBulletPool.GetPestControlTargets(numberToGet);
+
+            numberToGet = targets.Length;
+            var pestControls = _PoolManager.BulletPool.GetMany<PestControlBullet>(numberToGet);
+
+            for(int i = 0; i < pestControls.Length; i++)
+            {
+                var pestControl = pestControls[i];
+                var target = targets[i];
+
+                pestControl.SetTarget(position, target);
+            }
+        }
+
+        public void ReflectBullet(EnemyBullet target)
+        {
+            var reflectedBullet = _PoolManager.BulletPool.Get<ReflectedBullet>();
+            reflectedBullet.Init(target);
+            target.DeactivateSelf();
         }
 
 

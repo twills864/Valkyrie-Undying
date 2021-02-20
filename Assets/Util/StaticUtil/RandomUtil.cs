@@ -194,7 +194,7 @@ namespace Assets.Util
         /// Randomly returns true <paramref name="percentChanceOfTrue"/>% of the time.
         /// </summary>
         /// <param name="chanceOfTrue">The chance of returning true, [0, 100]</param>
-        public static bool Bool(int percentChanceOfTrue)
+        public static bool BoolPercent(int percentChanceOfTrue)
         {
             int check = Int(100);
             bool ret = check < percentChanceOfTrue;
@@ -323,7 +323,7 @@ namespace Assets.Util
         /// Returns true otherwise.
         /// </summary>
         /// <typeparam name="T">The type of the IList&lt;<typeparamref name="T"/>&gt;.</typeparam>
-        /// <param name="source">The IList&lt;<typeparamref name="T"/>&gt;.</param>
+        /// <param name="source">The IList&lt;<typeparamref name="T"/>&gt; to retrieve a random element from.</param>
         /// <param name="randomElement">The random element retrieved from the <paramref name="source"/>.</param>
         /// <returns>True if a random element was retrieved; false otherwise.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -347,7 +347,7 @@ namespace Assets.Util
         /// Returns true otherwise.
         /// </summary>
         /// <typeparam name="T">The type of the IEnumerable&lt;<typeparamref name="T"/>&gt;.</typeparam>
-        /// <param name="source">The IEnumerable&lt;<typeparamref name="T"/>&gt;.</param>
+        /// <param name="source">The IEnumerable&lt;<typeparamref name="T"/>&gt; to retrieve a random element from.</param>
         /// <param name="randomElement">The random element retrieved from the <paramref name="source"/>.</param>
         /// <returns>True if a random element was retrieved; false otherwise.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -370,7 +370,7 @@ namespace Assets.Util
         /// Based on the Fisher-Yates shuffle algorithm.
         /// </summary>
         /// <typeparam name="T">The type of the IList&lt;<typeparamref name="T"/>&gt;.</typeparam>
-        /// <param name="source">The array to be shuffled</param>
+        /// <param name="source">The array to be shuffled.</param>
         /// <see cref="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm.</see>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void Shuffle<T>(IList<T> source)
@@ -381,6 +381,54 @@ namespace Assets.Util
                 int j = Int(i--);
                 CodeUtil.Swap(source, i, j);
             }
+        }
+
+        /// <summary>
+        /// Creates a copy of a given IList&lt;<typeparamref name="T"/>&gt;, and
+        /// shuffles it to a completely random order.
+        /// Based on the Fisher-Yates shuffle algorithm.
+        /// </summary>
+        /// <typeparam name="T">The type of the IList&lt;<typeparamref name="T"/>&gt;.</typeparam>
+        /// <param name="source">The array to be shuffled.</param>
+        /// <returns>A new array with the same elements as source, but in a random order.</returns>
+        /// <see cref="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates shuffle algorithm.</see>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static T[] ShuffleNew<T>(IList<T> source)
+        {
+            var ret = new T[source.Count];
+            Array.Copy(source.ToArray(), ret, source.Count);
+            Shuffle(ret);
+            return ret;
+        }
+
+        /// <summary>
+        /// Attempts to retrieve up to a specified number of random elements from a given IList&lt;<typeparamref name="T"/>&gt;.
+        /// May retrieve fewer than the specified number if the source has fewer elements than requested.
+        /// </summary>
+        /// <typeparam name="T">The type of the IList to get random elements from.</typeparam>
+        /// <param name="source">The IList&lt;<typeparamref name="T"/>&gt; to retrieve random elements from.</param>
+        /// <param name="maxNumToGet">The upper limit of elements to get.</param>
+        /// <returns></returns>
+        public static T[] GetUpToXRandomElements<T>(IList<T> source, int maxNumToGet)
+        {
+            T[] ret;
+            if (!source.Any())
+                ret = new T[0];
+            else if (source.Count <= maxNumToGet)
+                ret = source.ToArray();
+            else
+            {
+                var sourceArray = source.ToArray();
+                var tempArray = new T[sourceArray.Length];
+                Array.Copy(sourceArray, tempArray, sourceArray.Length);
+
+                Shuffle(tempArray);
+
+                ret = new T[maxNumToGet];
+                Array.Copy(tempArray, ret, maxNumToGet);
+            }
+
+            return ret;
         }
 
         #endregion Collections

@@ -57,6 +57,19 @@ namespace Assets.Util
         }
 
         /// <summary>
+        /// Gets a specified number of fresh instances of the represented object,
+        /// either by activating inactive objects, or creating new ones
+        /// if there are no inactive objects in the pool.
+        /// </summary>
+        /// <param name="numToGet">The number of fresh instances to get.</param>
+        /// <returns>The specified number of fresh instances of <typeparamref name="T"/>.</returns>
+        public TGet[] GetMany<TGet>(int numToGet) where TGet : T
+        {
+            TGet[] ret = LinqUtil.Array(numToGet, () => (TGet) Get());
+            return ret;
+        }
+
+        /// <summary>
         /// Instantiates a new instance of the represented prefab.
         /// </summary>
         /// <returns>The newly-instantiated prefab.</returns>

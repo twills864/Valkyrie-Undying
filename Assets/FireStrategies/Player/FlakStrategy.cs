@@ -56,7 +56,7 @@ namespace Assets.FireStrategies.PlayerFireStrategies
 #endif
 
             bool[] shouldFireLanes = RandomUtil.ShuffledBools(NumAdditionalPelletLanes, numAdditional);
-            FlakBullet[] ret = PoolManager.Instance.BulletPool.Get<FlakBullet>(numToGet);
+            FlakBullet[] ret = PoolManager.Instance.BulletPool.GetMany<FlakBullet>(numToGet);
 
             FireGuaranteedLanes(ret, playerFirePos);
 
