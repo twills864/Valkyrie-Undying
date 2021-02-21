@@ -8,6 +8,7 @@ namespace Assets.Bullets.PlayerBullets
     /// <inheritdoc/>
     public class SentinelBullet : PlayerBullet
     {
+        protected override bool ShouldDeactivateOnDestructor => false;
         protected override bool ShouldMarkSelfCollision => false;
 
         [SerializeField]

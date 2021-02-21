@@ -6,6 +6,8 @@ namespace Assets.Bullets
     /// <inheritdoc/>
     public abstract class Bullet : PooledObject
     {
+        protected virtual bool ShouldDeactivateOnDestructor => true;
+
         protected virtual void OnBulletInit() { }
         public override sealed void OnInit()
         {
@@ -16,13 +18,9 @@ namespace Assets.Bullets
         {
             if (CollisionUtil.IsDestructor(collision))
             {
-                CollideWithDestructor();
+                if(ShouldDeactivateOnDestructor)
+                    DeactivateSelf();
             }
-        }
-
-        protected virtual void CollideWithDestructor()
-        {
-            DeactivateSelf();
         }
     }
 }

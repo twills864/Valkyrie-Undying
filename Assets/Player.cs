@@ -45,14 +45,6 @@ namespace Assets
             BloodlustTimer = FrameTimer.Default();
         }
 
-        void Update()
-        {
-            if (Input.GetMouseButton(0))
-                SetMobilePosition(SpaceUtil.WorldPositionUnderMouse());
-            else if (Input.GetMouseButton(1))
-                SetPosition(SpaceUtil.WorldPositionUnderMouse());
-        }
-
         public void Init()
         {
             Instance = this;
@@ -93,6 +85,11 @@ namespace Assets
 
         public override void RunFrame(float deltaTime)
         {
+            if (Input.GetMouseButton(0))
+                SetMobilePosition(SpaceUtil.WorldPositionUnderMouse());
+            else if (Input.GetMouseButton(1))
+                SetPosition(SpaceUtil.WorldPositionUnderMouse());
+
             if (!BloodlustTimer.Activated && BloodlustTimer.UpdateActivates(deltaTime))
                 ResetBloodlust();
         }

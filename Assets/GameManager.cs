@@ -110,7 +110,7 @@ namespace Assets
 
         private GameTaskListManager GameTaskLists = new GameTaskListManager();
 
-        private LoopingFrameTimer EnemyTimer = new LoopingFrameTimer(30.0f);
+        private LoopingFrameTimer EnemyTimer = new LoopingFrameTimer(3.0f);
 
         private void Awake()
         {
@@ -158,6 +158,9 @@ namespace Assets
         {
             SpaceUtil.Init();
             DebugUi.Init(this, this.FireStrategies);
+
+            TimeSpan frameTime = TimeSpan.FromSeconds((double)1 / (double)Application.targetFrameRate);
+            DebugUI.SetDebugLabel("FRAMETIME", frameTime);
             SetFireType(DefaultFireTypeIndex);
 
             DebugUtil.Init(DebugUi, this);
@@ -171,6 +174,7 @@ namespace Assets
 
             EnemyTimer.ActivateSelf();
 
+            _PowerupMenu.transform.position += new Vector3(0, 80, 0);
             _PowerupMenu.gameObject.SetActive(AddingPowerup);
         }
 

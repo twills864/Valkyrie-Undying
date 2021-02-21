@@ -33,5 +33,16 @@ namespace Assets.Util
             var ret = exponent + BaseValue;
             return ret;
         }
+
+        // x = -(maxValue - 1) * (exponentBase ^ (y-1)) + maxValue
+        // y = ln(maxValue - x) / ln(exponentBase) + 1
+        public float FindInverseOfValue(float value)
+        {
+            var lnMax = Mathf.Log(BaseValue - value);
+            var lnB = Mathf.Log(IncreasePerLevel);
+
+            var ret = lnMax / lnB + 1;
+            return ret;
+        }
     }
 }

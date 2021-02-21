@@ -342,6 +342,22 @@ namespace Assets.Util
         }
 
         /// <summary>
+        /// Returns a random element of a given IEnumerable&lt;<typeparamref name="T"/>&gt; with equal probabilities.
+        /// </summary>
+        /// <typeparam name="T">The type of the IEnumerable&lt;<typeparamref name="T"/>&gt;.</typeparam>
+        /// <param name="source">The IEnumerable&lt;<typeparamref name="T"/>&gt;.</param>
+        /// <returns>A random element from the IEnumerable&lt;<typeparamref name="T"/>&gt;.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static T RandomElement<T>(IEnumerable<T> source)
+        {
+            int count = source.Count();
+            int randomIindex = Int(count);
+
+            T ret = source.Skip(randomIindex).First();
+            return ret;
+        }
+
+        /// <summary>
         /// Attempts to retrieve a random element of a given IEnumerable&lt;<typeparamref name="T"/>&gt;.
         /// Returns false if no element could be retrieved because the given <paramref name="source"/> was empty.
         /// Returns true otherwise.
@@ -360,7 +376,7 @@ namespace Assets.Util
             }
             else
             {
-                randomElement = RandomElement(source.ToList());
+                randomElement = RandomElement(source);
                 return true;
             }
         }
@@ -379,7 +395,7 @@ namespace Assets.Util
             while (i > 1)
             {
                 int j = Int(i--);
-                CodeUtil.Swap(source, i, j);
+                CollectionUtil.Swap(source, i, j);
             }
         }
 

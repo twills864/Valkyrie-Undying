@@ -135,3 +135,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SpawnId: 0
   BaseDamage: 20
+  TravelTime: 1

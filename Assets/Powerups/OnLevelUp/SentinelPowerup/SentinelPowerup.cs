@@ -13,7 +13,7 @@ namespace Assets.Powerups
     /// <inheritdoc/>
     public class SentinelPowerup : OnLevelUpPowerup
     {
-        private const float RespawnIntervalBase = 2.0f;
+        private const float RespawnIntervalBase = 5.0f;
         private const float RespawnIntervalRatioIncrease = 0.9f;
 
         protected override LevelValueCalculator InitialValueCalculator
@@ -22,8 +22,8 @@ namespace Assets.Powerups
         public float RespawnInterval => ValueCalculator.Value;
 
         private const float WorldDistanceExponentBase = 0.6f;
-        private const float WorldDistanceMaxValue = 2f;
-        private LevelValueCalculator DistanceCalculator =
+        private const float WorldDistanceMaxValue = 2.5f;
+        private AsymptoteScaleLevelValueCalculator DistanceCalculator =
             new AsymptoteScaleLevelValueCalculator(WorldDistanceExponentBase, WorldDistanceMaxValue);
 
         public float Distance => DistanceCalculator.Value;
@@ -36,6 +36,8 @@ namespace Assets.Powerups
             DistanceCalculator.Level = Level;
             SentinelManager.Instance.LevelUp(Level, Distance, RespawnInterval);
         }
+
+
     }
 }
 

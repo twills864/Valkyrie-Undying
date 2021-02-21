@@ -48,18 +48,19 @@ namespace Assets.Util
         public static void SetRightToPosition(MonoBehaviour element, Vector2 pos)
         {
             var rectTransform = (RectTransform)element.transform;
-            var rect = rectTransform.rect.size;
+            var rectSize = rectTransform.rect.size;
 
-            SetRightToPosition(element, pos, rect);
+            SetRightToPosition(element, pos, rectSize);
         }
         /// <summary>
         /// Right-aligns a given element to a specified position.
         /// </summary>
         /// <param name="element">The element to position.</param>
         /// <param name="pos">The position to set.</param>
+        /// /// <param name="elementSize">The size of the element.</param>
         private static void SetRightToPosition(MonoBehaviour element, Vector2 pos, Vector2 elementSize)
         {
-            var add = new Vector2(-elementSize.x, elementSize.y) / 2;
+            var add = new Vector2(-elementSize.x, elementSize.y) * 0.5f;
             var newPos = pos + add;
 
             element.transform.position = newPos;
@@ -73,18 +74,19 @@ namespace Assets.Util
         public static void SetLeftToPosition(MonoBehaviour element, Vector2 pos)
         {
             var rectTransform = (RectTransform)element.transform;
-            var rect = rectTransform.rect.size;
+            var rectSize = rectTransform.rect.size;
 
-            SetLeftToPosition(element, pos, rect);
+            SetLeftToPosition(element, pos, rectSize);
         }
         /// <summary>
         /// Left-aligns a given element to a specified position.
         /// </summary>
         /// <param name="element">The element to position.</param>
         /// <param name="pos">The position to set.</param>
+        /// <param name="elementSize">The size of the element.</param>
         private static void SetLeftToPosition(MonoBehaviour element, Vector2 pos, Vector2 elementSize)
         {
-            var add = new Vector2(elementSize.x / 2, elementSize.y / 2);
+            var add = new Vector2(elementSize.x, elementSize.y) * 0.5f;
             var newPos = pos + add;
 
             element.transform.position = newPos;
@@ -107,18 +109,19 @@ namespace Assets.Util
         public static void SetCenterToPosition(MonoBehaviour element, Vector2 pos)
         {
             var rectTransform = (RectTransform)element.transform;
-            var rect = rectTransform.rect.size;
+            var rectSize = rectTransform.rect.size;
 
-            SetCenterToPosition(element, pos, rect);
+            SetCenterToPosition(element, pos, rectSize);
         }
         /// <summary>
         /// Center-aligns a given element to a specified position.
         /// </summary>
         /// <param name="element">The element to position.</param>
         /// <param name="pos">The position to set.</param>
+        /// /// <param name="elementSize">The size of the element.</param>
         private static void SetCenterToPosition(MonoBehaviour element, Vector2 pos, Vector2 elementSize)
         {
-            var add = new Vector2(elementSize.x, elementSize.y) / 2;
+            var add = new Vector2(elementSize.x, elementSize.y) * 0.5f;
             var newPos = pos + add;
 
             element.transform.position = newPos;

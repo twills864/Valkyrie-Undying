@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Assets.Bullets.PlayerBullets;
 using Assets.FireStrategies.PlayerFireStrategies;
+using Assets.GameTasks;
 using Assets.ObjectPooling;
 using Assets.Util;
 using UnityEngine;
@@ -40,6 +42,24 @@ namespace Assets.Powerups
                 sentinel.DeactivateSelf();
         }
 
+        public void ActivateRandomSentinel()
+        {
+            //const string TimerName = "ActivateTime";
+            //var timer = Stopwatch.StartNew();
+            var inactiveSentinels = SentinelPool.Where(x => !x.isActiveAndEnabled);
+            if (RandomUtil.TryGetRandomElement(inactiveSentinels, out PlayerBullet bullet))
+                bullet.ActivateSelf();
+
+
+            // Array implmentation
+            //var inactiveSentinels = SentinelPool.Where(x => !x.isActiveAndEnabled).ToArray();
+
+            //if (RandomUtil.TryGetRandomElement(inactiveSentinels, out PlayerBullet bullet))
+            //    bullet.ActivateSelf();
+
+            //timer.Stop();
+            //DebugUI.SetDebugLabel(TimerName, timer.Elapsed);
+        }
 
         public override void RunFrame(float deltaTime)
         {
@@ -51,14 +71,7 @@ namespace Assets.Powerups
                 Rotation -= MathUtil.Pi2;
 
             if(FireTimer.UpdateActivates(deltaTime))
-            {
-                // TODO: Change this so it just iterates over an enumerable
-                var inactiveSentinels = SentinelPool.Where(x => !x.isActiveAndEnabled).ToArray();
-
-                if (RandomUtil.TryGetRandomElement(inactiveSentinels, out PlayerBullet bullet))
-                    bullet.ActivateSelf();
-            }
-
+                ActivateRandomSentinel();
 
             float angle = Rotation;
             for(int i = 0; i < NumSentinel; i++)
@@ -69,6 +82,7 @@ namespace Assets.Powerups
                     var offset = (Vector3) MathUtil.VectorAtAngle(angle, Distance);
 
                     var destination = transform.position + offset;
+                    //var ratio = EaseIn.AdjustRatio(bullet.DistanceRatio);
                     var ratio = bullet.DistanceRatio;
                     var pos = MathUtil.ScaledPositionBetween(transform.position, destination, ratio);
                     bullet.transform.position = pos;
@@ -81,22 +95,34 @@ namespace Assets.Powerups
         public void LevelUp(int level, float distance, float respawnInterval)
         {
             Level = level;
+
             FireTimer.ActivationInterval = respawnInterval;
+            FireTimer.Reset();
 
             float oldDistance = Distance;
             Distance = distance;
 
-            if (level == 1)
-                gameObject.SetActive(true);
-            else
+            if (level > 1)
             {
-                float newRatio = (float)oldDistance / Distance;
+                float newDistanceRatio = oldDistance / Distance;
+
                 foreach (var bullet in SentinelPool.Where(x => x.isActiveAndEnabled))
                 {
                     var sentinel = (SentinelBullet)bullet;
-                    sentinel.UpdateTimerRatio(newRatio);
+                    sentinel.UpdateTimerRatio(newDistanceRatio);
+
+
+                    // Old musings - may come back
+                    //// newRatio = Inverse(IDFNew(oldPosition))
+                    //var oldInverse = scale.FindInverseOfValueAsRatio(oldDistance);
+                    //var newRatio = EaseIn.InverseRatio(oldInverse);
+
+                    ////var oldRatio = sentinel.DistanceRatio;
+                    ////var inverse = EaseIn.InverseRatio(oldRatio);
                 }
             }
+
+            ActivateRandomSentinel();
         }
     }
 }
