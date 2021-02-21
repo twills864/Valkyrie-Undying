@@ -141,9 +141,21 @@ namespace Assets.ObjectPooling
         /// <returns>The associated prefab.</returns>
         public TGet GetPrefab<TGet>() where TGet : T
         {
-            var dbType = typeof(TGet);
-            var map = PoolMap[typeof(TGet)];
-            var ret = (TGet) map.ObjectPrefab;
+            var type = typeof(TGet);
+            var pool = PoolMap[type];
+            var ret = (TGet) pool.ObjectPrefab;
+            return ret;
+        }
+
+        /// <summary>
+        /// Returns the ObjectPool associated with the type <typeparamref name="T"/>.
+        /// </summary>
+        /// <typeparam name="TGet">The type of ObjectPool to return.</typeparam>
+        /// <returns>The associated ObjectPool.</returns>
+        public ObjectPool<T> GetPool<TGet>()
+        {
+            var type = typeof(TGet);
+            var ret = PoolMap[type];
             return ret;
         }
 

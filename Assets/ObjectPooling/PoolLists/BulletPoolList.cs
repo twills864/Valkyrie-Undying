@@ -29,6 +29,7 @@ namespace Assets.ObjectPooling
         #endregion Fired Bullets
 
         #region Additional Bullets
+
         [SerializeField]
         private ReflectedBullet ReflectedPrefab;
         [SerializeField]
@@ -37,6 +38,8 @@ namespace Assets.ObjectPooling
         private RaindropBullet RaindropPrefab;
         [SerializeField]
         private PestControlBullet PestControlPrefab;
+        [SerializeField]
+        private SentinelBullet SentinelPrefab;
 
         #endregion Additional Bullets
 

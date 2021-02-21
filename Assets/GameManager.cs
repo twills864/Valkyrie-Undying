@@ -81,6 +81,9 @@ namespace Assets
         private RainCloudSpawner _RainCloudSpawner;
         private RainCloudPowerup _RainCloudPowerup;
 
+        [SerializeField]
+        private SentinelManager _SentinelManager;
+
         #endregion Powerups
 
         #region Powerup Menu
@@ -164,6 +167,7 @@ namespace Assets
             _ScreenEdgeColliderSet.Init();
             _DebugEnemy.Init();
             _RainCloud.Init();
+            _SentinelManager.Init();
 
             EnemyTimer.ActivateSelf();
 
@@ -263,6 +267,9 @@ namespace Assets
                 _RainCloudSpawner.RunFrame(deltaTime);
             if (_RainCloud.isActiveAndEnabled)
                 _RainCloud.RunFrame(deltaTime);
+
+            _SentinelManager.transform.position = Player.transform.position;
+            _SentinelManager.RunFrame(deltaTime);
 
             _PoolManager.RunPoolFrames(deltaTime, deltaTime);
             GameTaskLists.RunFrames(deltaTime);

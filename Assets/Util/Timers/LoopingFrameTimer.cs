@@ -38,5 +38,10 @@ namespace Assets.Util
                 return ret;
             }
         }
+
+        public static LoopingFrameTimer Default()
+        {
+            return new LoopingFrameTimer(1.0f);
+        }
     }
 }

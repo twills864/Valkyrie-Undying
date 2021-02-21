@@ -6,6 +6,7 @@ namespace Assets.Util
 {
     public static class MathUtil
     {
+        public static float Pi2 = (float) Math.PI * 2;
         /// <summary>
         /// The default direction to apply if a sensitive Vector calculation results in Vector2.zero
         /// </summary>
@@ -165,6 +166,23 @@ namespace Assets.Util
         public static Vector2 VectorAtAngle(float angle, float length)
         {
             var ret = VectorAtAngle(angle) * length;
+            return ret;
+        }
+
+        /// <summary>
+        /// Returns a Vector2 along the path between two points
+        /// that represents the given ration between them.
+        /// </summary>
+        /// <param name="from">The starting point.</param>
+        /// <param name="to">The destination point.</param>
+        /// <param name="ratio">The ratio of completion.</param>
+        /// <returns>The represented point between the two points.</returns>
+        public static Vector2 ScaledPositionBetween(Vector2 from, Vector2 to, float ratio)
+        {
+            Vector2 diff = to - from;
+            Vector2 scaled = diff * ratio;
+
+            Vector2 ret = from + scaled;
             return ret;
         }
 
