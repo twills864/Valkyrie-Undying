@@ -10,8 +10,24 @@ namespace Assets.Util
         public float OverflowDeltaTime { get; protected set; }
 
         public float TimeUntilActivation => ActivationInterval - Elapsed;
-        public float RatioComplete => Elapsed / ActivationInterval;
-        public float RatioRemaining => 1f - RatioComplete;
+        public float RatioComplete
+        {
+            get => Elapsed / ActivationInterval;
+            set
+            {
+                Elapsed = value * ActivationInterval;
+                TouchTimer();
+            }
+        }
+        public float RatioRemaining
+        {
+            get => 1f - RatioComplete;
+            set
+            {
+                Elapsed = (1 - value) * ActivationInterval;
+                TouchTimer();
+            }
+        }
 
         public abstract void Increment(float deltaTime);
 
@@ -54,6 +70,16 @@ namespace Assets.Util
         {
             Activated = false;
             ActivateSelf();
+        }
+
+        /// <summary>
+        /// "Increments" the timer by 0 in order to recalculate the value of Activated.
+        /// Named after the bash command "touch."
+        /// </summary>
+        protected void TouchTimer()
+        {
+            Activated = false;
+            Increment(0f);
         }
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]

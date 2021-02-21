@@ -10,8 +10,14 @@ namespace Assets.Bullets.PlayerBullets
     {
         protected override bool ShouldMarkSelfCollision => false;
 
-        const float TravelTime = 2.0f;
-        private FrameTimer TravelTimer { get; } = new FrameTimer(TravelTime);
+        [SerializeField]
+        private float TravelTime;
+        private FrameTimer TravelTimer { get; set; }
+
+        protected override void OnPlayerBulletInit()
+        {
+            TravelTimer = new FrameTimer(TravelTime);
+        }
 
         public float DistanceRatio => TravelTimer.RatioComplete;
         protected override void OnPlayerBulletFrameRun(float deltaTime)
@@ -23,6 +29,11 @@ namespace Assets.Bullets.PlayerBullets
         protected override void OnActivate()
         {
             TravelTimer.Reset();
+        }
+
+        public void UpdateTimerRatio(float newRatio)
+        {
+            TravelTimer.RatioComplete *= newRatio;
         }
     }
 }

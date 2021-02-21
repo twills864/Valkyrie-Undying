@@ -110,7 +110,7 @@ namespace Assets
 
         private GameTaskListManager GameTaskLists = new GameTaskListManager();
 
-        private LoopingFrameTimer EnemyTimer = new LoopingFrameTimer(3.0f);
+        private LoopingFrameTimer EnemyTimer = new LoopingFrameTimer(30.0f);
 
         private void Awake()
         {

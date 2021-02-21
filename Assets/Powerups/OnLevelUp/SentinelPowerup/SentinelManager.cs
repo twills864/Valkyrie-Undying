@@ -27,15 +27,15 @@ namespace Assets.Powerups
         private float Rotation { get; set; }
         //private float RespawnInterval { get; set; }
 
-        private ObjectPool<PlayerBullet> SentinelBullets;
+        private ObjectPool<PlayerBullet> SentinelPool;
 
         public void Init()
         {
             Instance = this;
 
-            SentinelBullets = PoolManager.Instance.BulletPool.GetPool<SentinelBullet>();
+            SentinelPool = PoolManager.Instance.BulletPool.GetPool<SentinelBullet>();
 
-            var sentinels = SentinelBullets.GetMany<SentinelBullet>(NumSentinel);
+            var sentinels = SentinelPool.GetMany<SentinelBullet>(NumSentinel);
             foreach (var sentinel in sentinels)
                 sentinel.DeactivateSelf();
         }
@@ -53,7 +53,7 @@ namespace Assets.Powerups
             if(FireTimer.UpdateActivates(deltaTime))
             {
                 // TODO: Change this so it just iterates over an enumerable
-                var inactiveSentinels = SentinelBullets.Where(x => !x.isActiveAndEnabled).ToArray();
+                var inactiveSentinels = SentinelPool.Where(x => !x.isActiveAndEnabled).ToArray();
 
                 if (RandomUtil.TryGetRandomElement(inactiveSentinels, out PlayerBullet bullet))
                     bullet.ActivateSelf();
@@ -63,7 +63,7 @@ namespace Assets.Powerups
             float angle = Rotation;
             for(int i = 0; i < NumSentinel; i++)
             {
-                var bullet = (SentinelBullet) SentinelBullets[i];
+                var bullet = (SentinelBullet) SentinelPool[i];
                 if(bullet.isActiveAndEnabled)
                 {
                     var offset = (Vector3) MathUtil.VectorAtAngle(angle, Distance);
@@ -80,14 +80,23 @@ namespace Assets.Powerups
 
         public void LevelUp(int level, float distance, float respawnInterval)
         {
+            Level = level;
+            FireTimer.ActivationInterval = respawnInterval;
+
+            float oldDistance = Distance;
+            Distance = distance;
+
             if (level == 1)
                 gameObject.SetActive(true);
-
-            Level = level;
-            Distance = distance;
-            //RespawnInterval = respawnInterval;
-
-            FireTimer.ActivationInterval = respawnInterval;
+            else
+            {
+                float newRatio = (float)oldDistance / Distance;
+                foreach (var bullet in SentinelPool.Where(x => x.isActiveAndEnabled))
+                {
+                    var sentinel = (SentinelBullet)bullet;
+                    sentinel.UpdateTimerRatio(newRatio);
+                }
+            }
         }
     }
 }
