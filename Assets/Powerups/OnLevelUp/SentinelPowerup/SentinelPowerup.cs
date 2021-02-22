@@ -26,7 +26,7 @@ namespace Assets.Powerups
         private AsymptoteScaleLevelValueCalculator DistanceCalculator =
             new AsymptoteScaleLevelValueCalculator(WorldDistanceExponentBase, WorldDistanceMaxValue);
 
-        public float Distance => DistanceCalculator.Value;
+        public float Radius => DistanceCalculator.Value;
 
         public override void OnLevelUp()
         {
@@ -34,7 +34,7 @@ namespace Assets.Powerups
             //    RainCloudSpawner.Instance.Activate();
 
             DistanceCalculator.Level = Level;
-            SentinelManager.Instance.LevelUp(Level, Distance, RespawnInterval);
+            SentinelManager.Instance.LevelUp(Level, Radius, RespawnInterval);
         }
 
 

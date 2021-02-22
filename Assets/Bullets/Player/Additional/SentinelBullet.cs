@@ -1,5 +1,6 @@
 ﻿using Assets.Bullets.PlayerBullets;
 using Assets.Enemies;
+using Assets.GameTasks;
 using Assets.Util;
 using UnityEngine;
 
@@ -15,12 +16,33 @@ namespace Assets.Bullets.PlayerBullets
         private float TravelTime;
         private FrameTimer TravelTimer { get; set; }
 
+        /// <summary>
+        /// The final radius this Sentinel will hover around the player.
+        /// </summary>
+        public float MaxRadius { get; set; }
+
+        /// <summary>
+        /// The ratio representing how far this Sentinel has traveled to MaxRadius.
+        /// </summary>
+        public float RadiusRatio
+        {
+            get => EaseIn.AdjustRatio(TravelTimer.RatioComplete);
+            set => TravelTimer.RatioComplete = EaseIn.InverseRatio(value);
+        }
+
+        /// <summary>
+        /// The distance representing how far this Sentinel has traveled to MaxRadius.
+        /// </summary>
+        public float CurrentRadius
+        {
+            get => MaxRadius * RadiusRatio;
+        }
+
         protected override void OnPlayerBulletInit()
         {
             TravelTimer = new FrameTimer(TravelTime);
         }
 
-        public float DistanceRatio => TravelTimer.RatioComplete;
         protected override void OnPlayerBulletFrameRun(float deltaTime)
         {
             if (!TravelTimer.Activated)
@@ -30,11 +52,6 @@ namespace Assets.Bullets.PlayerBullets
         protected override void OnActivate()
         {
             TravelTimer.Reset();
-        }
-
-        public void UpdateTimerRatio(float newRatio)
-        {
-            TravelTimer.RatioComplete *= newRatio;
         }
     }
 }
