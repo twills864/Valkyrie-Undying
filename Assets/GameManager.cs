@@ -110,7 +110,7 @@ namespace Assets
 
         private GameTaskListManager GameTaskLists = new GameTaskListManager();
 
-        private LoopingFrameTimer EnemyTimer = new LoopingFrameTimer(3.0f);
+        private LoopingFrameTimer EnemyTimer = new LoopingFrameTimer(3.0f * 100);
 
         private void Awake()
         {
@@ -321,7 +321,7 @@ namespace Assets
         public void SetBloodlust(float duration, float speedScale)
         {
             Player.SetBloodlust(duration, speedScale);
-            FireTimer.ResetAndActivateSelf();
+            FireTimer.ActivateSelf();
         }
 
         #endregion OnEnemyKill

@@ -16,7 +16,7 @@ namespace Assets.Powerups
     public class SentinelManager : FrameRunner
     {
         public static SentinelManager Instance { get; set; }
-        const int NumSentinel = 8;
+        const int NumSentinel = 1;
         readonly float AngleDelta = MathUtil.Pi2 / NumSentinel;
 
         [SerializeField]
@@ -48,6 +48,9 @@ namespace Assets.Powerups
             //const string TimerName = "ActivateTime";
             //var timer = Stopwatch.StartNew();
 
+            SentinelPool[0].ActivateSelf();
+            return;
+
             var inactiveSentinels = SentinelPool.Where(x => !x.isActiveAndEnabled);
             if (RandomUtil.TryGetRandomElement(inactiveSentinels, out PlayerBullet bullet))
                 bullet.ActivateSelf();
@@ -72,22 +75,22 @@ namespace Assets.Powerups
             if (Rotation > MathUtil.Pi2)
                 Rotation -= MathUtil.Pi2;
 
-            if(FireTimer.UpdateActivates(deltaTime))
-                ActivateRandomSentinel();
+            //if(FireTimer.UpdateActivates(deltaTime))
+                //ActivateRandomSentinel();
 
             float angle = Rotation;
             for(int i = 0; i < NumSentinel; i++)
             {
-                var bullet = (SentinelBullet) SentinelPool[i];
-                if(bullet.isActiveAndEnabled)
+                var sentinel = (SentinelBullet) SentinelPool[i];
+                if(sentinel.isActiveAndEnabled)
                 {
                     var offset = (Vector3) MathUtil.VectorAtAngle(angle, Radius);
 
                     var destination = transform.position + offset;
                     //var ratio = EaseIn.AdjustRatio(bullet.DistanceRatio);
-                    var ratio = bullet.RadiusRatio;
+                    var ratio = sentinel.RadiusRatio;
                     var pos = MathUtil.ScaledPositionBetween(transform.position, destination, ratio);
-                    bullet.transform.position = pos;
+                    sentinel.transform.position = pos;
                 }
 
                 angle += AngleDelta;
@@ -120,9 +123,9 @@ namespace Assets.Powerups
             {
                 foreach (var sentinel in Sentinels)
                     sentinel.MaxRadius = Radius;
-            }
 
-            ActivateRandomSentinel();
+                ActivateRandomSentinel();
+            }
         }
     }
 }

@@ -10,7 +10,7 @@ namespace Assets.Util
         public float OverflowDeltaTime { get; protected set; }
 
         public float TimeUntilActivation => ActivationInterval - Elapsed;
-        public float RatioComplete
+        public virtual float RatioComplete
         {
             get => Elapsed / ActivationInterval;
             set
@@ -19,7 +19,7 @@ namespace Assets.Util
                 TouchTimer();
             }
         }
-        public float RatioRemaining
+        public virtual float RatioRemaining
         {
             get => 1f - RatioComplete;
             set
@@ -44,6 +44,7 @@ namespace Assets.Util
             return Activated;
         }
 
+        protected virtual void OnReset() { }
         /// <summary>
         /// Resets this timer, setting Elapsed to 0, and Activated to false.
         /// </summary>
@@ -51,6 +52,7 @@ namespace Assets.Util
         {
             Elapsed = 0;
             Activated = false;
+            OnReset();
         }
 
         /// <summary>
@@ -61,15 +63,6 @@ namespace Assets.Util
         {
             Elapsed = ActivationInterval;
             Activated = true;
-        }
-
-        /// <summary>
-        /// Resets this timer and forces it to activate itself by setting Elapsed to 0, and Activated to false.
-        /// </summary>
-        public void ResetAndActivateSelf()
-        {
-            Activated = false;
-            ActivateSelf();
         }
 
         /// <summary>

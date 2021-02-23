@@ -14,7 +14,7 @@ namespace Assets.Bullets.PlayerBullets
 
         [SerializeField]
         private float TravelTime;
-        private FrameTimer TravelTimer { get; set; }
+        private EaseInTimer TravelTimer { get; set; }
 
         /// <summary>
         /// The final radius this Sentinel will hover around the player.
@@ -26,9 +26,13 @@ namespace Assets.Bullets.PlayerBullets
         /// </summary>
         public float RadiusRatio
         {
-            get => EaseIn.AdjustRatio(TravelTimer.RatioComplete);
-            set => TravelTimer.RatioComplete = EaseIn.InverseRatio(value);
+            get => TravelTimer.RatioComplete;
+            set => TravelTimer.RatioComplete = value;
         }
+        //{
+        //    get => EaseIn.AdjustRatio(TravelTimer.RatioComplete);
+        //    set => TravelTimer.RatioComplete = EaseIn.InverseRatio(value);
+        //}
 
         /// <summary>
         /// The distance representing how far this Sentinel has traveled to MaxRadius.
@@ -40,7 +44,7 @@ namespace Assets.Bullets.PlayerBullets
 
         protected override void OnPlayerBulletInit()
         {
-            TravelTimer = new FrameTimer(TravelTime);
+            TravelTimer = new EaseInTimer(TravelTime);
         }
 
         protected override void OnPlayerBulletFrameRun(float deltaTime)

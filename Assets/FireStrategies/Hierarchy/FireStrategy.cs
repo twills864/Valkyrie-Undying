@@ -7,7 +7,7 @@ namespace Assets.FireStrategies
     public abstract class FireStrategy
     {
         public abstract LoopingFrameTimer FireTimer { get; protected set; }
-        public void Reset() => FireTimer.ResetAndActivateSelf();
+        public void Reset() => FireTimer.ActivateSelf();
     }
 
     /// <inheritdoc/>

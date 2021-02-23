@@ -16,15 +16,14 @@ namespace Assets.GameTasks
     {
         protected FiniteTimeGameTask InnerTask { get; set; }
 
+        /// <summary>
+        /// The delta time that was represented on the last frame.
+        /// </summary>
+        private float LastElapsedTime { get; set; }
+
         public TimeModifyingGameTask(FiniteTimeGameTask innerTask) : base(innerTask.Target, innerTask.Duration)
         {
             InnerTask = innerTask;
-
-#if DEBUG
-            // TODO: Proper unit testing
-            Debug.Assert(ModifyCompletionRatio(0) == 0);
-            Debug.Assert(ModifyCompletionRatio(1) == 1);
-#endif
         }
 
         protected sealed override void OnFiniteTaskFrameRun(float deltaTime)
@@ -32,11 +31,6 @@ namespace Assets.GameTasks
             var innerDt = CalculateInnerDeltaTime();
             InnerTask.RunFrame(innerDt);
         }
-
-        /// <summary>
-        /// The delta time that was represented on the last frame.
-        /// </summary>
-        private float LastElapsedTime { get; set; }
 
         /// <summary>
         /// Calculates the delta time to be used to update the inner task.
