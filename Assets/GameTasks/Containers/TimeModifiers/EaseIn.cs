@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Assets.Util;
 using UnityEngine;
 
 namespace Assets.GameTasks
@@ -17,24 +18,9 @@ namespace Assets.GameTasks
         {
         }
 
-        protected override float ModifyCompletionRatio(float currentRatioComplete)
+        protected override TimeModifyingFrameTimer DefaultTimeModifyingFrameTimer(float duration)
         {
-            return AdjustRatio(currentRatioComplete);
+            return new EaseInTimer(duration);
         }
-
-        public static float AdjustRatio(float currentRatioComplete)
-        {
-            float ret = currentRatioComplete * (2 - currentRatioComplete);
-            return ret;
-        }
-
-        // x = y(2-y)
-        // y = 1 ± sqrt(-x + 1)
-        public static float InverseRatio(float currentRatioComplete)
-        {
-            float ret = 1 - Mathf.Sqrt(-currentRatioComplete + 1);
-            return ret;
-        }
-
     }
 }

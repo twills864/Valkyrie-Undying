@@ -22,24 +22,20 @@ namespace Assets.Bullets.PlayerBullets
         public float MaxRadius { get; set; }
 
         /// <summary>
+        /// The distance representing how far this Sentinel has traveled to MaxRadius.
+        /// </summary>
+        public float CurrentRadius
+        {
+            get => MaxRadius * RadiusRatio;
+        }
+
+        /// <summary>
         /// The ratio representing how far this Sentinel has traveled to MaxRadius.
         /// </summary>
         public float RadiusRatio
         {
             get => TravelTimer.RatioComplete;
             set => TravelTimer.RatioComplete = value;
-        }
-        //{
-        //    get => EaseIn.AdjustRatio(TravelTimer.RatioComplete);
-        //    set => TravelTimer.RatioComplete = EaseIn.InverseRatio(value);
-        //}
-
-        /// <summary>
-        /// The distance representing how far this Sentinel has traveled to MaxRadius.
-        /// </summary>
-        public float CurrentRadius
-        {
-            get => MaxRadius * RadiusRatio;
         }
 
         protected override void OnPlayerBulletInit()
@@ -49,8 +45,7 @@ namespace Assets.Bullets.PlayerBullets
 
         protected override void OnPlayerBulletFrameRun(float deltaTime)
         {
-            if (!TravelTimer.Activated)
-                TravelTimer.Increment(deltaTime);
+            TravelTimer.Increment(deltaTime);
         }
 
         protected override void OnActivate()

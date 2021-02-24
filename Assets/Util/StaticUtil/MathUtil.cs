@@ -6,7 +6,7 @@ namespace Assets.Util
 {
     public static class MathUtil
     {
-        public static float Pi2 = (float) Math.PI * 2;
+        public const float Pi2f = Mathf.PI * 2;
         /// <summary>
         /// The default direction to apply if a sensitive Vector calculation results in Vector2.zero
         /// </summary>

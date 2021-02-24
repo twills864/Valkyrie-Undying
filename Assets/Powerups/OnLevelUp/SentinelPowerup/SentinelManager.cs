@@ -16,21 +16,23 @@ namespace Assets.Powerups
     public class SentinelManager : FrameRunner
     {
         public static SentinelManager Instance { get; set; }
-        const int NumSentinel = 1;
-        readonly float AngleDelta = MathUtil.Pi2 / NumSentinel;
+        const int NumSentinel = 8;
+        readonly float AngleDelta = MathUtil.Pi2f / NumSentinel;
 
         [SerializeField]
         private float AngularVelocity;
 
-        private LoopingFrameTimer FireTimer = LoopingFrameTimer.Default();
+        private LoopingFrameTimer RespawnTimer = LoopingFrameTimer.Default();
 
         private int Level { get; set; }
         private float Radius { get; set; }
-        private float Rotation { get; set; }
+        private CounterClockwiseRotation Rotation;
 
         private ObjectPool<PlayerBullet> SentinelPool;
         private IEnumerable<SentinelBullet> Sentinels
             => SentinelPool.Select(x => (SentinelBullet)x);
+        private IEnumerable<PlayerBullet> InactiveBullets
+            => SentinelPool.Where(x => !x.isActiveAndEnabled);
 
         public void Init()
         {
@@ -48,15 +50,11 @@ namespace Assets.Powerups
             //const string TimerName = "ActivateTime";
             //var timer = Stopwatch.StartNew();
 
-            SentinelPool[0].ActivateSelf();
-            return;
-
-            var inactiveSentinels = SentinelPool.Where(x => !x.isActiveAndEnabled);
-            if (RandomUtil.TryGetRandomElement(inactiveSentinels, out PlayerBullet bullet))
+            if (RandomUtil.TryGetRandomElement(InactiveBullets, out PlayerBullet bullet))
                 bullet.ActivateSelf();
 
             #region Deprecated array implementation
-            //var inactiveSentinels = SentinelPool.Where(x => !x.isActiveAndEnabled).ToArray();
+            //var inactiveSentinels = InactiveSentinels.ToArray();
 
             //if (RandomUtil.TryGetRandomElement(inactiveSentinels, out PlayerBullet bullet))
             //    bullet.ActivateSelf();
@@ -66,17 +64,21 @@ namespace Assets.Powerups
             //DebugUI.SetDebugLabel(TimerName, timer.Elapsed);
         }
 
+        public void ActivateAllSentinels()
+        {
+            foreach (var bullet in InactiveBullets)
+                bullet.ActivateSelf();
+        }
+
         public override void RunFrame(float deltaTime)
         {
             if (Level == 0)
                 return;
 
-            Rotation += deltaTime * AngularVelocity;
-            if (Rotation > MathUtil.Pi2)
-                Rotation -= MathUtil.Pi2;
+            Rotation.AddAngle(deltaTime * AngularVelocity);
 
-            //if(FireTimer.UpdateActivates(deltaTime))
-                //ActivateRandomSentinel();
+            if (RespawnTimer.UpdateActivates(deltaTime))
+                ActivateRandomSentinel();
 
             float angle = Rotation;
             for(int i = 0; i < NumSentinel; i++)
@@ -87,10 +89,9 @@ namespace Assets.Powerups
                     var offset = (Vector3) MathUtil.VectorAtAngle(angle, Radius);
 
                     var destination = transform.position + offset;
-                    //var ratio = EaseIn.AdjustRatio(bullet.DistanceRatio);
                     var ratio = sentinel.RadiusRatio;
-                    var pos = MathUtil.ScaledPositionBetween(transform.position, destination, ratio);
-                    sentinel.transform.position = pos;
+                    var newPos = MathUtil.ScaledPositionBetween(transform.position, destination, ratio);
+                    sentinel.transform.position = newPos;
                 }
 
                 angle += AngleDelta;
@@ -101,8 +102,8 @@ namespace Assets.Powerups
         {
             Level = level;
 
-            FireTimer.ActivationInterval = respawnInterval;
-            FireTimer.Reset();
+            RespawnTimer.ActivationInterval = respawnInterval;
+            RespawnTimer.Reset();
 
             Radius = radius;
 
@@ -123,9 +124,9 @@ namespace Assets.Powerups
             {
                 foreach (var sentinel in Sentinels)
                     sentinel.MaxRadius = Radius;
-
-                ActivateRandomSentinel();
             }
+
+            ActivateAllSentinels();
         }
     }
 }

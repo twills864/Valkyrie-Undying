@@ -21,8 +21,14 @@ namespace Assets.GameTasks
             set
             {
                 _duration = value;
-                Timer = new FrameTimer(value);
+                Timer = DefaultFrameTimer(value);
             }
+        }
+
+        protected virtual FrameTimer DefaultFrameTimer(float duration)
+        {
+            var ret = new FrameTimer(duration);
+            return ret;
         }
 
         public float OverflowDeltaTime => Timer.OverflowDeltaTime;

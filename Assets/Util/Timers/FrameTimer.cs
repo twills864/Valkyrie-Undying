@@ -10,18 +10,21 @@ namespace Assets.Util
             ActivationInterval = activationInterval;
         }
 
+
         public override void Increment(float deltaTime)
         {
-            if(!Activated)
-            {
-                Elapsed += deltaTime;
+            if (!Activated)
+                IncrementConfirmed(deltaTime);
+        }
+        protected void IncrementConfirmed(float deltaTime)
+        {
+            Elapsed += deltaTime;
 
-                if (Elapsed >= ActivationInterval)
-                {
-                    OverflowDeltaTime = Elapsed - ActivationInterval;
-                    Elapsed = ActivationInterval;
-                    Activated = true;
-                }
+            if (Elapsed >= ActivationInterval)
+            {
+                OverflowDeltaTime = Elapsed - ActivationInterval;
+                Elapsed = ActivationInterval;
+                Activated = true;
             }
         }
 
