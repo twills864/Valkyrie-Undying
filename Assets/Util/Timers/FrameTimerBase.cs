@@ -4,8 +4,20 @@ namespace Assets.Util
 {
     public abstract class FrameTimerBase
     {
-        public float Elapsed { get; protected set; }
-        public float ActivationInterval { get; set; }
+        private float _activationInterval;
+
+        public float Elapsed { get; set; }
+
+
+        public float ActivationInterval
+        {
+            get => _activationInterval;
+            set
+            {
+                _activationInterval = value;
+                TouchTimer();
+            }
+        }
         public bool Activated { get; protected set; }
         public float OverflowDeltaTime { get; protected set; }
 
@@ -69,7 +81,7 @@ namespace Assets.Util
         /// "Increments" the timer by 0 in order to recalculate the value of Activated.
         /// Named after the bash command "touch."
         /// </summary>
-        protected void TouchTimer()
+        public void TouchTimer()
         {
             Activated = false;
             Increment(0f);

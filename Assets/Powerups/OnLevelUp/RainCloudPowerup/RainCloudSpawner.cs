@@ -28,7 +28,7 @@ namespace Assets.Powerups
             var y = SpaceUtil.WorldMap.Bottom.y + offsetFromBottom;
             var moveVector = new Vector2(x, y);
             Move = new MoveTo(this, moveVector, Duration);
-            StartTask(Move);
+            RunTask(Move);
         }
 
         public override void OnInit() { }

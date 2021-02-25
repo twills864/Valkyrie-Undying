@@ -40,6 +40,8 @@ namespace Assets.ObjectPooling
         private PestControlBullet PestControlPrefab;
         [SerializeField]
         private SentinelBullet SentinelPrefab;
+        [SerializeField]
+        private OthelloBullet OthelloPrefab;
 
         #endregion Additional Bullets
 

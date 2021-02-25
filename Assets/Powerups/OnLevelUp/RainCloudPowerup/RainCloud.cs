@@ -26,6 +26,7 @@ namespace Assets.Powerups
 
         private LoopingFrameTimer FireTimer = new LoopingFrameTimer(0.5f);
 
+        private int Level;
         private int Damage;
 
         public override void OnInit()

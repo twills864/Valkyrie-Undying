@@ -69,3 +69,5 @@ MonoBehaviour:
     type: 3}
   SentinelPrefab: {fileID: 3827041992048215819, guid: 41e057267825c4847ab50e757cb744ad,
     type: 3}
+  OthelloPrefab: {fileID: 6324740532910075230, guid: 848657996dd4faa4f986abee7564da92,
+    type: 3}

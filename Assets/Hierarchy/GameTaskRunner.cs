@@ -14,7 +14,7 @@ namespace Assets
     {
         public abstract GameTaskType TaskType { get; }
 
-        public void StartTask(GameTask task)
+        public void RunTask(GameTask task)
         {
             GameManager.Instance.StartTask(task, TaskType);
         }

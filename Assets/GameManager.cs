@@ -25,6 +25,7 @@ namespace Assets
         private const bool AddingPowerup = true;
 
         public Player Player;
+        public Othello _Othello;
         public DebugUI DebugUi;
         public Color PlayerColor;
         public Canvas _Canvas;
@@ -170,6 +171,7 @@ namespace Assets
             _ScreenEdgeColliderSet.Init();
             _DebugEnemy.Init();
             _RainCloud.Init();
+            _Othello.Init();
             _SentinelManager.Init();
 
             EnemyTimer.ActivateSelf();
@@ -253,12 +255,16 @@ namespace Assets
                 _DebugEnemy.transform.position = SpaceUtil.WorldPositionUnderMouse();
 
             float deltaTime = Time.deltaTime;
+            float playerFireScale = deltaTime * PlayerFireDeltaTimeScale;
 
             Player.RunFrame(deltaTime);
-            if (FireTimer.UpdateActivates(deltaTime * PlayerFireDeltaTimeScale * Player.FireSpeedScale))
+            _Othello.RunFrame(playerFireScale);
+            if (FireTimer.UpdateActivates(playerFireScale * Player.FireSpeedScale))
             {
                 var bullets = CurrentFireStrategy.GetBullets(WeaponLevel, Player.FirePosition());
                 FirePlayerBullets(bullets);
+
+                _Othello.Fire();
             }
 
             if(EnemyTimer.UpdateActivates(deltaTime))

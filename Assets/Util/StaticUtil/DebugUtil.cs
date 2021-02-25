@@ -109,7 +109,7 @@ namespace Assets.Util
             var moveTo = new MoveTo(GameManager._DebugEnemy, SpaceUtil.WorldMap.Center, 1f);
             var ease = new EaseIn(moveTo);
 
-            GameManager._DebugEnemy.StartTask(ease);
+            GameManager._DebugEnemy.RunTask(ease);
         }
 
         private static void InputMouseForward(KeyCode keyCode)
@@ -117,7 +117,7 @@ namespace Assets.Util
             var moveTo = new MoveTo(GameManager._DebugEnemy, SpaceUtil.WorldMap.Center, 1f);
             var ease = new EaseOut(moveTo);
 
-            GameManager._DebugEnemy.StartTask(ease);
+            GameManager._DebugEnemy.RunTask(ease);
         }
 
         private static void InputKeypadPlus(KeyCode keyCode)
@@ -220,5 +220,4 @@ namespace Assets.Util
             text.color = ColorRed;
         }
     }
-
 }

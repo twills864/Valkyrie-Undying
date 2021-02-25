@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LogUtilAssets.Util.StaticUtil
+namespace Assets.Util
 {
     // Class adapted from source code provided by automatetheplanet.com
     // https://www.automatetheplanet.com/get-property-names-using-lambda-expressions/

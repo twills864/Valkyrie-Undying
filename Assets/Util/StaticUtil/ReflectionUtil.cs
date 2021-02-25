@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 using UnityEngine;
 
@@ -8,6 +9,9 @@ namespace Assets.Util
 {
     public static class ReflectionUtil
     {
+        private const string StrictlyDebugging = "This method should only be used for debugging. "
+            + "Do not use in release build under any circumstances.";
+
         private static BindingFlags PublicFlags => BindingFlags.Public| BindingFlags.Instance;
         private static BindingFlags PrivateFlags => BindingFlags.NonPublic | BindingFlags.Instance;
         private static BindingFlags PublicOrPrivateFlags => BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
@@ -106,5 +110,63 @@ namespace Assets.Util
             var ret = Activator.CreateInstance(type);
             return ret;
         }
+
+#if UNITY_EDITOR
+
+        [Obsolete(StrictlyDebugging)]
+        public static bool TryGetProperty<T>(object target, string propertyName, out T value)
+        {
+            Type type = target.GetType();
+            PropertyInfo property = type.GetProperty(propertyName, PublicOrPrivateFlags);
+
+            bool ret;
+
+            if(property != null)
+            {
+                value = (T)property.GetValue(target);
+                ret = true;
+            }
+            else
+            {
+                value = default;
+                ret = false;
+            }
+
+            return ret;
+        }
+
+        [Obsolete(StrictlyDebugging)]
+        public static bool TryGetField<T>(object target, string fieldName, out T value)
+        {
+            Type type = target.GetType();
+            FieldInfo field = type.GetField(fieldName, PublicOrPrivateFlags);
+
+            bool ret;
+
+            if (field != null)
+            {
+                value = (T)field.GetValue(target);
+                ret = false;
+            }
+            else
+            {
+                value = default;
+                ret = false;
+            }
+
+            return ret;
+        }
+
+        [Obsolete(StrictlyDebugging)]
+        public static T GetMember<T>(object target, string member)
+        {
+            bool propertyFound = TryGetProperty(target, member, out T value);
+            if (!propertyFound)
+                TryGetField(target, member, out value);
+
+            return value;
+        }
+
+#endif
     }
 }
