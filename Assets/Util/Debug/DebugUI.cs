@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using Assets.FireStrategies.PlayerFireStrategies;
+using Assets.Powerups;
 using Assets.UI.PowerupMenu;
 using Assets.Util.AssetsDebug;
 using UnityEngine;
@@ -15,24 +16,47 @@ namespace Assets.Util
         public const int DebugLabelFontSize = 20;
         public const float DebugBorderOffset = 20;
 
-        private GameManager GameManager { get; set; }
+        private GameManager _GameManager { get; set; }
+        private PowerupMenu _PowerupMenu { get; set; }
 
+        [SerializeField]
         public DebugTextBox DebugTextBox { get; set; }
 
+        [SerializeField]
         public InputField InputField;
+
+        [SerializeField]
         public Button Button;
+
+        [SerializeField]
         public Button ButtonShowPowerupMenu;
+
+        [SerializeField]
         public Dropdown DropdownFireType;
+
+        [SerializeField]
         public Slider SliderFireLevel;
+
+        [SerializeField]
         public Text TextFireLevel;
 
+        [SerializeField]
+        public GameSceneDebugPowerupRow PowerupRow;
+
+        [SerializeField]
         public Slider SliderGameSpeed;
+
+        [SerializeField]
         public Text TextGameSpeed;
 
+        private Type GameRowPowerupType => _GameManager.GameRowPowerupType;
+        private Powerup CurrentDebugPowerup => _GameManager._PowerupManager.AllPowerups[GameRowPowerupType];
 
-        public void Init(GameManager gameManager, CircularSelector<PlayerFireStrategy> fireStrategies, GameSceneDebugPowerupRow powerupRow)
+        public void Init(CircularSelector<PlayerFireStrategy> fireStrategies, PowerupMenu powerupMenu)
         {
-            GameManager = gameManager;
+            _GameManager = GameManager.Instance;
+            _PowerupMenu = powerupMenu;
+
             DebugTextBox = new DebugTextBox(InputField);
 
             var inputPos = SpaceUtil.ScreenMap.BottomLeft + new Vector2(DebugBorderOffset, DebugBorderOffset);
@@ -50,7 +74,7 @@ namespace Assets.Util
 
             const int powerupRowOffset = -120;
             var powerupRowPos = SpaceUtil.ScreenMap.Right + new Vector2(-DebugBorderOffset, powerupRowOffset);
-            SpaceUtil.SetRightToPosition(powerupRow, powerupRowPos);
+            SpaceUtil.SetRightToPosition(PowerupRow, powerupRowPos);
 
 
 
@@ -58,7 +82,7 @@ namespace Assets.Util
             DropdownFireType.AddOptions(strategiesToAdd);
             DropdownFireType.onValueChanged.AddListener(delegate
             {
-                GameManager.SetFireType(DropdownFireType.value, true);
+                _GameManager.SetFireType(DropdownFireType.value, true);
             });
 
             const int sliderFireLevelYOffset = 15;
@@ -80,6 +104,8 @@ namespace Assets.Util
 
             //SliderFireLevel.value = 0;
             //DebugSliderFireLevelChanged(SliderFireLevel);
+
+            PowerupRow.Init(CurrentDebugPowerup);
         }
 
         #region Debug Input
@@ -87,19 +113,19 @@ namespace Assets.Util
         public void ButtonPressed(Button button)
         {
             Color newRando = DebugUtil.GetRandomPlayerColor();
-            GameManager.RecolorPlayerActivity(newRando);
+            _GameManager.RecolorPlayerActivity(newRando);
         }
 
         public void ShowPowerupMenuButtonPressed(Button button)
         {
-            GameManager.SetPowerupMenuVisibility(true);
+            _GameManager.SetPowerupMenuVisibility(true);
         }
 
         public void DebugSliderFireLevelChanged(Slider slider)
         {
             int level = (int) slider.value;
             TextFireLevel.text = level.ToString();
-            GameManager.WeaponLevel = level;
+            _GameManager.WeaponLevel = level;
         }
 
         public void DebugSliderGameSpeedChanged(Slider slider)
@@ -118,6 +144,13 @@ namespace Assets.Util
             DebugSliderGameSpeedChanged(SliderGameSpeed);
         }
 
+
+        public void PowerupMenuPowerLevelRowSet(Powerup powerup, int level)
+        {
+            var type = powerup.GetType();
+            if (type == GameRowPowerupType)
+                PowerupRow.PowerLevel = level;
+        }
         #endregion Debug Input
 
 

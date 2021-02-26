@@ -23,6 +23,7 @@ namespace Assets
         public static GameManager Instance { get; set; }
 
         private const bool AddingPowerup = true;
+        public Type GameRowPowerupType = typeof(OthelloPowerup);
 
         public Player Player;
         public Othello _Othello;
@@ -106,13 +107,6 @@ namespace Assets
             _PowerupMenu.gameObject.SetActive(visible);
         }
 
-
-        [SerializeField]
-        public GameSceneDebugPowerupRow _PowerupRow;
-
-        public Type GameRowPowerupType = typeof(OthelloPowerup);
-        public Powerup CurrentDebugPowerup => _PowerupManager.AllPowerups[GameRowPowerupType];
-
         public void PowerupRowPowerLevelChanged(int value)
         {
             _PowerupMenu.SetLevel(GameRowPowerupType, value);
@@ -120,9 +114,7 @@ namespace Assets
 
         public void PowerupMenuPowerLevelRowSet(Powerup powerup, int level)
         {
-            var type = powerup.GetType();
-            if (type == GameRowPowerupType)
-                _PowerupRow.PowerLevel = level;
+            DebugUi.PowerupMenuPowerLevelRowSet(powerup, level);
         }
 
         #endregion Powerup Menu
@@ -176,7 +168,7 @@ namespace Assets
         private void Init()
         {
             SpaceUtil.Init();
-            DebugUi.Init(this, this.FireStrategies, _PowerupRow);
+            DebugUi.Init(this.FireStrategies, _PowerupMenu);
 
             TimeSpan frameTime = TimeSpan.FromSeconds((double)1 / (double)Application.targetFrameRate);
             //DebugUI.SetDebugLabel("FRAMETIME", frameTime);
@@ -196,8 +188,6 @@ namespace Assets
 
             _PowerupMenu.transform.position += new Vector3(0, 80, 0);
             _PowerupMenu.gameObject.SetActive(AddingPowerup);
-
-            _PowerupRow.Init(CurrentDebugPowerup);
         }
 
         public void FirePlayerBullets(PlayerBullet[] bullets)
@@ -259,7 +249,7 @@ namespace Assets
         private Color InitPlayerColor()
         {
             // Override with random color
-            Color ret = DebugUtil.GetRandomPlayerColor();
+            Color ret = DefaultPlayerColor; // DebugUtil.GetRandomPlayerColor();
 
             return ret;
         }

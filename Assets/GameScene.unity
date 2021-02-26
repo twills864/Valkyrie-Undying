@@ -2890,6 +2890,7 @@ MonoBehaviour:
   DropdownFireType: {fileID: 1598182248}
   SliderFireLevel: {fileID: 914280171}
   TextFireLevel: {fileID: 1309203059}
+  PowerupRow: {fileID: 7966575847862259288}
   SliderGameSpeed: {fileID: 924526712}
   TextGameSpeed: {fileID: 976872247}
 --- !u!4 &1502814536
@@ -3192,7 +3193,6 @@ MonoBehaviour:
   _RainCloudSpawner: {fileID: 2085788401}
   _SentinelManager: {fileID: 1652808086}
   _PowerupMenu: {fileID: 2066797313}
-  _PowerupRow: {fileID: 7966575847862259288}
 --- !u!4 &1640542552
 Transform:
   m_ObjectHideFlags: 0
@@ -4044,7 +4044,7 @@ PrefabInstance:
     - target: {fileID: 3597123814405860616, guid: d8e44ca380f7f0d4fa4c367485d84c53,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 713
+      value: 675
       objectReference: {fileID: 0}
     - target: {fileID: 3597123814405860616, guid: d8e44ca380f7f0d4fa4c367485d84c53,
         type: 3}
