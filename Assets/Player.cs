@@ -30,6 +30,8 @@ namespace Assets
         private float MinX { get; set; }
         private float MaxX { get; set; }
 
+        private Vector2 LastCursorPosition { get; set; }
+
 
         #region Fire Speed
 
@@ -66,11 +68,15 @@ namespace Assets
             SetMobilePosition(Vector2.zero);
         }
 
+        public void SetMobilePosition(float posX)
+        {
+            posX = Mathf.Clamp(posX, MinX, MaxX);
+            Vector2 newPos = new Vector2(posX, MobileY);
+            SetPosition(newPos);
+        }
         public void SetMobilePosition(Vector2 pos)
         {
-            pos.x = Mathf.Clamp(pos.x, MinX, MaxX);
-            Vector2 newPos = new Vector2(pos.x, MobileY);
-            SetPosition(newPos);
+            SetMobilePosition(pos.x);
         }
         public void SetPosition(Vector2 pos)
         {
@@ -85,13 +91,32 @@ namespace Assets
 
         public override void RunFrame(float deltaTime)
         {
-            if (Input.GetMouseButton(0))
-                SetMobilePosition(SpaceUtil.WorldPositionUnderMouse());
-            else if (Input.GetMouseButton(1))
-                SetPosition(SpaceUtil.WorldPositionUnderMouse());
-
             if (!BloodlustTimer.Activated && BloodlustTimer.UpdateActivates(deltaTime))
                 ResetBloodlust();
+
+            HandleMovement();
+        }
+
+        private void HandleMovement()
+        {
+            if (Input.GetMouseButtonDown(0))
+                LastCursorPosition = SpaceUtil.WorldPositionUnderMouse();
+            else if (Input.GetMouseButton(0))
+            {
+                Vector2 thisCursorPosition = SpaceUtil.WorldPositionUnderMouse();
+
+                if (thisCursorPosition != LastCursorPosition)
+                {
+                    Vector2 delta = thisCursorPosition - LastCursorPosition;
+
+                    var newX = transform.position.x + delta.x;
+                    SetMobilePosition(newX);
+
+                    LastCursorPosition = thisCursorPosition;
+                }
+            }
+            else if (Input.GetMouseButton(1))
+                SetPosition(SpaceUtil.WorldPositionUnderMouse());
         }
 
         private void ResetBloodlust()
