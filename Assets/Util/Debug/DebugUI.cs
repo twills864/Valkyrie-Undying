@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using Assets.FireStrategies.PlayerFireStrategies;
+using Assets.UI.PowerupMenu;
 using Assets.Util.AssetsDebug;
 using UnityEngine;
 using UnityEngine.UI;
@@ -29,7 +30,7 @@ namespace Assets.Util
         public Text TextGameSpeed;
 
 
-        public void Init(GameManager gameManager, CircularSelector<PlayerFireStrategy> fireStrategies)
+        public void Init(GameManager gameManager, CircularSelector<PlayerFireStrategy> fireStrategies, GameSceneDebugPowerupRow powerupRow)
         {
             GameManager = gameManager;
             DebugTextBox = new DebugTextBox(InputField);
@@ -46,6 +47,11 @@ namespace Assets.Util
             const int showPowerupMenuButtonOffset = -50;
             var showPowerupMenuButtonPos = SpaceUtil.ScreenMap.Right + new Vector2(-DebugBorderOffset, showPowerupMenuButtonOffset);
             SpaceUtil.SetRightToPosition(ButtonShowPowerupMenu, showPowerupMenuButtonPos);
+
+            const int powerupRowOffset = -120;
+            var powerupRowPos = SpaceUtil.ScreenMap.Right + new Vector2(-DebugBorderOffset, powerupRowOffset);
+            SpaceUtil.SetRightToPosition(powerupRow, powerupRowPos);
+
 
 
             var strategiesToAdd = fireStrategies.Select(x => x.GetType().Name).ToList();

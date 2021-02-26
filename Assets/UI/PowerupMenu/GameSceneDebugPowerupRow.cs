@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 using Assets.Powerups;
+using Assets.Util;
 
 namespace Assets.UI.PowerupMenu
 {
-    public class PowerupMenuPowerupRow : MonoBehaviour
+    public class GameSceneDebugPowerupRow : MonoBehaviour
     {
         [SerializeField]
         private Text PowerupNameField;
@@ -41,7 +42,7 @@ namespace Assets.UI.PowerupMenu
             }
             set
             {
-                if(PowerLevel != value)
+                if (PowerLevel != value)
                     InputPowerLevel.text = value.ToString();
 
                 // OnPowerLevelChanged() is triggered through Unity when
@@ -63,8 +64,7 @@ namespace Assets.UI.PowerupMenu
         private void OnPowerLevelChanged(int value)
         {
             Powerup.Level = value;
-
-            GameManager.Instance.PowerupMenuPowerLevelRowSet(Powerup, value);
+            GameManager.Instance.PowerupRowPowerLevelChanged(value);
         }
 
         public void OnInputChanged()
@@ -76,6 +76,18 @@ namespace Assets.UI.PowerupMenu
         {
             Powerup = powerup;
             PowerupName = powerup.PowerupName;
+
+            string title = CalculatePowerupName(powerup);
+            PowerupNameField.text = title;
+        }
+
+        private string CalculatePowerupName(Powerup powerup)
+        {
+            string name = powerup.GetType().Name;
+            name = name.Replace("Powerup", "");
+
+            string ret = StringUtil.AddSpacesBeforeCapitals(name);
+            return ret;
         }
     }
 }

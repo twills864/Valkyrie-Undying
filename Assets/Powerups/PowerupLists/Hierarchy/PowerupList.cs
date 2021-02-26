@@ -10,9 +10,9 @@ namespace Assets.Powerups
     public interface IPowerupList
     {
         int PowerupManagerIndex { get; }
-        void Init();
+        void Init(Dictionary<Type, Powerup> allPowerups);
     }
-    public abstract class PowerupList<T> : List<T>, IPowerupList where T : Powerup
+    public abstract class PowerupList<TPowerUp> : List<TPowerUp>, IPowerupList where TPowerUp : Powerup
     {
         public int PowerupManagerIndex { get; set; }
 
@@ -22,17 +22,18 @@ namespace Assets.Powerups
             PowerupListName = CalculatePowerupName();
         }
 
-        public void Init()
+        public void Init(Dictionary<Type, Powerup> allPowerups)
         {
             GameManager.Instance.AddPowerupMenuTitleRow(PowerupListName);
 
-            var types = ReflectionUtil.GetTypesSubclassableFrom<T>();
+            var types = ReflectionUtil.GetTypesSubclassableFrom<TPowerUp>();
 
             foreach(var type in types)
             {
-                var newPowerup = (T) ReflectionUtil.CreateNew(type);
+                var newPowerup = (TPowerUp) ReflectionUtil.CreateNew(type);
                 newPowerup.PowerupManagerIndex = PowerupManagerIndex;
                 this.Add(newPowerup);
+                allPowerups[type] = newPowerup;
 
                 GameManager.Instance.AddPowerupMenuPowerupRow(newPowerup);
             }
@@ -57,7 +58,7 @@ namespace Assets.Powerups
         /// </summary>
         /// <typeparam name="TPowerup">The type of powerup to get.</typeparam>
         /// <returns>The instance of the given type of powerup.</returns>
-        public TPowerup Get<TPowerup>() where TPowerup : T
+        public TPowerup Get<TPowerup>() where TPowerup : TPowerUp
         {
             TPowerup ret = this.Where(x => x.GetType() == typeof(TPowerup))
                 .First() as TPowerup;

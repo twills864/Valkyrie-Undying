@@ -107,6 +107,24 @@ namespace Assets
         }
 
 
+        [SerializeField]
+        public GameSceneDebugPowerupRow _PowerupRow;
+
+        public Type GameRowPowerupType = typeof(OthelloPowerup);
+        public Powerup CurrentDebugPowerup => _PowerupManager.AllPowerups[GameRowPowerupType];
+
+        public void PowerupRowPowerLevelChanged(int value)
+        {
+            _PowerupMenu.SetLevel(GameRowPowerupType, value);
+        }
+
+        public void PowerupMenuPowerLevelRowSet(Powerup powerup, int level)
+        {
+            var type = powerup.GetType();
+            if (type == GameRowPowerupType)
+                _PowerupRow.PowerLevel = level;
+        }
+
         #endregion Powerup Menu
 
         private GameTaskListManager GameTaskLists = new GameTaskListManager();
@@ -158,7 +176,7 @@ namespace Assets
         private void Init()
         {
             SpaceUtil.Init();
-            DebugUi.Init(this, this.FireStrategies);
+            DebugUi.Init(this, this.FireStrategies, _PowerupRow);
 
             TimeSpan frameTime = TimeSpan.FromSeconds((double)1 / (double)Application.targetFrameRate);
             //DebugUI.SetDebugLabel("FRAMETIME", frameTime);
@@ -178,6 +196,8 @@ namespace Assets
 
             _PowerupMenu.transform.position += new Vector3(0, 80, 0);
             _PowerupMenu.gameObject.SetActive(AddingPowerup);
+
+            _PowerupRow.Init(CurrentDebugPowerup);
         }
 
         public void FirePlayerBullets(PlayerBullet[] bullets)

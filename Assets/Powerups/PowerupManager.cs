@@ -24,15 +24,18 @@ namespace Assets.Powerups
 
         private IPowerupList[] AllLists { get; set; }
 
+        public Dictionary<Type, Powerup> AllPowerups { get; set; }
+
         public void Init()
         {
             AllLists = new IPowerupList[5];
+            AllPowerups = new Dictionary<Type, Powerup>();
 
             UniqueIdGenerator ids = new UniqueIdGenerator(0);
 
             void Init(IPowerupList list)
             {
-                list.Init();
+                list.Init(AllPowerups);
                 AllLists[list.PowerupManagerIndex] = list;
             }
 

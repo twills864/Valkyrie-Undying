@@ -19,6 +19,8 @@ namespace Assets.UI.PowerupMenu
         [SerializeField]
         private PowerupMenuPowerupRow PowerupMenuPowerupRowPrefab;
 
+        private Dictionary<Type, PowerupMenuPowerupRow> AllPowerupRows = new Dictionary<Type, PowerupMenuPowerupRow>();
+
         public void AddTitleRow(string title)
         {
             var newTitle = Instantiate(PowerupMenuTitleRowPrefab);
@@ -33,11 +35,26 @@ namespace Assets.UI.PowerupMenu
             newRow.Init(powerup);
 
             newRow.transform.parent = PowerupPanelContent.transform;
+
+            var powerupType = newRow.Powerup.GetType();
+            AllPowerupRows[powerupType] = newRow;
         }
 
         public void OnMinimizeClick()
         {
             this.gameObject.SetActive(false);
+        }
+
+
+        public void SetLevel<TPowerup>(int level) where TPowerup : Powerup
+        {
+            var type = typeof(TPowerup);
+            SetLevel(type, level);
+        }
+        public void SetLevel(Type powerupType, int level)
+        {
+            var row = AllPowerupRows[powerupType];
+            row.PowerLevel = level;
         }
     }
 }
