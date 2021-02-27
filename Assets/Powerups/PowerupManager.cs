@@ -21,6 +21,7 @@ namespace Assets.Powerups
         private OnKillList OnKillList { get; set; }
         private OnGetHitList OnGetHitList { get; set; }
         private OnLevelUpList OnLevelUpList { get; set; }
+        private PassivePowerupList PassivePowerupList { get; set; }
 
         private IPowerupList[] AllLists { get; set; }
 
@@ -28,7 +29,7 @@ namespace Assets.Powerups
 
         public void Init()
         {
-            AllLists = new IPowerupList[5];
+            AllLists = new IPowerupList[6];
             AllPowerups = new Dictionary<Type, Powerup>();
 
             UniqueIdGenerator ids = new UniqueIdGenerator(0);
@@ -53,6 +54,9 @@ namespace Assets.Powerups
 
             OnLevelUpList = new OnLevelUpList(ids);
             Init(OnLevelUpList);
+
+            PassivePowerupList = new PassivePowerupList(ids);
+            Init(PassivePowerupList);
         }
 
         public void OnFire(Vector2 firePosition, PlayerBullet[] bullets)
@@ -77,6 +81,12 @@ namespace Assets.Powerups
         {
             foreach (var powerup in OnGetHitList.Where(x => x.IsActive))
                 powerup.OnGetHit();
+        }
+
+        public void PassiveUpdate(float deltaTime)
+        {
+            foreach (var powerup in PassivePowerupList.Where(x => x.IsActive))
+                powerup.RunFrame(deltaTime);
         }
 
         public TPowerup GetFirePowerup<TPowerup>() where TPowerup : OnFirePowerup
@@ -106,6 +116,12 @@ namespace Assets.Powerups
         public TPowerup GetOnLevelUpPowerup<TPowerup>() where TPowerup : OnLevelUpPowerup
         {
             var ret = OnLevelUpList.Get<TPowerup>();
+            return ret;
+        }
+
+        public TPowerup GetPassivePowerup<TPowerup>() where TPowerup : PassivePowerup
+        {
+            var ret = PassivePowerupList.Get<TPowerup>();
             return ret;
         }
     }

@@ -47,3 +47,5 @@ MonoBehaviour:
     type: 3}
   AtomTrialPrefab: {fileID: 1764110798744415782, guid: 4f2a84382f687294ba560b9751df67fc,
     type: 3}
+  VictimMarkerPrefab: {fileID: -4956736669947735502, guid: 3484b86ff8987724ea9c62df28fb2d49,
+    type: 3}

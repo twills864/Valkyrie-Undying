@@ -6,7 +6,8 @@ namespace Assets.Util
 {
     public static class MathUtil
     {
-        public const float Pi2f = Mathf.PI * 2;
+        public const float Pi2f = Mathf.PI * 2f;
+        public const float PiHalf = Mathf.PI * 0.5f;
         /// <summary>
         /// The default direction to apply if a sensitive Vector calculation results in Vector2.zero
         /// </summary>
@@ -183,6 +184,23 @@ namespace Assets.Util
             Vector2 scaled = diff * ratio;
 
             Vector2 ret = from + scaled;
+            return ret;
+        }
+
+        /// <summary>
+        /// Returns a Vector3 along the path between two points
+        /// that represents the given ration between them.
+        /// </summary>
+        /// <param name="from">The starting point.</param>
+        /// <param name="to">The destination point.</param>
+        /// <param name="ratio">The ratio of completion.</param>
+        /// <returns>The represented point between the two points.</returns>
+        public static Vector3 ScaledPositionBetween(Vector3 from, Vector3 to, float ratio)
+        {
+            Vector3 diff = to - from;
+            Vector3 scaled = diff * ratio;
+
+            Vector3 ret = from + scaled;
             return ret;
         }
 

@@ -22,8 +22,8 @@ namespace Assets
     {
         public static GameManager Instance { get; set; }
 
-        private const bool AddingPowerup = true;
-        public Type GameRowPowerupType = typeof(OthelloPowerup);
+        private const bool AddingPowerup = false;
+        public Type GameRowPowerupType = typeof(VictimPowerup);
 
         public Player Player;
         public Othello _Othello;
@@ -86,6 +86,27 @@ namespace Assets
         [SerializeField]
         private SentinelManager _SentinelManager;
 
+        public Enemy VictimEnemy
+        {
+            get => _victimEnemy;
+            set
+            {
+                if (_victimEnemy == value)
+                    return;
+
+                if(_victimEnemy != null)
+                    _victimEnemy.VictimMarker.StartDeactivation();
+
+                _victimEnemy = value;
+                _victimEnemy.VictimMarker = _PoolManager.UIElementPool.Get<VictimMarker>();
+            }
+        }
+        public bool TryGetVictim(out Enemy victim)
+        {
+            victim = VictimEnemy;
+            return victim != null;
+        }
+
         #endregion Powerups
 
         #region Powerup Menu
@@ -122,6 +143,7 @@ namespace Assets
         private GameTaskListManager GameTaskLists = new GameTaskListManager();
 
         private LoopingFrameTimer EnemyTimer = new LoopingFrameTimer(3.0f);
+        private Enemy _victimEnemy;
 
         private void Awake()
         {
@@ -221,7 +243,7 @@ namespace Assets
             numberToGet = targets.Length;
             var pestControls = _PoolManager.BulletPool.GetMany<PestControlBullet>(numberToGet);
 
-            for(int i = 0; i < pestControls.Length; i++)
+            for (int i = 0; i < pestControls.Length; i++)
             {
                 var pestControl = pestControls[i];
                 var target = targets[i];
@@ -277,7 +299,7 @@ namespace Assets
                 _Othello.Fire();
             }
 
-            if(EnemyTimer.UpdateActivates(deltaTime))
+            if (EnemyTimer.UpdateActivates(deltaTime))
             {
                 var enemy = _PoolManager.EnemyPool.SpawnRandomEnemy();
                 enemy.Init(SpaceUtil.RandomEnemySpawnPosition(enemy));
@@ -292,6 +314,7 @@ namespace Assets
             _SentinelManager.RunFrame(deltaTime);
 
             _PoolManager.RunPoolFrames(deltaTime, deltaTime);
+            _PowerupManager.PassiveUpdate(deltaTime);
             GameTaskLists.RunFrames(deltaTime);
             _DebugEnemy.RunFrame(deltaTime);
         }

@@ -6,22 +6,27 @@ using System.Threading.Tasks;
 
 namespace Assets.ObjectPooling
 {
-    public class PooledObjectTracker<T> where T : PooledObject
+    public class PooledObjectTracker
     {
-        private T Target { get; set; }
+        private PooledObject Target { get; set; }
         private int TargetSpawnId { get; set; }
 
-        public PooledObjectTracker(T target)
+        public PooledObjectTracker(PooledObject target)
         {
             Target = target;
             TargetSpawnId = target.SpawnId;
         }
 
-        public bool IsTarget(T toCompare)
+        public bool IsTarget(PooledObject toCompare)
         {
             bool ret = toCompare == Target
                 && toCompare.SpawnId == TargetSpawnId;
             return ret;
+        }
+
+        public static implicit operator PooledObjectTracker(PooledObject target)
+        {
+            return new PooledObjectTracker(target);
         }
     }
 }

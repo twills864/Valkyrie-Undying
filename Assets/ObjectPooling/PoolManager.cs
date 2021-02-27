@@ -50,6 +50,9 @@ namespace Assets.ObjectPooling
             BulletPool.RunFrames(bulletDt);
             EnemyPool.RunFrames(enemyDt);
             EnemyBulletPool.RunFrames(enemyDt);
+
+            // UIElementPool should run last to take into account any changes in position, etc.
+            // of elements from previous pools.
             UIElementPool.RunFrames(bulletDt);
         }
 

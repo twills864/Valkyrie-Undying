@@ -30,7 +30,10 @@ namespace Assets
 
         public void ApplyVelocity(Vector2 velocity, float deltaTime)
         {
-            transform.position += new Vector3(velocity.x * deltaTime, velocity.y * deltaTime, 0);
+            Vector3 translation = new Vector3(velocity.x * deltaTime, velocity.y * deltaTime, 0);
+            transform.Translate(translation, Space.World);
+
+            //transform.position += new Vector3(velocity.x * deltaTime, velocity.y * deltaTime, 0);
         }
 
         protected virtual void OnManagedVelocityObjectFrameRun(float deltaTime) { }

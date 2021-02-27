@@ -1,6 +1,8 @@
 ﻿using Assets.Bullets.PlayerBullets;
 using Assets.FireStrategies.EnemyFireStrategies;
 using Assets.GameTasks;
+using Assets.ObjectPooling;
+using Assets.UI;
 using Assets.Util;
 using UnityEngine;
 
@@ -26,8 +28,31 @@ namespace Assets.Enemies
         // The rate at which the spawn health of this enemy increases as the game progresses
         public abstract float SpawnHealthScaleRate { get; }
 
+        public bool IsVictim
+        {
+            get => GameManager.Instance.VictimEnemy == this;
+            set
+            {
+                if (value)
+                    GameManager.Instance.VictimEnemy = this;
+                else if (IsVictim)
+                    GameManager.Instance.VictimEnemy = null;
+            }
+        }
+
         [SerializeField]
         public EnemyHealthBar HealthBar;
+
+        private VictimMarker _victimMarker;
+        public VictimMarker VictimMarker
+        {
+            get => _victimMarker;
+            set
+            {
+                _victimMarker = value;
+                value.Host = this;
+            }
+        }
 
         public virtual Vector2 FirePosition => BoxMap.Bottom;
         protected virtual bool CanFire(Vector2 firePosition) => firePosition.y > FireHeightFloor;
@@ -63,7 +88,7 @@ namespace Assets.Enemies
         protected virtual void OnEnemyFrame(float deltaTime) { }
         protected sealed override void OnManagedVelocityObjectFrameRun(float deltaTime)
         {
-            if(FireTimer.UpdateActivates(deltaTime))
+            if (FireTimer.UpdateActivates(deltaTime))
                 FireBullets();
 
             OnEnemyFrame(deltaTime);
@@ -119,7 +144,7 @@ namespace Assets.Enemies
             if (CollisionUtil.IsPlayerBullet(collision))
             {
                 PlayerBullet bullet = collision.GetComponent<PlayerBullet>();
-                if(bullet.CollidesWithEnemy(this))
+                if (bullet.CollidesWithEnemy(this))
                     CollideWithBullet(bullet);
             }
             else if (CollisionUtil.IsPlayer(collision))
@@ -180,5 +205,23 @@ namespace Assets.Enemies
         //    DebugUtil.RedX(BoxMap.BottomLeft, redXTime);
         //    DebugUtil.RedX(BoxMap.BottomRight, redXTime);
         //}
+
+
+
+        private void OnMouseEnter()
+        {
+            GameManager.Instance.VictimEnemy = this;
+
+            DebugUtil.RedX(transform.position);
+            GameManager.Instance.CreateFleetingText("ENTER", SpaceUtil.WorldMap.Center);
+        }
+
+        // Having trouble making this work correctly
+        private void OnMouseDown()
+        {
+            //GameManager.Instance.VictimEnemy = this;
+            //DebugUtil.RedX(transform.position);
+            GameManager.Instance.CreateFleetingText("ENEMY ONMOUSEDOWN", SpaceUtil.WorldMap.Center);
+        }
     }
 }

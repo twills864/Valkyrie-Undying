@@ -11,5 +11,7 @@ namespace Assets.ObjectPooling
         private FleetingText FleetingTextPrefab;
         [SerializeField]
         private AtomTrail AtomTrialPrefab;
+        [SerializeField]
+        private VictimMarker VictimMarkerPrefab;
     }
 }
