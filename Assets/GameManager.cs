@@ -22,7 +22,7 @@ namespace Assets
     {
         public static GameManager Instance { get; set; }
 
-        private const bool AddingPowerup = false;
+        private const bool AddingPowerup = true;
         public Type GameRowPowerupType = typeof(VictimPowerup);
 
         public Player Player;
@@ -211,7 +211,7 @@ namespace Assets
             EnemyTimer.ActivateSelf();
 
             _PowerupMenu.transform.position += new Vector3(0, 80, 0);
-            _PowerupMenu.gameObject.SetActive(AddingPowerup);
+            //_PowerupMenu.gameObject.SetActive(AddingPowerup);
         }
 
         public void FirePlayerBullets(PlayerBullet[] bullets)
@@ -286,7 +286,7 @@ namespace Assets
             DebugUtil.HandleInput();
 
             if (Input.GetMouseButton(2))
-                _DebugEnemy.transform.position = SpaceUtil.WorldPositionUnderMouse();
+                _DebugEnemy.transform.position = (Vector2) SpaceUtil.WorldPositionUnderMouse();
 
             float deltaTime = Time.deltaTime;
             float playerFireScale = deltaTime * PlayerFireDeltaTimeScale;

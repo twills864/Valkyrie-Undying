@@ -71,3 +71,5 @@ MonoBehaviour:
     type: 3}
   OthelloPrefab: {fileID: 6324740532910075230, guid: 848657996dd4faa4f986abee7564da92,
     type: 3}
+  VictimPrefab: {fileID: 6738896753918285744, guid: 5a84e7a63d1a8f741a90381186709ac5,
+    type: 3}

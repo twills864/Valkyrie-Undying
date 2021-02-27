@@ -214,20 +214,20 @@ namespace Assets.Enemies
 
 
 
-        private void OnMouseEnter()
-        {
-            GameManager.Instance.VictimEnemy = this;
+        //private void OnMouseEnter()
+        //{
+        //    GameManager.Instance.VictimEnemy = this;
 
-            DebugUtil.RedX(transform.position);
-            GameManager.Instance.CreateFleetingText("ENTER", SpaceUtil.WorldMap.Center);
-        }
+        //    DebugUtil.RedX(transform.position);
+        //    GameManager.Instance.CreateFleetingText("ENTER", SpaceUtil.WorldMap.Center);
+        //}
 
-        // Having trouble making this work correctly
-        private void OnMouseDown()
-        {
-            //GameManager.Instance.VictimEnemy = this;
-            //DebugUtil.RedX(transform.position);
-            GameManager.Instance.CreateFleetingText("ENEMY ONMOUSEDOWN", SpaceUtil.WorldMap.Center);
-        }
+        //// Having trouble making this work correctly
+        //private void OnMouseDown()
+        //{
+        //    //GameManager.Instance.VictimEnemy = this;
+        //    //DebugUtil.RedX(transform.position);
+        //    GameManager.Instance.CreateFleetingText("ENEMY ONMOUSEDOWN", SpaceUtil.WorldMap.Center);
+        //}
     }
 }

@@ -6,6 +6,11 @@ namespace Assets.Util
     public static class SpaceUtil
     {
         /// <summary>
+        /// A z-coordinate that will render below all other active gameObjects.
+        /// </summary>
+        public const float DeepZPosition = 999;
+
+        /// <summary>
         /// A BoxMap that represents the screen measured in pixels.
         /// </summary>
         public static BoxMap ScreenMap { get; private set; }
@@ -39,6 +44,8 @@ namespace Assets.Util
 
             InverseWorldMapHeight = 1f / WorldMapSize.y;
         }
+
+        #region Set Positions
 
         /// <summary>
         /// Right-aligns a given element to a specified position.
@@ -127,6 +134,8 @@ namespace Assets.Util
             element.transform.position = newPos;
         }
 
+        #endregion Set Positions
+
         /// <summary>
         /// Generates and returns a spawn position for an enemy
         /// with a Y-coordinate just above the visible screen,
@@ -163,17 +172,12 @@ namespace Assets.Util
             maxX = WorldMap.Right.x - width;
         }
 
-        /// <summary>
-        /// Returns the ratio of
-        /// </summary>
-        /// <param name="yPosition"></param>
-        /// <returns></returns>
-        public static float RatioOfScreenHeight(float yPosition)
-        {
-            float height = yPosition + (WorldMapSize.y * 0.5f);
-            float ratio = height * InverseWorldMapHeight;
-            return ratio;
-        }
+        //public static float RatioOfWorldHeight(float yPosition)
+        //{
+        //    float height = yPosition + (WorldMapSize.y * 0.5f);
+        //    float ratio = height * InverseWorldMapHeight;
+        //    return ratio;
+        //}
 
         /// <summary>
         /// Returns the distance from a specified Y position to the top of the world space.
@@ -194,12 +198,50 @@ namespace Assets.Util
         /// Returns the current world position under the cursor.
         /// </summary>
         /// <returns>The current world position under the cursor.</returns>
-        public static Vector2 WorldPositionUnderMouse()
+        public static Vector3 WorldPositionUnderMouse()
         {
-            Vector2 mousePos = Input.mousePosition;
+            Vector3 mousePos = Input.mousePosition;
             var camera = Camera.main;
             Vector3 point = camera.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, camera.nearClipPlane));
             return point;
+        }
+
+        public static bool TryGetGameObjectUnderMouse(out GameObject gameObject)
+        {
+            bool ret;
+
+            var mousePos = WorldPositionUnderMouse();
+            RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero);
+            //RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+
+            if (hit.collider != null)
+            {
+                gameObject = hit.transform.gameObject;
+                ret = true;
+            }
+            else
+            {
+                gameObject = null;
+                ret = false;
+            }
+            return ret;
+        }
+
+        public static bool TryGetEnemyUnderMouse(out Enemy enemy)
+        {
+            bool ret;
+
+            if(TryGetGameObjectUnderMouse(out GameObject gameObject))
+            {
+                ret = gameObject.TryGetComponent<Enemy>(out enemy);
+            }
+            else
+            {
+                enemy = null;
+                ret = false;
+            }
+
+            return ret;
         }
     }
 }

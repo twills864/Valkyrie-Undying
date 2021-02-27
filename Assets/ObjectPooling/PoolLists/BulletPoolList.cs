@@ -42,6 +42,8 @@ namespace Assets.ObjectPooling
         private SentinelBullet SentinelPrefab;
         [SerializeField]
         private OthelloBullet OthelloPrefab;
+        [SerializeField]
+        private VictimBullet VictimPrefab;
 
         #endregion Additional Bullets
 

@@ -23,7 +23,7 @@ namespace Assets
         public Vector2 SizeHalf { get; private set; }
         public void Init()
         {
-            transform.position = Vector3.zero;
+            transform.position = new Vector3(0, 0, SpaceUtil.DeepZPosition);
 
             var worldMapSize = SpaceUtil.WorldMapSize + BufferVector;
             Size = worldMapSize;
@@ -32,5 +32,10 @@ namespace Assets
             GetComponent<SpriteRenderer>().enabled = false;
         }
 
+
+        private void OnMouseDown()
+        {
+            GameManager.Instance.CreateFleetingText("DESTRUCTOR MOUSE DOWN", SpaceUtil.WorldMap.Center);
+        }
     }
 }
