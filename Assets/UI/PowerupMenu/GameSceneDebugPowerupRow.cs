@@ -63,8 +63,11 @@ namespace Assets.UI.PowerupMenu
 
         private void OnPowerLevelChanged(int value)
         {
-            Powerup.Level = value;
-            GameManager.Instance.PowerupRowPowerLevelChanged(value);
+            if (Powerup.Level != value)
+            {
+                Powerup.Level = value;
+                GameManager.Instance.PowerupRowPowerLevelChanged(value);
+            }
         }
 
         public void OnInputChanged()
@@ -77,17 +80,8 @@ namespace Assets.UI.PowerupMenu
             Powerup = powerup;
             PowerupName = powerup.PowerupName;
 
-            string title = CalculatePowerupName(powerup);
+            string title = powerup.PowerupName;
             PowerupNameField.text = title;
-        }
-
-        private string CalculatePowerupName(Powerup powerup)
-        {
-            string name = powerup.GetType().Name;
-            name = name.Replace("Powerup", "");
-
-            string ret = StringUtil.AddSpacesBeforeCapitals(name);
-            return ret;
         }
     }
 }

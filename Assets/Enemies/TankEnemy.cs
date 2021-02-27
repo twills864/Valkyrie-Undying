@@ -11,5 +11,7 @@ namespace Assets.Enemies
 
         public override EnemyFireStrategy FireStrategy { get; protected set; }
             = new TankEnemyStrategy();
+
+        public override float VictimMarkerDistance => 1.0f;
     }
 }

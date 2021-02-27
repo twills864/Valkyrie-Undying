@@ -91,16 +91,29 @@ namespace Assets
             get => _victimEnemy;
             set
             {
+                // Don't handle logic if we're assigning the same victim
                 if (_victimEnemy == value)
                     return;
 
-                if(_victimEnemy != null)
+                // Deactivate current marker
+                if (_victimEnemy != null)
                     _victimEnemy.VictimMarker.StartDeactivation();
 
                 _victimEnemy = value;
 
-                if(value != null)
-                    _victimEnemy.VictimMarker = _PoolManager.UIElementPool.Get<VictimMarker>();
+                var newMarker = _PoolManager.UIElementPool.Get<VictimMarker>();
+                if (value != null)
+                {
+                    _victimEnemy.VictimMarker = newMarker;
+
+                    if(Player.VictimMarker != null)
+                    {
+                        Player.VictimMarker.StartDeactivation();
+                        Player.VictimMarker = null;
+                    }
+                }
+                else
+                    Player.VictimMarker = newMarker;
             }
         }
         public bool TryGetVictim(out Enemy victim)

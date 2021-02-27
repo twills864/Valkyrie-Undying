@@ -2,6 +2,7 @@
 using Assets.FireStrategies.EnemyFireStrategies;
 using Assets.GameTasks;
 using Assets.ObjectPooling;
+using Assets.Powerups;
 using Assets.UI;
 using Assets.Util;
 using UnityEngine;
@@ -9,7 +10,7 @@ using UnityEngine;
 namespace Assets.Enemies
 {
     /// <inheritdoc/>
-    public abstract class Enemy : PooledObject
+    public abstract class Enemy : PooledObject, IVictimHost
     {
         public override string LogTagColor => "#FFB697";
         public override GameTaskType TaskType => GameTaskType.Enemy;
@@ -43,6 +44,9 @@ namespace Assets.Enemies
         [SerializeField]
         public EnemyHealthBar HealthBar;
 
+        [SerializeField]
+        private float _victimMarkerDistance;
+        public virtual float VictimMarkerDistance => _victimMarkerDistance;
         private VictimMarker _victimMarker;
         public VictimMarker VictimMarker
         {
@@ -53,6 +57,7 @@ namespace Assets.Enemies
                 value.Host = this;
             }
         }
+
 
         public virtual Vector2 FirePosition => BoxMap.Bottom;
         protected virtual bool CanFire(Vector2 firePosition) => firePosition.y > FireHeightFloor;

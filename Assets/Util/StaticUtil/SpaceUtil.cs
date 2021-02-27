@@ -206,35 +206,33 @@ namespace Assets.Util
             return point;
         }
 
+        /// <summary>
+        /// Attempts to get a game object directly underneath the current position of the cursor.
+        /// </summary>
+        /// <param name="gameObject">The GameObject (if any) under the cursor.</param>
+        /// <returns>True if a GameObject exists under the cursor; false otherwise.</returns>
         public static bool TryGetGameObjectUnderMouse(out GameObject gameObject)
         {
-            bool ret;
-
             var mousePos = WorldPositionUnderMouse();
             RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero);
-            //RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
 
-            if (hit.collider != null)
-            {
-                gameObject = hit.transform.gameObject;
-                ret = true;
-            }
-            else
-            {
-                gameObject = null;
-                ret = false;
-            }
+            gameObject = hit.collider?.gameObject;
+
+            bool ret = gameObject != null;
             return ret;
         }
 
+        /// <summary>
+        /// Attempts to get an enemy directly underneath the current position of the cursor.
+        /// </summary>
+        /// <param name="enemy">The enemy (if any) under the cursor.</param>
+        /// <returns>True if an enemy exists under the cursor; false otherwise.</returns>
         public static bool TryGetEnemyUnderMouse(out Enemy enemy)
         {
             bool ret;
 
             if(TryGetGameObjectUnderMouse(out GameObject gameObject))
-            {
                 ret = gameObject.TryGetComponent<Enemy>(out enemy);
-            }
             else
             {
                 enemy = null;

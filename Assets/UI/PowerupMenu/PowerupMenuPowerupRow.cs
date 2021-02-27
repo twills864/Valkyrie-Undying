@@ -62,9 +62,11 @@ namespace Assets.UI.PowerupMenu
 
         private void OnPowerLevelChanged(int value)
         {
-            Powerup.Level = value;
-
-            GameManager.Instance.PowerupMenuPowerLevelRowSet(Powerup, value);
+            if (Powerup.Level != value)
+            {
+                Powerup.Level = value;
+                GameManager.Instance.PowerupMenuPowerLevelRowSet(Powerup, value);
+            }
         }
 
         public void OnInputChanged()

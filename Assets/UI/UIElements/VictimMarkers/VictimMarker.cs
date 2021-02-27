@@ -1,6 +1,7 @@
 ﻿using Assets.Enemies;
 using Assets.GameTasks;
 using Assets.ObjectPooling;
+using Assets.Powerups;
 using Assets.Util;
 using UnityEngine;
 
@@ -13,10 +14,10 @@ namespace Assets.UI
         private float FadeTime;
 
         [SerializeField]
-        private float StartDistance;
+        private float AlphaMax;
 
         [SerializeField]
-        private float EndDistance;
+        private float StartDistance;
 
         private Vector3 StartOffset;
         private Vector3 EndOffset;
@@ -26,7 +27,17 @@ namespace Assets.UI
         private VictimMarkerCorner BottomRight;
         private VictimMarkerCorner BottomLeft;
 
-        public MonoBehaviour Host { get; set; }
+        private IVictimHost _host;
+        public IVictimHost Host
+        {
+            get => _host;
+            set
+            {
+                _host = value;
+                float distance = Host.VictimMarkerDistance;
+                EndOffset = new Vector3(distance, distance, 0);
+            }
+        }
         public Vector3 HostPosition => Host.transform.position;
 
         private FrameTimer FadeTimer { get; set; }
@@ -40,28 +51,17 @@ namespace Assets.UI
         protected sealed override void OnUIElementInit()
         {
             FadeTimer = new FrameTimer(FadeTime);
-
             StartOffset = new Vector3(StartDistance, StartDistance, 0);
-            EndOffset = new Vector3(EndDistance, EndDistance, 0);
-
         }
 
         protected override void OnActivate()
         {
             Deactivating = false;
-
             ActivateCorners();
 
             FadeTimer.Reset();
-
             FadeRatio = new FloatValueOverTime(0.0f, 1.0f, FadeTime);
         }
-
-        public override void OnSpawn()
-        {
-            UpdateCorners(0f);
-        }
-
 
         private void ActivateCorners()
         {
@@ -73,27 +73,21 @@ namespace Assets.UI
             BottomLeft = allConers[3];
 
             const float rotationAngle = 45f;
-            Vector3 rotation = new Vector3(0, 0, rotationAngle);
-            void SetCorner(VictimMarkerCorner corner, Vector3 newRotation)
-            {
-                Quaternion newQuaternion = MathUtil.RotationToQuaternion(newRotation);
-                corner.transform.rotation = newQuaternion;
-            }
+            Vector3 rotationVector = new Vector3(0, 0, rotationAngle);
 
-            SetCorner(TopLeft, rotation);
-            SetCorner(TopRight, -rotation);
-            SetCorner(BottomRight, rotation);
-            SetCorner(BottomLeft, -rotation);
+            // In this case, -45 degrees is simply found by negating rotation.z
+            Quaternion rotation = MathUtil.RotationToQuaternion(rotationVector);
+            Quaternion minusRotation = new Quaternion(rotation.x, rotation.y, -rotation.z, rotation.w);
+
+            TopLeft.transform.rotation = rotation;
+            TopRight.transform.rotation = minusRotation;
+            BottomRight.transform.rotation = rotation;
+            BottomLeft.transform.rotation = minusRotation;
         }
 
-        public void StartDeactivation()
+        public override void OnSpawn()
         {
-            Deactivating = true;
-            FadeTimer.Reset();
-
-            float startAlpha = FadeRatio.Value;
-            float newFadeTime = FadeRatio.Elapsed;
-            FadeRatio = new FloatValueOverTime(startAlpha, 0.0f, newFadeTime);
+            UpdateCorners(0f);
         }
 
         protected override void OnManagedVelocityObjectFrameRun(float deltaTime)
@@ -120,40 +114,44 @@ namespace Assets.UI
             }
 
             void SetPosition(VictimMarkerCorner corner)
-            {
-                corner.transform.position = transform.position + corner.PositionOffset;
-            }
+                => corner.transform.position = transform.position + corner.PositionOffset;
 
             SetPosition(TopLeft);
             SetPosition(TopRight);
             SetPosition(BottomRight);
             SetPosition(BottomLeft);
-
-            if (!Deactivating)
-            {
-                string message = $"{TopLeft.Alpha} {TopLeft.transform.position}";
-                DebugUI.SetDebugLabel("TopLeftEnd", message);
-            }
         }
 
         private void RecalculateCornerOffsets()
         {
             float ratio = FadeRatio.Value;
-
-            TopLeft.PositionOffset = MathUtil.ScaledPositionBetween(StartOffset, EndOffset, ratio);
+            float alpha = ratio * AlphaMax;
 
             var pos = MathUtil.ScaledPositionBetween(StartOffset, EndOffset, ratio);
 
             void SetCorner(VictimMarkerCorner corner, float scaleX, float scaleY)
             {
-                corner.PositionOffset = new Vector3(pos.x * scaleX, pos.y * scaleY, 0);
-                corner.Alpha = ratio;
+                corner.PositionOffset = new Vector3(pos.x * scaleX, pos.y * scaleY, -1);
+                corner.Alpha = alpha;
             }
 
             SetCorner(TopLeft, -1f, 1f);
             SetCorner(TopRight, 1f, 1f);
             SetCorner(BottomRight, 1f, -1f);
             SetCorner(BottomLeft, -1f, -1f);
+        }
+
+        public void StartDeactivation()
+        {
+            if (!Deactivating)
+            {
+                Deactivating = true;
+                FadeTimer.Reset();
+
+                float startAlpha = FadeRatio.Value;
+                float newFadeTime = FadeRatio.Elapsed + float.Epsilon;
+                FadeRatio = new FloatValueOverTime(startAlpha, 0.0f, newFadeTime);
+            }
         }
 
         protected override void OnDeactivate()

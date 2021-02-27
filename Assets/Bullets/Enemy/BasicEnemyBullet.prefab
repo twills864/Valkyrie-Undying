@@ -135,4 +135,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SpawnId: 0
   PermanentVelocityX: 0
-  PermanentVelocityY: -5
+  PermanentVelocityY: -2

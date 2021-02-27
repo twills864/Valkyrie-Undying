@@ -208,14 +208,25 @@ namespace Assets.Util
 
         #region Quaternion
 
-        public static Quaternion RotationToQuaternion(float angle)
+        /// <summary>
+        /// Converts a given rotation angle into a quaternion usable by transform.rotation.
+        /// </summary>
+        /// <param name="angleDegrees">The given rotation angle in degrees.</param>
+        /// <returns>The equivalent rotation in as a quaternion.</returns>
+        public static Quaternion RotationToQuaternion(float angleDegrees)
         {
-            return RotationToQuaternion(new Vector3(0, 0, angle));
+            return RotationToQuaternion(new Vector3(0, 0, angleDegrees));
         }
-        public static Quaternion RotationToQuaternion(Vector3 rotation)
+
+        /// <summary>
+        /// Converts a given rotation angle into a quaternion usable by transform.rotation.
+        /// </summary>
+        /// <param name="rotationDegrees">The given rotation angle in degrees.</param>
+        /// <returns>The equivalent rotation in as a quaternion.</returns>
+        public static Quaternion RotationToQuaternion(Vector3 rotationDegrees)
         {
             var ret = Quaternion.identity;
-            ret.eulerAngles = rotation;
+            ret.eulerAngles = rotationDegrees;
 
             return ret;
         }

@@ -1,12 +1,14 @@
 ﻿using Assets.Bullets.EnemyBullets;
 using Assets.Enemies;
+using Assets.Powerups;
+using Assets.UI;
 using Assets.Util;
 using UnityEngine;
 
 namespace Assets
 {
     /// <inheritdoc/>
-    public class Player : FrameRunner
+    public class Player : FrameRunner, IVictimHost
     {
         public static Player Instance { get; private set; }
 
@@ -40,6 +42,22 @@ namespace Assets
         private FrameTimer BloodlustTimer { get; set; }
 
         #endregion Fire Speed
+
+        [SerializeField]
+        private float _victimMarkerDistance;
+        public float VictimMarkerDistance => _victimMarkerDistance;
+        private VictimMarker _victimMarker;
+        public VictimMarker VictimMarker
+        {
+            get => _victimMarker;
+            set
+            {
+                _victimMarker = value;
+                if (_victimMarker != null)
+                    _victimMarker.Host = this;
+            }
+        }
+
 
         private void Start()
         {

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Assets.Bullets.PlayerBullets;
 using Assets.Enemies;
 using Assets.ObjectPooling;
+using Assets.UI;
 using Assets.Util;
 using UnityEngine;
 
@@ -39,6 +40,9 @@ namespace Assets.Powerups
 
         public override void OnLevelUp()
         {
+            if (Level == 1)
+                Player.Instance.VictimMarker = PoolManager.Instance.UIElementPool.Get<VictimMarker>();
+
             DamageCalculator.Level = Level;
 
             FireTimer.ActivationInterval = ValueCalculator.Value;

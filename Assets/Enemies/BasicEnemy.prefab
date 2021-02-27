@@ -154,6 +154,7 @@ MonoBehaviour:
   SpawnId: 0
   HealthBar: {fileID: 5069002072005299939, guid: ff4bf05291d0f4543aabe356140735a0,
     type: 3}
+  _victimMarkerDistance: 0.6
   PermanentVelocityX: 0
   PermanentVelocityY: -1
 --- !u!1001 &4347506570863091907

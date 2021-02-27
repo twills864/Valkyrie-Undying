@@ -10,6 +10,11 @@ namespace Assets.UI
         [SerializeField]
         private SpriteRenderer Sprite;
 
+        /// <summary>
+        /// The calculated offset from the center of the host VictimMarker.
+        /// </summary>
+        public Vector3 PositionOffset { get; set; }
+
         public float Alpha
         {
             get => Sprite.color.a;
@@ -20,13 +25,6 @@ namespace Assets.UI
                 Sprite.color = color;
             }
         }
-
-        public Vector3 PositionOffset { get; set; }
-
-        //protected sealed override void OnUIElementInit()
-        //{
-        //    Sprite = GetComponent<SpriteRenderer>();
-        //}
 
         protected override void OnActivate()
         {

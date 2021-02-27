@@ -46,8 +46,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SpawnId: 0
   FadeTime: 0.2
+  AlphaMax: 0.8
   StartDistance: 3
-  EndDistance: 1
 --- !u!212 &2744186383143280971
 SpriteRenderer:
   m_ObjectHideFlags: 0

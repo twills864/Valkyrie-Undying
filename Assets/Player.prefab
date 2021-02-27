@@ -121,6 +121,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BloodlustAuraObject: {fileID: 5388168560827903027}
   MobileYOffset: 1.5
+  _victimMarkerDistance: 0.75
 --- !u!60 &5303219948123075438
 PolygonCollider2D:
   m_ObjectHideFlags: 0

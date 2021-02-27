@@ -140,6 +140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SpawnId: 0
   HealthBar: {fileID: 0}
+  _victimMarkerDistance: 0.6
 --- !u!1001 &2735493065413548216
 PrefabInstance:
   m_ObjectHideFlags: 0
