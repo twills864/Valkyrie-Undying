@@ -205,5 +205,21 @@ namespace Assets.Util
         }
 
         #endregion Vector
+
+        #region Quaternion
+
+        public static Quaternion RotationToQuaternion(float angle)
+        {
+            return RotationToQuaternion(new Vector3(0, 0, angle));
+        }
+        public static Quaternion RotationToQuaternion(Vector3 rotation)
+        {
+            var ret = Quaternion.identity;
+            ret.eulerAngles = rotation;
+
+            return ret;
+        }
+
+        #endregion Quaternion
     }
 }

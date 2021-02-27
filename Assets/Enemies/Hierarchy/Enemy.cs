@@ -139,6 +139,12 @@ namespace Assets.Enemies
             OnDeath();
         }
 
+        protected override void OnDeactivate()
+        {
+            if (IsVictim)
+                IsVictim = false;
+        }
+
         private void OnTriggerEnter2D(Collider2D collision)
         {
             if (CollisionUtil.IsPlayerBullet(collision))

@@ -49,3 +49,5 @@ MonoBehaviour:
     type: 3}
   VictimMarkerPrefab: {fileID: -4956736669947735502, guid: 3484b86ff8987724ea9c62df28fb2d49,
     type: 3}
+  VictimMarkerCornerPrefab: {fileID: -4081759565047746748, guid: fcd10013f5b8dbb4eb2c9a7322819e1b,
+    type: 3}

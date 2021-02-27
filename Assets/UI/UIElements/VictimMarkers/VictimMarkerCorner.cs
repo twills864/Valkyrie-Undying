@@ -21,6 +21,8 @@ namespace Assets.UI
             }
         }
 
+        public Vector3 PositionOffset { get; set; }
+
         //protected sealed override void OnUIElementInit()
         //{
         //    Sprite = GetComponent<SpriteRenderer>();

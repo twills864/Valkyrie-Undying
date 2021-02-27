@@ -98,7 +98,9 @@ namespace Assets
                     _victimEnemy.VictimMarker.StartDeactivation();
 
                 _victimEnemy = value;
-                _victimEnemy.VictimMarker = _PoolManager.UIElementPool.Get<VictimMarker>();
+
+                if(value != null)
+                    _victimEnemy.VictimMarker = _PoolManager.UIElementPool.Get<VictimMarker>();
             }
         }
         public bool TryGetVictim(out Enemy victim)

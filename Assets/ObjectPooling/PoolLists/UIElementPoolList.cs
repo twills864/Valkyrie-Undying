@@ -13,5 +13,7 @@ namespace Assets.ObjectPooling
         private AtomTrail AtomTrialPrefab;
         [SerializeField]
         private VictimMarker VictimMarkerPrefab;
+        [SerializeField]
+        private VictimMarkerCorner VictimMarkerCornerPrefab;
     }
 }
