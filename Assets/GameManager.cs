@@ -22,8 +22,9 @@ namespace Assets
     {
         public static GameManager Instance { get; set; }
 
-        private const bool AddingPowerup = false;
-        public Type GameRowPowerupType = typeof(VictimPowerup);
+        private const bool AddingPowerup = true;
+        public Type GameRowPowerupType => GetPowerupType<RainCloudPowerup>();
+        private Type GetPowerupType<TPowerup>() where TPowerup : Powerup => typeof(TPowerup);
 
         public Player Player;
         public Othello _Othello;
@@ -172,7 +173,7 @@ namespace Assets
             _PowerupManager = new PowerupManager();
             _PowerupManager.Init();
 
-            _RainCloudPowerup = _PowerupManager.GetOnLevelUpPowerup<RainCloudPowerup>();
+            //_RainCloudPowerup = _PowerupManager.GetOnLevelUpPowerup<RainCloudPowerup>();
 
             RainCloud.Instance = _RainCloud;
             RainCloudSpawner.Instance = _RainCloudSpawner;
@@ -246,12 +247,6 @@ namespace Assets
                 _PoolManager.BulletPool.Get<ShrapnelBullet>(position);
         }
 
-        public void CreateRaindrop(Vector2 position, int damage)
-        {
-            var raindrop = _PoolManager.BulletPool.Get<RaindropBullet>(position);
-            raindrop.RaindropDamage = damage;
-        }
-
         public void FirePestControl(Vector2 position, int numberToGet)
         {
             var targets = _PoolManager.EnemyBulletPool.GetPestControlTargets(numberToGet);
@@ -321,17 +316,9 @@ namespace Assets
                 enemy.Init(SpaceUtil.RandomEnemySpawnPosition(enemy));
             }
 
-            if (_RainCloudSpawner.isActiveAndEnabled)
-                _RainCloudSpawner.RunFrame(deltaTime);
-            if (_RainCloud.isActiveAndEnabled)
-                _RainCloud.RunFrame(deltaTime);
-
-            _SentinelManager.transform.position = Player.transform.position;
-            _SentinelManager.RunFrame(deltaTime);
-
-            _PoolManager.RunPoolFrames(deltaTime, deltaTime);
-            _PowerupManager.PassiveUpdate(deltaTime);
-            GameTaskLists.RunFrames(deltaTime);
+            _PoolManager.RunPoolFrames(deltaTime, deltaTime, deltaTime);
+            _PowerupManager.PassiveUpdate(playerFireScale);
+            GameTaskLists.RunFrames(playerFireScale, deltaTime, deltaTime, deltaTime);
             _DebugEnemy.RunFrame(deltaTime);
         }
 

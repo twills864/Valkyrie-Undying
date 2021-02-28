@@ -1,4 +1,5 @@
-﻿using Assets.Constants;
+﻿using System;
+using Assets.Constants;
 using Assets.Enemies;
 using Assets.GameTasks;
 using Assets.Util;
@@ -37,10 +38,13 @@ namespace Assets.Bullets.PlayerBullets
             {
                 var otherBullet = collision.GetComponent<PlayerBullet>();
 
-                if (otherBullet.ShouldMarkSelfCollision
-                    && this.GetType() == otherBullet.GetType())
+                if (otherBullet.ShouldMarkSelfCollision)
                 {
-                    MarkSelfCollision();
+                    var thisType = this.GetType();
+                    var otherType = otherBullet.GetType();
+
+                    if(thisType == otherType)
+                        MarkSelfCollision(thisType, otherType);
                 }
             }
 
@@ -70,9 +74,11 @@ namespace Assets.Bullets.PlayerBullets
         /// bullets colliding with each other on spawn in order to
         /// save calls to the collision detection methods.
         /// </summary>
-        protected void MarkSelfCollision()
+        /// <param name="thisBulletType">The type of bullet initiating the self-collision mark.</param>
+        /// <param name="collidingBulletType">The type of bullet that collided with the current bullet.</param>
+        protected void MarkSelfCollision(Type thisBulletType, Type collidingBulletType)
         {
-            Log("Bullet self-collision!");
+            Log($"Bullet self-collision! {thisBulletType.Name} -> {collidingBulletType.Name}");
             DebugUtil.RedX(transform.position, 0.5f);
         }
     }

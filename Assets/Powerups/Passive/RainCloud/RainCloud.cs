@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Assets.Bullets.PlayerBullets;
 using Assets.FireStrategies.PlayerFireStrategies;
+using Assets.ObjectPooling;
 using Assets.Util;
 using UnityEngine;
 
@@ -29,12 +31,15 @@ namespace Assets.Powerups
         private int Level;
         private int Damage;
 
+        private ObjectPool<PlayerBullet> RaindropPool { get; set; }
+
         public override void OnInit()
         {
             var sprite = GetComponent<SpriteRenderer>();
             Size = sprite.size;
             BufferX = Size.x;
             BoxMap = new TrackedBoxMap(this);
+            RaindropPool = PoolManager.Instance.BulletPool.GetPool<RaindropBullet>();
         }
 
         public void OnSpawn(float xPosition)
@@ -59,11 +64,8 @@ namespace Assets.Powerups
                     VelocityX = -Speed;
             }
 
-            if(FireTimer.UpdateActivates(deltaTime))
-            {
-                var pos = FirePosition();
-                GameManager.Instance.CreateRaindrop(pos, Damage);
-            }
+            if (FireTimer.UpdateActivates(deltaTime))
+                CreateRaindrop(FirePosition, Damage);
         }
 
         public void Activate(float xPosition)
@@ -78,15 +80,26 @@ namespace Assets.Powerups
             FireTimer.ActivationInterval = fireSpeed;
         }
 
-        public Vector2 FirePosition()
+        public Vector2 FirePosition
         {
-            var top = BoxMap.Top;
+            get
+            {
+                var top = BoxMap.Top;
 
-            var x = top.x + RandomUtil.Float(-BufferX, BufferX);
-            var y = top.y;
+                var x = top.x + RandomUtil.Float(-BufferX, BufferX);
+                var y = top.y;
 
-            var ret = new Vector2(x, y);
-            return ret;
+                var ret = new Vector2(x, y);
+                return ret;
+            }
+        }
+
+
+        public void CreateRaindrop(Vector2 position, int damage)
+        {
+            var raindrop = (RaindropBullet) RaindropPool.Get();
+            raindrop.transform.position = position;
+            raindrop.RaindropDamage = damage;
         }
     }
 }

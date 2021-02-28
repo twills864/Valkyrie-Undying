@@ -15,13 +15,13 @@ namespace Assets.GameTasks.GameTaskLists
         public GameTaskList EnemyBulletGameTaskList = new GameTaskList();
         public GameTaskList UIElementGameTaskList = new GameTaskList();
 
-        public void RunFrames(float deltaTime)
+        public void RunFrames(float playerDt, float bulletDt, float enemyDt, float uiDt)
         {
-            PlayerGameTaskList.RunFrames(deltaTime);
-            BulletGameTaskList.RunFrames(deltaTime);
-            EnemyGameTaskList.RunFrames(deltaTime);
-            EnemyBulletGameTaskList.RunFrames(deltaTime);
-            UIElementGameTaskList.RunFrames(deltaTime);
+            PlayerGameTaskList.RunFrames(playerDt);
+            BulletGameTaskList.RunFrames(bulletDt);
+            EnemyGameTaskList.RunFrames(enemyDt);
+            EnemyBulletGameTaskList.RunFrames(enemyDt);
+            UIElementGameTaskList.RunFrames(uiDt);
         }
 
         private GameTaskList GetList(GameTaskType taskType)

@@ -45,7 +45,8 @@ namespace Assets.ObjectPooling
         /// </summary>
         /// <param name="bulletDt">Delta time as experienced by each bullet.</param>
         /// <param name="enemyDt">Delta time as experienced by each enemy.</param>
-        public void RunPoolFrames(float bulletDt, float enemyDt)
+        /// /// <param name="enemyDt">Delta time as experienced by each UI element.</param>
+        public void RunPoolFrames(float bulletDt, float enemyDt, float uiDt)
         {
             BulletPool.RunFrames(bulletDt);
             EnemyPool.RunFrames(enemyDt);
@@ -53,7 +54,7 @@ namespace Assets.ObjectPooling
 
             // UIElementPool should run last to take into account any changes in position, etc.
             // of elements from previous pools.
-            UIElementPool.RunFrames(bulletDt);
+            UIElementPool.RunFrames(uiDt);
         }
 
         /// <summary>

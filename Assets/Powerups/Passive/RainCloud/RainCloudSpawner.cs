@@ -40,7 +40,7 @@ namespace Assets.Powerups
             {
                 RainCloud.Instance.Activate(transform.position.x);
                 gameObject.SetActive(false);
-                //Destroy(this);
+                Move = null;
             }
         }
 

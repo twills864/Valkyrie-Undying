@@ -11,10 +11,10 @@ namespace Assets.Powerups
     /// Summons eight bullets that revolve around the player, respawning periodically.
     /// </summary>
     /// <inheritdoc/>
-    public class SentinelPowerup : OnLevelUpPowerup
+    public class SentinelPowerup : PassivePowerup
     {
         private const float RespawnIntervalBase = 5.0f;
-        private const float RespawnIntervalRatioIncrease = 0.9f;
+        private const float RespawnIntervalRatioIncrease = 0.75f;
 
         protected override LevelValueCalculator InitialValueCalculator
             => new ProductLevelValueCalculator(RespawnIntervalBase, RespawnIntervalRatioIncrease);
@@ -37,7 +37,11 @@ namespace Assets.Powerups
             SentinelManager.Instance.LevelUp(Level, Radius, RespawnInterval);
         }
 
-
+        public override void RunFrame(float deltaTime)
+        {
+            SentinelManager.Instance.transform.position = Player.Instance.transform.position;
+            SentinelManager.Instance.RunFrame(deltaTime);
+        }
     }
 }
 
