@@ -65,7 +65,7 @@ namespace Assets.Enemies
 
         public void UpdateHealthBar() => HealthBar.SetText(CurrentHealth);
 
-        protected TrackedBoxMap BoxMap { get; set; }
+        public TrackedBoxMap BoxMap { get; protected set; }
 
         public abstract EnemyFireStrategy FireStrategy { get; protected set; }
         public LoopingFrameTimer FireTimer => FireStrategy.FireTimer;

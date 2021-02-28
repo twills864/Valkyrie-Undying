@@ -55,9 +55,16 @@ namespace Assets.GameTasks
             Timer.ActivateSelf();
         }
 
+        /// <summary>
+        /// Resets this task by resetting its timer.
+        /// </summary>
+        public virtual void ResetSelf()
+        {
+            Timer.Reset();
+        }
 
         /// <summary>
-        /// Forces the completion of this Task by activating its Timer.
+        /// Forces the completion of this task by activating its timer.
         /// </summary>
         public virtual void FinishSelf()
         {

@@ -1,4 +1,7 @@
-﻿namespace Assets
+﻿using System;
+using UnityEngine;
+
+namespace Assets
 {
     /// <summary>
     /// Represents an object that can be stored inside of an Object Pool.
@@ -10,6 +13,7 @@
         /// An ID assigned to this object by its Object Pool when it's spawned.
         /// Guaranteed to be unique from any other active object spawned from the same pool.
         /// </summary>
+        [NonSerialized]
         public int SpawnId;
 
         /// <summary>

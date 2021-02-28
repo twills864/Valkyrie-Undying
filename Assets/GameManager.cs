@@ -22,7 +22,7 @@ namespace Assets
     {
         public static GameManager Instance { get; set; }
 
-        private const bool AddingPowerup = true;
+        private const bool AddingPowerup = false;
         public Type GameRowPowerupType = typeof(VictimPowerup);
 
         public Player Player;
@@ -187,6 +187,7 @@ namespace Assets
                 new SpreadStrategy(_PoolManager.BulletPool.GetPrefab<SpreadBullet>()),
                 new FlakStrategy(_PoolManager.BulletPool.GetPrefab<FlakBullet>()),
                 new TrampolineStrategy(_PoolManager.BulletPool.GetPrefab<TrampolineBullet>()),
+                new WormholeStrategy(_PoolManager.BulletPool.GetPrefab<WormholeBullet>()),
             };
             FireTimer = CurrentFireStrategy.FireTimer;
 

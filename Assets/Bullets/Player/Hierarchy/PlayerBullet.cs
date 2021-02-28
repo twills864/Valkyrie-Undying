@@ -19,6 +19,8 @@ namespace Assets.Bullets.PlayerBullets
 
         public int BulletLevel { get; set; }
         public bool IsMaxLevel => BulletLevel == GameConstants.MaxWeaponLevel;
+        protected int BulletLevelPlusOneIfMax
+            => !IsMaxLevel ? BulletLevel : BulletLevel + 1;
 
         protected virtual bool ShouldMarkSelfCollision => true;
 
