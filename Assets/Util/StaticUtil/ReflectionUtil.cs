@@ -161,8 +161,8 @@ namespace Assets.Util
         public static T GetMember<T>(object target, string member)
         {
             bool propertyFound = TryGetProperty(target, member, out T value);
-            if (!propertyFound)
-                TryGetField(target, member, out value);
+            if (!propertyFound && !TryGetField(target, member, out value))
+                throw new ArgumentException($"Member {member} not found in {target}", "member");
 
             return value;
         }

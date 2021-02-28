@@ -12,6 +12,7 @@ namespace Assets.Enemies
     /// <inheritdoc/>
     public abstract class Enemy : PooledObject, IVictimHost
     {
+        private int PrivateInt = 6;
         public override string LogTagColor => "#FFB697";
         public override GameTaskType TaskType => GameTaskType.Enemy;
 
@@ -74,7 +75,7 @@ namespace Assets.Enemies
         protected virtual float InfernoTickTime => 0.75f;
         private LoopingFrameTimer InfernoTimer { get; set; }
 
-        protected virtual int InfernoDamageBase => 10;
+        protected virtual float InfernoDamageScale => 1f;
         public virtual int InfernoDamageIncrease { get; set; }
         private int InfernoDamage { get; set; }
         public bool IsBurning { get; set; }
@@ -99,7 +100,6 @@ namespace Assets.Enemies
             CurrentHealth = BaseSpawnHealth;
             PointValue = CurrentHealth;
             IsBurning = false;
-            InfernoDamage = InfernoDamageBase;
 
             HealthBar.OnActivate();
 
@@ -192,10 +192,10 @@ namespace Assets.Enemies
                 if (Player.Instance.CollideWithEnemy(this))
                     DeactivateSelf();
             }
-            if (CollisionUtil.IsEnemy(collision))
+            if (CollisionUtil.IsEnemy(collision) && IsBurning)
             {
                 Enemy enemy = collision.GetComponent<Enemy>();
-                enemy.Ignite(InfernoPowerup.CurrentDamageIncreasePerTick);
+                enemy.Ignite(InfernoPowerup.CurrentBaseDamage, InfernoPowerup.CurrentDamageIncreasePerTick);
             }
         }
 
@@ -234,16 +234,25 @@ namespace Assets.Enemies
             return ret;
         }
 
-        public void Ignite(int infernoDamageIncreasePerTick)
+        public void Ignite(int baseDamage, int damageIncreasePerTick)
         {
+            int newInfernoDamageIncrease = (int)(InfernoDamageScale * damageIncreasePerTick);
+            int newInfernoDamage = (int)(InfernoDamageScale * baseDamage) + newInfernoDamageIncrease;
+
             if (!IsBurning)
             {
+                InfernoDamage = newInfernoDamage;
                 IsBurning = true;
                 HealthBar.Ignite();
-                InfernoDamageIncrease = infernoDamageIncreasePerTick;
+                InfernoDamageIncrease = newInfernoDamageIncrease;
             }
-            else if(InfernoDamageIncrease < infernoDamageIncreasePerTick)
-                InfernoDamageIncrease = infernoDamageIncreasePerTick;
+            else
+            {
+                if (InfernoDamageIncrease < newInfernoDamageIncrease)
+                    InfernoDamageIncrease = newInfernoDamageIncrease;
+                if (InfernoDamage < newInfernoDamage)
+                    InfernoDamage = newInfernoDamage;
+            }
         }
 
         private EnemyHealthBar FindChildEnemyHealthBar()

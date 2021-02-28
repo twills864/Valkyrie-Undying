@@ -15,10 +15,11 @@ namespace Assets.Powerups
     /// <inheritdoc/>
     public class InfernoPowerup : PassivePowerup
     {
+        public static int CurrentBaseDamage { get; private set; }
         public static int CurrentDamageIncreasePerTick { get; private set; }
 
-        private const float FireSpeedBase = 2.0f;
-        private const float FireSpeedIncrease = 0.9f;
+        private const float FireSpeedBase = 3.0f;
+        private const float FireSpeedIncrease = 0.8f;
 
         protected override LevelValueCalculator InitialValueCalculator
             => new ProductLevelValueCalculator(FireSpeedBase, FireSpeedIncrease);
@@ -30,7 +31,7 @@ namespace Assets.Powerups
         private SumLevelValueCalculator DamageCalculator =
             new SumLevelValueCalculator(DamageIncreaseBase, DamageIncreasePerLevel);
 
-        public int DamageIncrease => (int) DamageCalculator.Value;
+        private int DamageIncrease => (int) DamageCalculator.Value;
 
         private LoopingFrameTimer FireTimer { get; set; }
         private ObjectPool<PlayerBullet> InfernoPool { get; set; }
@@ -39,6 +40,9 @@ namespace Assets.Powerups
         {
             FireTimer = LoopingFrameTimer.Default();
             InfernoPool = PoolManager.Instance.BulletPool.GetPool<InfernoBullet>();
+            var bullet = (InfernoBullet)InfernoPool.Get();
+            CurrentBaseDamage = bullet.Damage;
+            bullet.DeactivateSelf();
         }
 
         public override void OnLevelUp()
@@ -56,7 +60,6 @@ namespace Assets.Powerups
             {
                 var firePos = Player.Instance.FirePosition();
                 var bullet = (InfernoBullet)InfernoPool.Get();
-
                 bullet.transform.position = firePos;
                 bullet.BulletLevel = Level;
                 bullet.DamageIncreasePerTick = DamageIncrease;

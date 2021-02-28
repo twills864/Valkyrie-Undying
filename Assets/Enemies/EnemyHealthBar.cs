@@ -3,7 +3,7 @@
 public class EnemyHealthBar : MonoBehaviour
 {
     private Color InitialColor => Color.white;
-    private Color IgniteColor => Color.red;
+    private Color IgniteColor => new Color(1f, 0.5f, 0);
 
     private TextMesh TextMesh { get; set; }
 
