@@ -75,3 +75,5 @@ MonoBehaviour:
     type: 3}
   VictimPrefab: {fileID: 6738896753918285744, guid: 5a84e7a63d1a8f741a90381186709ac5,
     type: 3}
+  InfernoPrefab: {fileID: 2937599719639305113, guid: 2d92ade447846d844971926821d26c73,
+    type: 3}

@@ -19,7 +19,7 @@ namespace Assets.Powerups
         private const float ShrapnelIncrease = 0.8f;
 
         protected override LevelValueCalculator InitialValueCalculator
-            => new AsymptoteRatioLevelValueCalculator(0.2f, 0.8f);
+            => new AsymptoteRatioLevelValueCalculator(ShrapnelChanceBase, ShrapnelIncrease);
 
         private float ShrapnelChance => ValueCalculator.Value;
 

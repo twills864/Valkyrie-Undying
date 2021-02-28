@@ -9,6 +9,7 @@ namespace Assets.Util
         public const string TagDestructor = "Destructor";
         public const string TagPlayerBullet = "PlayerBullet";
         public const string TagPlayer = "Player";
+        public const string TagEnemy = "Enemy";
         public const string TagEnemyBullet = "EnemyBullet";
         public const string TagScreenEdge = "ScreenEdge";
 
@@ -28,6 +29,12 @@ namespace Assets.Util
         public static bool IsPlayer(Collider2D collision)
         {
             return collision.tag == TagPlayer;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsEnemy(Collider2D collision)
+        {
+            return collision.tag == TagEnemy;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

@@ -23,7 +23,7 @@ namespace Assets
         public static GameManager Instance { get; set; }
 
         private const bool AddingPowerup = true;
-        public Type GameRowPowerupType => GetPowerupType<RainCloudPowerup>();
+        public Type GameRowPowerupType => GetPowerupType<InfernoPowerup>();
         private Type GetPowerupType<TPowerup>() where TPowerup : Powerup => typeof(TPowerup);
 
         public Player Player;

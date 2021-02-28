@@ -70,11 +70,22 @@ namespace Assets.Enemies
         public abstract EnemyFireStrategy FireStrategy { get; protected set; }
         public LoopingFrameTimer FireTimer => FireStrategy.FireTimer;
 
+
+        protected virtual float InfernoTickTime => 0.75f;
+        private LoopingFrameTimer InfernoTimer { get; set; }
+
+        protected virtual int InfernoDamageBase => 10;
+        public virtual int InfernoDamageIncrease { get; set; }
+        private int InfernoDamage { get; set; }
+        public bool IsBurning { get; set; }
+
         protected virtual void OnEnemyInit() { }
         public sealed override void OnInit()
         {
             BoxMap = new TrackedBoxMap(this);
             HealthBar = FindChildEnemyHealthBar();
+            InfernoTimer = new LoopingFrameTimer(InfernoTickTime);
+
             OnActivate();
             OnEnemyInit();
         }
@@ -83,8 +94,15 @@ namespace Assets.Enemies
         protected sealed override void OnActivate()
         {
             FireStrategy.Reset();
+            InfernoTimer.Reset();
+
             CurrentHealth = BaseSpawnHealth;
             PointValue = CurrentHealth;
+            IsBurning = false;
+            InfernoDamage = InfernoDamageBase;
+
+            HealthBar.OnActivate();
+
             UpdateHealthBar();
 
             OnEnemyActivate();
@@ -96,6 +114,9 @@ namespace Assets.Enemies
             if (FireTimer.UpdateActivates(deltaTime))
                 FireBullets();
 
+            if (IsBurning && InfernoTimer.UpdateActivates(deltaTime))
+                Burn();
+
             OnEnemyFrame(deltaTime);
         }
 
@@ -105,6 +126,14 @@ namespace Assets.Enemies
             {
                 var bullets = FireStrategy.GetBullets(FirePosition);
             }
+        }
+
+        protected virtual void Burn()
+        {
+            if (!DamageKills(InfernoDamage))
+                InfernoDamage += InfernoDamageIncrease;
+            else
+                KillEnemy(null);
         }
 
         private void Start()
@@ -163,6 +192,11 @@ namespace Assets.Enemies
                 if (Player.Instance.CollideWithEnemy(this))
                     DeactivateSelf();
             }
+            if (CollisionUtil.IsEnemy(collision))
+            {
+                Enemy enemy = collision.GetComponent<Enemy>();
+                enemy.Ignite(InfernoPowerup.CurrentDamageIncreasePerTick);
+            }
         }
 
         protected virtual void OnTriggerExit2D(Collider2D collision)
@@ -198,6 +232,18 @@ namespace Assets.Enemies
 
             var ret = new Vector2(collisionX, y);
             return ret;
+        }
+
+        public void Ignite(int infernoDamageIncreasePerTick)
+        {
+            if (!IsBurning)
+            {
+                IsBurning = true;
+                HealthBar.Ignite();
+                InfernoDamageIncrease = infernoDamageIncreasePerTick;
+            }
+            else if(InfernoDamageIncrease < infernoDamageIncreasePerTick)
+                InfernoDamageIncrease = infernoDamageIncreasePerTick;
         }
 
         private EnemyHealthBar FindChildEnemyHealthBar()
