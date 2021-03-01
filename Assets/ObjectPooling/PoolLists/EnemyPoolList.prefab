@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8117391329285481191}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.22870228, y: 0.98356783, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -46,4 +46,8 @@ MonoBehaviour:
   BasicPrefab: {fileID: 6450830111375034844, guid: 3722a63a8db008943be2dc745f89f1f3,
     type: 3}
   TankPrefab: {fileID: 6869352531335175920, guid: e41a3adbbab906e4fac557143c761235,
+    type: 3}
+  RingEnemyPrefab: {fileID: 1858196081328302337, guid: bf3d1edbe7a2d0b44bd932381699f578,
+    type: 3}
+  RingEnemyRingPrefab: {fileID: 6916010081278206620, guid: 3f3019af936be0c4998bb17f13e907fb,
     type: 3}

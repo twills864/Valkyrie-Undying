@@ -25,6 +25,7 @@ namespace Assets.ObjectPooling
         /// </summary>
         protected ObjectPool<T>[] Pools { get; private set; }
 
+        protected virtual void OnPoolMapSet() { }
         /// <summary>
         /// A dictionary in which each pool represented by this PoolList
         /// is indexed by the type of the pool.
@@ -36,6 +37,7 @@ namespace Assets.ObjectPooling
             {
                 _poolMap = value;
                 Pools = _poolMap.Values.ToArray();
+                OnPoolMapSet();
             }
         }
         private Dictionary<Type, ObjectPool<T>> _poolMap;

@@ -17,6 +17,17 @@ public class EnemyHealthBar : MonoBehaviour
         }
     }
 
+    public float Alpha
+    {
+        get => _Color.a;
+        set
+        {
+            var color = _Color;
+            color.a = value;
+            _Color = color;
+        }
+    }
+
     private void Awake()
     {
         TextMesh = GetComponent<TextMesh>();

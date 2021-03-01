@@ -18,7 +18,7 @@ namespace Assets.Util
                 TouchTimer();
             }
         }
-        public bool Activated { get; protected set; }
+        public virtual bool Activated { get; protected set; }
         public float OverflowDeltaTime { get; protected set; }
 
         public float TimeUntilActivation => ActivationInterval - Elapsed;

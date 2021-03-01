@@ -47,3 +47,5 @@ MonoBehaviour:
     type: 3}
   TankPrefab: {fileID: 3855309089160610100, guid: ac39a4b5a0ce0694e813e59928b0e98b,
     type: 3}
+  RingPrefab: {fileID: 5039637706149626134, guid: f0dd9e73c61a16643934acb9a8b0832b,
+    type: 3}

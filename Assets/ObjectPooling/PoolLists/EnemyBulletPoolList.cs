@@ -16,6 +16,8 @@ namespace Assets.ObjectPooling
         private BasicEnemyBullet BasicPrefab;
         [SerializeField]
         private TankEnemyBullet TankPrefab;
+        [SerializeField]
+        private RingEnemyBullet RingPrefab;
 
         public EnemyBullet[] GetPestControlTargets(int numToGet)
         {
