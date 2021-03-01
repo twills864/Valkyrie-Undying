@@ -1,5 +1,6 @@
 ﻿using Assets.FireStrategies.EnemyFireStrategies;
 using Assets.Util;
+using UnityEngine;
 
 namespace Assets.Enemies
 {
@@ -8,15 +9,26 @@ namespace Assets.Enemies
     {
         private const float HealthbarFadeTime = 0.5f;
 
+        [SerializeField]
+        private SpriteRenderer Sprite;
+
         public override int BaseSpawnHealth => 125;
         public override float SpawnHealthScaleRate => 1f;
 
         public override EnemyFireStrategy FireStrategy { get; protected set; }
             = new InactiveEnemyStrategy();
 
+
+        public float Height { get; private set; }
+        public float HeightHalf => Height * 0.5f;
         private FrameTimer AlphaCalculator = new FrameTimer(HealthbarFadeTime);
 
         public RingEnemy Host { get; set; }
+
+        protected override void OnEnemyInit()
+        {
+            Height = Sprite.bounds.size.y;
+        }
 
         protected override void OnEnemyActivate()
         {

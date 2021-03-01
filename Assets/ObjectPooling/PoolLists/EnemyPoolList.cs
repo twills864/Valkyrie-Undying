@@ -44,6 +44,7 @@ namespace Assets.ObjectPooling
                 pool = RandomUtil.RandomElement(RandomEnemyPools);
 
             var ret = pool.Get();
+            ret.transform.position = SpaceUtil.RandomEnemySpawnPosition(ret);
             ret.OnSpawn();
             return ret;
         }

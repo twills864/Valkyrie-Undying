@@ -313,7 +313,6 @@ namespace Assets
             if (EnemyTimer.UpdateActivates(deltaTime))
             {
                 var enemy = _PoolManager.EnemyPool.GetRandomEnemy();
-                enemy.Init(SpaceUtil.RandomEnemySpawnPosition(enemy));
             }
 
             _PoolManager.RunPoolFrames(deltaTime, deltaTime, deltaTime);

@@ -125,9 +125,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HealthBar: {fileID: 6167490895812206848}
   _victimMarkerDistance: 0.7
-  PermanentVelocityX: 0
-  PermanentVelocityY: -0.5
   RotationSpeed: 180
+  MinimumTravelTime: 2
 --- !u!60 &648843407322911302
 PolygonCollider2D:
   m_ObjectHideFlags: 0
