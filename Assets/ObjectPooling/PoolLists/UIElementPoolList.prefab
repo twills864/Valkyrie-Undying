@@ -51,3 +51,5 @@ MonoBehaviour:
     type: 3}
   VictimMarkerCornerPrefab: {fileID: -4081759565047746748, guid: fcd10013f5b8dbb4eb2c9a7322819e1b,
     type: 3}
+  EnemyHealthBarPrefab: {fileID: 5069002072005299939, guid: ff4bf05291d0f4543aabe356140735a0,
+    type: 3}

@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using Assets.UI;
+using UnityEngine;
 
-public class EnemyHealthBar : MonoBehaviour
+public class EnemyHealthBar : UIElement
 {
     private Color InitialColor => Color.white;
     private Color IgniteColor => new Color(1f, 0.5f, 0);
@@ -41,7 +42,7 @@ public class EnemyHealthBar : MonoBehaviour
         TextMesh.text = text;
     }
 
-    public void OnActivate()
+    protected override void OnActivate()
     {
         _Color = InitialColor;
     }

@@ -9,8 +9,14 @@ namespace Assets.Enemies
     {
         public override int BaseSpawnHealth => 100000;
         public override float SpawnHealthScaleRate => 1.0f;
+        protected override bool ShouldDeactivateOnDestructor => false;
 
         public override EnemyFireStrategy FireStrategy { get; protected set; }
             = new DebugEnemyStrategy();
+
+        protected override void OnEnemyInit()
+        {
+            base.OnActivate();
+        }
     }
 }

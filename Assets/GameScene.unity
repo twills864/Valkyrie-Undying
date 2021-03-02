@@ -221,7 +221,7 @@ PrefabInstance:
     - target: {fileID: 2446080163398781017, guid: 91e00bdf9704aa44fb81bce6cc59c3b9,
         type: 3}
       propertyPath: m_Name
-      value: Desctructor
+      value: Destructor
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91e00bdf9704aa44fb81bce6cc59c3b9, type: 3}

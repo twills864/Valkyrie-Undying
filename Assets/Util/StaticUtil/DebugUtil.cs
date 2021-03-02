@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using Assets.Enemies;
 using Assets.GameTasks;
+using LogUtilAssets;
 using UnityEngine;
 
 namespace Assets.Util
@@ -114,10 +116,21 @@ namespace Assets.Util
 
         private static void InputMouseForward(KeyCode keyCode)
         {
-            var moveTo = new MoveTo(GameManager._DebugEnemy, SpaceUtil.WorldMap.Center, 1f);
-            var ease = new EaseOut(moveTo);
+            if (SpaceUtil.TryGetGameObjectUnderMouse(out GameObject gameObject))
+            {
+                if (gameObject.name != "Destructor")
+                {
+                    LogUtil.Log(gameObject);
 
-            GameManager._DebugEnemy.RunTask(ease);
+                    if(gameObject.TryGetComponent<Enemy>(out Enemy enemy) && enemy.name != "DebugEnemy")
+                        enemy.DebugKill();
+                }
+            }
+
+            //var moveTo = new MoveTo(GameManager._DebugEnemy, SpaceUtil.WorldMap.Center, 1f);
+            //var ease = new EaseOut(moveTo);
+
+            //GameManager._DebugEnemy.RunTask(ease);
         }
 
         private static void InputKeypadPlus(KeyCode keyCode)

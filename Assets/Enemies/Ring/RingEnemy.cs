@@ -47,10 +47,10 @@ namespace Assets.Enemies
             transform.Rotate(0, 0, deltaTime * RotationSpeed);
 
             if (Ring != null)
-                Ring.transform.position = transform.position;
+                Ring.transform.position = new Vector3(transform.position.x, transform.position.y, 1f);
         }
 
-        protected override void OnDeactivate()
+        protected override void OnEnemyDeactivate()
         {
             if (Ring != null)
             {

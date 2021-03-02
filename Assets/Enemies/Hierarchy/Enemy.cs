@@ -12,9 +12,10 @@ namespace Assets.Enemies
     /// <inheritdoc/>
     public abstract class Enemy : PooledObject, IVictimHost
     {
-        private int PrivateInt = 6;
         public override string LogTagColor => "#FFB697";
         public override GameTaskType TaskType => GameTaskType.Enemy;
+
+        protected virtual bool ShouldDeactivateOnDestructor => true;
 
         /// <summary>
         /// Enemies below this Y limit will not be allowed to fire their weapons.
@@ -43,9 +44,6 @@ namespace Assets.Enemies
         }
 
         [SerializeField]
-        public EnemyHealthBar HealthBar;
-
-        [SerializeField]
         private float _victimMarkerDistance;
         public virtual float VictimMarkerDistance => _victimMarkerDistance;
         private VictimMarker _victimMarker;
@@ -64,6 +62,9 @@ namespace Assets.Enemies
         protected virtual bool CanFire(Vector2 firePosition) => firePosition.y > FireHeightFloor;
 
 
+        [SerializeField]
+        private Vector3 HealthBarOffset;
+        public EnemyHealthBar HealthBar { get; set; }
         public void UpdateHealthBar() => HealthBar.SetText(CurrentHealth);
 
         public TrackedBoxMap BoxMap { get; protected set; }
@@ -84,24 +85,22 @@ namespace Assets.Enemies
         public sealed override void OnInit()
         {
             BoxMap = new TrackedBoxMap(this);
-            HealthBar = FindChildEnemyHealthBar();
             InfernoTimer = new LoopingFrameTimer(InfernoTickTime);
-
-            OnActivate();
             OnEnemyInit();
         }
 
         protected virtual void OnEnemyActivate() { }
         protected sealed override void OnActivate()
         {
+            var healthBarSpawn = transform.position + HealthBarOffset;
+            HealthBar = PoolManager.Instance.UIElementPool.Get<EnemyHealthBar>(healthBarSpawn);
+
             FireStrategy.Reset();
             InfernoTimer.Reset();
 
             CurrentHealth = BaseSpawnHealth;
             PointValue = CurrentHealth;
             IsBurning = false;
-
-            HealthBar.OnActivate();
 
             UpdateHealthBar();
 
@@ -118,6 +117,8 @@ namespace Assets.Enemies
                 Burn();
 
             OnEnemyFrame(deltaTime);
+
+            HealthBar.transform.position = transform.position + HealthBarOffset;
         }
 
         protected virtual void FireBullets()
@@ -173,10 +174,16 @@ namespace Assets.Enemies
             OnDeath();
         }
 
-        protected override void OnDeactivate()
+        protected virtual void OnEnemyDeactivate() { }
+        protected sealed override void OnDeactivate()
         {
             if (IsVictim)
                 IsVictim = false;
+
+            HealthBar.DeactivateSelf();
+            HealthBar = null;
+
+            OnEnemyDeactivate();
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
@@ -199,16 +206,13 @@ namespace Assets.Enemies
             }
         }
 
-        protected virtual void OnTriggerExit2D(Collider2D collision)
+        protected void OnTriggerExit2D(Collider2D collision)
         {
             if (CollisionUtil.IsDestructor(collision))
             {
-                CollideWithDestructor();
+                if (ShouldDeactivateOnDestructor)
+                    DeactivateSelf();
             }
-        }
-        protected virtual void CollideWithDestructor()
-        {
-            DeactivateSelf();
         }
 
         public virtual Vector2 RandomShrapnelPosition()
@@ -289,5 +293,11 @@ namespace Assets.Enemies
         //    //DebugUtil.RedX(transform.position);
         //    GameManager.Instance.CreateFleetingText("ENEMY ONMOUSEDOWN", SpaceUtil.WorldMap.Center);
         //}
+
+        public void DebugKill()
+        {
+            CurrentHealth = 0;
+            KillEnemy(null);
+        }
     }
 }

@@ -32,6 +32,7 @@ namespace Assets.Enemies
 
         protected override void OnEnemyActivate()
         {
+            //Debug.Break();
             AlphaCalculator.Reset();
             HealthBar.Alpha = 0f;
         }
@@ -45,7 +46,7 @@ namespace Assets.Enemies
             }
         }
 
-        protected override void OnDeactivate()
+        protected override void OnEnemyDeactivate()
         {
             if (Host != null)
             {
