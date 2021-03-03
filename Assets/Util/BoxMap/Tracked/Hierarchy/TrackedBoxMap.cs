@@ -6,12 +6,13 @@ namespace Assets.Util
     /// Tracks the given MonoBehaviour, and
     /// dynamically calculates BoxMap information as needed.
     /// </summary>
-    public class TrackedBoxMap : IBoxMap
+    public abstract class TrackedBoxMap : IBoxMap
     {
-        private MonoBehaviour Target { get; }
-        private Renderer Renderer => Target.GetComponent<Renderer>();
-        private PolygonCollider2D PolygonCollider => Target.GetComponent<PolygonCollider2D>();
-        private Vector2 Size => Renderer.bounds.size;
+        protected MonoBehaviour Target { get; }
+
+        protected abstract Bounds Bounds { get; }
+        protected Vector2 Size => Bounds.size;
+
 
         public TrackedBoxMap(MonoBehaviour target)
         {
@@ -30,7 +31,7 @@ namespace Assets.Util
         public Vector2 Bottom => ScaleFromCenter(Zero, NegativeHalf);
         public Vector2 BottomLeft => ScaleFromCenter(NegativeHalf, NegativeHalf);
         public Vector2 Left => ScaleFromCenter(NegativeHalf, 0);
-        public Vector2 Center => Target.transform.position;
+        public Vector2 Center => Bounds.center;
 
         public float X => Center.x;
         public float Y => Center.y;

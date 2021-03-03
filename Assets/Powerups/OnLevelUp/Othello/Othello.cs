@@ -33,7 +33,7 @@ namespace Assets.Powerups
         public override GameTaskType TaskType => GameTaskType.Player;
 
         private Vector2 Size { get; set; }
-        private TrackedBoxMap BoxMap { get; set; }
+        private SpriteBoxMap BoxMap { get; set; }
 
 
         private float FireSpeedModifier { get; set; }
@@ -113,7 +113,7 @@ namespace Assets.Powerups
         {
             Instance = this;
 
-            BoxMap = new TrackedBoxMap(this);
+            BoxMap = new SpriteBoxMap(this);
 
             var sprite = GetComponent<SpriteRenderer>();
             Size = sprite.size;

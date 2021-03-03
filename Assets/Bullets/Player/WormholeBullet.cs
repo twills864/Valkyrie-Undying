@@ -63,7 +63,7 @@ namespace Assets.Bullets.PlayerBullets
         public override void OnCollideWithEnemy(Enemy enemy)
         {
             if(!WarpDebuffDeactivates())
-                EnemyWarpDestination = new Vector3(transform.position.x, enemy.BoxMap.Top.y, 0);
+                EnemyWarpDestination = new Vector3(transform.position.x, enemy.SpriteMap.Top.y, 0);
         }
 
         private bool WarpDebuffDeactivates()

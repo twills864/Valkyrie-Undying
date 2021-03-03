@@ -14,6 +14,7 @@ using Assets.UI.PowerupMenu;
 using Assets.Util;
 using Assets.ObjectPooling;
 using UnityEngine;
+using System.Diagnostics;
 
 namespace Assets
 {
@@ -21,6 +22,8 @@ namespace Assets
     public class GameManager : MonoBehaviour
     {
         public static GameManager Instance { get; set; }
+
+        private bool DebugPauseNextFrame { get; set; }
 
         private const bool AddingPowerup = true;
         public Type GameRowPowerupType => GetPowerupType<InfernoPowerup>();
@@ -218,7 +221,9 @@ namespace Assets
 
             _Destructor.Init();
             _ScreenEdgeColliderSet.Init();
+            EnemyHealthBar.InitStatic();
             _DebugEnemy.Init();
+            _DebugEnemy.OnSpawn();
             _RainCloud.Init();
             _Othello.Init();
             _SentinelManager.Init();
@@ -287,9 +292,15 @@ namespace Assets
             return ret;
         }
 
+
         // Update is called once per frame
         void Update()
         {
+            if(DebugPauseNextFrame)
+            {
+                Debugger.Break();
+                DebugPauseNextFrame = false;
+            }
             //PoolManager.DebugInfo();
 
             DebugUtil.HandleInput();
@@ -313,6 +324,7 @@ namespace Assets
             if (EnemyTimer.UpdateActivates(deltaTime))
             {
                 var enemy = _PoolManager.EnemyPool.GetRandomEnemy();
+                DebugPauseNextFrame = true;
             }
 
             _PoolManager.RunPoolFrames(deltaTime, deltaTime, deltaTime);

@@ -23,7 +23,7 @@ namespace Assets
         private SpriteRenderer BloodlustAuraSprite { get; set; }
 
         public Vector2 Size => Renderer.bounds.size;
-        private TrackedBoxMap BoxMap { get; set; }
+        private SpriteBoxMap BoxMap { get; set; }
 
         [SerializeField]
         private float MobileYOffset;
@@ -61,7 +61,7 @@ namespace Assets
 
         private void Start()
         {
-            BoxMap = new TrackedBoxMap(this);
+            BoxMap = new SpriteBoxMap(this);
             BloodlustTimer = FrameTimer.Default();
         }
 

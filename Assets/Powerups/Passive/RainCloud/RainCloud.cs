@@ -24,7 +24,7 @@ namespace Assets.Powerups
 
         private Vector2 Size { get; set; }
         private float BufferX;
-        private TrackedBoxMap BoxMap;
+        private SpriteBoxMap BoxMap;
 
         private LoopingFrameTimer FireTimer = new LoopingFrameTimer(0.5f);
 
@@ -38,7 +38,7 @@ namespace Assets.Powerups
             var sprite = GetComponent<SpriteRenderer>();
             Size = sprite.size;
             BufferX = Size.x;
-            BoxMap = new TrackedBoxMap(this);
+            BoxMap = new SpriteBoxMap(this);
             RaindropPool = PoolManager.Instance.BulletPool.GetPool<RaindropBullet>();
         }
 

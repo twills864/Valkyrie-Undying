@@ -1,4 +1,5 @@
-﻿using Assets.Bullets.PlayerBullets;
+﻿using System.Diagnostics;
+using Assets.Bullets.PlayerBullets;
 using Assets.FireStrategies.EnemyFireStrategies;
 using Assets.GameTasks;
 using Assets.ObjectPooling;
@@ -58,16 +59,22 @@ namespace Assets.Enemies
         }
 
 
-        public virtual Vector2 FirePosition => BoxMap.Bottom;
+        public virtual Vector2 FirePosition => SpriteMap.Bottom;
         protected virtual bool CanFire(Vector2 firePosition) => firePosition.y > FireHeightFloor;
 
 
         [SerializeField]
-        private Vector3 HealthBarOffset;
+        private Vector3 HealthBarOffsetScale;
+        protected virtual Vector3 HealthBarOffset => InitialHealthbarOffset;
+        protected Vector3 InitialSize { get; private set; }
+        protected Vector3 InitialHealthbarOffset { get; private set; }
+
         public EnemyHealthBar HealthBar { get; set; }
         public void UpdateHealthBar() => HealthBar.SetText(CurrentHealth);
 
-        public TrackedBoxMap BoxMap { get; protected set; }
+        public SpriteBoxMap SpriteMap { get; protected set; }
+        public ColliderBoxMap ColliderMap { get; protected set; }
+
 
         public abstract EnemyFireStrategy FireStrategy { get; protected set; }
         public LoopingFrameTimer FireTimer => FireStrategy.FireTimer;
@@ -84,7 +91,20 @@ namespace Assets.Enemies
         protected virtual void OnEnemyInit() { }
         public sealed override void OnInit()
         {
-            BoxMap = new TrackedBoxMap(this);
+            SpriteMap = new SpriteBoxMap(this);
+            ColliderMap = new ColliderBoxMap(this);
+
+            var collider = gameObject.GetComponent<Collider2D>();
+            var boundsSize = collider.bounds.size;
+            InitialSize = new Vector3(boundsSize.x, boundsSize.y, 0);
+
+            float healthbarOffsetYScale = HealthBarOffsetScale.y >= 0 ? 0.5f : -0.5f;
+            var healthbarOffset = new Vector3(0, EnemyHealthBar.HealthBarHeight * healthbarOffsetYScale, 0);
+            InitialHealthbarOffset = Vector3.Scale(InitialSize, HealthBarOffsetScale)
+                + healthbarOffset
+                ;
+
+
             InfernoTimer = new LoopingFrameTimer(InfernoTickTime);
             OnEnemyInit();
         }
@@ -92,9 +112,6 @@ namespace Assets.Enemies
         protected virtual void OnEnemyActivate() { }
         protected sealed override void OnActivate()
         {
-            var healthBarSpawn = transform.position + HealthBarOffset;
-            HealthBar = PoolManager.Instance.UIElementPool.Get<EnemyHealthBar>(healthBarSpawn);
-
             FireStrategy.Reset();
             InfernoTimer.Reset();
 
@@ -102,9 +119,17 @@ namespace Assets.Enemies
             PointValue = CurrentHealth;
             IsBurning = false;
 
+            OnEnemyActivate();
+        }
+
+        protected virtual void OnEnemySpawn() { }
+        public sealed override void OnSpawn()
+        {
+            var healthBarSpawn = transform.position;// + HealthBarOffset;
+            HealthBar = PoolManager.Instance.UIElementPool.Get<EnemyHealthBar>(healthBarSpawn);
             UpdateHealthBar();
 
-            OnEnemyActivate();
+            OnEnemySpawn();
         }
 
         protected virtual void OnEnemyFrame(float deltaTime) { }
@@ -118,7 +143,10 @@ namespace Assets.Enemies
 
             OnEnemyFrame(deltaTime);
 
-            HealthBar.transform.position = transform.position + HealthBarOffset;
+            var dbDist = Vector3.Distance(transform.position, HealthBar.transform.position);
+            if (dbDist > 1.6f) Debugger.Break();
+
+            HealthBar.transform.position = (Vector3) ColliderMap.Center + HealthBarOffset;
         }
 
         protected virtual void FireBullets()
@@ -147,6 +175,9 @@ namespace Assets.Enemies
 
         public virtual bool DamageKills(int damage)
         {
+            if (!isActiveAndEnabled)
+                return false;
+
             CurrentHealth -= damage;
             if (CurrentHealth <= 0)
                 return true;
@@ -217,8 +248,8 @@ namespace Assets.Enemies
 
         public virtual Vector2 RandomShrapnelPosition()
         {
-            var topLeft = BoxMap.TopLeft;
-            var maxX = BoxMap.Right.x;
+            var topLeft = SpriteMap.TopLeft;
+            var maxX = SpriteMap.Right.x;
             var x = RandomUtil.Float(topLeft.x, maxX);
 
             var ret = new Vector2(x, topLeft.y);
@@ -232,7 +263,7 @@ namespace Assets.Enemies
         }
         public virtual Vector2 ShrapnelPosition(float collisionX)
         {
-            var y = BoxMap.Top.y;
+            var y = ColliderMap.Top.y;
 
             var ret = new Vector2(collisionX, y);
             return ret;

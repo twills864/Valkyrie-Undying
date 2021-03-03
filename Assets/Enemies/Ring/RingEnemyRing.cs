@@ -30,7 +30,7 @@ namespace Assets.Enemies
             Height = Sprite.bounds.size.y;
         }
 
-        protected override void OnEnemyActivate()
+        protected override void OnEnemySpawn()
         {
             //Debug.Break();
             AlphaCalculator.Reset();

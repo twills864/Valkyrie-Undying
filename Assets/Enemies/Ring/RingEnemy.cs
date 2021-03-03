@@ -14,18 +14,19 @@ namespace Assets.Enemies
         [SerializeField]
         private float MinimumTravelTime;
 
-        public override int BaseSpawnHealth => 100;
-        public override float SpawnHealthScaleRate => 1.25f;
+        public override int BaseSpawnHealth => 75;
+        public override float SpawnHealthScaleRate => 0.75f;
 
         public override EnemyFireStrategy FireStrategy { get; protected set; }
             = new RingEnemyStrategy();
 
         public RingEnemyRing Ring { get; set; }
 
-        public override void OnSpawn()
+        protected override void OnEnemySpawn()
         {
             Ring = PoolManager.Instance.EnemyPool.Get<RingEnemyRing>();
-            Ring.Init(this.transform.position);
+            Ring.transform.position = transform.position;
+            Ring.OnSpawn();
             Ring.Host = this;
 
             float maxY = SpaceUtil.WorldMap.Top.y - Ring.HeightHalf;

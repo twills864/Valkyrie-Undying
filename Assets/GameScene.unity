@@ -3890,6 +3890,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7611003520483930335, guid: c939972dae317a24a9504c7774c07490,
+        type: 3}
+      propertyPath: HealthBarOffsetScale.y
+      value: 0.5
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2843794750930479073, guid: c939972dae317a24a9504c7774c07490, type: 3}
     - {fileID: 2843794750930479074, guid: c939972dae317a24a9504c7774c07490, type: 3}

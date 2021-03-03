@@ -9,6 +9,8 @@ namespace Assets
     /// <inheritdoc/>
     public abstract class PooledObject : GameTaskRunner
     {
+        private Vector3 InactivePosition => new Vector3(0, -100f, 0);
+
         /// <summary>
         /// An ID assigned to this object by its Object Pool when it's spawned.
         /// Guaranteed to be unique from any other active object spawned from the same pool.
@@ -62,6 +64,7 @@ namespace Assets
             // with the Destructor, which could cause this method to be called twice in a row.
             if (gameObject.activeSelf)
             {
+                transform.position = InactivePosition;
                 gameObject.SetActive(false);
                 ClearGameTasks();
                 OnDeactivate();

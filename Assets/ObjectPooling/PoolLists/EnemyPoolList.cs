@@ -22,7 +22,10 @@ namespace Assets.ObjectPooling
 
         private ObjectPool<Enemy>[] RandomEnemyPools { get; set; }
 
-        private ObjectPool<Enemy> OverridePool => PoolMap[typeof(RingEnemy)];
+        public Type OverrideEnemyType => null; //GetOverrideEnemyType<RingEnemy>();
+        private Type GetOverrideEnemyType<TEnemy>() where TEnemy : Enemy => typeof(TEnemy);
+        private ObjectPool<Enemy> OverridePool => OverrideEnemyType != null &&
+            PoolMap.TryGetValue(OverrideEnemyType, out var ret) ? ret : null;
 
         protected override void OnPoolMapSet()
         {
