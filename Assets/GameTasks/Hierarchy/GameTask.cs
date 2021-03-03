@@ -9,10 +9,8 @@ using LogUtilAssets;
 namespace Assets.GameTasks
 {
     /// <inheritdoc/>
-    public abstract class GameTask : Loggable
+    public abstract class GameTask
     {
-        public override string LogTagColor => "#FFFF00";
-
         /// <summary>
         /// The GameTaskRunner that will receive the effects of this GameTask.
         /// </summary>

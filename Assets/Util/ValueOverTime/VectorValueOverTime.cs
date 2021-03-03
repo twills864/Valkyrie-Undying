@@ -1,39 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace Assets.Util
 {
-    public class VectorValueOverTime
+    public class VectorValueOverTime : ValueOverTime<Vector3>
     {
-        private Vector3 StartValue { get; set; }
-        private Vector3 EndValue { get; set; }
-        private Vector3 ValueDifference { get; set; }
+        public override Vector3 Value => StartValue + (Timer.RatioComplete * ValueDifference);
 
-        private FrameTimer Timer { get; set; }
+        protected override Vector3 CalculateValueDifference() => EndValue - StartValue;
 
         public VectorValueOverTime(Vector3 start, Vector3 end, float duration)
+            : base(start, end, duration)
         {
-            StartValue = start;
-            EndValue = end;
-            ValueDifference = EndValue - StartValue;
-
-            Timer = new FrameTimer(duration);
         }
-
-        public void Increment(float deltaTime)
-        {
-            Timer.Increment(deltaTime);
-        }
-
-        public Vector3 Value => StartValue + (Timer.RatioComplete * ValueDifference);
-
-        public float RatioComplete => Timer.RatioComplete;
-        public float RatioRemaining => Timer.RatioRemaining;
-        public float TimeUntilActivation => Timer.TimeUntilActivation;
-        public float Elapsed => Timer.Elapsed;
     }
 }

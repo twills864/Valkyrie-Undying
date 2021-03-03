@@ -48,6 +48,8 @@ namespace Assets.ObjectPooling
         private VictimBullet VictimPrefab;
         [SerializeField]
         private InfernoBullet InfernoPrefab;
+        [SerializeField]
+        private VoidBullet VoidPrefab;
 
         #endregion Additional Bullets
 

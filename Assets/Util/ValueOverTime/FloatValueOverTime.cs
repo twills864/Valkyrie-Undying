@@ -6,33 +6,14 @@ using System.Threading.Tasks;
 
 namespace Assets.Util
 {
-    public class FloatValueOverTime
+    public class FloatValueOverTime : ValueOverTime<float>
     {
-        private float StartValue { get; set; }
-        private float EndValue { get; set; }
-        private float ValueDifference { get; set; }
+        public override float Value => StartValue + (Timer.RatioComplete * ValueDifference);
 
-        private FrameTimer Timer { get; set; }
+        protected override float CalculateValueDifference() => EndValue - StartValue;
 
-        public FloatValueOverTime(float start, float end, float duration)
+        public FloatValueOverTime(float start, float end, float duration) : base(start, end, duration)
         {
-            StartValue = start;
-            EndValue = end;
-            ValueDifference = EndValue - StartValue;
-
-            Timer = new FrameTimer(duration);
         }
-
-        public void Increment(float deltaTime)
-        {
-            Timer.Increment(deltaTime);
-        }
-
-        public float Value => StartValue + (Timer.RatioComplete * ValueDifference);
-
-        public float RatioComplete => Timer.RatioRemaining;
-        public float RatioRemaining => Timer.RatioRemaining;
-        public float TimeUntilActivation => Timer.TimeUntilActivation;
-        public float Elapsed => Timer.Elapsed;
     }
 }

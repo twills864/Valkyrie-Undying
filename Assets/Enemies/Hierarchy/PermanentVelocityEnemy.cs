@@ -11,7 +11,7 @@ namespace Assets.Enemies
         protected float PermanentVelocityY;
 
         private Vector2 _velocity;
-        public sealed override Vector2 Velocity => _velocity;
+        public sealed override Vector2 Velocity => !IsVoidPaused ? _velocity : Vector2.zero;
 
         protected virtual void OnPermanentVelocityEnemyInit() { }
         protected override void OnEnemyInit()

@@ -56,6 +56,12 @@ namespace Assets.Bullets.PlayerBullets
             DeactivateSelf();
         }
 
+        protected virtual void OnPlayerBulletTriggerExit2D(Collider2D collision) { }
+        protected sealed override void OnBulletTriggerExit2D(Collider2D collision)
+        {
+            OnPlayerBulletTriggerExit2D(collision);
+        }
+
         protected virtual void OnPlayerBulletFrameRun(float deltaTime) { }
         protected sealed override void OnManagedVelocityObjectFrameRun(float deltaTime)
         {

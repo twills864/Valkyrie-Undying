@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LogUtilAssets;
 using UnityEngine;
 
 namespace Assets.GameTasks.GameTaskLists
@@ -18,14 +19,17 @@ namespace Assets.GameTasks.GameTaskLists
 #if DEBUG
                 if(!task.Target.isActiveAndEnabled)
                 {
-                    task.Log("Disabled task is running in GameTaskList!");
+                    LogUtil.Log("Disabled task is running in GameTaskList!", task.Target);
                     System.Diagnostics.Debugger.Break();
                 }
 #endif
 
-                task.RunFrame(deltaTime);
-                if (task.IsFinished)
-                    RemoveAt(i);
+                if (!task.Target.IsPaused)
+                {
+                    task.RunFrame(deltaTime);
+                    if (task.IsFinished)
+                        RemoveAt(i);
+                }
             }
         }
 

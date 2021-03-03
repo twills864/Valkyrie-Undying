@@ -8,6 +8,7 @@ namespace Assets.Enemies
     public class RingEnemyRing : PermanentVelocityEnemy
     {
         private const float HealthbarFadeTime = 0.5f;
+        public override bool CanVoidPause => false;
 
         [SerializeField]
         private SpriteRenderer Sprite;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Assets.Bullets.PlayerBullets;
 using Assets.Enemies;
 using Assets.GameTasks;
 using LogUtilAssets;
@@ -51,6 +52,11 @@ namespace Assets.Util
 
         private static void InputSpace(KeyCode keyCode)
         {
+            //var position = SpaceUtil.WorldPositionUnderMouse();
+            //float scale = 1.0f;
+            //float duration = 2.0f;
+            //int level = DebugUi.DebugTextBox.GetInt(1);
+            //VoidBullet.StartVoid(position, level, scale, duration);
         }
 
         private static void InputEnter(KeyCode keyCode)

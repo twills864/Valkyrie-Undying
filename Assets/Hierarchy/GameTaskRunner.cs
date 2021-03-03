@@ -13,6 +13,7 @@ namespace Assets
     public abstract class GameTaskRunner : ManagedVelocityObject
     {
         public abstract GameTaskType TaskType { get; }
+        public bool IsPaused { get; set; }
 
         public void RunTask(GameTask task)
         {

@@ -26,7 +26,7 @@ namespace Assets
         private bool DebugPauseNextFrame { get; set; }
 
         private const bool AddingPowerup = true;
-        public Type GameRowPowerupType => GetPowerupType<InfernoPowerup>();
+        public Type GameRowPowerupType => GetPowerupType<VoidPowerup>();
         private Type GetPowerupType<TPowerup>() where TPowerup : Powerup => typeof(TPowerup);
 
         public Player Player;
@@ -324,7 +324,6 @@ namespace Assets
             if (EnemyTimer.UpdateActivates(deltaTime))
             {
                 var enemy = _PoolManager.EnemyPool.GetRandomEnemy();
-                DebugPauseNextFrame = true;
             }
 
             _PoolManager.RunPoolFrames(deltaTime, deltaTime, deltaTime);

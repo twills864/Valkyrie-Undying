@@ -17,6 +17,7 @@ namespace Assets.Enemies
         public override GameTaskType TaskType => GameTaskType.Enemy;
 
         protected virtual bool ShouldDeactivateOnDestructor => true;
+        public virtual bool CanVoidPause => true;
 
         /// <summary>
         /// Enemies below this Y limit will not be allowed to fire their weapons.
@@ -65,6 +66,7 @@ namespace Assets.Enemies
 
         [SerializeField]
         private Vector3 HealthBarOffsetScale;
+
         protected virtual Vector3 HealthBarOffset => InitialHealthbarOffset;
         protected Vector3 InitialSize { get; private set; }
         protected Vector3 InitialHealthbarOffset { get; private set; }
@@ -79,6 +81,7 @@ namespace Assets.Enemies
         public abstract EnemyFireStrategy FireStrategy { get; protected set; }
         public LoopingFrameTimer FireTimer => FireStrategy.FireTimer;
 
+        #region Inferno
 
         protected virtual float InfernoTickTime => 0.75f;
         private LoopingFrameTimer InfernoTimer { get; set; }
@@ -87,6 +90,43 @@ namespace Assets.Enemies
         public virtual int InfernoDamageIncrease { get; set; }
         private int InfernoDamage { get; set; }
         public bool IsBurning { get; set; }
+
+        #endregion Inferno
+
+        #region Void
+
+        private bool _isVoidPaused;
+        protected bool IsVoidPaused
+        {
+            get => _isVoidPaused;
+            set
+            {
+                _isVoidPaused = value;
+                IsPaused = value;
+            }
+        }
+
+        private Vector3 VoidPausedVelocity { get; set; }
+
+        public void VoidPause()
+        {
+            if (!IsVoidPaused && CanVoidPause)
+            {
+                VoidPausedVelocity = Velocity;
+                Velocity = Vector2.zero;
+                IsVoidPaused = true;
+            }
+        }
+        public void VoidResume()
+        {
+            if (IsVoidPaused && CanVoidPause)
+            {
+                Velocity = VoidPausedVelocity;
+                IsVoidPaused = false;
+            }
+        }
+
+        #endregion Void
 
         protected virtual void OnEnemyInit() { }
         public sealed override void OnInit()
@@ -118,6 +158,7 @@ namespace Assets.Enemies
             CurrentHealth = BaseSpawnHealth;
             PointValue = CurrentHealth;
             IsBurning = false;
+            IsVoidPaused = false;
 
             OnEnemyActivate();
         }
@@ -135,18 +176,18 @@ namespace Assets.Enemies
         protected virtual void OnEnemyFrame(float deltaTime) { }
         protected sealed override void OnManagedVelocityObjectFrameRun(float deltaTime)
         {
-            if (FireTimer.UpdateActivates(deltaTime))
-                FireBullets();
-
             if (IsBurning && InfernoTimer.UpdateActivates(deltaTime))
                 Burn();
 
-            OnEnemyFrame(deltaTime);
+            if (!IsVoidPaused)
+            {
+                if (FireTimer.UpdateActivates(deltaTime))
+                    FireBullets();
 
-            var dbDist = Vector3.Distance(transform.position, HealthBar.transform.position);
-            if (dbDist > 1.6f) Debugger.Break();
+                OnEnemyFrame(deltaTime);
+            }
 
-            HealthBar.transform.position = (Vector3) ColliderMap.Center + HealthBarOffset;
+            HealthBar.transform.position = (Vector3)ColliderMap.Center + HealthBarOffset;
         }
 
         protected virtual void FireBullets()
@@ -199,9 +240,9 @@ namespace Assets.Enemies
         protected void KillEnemy(PlayerBullet bullet)
         {
             // Kill enemy
+            CreateFleetingTextAtCenter(PointValue);
             GameManager.Instance.OnEnemyKill(this, bullet);
             DeactivateSelf();
-            CreateFleetingTextAtCenter(PointValue);
             OnDeath();
         }
 

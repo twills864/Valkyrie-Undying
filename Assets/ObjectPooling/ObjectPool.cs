@@ -78,7 +78,7 @@ namespace Assets.ObjectPooling
         {
             var ret = UnityEngine.Object.Instantiate(ObjectPrefab);
             ret.Init();
-            ret.InitialName = ret.name;
+            ret.InitialName = ObjectPrefab.name;
             Add(ret);
             return ret;
         }

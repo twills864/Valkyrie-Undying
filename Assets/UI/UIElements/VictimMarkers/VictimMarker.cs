@@ -149,7 +149,7 @@ namespace Assets.UI
                 FadeTimer.Reset();
 
                 float startAlpha = FadeRatio.Value;
-                float newFadeTime = FadeRatio.Elapsed + float.Epsilon;
+                float newFadeTime = FadeRatio.Timer.Elapsed + float.Epsilon;
                 FadeRatio = new FloatValueOverTime(startAlpha, 0.0f, newFadeTime);
             }
         }

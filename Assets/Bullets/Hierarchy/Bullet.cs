@@ -14,6 +14,7 @@ namespace Assets.Bullets
             OnBulletInit();
         }
 
+        protected virtual void OnBulletTriggerExit2D(Collider2D collision) { }
         protected virtual void OnTriggerExit2D(Collider2D collision)
         {
             if (CollisionUtil.IsDestructor(collision))
