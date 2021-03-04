@@ -26,7 +26,7 @@ namespace Assets
         private bool DebugPauseNextFrame { get; set; }
 
         private const bool AddingPowerup = true;
-        public Type GameRowPowerupType => GetPowerupType<VoidPowerup>();
+        public Type GameRowPowerupType => GetPowerupType<RetributionPowerup>();
         private Type GetPowerupType<TPowerup>() where TPowerup : Powerup => typeof(TPowerup);
 
         public Player Player;

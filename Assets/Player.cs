@@ -1,5 +1,6 @@
 ﻿using Assets.Bullets.EnemyBullets;
 using Assets.Enemies;
+using Assets.ObjectPooling;
 using Assets.Powerups;
 using Assets.UI;
 using Assets.Util;
@@ -23,7 +24,8 @@ namespace Assets
         private SpriteRenderer BloodlustAuraSprite { get; set; }
 
         public Vector2 Size => Renderer.bounds.size;
-        private SpriteBoxMap BoxMap { get; set; }
+        public SpriteBoxMap SpriteMap { get; private set; }
+        public ColliderBoxMap ColliderMap { get; private set; }
 
         [SerializeField]
         private float MobileYOffset;
@@ -61,7 +63,8 @@ namespace Assets
 
         private void Start()
         {
-            BoxMap = new SpriteBoxMap(this);
+            SpriteMap = new SpriteBoxMap(this);
+            ColliderMap = new ColliderBoxMap(this);
             BloodlustTimer = FrameTimer.Default();
         }
 
@@ -103,7 +106,7 @@ namespace Assets
 
         public Vector2 FirePosition()
         {
-            var ret = BoxMap.Top;
+            var ret = SpriteMap.Top;
             return ret;
         }
 
@@ -159,6 +162,7 @@ namespace Assets
         /// false if the player avoids the collision, e.g. with a powerup.</returns>
         public bool CollideWithBullet(EnemyBullet bullet)
         {
+            GameManager.Instance._PowerupManager.OnGetHit();
             GameManager.Instance.CreateFleetingText("Ow", transform.position);
             return true;
         }
@@ -173,6 +177,7 @@ namespace Assets
         {
             if (enemy.name != DebugUtil.DebugEnemyName)
             {
+                GameManager.Instance._PowerupManager.OnGetHit();
                 GameManager.Instance.CreateFleetingText("Ow!", transform.position);
                 return true;
             }

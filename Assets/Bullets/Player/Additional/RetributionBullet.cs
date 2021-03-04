@@ -9,29 +9,38 @@ using UnityEngine;
 namespace Assets.Bullets.PlayerBullets
 {
     /// <inheritdoc/>
-    public class VoidBullet : VoidEffectBullet
+    public class RetributionBullet : VoidEffectBullet
     {
-        [SerializeField]
-        private float ScaleTime;
+        public override int Damage => base.Damage * BulletLevel;
 
-        protected override bool ShouldReflectBullet => BulletLevel > 1;
+        [SerializeField]
+        private float FadeTime;
+
+        [SerializeField]
+        private SpriteRenderer Sprite;
 
         private float Scale { get; set; }
         private float Duration { get; set; }
 
         private EaseIn3 ScaleIn { get; set; }
-        private Delay Delay { get; set; }
-        private EaseOut3 ScaleOut { get; set; }
+        private FadeTo Fade { get; set; }
 
         private SequenceGameTask Sequence { get; set; }
 
-        public static VoidBullet StartVoid(Vector3 position, int level, float scale, float duration)
+        public static RetributionBullet StartRetribution(Vector3 position, int level, float scale, float duration)
         {
-            var bullet = PoolManager.Instance.BulletPool.Get<VoidBullet>(position);
+            var bullet = PoolManager.Instance.BulletPool.Get<RetributionBullet>(position);
             bullet.Init(level, scale, duration);
             bullet.OnSpawn();
 
             return bullet;
+        }
+
+        protected override void OnActivate()
+        {
+            Color color = Sprite.color;
+            color.a = 1.0f;
+            Sprite.color = color;
         }
 
         private void Init(int level, float scale, float duration)
@@ -40,13 +49,12 @@ namespace Assets.Bullets.PlayerBullets
             Scale = scale;
             Duration = duration;
 
-            var scaleIn = new ScaleTo(this, InitialScale, Scale, ScaleTime);
+            var scaleIn = new ScaleTo(this, InitialScale, Scale, Duration);
             ScaleIn = new EaseIn3(scaleIn);
-            Delay = new Delay(this, Duration);
-            var scaleOut = new ScaleTo(this, Scale, InitialScale, ScaleTime);
-            ScaleOut = new EaseOut3(scaleOut);
 
-            Sequence = new SequenceGameTask(this, ScaleIn, Delay, ScaleOut);
+            Fade = new FadeTo(this, 0, FadeTime);
+
+            Sequence = new SequenceGameTask(this, ScaleIn, Fade);
         }
 
         protected override void OnPlayerBulletFrameRun(float deltaTime)

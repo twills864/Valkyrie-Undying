@@ -33,7 +33,7 @@ namespace Assets.GameTasks
             EndAlpha = alpha;
             AlphaDifference = EndAlpha - StartAlpha;
 
-            Alpha = alpha;
+            //Alpha = alpha;
         }
 
         protected override void OnFiniteTaskFrameRun(float deltaTime)

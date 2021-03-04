@@ -79,3 +79,5 @@ MonoBehaviour:
     type: 3}
   VoidPrefab: {fileID: 8071150826379751970, guid: 522b9a680b079504f86a81ba25040b1b,
     type: 3}
+  RetributionPrefab: {fileID: 978420639195174655, guid: 30b9d8bcf1567e24098fbbacd9e37a3a,
+    type: 3}

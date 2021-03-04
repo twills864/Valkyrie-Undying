@@ -50,6 +50,8 @@ namespace Assets.ObjectPooling
         private InfernoBullet InfernoPrefab;
         [SerializeField]
         private VoidBullet VoidPrefab;
+        [SerializeField]
+        private RetributionBullet RetributionPrefab;
 
         #endregion Additional Bullets
 
