@@ -14,14 +14,17 @@ namespace Assets.Bullets.PlayerBullets
         [SerializeField]
         private float ScaleTime;
 
+        protected override bool ShouldDeactivateOnDestructor => false;
+        protected override bool ShouldMarkSelfCollision => false;
+
         private float InitialScale => float.Epsilon;
 
         private float Scale { get; set; }
         private float Duration { get; set; }
 
-        private EaseIn ScaleIn { get; set; }
+        private EaseIn3 ScaleIn { get; set; }
         private Delay Delay { get; set; }
-        private EaseOut ScaleOut { get; set; }
+        private EaseOut3 ScaleOut { get; set; }
 
         private SequenceGameTask Sequence { get; set; }
 
@@ -41,10 +44,10 @@ namespace Assets.Bullets.PlayerBullets
             Duration = duration;
 
             var scaleIn = new ScaleTo(this, InitialScale, Scale, ScaleTime);
-            ScaleIn = new EaseIn(scaleIn);
+            ScaleIn = new EaseIn3(scaleIn);
             Delay = new Delay(this, Duration);
             var scaleOut = new ScaleTo(this, Scale, InitialScale, ScaleTime);
-            ScaleOut = new EaseOut(scaleOut);
+            ScaleOut = new EaseOut3(scaleOut);
 
             Sequence = new SequenceGameTask(this, ScaleIn, Delay, ScaleOut);
         }

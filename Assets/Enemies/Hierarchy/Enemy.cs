@@ -95,34 +95,40 @@ namespace Assets.Enemies
 
         #region Void
 
-        private bool _isVoidPaused;
-        protected bool IsVoidPaused
+        private int _voidPauseCounter;
+        protected int VoidPauseCounter
         {
-            get => _isVoidPaused;
+            get => _voidPauseCounter;
             set
             {
-                _isVoidPaused = value;
-                IsPaused = value;
+                _voidPauseCounter = value;
+                IsPaused = IsVoidPaused;
             }
         }
+        protected bool IsVoidPaused => VoidPauseCounter > 0;
 
         private Vector3 VoidPausedVelocity { get; set; }
 
         public void VoidPause()
         {
-            if (!IsVoidPaused && CanVoidPause)
+            if(CanVoidPause)
             {
-                VoidPausedVelocity = Velocity;
-                Velocity = Vector2.zero;
-                IsVoidPaused = true;
+                if (!IsVoidPaused)
+                {
+                    VoidPausedVelocity = Velocity;
+                    Velocity = Vector2.zero;
+                }
+                VoidPauseCounter++;
             }
         }
         public void VoidResume()
         {
-            if (IsVoidPaused && CanVoidPause)
+            if (CanVoidPause)
             {
-                Velocity = VoidPausedVelocity;
-                IsVoidPaused = false;
+                VoidPauseCounter--;
+
+                if (!IsVoidPaused)
+                    Velocity = VoidPausedVelocity;
             }
         }
 
@@ -158,7 +164,7 @@ namespace Assets.Enemies
             CurrentHealth = BaseSpawnHealth;
             PointValue = CurrentHealth;
             IsBurning = false;
-            IsVoidPaused = false;
+            VoidPauseCounter = 0;
 
             OnEnemyActivate();
         }

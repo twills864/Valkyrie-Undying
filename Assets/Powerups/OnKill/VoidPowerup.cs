@@ -17,10 +17,10 @@ namespace Assets.Powerups
     public class VoidPowerup : OnKillPowerup
     {
         private const float DurationBase = 0.7f;
-        private const float DurationMax = 2.0f;
+        private const float DurationMax = 3.0f;
 
         private const float SizeScaleBase = 0.7f;
-        private const float SizeScaleMax = 0.15f;
+        private const float SizeScaleMax = 3f;
 
         protected override LevelValueCalculator InitialValueCalculator
             => new AsymptoteScaleLevelValueCalculator(DurationBase, DurationMax);
