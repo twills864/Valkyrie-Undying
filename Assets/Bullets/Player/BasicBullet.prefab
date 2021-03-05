@@ -133,7 +133,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4f452ff8a905a347afdbdeb7d734667, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpawnId: 0
+  PrefabSprite: {fileID: 2959985393852287726}
   BaseDamage: 20
   PermanentVelocityX: 0
   PermanentVelocityY: 5

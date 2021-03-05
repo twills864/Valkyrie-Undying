@@ -133,6 +133,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ab37120246cd2643bb076c27c9ccf8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PrefabSprite: {fileID: 6915151429221261810}
   BaseDamage: 30
   StartSpeed: 1
   EndSpeed: 12

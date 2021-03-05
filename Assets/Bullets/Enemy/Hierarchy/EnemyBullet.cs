@@ -11,7 +11,6 @@ namespace Assets.Bullets.EnemyBullets
         public override string LogTagColor => "#FFA197";
         public override GameTaskType TaskType => GameTaskType.EnemyBullet;
 
-        protected SpriteRenderer Sprite { get; private set; }
         public Color DefaultColor { get; protected set; }
 
         public abstract int ReflectedDamage { get; }
@@ -20,7 +19,6 @@ namespace Assets.Bullets.EnemyBullets
         protected virtual void OnEnemyBulletInit() { }
         protected sealed override void OnBulletInit()
         {
-            Sprite = GetComponent<SpriteRenderer>();
             DefaultColor = Sprite.color;
             OnEnemyBulletInit();
         }

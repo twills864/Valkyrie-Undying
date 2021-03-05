@@ -133,7 +133,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c89a84a0f9c0294f90b7691f9cfe937, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpawnId: 0
+  PrefabSprite: {fileID: 5777162329548128153}
   BaseDamage: 10
   BulletVelocityY: 4
   BulletSpreadX: 0.1

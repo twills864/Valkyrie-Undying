@@ -1,6 +1,4 @@
-﻿using LogUtilAssets;
-
-namespace Assets
+﻿namespace Assets
 {
     /// <summary>
     /// Represents an object that will manually handle frame updates
@@ -8,7 +6,7 @@ namespace Assets
     /// Useful for controlling delta times.
     /// </summary>
     /// <inheritdoc/>
-    public abstract class FrameRunner : Loggable
+    public abstract class FrameRunner : ValkyrieSprite
     {
         public float TotalTime { get; set; }
 

@@ -133,5 +133,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 064b69407dde0344997d360c222fb6c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PrefabSprite: {fileID: 3693954503732233064}
   PermanentVelocityX: 0
   PermanentVelocityY: -2.5

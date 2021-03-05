@@ -10,15 +10,11 @@ namespace Assets.Enemies
         private const float HealthbarFadeTime = 0.5f;
         public override bool CanVoidPause => false;
 
-        [SerializeField]
-        private SpriteRenderer Sprite;
-
         public override int BaseSpawnHealth => 125;
         public override float SpawnHealthScaleRate => 1f;
 
         public override EnemyFireStrategy FireStrategy { get; protected set; }
             = new InactiveEnemyStrategy();
-
 
         public float Height { get; private set; }
         public float HeightHalf => Height * 0.5f;

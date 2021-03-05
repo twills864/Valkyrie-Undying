@@ -133,6 +133,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a40dea6ba55fd5e4b85c08d531c6a73b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PrefabSprite: {fileID: 8991783943270038419}
   BaseDamage: 40
   FadeTime: 0.75
-  Sprite: {fileID: 8991783943270038419}

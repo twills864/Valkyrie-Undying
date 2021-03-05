@@ -32,7 +32,6 @@ namespace Assets
         public Player Player;
         public Othello _Othello;
         public DebugUI DebugUi;
-        public Color PlayerColor;
         public Canvas _Canvas;
 
         private Camera _Camera;
@@ -52,6 +51,9 @@ namespace Assets
 
         [SerializeField]
         private PoolManager _PoolManager;
+
+        [SerializeField]
+        private ColorManager _ColorManager;
 
         #endregion Prefabs
 
@@ -200,8 +202,6 @@ namespace Assets
             _Camera = Camera.main;
             _Canvas = FindObjectOfType<Canvas>();
 
-            PlayerColor = InitPlayerColor();
-            Player.GetComponent<SpriteRenderer>().color = PlayerColor;
             Player.Init();
 
             //GameTaskLists.SetDebugUi();
@@ -281,17 +281,6 @@ namespace Assets
             reflectedBullet.RedirectFromPestControl(target, pestControl);
             target.DeactivateSelf();
         }
-
-
-        private Color DefaultPlayerColor => new Color(96f / 255f, 211f / 255f, 255f / 255f);
-        private Color InitPlayerColor()
-        {
-            // Override with random color
-            Color ret = DefaultPlayerColor; // DebugUtil.GetRandomPlayerColor();
-
-            return ret;
-        }
-
 
         // Update is called once per frame
         void Update()
@@ -439,8 +428,8 @@ namespace Assets
 
         public void RecolorPlayerActivity(Color color)
         {
-            PlayerColor = color;
-            Player.GetComponent<SpriteRenderer>().color = PlayerColor;
+            _ColorManager.PlayerColor = color;
+            Player.GetComponent<SpriteRenderer>().color = _ColorManager.PlayerColor;
 
             _PoolManager.RecolorPlayerActivity(color);
         }

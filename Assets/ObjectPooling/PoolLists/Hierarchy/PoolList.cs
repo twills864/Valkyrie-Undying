@@ -62,7 +62,7 @@ namespace Assets.ObjectPooling
             {
                 var prefabTypes = ReflectionUtil.GetPrivatePoolablePrefabFields(this);
                 var prefabs = ReflectionUtil.GetPrivatePoolablePrefabFields(this);
-                throw;
+                throw ex;
             }
         }
 
@@ -83,7 +83,7 @@ namespace Assets.ObjectPooling
             } catch (Exception ex)
             {
                 var type = typeof(TGet);
-                throw;
+                throw ex;
             }
         }
 

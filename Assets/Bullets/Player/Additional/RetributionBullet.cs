@@ -16,9 +16,6 @@ namespace Assets.Bullets.PlayerBullets
         [SerializeField]
         private float FadeTime;
 
-        [SerializeField]
-        private SpriteRenderer Sprite;
-
         private float Scale { get; set; }
         private float Duration { get; set; }
 
