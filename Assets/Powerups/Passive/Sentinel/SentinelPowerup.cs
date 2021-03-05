@@ -16,24 +16,19 @@ namespace Assets.Powerups
         private const float RespawnIntervalBase = 5.0f;
         private const float RespawnIntervalRatioIncrease = 0.75f;
 
-        protected override LevelValueCalculator InitialValueCalculator
-            => new ProductLevelValueCalculator(RespawnIntervalBase, RespawnIntervalRatioIncrease);
-
-        public float RespawnInterval => ValueCalculator.Value;
-
         private const float WorldDistanceExponentBase = 0.6f;
         private const float WorldDistanceMaxValue = 2.5f;
-        private AsymptoteScaleLevelValueCalculator DistanceCalculator =
-            new AsymptoteScaleLevelValueCalculator(WorldDistanceExponentBase, WorldDistanceMaxValue);
+
+        public float RespawnInterval => RespawnIntervalCalculator.Value;
+        private ProductLevelValueCalculator RespawnIntervalCalculator { get; set; }
+            = new ProductLevelValueCalculator(RespawnIntervalBase, RespawnIntervalRatioIncrease);
 
         public float Radius => DistanceCalculator.Value;
+        private AsymptoteScaleLevelValueCalculator DistanceCalculator { get; set; }
+            = new AsymptoteScaleLevelValueCalculator(WorldDistanceExponentBase, WorldDistanceMaxValue);
 
         public override void OnLevelUp()
         {
-            //if(Level == 1)
-            //    RainCloudSpawner.Instance.Activate();
-
-            DistanceCalculator.Level = Level;
             SentinelManager.Instance.LevelUp(Level, Radius, RespawnInterval);
         }
 

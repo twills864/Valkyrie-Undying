@@ -21,17 +21,16 @@ namespace Assets.Powerups
         private const float FireSpeedBase = 3.0f;
         private const float FireSpeedIncrease = 0.8f;
 
-        protected override LevelValueCalculator InitialValueCalculator
-            => new ProductLevelValueCalculator(FireSpeedBase, FireSpeedIncrease);
-
-        public float FireSpeed => ValueCalculator.Value;
-
         private const float DamageIncreaseBase = 1;
         public const float DamageIncreasePerLevel = 1;
-        private SumLevelValueCalculator DamageCalculator =
-            new SumLevelValueCalculator(DamageIncreaseBase, DamageIncreasePerLevel);
+
+        public float FireSpeed => FireSpeedCalculator.Value;
+        private ProductLevelValueCalculator FireSpeedCalculator { get; set; }
+            = new ProductLevelValueCalculator(FireSpeedBase, FireSpeedIncrease);
 
         private int DamageIncrease => (int) DamageCalculator.Value;
+        private SumLevelValueCalculator DamageCalculator { get; set; }
+            = new SumLevelValueCalculator(DamageIncreaseBase, DamageIncreasePerLevel);
 
         private LoopingFrameTimer FireTimer { get; set; }
         private ObjectPool<PlayerBullet> InfernoPool { get; set; }
@@ -47,7 +46,6 @@ namespace Assets.Powerups
 
         public override void OnLevelUp()
         {
-            DamageCalculator.Level = Level;
             CurrentDamageIncreasePerTick = DamageIncrease;
 
             FireTimer.ActivationInterval = FireSpeed;

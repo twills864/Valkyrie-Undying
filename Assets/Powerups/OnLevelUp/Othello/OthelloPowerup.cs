@@ -15,21 +15,19 @@ namespace Assets.Powerups
     {
         private const float FireSpeedExponentBase = 0.8f;
 
-        protected override LevelValueCalculator InitialValueCalculator
-            => new AsymptoteScaleLevelValueCalculator(FireSpeedExponentBase);
-
-        public float FireSpeedModifier => ValueCalculator.Value;
-
         private const float DamageBase = 0;
         private const float DamageIncrease = 10;
-        private SumLevelValueCalculator DamageCalculator =
-            new SumLevelValueCalculator(DamageBase, DamageIncrease);
+
+        public float FireSpeedModifier => FireSpeedModifierCalculator.Value;
+        private AsymptoteScaleLevelValueCalculator FireSpeedModifierCalculator { get; set; }
+            = new AsymptoteScaleLevelValueCalculator(FireSpeedExponentBase);
 
         public int Damage => (int)DamageCalculator.Value;
+        private SumLevelValueCalculator DamageCalculator { get; set; }
+            = new SumLevelValueCalculator(DamageBase, DamageIncrease);
 
         public override void OnLevelUp()
         {
-            DamageCalculator.Level = Level;
             Othello.Instance.LevelUp(Level, Damage, FireSpeedModifier);
         }
     }

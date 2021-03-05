@@ -52,12 +52,12 @@ namespace Assets.Util
 
         private static void InputSpace(KeyCode keyCode)
         {
-            var position = SpaceUtil.WorldPositionUnderMouse();
-            float scale = 10.0f;
-            float duration = DebugUi.DebugTextBox.GetFloat(2.0f);
-            int level = 1;  //DebugUi.DebugTextBox.GetInt(1);
+            //var position = SpaceUtil.WorldPositionUnderMouse();
+            //float scale = 10.0f;
+            //float duration = DebugUi.DebugTextBox.GetFloat(2.0f);
+            //int level = DebugUi.DebugTextBox.GetInt(1);
             //VoidBullet.StartVoid(position, level, scale, duration);
-            RetributionBullet.StartRetribution(position, level, scale, duration);
+            //RetributionBullet.StartRetribution(position, level, scale, duration);
         }
 
         private static void InputEnter(KeyCode keyCode)

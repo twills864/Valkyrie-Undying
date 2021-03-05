@@ -21,15 +21,16 @@ namespace Assets.Powerups
         private const float FireSpeedBase = 0.5f;
         private const float FireSpeedScale = 0.85f;
 
-        protected override LevelValueCalculator InitialValueCalculator
-            => new ProductLevelValueCalculator(FireSpeedBase, FireSpeedScale);
-
         private const float DamageBase = 0;
         private const float DamageIncrease = 5;
-        private SumLevelValueCalculator DamageCalculator =
-            new SumLevelValueCalculator(DamageBase, DamageIncrease);
+
+        public float FireTime => FireTimeCalculator.Value;
+        private ProductLevelValueCalculator FireTimeCalculator { get; set; }
+            = new ProductLevelValueCalculator(FireSpeedBase, FireSpeedScale);
 
         public int Damage => (int)DamageCalculator.Value;
+        private SumLevelValueCalculator DamageCalculator { get; set; }
+            = new SumLevelValueCalculator(DamageBase, DamageIncrease);
 
         private LoopingFrameTimer FireTimer { get; set; }
 
@@ -43,9 +44,7 @@ namespace Assets.Powerups
             if (Level == 1)
                 Player.Instance.VictimMarker = PoolManager.Instance.UIElementPool.Get<VictimMarker>();
 
-            DamageCalculator.Level = Level;
-
-            FireTimer.ActivationInterval = ValueCalculator.Value;
+            FireTimer.ActivationInterval = FireTimeCalculator.Value;
             FireTimer.ActivateSelf();
         }
 
@@ -66,7 +65,7 @@ namespace Assets.Powerups
             if (victim != null)
             {
                 var firePosition = Player.Instance.FirePosition();
-                var bullet = PoolManager.Instance.BulletPool.Get<VictimBullet>(firePosition, ValueCalculator.Level);
+                var bullet = PoolManager.Instance.BulletPool.Get<VictimBullet>(firePosition, FireTimeCalculator.Level);
 
                 var velocity = MathUtil.VelocityVector(firePosition, victim.transform.position, bullet.Speed);
                 velocity += victim.Velocity;

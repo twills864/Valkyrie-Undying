@@ -26,8 +26,7 @@ namespace Assets.Powerups
             set
             {
                 _level = value;
-                ValueCalculator.Level = value;
-                OnLevelUp();
+                LevelUp();
             }
         }
 
@@ -52,20 +51,22 @@ namespace Assets.Powerups
         public abstract void OnLevelUp();
 
         /// <summary>
-        /// The value set to ValueCalculator on load.
+        /// Functionality that handles the the leveling up of this powerup.
         /// </summary>
-        protected abstract LevelValueCalculator InitialValueCalculator { get; }
+        public void LevelUp()
+        {
+            foreach(var calculator in LevelValueCalculators)
+                calculator.Level = Level;
 
-        /// <summary>
-        /// The ValueCalculator that is used to calculate the relative power
-        /// of this powerup.
-        /// </summary>
-        protected LevelValueCalculator ValueCalculator { get; set; }
+            OnLevelUp();
+        }
 
         public Powerup()
         {
-            ValueCalculator = InitialValueCalculator;
             PowerupName = CalculatePowerupName();
+            LevelValueCalculators = ReflectionUtil
+                .GetPropertiesSubclassableFrom<LevelValueCalculator>(this)
+                .ToList();
         }
 
         /// <summary>
@@ -83,10 +84,11 @@ namespace Assets.Powerups
         }
 
 
+
         /// <summary>
-        /// The current relative value of this power.
-        /// (Used for debug viewing)
+        /// The ValueCalculators that are used to calculate the relative power
+        /// of this powerup.
         /// </summary>
-        private float CalculatedValue => ValueCalculator.Value;
+        public List<LevelValueCalculator> LevelValueCalculators { get; set; }
     }
 }

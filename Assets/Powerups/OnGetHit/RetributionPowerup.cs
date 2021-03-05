@@ -11,7 +11,7 @@ using Assets.Util;
 namespace Assets.Powerups
 {
     /// <summary>
-    /// Spawns a damaging void at the player's postion on getting hit.
+    /// Spawns a damaging void at the player's position on getting hit.
     /// </summary>
     /// <inheritdoc/>
     public class RetributionPowerup : OnGetHitPowerup
@@ -23,20 +23,13 @@ namespace Assets.Powerups
         private const float SizeScaleExponentBase = 0.7f;
         private const float SizeScaleMax = 15f;
 
-        protected override LevelValueCalculator InitialValueCalculator
-            => new AsymptoteScaleLevelValueCalculator(DurationBase, DurationMax);
-
-        private float Duration => ValueCalculator.Value;
-
-        private AsymptoteRatioLevelValueCalculator SizeScaleLevel =
-            new AsymptoteRatioLevelValueCalculator(SizeScaleInitialValue, SizeScaleExponentBase, SizeScaleMax);
+        private float Duration => DurationCalculator.Value;
+        private AsymptoteScaleLevelValueCalculator DurationCalculator { get; set; }
+            = new AsymptoteScaleLevelValueCalculator(DurationBase, DurationMax);
 
         private float SizeScale => SizeScaleLevel.Value;
-
-        public override void OnLevelUp()
-        {
-            SizeScaleLevel.Level = Level;
-        }
+        private AsymptoteRatioLevelValueCalculator SizeScaleLevel { get; set; }
+            = new AsymptoteRatioLevelValueCalculator(SizeScaleInitialValue, SizeScaleExponentBase, SizeScaleMax);
 
         public override void OnGetHit()
         {

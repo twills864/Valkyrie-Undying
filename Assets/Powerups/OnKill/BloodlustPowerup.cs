@@ -21,20 +21,13 @@ namespace Assets.Powerups
         private const float BaseSpeedScale = 1.3f;
         private const float SpeedScaleIncrease = 0.15f;
 
-        protected override LevelValueCalculator InitialValueCalculator
-            => new SumLevelValueCalculator(BaseDuration, DurationIncrease);
-
-        private float Duration => ValueCalculator.Value;
-
-        private SumLevelValueCalculator SpeedScaleLevel =
-            new SumLevelValueCalculator(BaseSpeedScale, SpeedScaleIncrease);
+        private float Duration => DurationCalculator.Value;
+        private SumLevelValueCalculator DurationCalculator { get; set; }
+            = new SumLevelValueCalculator(BaseDuration, DurationIncrease);
 
         private float SpeedScale => SpeedScaleLevel.Value;
-
-        public override void OnLevelUp()
-        {
-            SpeedScaleLevel.Level = Level;
-        }
+        private SumLevelValueCalculator SpeedScaleLevel { get; set; }
+            = new SumLevelValueCalculator(BaseSpeedScale, SpeedScaleIncrease);
 
         public override void OnKill(Enemy enemy, PlayerBullet bullet)
         {

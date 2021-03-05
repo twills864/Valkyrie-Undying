@@ -17,6 +17,29 @@ namespace Assets.Util
         private static BindingFlags PublicOrPrivateFlags => BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
 
         /// <summary>
+        /// Returns a list of each type in the current assembly that is a
+        /// subclass of <typeparamref name="TType"/>.
+        /// </summary>
+        /// <typeparam name="TType">The type to retrieve a list of subclasses for.</typeparam>
+        /// <returns>A list of each type that is a subclass of <typeparamref name="TType"/>.</returns>
+        public static List<Type> GetTypesSubclassableFrom<TType>()
+        {
+            return GetTypesSubclassableFrom(typeof(TType));
+        }
+
+        /// <summary>
+        /// Returns a list of each type in the current assembly that is a
+        /// subclass of the given <paramref name="type"/>.
+        /// </summary>
+        /// <param name="type">The type to retrieve a list of subclasses for.</param>
+        /// <returns>A list of each type that is a subclass of <paramref name="type"/>.</returns>
+        public static List<Type> GetTypesSubclassableFrom(Type type)
+        {
+            var ret = type.Assembly.GetTypes().Where(t => t.IsSubclassOf(type)).ToList();
+            return ret;
+        }
+
+        /// <summary>
         /// Gets each private field of a given object that is both a subclass of PooledObject
         /// and has the [SerializeField] attribute.
         /// </summary>
@@ -38,7 +61,6 @@ namespace Assets.Util
         /// </summary>
         /// <param name="source">The object to inspect</param>
         /// <returns>Each private poolable prefab field type of the given object.</returns>
-
         public static IEnumerable<Type> GetPrivatePoolablePrefabFieldTypes(object source)
         {
             var sourceType = source.GetType();
@@ -67,26 +89,21 @@ namespace Assets.Util
         }
 
         /// <summary>
-        /// Returns a list of each type in the current assembly that is a
-        /// subclass of <typeparamref name="TType"/>.
+        /// Gets each property of a given object that is subclassable from a given type.
         /// </summary>
-        /// <typeparam name="TType">The type to retrieve a list of subclasses for.</typeparam>
-        /// <returns>A list of each type that is a subclass of <typeparamref name="TType"/>.</returns>
-        public static List<Type> GetTypesSubclassableFrom<TType>()
+        /// <typeparam name="T">The type of property to retrieve.</typeparam>
+        /// <param name="source">The object to inspect</param>
+        /// <returns>Each property of the given type from the source object.</returns>
+        public static IEnumerable<T> GetPropertiesSubclassableFrom<T>(object source)
         {
-            return GetTypesSubclassableFrom(typeof(TType));
-        }
+            var targetTypes = GetTypesSubclassableFrom<T>();
 
-        /// <summary>
-        /// Returns a list of each type in the current assembly that is a
-        /// subclass of the given <paramref name="type"/>.
-        /// </summary>
-        /// <param name="type">The type to retrieve a list of subclasses for.</param>
-        /// <returns>A list of each type that is a subclass of <paramref name="type"/>.</returns>
-        public static List<Type> GetTypesSubclassableFrom(Type type)
-        {
-            var ret = type.Assembly.GetTypes().Where(t => t.IsSubclassOf(type)).ToList();
-            return ret;
+            var sourceType = source.GetType();
+            var allSourceFields = sourceType.GetProperties(PublicOrPrivateFlags);
+            var propertyFields = allSourceFields.Where(x => targetTypes.Contains(x.PropertyType));
+
+            var properties = propertyFields.Select(x => (T) x.GetValue(source));
+            return properties;
         }
 
         /// <summary>

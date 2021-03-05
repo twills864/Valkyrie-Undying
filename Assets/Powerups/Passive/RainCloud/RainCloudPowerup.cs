@@ -16,24 +16,22 @@ namespace Assets.Powerups
         private const float FireSpeedBase = 0.5f;
         private const float FireSpeedIncrease = 0.9f;
 
-        protected override LevelValueCalculator InitialValueCalculator
-            => new ProductLevelValueCalculator(FireSpeedBase, FireSpeedIncrease);
-
-        public float FireSpeed => ValueCalculator.Value;
-
         private const float DamageBase = 10;
         private const float DamageIncrease = 1;
-        private SumLevelValueCalculator DamageCalculator =
-            new SumLevelValueCalculator(DamageBase, DamageIncrease);
+
+        public float FireSpeed => FireSpeedCalculator.Value;
+        private ProductLevelValueCalculator FireSpeedCalculator { get; set; }
+            = new ProductLevelValueCalculator(FireSpeedBase, FireSpeedIncrease);
 
         public int Damage => (int) DamageCalculator.Value;
+        private SumLevelValueCalculator DamageCalculator { get; set; }
+            = new SumLevelValueCalculator(DamageBase, DamageIncrease);
 
         public override void OnLevelUp()
         {
             if(Level == 1)
                 RainCloudSpawner.Instance.Activate();
 
-            DamageCalculator.Level = Level;
             RainCloud.Instance.LevelUp(Damage, FireSpeed);
         }
 

@@ -16,10 +16,9 @@ namespace Assets.Powerups
         private const float FireDeltaBase = 1.2f;
         private const float FireDeltaIncrease = 0.15f;
 
-        protected override LevelValueCalculator InitialValueCalculator
-            => new SumLevelValueCalculator(FireDeltaBase, FireDeltaIncrease);
-
-        private float PlayerFireDeltaTimeScale => ValueCalculator.Value;
+        private float PlayerFireDeltaTimeScale => PlayerFireDeltaTimeCalculator.Value;
+        private SumLevelValueCalculator PlayerFireDeltaTimeCalculator { get; set; }
+            = new SumLevelValueCalculator(FireDeltaBase, FireDeltaIncrease);
 
         public override void OnLevelUp()
         {
