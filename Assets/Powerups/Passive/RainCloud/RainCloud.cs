@@ -23,13 +23,13 @@ namespace Assets.Powerups
         public float OffsetFromBottom => _OffsetFromBottom;
 
         private Vector2 Size { get; set; }
-        private float BufferX;
-        private SpriteBoxMap BoxMap;
+        private float BufferX { get; set; }
+        private SpriteBoxMap BoxMap { get; set; }
 
-        private LoopingFrameTimer FireTimer = new LoopingFrameTimer(0.5f);
+        private LoopingFrameTimer FireTimer { get; } = new LoopingFrameTimer(0.5f);
 
-        private int Level;
-        private int Damage;
+        private int Level { get; set; }
+        private int Damage { get; set; }
 
         private ObjectPool<PlayerBullet> RaindropPool { get; set; }
 
@@ -93,7 +93,6 @@ namespace Assets.Powerups
                 return ret;
             }
         }
-
 
         public void CreateRaindrop(Vector2 position, int damage)
         {

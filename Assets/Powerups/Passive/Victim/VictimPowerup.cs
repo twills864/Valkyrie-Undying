@@ -25,19 +25,14 @@ namespace Assets.Powerups
         private const float DamageIncrease = 5;
 
         public float FireTime => FireTimeCalculator.Value;
-        private ProductLevelValueCalculator FireTimeCalculator { get; set; }
+        private ProductLevelValueCalculator FireTimeCalculator { get; }
             = new ProductLevelValueCalculator(FireSpeedBase, FireSpeedScale);
 
         public int Damage => (int)DamageCalculator.Value;
-        private SumLevelValueCalculator DamageCalculator { get; set; }
+        private SumLevelValueCalculator DamageCalculator { get; }
             = new SumLevelValueCalculator(DamageBase, DamageIncrease);
 
-        private LoopingFrameTimer FireTimer { get; set; }
-
-        public VictimPowerup()
-        {
-            FireTimer = LoopingFrameTimer.Default();
-        }
+        private LoopingFrameTimer FireTimer { get; } = LoopingFrameTimer.Default();
 
         public override void OnLevelUp()
         {

@@ -19,6 +19,8 @@ namespace Assets.Powerups
     {
         public static Othello Instance { get; set; }
 
+        public override GameTaskType TaskType => GameTaskType.Player;
+
         [SerializeField]
         private float FireTimerIntervalBase;
         [SerializeField]
@@ -28,13 +30,8 @@ namespace Assets.Powerups
         [SerializeField]
         private float OthelloAlpha;
 
-
-
-        public override GameTaskType TaskType => GameTaskType.Player;
-
         private Vector2 Size { get; set; }
-        private SpriteBoxMap BoxMap { get; set; }
-
+        public SpriteBoxMap BoxMap { get; private set; }
 
         private float FireSpeedModifier { get; set; }
 

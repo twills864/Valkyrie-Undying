@@ -19,7 +19,7 @@ namespace Assets.Powerups
         private const float ShrapnelIncrease = 0.8f;
 
         private float ShrapnelChance => ShrapnelChanceCalculator.Value;
-        private AsymptoteRatioLevelValueCalculator ShrapnelChanceCalculator { get; set; }
+        private AsymptoteRatioLevelValueCalculator ShrapnelChanceCalculator { get; }
             = new AsymptoteRatioLevelValueCalculator(ShrapnelChanceBase, ShrapnelIncrease);
 
         public override void OnHit(Enemy enemy, PlayerBullet bullet)

@@ -17,7 +17,7 @@ namespace Assets.Powerups
         private const float FireDeltaIncrease = 0.15f;
 
         private float PlayerFireDeltaTimeScale => PlayerFireDeltaTimeCalculator.Value;
-        private SumLevelValueCalculator PlayerFireDeltaTimeCalculator { get; set; }
+        private SumLevelValueCalculator PlayerFireDeltaTimeCalculator { get; }
             = new SumLevelValueCalculator(FireDeltaBase, FireDeltaIncrease);
 
         public override void OnLevelUp()

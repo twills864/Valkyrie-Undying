@@ -23,11 +23,11 @@ namespace Assets.Powerups
         private const float SizeScaleMax = 3f;
 
         private float Duration => DurationCalculator.Value;
-        private AsymptoteScaleLevelValueCalculator DurationCalculator { get; set; }
+        private AsymptoteScaleLevelValueCalculator DurationCalculator { get; }
             = new AsymptoteScaleLevelValueCalculator(DurationBase, DurationMax);
 
         private float SizeScale => SizeScaleLevel.Value;
-        private AsymptoteScaleLevelValueCalculator SizeScaleLevel { get; set; }
+        private AsymptoteScaleLevelValueCalculator SizeScaleLevel { get; }
             = new AsymptoteScaleLevelValueCalculator(SizeScaleBase, SizeScaleMax);
 
         public override void OnKill(Enemy enemy, PlayerBullet bullet)

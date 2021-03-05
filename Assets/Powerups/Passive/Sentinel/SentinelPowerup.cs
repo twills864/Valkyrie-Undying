@@ -20,11 +20,11 @@ namespace Assets.Powerups
         private const float WorldDistanceMaxValue = 2.5f;
 
         public float RespawnInterval => RespawnIntervalCalculator.Value;
-        private ProductLevelValueCalculator RespawnIntervalCalculator { get; set; }
+        private ProductLevelValueCalculator RespawnIntervalCalculator { get; }
             = new ProductLevelValueCalculator(RespawnIntervalBase, RespawnIntervalRatioIncrease);
 
         public float Radius => DistanceCalculator.Value;
-        private AsymptoteScaleLevelValueCalculator DistanceCalculator { get; set; }
+        private AsymptoteScaleLevelValueCalculator DistanceCalculator { get; }
             = new AsymptoteScaleLevelValueCalculator(WorldDistanceExponentBase, WorldDistanceMaxValue);
 
         public override void OnLevelUp()

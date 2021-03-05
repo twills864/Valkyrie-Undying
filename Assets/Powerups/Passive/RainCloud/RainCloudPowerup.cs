@@ -20,11 +20,11 @@ namespace Assets.Powerups
         private const float DamageIncrease = 1;
 
         public float FireSpeed => FireSpeedCalculator.Value;
-        private ProductLevelValueCalculator FireSpeedCalculator { get; set; }
+        private ProductLevelValueCalculator FireSpeedCalculator { get; }
             = new ProductLevelValueCalculator(FireSpeedBase, FireSpeedIncrease);
 
         public int Damage => (int) DamageCalculator.Value;
-        private SumLevelValueCalculator DamageCalculator { get; set; }
+        private SumLevelValueCalculator DamageCalculator { get; }
             = new SumLevelValueCalculator(DamageBase, DamageIncrease);
 
         public override void OnLevelUp()

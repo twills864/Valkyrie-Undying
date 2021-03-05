@@ -14,11 +14,12 @@ namespace Assets.Powerups
     {
         public static RainCloudSpawner Instance { get; set; }
 
+        public override GameTaskType TaskType => GameTaskType.Player;
+
         [SerializeField]
         private float Duration;
 
-        private MoveTo Move;
-        public override GameTaskType TaskType => GameTaskType.Player;
+        private MoveTo Move { get; set; }
 
         public void Init(Vector2 spawnPosition, float offsetFromBottom)
         {
@@ -35,7 +36,6 @@ namespace Assets.Powerups
 
         protected override void OnManagedVelocityObjectFrameRun(float deltaTime)
         {
-            //Move.RunFrame(deltaTime);
             if (Move.IsFinished)
             {
                 RainCloud.Instance.Activate(transform.position.x);

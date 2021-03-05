@@ -8,6 +8,10 @@ using UnityEngine;
 
 namespace Assets.Powerups
 {
+    /// <summary>
+    /// Represent a GameObject that can host the Victim Marker.
+    /// Currently intended for enemies and the player.
+    /// </summary>
     public interface IVictimHost
     {
         float VictimMarkerDistance { get; }

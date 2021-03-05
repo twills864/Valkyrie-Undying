@@ -24,11 +24,11 @@ namespace Assets.Powerups
         private const float SizeScaleMax = 15f;
 
         private float Duration => DurationCalculator.Value;
-        private AsymptoteScaleLevelValueCalculator DurationCalculator { get; set; }
+        private AsymptoteScaleLevelValueCalculator DurationCalculator { get; }
             = new AsymptoteScaleLevelValueCalculator(DurationBase, DurationMax);
 
         private float SizeScale => SizeScaleLevel.Value;
-        private AsymptoteRatioLevelValueCalculator SizeScaleLevel { get; set; }
+        private AsymptoteRatioLevelValueCalculator SizeScaleLevel { get; }
             = new AsymptoteRatioLevelValueCalculator(SizeScaleInitialValue, SizeScaleExponentBase, SizeScaleMax);
 
         public override void OnGetHit()

@@ -15,20 +15,21 @@ namespace Assets.Powerups
 {
     public class SentinelManager : FrameRunner
     {
-        public static SentinelManager Instance { get; set; }
         const int NumSentinel = 8;
-        readonly float AngleDelta = MathUtil.Pi2f / NumSentinel;
+        public static SentinelManager Instance { get; set; }
+
+        const float AngleDelta = MathUtil.Pi2f / NumSentinel;
 
         [SerializeField]
         private float AngularVelocity;
 
-        private LoopingFrameTimer RespawnTimer = LoopingFrameTimer.Default();
+        private LoopingFrameTimer RespawnTimer { get; } = LoopingFrameTimer.Default();
 
         private int Level { get; set; }
         private float Radius { get; set; }
         private CounterClockwiseRotation Rotation;
 
-        private ObjectPool<PlayerBullet> SentinelPool;
+        private ObjectPool<PlayerBullet> SentinelPool { get; set; }
         private IEnumerable<SentinelBullet> Sentinels
             => SentinelPool.Select(x => (SentinelBullet)x);
         private IEnumerable<PlayerBullet> InactiveBullets

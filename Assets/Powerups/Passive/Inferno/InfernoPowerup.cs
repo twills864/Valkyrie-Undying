@@ -25,19 +25,18 @@ namespace Assets.Powerups
         public const float DamageIncreasePerLevel = 1;
 
         public float FireSpeed => FireSpeedCalculator.Value;
-        private ProductLevelValueCalculator FireSpeedCalculator { get; set; }
+        private ProductLevelValueCalculator FireSpeedCalculator { get; }
             = new ProductLevelValueCalculator(FireSpeedBase, FireSpeedIncrease);
 
         private int DamageIncrease => (int) DamageCalculator.Value;
-        private SumLevelValueCalculator DamageCalculator { get; set; }
+        private SumLevelValueCalculator DamageCalculator { get; }
             = new SumLevelValueCalculator(DamageIncreaseBase, DamageIncreasePerLevel);
 
-        private LoopingFrameTimer FireTimer { get; set; }
+        private LoopingFrameTimer FireTimer { get; } = LoopingFrameTimer.Default();
         private ObjectPool<PlayerBullet> InfernoPool { get; set; }
 
         public InfernoPowerup()
         {
-            FireTimer = LoopingFrameTimer.Default();
             InfernoPool = PoolManager.Instance.BulletPool.GetPool<InfernoBullet>();
             var bullet = (InfernoBullet)InfernoPool.Get();
             CurrentBaseDamage = bullet.Damage;

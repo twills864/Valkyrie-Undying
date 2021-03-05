@@ -19,10 +19,9 @@ namespace Assets.Powerups
         private const float ExponentRatio = 0.8f;
         private const float MaxValue = 2f;
 
-        private AsymptoteScaleLevelValueCalculator ChanceModifierCalculator { get; set; }
-         = new AsymptoteScaleLevelValueCalculator(ExponentRatio, MaxValue);
-
         private float ChanceModifier => ChanceModifierCalculator.Value;
+        private AsymptoteScaleLevelValueCalculator ChanceModifierCalculator { get; }
+         = new AsymptoteScaleLevelValueCalculator(ExponentRatio, MaxValue);
 
         public override void OnFire(Vector2 position, PlayerBullet[] bullets)
         {
