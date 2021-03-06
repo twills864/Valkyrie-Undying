@@ -55,6 +55,14 @@ namespace Assets.ObjectPooling
 
         #endregion Additional Bullets
 
+        protected override Color GetDefaultColor(ColorManager colorManager)
+            => colorManager.PlayerColor;
+
+        protected override void OnInitSprites(ColorManager colorManager)
+        {
+            // TODO: Assign all addtional bullets
+        }
+
         /// <summary>
         /// Accesses the object pool indexed by<typeparamref name="TGet"/>,
         /// returns a fresh instance from that pool,

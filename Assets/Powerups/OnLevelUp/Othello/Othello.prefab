@@ -94,6 +94,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8edcff89d67b6cf4ab4bb9aaac586879, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Sprite: {fileID: 5352410615180361242}
   FireTimerIntervalBase: 0.49
   FadeInTime: 1.5
   FadeInTimeFireDelay: 1

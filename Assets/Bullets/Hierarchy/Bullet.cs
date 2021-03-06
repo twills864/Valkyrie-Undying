@@ -1,4 +1,5 @@
-﻿using Assets.Util;
+﻿using Assets.Hierarchy.ColorHandlers;
+using Assets.Util;
 using UnityEngine;
 
 namespace Assets.Bullets
@@ -6,11 +7,18 @@ namespace Assets.Bullets
     /// <inheritdoc/>
     public abstract class Bullet : PooledObject
     {
+        [SerializeField]
+        protected SpriteRenderer Sprite;
+
+        protected override ColorHandler DefaultColorHandler()
+            => new SpriteColorHandler(Sprite);
+
         protected virtual bool ShouldDeactivateOnDestructor => true;
 
         protected virtual void OnBulletInit() { }
-        public override sealed void OnInit()
+        protected sealed override void OnInit()
         {
+
             OnBulletInit();
         }
 

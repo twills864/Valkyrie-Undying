@@ -1,4 +1,5 @@
-﻿using Assets.ObjectPooling;
+﻿using Assets.Hierarchy.ColorHandlers;
+using Assets.ObjectPooling;
 using Assets.UI;
 using UnityEngine;
 
@@ -6,23 +7,17 @@ public class EnemyHealthBar : UIElement
 {
     public static float HealthBarHeight { get; private set; }
 
+    protected override ColorHandler DefaultColorHandler()
+        => new TextMeshColorHandler(TextMesh);
+
     private Color InitialColor => Color.white;
     private Color IgniteColor => new Color(1f, 0.5f, 0);
 
-    private TextMesh TextMesh { get; set; }
+    [SerializeField]
+    private TextMesh TextMesh;
 
     public float Height { get; private set; }
     public float HeightHalf { get; private set; }
-
-    private Color _Color
-    {
-        get => TextMesh.color;
-        set
-        {
-            if (TextMesh.color != value)
-                TextMesh.color = value;
-        }
-    }
 
     private void Awake()
     {
@@ -47,12 +42,12 @@ public class EnemyHealthBar : UIElement
 
     protected override void OnActivate()
     {
-        _Color = InitialColor;
+        SpriteColor = InitialColor;
     }
 
     public void Ignite()
     {
-        _Color = IgniteColor;
+        SpriteColor = IgniteColor;
     }
 
     public static void InitStatic()

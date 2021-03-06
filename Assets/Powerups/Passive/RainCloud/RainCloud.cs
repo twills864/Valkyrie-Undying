@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Assets.Bullets.PlayerBullets;
 using Assets.FireStrategies.PlayerFireStrategies;
+using Assets.Hierarchy.ColorHandlers;
 using Assets.ObjectPooling;
 using Assets.Util;
 using UnityEngine;
@@ -14,6 +15,11 @@ namespace Assets.Powerups
     public class RainCloud : ManagedVelocityObject
     {
         public static RainCloud Instance { get; set; }
+
+        [SerializeField]
+        private SpriteRenderer Sprite;
+        protected override ColorHandler DefaultColorHandler()
+            => new SpriteColorHandler(Sprite);
 
         [SerializeField]
         private float Speed;
@@ -33,7 +39,7 @@ namespace Assets.Powerups
 
         private ObjectPool<PlayerBullet> RaindropPool { get; set; }
 
-        public override void OnInit()
+        protected override void OnInit()
         {
             var sprite = GetComponent<SpriteRenderer>();
             Size = sprite.size;

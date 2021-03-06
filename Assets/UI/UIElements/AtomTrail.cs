@@ -1,4 +1,5 @@
-﻿using Assets.Util;
+﻿using Assets.Hierarchy.ColorHandlers;
+using Assets.Util;
 using UnityEngine;
 
 namespace Assets.UI
@@ -6,10 +7,14 @@ namespace Assets.UI
     /// <inheritdoc/>
     public class AtomTrail : UIElement
     {
+        protected override ColorHandler DefaultColorHandler()
+            => new TrailColorHandler(Trail);
+
         [SerializeField]
         public float TrailTime;
 
-        private TrailRenderer Trail { get; set; }
+        [SerializeField]
+        private TrailRenderer Trail;
         private FrameTimer DeactivateTimer { get; set; }
 
         protected sealed override void OnUIElementInit()

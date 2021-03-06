@@ -19,6 +19,14 @@ namespace Assets.ObjectPooling
         [SerializeField]
         private RingEnemyBullet RingPrefab;
 
+        protected override Color GetDefaultColor(ColorManager colorManager)
+            => colorManager.EnemyColor;
+
+        protected override void OnInitSprites(ColorManager colorManager)
+        {
+            // No individual enemy bullet colors yet.
+        }
+
         public EnemyBullet[] GetPestControlTargets(int numToGet)
         {
             var activeBullets = GetAllActiveObjects();

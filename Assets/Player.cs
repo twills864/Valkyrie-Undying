@@ -1,5 +1,6 @@
 ﻿using Assets.Bullets.EnemyBullets;
 using Assets.Enemies;
+using Assets.Hierarchy.ColorHandlers;
 using Assets.ObjectPooling;
 using Assets.Powerups;
 using Assets.UI;
@@ -16,14 +17,18 @@ namespace Assets
         public override string LogTagColor => "#60D3FF";
 
         [SerializeField]
+        private SpriteRenderer Sprite;
+        protected override ColorHandler DefaultColorHandler()
+            => new SpriteColorHandler(Sprite);
+
+        [SerializeField]
         private GameObject BloodlustAuraObject;
 
         private Rigidbody2D Body { get; set; }
-        private Renderer Renderer { get; set; }
         private LineRenderer LineRenderer { get; set; }
         private SpriteRenderer BloodlustAuraSprite { get; set; }
 
-        public Vector2 Size => Renderer.bounds.size;
+        public Vector2 Size => Sprite.bounds.size;
         public SpriteBoxMap SpriteMap { get; private set; }
         public ColliderBoxMap ColliderMap { get; private set; }
 
@@ -68,17 +73,16 @@ namespace Assets
             BloodlustTimer = FrameTimer.Default();
         }
 
-        public void Init()
+        protected sealed override void OnInit()
         {
             Instance = this;
 
             Body = GetComponent<Rigidbody2D>();
-            Renderer = GetComponent<Renderer>();
             BloodlustAuraSprite = BloodlustAuraObject.GetComponent<SpriteRenderer>();
             LineRenderer = GetComponent<LineRenderer>();
 
             //var targetY = Camera.main.ScreenToWorldPoint(new Vector3(0, MobileYOffset));
-            var heightHalf = Renderer.bounds.size.y * 0.5f;
+            var heightHalf = Size.y * 0.5f;
             MobileY = SpaceUtil.WorldMap.Bottom.y + heightHalf + MobileYOffset;
             Enemy.FireHeightFloor = MobileY;
 

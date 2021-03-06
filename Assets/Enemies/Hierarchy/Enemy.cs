@@ -2,6 +2,7 @@
 using Assets.Bullets.PlayerBullets;
 using Assets.FireStrategies.EnemyFireStrategies;
 using Assets.GameTasks;
+using Assets.Hierarchy.ColorHandlers;
 using Assets.ObjectPooling;
 using Assets.Powerups;
 using Assets.UI;
@@ -15,6 +16,12 @@ namespace Assets.Enemies
     {
         public override string LogTagColor => "#FFB697";
         public override GameTaskType TaskType => GameTaskType.Enemy;
+
+        [SerializeField]
+        protected SpriteRenderer Sprite;
+
+        protected override ColorHandler DefaultColorHandler()
+            => new SpriteColorHandler(Sprite);
 
         protected virtual bool ShouldDeactivateOnDestructor => true;
         public virtual bool CanVoidPause => true;
@@ -135,7 +142,7 @@ namespace Assets.Enemies
         #endregion Void
 
         protected virtual void OnEnemyInit() { }
-        public sealed override void OnInit()
+        protected sealed override void OnInit()
         {
             SpriteMap = new SpriteBoxMap(this);
             ColliderMap = new ColliderBoxMap(this);
@@ -183,7 +190,10 @@ namespace Assets.Enemies
         protected sealed override void OnManagedVelocityObjectFrameRun(float deltaTime)
         {
             if (IsBurning && InfernoTimer.UpdateActivates(deltaTime))
-                Burn();
+            {
+                if (BurnKills())
+                    return;
+            }
 
             if (!IsVoidPaused)
             {
@@ -204,12 +214,20 @@ namespace Assets.Enemies
             }
         }
 
-        protected virtual void Burn()
+        protected virtual bool BurnKills()
         {
+            bool ret;
             if (!DamageKills(InfernoDamage))
+            {
                 InfernoDamage += InfernoDamageIncrease;
+                ret = false;
+            }
             else
+            {
                 KillEnemy(null);
+                ret = true;
+            }
+            return ret;
         }
 
         private void Start()

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Assets.Bullets.PlayerBullets;
 using Assets.FireStrategies.PlayerFireStrategies;
 using Assets.GameTasks;
+using Assets.Hierarchy.ColorHandlers;
 using Assets.ObjectPooling;
 using Assets.Util;
 using UnityEngine;
@@ -20,6 +21,11 @@ namespace Assets.Powerups
         public static Othello Instance { get; set; }
 
         public override GameTaskType TaskType => GameTaskType.Player;
+
+        [SerializeField]
+        private SpriteRenderer Sprite;
+        protected override ColorHandler DefaultColorHandler()
+            => new SpriteColorHandler(Sprite);
 
         [SerializeField]
         private float FireTimerIntervalBase;
@@ -106,7 +112,7 @@ namespace Assets.Powerups
             }
         }
 
-        public override void OnInit()
+        protected sealed override void OnInit()
         {
             Instance = this;
 

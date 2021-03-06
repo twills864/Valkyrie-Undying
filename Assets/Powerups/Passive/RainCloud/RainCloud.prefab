@@ -94,5 +94,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d473460ab30f4db488345a169ada19bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Sprite: {fileID: 7929392176610733538}
   Speed: 1.5
   _OffsetFromBottom: 0.5

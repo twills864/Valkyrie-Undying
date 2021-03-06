@@ -38,7 +38,7 @@ namespace Assets.Powerups
 
         /// <summary>
         /// The Powerup Manager has an array of powerup lists
-        /// where each list is seperated by type of powerup.
+        /// where each list is separated by type of powerup.
         /// This index represents the array index
         /// of the related powerup list/
         /// </summary>
@@ -51,7 +51,7 @@ namespace Assets.Powerups
         public abstract void OnLevelUp();
 
         /// <summary>
-        /// Functionality that handles the the leveling up of this powerup.
+        /// Functionality that handles the leveling up of this powerup.
         /// </summary>
         public void LevelUp()
         {

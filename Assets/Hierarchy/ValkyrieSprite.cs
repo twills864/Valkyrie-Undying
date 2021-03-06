@@ -1,39 +1,38 @@
-﻿using LogUtilAssets;
+﻿using Assets.Hierarchy.ColorHandlers;
+using LogUtilAssets;
 using UnityEngine;
 
 namespace Assets
 {
-    public class ValkyrieSprite : Loggable
+    public abstract class ValkyrieSprite : Loggable
     {
-        #pragma warning disable 0649
+        protected ColorHandler ColorHandler { get; private set; }
+        protected abstract ColorHandler DefaultColorHandler();
 
-        [SerializeField]
-        private SpriteRenderer PrefabSprite;
-
-        #pragma warning restore 0649
-
-        public SpriteRenderer Sprite
+        protected virtual void OnInit() { }
+        public void Init()
         {
-            get => PrefabSprite;
+            ColorHandler = DefaultColorHandler();
+            OnInit();
         }
-
+        public void Init(Vector2 position)
+        {
+            transform.position = position;
+            Init();
+        }
 
         public Color SpriteColor
         {
-            get => Sprite.color;
-            set => Sprite.color = value;
+            get => ColorHandler.Color;
+            set => ColorHandler.Color = value;
         }
 
         public float Alpha
         {
-            get => Sprite.color.a;
-            set
-            {
-                var color = Sprite.color;
-                color.a = value;
-                Sprite.color = color;
-            }
+            get => ColorHandler.Alpha;
+            set => ColorHandler.Alpha = value;
         }
+
 
         public void RotateSprite(float rotation)
         {

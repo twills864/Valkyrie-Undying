@@ -138,7 +138,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 405f6cc14f497a542a3f24e7bdca6954, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PrefabSprite: {fileID: 1215291524090350062}
+  Sprite: {fileID: 1215291524090350062}
   _victimMarkerDistance: 0.6
   HealthBarOffsetScale: {x: 0, y: 0.5, z: 0}
 --- !u!1001 &2735493065413548216

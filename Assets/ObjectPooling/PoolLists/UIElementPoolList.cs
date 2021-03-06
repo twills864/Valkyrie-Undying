@@ -17,5 +17,13 @@ namespace Assets.ObjectPooling
         private VictimMarkerCorner VictimMarkerCornerPrefab;
         [SerializeField]
         private EnemyHealthBar EnemyHealthBarPrefab;
+
+        protected override Color GetDefaultColor(ColorManager colorManager)
+            => Color.white;
+
+        protected override void OnInitSprites(ColorManager colorManager)
+        {
+            // TODO: AtomTrail, VictimMarkerCorner
+        }
     }
 }

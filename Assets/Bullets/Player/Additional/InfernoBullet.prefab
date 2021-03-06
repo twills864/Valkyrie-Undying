@@ -83,6 +83,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29248f3b5d73ccc46ad39f878abfd8c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Sprite: {fileID: 7995448052064837697}
   BaseDamage: 5
   PermanentVelocityX: 0
   PermanentVelocityY: 10
@@ -126,7 +127,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 3c6ff203268027e4ca5bbeac66a456a8, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 1, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

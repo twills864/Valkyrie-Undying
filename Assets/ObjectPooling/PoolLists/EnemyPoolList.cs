@@ -27,6 +27,14 @@ namespace Assets.ObjectPooling
         private ObjectPool<Enemy> OverridePool => OverrideEnemyType != null &&
             PoolMap.TryGetValue(OverrideEnemyType, out var ret) ? ret : null;
 
+        protected override Color GetDefaultColor(ColorManager colorManager)
+            => colorManager.EnemyColor;
+
+        protected override void OnInitSprites(ColorManager colorManager)
+        {
+            // TODO: RingEnemyRing
+        }
+
         protected override void OnPoolMapSet()
         {
             Type[] exclusionTypes = new Type[]

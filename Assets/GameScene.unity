@@ -3072,8 +3072,8 @@ MonoBehaviour:
   _DebugEnemy: {fileID: 5685943112352641347}
   _PoolManager: {fileID: 1431298137}
   _ColorManager:
-    PlayerColor: {r: 0, g: 0, b: 0, a: 0}
-    EnemyColor: {r: 0, g: 0, b: 0, a: 0}
+    PlayerColor: {r: 0, g: 1, b: 0, a: 1}
+    EnemyColor: {r: 1, g: 1, b: 0, a: 1}
   _RainCloud: {fileID: 2109226220}
   _RainCloudSpawner: {fileID: 2085788401}
   _SentinelManager: {fileID: 1652808086}

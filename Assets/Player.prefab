@@ -119,6 +119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6808a016f81891848a57729de8efb442, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Sprite: {fileID: 1173633443530965504}
   BloodlustAuraObject: {fileID: 5388168560827903027}
   MobileYOffset: 1.5
   _victimMarkerDistance: 0.75

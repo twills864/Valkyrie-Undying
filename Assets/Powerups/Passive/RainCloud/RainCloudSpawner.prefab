@@ -94,4 +94,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2ea4a55e40c6224ca014e88987993d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Sprite: {fileID: 5558689709252011350}
   Duration: 1

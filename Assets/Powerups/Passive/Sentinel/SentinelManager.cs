@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Assets.Bullets.PlayerBullets;
 using Assets.FireStrategies.PlayerFireStrategies;
 using Assets.GameTasks;
+using Assets.Hierarchy.ColorHandlers;
 using Assets.ObjectPooling;
 using Assets.Util;
 using UnityEngine;
@@ -15,10 +16,13 @@ namespace Assets.Powerups
 {
     public class SentinelManager : FrameRunner
     {
-        const int NumSentinel = 8;
         public static SentinelManager Instance { get; set; }
 
+        const int NumSentinel = 8;
         const float AngleDelta = MathUtil.Pi2f / NumSentinel;
+
+        protected override ColorHandler DefaultColorHandler()
+            => new NullColorHandler();
 
         [SerializeField]
         private float AngularVelocity;
@@ -35,7 +39,7 @@ namespace Assets.Powerups
         private IEnumerable<PlayerBullet> InactiveBullets
             => SentinelPool.Where(x => !x.isActiveAndEnabled);
 
-        public void Init()
+        protected sealed override void OnInit()
         {
             Instance = this;
 

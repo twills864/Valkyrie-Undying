@@ -79,7 +79,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 989da014ad7b3a4438aadd26bf6d7a75, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -150,7 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10d5f99b6105e6143af10bf643156d0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PrefabSprite: {fileID: 2513743728701105208}
+  Sprite: {fileID: 2513743728701105208}
   _victimMarkerDistance: 0.6
   HealthBarOffsetScale: {x: 0, y: 0.5, z: 0}
   PermanentVelocityX: 0

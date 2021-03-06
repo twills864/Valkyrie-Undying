@@ -173,7 +173,7 @@ namespace Assets
         }
         private void Start()
         {
-            _PoolManager.Init();
+            _PoolManager.Init(_ColorManager);
 
             _PowerupManager = new PowerupManager();
             _PowerupManager.Init();
@@ -202,7 +202,10 @@ namespace Assets
             _Camera = Camera.main;
             _Canvas = FindObjectOfType<Canvas>();
 
+            // Dependency: SpaceUtil.Init
             Player.Init();
+
+            InitIndependentColors();
 
             //GameTaskLists.SetDebugUi();
         }
@@ -225,6 +228,7 @@ namespace Assets
             _DebugEnemy.Init();
             _DebugEnemy.OnSpawn();
             _RainCloud.Init();
+            _RainCloudSpawner.Init();
             _Othello.Init();
             _SentinelManager.Init();
 
@@ -232,6 +236,14 @@ namespace Assets
 
             _PowerupMenu.transform.position += new Vector3(0, 80, 0);
             //_PowerupMenu.gameObject.SetActive(AddingPowerup);
+        }
+
+        private void InitIndependentColors()
+        {
+            Player.SpriteColor = _ColorManager.PlayerColor;
+            _Othello.SpriteColor = _ColorManager.PlayerColor;
+            _RainCloud.SpriteColor = _ColorManager.PlayerColor;
+            _RainCloudSpawner.SpriteColor = _ColorManager.PlayerColor;
         }
 
         public void FirePlayerBullets(PlayerBullet[] bullets)

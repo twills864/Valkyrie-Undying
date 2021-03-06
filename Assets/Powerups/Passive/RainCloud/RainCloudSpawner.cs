@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Assets.FireStrategies.PlayerFireStrategies;
 using Assets.GameTasks;
+using Assets.Hierarchy.ColorHandlers;
 using Assets.Util;
 using UnityEngine;
 
@@ -15,6 +16,11 @@ namespace Assets.Powerups
         public static RainCloudSpawner Instance { get; set; }
 
         public override GameTaskType TaskType => GameTaskType.Player;
+
+        [SerializeField]
+        private SpriteRenderer Sprite;
+        protected override ColorHandler DefaultColorHandler()
+            => new SpriteColorHandler(Sprite);
 
         [SerializeField]
         private float Duration;
@@ -32,7 +38,7 @@ namespace Assets.Powerups
             RunTask(Move);
         }
 
-        public override void OnInit() { }
+        //protected override void OnInit() { }
 
         protected override void OnManagedVelocityObjectFrameRun(float deltaTime)
         {

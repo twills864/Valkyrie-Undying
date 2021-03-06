@@ -1,5 +1,6 @@
 ﻿using Assets.Enemies;
 using Assets.GameTasks;
+using Assets.Hierarchy.ColorHandlers;
 using Assets.ObjectPooling;
 using Assets.Powerups;
 using Assets.Util;
@@ -10,6 +11,9 @@ namespace Assets.UI
     /// <inheritdoc/>
     public class VictimMarker : UIElement
     {
+        protected override ColorHandler DefaultColorHandler()
+            => new NullColorHandler();
+
         [SerializeField]
         private float FadeTime;
 

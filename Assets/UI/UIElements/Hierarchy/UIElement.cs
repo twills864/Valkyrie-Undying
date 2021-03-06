@@ -12,7 +12,7 @@ namespace Assets.UI
         public override GameTaskType TaskType => GameTaskType.UIElement;
 
         protected virtual void OnUIElementInit() { }
-        public sealed override void OnInit()
+        protected sealed override void OnInit()
         {
             OnUIElementInit();
         }

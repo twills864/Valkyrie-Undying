@@ -44,7 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e39ac6f9b3eb56e40b0ceda7b4cc3ee9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpawnId: 0
   FadeTime: 0.2
   AlphaMax: 0.8
   StartDistance: 3

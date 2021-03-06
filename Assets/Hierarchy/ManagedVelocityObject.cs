@@ -20,14 +20,6 @@ namespace Assets
             set => Velocity = new Vector2(Velocity.x, value);
         }
 
-        public abstract void OnInit();
-        public void Init() => OnInit();
-        public void Init(Vector2 position)
-        {
-            transform.position = position;
-            Init();
-        }
-
         public void ApplyVelocity(Vector2 velocity, float deltaTime)
         {
             Vector3 translation = new Vector3(velocity.x * deltaTime, velocity.y * deltaTime, 0);

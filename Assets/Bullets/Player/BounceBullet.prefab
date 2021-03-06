@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: df174c9cd9e7b2b499dbb3450d9f3624, type: 3}
-  m_Color: {r: 0, g: 0.96862745, b: 1, a: 1}
+  m_Color: {r: 0, g: 1, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -96,7 +96,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70c0d14f2ac16f74494bdbedfdcb4b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PrefabSprite: {fileID: 5489873118842634418}
+  Sprite: {fileID: 5489873118842634418}
   BaseDamage: 20
   DamageAfterBounce: 10
   Speed: 12

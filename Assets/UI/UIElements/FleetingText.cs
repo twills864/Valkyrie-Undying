@@ -1,4 +1,5 @@
-﻿using Assets.Util;
+﻿using Assets.Hierarchy.ColorHandlers;
+using Assets.Util;
 using UnityEngine;
 
 namespace Assets.UI
@@ -6,7 +7,11 @@ namespace Assets.UI
     /// <inheritdoc/>
     public class FleetingText : UIElement
     {
-        private TextMesh TextField { get; set; }
+        protected override ColorHandler DefaultColorHandler()
+            => new TextMeshColorHandler(TextField);
+
+        [SerializeField]
+        private TextMesh TextField;
         private FrameTimer DestroyTimer { get; set; }
         private FrameTimer StartFadeTimer { get; set; }
         private FrameTimer FadeTimer { get; set; }
@@ -30,7 +35,6 @@ namespace Assets.UI
 
         protected override void OnUIElementInit()
         {
-            TextField = GetComponent<TextMesh>();
             DestroyTimer = new FrameTimer(OpaqueTextTime + FadeTime);
             StartFadeTimer = new FrameTimer(OpaqueTextTime);
             FadeTimer = new FrameTimer(FadeTime);

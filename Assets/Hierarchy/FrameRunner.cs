@@ -1,4 +1,6 @@
-﻿namespace Assets
+﻿using Assets;
+
+namespace Assets
 {
     /// <summary>
     /// Represents an object that will manually handle frame updates
