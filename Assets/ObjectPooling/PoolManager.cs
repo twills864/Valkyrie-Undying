@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.ColorManagers;
+using UnityEngine;
 
 namespace Assets.ObjectPooling
 {
@@ -33,8 +34,6 @@ namespace Assets.ObjectPooling
         {
             foreach(var pool in AllPoolLists)
                 pool.Init(colorManager);
-
-
         }
 
         private void Awake()

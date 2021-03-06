@@ -20,7 +20,7 @@ namespace Assets.UI
 
         protected override void OnActivate()
         {
-            Alpha = 0;
+            //Alpha = 0;
         }
     }
 }

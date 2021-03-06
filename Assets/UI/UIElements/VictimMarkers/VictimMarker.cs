@@ -11,14 +11,20 @@ namespace Assets.UI
     /// <inheritdoc/>
     public class VictimMarker : UIElement
     {
+        private static float AlphaMax;
+
+        public static void StaticInit()
+        {
+            var corner = PoolManager.Instance.UIElementPool.Get<VictimMarkerCorner>();
+            AlphaMax = corner.Alpha;
+            corner.DeactivateSelf();
+        }
+
         protected override ColorHandler DefaultColorHandler()
             => new NullColorHandler();
 
         [SerializeField]
         private float FadeTime;
-
-        [SerializeField]
-        private float AlphaMax;
 
         [SerializeField]
         private float StartDistance;

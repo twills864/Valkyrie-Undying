@@ -1,4 +1,5 @@
 ﻿using Assets.Bullets.PlayerBullets;
+using Assets.ColorManagers;
 using Assets.Util;
 using UnityEngine;
 
@@ -56,11 +57,22 @@ namespace Assets.ObjectPooling
         #endregion Additional Bullets
 
         protected override Color GetDefaultColor(ColorManager colorManager)
-            => colorManager.PlayerColor;
+            => colorManager.DefaultPlayer;
 
         protected override void OnInitSprites(ColorManager colorManager)
         {
-            // TODO: Assign all addtional bullets
+            var player = colorManager.Player;
+            Color defaulAdditional = colorManager.DefaultPlayerAdditionalColor();
+
+            ReflectedPrefab.SpriteColor = player.Reflected;
+            ShrapnelPrefab.SpriteColor = defaulAdditional;
+            RaindropPrefab.SpriteColor = defaulAdditional;
+            PestControlPrefab.SpriteColor = defaulAdditional;
+            SentinelPrefab.SpriteColor = player.Sentinel;
+            OthelloPrefab.SpriteColor = defaulAdditional;
+            VictimPrefab.SpriteColor = defaulAdditional;
+            VoidPrefab.SpriteColor = player.Void;
+            RetributionPrefab.SpriteColor = player.Retribution;
         }
 
         /// <summary>

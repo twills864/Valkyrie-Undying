@@ -33,8 +33,6 @@ namespace Assets.Powerups
         private float FadeInTime;
         [SerializeField]
         private float FadeInTimeFireDelay;
-        [SerializeField]
-        private float OthelloAlpha;
 
         private Vector2 Size { get; set; }
         public SpriteBoxMap BoxMap { get; private set; }
@@ -87,7 +85,9 @@ namespace Assets.Powerups
         {
             gameObject.SetActive(true);
 
-            var fadeTo = new FadeTo(this, OthelloAlpha, FadeInTime);
+            var targetAlpha = Alpha;
+            Alpha = 0;
+            var fadeTo = new FadeTo(this, targetAlpha, FadeInTime);
             RunTask(fadeTo);
         }
 

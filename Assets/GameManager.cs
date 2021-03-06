@@ -15,6 +15,7 @@ using Assets.Util;
 using Assets.ObjectPooling;
 using UnityEngine;
 using System.Diagnostics;
+using Assets.ColorManagers;
 
 namespace Assets
 {
@@ -26,7 +27,7 @@ namespace Assets
         private bool DebugPauseNextFrame { get; set; }
 
         private const bool AddingPowerup = true;
-        public Type GameRowPowerupType => GetPowerupType<RetributionPowerup>();
+        public Type GameRowPowerupType => GetPowerupType<VictimPowerup>();
         private Type GetPowerupType<TPowerup>() where TPowerup : Powerup => typeof(TPowerup);
 
         public Player Player;
@@ -240,10 +241,11 @@ namespace Assets
 
         private void InitIndependentColors()
         {
-            Player.SpriteColor = _ColorManager.PlayerColor;
-            _Othello.SpriteColor = _ColorManager.PlayerColor;
-            _RainCloud.SpriteColor = _ColorManager.PlayerColor;
-            _RainCloudSpawner.SpriteColor = _ColorManager.PlayerColor;
+            var defaultPlayerAdditional = _ColorManager.DefaultPlayerAdditionalColor();
+            Player.SpriteColor = _ColorManager.DefaultPlayer;
+            _Othello.SpriteColor = defaultPlayerAdditional;
+            _RainCloud.SpriteColor = defaultPlayerAdditional;
+            _RainCloudSpawner.SpriteColor = defaultPlayerAdditional;
         }
 
         public void FirePlayerBullets(PlayerBullet[] bullets)
@@ -440,8 +442,8 @@ namespace Assets
 
         public void RecolorPlayerActivity(Color color)
         {
-            _ColorManager.PlayerColor = color;
-            Player.GetComponent<SpriteRenderer>().color = _ColorManager.PlayerColor;
+            _ColorManager.DefaultPlayer = color;
+            Player.GetComponent<SpriteRenderer>().color = _ColorManager.DefaultPlayer;
 
             _PoolManager.RecolorPlayerActivity(color);
         }

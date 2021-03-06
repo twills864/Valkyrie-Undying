@@ -3,30 +3,66 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Assets.ColorManagers.SubManagers;
 using UnityEngine;
 
-namespace Assets
+namespace Assets.ColorManagers
 {
+    /// <summary>
+    /// A collection of colors designed to be edited in the GameManager Unity object.
+    /// </summary>
     [Serializable]
     public struct ColorManager
     {
-        [SerializeField]
-        public Color PlayerColor;
+        public Color DefaultPlayer;
+        public Color DefaultEnemy;
 
         [SerializeField]
-        public Color EnemyColor;
+        public PlayerColors Player;
 
-        //[SerializeField]
-        //public Color Color;
+        [SerializeField]
+        public EnemyColors Enemy;
 
-        //[SerializeField]
-        //public Color PlayerColor;
+        [SerializeField]
+        public UIColors UI;
 
-        //[SerializeField]
-        //public Color PlayerColor;
+        public Color SetAlpha(Color color, float alpha)
+        {
+            color.a = alpha;
+            return color;
+        }
 
-        //[SerializeField]
-        //public Color PlayerColor;
+        public Color DefaultPlayerAdditionalColor()
+        {
+            return SetAlpha(DefaultPlayer, Player.DefaultAdditionalRatio);
+        }
+    }
+}
 
+
+namespace Assets.ColorManagers.SubManagers
+{
+    [Serializable]
+    public struct PlayerColors
+    {
+        public float DefaultAdditionalRatio;
+
+        public Color Reflected;
+        public Color Retribution;
+        public Color Sentinel;
+        public Color Void;
+    }
+
+    [Serializable]
+    public struct EnemyColors
+    {
+        public Color Tank;
+        public Color RingEnemyRing;
+    }
+
+    [Serializable]
+    public struct UIColors
+    {
+        public float VictimMarkerAlpha;
     }
 }

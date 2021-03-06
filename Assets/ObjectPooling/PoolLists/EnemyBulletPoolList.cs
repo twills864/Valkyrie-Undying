@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Assets.Bullets.EnemyBullets;
+using Assets.ColorManagers;
 using Assets.Enemies;
 using Assets.EnemyBullets;
 using Assets.Util;
@@ -20,11 +21,11 @@ namespace Assets.ObjectPooling
         private RingEnemyBullet RingPrefab;
 
         protected override Color GetDefaultColor(ColorManager colorManager)
-            => colorManager.EnemyColor;
+            => colorManager.DefaultEnemy;
 
         protected override void OnInitSprites(ColorManager colorManager)
         {
-            // No individual enemy bullet colors yet.
+            TankPrefab.SpriteColor = colorManager.Enemy.Tank;
         }
 
         public EnemyBullet[] GetPestControlTargets(int numToGet)

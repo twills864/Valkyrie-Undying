@@ -3072,8 +3072,19 @@ MonoBehaviour:
   _DebugEnemy: {fileID: 5685943112352641347}
   _PoolManager: {fileID: 1431298137}
   _ColorManager:
-    PlayerColor: {r: 0, g: 1, b: 0, a: 1}
-    EnemyColor: {r: 1, g: 1, b: 0, a: 1}
+    DefaultPlayer: {r: 0.3764706, g: 0.827451, b: 1, a: 1}
+    DefaultEnemy: {r: 1, g: 0, b: 0, a: 1}
+    Player:
+      DefaultAdditionalRatio: 0.5
+      Reflected: {r: 1, g: 0, b: 1, a: 1}
+      Retribution: {r: 1, g: 0, b: 0, a: 1}
+      Sentinel: {r: 1, g: 1, b: 0, a: 1}
+      Void: {r: 1, g: 0, b: 1, a: 1}
+    Enemy:
+      Tank: {r: 1, g: 0.5019608, b: 0, a: 1}
+      RingEnemyRing: {r: 1, g: 1, b: 0, a: 1}
+    UI:
+      VictimMarkerAlpha: 0.7
   _RainCloud: {fileID: 2109226220}
   _RainCloudSpawner: {fileID: 2085788401}
   _SentinelManager: {fileID: 1652808086}

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Assets.ColorManagers;
 using Assets.Util;
 using UnityEngine;
 
@@ -20,6 +21,13 @@ namespace Assets.ObjectPooling
     /// /// <inheritdoc/>
     public abstract class PoolList<T> : PoolList where T : PooledObject
     {
+        #region Property Fields
+
+        private Dictionary<Type, ObjectPool<T>> _poolMap;
+        private T[] _allPrefabs;
+
+        #endregion Property Fields
+
         /// <summary>
         /// An array representation of each pool represented by this PoolList.
         /// </summary>
@@ -28,7 +36,22 @@ namespace Assets.ObjectPooling
         /// <summary>
         /// An array of all private prefabs represented by this PoolList.
         /// </summary>
-        protected T[] AllPrefabs { get; set; }
+        protected T[] AllPrefabs
+        {
+            get => _allPrefabs;
+            private set
+            {
+                _allPrefabs = value;
+                PrefabMap = _allPrefabs.ToDictionary(x => x.GetType(), x => x);
+                PoolMap = _allPrefabs.ToDictionary(x => x.GetType(), x => new ObjectPool<T>(x));
+            }
+        }
+
+        /// <summary>
+        /// A dictionary in which each prefab represented by this PoolList
+        /// is indexed by the type of the prefab.
+        /// </summary>
+        protected Dictionary<Type, T> PrefabMap { get; private set; }
 
         /// <summary>
         /// Returns the default color of objects in this pool from a given color manager.
@@ -72,12 +95,13 @@ namespace Assets.ObjectPooling
                 OnPoolMapSet();
             }
         }
-        private Dictionary<Type, ObjectPool<T>> _poolMap;
 
+        protected virtual void OnInit() { }
         public override void Init(ColorManager colorManager)
         {
             LoadPoolMap();
             InitSprites(colorManager);
+            OnInit();
         }
 
         /// <summary>
@@ -89,8 +113,7 @@ namespace Assets.ObjectPooling
             try
             {
                 AllPrefabs = ReflectionUtil.GetPrivatePoolablePrefabFields(this)
-                    .Select(x => (T) x).ToArray();
-                PoolMap = AllPrefabs.ToDictionary(x => x.GetType(), x => new ObjectPool<T>(x));
+                    .Select(x => (T)x).ToArray();
             }
             catch (Exception ex)
             {
@@ -113,7 +136,8 @@ namespace Assets.ObjectPooling
                 var pool = PoolMap[type];
                 var ret = (TGet)pool.Get();
                 return ret;
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 var type = typeof(TGet);
                 throw ex;
@@ -178,7 +202,7 @@ namespace Assets.ObjectPooling
         {
             var type = typeof(TGet);
             var pool = PoolMap[type];
-            var ret = (TGet) pool.ObjectPrefab;
+            var ret = (TGet)pool.ObjectPrefab;
             return ret;
         }
 

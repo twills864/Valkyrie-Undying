@@ -1,4 +1,5 @@
-﻿using Assets.UI;
+﻿using Assets.ColorManagers;
+using Assets.UI;
 using UnityEngine;
 
 namespace Assets.ObjectPooling
@@ -10,7 +11,7 @@ namespace Assets.ObjectPooling
         [SerializeField]
         private FleetingText FleetingTextPrefab;
         [SerializeField]
-        private AtomTrail AtomTrialPrefab;
+        private AtomTrail AtomTrailPrefab;
         [SerializeField]
         private VictimMarker VictimMarkerPrefab;
         [SerializeField]
@@ -23,7 +24,16 @@ namespace Assets.ObjectPooling
 
         protected override void OnInitSprites(ColorManager colorManager)
         {
-            // TODO: AtomTrail, VictimMarkerCorner
+            Color defaultPlayer = colorManager.DefaultPlayer;
+            AtomTrailPrefab.SpriteColor = defaultPlayer;
+
+            float victimMarkerAlpha = colorManager.UI.VictimMarkerAlpha;
+            VictimMarkerCornerPrefab.SpriteColor = colorManager.SetAlpha(defaultPlayer, victimMarkerAlpha);
+        }
+
+        protected override void OnInit()
+        {
+            VictimMarker.StaticInit();
         }
     }
 }

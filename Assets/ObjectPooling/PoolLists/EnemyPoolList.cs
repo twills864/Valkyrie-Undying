@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Linq;
 using Assets.Util;
 using System;
+using Assets.ColorManagers;
 
 namespace Assets.ObjectPooling
 {
@@ -28,11 +29,14 @@ namespace Assets.ObjectPooling
             PoolMap.TryGetValue(OverrideEnemyType, out var ret) ? ret : null;
 
         protected override Color GetDefaultColor(ColorManager colorManager)
-            => colorManager.EnemyColor;
+            => colorManager.DefaultEnemy;
 
         protected override void OnInitSprites(ColorManager colorManager)
         {
-            // TODO: RingEnemyRing
+            var enemy = colorManager.Enemy;
+
+            TankPrefab.SpriteColor = enemy.Tank;
+            RingEnemyRingPrefab.SpriteColor = enemy.RingEnemyRing;
         }
 
         protected override void OnPoolMapSet()
