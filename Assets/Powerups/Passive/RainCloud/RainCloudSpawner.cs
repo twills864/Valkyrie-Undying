@@ -29,6 +29,8 @@ namespace Assets.Powerups
 
         public void Init(Vector2 spawnPosition, float offsetFromBottom)
         {
+            Instance = this;
+
             transform.position = spawnPosition;
 
             var x = transform.position.x;

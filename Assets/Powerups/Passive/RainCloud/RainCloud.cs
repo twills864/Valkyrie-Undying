@@ -41,6 +41,8 @@ namespace Assets.Powerups
 
         protected override void OnInit()
         {
+            Instance = this;
+
             var sprite = GetComponent<SpriteRenderer>();
             Size = sprite.size;
             BufferX = Size.x;

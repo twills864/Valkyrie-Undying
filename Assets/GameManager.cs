@@ -30,33 +30,204 @@ namespace Assets
         public Type GameRowPowerupType => GetPowerupType<VictimPowerup>();
         private Type GetPowerupType<TPowerup>() where TPowerup : Powerup => typeof(TPowerup);
 
-        public Player Player;
-        public Othello _Othello;
-        public DebugUI DebugUi;
-        public Canvas _Canvas;
+        #region Property Fields
 
-        private Camera _Camera;
+        private Enemy _victimEnemy;
+
+        #endregion Property Fields
 
         #region Prefabs
 
         [SerializeField]
-        private BasicBullet _BasicBullet;
+        private ColorManager _ColorManager;
+
+        #region Player Prefabs
+
         [SerializeField]
-        private FleetingText _FleetingText;
+        public Player Player;
+
+        [SerializeField]
+        public Othello _Othello;
+
+        #endregion Player Prefabs
+
+        #region Powerup Prefabs
+
+        [SerializeField]
+        private PowerupMenu _PowerupMenu;
+
+        [SerializeField]
+        private RainCloud _RainCloud;
+
+        [SerializeField]
+        private RainCloudSpawner _RainCloudSpawner;
+
+        [SerializeField]
+        private SentinelManager _SentinelManager;
+
+        #endregion Powerup Prefabs
+
+        #region Debug Prefabs
+
+        [SerializeField]
+        public Enemy _DebugEnemy;
+        [SerializeField]
+        public DebugUI DebugUi;
+
+        #endregion Debug Prefabs
+
+        #region Screen Prefabs
+
         [SerializeField]
         private Destructor _Destructor;
         [SerializeField]
         private ScreenEdgeColliderSet _ScreenEdgeColliderSet;
-        [SerializeField]
-        public Enemy _DebugEnemy;
+
+        #endregion Screen Prefabs
+
+        #region Misc Prefabs
 
         [SerializeField]
         private PoolManager _PoolManager;
 
-        [SerializeField]
-        private ColorManager _ColorManager;
+        #endregion Misc Prefabs
 
         #endregion Prefabs
+
+
+        #region Init
+
+        private void Awake()
+        {
+            Instance = this;
+            SetFrameRate();
+        }
+
+        private void Start()
+        {
+            InitWithoutDependencies();
+            InitWithDependencies();
+            InitIndependentColors();
+        }
+
+        private void InitWithoutDependencies()
+        {
+            SpaceUtil.Init();
+            RandomUtil.Init();
+
+            _PoolManager.Init(_ColorManager);
+
+            _PowerupMenu.transform.position += new Vector3(0, 80, 0);
+
+            EnemyTimer.ActivateSelf();
+
+            RainCloudSpawner.Instance = _RainCloudSpawner;
+        }
+
+        private void InitWithDependencies()
+        {
+            // Dependency: PoolManager
+            _DebugEnemy.Init();
+            _DebugEnemy.OnSpawn();
+            EnemyHealthBar.InitStatic();
+            _RainCloud.Init();
+            _SentinelManager.Init();
+            InitFireStrategies();
+
+            // Dependency: FireStrategies
+            FireTimer = CurrentFireStrategy.FireTimer;
+            SetFireType(DefaultFireTypeIndex);
+
+            // Dependency: SpaceUtil
+            _Destructor.Init();
+            _ScreenEdgeColliderSet.Init();
+            _RainCloudSpawner.Init();
+            _Othello.Init();
+            Player.Init();
+
+            // Dependency: Destructor
+            _PowerupManager.Init(_Destructor);
+
+            // Dependency: FireStrategies, _PowerupMenu
+            DebugUi.Init(FireStrategies, _PowerupMenu);
+
+            // Dependency: DebugUi
+            DebugUtil.Init(DebugUi, this);
+        }
+
+
+        private void InitFireStrategies()
+        {
+            var bulletPool = _PoolManager.BulletPool;
+            T Prefab<T>() where T : PlayerBullet => bulletPool.GetPrefab<T>();
+
+            FireStrategies = new CircularSelector<PlayerFireStrategy>
+            {
+                new BasicStrategy(Prefab<BasicBullet>()),
+                new ShotgunStrategy(Prefab<ShotgunBullet>()),
+                new BurstStrategy(Prefab<BurstBullet>()),
+                new BounceStrategy(Prefab<BounceBullet>()),
+                new AtomStrategy(Prefab<AtomBullet>()),
+                new SpreadStrategy(Prefab<SpreadBullet>()),
+                new FlakStrategy(Prefab<FlakBullet>()),
+                new TrampolineStrategy(Prefab<TrampolineBullet>()),
+                new WormholeStrategy(Prefab<WormholeBullet>()),
+            };
+        }
+
+        private void InitIndependentColors()
+        {
+            var defaultPlayerAdditional = _ColorManager.DefaultPlayerAdditionalColor();
+            Player.SpriteColor = _ColorManager.DefaultPlayer;
+            _Othello.SpriteColor = defaultPlayerAdditional;
+            _RainCloud.SpriteColor = defaultPlayerAdditional;
+            _RainCloudSpawner.SpriteColor = defaultPlayerAdditional;
+        }
+
+        #endregion Init
+
+        #region Update
+
+        void Update()
+        {
+            if (DebugPauseNextFrame)
+            {
+                Debugger.Break();
+                DebugPauseNextFrame = false;
+            }
+            //PoolManager.DebugInfo();
+
+            DebugUtil.HandleInput();
+
+            if (Input.GetMouseButton(2))
+                _DebugEnemy.transform.position = (Vector2)SpaceUtil.WorldPositionUnderMouse();
+
+            float deltaTime = Time.deltaTime;
+            float playerFireScale = deltaTime * PlayerFireDeltaTimeScale;
+
+            Player.RunFrame(deltaTime);
+            _Othello.RunFrame(playerFireScale);
+            if (FireTimer.UpdateActivates(playerFireScale * Player.FireSpeedScale))
+            {
+                var bullets = CurrentFireStrategy.GetBullets(WeaponLevel, Player.FirePosition());
+                FirePlayerBullets(bullets);
+
+                _Othello.Fire();
+            }
+
+            if (EnemyTimer.UpdateActivates(deltaTime))
+            {
+                var enemy = _PoolManager.EnemyPool.GetRandomEnemy();
+            }
+
+            _PoolManager.RunPoolFrames(deltaTime, deltaTime, deltaTime);
+            _PowerupManager.PassiveUpdate(playerFireScale);
+            GameTaskLists.RunFrames(playerFireScale, deltaTime, deltaTime, deltaTime);
+            _DebugEnemy.RunFrame(deltaTime);
+        }
+
+        #endregion Update
+
 
         #region Player Weapons
 
@@ -71,7 +242,7 @@ namespace Assets
 
         #region Powerups
 
-        public PowerupManager _PowerupManager { get; set; }
+        public PowerupManager _PowerupManager { get; } = new PowerupManager();
 
         private float _playerFireDeltaTimeScale = 1f;
         public float PlayerFireDeltaTimeScale
@@ -83,15 +254,6 @@ namespace Assets
                 CurrentFireStrategy.Reset();
             }
         }
-
-        [SerializeField]
-        private RainCloud _RainCloud;
-        [SerializeField]
-        private RainCloudSpawner _RainCloudSpawner;
-        private RainCloudPowerup _RainCloudPowerup;
-
-        [SerializeField]
-        private SentinelManager _SentinelManager;
 
         public Enemy VictimEnemy
         {
@@ -123,6 +285,7 @@ namespace Assets
                     Player.VictimMarker = newMarker;
             }
         }
+
         public bool TryGetVictim(out Enemy victim)
         {
             victim = VictimEnemy;
@@ -132,9 +295,6 @@ namespace Assets
         #endregion Powerups
 
         #region Powerup Menu
-
-        [SerializeField]
-        private PowerupMenu _PowerupMenu;
 
         public void AddPowerupMenuTitleRow(string title)
         {
@@ -165,88 +325,9 @@ namespace Assets
         private GameTaskListManager GameTaskLists = new GameTaskListManager();
 
         private LoopingFrameTimer EnemyTimer = new LoopingFrameTimer(3.0f);
-        private Enemy _victimEnemy;
 
-        private void Awake()
-        {
-            Instance = this;
-            SetFrameRate();
-        }
-        private void Start()
-        {
-            _PoolManager.Init(_ColorManager);
 
-            _PowerupManager = new PowerupManager();
-            _PowerupManager.Init();
 
-            //_RainCloudPowerup = _PowerupManager.GetOnLevelUpPowerup<RainCloudPowerup>();
-
-            RainCloud.Instance = _RainCloud;
-            RainCloudSpawner.Instance = _RainCloudSpawner;
-
-            FireStrategies = new CircularSelector<PlayerFireStrategy>
-            {
-                new BasicStrategy(),
-                new ShotgunStrategy(_PoolManager.BulletPool.GetPrefab<ShotgunBullet>()),
-                new BurstStrategy(_PoolManager.BulletPool.GetPrefab<BurstBullet>()),
-                new BounceStrategy(_PoolManager.BulletPool.GetPrefab<BounceBullet>()),
-                new AtomStrategy(_PoolManager.BulletPool.GetPrefab<AtomBullet>()),
-                new SpreadStrategy(_PoolManager.BulletPool.GetPrefab<SpreadBullet>()),
-                new FlakStrategy(_PoolManager.BulletPool.GetPrefab<FlakBullet>()),
-                new TrampolineStrategy(_PoolManager.BulletPool.GetPrefab<TrampolineBullet>()),
-                new WormholeStrategy(_PoolManager.BulletPool.GetPrefab<WormholeBullet>()),
-            };
-            FireTimer = CurrentFireStrategy.FireTimer;
-
-            Init();
-
-            _Camera = Camera.main;
-            _Canvas = FindObjectOfType<Canvas>();
-
-            // Dependency: SpaceUtil.Init
-            Player.Init();
-
-            InitIndependentColors();
-
-            //GameTaskLists.SetDebugUi();
-        }
-
-        private void Init()
-        {
-            SpaceUtil.Init();
-            DebugUi.Init(this.FireStrategies, _PowerupMenu);
-
-            TimeSpan frameTime = TimeSpan.FromSeconds((double)1 / (double)Application.targetFrameRate);
-            //DebugUI.SetDebugLabel("FRAMETIME", frameTime);
-            SetFireType(DefaultFireTypeIndex);
-
-            DebugUtil.Init(DebugUi, this);
-            RandomUtil.Init();
-
-            _Destructor.Init();
-            _ScreenEdgeColliderSet.Init();
-            EnemyHealthBar.InitStatic();
-            _DebugEnemy.Init();
-            _DebugEnemy.OnSpawn();
-            _RainCloud.Init();
-            _RainCloudSpawner.Init();
-            _Othello.Init();
-            _SentinelManager.Init();
-
-            EnemyTimer.ActivateSelf();
-
-            _PowerupMenu.transform.position += new Vector3(0, 80, 0);
-            //_PowerupMenu.gameObject.SetActive(AddingPowerup);
-        }
-
-        private void InitIndependentColors()
-        {
-            var defaultPlayerAdditional = _ColorManager.DefaultPlayerAdditionalColor();
-            Player.SpriteColor = _ColorManager.DefaultPlayer;
-            _Othello.SpriteColor = defaultPlayerAdditional;
-            _RainCloud.SpriteColor = defaultPlayerAdditional;
-            _RainCloudSpawner.SpriteColor = defaultPlayerAdditional;
-        }
 
         public void FirePlayerBullets(PlayerBullet[] bullets)
         {
@@ -256,14 +337,6 @@ namespace Assets
         public void FirePlayerBullet(PlayerBullet bullet)
         {
             FirePlayerBullets(new PlayerBullet[] { bullet });
-        }
-
-        public void CreateShrapnel(Vector2 position)
-        {
-            var maxY = _Destructor.SizeHalf.y;
-
-            if (position.y < maxY)
-                _PoolManager.BulletPool.Get<ShrapnelBullet>(position);
         }
 
         public void FirePestControl(Vector2 position, int numberToGet)
@@ -296,44 +369,7 @@ namespace Assets
             target.DeactivateSelf();
         }
 
-        // Update is called once per frame
-        void Update()
-        {
-            if(DebugPauseNextFrame)
-            {
-                Debugger.Break();
-                DebugPauseNextFrame = false;
-            }
-            //PoolManager.DebugInfo();
 
-            DebugUtil.HandleInput();
-
-            if (Input.GetMouseButton(2))
-                _DebugEnemy.transform.position = (Vector2) SpaceUtil.WorldPositionUnderMouse();
-
-            float deltaTime = Time.deltaTime;
-            float playerFireScale = deltaTime * PlayerFireDeltaTimeScale;
-
-            Player.RunFrame(deltaTime);
-            _Othello.RunFrame(playerFireScale);
-            if (FireTimer.UpdateActivates(playerFireScale * Player.FireSpeedScale))
-            {
-                var bullets = CurrentFireStrategy.GetBullets(WeaponLevel, Player.FirePosition());
-                FirePlayerBullets(bullets);
-
-                _Othello.Fire();
-            }
-
-            if (EnemyTimer.UpdateActivates(deltaTime))
-            {
-                var enemy = _PoolManager.EnemyPool.GetRandomEnemy();
-            }
-
-            _PoolManager.RunPoolFrames(deltaTime, deltaTime, deltaTime);
-            _PowerupManager.PassiveUpdate(playerFireScale);
-            GameTaskLists.RunFrames(playerFireScale, deltaTime, deltaTime, deltaTime);
-            _DebugEnemy.RunFrame(deltaTime);
-        }
 
         public void SetFireType(int index, bool skipDropDown = false)
         {
@@ -440,14 +476,6 @@ namespace Assets
 
         #region Debug
 
-        public void RecolorPlayerActivity(Color color)
-        {
-            _ColorManager.DefaultPlayer = color;
-            Player.GetComponent<SpriteRenderer>().color = _ColorManager.DefaultPlayer;
-
-            _PoolManager.RecolorPlayerActivity(color);
-        }
-
         public void DebugIncrementFireType()
         {
             SetFireType(FireStrategies.Index + 1);
@@ -455,6 +483,14 @@ namespace Assets
         public void DebugDecrementFireType()
         {
             SetFireType(FireStrategies.Index - 1);
+        }
+
+        public void RecolorPlayerActivity(Color color)
+        {
+            _ColorManager.DefaultPlayer = color;
+            Player.GetComponent<SpriteRenderer>().color = _ColorManager.DefaultPlayer;
+
+            _PoolManager.RecolorPlayerActivity(color);
         }
 
         #endregion Debug

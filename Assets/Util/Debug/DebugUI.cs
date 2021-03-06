@@ -105,6 +105,9 @@ namespace Assets.Util
             //SliderFireLevel.value = 0;
             //DebugSliderFireLevelChanged(SliderFireLevel);
 
+            //TimeSpan frameTime = TimeSpan.FromSeconds((double)1 / (double)Application.targetFrameRate);
+            //SetDebugLabel("FRAMETIME", frameTime);
+
             PowerupRow.Init(CurrentDebugPowerup);
         }
 

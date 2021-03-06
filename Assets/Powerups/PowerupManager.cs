@@ -27,7 +27,7 @@ namespace Assets.Powerups
 
         public Dictionary<Type, Powerup> AllPowerups { get; set; }
 
-        public void Init()
+        public void Init(Destructor destructor)
         {
             AllLists = new IPowerupList[6];
             AllPowerups = new Dictionary<Type, Powerup>();
@@ -57,6 +57,8 @@ namespace Assets.Powerups
 
             PassivePowerupList = new PassivePowerupList(ids);
             Init(PassivePowerupList);
+
+            OnHitList.Get<ShrapnelPowerup>().MaxY = destructor.SizeHalf.y;
         }
 
         public void OnFire(Vector2 firePosition, PlayerBullet[] bullets)

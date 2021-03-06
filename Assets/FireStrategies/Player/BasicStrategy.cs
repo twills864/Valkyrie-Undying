@@ -8,5 +8,9 @@ namespace Assets.FireStrategies.PlayerFireStrategies
     {
         public override LoopingFrameTimer FireTimer { get; protected set; }
             = new LoopingFrameTimer(0.5f);
+
+        public BasicStrategy(BasicBullet bullet) : base(bullet)
+        {
+        }
     }
 }
