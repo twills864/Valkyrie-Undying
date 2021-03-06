@@ -59,6 +59,7 @@ namespace Assets.Powerups
             Init(PassivePowerupList);
 
             OnHitList.Get<ShrapnelPowerup>().MaxY = destructor.SizeHalf.y;
+            OnFireList.Get<PestControlPowerup>().Init();
         }
 
         public void OnFire(Vector2 firePosition, PlayerBullet[] bullets)

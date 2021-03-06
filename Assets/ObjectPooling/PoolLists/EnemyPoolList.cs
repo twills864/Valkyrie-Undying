@@ -23,8 +23,7 @@ namespace Assets.ObjectPooling
 
         private ObjectPool<Enemy>[] RandomEnemyPools { get; set; }
 
-        public Type OverrideEnemyType => null; //GetOverrideEnemyType<RingEnemy>();
-        private Type GetOverrideEnemyType<TEnemy>() where TEnemy : Enemy => typeof(TEnemy);
+        public Type OverrideEnemyType => null; // DebugUtil.GetOverrideEnemyType<RingEnemy>();
         private ObjectPool<Enemy> OverridePool => OverrideEnemyType != null &&
             PoolMap.TryGetValue(OverrideEnemyType, out var ret) ? ret : null;
 

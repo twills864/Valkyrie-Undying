@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Assets.Bullets.PlayerBullets;
 using Assets.Enemies;
 using Assets.GameTasks;
+using Assets.Powerups;
 using LogUtilAssets;
 using UnityEngine;
 
@@ -203,6 +204,9 @@ namespace Assets.Util
                     }
                 }
             }
+
+            if (Input.GetMouseButton(2))
+                GameManager._DebugEnemy.transform.position = (Vector2)SpaceUtil.WorldPositionUnderMouse();
         }
 
         #endregion Input Engine
@@ -239,5 +243,12 @@ namespace Assets.Util
             var text = fleetingText.GetComponent<TextMesh>();
             text.color = ColorRed;
         }
+
+        #region Get Types
+
+        public static Type GetPowerupType<TPowerup>() where TPowerup : Powerup => typeof(TPowerup);
+        public static Type GetOverrideEnemyType<TEnemy>() where TEnemy : Enemy => typeof(TEnemy);
+
+        #endregion Get Types
     }
 }

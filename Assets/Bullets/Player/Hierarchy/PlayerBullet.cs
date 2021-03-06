@@ -84,7 +84,7 @@ namespace Assets.Bullets.PlayerBullets
         /// <param name="collidingBulletType">The type of bullet that collided with the current bullet.</param>
         protected void MarkSelfCollision(Type thisBulletType, Type collidingBulletType)
         {
-            Log($"Bullet self-collision! {thisBulletType.Name} -> {collidingBulletType.Name}");
+            Log($"Bullet self-collision! {transform.position} {GetComponent<SpriteRenderer>().bounds.center} {thisBulletType.Name} -> {collidingBulletType.Name}");
             DebugUtil.RedX(transform.position, 0.5f);
         }
     }

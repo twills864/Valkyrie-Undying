@@ -3059,18 +3059,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27c84a57f331f5a438121a77a2babd19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player: {fileID: 8345851456146834253}
-  _Othello: {fileID: 1232855628}
-  DebugUi: {fileID: 1502814535}
-  _Canvas: {fileID: 1647769483}
-  _BasicBullet: {fileID: 385087358628592150, guid: 53c3fe6e2f38cc84dad4076ea5480157,
-    type: 3}
-  _FleetingText: {fileID: 7176427729835629659, guid: 2af817e2fda31d24d89c2aa5bd0d7e71,
-    type: 3}
-  _Destructor: {fileID: 6556364}
-  _ScreenEdgeColliderSet: {fileID: 29231933}
-  _DebugEnemy: {fileID: 5685943112352641347}
-  _PoolManager: {fileID: 1431298137}
   _ColorManager:
     DefaultPlayer: {r: 0.3764706, g: 0.827451, b: 1, a: 1}
     DefaultEnemy: {r: 1, g: 0, b: 0, a: 1}
@@ -3085,10 +3073,17 @@ MonoBehaviour:
       RingEnemyRing: {r: 1, g: 1, b: 0, a: 1}
     UI:
       VictimMarkerAlpha: 0.7
+  Player: {fileID: 8345851456146834253}
+  _Othello: {fileID: 1232855628}
+  _PowerupMenu: {fileID: 2066797313}
   _RainCloud: {fileID: 2109226220}
   _RainCloudSpawner: {fileID: 2085788401}
   _SentinelManager: {fileID: 1652808086}
-  _PowerupMenu: {fileID: 2066797313}
+  _DebugEnemy: {fileID: 5685943112352641347}
+  DebugUi: {fileID: 1502814535}
+  _Destructor: {fileID: 6556364}
+  _ScreenEdgeColliderSet: {fileID: 29231933}
+  _PoolManager: {fileID: 1431298137}
 --- !u!4 &1640542552
 Transform:
   m_ObjectHideFlags: 0
@@ -3951,7 +3946,7 @@ PrefabInstance:
     - target: {fileID: 7611003520483930335, guid: c939972dae317a24a9504c7774c07490,
         type: 3}
       propertyPath: HealthBarOffsetScale.y
-      value: 0.5
+      value: 0.8
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2843794750930479073, guid: c939972dae317a24a9504c7774c07490, type: 3}

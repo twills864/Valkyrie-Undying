@@ -22,19 +22,19 @@ namespace Assets
     /// <inheritdoc/>
     public class GameManager : MonoBehaviour
     {
+        #region Property Fields
+
+        private Enemy _victimEnemy;
+        private float _playerFireDeltaTimeScale = 1f;
+
+        #endregion Property Fields
+
         public static GameManager Instance { get; set; }
 
         private bool DebugPauseNextFrame { get; set; }
 
         private const bool AddingPowerup = true;
-        public Type GameRowPowerupType => GetPowerupType<VictimPowerup>();
-        private Type GetPowerupType<TPowerup>() where TPowerup : Powerup => typeof(TPowerup);
-
-        #region Property Fields
-
-        private Enemy _victimEnemy;
-
-        #endregion Property Fields
+        public Type GameRowPowerupType => DebugUtil.GetPowerupType<VictimPowerup>();
 
         #region Prefabs
 
@@ -100,7 +100,14 @@ namespace Assets
         private void Awake()
         {
             Instance = this;
-            SetFrameRate();
+
+            // ONLY limit frame rate when playing via Unity editor
+#if UNITY_EDITOR
+            // VSync must be disabled to set custom framerate
+            // 0 for no sync, 1 for panel refresh rate, 2 for 1/2 panel
+            QualitySettings.vSyncCount = 0;
+            Application.targetFrameRate = 60;
+#endif
         }
 
         private void Start()
@@ -115,6 +122,7 @@ namespace Assets
             SpaceUtil.Init();
             RandomUtil.Init();
 
+            // _ColorManager is a prefab field, and doesn't need initialized.
             _PoolManager.Init(_ColorManager);
 
             _PowerupMenu.transform.position += new Vector3(0, 80, 0);
@@ -135,7 +143,6 @@ namespace Assets
             InitFireStrategies();
 
             // Dependency: FireStrategies
-            FireTimer = CurrentFireStrategy.FireTimer;
             SetFireType(DefaultFireTypeIndex);
 
             // Dependency: SpaceUtil
@@ -145,7 +152,7 @@ namespace Assets
             _Othello.Init();
             Player.Init();
 
-            // Dependency: Destructor
+            // Dependency: Destructor, _PoolManager
             _PowerupManager.Init(_Destructor);
 
             // Dependency: FireStrategies, _PowerupMenu
@@ -154,7 +161,6 @@ namespace Assets
             // Dependency: DebugUi
             DebugUtil.Init(DebugUi, this);
         }
-
 
         private void InitFireStrategies()
         {
@@ -195,19 +201,16 @@ namespace Assets
                 Debugger.Break();
                 DebugPauseNextFrame = false;
             }
-            //PoolManager.DebugInfo();
 
             DebugUtil.HandleInput();
-
-            if (Input.GetMouseButton(2))
-                _DebugEnemy.transform.position = (Vector2)SpaceUtil.WorldPositionUnderMouse();
 
             float deltaTime = Time.deltaTime;
             float playerFireScale = deltaTime * PlayerFireDeltaTimeScale;
 
             Player.RunFrame(deltaTime);
             _Othello.RunFrame(playerFireScale);
-            if (FireTimer.UpdateActivates(playerFireScale * Player.FireSpeedScale))
+
+            if (CurrentFireStrategy.UpdateActivates(playerFireScale * Player.FireSpeedScale))
             {
                 var bullets = CurrentFireStrategy.GetBullets(WeaponLevel, Player.FirePosition());
                 FirePlayerBullets(bullets);
@@ -221,9 +224,9 @@ namespace Assets
             }
 
             _PoolManager.RunPoolFrames(deltaTime, deltaTime, deltaTime);
+            _DebugEnemy.RunFrame(deltaTime);
             _PowerupManager.PassiveUpdate(playerFireScale);
             GameTaskLists.RunFrames(playerFireScale, deltaTime, deltaTime, deltaTime);
-            _DebugEnemy.RunFrame(deltaTime);
         }
 
         #endregion Update
@@ -234,9 +237,27 @@ namespace Assets
         public int WeaponLevel { get; set; }
 
         public int DefaultFireTypeIndex => AddingPowerup ? 0 : FireStrategies.Count - 1;
-        private LoopingFrameTimer FireTimer;
         private PlayerFireStrategy CurrentFireStrategy => FireStrategies[FireStrategies.Index];
-        private CircularSelector<PlayerFireStrategy> FireStrategies;
+        private CircularSelector<PlayerFireStrategy> FireStrategies { get; set; }
+
+        public void SetFireType(int index, bool skipDropDown = false)
+        {
+            FireStrategies.Index = index;
+            CurrentFireStrategy.Reset();
+
+            if (!skipDropDown)
+                DebugUi.DropdownFireType.value = FireStrategies.Index;
+        }
+
+        public void FirePlayerBullets(PlayerBullet[] bullets)
+        {
+            _PowerupManager.OnFire(Player.FirePosition(), bullets);
+
+        }
+        public void FirePlayerBullet(PlayerBullet bullet)
+        {
+            FirePlayerBullets(new PlayerBullet[] { bullet });
+        }
 
         #endregion Player Weapons
 
@@ -244,7 +265,6 @@ namespace Assets
 
         public PowerupManager _PowerupManager { get; } = new PowerupManager();
 
-        private float _playerFireDeltaTimeScale = 1f;
         public float PlayerFireDeltaTimeScale
         {
             get => _playerFireDeltaTimeScale;
@@ -286,121 +306,10 @@ namespace Assets
             }
         }
 
-        public bool TryGetVictim(out Enemy victim)
-        {
-            victim = VictimEnemy;
-            return victim != null;
-        }
-
-        #endregion Powerups
-
-        #region Powerup Menu
-
-        public void AddPowerupMenuTitleRow(string title)
-        {
-            _PowerupMenu.AddTitleRow(title);
-        }
-        public void AddPowerupMenuPowerupRow(Powerup powerup)
-        {
-            _PowerupMenu.AddPowerupRow(powerup);
-        }
-
-        public void SetPowerupMenuVisibility(bool visible)
-        {
-            _PowerupMenu.gameObject.SetActive(visible);
-        }
-
-        public void PowerupRowPowerLevelChanged(int value)
-        {
-            _PowerupMenu.SetLevel(GameRowPowerupType, value);
-        }
-
-        public void PowerupMenuPowerLevelRowSet(Powerup powerup, int level)
-        {
-            DebugUi.PowerupMenuPowerLevelRowSet(powerup, level);
-        }
-
-        #endregion Powerup Menu
-
-        private GameTaskListManager GameTaskLists = new GameTaskListManager();
-
-        private LoopingFrameTimer EnemyTimer = new LoopingFrameTimer(3.0f);
-
-
-
-
-        public void FirePlayerBullets(PlayerBullet[] bullets)
-        {
-            _PowerupManager.OnFire(Player.FirePosition(), bullets);
-
-        }
-        public void FirePlayerBullet(PlayerBullet bullet)
-        {
-            FirePlayerBullets(new PlayerBullet[] { bullet });
-        }
-
-        public void FirePestControl(Vector2 position, int numberToGet)
-        {
-            var targets = _PoolManager.EnemyBulletPool.GetPestControlTargets(numberToGet);
-
-            numberToGet = targets.Length;
-            var pestControls = _PoolManager.BulletPool.GetMany<PestControlBullet>(numberToGet);
-
-            for (int i = 0; i < pestControls.Length; i++)
-            {
-                var pestControl = pestControls[i];
-                var target = targets[i];
-
-                pestControl.SetTarget(position, target);
-            }
-        }
-
-        public void ReflectBullet(EnemyBullet target)
-        {
-            var reflectedBullet = _PoolManager.BulletPool.Get<ReflectedBullet>();
-            reflectedBullet.ReflectBack(target);
-            target.DeactivateSelf();
-        }
-
-        public void ReflectBulletFromPestControl(EnemyBullet target, PestControlBullet pestControl)
-        {
-            var reflectedBullet = _PoolManager.BulletPool.Get<ReflectedBullet>();
-            reflectedBullet.RedirectFromPestControl(target, pestControl);
-            target.DeactivateSelf();
-        }
-
-
-
-        public void SetFireType(int index, bool skipDropDown = false)
-        {
-            FireStrategies.Index = index;
-            FireTimer = CurrentFireStrategy.FireTimer;
-            FireTimer.ActivateSelf();
-
-            if (!skipDropDown)
-                DebugUi.DropdownFireType.value = FireStrategies.Index;
-        }
-
-
-        private void SetFrameRate()
-        {
-            // ONLY limit frame rate when playing via Unity editor
-#if UNITY_EDITOR
-            // VSync must be disabled to set custom framerate
-            // 0 for no sync, 1 for panel refresh rate, 2 for 1/2 panel
-            QualitySettings.vSyncCount = 0;
-            Application.targetFrameRate = 60;
-#endif
-        }
-
-        #region OnEnemyHit
-
         public void OnEnemyHit(Enemy enemy, PlayerBullet bullet)
         {
             _PowerupManager.OnHit(enemy, bullet);
         }
-
-        #endregion OnEnemyHit
 
         #region OnEnemyKill
 
@@ -412,10 +321,16 @@ namespace Assets
         public void SetBloodlust(float duration, float speedScale)
         {
             Player.SetBloodlust(duration, speedScale);
-            FireTimer.ActivateSelf();
+            CurrentFireStrategy.Reset();
         }
 
         #endregion OnEnemyKill
+
+        #endregion Powerups
+
+        #region Enemies
+
+        private LoopingFrameTimer EnemyTimer = new LoopingFrameTimer(3.0f);
 
         #region TryGetRandomEnemy
 
@@ -432,13 +347,29 @@ namespace Assets
 
         #endregion TryGetRandomEnemy
 
-        public AtomTrail GetAtomTrail()
+        #region Enemy Bullets
+
+        public void ReflectBullet(EnemyBullet target)
         {
-            var ret = _PoolManager.UIElementPool.Get<AtomTrail>();
-            return ret;
+            var reflectedBullet = _PoolManager.BulletPool.Get<ReflectedBullet>();
+            reflectedBullet.ReflectBack(target);
+            target.DeactivateSelf();
         }
 
-        #region Add Game Tasks
+        public void ReflectBulletFromPestControl(EnemyBullet target, PestControlBullet pestControl)
+        {
+            var reflectedBullet = _PoolManager.BulletPool.Get<ReflectedBullet>();
+            reflectedBullet.RedirectFromPestControl(target, pestControl);
+            target.DeactivateSelf();
+        }
+
+        #endregion Enemy Bullets
+
+        #endregion Enemies
+
+        #region Game Tasks
+
+        private GameTaskListManager GameTaskLists = new GameTaskListManager();
 
         public void StartTask(GameTask task, GameTaskType taskType)
         {
@@ -472,7 +403,35 @@ namespace Assets
             GameTaskLists.UIElementGameTaskList.Add(task);
         }
 
-        #endregion Add Game Tasks
+        #endregion Game Tasks
+
+        #region Powerup Menu
+
+        public void AddPowerupMenuTitleRow(string title)
+        {
+            _PowerupMenu.AddTitleRow(title);
+        }
+        public void AddPowerupMenuPowerupRow(Powerup powerup)
+        {
+            _PowerupMenu.AddPowerupRow(powerup);
+        }
+
+        public void SetPowerupMenuVisibility(bool visible)
+        {
+            _PowerupMenu.gameObject.SetActive(visible);
+        }
+
+        public void PowerupRowPowerLevelChanged(int value)
+        {
+            _PowerupMenu.SetLevel(GameRowPowerupType, value);
+        }
+
+        public void PowerupMenuPowerLevelRowSet(Powerup powerup, int level)
+        {
+            DebugUi.PowerupMenuPowerLevelRowSet(powerup, level);
+        }
+
+        #endregion Powerup Menu
 
         #region Debug
 
@@ -494,6 +453,12 @@ namespace Assets
         }
 
         #endregion Debug
+
+        public AtomTrail GetAtomTrail()
+        {
+            var ret = _PoolManager.UIElementPool.Get<AtomTrail>();
+            return ret;
+        }
 
         /// <summary>
         /// Creates a Fleeting Text with a specified message at a specified position.
