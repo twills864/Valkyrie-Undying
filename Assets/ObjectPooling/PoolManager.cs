@@ -30,10 +30,10 @@ namespace Assets.ObjectPooling
         };
 
 
-        public void Init(ColorManager colorManager)
+        public void Init(in ColorManager colorManager)
         {
             foreach(var pool in AllPoolLists)
-                pool.Init(colorManager);
+                pool.Init(in colorManager);
         }
 
         private void Awake()

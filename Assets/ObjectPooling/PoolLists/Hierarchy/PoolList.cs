@@ -12,7 +12,7 @@ namespace Assets.ObjectPooling
     /// </summary>
     public abstract class PoolList : MonoBehaviour
     {
-        public virtual void Init(ColorManager colorManager) { }
+        public virtual void Init(in ColorManager colorManager) { }
     }
 
     /// <summary>
@@ -58,18 +58,18 @@ namespace Assets.ObjectPooling
         /// </summary>
         /// <param name="colorManager">This game's color manager.</param>
         /// <returns>The default color of objects in this pool</returns>
-        protected abstract Color GetDefaultColor(ColorManager colorManager);
+        protected abstract Color GetDefaultColor(in ColorManager colorManager);
 
-        protected abstract void OnInitSprites(ColorManager colorManager);
+        protected abstract void OnInitSprites(in ColorManager colorManager);
 
 
         /// <summary>
         /// Initializes the color of each object prefab withing this pool.
         /// </summary>
         /// <param name="colorManager">This game's color manager.</param>
-        public void InitSprites(ColorManager colorManager)
+        public void InitSprites(in ColorManager colorManager)
         {
-            Color defaultColor = GetDefaultColor(colorManager);
+            Color defaultColor = GetDefaultColor(in colorManager);
 
             foreach (var prefab in AllPrefabs)
             {
@@ -77,7 +77,7 @@ namespace Assets.ObjectPooling
                 prefab.SpriteColor = defaultColor;
             }
 
-            OnInitSprites(colorManager);
+            OnInitSprites(in colorManager);
         }
 
         protected virtual void OnPoolMapSet() { }
@@ -97,10 +97,10 @@ namespace Assets.ObjectPooling
         }
 
         protected virtual void OnInit() { }
-        public override void Init(ColorManager colorManager)
+        public override void Init(in ColorManager colorManager)
         {
             LoadPoolMap();
-            InitSprites(colorManager);
+            InitSprites(in colorManager);
             OnInit();
         }
 

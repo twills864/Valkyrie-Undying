@@ -30,10 +30,10 @@ namespace Assets.ObjectPooling
         private ObjectPool<Enemy> OverridePool => OverrideEnemyType != null &&
             PoolMap.TryGetValue(OverrideEnemyType, out var ret) ? ret : null;
 
-        protected override Color GetDefaultColor(ColorManager colorManager)
+        protected override Color GetDefaultColor(in ColorManager colorManager)
             => colorManager.DefaultEnemy;
 
-        protected override void OnInitSprites(ColorManager colorManager)
+        protected override void OnInitSprites(in ColorManager colorManager)
         {
             var enemy = colorManager.Enemy;
 

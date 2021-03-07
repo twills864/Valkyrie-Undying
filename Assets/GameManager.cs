@@ -130,7 +130,7 @@ namespace Assets
             RandomUtil.Init();
 
             // _ColorManager is a prefab field, and doesn't need initialized.
-            _PoolManager.Init(_ColorManager);
+            _PoolManager.Init(in _ColorManager);
 
             _PowerupMenu.transform.position += new Vector3(0, 80, 0);
 

@@ -62,10 +62,10 @@ namespace Assets.ObjectPooling
 
 #pragma warning restore 0414
 
-        protected override Color GetDefaultColor(ColorManager colorManager)
+        protected override Color GetDefaultColor(in ColorManager colorManager)
             => colorManager.DefaultPlayer;
 
-        protected override void OnInitSprites(ColorManager colorManager)
+        protected override void OnInitSprites(in ColorManager colorManager)
         {
             var player = colorManager.Player;
             Color defaultAdditional = colorManager.DefaultPlayerAdditionalColor();
