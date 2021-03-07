@@ -25,9 +25,6 @@ namespace Assets.Powerups
             ShrapnelChanceCalculator = new AsymptoteRatioLevelValueCalculator(shrapnelChanceBase, shrapnelIncrease);
         }
 
-        //private const float ShrapnelChanceBase = 0.3f;
-        //private const float ShrapnelIncrease = 0.8f;
-
         private float ShrapnelChance => ShrapnelChanceCalculator.Value;
         private AsymptoteRatioLevelValueCalculator ShrapnelChanceCalculator { get; set; }
 

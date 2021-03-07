@@ -32,12 +32,6 @@ namespace Assets.Powerups
             FireSpeedCalculator = new ProductLevelValueCalculator(fireSpeedBase, fireSpeedIncrease);
         }
 
-        //private const float FireSpeedBase = 3.0f;
-        //private const float FireSpeedIncrease = 0.8f;
-
-        //private const float DamageIncreaseBase = 1;
-        //public const float DamageIncreasePerLevel = 1;
-
         public float FireSpeed => FireSpeedCalculator.Value;
         private ProductLevelValueCalculator FireSpeedCalculator { get; set; }
 

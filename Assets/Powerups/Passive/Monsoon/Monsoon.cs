@@ -13,9 +13,9 @@ using UnityEngine;
 
 namespace Assets.Powerups
 {
-    public class RainCloud : ManagedVelocityObject
+    public class Monsoon : ManagedVelocityObject
     {
-        public static RainCloud Instance { get; set; }
+        public static Monsoon Instance { get; set; }
 
         [SerializeField]
         private SpriteRenderer Sprite = null;
@@ -38,7 +38,7 @@ namespace Assets.Powerups
         private int Level { get; set; }
         private int Damage { get; set; }
 
-        private ObjectPool<PlayerBullet> RaindropPool { get; set; }
+        private ObjectPool<PlayerBullet> MonsoonPool { get; set; }
 
         protected override void OnInit()
         {
@@ -48,7 +48,7 @@ namespace Assets.Powerups
             Size = sprite.size;
             BufferX = Size.x;
             BoxMap = new SpriteBoxMap(this);
-            RaindropPool = PoolManager.Instance.BulletPool.GetPool<RaindropBullet>();
+            MonsoonPool = PoolManager.Instance.BulletPool.GetPool<RaindropBullet>();
         }
 
         public void OnSpawn(float xPosition)
@@ -105,7 +105,7 @@ namespace Assets.Powerups
 
         public void CreateRaindrop(Vector2 position, int damage)
         {
-            var raindrop = (RaindropBullet) RaindropPool.Get();
+            var raindrop = (RaindropBullet) MonsoonPool.Get();
             raindrop.transform.position = position;
             raindrop.RaindropDamage = damage;
         }

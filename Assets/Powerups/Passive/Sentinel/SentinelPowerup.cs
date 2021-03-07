@@ -25,12 +25,6 @@ namespace Assets.Powerups
             DistanceCalculator = new AsymptoteScaleLevelValueCalculator(worldDistanceExponentBase, worldDistanceMaxValue);
         }
 
-        //private const float RespawnIntervalBase = 5.0f;
-        //private const float RespawnIntervalRatioIncrease = 0.75f;
-
-        //private const float WorldDistanceExponentBase = 0.6f;
-        //private const float WorldDistanceMaxValue = 2.5f;
-
         public float RespawnInterval => RespawnIntervalCalculator.Value;
         private ProductLevelValueCalculator RespawnIntervalCalculator { get; set; }
 

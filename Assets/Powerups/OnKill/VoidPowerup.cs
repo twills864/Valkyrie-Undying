@@ -28,12 +28,6 @@ namespace Assets.Powerups
             SizeScaleLevel = new AsymptoteScaleLevelValueCalculator(sizeScaleBase, sizeScaleMax);
         }
 
-        //private const float DurationBase = 0.7f;
-        //private const float DurationMax = 3.0f;
-
-        //private const float SizeScaleBase = 0.7f;
-        //private const float SizeScaleMax = 3f;
-
         private float Duration => DurationCalculator.Value;
         private AsymptoteScaleLevelValueCalculator DurationCalculator { get; set; }
 

@@ -30,13 +30,6 @@ namespace Assets.Powerups
                 (sizeScaleInitialValue, sizeScaleExponentBase, sizeScaleMax);
         }
 
-        //private const float DurationBase = 0.7f;
-        //private const float DurationMax = 3.0f;
-
-        //private const float SizeScaleInitialValue = 0.4f;
-        //private const float SizeScaleExponentBase = 0.7f;
-        //private const float SizeScaleMax = 15f;
-
         private float Duration => DurationCalculator.Value;
         private AsymptoteScaleLevelValueCalculator DurationCalculator { get; set; }
 

@@ -27,12 +27,6 @@ namespace Assets.Powerups
             SpeedScaleLevel = new SumLevelValueCalculator(baseSpeedScale, speedScaleIncrease);
         }
 
-        //private const float BaseDuration = 0.6f;
-        //private const float DurationIncrease = 0.3f;
-
-        //private const float BaseSpeedScale = 1.3f;
-        //private const float SpeedScaleIncrease = 0.15f;
-
         private float Duration => DurationCalculator.Value;
         private SumLevelValueCalculator DurationCalculator { get; set; }
 

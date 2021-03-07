@@ -21,9 +21,6 @@ namespace Assets.Powerups
             PlayerFireDeltaTimeCalculator = new SumLevelValueCalculator(fireDeltaBase, fireDeltaIncrease);
         }
 
-        //private const float FireDeltaBase = 1.2f;
-        //private const float FireDeltaIncrease = 0.15f;
-
         private float PlayerFireDeltaTimeScale => PlayerFireDeltaTimeCalculator.Value;
         private SumLevelValueCalculator PlayerFireDeltaTimeCalculator { get; set; }
 

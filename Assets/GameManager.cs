@@ -61,10 +61,10 @@ namespace Assets
         private PowerupMenu _PowerupMenu = null;
 
         [SerializeField]
-        private RainCloud _RainCloud = null;
+        private Monsoon _Monsoon = null;
 
         [SerializeField]
-        private RainCloudSpawner _RainCloudSpawner = null;
+        private MonsoonSpawner _MonsoonSpawner = null;
 
         [SerializeField]
         private SentinelManager _SentinelManager = null;
@@ -133,7 +133,7 @@ namespace Assets
 
             EnemyTimer.ActivateSelf();
 
-            RainCloudSpawner.Instance = _RainCloudSpawner;
+            MonsoonSpawner.Instance = _MonsoonSpawner;
         }
 
         private void InitWithDependencies()
@@ -142,7 +142,7 @@ namespace Assets
             _DebugEnemy.Init();
             _DebugEnemy.OnSpawn();
             EnemyHealthBar.InitStatic();
-            _RainCloud.Init();
+            _Monsoon.Init();
             _SentinelManager.Init();
             InitFireStrategies();
 
@@ -152,7 +152,7 @@ namespace Assets
             // Dependency: SpaceUtil
             _Destructor.Init();
             _ScreenEdgeColliderSet.Init();
-            _RainCloudSpawner.Init();
+            _MonsoonSpawner.Init();
             _Othello.Init();
             Player.Init();
 
@@ -190,8 +190,8 @@ namespace Assets
             var defaultPlayerAdditional = _ColorManager.DefaultPlayerAdditionalColor();
             Player.SpriteColor = _ColorManager.DefaultPlayer;
             _Othello.SpriteColor = defaultPlayerAdditional;
-            _RainCloud.SpriteColor = defaultPlayerAdditional;
-            _RainCloudSpawner.SpriteColor = defaultPlayerAdditional;
+            _Monsoon.SpriteColor = defaultPlayerAdditional;
+            _MonsoonSpawner.SpriteColor = defaultPlayerAdditional;
         }
 
         #endregion Init

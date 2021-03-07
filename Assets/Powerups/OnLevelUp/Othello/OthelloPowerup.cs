@@ -25,12 +25,6 @@ namespace Assets.Powerups
             DamageCalculator = new SumLevelValueCalculator(damageBase, damageIncrease);
         }
 
-        //private const float FireSpeedExponentBase = 0.8f;
-        //private const float FireSpeedMaxValue = 2.0f;
-
-        //private const float DamageBase = 0;
-        //private const float DamageIncrease = 10;
-
         public float FireSpeedModifier => FireSpeedModifierCalculator.Value;
         private AsymptoteScaleLevelValueCalculator FireSpeedModifierCalculator { get; set; }
 

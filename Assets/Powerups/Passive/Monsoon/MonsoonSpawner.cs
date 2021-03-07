@@ -12,9 +12,9 @@ using UnityEngine;
 
 namespace Assets.Powerups
 {
-    public class RainCloudSpawner : GameTaskRunner
+    public class MonsoonSpawner : GameTaskRunner
     {
-        public static RainCloudSpawner Instance { get; set; }
+        public static MonsoonSpawner Instance { get; set; }
 
         public override GameTaskType TaskType => GameTaskType.Player;
 
@@ -47,7 +47,7 @@ namespace Assets.Powerups
         {
             if (Move.IsFinished)
             {
-                RainCloud.Instance.Activate(transform.position.x);
+                Monsoon.Instance.Activate(transform.position.x);
                 gameObject.SetActive(false);
                 Move = null;
             }
@@ -56,7 +56,7 @@ namespace Assets.Powerups
         public void Activate()
         {
             gameObject.SetActive(true);
-            Init(Player.Instance.transform.position, RainCloud.Instance.OffsetFromBottom);
+            Init(Player.Instance.transform.position, Monsoon.Instance.OffsetFromBottom);
         }
     }
 }

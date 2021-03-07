@@ -26,9 +26,6 @@ namespace Assets.Powerups
             ChanceModifierCalculator = new AsymptoteScaleLevelValueCalculator(exponentRatio, maxValue);
         }
 
-        //private const float ExponentRatio = 0.8f;
-        //private const float MaxValue = 2f;
-
         private float ChanceModifier => ChanceModifierCalculator.Value;
         private AsymptoteScaleLevelValueCalculator ChanceModifierCalculator { get; set; }
 

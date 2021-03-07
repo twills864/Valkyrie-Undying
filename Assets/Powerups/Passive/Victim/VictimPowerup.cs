@@ -30,12 +30,6 @@ namespace Assets.Powerups
             DamageCalculator = new SumLevelValueCalculator(damageBase, damageIncrease);
         }
 
-        //private const float FireSpeedBase = 0.5f;
-        //private const float FireSpeedScale = 0.85f;
-
-        //private const float DamageBase = 0;
-        //private const float DamageIncrease = 5;
-
         public float FireTime => FireTimeCalculator.Value;
         private ProductLevelValueCalculator FireTimeCalculator { get; set; }
 

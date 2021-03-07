@@ -12,7 +12,7 @@ namespace Assets.Powerups
     /// Spawns a passive rain cloud behind the player that rains bullets on enemies.
     /// </summary>
     /// <inheritdoc/>
-    public class RainCloudPowerup : PassivePowerup
+    public class MonsoonPowerup : PassivePowerup
     {
         protected override void InitBalance(in PowerupBalanceManager.PassiveBalance balance)
         {
@@ -25,12 +25,6 @@ namespace Assets.Powerups
             DamageCalculator = new SumLevelValueCalculator(damageBase, damageIncrease);
         }
 
-        //private const float FireSpeedBase = 0.5f;
-        //private const float FireSpeedIncrease = 0.9f;
-
-        //private const float DamageBase = 10;
-        //private const float DamageIncrease = 1;
-
         public float FireSpeed => FireSpeedCalculator.Value;
         private ProductLevelValueCalculator FireSpeedCalculator { get; set; }
 
@@ -40,18 +34,18 @@ namespace Assets.Powerups
         public override void OnLevelUp()
         {
             if(Level == 1)
-                RainCloudSpawner.Instance.Activate();
+                MonsoonSpawner.Instance.Activate();
 
-            RainCloud.Instance.LevelUp(Damage, FireSpeed);
+            Monsoon.Instance.LevelUp(Damage, FireSpeed);
         }
 
         public override void RunFrame(float deltaTime)
         {
-            if (RainCloudSpawner.Instance.isActiveAndEnabled)
-                RainCloudSpawner.Instance.RunFrame(deltaTime);
+            if (MonsoonSpawner.Instance.isActiveAndEnabled)
+                MonsoonSpawner.Instance.RunFrame(deltaTime);
 
-            if (RainCloud.Instance.isActiveAndEnabled)
-                RainCloud.Instance.RunFrame(deltaTime);
+            if (Monsoon.Instance.isActiveAndEnabled)
+                Monsoon.Instance.RunFrame(deltaTime);
         }
     }
 }

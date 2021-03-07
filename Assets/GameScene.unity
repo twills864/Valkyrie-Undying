@@ -3150,8 +3150,8 @@ MonoBehaviour:
   Player: {fileID: 8345851456146834253}
   _Othello: {fileID: 1232855628}
   _PowerupMenu: {fileID: 2066797313}
-  _RainCloud: {fileID: 2109226220}
-  _RainCloudSpawner: {fileID: 2085788401}
+  _Monsoon: {fileID: 2109226220}
+  _MonsoonSpawner: {fileID: 2085788401}
   _SentinelManager: {fileID: 1652808086}
   _DebugEnemy: {fileID: 5685943112352641347}
   DebugUi: {fileID: 1502814535}
@@ -3620,7 +3620,7 @@ PrefabInstance:
     - target: {fileID: 1441824324401639200, guid: 4278e2e6581335945b022f3bf80a6423,
         type: 3}
       propertyPath: m_Name
-      value: RainCloud
+      value: Monsoon
       objectReference: {fileID: 0}
     - target: {fileID: 1441824324401639200, guid: 4278e2e6581335945b022f3bf80a6423,
         type: 3}
@@ -4334,7 +4334,7 @@ PrefabInstance:
     - target: {fileID: 1717640498810277562, guid: ec6fea656af81324588be2739d7d089e,
         type: 3}
       propertyPath: m_Name
-      value: RainCloudSpawner
+      value: MonsoonSpawner
       objectReference: {fileID: 0}
     - target: {fileID: 1717640498810277562, guid: ec6fea656af81324588be2739d7d089e,
         type: 3}
