@@ -174,16 +174,27 @@ namespace Assets.Util
         }
 
 
-        private static DebugMulti MouseLabelValue => new DebugMulti(() => SpaceUtil.WorldPositionUnderMouse(),
-            () => (Vector2)Input.mousePosition);
-        private static KeyValuePair<string, DebugValue> MouseLabelKvp = new KeyValuePair<string, DebugValue>("Mouse", MouseLabelValue);
+        private static DebugMulti MouseLabelValue
+            => new DebugMulti(
+                () => SpaceUtil.WorldPositionUnderMouse(),
+                () => (Vector2)Input.mousePosition);
+
+        private static KeyValuePair<string, DebugValue> MouseLabelKvp
+            = new KeyValuePair<string, DebugValue>("Mouse", MouseLabelValue);
+
+        private static DebugFunc ObjectUnderMouseValue
+            => new DebugFunc(() => SpaceUtil.TryGetGameObjectUnderMouse(out GameObject gameObject)
+                ? gameObject.name : "-");
+
+        private static KeyValuePair<string, DebugValue> ObjectUnderMouseKvp
+            = new KeyValuePair<string, DebugValue>("Hover", ObjectUnderMouseValue);
+
         private static void DrawDebugLabels()
         {
             DrawDebugLabel(MouseLabelKvp);
+            DrawDebugLabel(ObjectUnderMouseKvp);
             foreach (var kvp in DebugLabelValues)
-            {
                 DrawDebugLabel(kvp);
-            }
         }
         private static void DrawDebugLabel(KeyValuePair<string, DebugValue> kvp)
         {

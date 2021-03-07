@@ -150,7 +150,7 @@ namespace Assets.Util
         /// </summary>
         /// <param name="angle">The angle at which to point the vector.</param>
         /// <returns>The unit vector at the given angle.</returns>
-        public static Vector2 VectorAtAngle(float angle)
+        public static Vector2 VectorAtRadianAngle(float angle)
         {
             var x = Mathf.Cos(angle);
             var y = Mathf.Sin(angle);
@@ -164,9 +164,9 @@ namespace Assets.Util
         /// </summary>
         /// <param name="angle">The angle at which to point the vector.</param>
         /// <returns>The vector at the given angle.</returns>
-        public static Vector2 VectorAtAngle(float angle, float length)
+        public static Vector2 VectorAtRadianAngle(float angle, float length)
         {
-            var ret = VectorAtAngle(angle) * length;
+            var ret = VectorAtRadianAngle(angle) * length;
             return ret;
         }
 

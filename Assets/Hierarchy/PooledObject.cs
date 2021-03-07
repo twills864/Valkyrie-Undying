@@ -1,4 +1,5 @@
 ﻿using System;
+using Assets.UI;
 using UnityEngine;
 
 namespace Assets
@@ -76,9 +77,10 @@ namespace Assets
         /// at the center of this object.
         /// </summary>
         /// <param name="text">The text to display.</param>
-        public void CreateFleetingTextAtCenter(object text)
+        public FleetingText CreateFleetingTextAtCenter(object text)
         {
-            GameManager.Instance.CreateFleetingText(text.ToString(), this.transform.position);
+            FleetingText ret = GameManager.Instance.CreateFleetingText(text.ToString(), this.transform.position);
+            return ret;
         }
     }
 }

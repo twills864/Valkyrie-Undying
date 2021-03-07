@@ -29,16 +29,17 @@ namespace Assets.UI
         private const float OpaqueTextTime = 1f;
         [SerializeField]
         private const float FadeTime = 0.5f;
-
         [SerializeField]
         private const float Speed = 1f;
 
+        public float TotalTextTime => OpaqueTextTime + FadeTime;
+
+
         protected override void OnUIElementInit()
         {
-            DestroyTimer = new FrameTimer(OpaqueTextTime + FadeTime);
+            DestroyTimer = new FrameTimer(TotalTextTime);
             StartFadeTimer = new FrameTimer(OpaqueTextTime);
             FadeTimer = new FrameTimer(FadeTime);
-            Velocity = new Vector2(0, Speed);
         }
 
         protected override void OnActivate()
@@ -48,6 +49,7 @@ namespace Assets.UI
             StartFadeTimer.Reset();
             FadeTimer.Reset();
             CurrentyFading = false;
+            Velocity = new Vector2(0, Speed);
         }
 
         protected override void OnManagedVelocityObjectFrameRun(float deltaTime)

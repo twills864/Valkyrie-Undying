@@ -96,7 +96,7 @@ namespace Assets.Enemies
 
         protected virtual float InfernoDamageScale => 1f;
         public virtual int InfernoDamageIncrease { get; set; }
-        private int InfernoDamage { get; set; }
+        protected int InfernoDamage { get; set; }
         public bool IsBurning { get; set; }
 
         #endregion Inferno

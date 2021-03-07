@@ -119,7 +119,7 @@ namespace Assets.FireStrategies.PlayerFireStrategies
                 float angle = (i+1) * AngleBetweenLanesInRadians;
                 angle += angleOffset;
 
-                var unitVector = MathUtil.VectorAtAngle(angle);
+                var unitVector = MathUtil.VectorAtRadianAngle(angle);
 
                 LanesPositionMap[baseIndex] = anchor + DampenXPosition(unitVector * FireRadius);
                 LanesVelocityMap[baseIndex] = unitVector * BulletVelocityY;

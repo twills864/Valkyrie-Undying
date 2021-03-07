@@ -92,7 +92,7 @@ namespace Assets.Powerups
                 var sentinel = (SentinelBullet) SentinelPool[i];
                 if(sentinel.isActiveAndEnabled)
                 {
-                    var offset = (Vector3) MathUtil.VectorAtAngle(angle, Radius);
+                    var offset = (Vector3) MathUtil.VectorAtRadianAngle(angle, Radius);
 
                     var destination = transform.position + offset;
                     var ratio = sentinel.RadiusRatio;
