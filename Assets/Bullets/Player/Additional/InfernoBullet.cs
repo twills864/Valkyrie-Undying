@@ -19,7 +19,9 @@ namespace Assets.Bullets.PlayerBullets
 
         public override void OnCollideWithEnemy(Enemy enemy)
         {
-            enemy.Ignite(Damage, DamageIncreasePerTick);
+            if(enemy.isActiveAndEnabled)
+                enemy.Ignite(Damage, DamageIncreasePerTick);
+
             DeactivateSelf();
         }
     }

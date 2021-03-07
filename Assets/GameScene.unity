@@ -3059,6 +3059,80 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27c84a57f331f5a438121a77a2babd19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PowerupBalance:
+    OnFire:
+      PestControl:
+        ExponentRatio: 0.8
+        MaxValue: 2
+    OnHit:
+      Shrapnel:
+        Spawn:
+          BaseChance: 0.3
+          ChanceIncrease: 0.8
+    OnKill:
+      Bloodlust:
+        Duration:
+          Base: 0.6
+          IncreasePerLevel: 0.3
+        SpeedScale:
+          Base: 1.3
+          Increase: 0.15
+      Void:
+        Duration:
+          Base: 0.7
+          Max: 3
+        SizeScale:
+          Base: 0.7
+          Max: 3
+    OnGetHit:
+      Retribution:
+        Duration:
+          Base: 0.7
+          Max: 3
+        SizeScale:
+          InitialValue: 0.4
+          Base: 0.7
+          Max: 15
+    OnLevelUp:
+      Othello:
+        Damage:
+          Base: 0
+          Increase: 10
+        FireSpeed:
+          Base: 0.8
+          Max: 2
+      Firespeed:
+        Base: 1.2
+        Increase: 0.15
+    Passive:
+      Inferno:
+        FireSpeed:
+          Base: 3
+          Increase: 0.8
+        Damage:
+          Base: 1
+          IncreasePerLevel: 1
+      Monsoon:
+        FireSpeed:
+          Base: 0.5
+          Increase: 0.9
+        Damage:
+          Base: 10
+          IncreasePerLevel: 1
+      Sentinel:
+        RespawnInterval:
+          Base: 5
+          Increase: 0.75
+        WorldDistance:
+          Base: 0.6
+          MaxValue: 2.5
+      Victim:
+        FireSpeed:
+          Base: 0.5
+          Scale: 0.85
+        Damage:
+          Base: 0
+          IncreasePerLevel: 5
   _ColorManager:
     DefaultPlayer: {r: 0.3764706, g: 0.827451, b: 1, a: 1}
     DefaultEnemy: {r: 1, g: 0, b: 0, a: 1}

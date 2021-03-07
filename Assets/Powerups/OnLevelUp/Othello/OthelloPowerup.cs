@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Assets.Powerups.Balance;
 using Assets.Util;
 
 namespace Assets.Powerups
@@ -13,18 +14,28 @@ namespace Assets.Powerups
     /// <inheritdoc/>
     public class OthelloPowerup : OnLevelUpPowerup
     {
-        private const float FireSpeedExponentBase = 0.8f;
+        protected override void InitBalance(in PowerupBalanceManager.OnLevelUpBalance balance)
+        {
+            float fireSpeedExponentBase = balance.Othello.FireSpeed.Base;
+            float fireSpeedMaxValue = balance.Othello.FireSpeed.Max;
+            FireSpeedModifierCalculator = new AsymptoteScaleLevelValueCalculator(fireSpeedExponentBase, fireSpeedMaxValue);
 
-        private const float DamageBase = 0;
-        private const float DamageIncrease = 10;
+            float damageBase = balance.Othello.Damage.Base;
+            float damageIncrease = balance.Othello.Damage.Increase;
+            DamageCalculator = new SumLevelValueCalculator(damageBase, damageIncrease);
+        }
+
+        //private const float FireSpeedExponentBase = 0.8f;
+        //private const float FireSpeedMaxValue = 2.0f;
+
+        //private const float DamageBase = 0;
+        //private const float DamageIncrease = 10;
 
         public float FireSpeedModifier => FireSpeedModifierCalculator.Value;
-        private AsymptoteScaleLevelValueCalculator FireSpeedModifierCalculator { get; }
-            = new AsymptoteScaleLevelValueCalculator(FireSpeedExponentBase);
+        private AsymptoteScaleLevelValueCalculator FireSpeedModifierCalculator { get; set; }
 
         public int Damage => (int)DamageCalculator.Value;
-        private SumLevelValueCalculator DamageCalculator { get; }
-            = new SumLevelValueCalculator(DamageBase, DamageIncrease);
+        private SumLevelValueCalculator DamageCalculator { get; set; }
 
         public override void OnLevelUp()
         {

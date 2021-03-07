@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Assets.Bullets.PlayerBullets;
 using Assets.Enemies;
 using Assets.ObjectPooling;
+using Assets.Powerups.Balance;
 using Assets.Util;
 using UnityEngine;
 
@@ -17,12 +18,20 @@ namespace Assets.Powerups
     /// <inheritdoc/>
     public class PestControlPowerup : OnFirePowerup
     {
-        private const float ExponentRatio = 0.8f;
-        private const float MaxValue = 2f;
+        protected override void InitBalance(in PowerupBalanceManager.OnFireBalance balance)
+        {
+            float exponentRatio = balance.PestControl.ExponentRatio;
+            float maxValue = balance.PestControl.MaxValue;
+
+            ChanceModifierCalculator = new AsymptoteScaleLevelValueCalculator(exponentRatio, maxValue);
+        }
+
+        //private const float ExponentRatio = 0.8f;
+        //private const float MaxValue = 2f;
 
         private float ChanceModifier => ChanceModifierCalculator.Value;
-        private AsymptoteScaleLevelValueCalculator ChanceModifierCalculator { get; }
-         = new AsymptoteScaleLevelValueCalculator(ExponentRatio, MaxValue);
+        private AsymptoteScaleLevelValueCalculator ChanceModifierCalculator { get; set; }
+
 
         private EnemyBulletPoolList EnemyBulletPoolList;
         private ObjectPool<PlayerBullet> PestControlPool;
@@ -59,6 +68,5 @@ namespace Assets.Powerups
                 pestControl.SetTarget(position, target);
             }
         }
-
     }
 }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Assets.Bullets.PlayerBullets;
 using Assets.Enemies;
 using Assets.ObjectPooling;
+using Assets.Powerups.Balance;
 using Assets.Util;
 
 namespace Assets.Powerups
@@ -16,25 +17,38 @@ namespace Assets.Powerups
     /// <inheritdoc/>
     public class RetributionPowerup : OnGetHitPowerup
     {
-        private const float DurationBase = 0.7f;
-        private const float DurationMax = 3.0f;
+        protected override void InitBalance(in PowerupBalanceManager.OnGetHitBalance balance)
+        {
+            float durationBase = balance.Retribution.Duration.Base;
+            float durationMax = balance.Retribution.Duration.Max;
+            DurationCalculator = new AsymptoteScaleLevelValueCalculator(durationBase, durationMax);
 
-        private const float SizeScaleInitialValue = 0.4f;
-        private const float SizeScaleExponentBase = 0.7f;
-        private const float SizeScaleMax = 15f;
+            float sizeScaleInitialValue = balance.Retribution.SizeScale.InitialValue;
+            float sizeScaleExponentBase = balance.Retribution.SizeScale.Base;
+            float sizeScaleMax = balance.Retribution.SizeScale.Max;
+            SizeScaleLevel = new AsymptoteRatioLevelValueCalculator
+                (sizeScaleInitialValue, sizeScaleExponentBase, sizeScaleMax);
+        }
+
+        //private const float DurationBase = 0.7f;
+        //private const float DurationMax = 3.0f;
+
+        //private const float SizeScaleInitialValue = 0.4f;
+        //private const float SizeScaleExponentBase = 0.7f;
+        //private const float SizeScaleMax = 15f;
 
         private float Duration => DurationCalculator.Value;
-        private AsymptoteScaleLevelValueCalculator DurationCalculator { get; }
-            = new AsymptoteScaleLevelValueCalculator(DurationBase, DurationMax);
+        private AsymptoteScaleLevelValueCalculator DurationCalculator { get; set; }
 
         private float SizeScale => SizeScaleLevel.Value;
-        private AsymptoteRatioLevelValueCalculator SizeScaleLevel { get; }
-            = new AsymptoteRatioLevelValueCalculator(SizeScaleInitialValue, SizeScaleExponentBase, SizeScaleMax);
+        private AsymptoteRatioLevelValueCalculator SizeScaleLevel { get; set; }
 
         public override void OnGetHit()
         {
             var position = Player.Instance.ColliderMap.Center;
             RetributionBullet.StartRetribution(position, Level, SizeScale, Duration);
         }
+
+
     }
 }

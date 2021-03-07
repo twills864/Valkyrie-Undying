@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Assets.Powerups.Balance;
 
 namespace Assets.Powerups
 {
@@ -14,5 +15,10 @@ namespace Assets.Powerups
     {
         public abstract void RunFrame(float deltaTime);
         public override void OnLevelUp() { }
+
+        protected sealed override void InitBalance(in PowerupBalanceManager balance)
+            => InitBalance(in balance.Passive);
+
+        protected abstract void InitBalance(in PowerupBalanceManager.PassiveBalance balance);
     }
 }

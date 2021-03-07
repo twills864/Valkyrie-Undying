@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Assets.Bullets.PlayerBullets;
 using Assets.Enemies;
 using Assets.ObjectPooling;
+using Assets.Powerups.Balance;
 using Assets.Util;
 using UnityEngine;
 
@@ -17,12 +18,18 @@ namespace Assets.Powerups
     /// <inheritdoc/>
     public class ShrapnelPowerup : OnHitPowerup
     {
-        private const float ShrapnelChanceBase = 0.3f;
-        private const float ShrapnelIncrease = 0.8f;
+        protected override void InitBalance(in PowerupBalanceManager.OnHitBalance balance)
+        {
+            float shrapnelChanceBase = balance.Shrapnel.Spawn.BaseChance;
+            float shrapnelIncrease = balance.Shrapnel.Spawn.ChanceIncrease;
+            ShrapnelChanceCalculator = new AsymptoteRatioLevelValueCalculator(shrapnelChanceBase, shrapnelIncrease);
+        }
+
+        //private const float ShrapnelChanceBase = 0.3f;
+        //private const float ShrapnelIncrease = 0.8f;
 
         private float ShrapnelChance => ShrapnelChanceCalculator.Value;
-        private AsymptoteRatioLevelValueCalculator ShrapnelChanceCalculator { get; }
-            = new AsymptoteRatioLevelValueCalculator(ShrapnelChanceBase, ShrapnelIncrease);
+        private AsymptoteRatioLevelValueCalculator ShrapnelChanceCalculator { get; set; }
 
         public float MaxY { get; set; }
 

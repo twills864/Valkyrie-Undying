@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Assets.Bullets;
 using Assets.Bullets.PlayerBullets;
 using Assets.Enemies;
+using Assets.Powerups.Balance;
 using Assets.Util;
 using UnityEngine;
 
@@ -27,39 +28,39 @@ namespace Assets.Powerups
 
         public Dictionary<Type, Powerup> AllPowerups { get; set; }
 
-        public void Init(Destructor destructor)
+        public void Init(in PowerupBalanceManager balance, Destructor destructor)
         {
             AllLists = new IPowerupList[6];
             AllPowerups = new Dictionary<Type, Powerup>();
 
             UniqueIdGenerator ids = new UniqueIdGenerator(0);
 
-            void Init(IPowerupList list)
-            {
-                list.Init(AllPowerups);
-                AllLists[list.PowerupManagerIndex] = list;
-            }
-
             OnFireList = new OnFireList(ids);
-            Init(OnFireList);
+            InitList(OnFireList, in balance);
 
             OnHitList = new OnHitList(ids);
-            Init(OnHitList);
+            InitList(OnHitList, in balance);
 
             OnKillList = new OnKillList(ids);
-            Init(OnKillList);
+            InitList(OnKillList, in balance);
 
             OnGetHitList = new OnGetHitList(ids);
-            Init(OnGetHitList);
+            InitList(OnGetHitList, in balance);
 
             OnLevelUpList = new OnLevelUpList(ids);
-            Init(OnLevelUpList);
+            InitList(OnLevelUpList, in balance);
 
             PassivePowerupList = new PassivePowerupList(ids);
-            Init(PassivePowerupList);
+            InitList(PassivePowerupList, in balance);
 
             OnHitList.Get<ShrapnelPowerup>().MaxY = destructor.SizeHalf.y;
             OnFireList.Get<PestControlPowerup>().Init();
+        }
+
+        private void InitList(IPowerupList list, in PowerupBalanceManager balance)
+        {
+            list.Init(AllPowerups, in balance);
+            AllLists[list.PowerupManagerIndex] = list;
         }
 
         public void OnFire(Vector2 firePosition, PlayerBullet[] bullets)

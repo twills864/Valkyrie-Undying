@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Assets.Bullets.PlayerBullets;
 using Assets.Enemies;
 using Assets.ObjectPooling;
+using Assets.Powerups.Balance;
 using Assets.UI;
 using Assets.Util;
 using UnityEngine;
@@ -18,19 +19,28 @@ namespace Assets.Powerups
     /// <inheritdoc/>
     public class VictimPowerup : PassivePowerup
     {
-        private const float FireSpeedBase = 0.5f;
-        private const float FireSpeedScale = 0.85f;
+        protected override void InitBalance(in PowerupBalanceManager.PassiveBalance balance)
+        {
+            float fireSpeedBase = balance.Victim.FireSpeed.Base;
+            float fireSpeedScale = balance.Victim.FireSpeed.Scale;
+            FireTimeCalculator = new ProductLevelValueCalculator(fireSpeedBase, fireSpeedScale);
 
-        private const float DamageBase = 0;
-        private const float DamageIncrease = 5;
+            float damageBase = balance.Victim.Damage.Base;
+            float damageIncrease = balance.Victim.Damage.IncreasePerLevel;
+            DamageCalculator = new SumLevelValueCalculator(damageBase, damageIncrease);
+        }
+
+        //private const float FireSpeedBase = 0.5f;
+        //private const float FireSpeedScale = 0.85f;
+
+        //private const float DamageBase = 0;
+        //private const float DamageIncrease = 5;
 
         public float FireTime => FireTimeCalculator.Value;
-        private ProductLevelValueCalculator FireTimeCalculator { get; }
-            = new ProductLevelValueCalculator(FireSpeedBase, FireSpeedScale);
+        private ProductLevelValueCalculator FireTimeCalculator { get; set; }
 
         public int Damage => (int)DamageCalculator.Value;
-        private SumLevelValueCalculator DamageCalculator { get; }
-            = new SumLevelValueCalculator(DamageBase, DamageIncrease);
+        private SumLevelValueCalculator DamageCalculator { get; set; }
 
         private LoopingFrameTimer FireTimer { get; } = LoopingFrameTimer.Default();
 

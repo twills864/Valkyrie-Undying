@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Assets.Powerups.Balance;
 using Assets.Util;
 
 namespace Assets.Powerups
@@ -13,12 +14,18 @@ namespace Assets.Powerups
     /// <inheritdoc/>
     public class FireSpeedPowerup : OnLevelUpPowerup
     {
-        private const float FireDeltaBase = 1.2f;
-        private const float FireDeltaIncrease = 0.15f;
+        protected override void InitBalance(in PowerupBalanceManager.OnLevelUpBalance balance)
+        {
+            float fireDeltaBase = balance.Firespeed.Base;
+            float fireDeltaIncrease = balance.Firespeed.Increase;
+            PlayerFireDeltaTimeCalculator = new SumLevelValueCalculator(fireDeltaBase, fireDeltaIncrease);
+        }
+
+        //private const float FireDeltaBase = 1.2f;
+        //private const float FireDeltaIncrease = 0.15f;
 
         private float PlayerFireDeltaTimeScale => PlayerFireDeltaTimeCalculator.Value;
-        private SumLevelValueCalculator PlayerFireDeltaTimeCalculator { get; }
-            = new SumLevelValueCalculator(FireDeltaBase, FireDeltaIncrease);
+        private SumLevelValueCalculator PlayerFireDeltaTimeCalculator { get; set; }
 
         public override void OnLevelUp()
         {

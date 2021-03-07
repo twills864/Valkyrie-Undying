@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Assets.Bullets.PlayerBullets;
 using Assets.ObjectPooling;
+using Assets.Powerups.Balance;
 using Assets.Util;
 
 namespace Assets.Powerups
@@ -18,19 +19,30 @@ namespace Assets.Powerups
         public static int CurrentBaseDamage { get; private set; }
         public static int CurrentDamageIncreasePerTick { get; private set; }
 
-        private const float FireSpeedBase = 3.0f;
-        private const float FireSpeedIncrease = 0.8f;
+        public static float DamageIncreasePerLevel;
 
-        private const float DamageIncreaseBase = 1;
-        public const float DamageIncreasePerLevel = 1;
+        protected override void InitBalance(in PowerupBalanceManager.PassiveBalance balance)
+        {
+            float damageIncreaseBase = balance.Inferno.Damage.Base;
+            DamageIncreasePerLevel = balance.Inferno.Damage.IncreasePerLevel;
+            DamageCalculator = new SumLevelValueCalculator(damageIncreaseBase, DamageIncreasePerLevel);
+
+            float fireSpeedBase = balance.Inferno.FireSpeed.Base;
+            float fireSpeedIncrease = balance.Inferno.FireSpeed.Increase;
+            FireSpeedCalculator = new ProductLevelValueCalculator(fireSpeedBase, fireSpeedIncrease);
+        }
+
+        //private const float FireSpeedBase = 3.0f;
+        //private const float FireSpeedIncrease = 0.8f;
+
+        //private const float DamageIncreaseBase = 1;
+        //public const float DamageIncreasePerLevel = 1;
 
         public float FireSpeed => FireSpeedCalculator.Value;
-        private ProductLevelValueCalculator FireSpeedCalculator { get; }
-            = new ProductLevelValueCalculator(FireSpeedBase, FireSpeedIncrease);
+        private ProductLevelValueCalculator FireSpeedCalculator { get; set; }
 
         private int DamageIncrease => (int) DamageCalculator.Value;
-        private SumLevelValueCalculator DamageCalculator { get; }
-            = new SumLevelValueCalculator(DamageIncreaseBase, DamageIncreasePerLevel);
+        private SumLevelValueCalculator DamageCalculator { get; set; }
 
         private LoopingFrameTimer FireTimer { get; } = LoopingFrameTimer.Default();
         private ObjectPool<PlayerBullet> InfernoPool { get; set; }

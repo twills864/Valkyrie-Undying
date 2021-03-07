@@ -16,6 +16,7 @@ using Assets.ObjectPooling;
 using UnityEngine;
 using System.Diagnostics;
 using Assets.ColorManagers;
+using Assets.Powerups.Balance;
 
 namespace Assets
 {
@@ -37,6 +38,9 @@ namespace Assets
         public Type GameRowPowerupType => DebugUtil.GetPowerupType<VictimPowerup>();
 
         #region Prefabs
+
+        [SerializeField]
+        private PowerupBalanceManager PowerupBalance;
 
         [SerializeField]
         private ColorManager _ColorManager;
@@ -152,8 +156,8 @@ namespace Assets
             _Othello.Init();
             Player.Init();
 
-            // Dependency: Destructor, _PoolManager
-            _PowerupManager.Init(_Destructor);
+            // Dependency: _PoolManager, Destructor
+            _PowerupManager.Init(in PowerupBalance, _Destructor);
 
             // Dependency: FireStrategies, _PowerupMenu
             DebugUi.Init(FireStrategies, _PowerupMenu);

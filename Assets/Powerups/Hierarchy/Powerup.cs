@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Assets.Powerups.Balance;
 using Assets.Util;
 
 namespace Assets.Powerups
@@ -14,6 +15,11 @@ namespace Assets.Powerups
     public abstract class Powerup
     {
         private int _level;
+
+        public Powerup()
+        {
+            PowerupName = CalculatePowerupName();
+        }
 
         /// <summary>
         /// The current level of this powerup.
@@ -45,6 +51,22 @@ namespace Assets.Powerups
         public int PowerupManagerIndex { get; set; }
 
         /// <summary>
+        /// Initializes the balance of this powerup from a set of values
+        /// managed from the GameScene GameObject in the Unity editor.
+        /// </summary>
+        /// <param name="balance">The balance values.</param>
+        protected abstract void InitBalance(in PowerupBalanceManager balance);
+
+        public void Init(in PowerupBalanceManager balance)
+        {
+            InitBalance(in balance);
+
+            LevelValueCalculators = ReflectionUtil
+                .GetPropertiesSubclassableFrom<LevelValueCalculator>(this)
+                .ToList();
+        }
+
+        /// <summary>
         /// Functionality that will be applied after the level of this powerup is changed.
         /// Useful if anything extra needs to be calculated beyond the new ValueCalculator value.
         /// </summary>
@@ -61,13 +83,7 @@ namespace Assets.Powerups
             OnLevelUp();
         }
 
-        public Powerup()
-        {
-            PowerupName = CalculatePowerupName();
-            LevelValueCalculators = ReflectionUtil
-                .GetPropertiesSubclassableFrom<LevelValueCalculator>(this)
-                .ToList();
-        }
+
 
         /// <summary>
         /// The name used to represent this powerup.

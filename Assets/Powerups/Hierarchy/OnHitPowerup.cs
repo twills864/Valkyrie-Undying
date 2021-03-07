@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Assets.Bullets.PlayerBullets;
 using Assets.Enemies;
+using Assets.Powerups.Balance;
 
 namespace Assets.Powerups
 {
@@ -16,5 +17,10 @@ namespace Assets.Powerups
     {
         public override void OnLevelUp() { }
         public abstract void OnHit(Enemy enemy, PlayerBullet bullet);
+
+        protected sealed override void InitBalance(in PowerupBalanceManager balance)
+            => InitBalance(in balance.OnHit);
+
+        protected abstract void InitBalance(in PowerupBalanceManager.OnHitBalance balance);
     }
 }

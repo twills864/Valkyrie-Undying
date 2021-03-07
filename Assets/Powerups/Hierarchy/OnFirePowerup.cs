@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Assets.Bullets;
 using Assets.Bullets.PlayerBullets;
+using Assets.Powerups.Balance;
 using UnityEngine;
 
 namespace Assets.Powerups
@@ -17,5 +18,10 @@ namespace Assets.Powerups
     {
         public override void OnLevelUp() { }
         public abstract void OnFire(Vector2 position, PlayerBullet[] bullets);
+
+        protected sealed override void InitBalance(in PowerupBalanceManager balance)
+            => InitBalance(in balance.OnFire);
+
+        protected abstract void InitBalance(in PowerupBalanceManager.OnFireBalance balance);
     }
 }

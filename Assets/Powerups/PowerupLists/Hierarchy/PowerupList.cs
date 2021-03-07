@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Assets.Powerups.Balance;
 using Assets.Util;
 
 namespace Assets.Powerups
@@ -10,7 +11,7 @@ namespace Assets.Powerups
     public interface IPowerupList
     {
         int PowerupManagerIndex { get; }
-        void Init(Dictionary<Type, Powerup> allPowerups);
+        void Init(Dictionary<Type, Powerup> allPowerups, in PowerupBalanceManager balance);
     }
     public abstract class PowerupList<TPowerUp> : List<TPowerUp>, IPowerupList where TPowerUp : Powerup
     {
@@ -22,7 +23,7 @@ namespace Assets.Powerups
             PowerupListName = CalculatePowerupName();
         }
 
-        public void Init(Dictionary<Type, Powerup> allPowerups)
+        public void Init(Dictionary<Type, Powerup> allPowerups, in PowerupBalanceManager balance)
         {
             GameManager.Instance.AddPowerupMenuTitleRow(PowerupListName);
 
@@ -32,6 +33,7 @@ namespace Assets.Powerups
             {
                 var newPowerup = (TPowerUp) ReflectionUtil.CreateNew(type);
                 newPowerup.PowerupManagerIndex = PowerupManagerIndex;
+                newPowerup.Init(in balance);
                 this.Add(newPowerup);
                 allPowerups[type] = newPowerup;
 
