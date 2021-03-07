@@ -10,14 +10,18 @@ namespace Assets.UI.PowerupMenu
 {
     public class PowerupMenu : MonoBehaviour
     {
-        [SerializeField]
-        private GameObject PowerupPanelContent;
+#pragma warning disable 0414
 
         [SerializeField]
-        private PowerupMenuTitleRow PowerupMenuTitleRowPrefab;
+        private GameObject PowerupPanelContent = null;
 
         [SerializeField]
-        private PowerupMenuPowerupRow PowerupMenuPowerupRowPrefab;
+        private PowerupMenuTitleRow PowerupMenuTitleRowPrefab = null;
+
+        [SerializeField]
+        private PowerupMenuPowerupRow PowerupMenuPowerupRowPrefab = null;
+
+#pragma warning restore 0414
 
         private Dictionary<Type, PowerupMenuPowerupRow> AllPowerupRows = new Dictionary<Type, PowerupMenuPowerupRow>();
 

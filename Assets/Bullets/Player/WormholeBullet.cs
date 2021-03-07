@@ -1,4 +1,5 @@
 ﻿using Assets.Bullets.PlayerBullets;
+using Assets.Constants;
 using Assets.Enemies;
 using Assets.GameTasks;
 using Assets.Util;
@@ -10,13 +11,13 @@ namespace Assets.Bullets.PlayerBullets
     public class WormholeBullet : PlayerBullet
     {
         [SerializeField]
-        private float StartSpeed;
+        private float StartSpeed = GameConstants.PrefabNumber;
 
         [SerializeField]
-        private float EndSpeed;
+        private float EndSpeed = GameConstants.PrefabNumber;
 
         [SerializeField]
-        private float AccelerationTime;
+        private float AccelerationTime = GameConstants.PrefabNumber;
 
         protected override bool ShouldMarkSelfCollision => false;
 

@@ -11,15 +11,18 @@ namespace Assets.ObjectPooling
     /// <inheritdoc/>
     public class EnemyPoolList : PoolList<Enemy>
     {
-        [SerializeField]
-        private BasicEnemy BasicPrefab;
-        [SerializeField]
-        private TankEnemy TankPrefab;
-        [SerializeField]
-        private RingEnemy RingEnemyPrefab;
-        [SerializeField]
-        private RingEnemyRing RingEnemyRingPrefab;
+#pragma warning disable 0414
 
+        [SerializeField]
+        private BasicEnemy BasicPrefab = null;
+        [SerializeField]
+        private TankEnemy TankPrefab = null;
+        [SerializeField]
+        private RingEnemy RingEnemyPrefab = null;
+        [SerializeField]
+        private RingEnemyRing RingEnemyRingPrefab = null;
+
+#pragma warning restore 0414
 
         private ObjectPool<Enemy>[] RandomEnemyPools { get; set; }
 

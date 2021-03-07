@@ -8,53 +8,57 @@ namespace Assets.ObjectPooling
     /// <inheritdoc/>
     public class BulletPoolList : PoolList<PlayerBullet>
     {
+#pragma warning disable 0414
+
         #region Fired Bullets
 
         [SerializeField]
-        private BasicBullet BasicPrefab;
+        private BasicBullet BasicPrefab = null;
         [SerializeField]
-        private ShotgunBullet ShotgunPrefab;
+        private ShotgunBullet ShotgunPrefab = null;
         [SerializeField]
-        private BurstBullet BurstPrefab;
+        private BurstBullet BurstPrefab = null;
         [SerializeField]
-        private BounceBullet BouncePrefab;
+        private BounceBullet BouncePrefab = null;
         [SerializeField]
-        private AtomBullet AtomPrefab;
+        private AtomBullet AtomPrefab = null;
         [SerializeField]
-        private SpreadBullet SpreadPrefab;
+        private SpreadBullet SpreadPrefab = null;
         [SerializeField]
-        private FlakBullet FlakPrefab;
+        private FlakBullet FlakPrefab = null;
         [SerializeField]
-        private TrampolineBullet TrampolinePrefab;
+        private TrampolineBullet TrampolinePrefab = null;
         [SerializeField]
-        private WormholeBullet WormholePrefab;
+        private WormholeBullet WormholePrefab = null;
 
         #endregion Fired Bullets
 
         #region Additional Bullets
 
         [SerializeField]
-        private ReflectedBullet ReflectedPrefab;
+        private ReflectedBullet ReflectedPrefab = null;
         [SerializeField]
-        private ShrapnelBullet ShrapnelPrefab;
+        private ShrapnelBullet ShrapnelPrefab = null;
         [SerializeField]
-        private RaindropBullet RaindropPrefab;
+        private RaindropBullet RaindropPrefab = null;
         [SerializeField]
-        private PestControlBullet PestControlPrefab;
+        private PestControlBullet PestControlPrefab = null;
         [SerializeField]
-        private SentinelBullet SentinelPrefab;
+        private SentinelBullet SentinelPrefab = null;
         [SerializeField]
-        private OthelloBullet OthelloPrefab;
+        private OthelloBullet OthelloPrefab = null;
         [SerializeField]
-        private VictimBullet VictimPrefab;
+        private VictimBullet VictimPrefab = null;
         [SerializeField]
-        private InfernoBullet InfernoPrefab;
+        private InfernoBullet InfernoPrefab = null;
         [SerializeField]
-        private VoidBullet VoidPrefab;
+        private VoidBullet VoidPrefab = null;
         [SerializeField]
-        private RetributionBullet RetributionPrefab;
+        private RetributionBullet RetributionPrefab = null;
 
         #endregion Additional Bullets
+
+#pragma warning restore 0414
 
         protected override Color GetDefaultColor(ColorManager colorManager)
             => colorManager.DefaultPlayer;

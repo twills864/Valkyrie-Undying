@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Assets.Bullets.PlayerBullets;
+using Assets.Constants;
 using Assets.FireStrategies.PlayerFireStrategies;
 using Assets.GameTasks;
 using Assets.Hierarchy.ColorHandlers;
@@ -23,16 +24,16 @@ namespace Assets.Powerups
         public override GameTaskType TaskType => GameTaskType.Player;
 
         [SerializeField]
-        private SpriteRenderer Sprite;
+        private SpriteRenderer Sprite = null;
         protected override ColorHandler DefaultColorHandler()
             => new SpriteColorHandler(Sprite);
 
         [SerializeField]
-        private float FireTimerIntervalBase;
+        private float FireTimerIntervalBase = GameConstants.PrefabNumber;
         [SerializeField]
-        private float FadeInTime;
+        private float FadeInTime = GameConstants.PrefabNumber;
         [SerializeField]
-        private float FadeInTimeFireDelay;
+        private float FadeInTimeFireDelay = GameConstants.PrefabNumber;
 
         private Vector2 Size { get; set; }
         public SpriteBoxMap BoxMap { get; private set; }

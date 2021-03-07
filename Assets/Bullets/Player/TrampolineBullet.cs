@@ -17,11 +17,11 @@ namespace Assets.Bullets.PlayerBullets
         private const float ScreenBuffer = Destructor.Buffer;
 
         [SerializeField]
-        private float RotationSpeed;
+        private float RotationSpeed = -1;
         [SerializeField]
-        private float BounceXVarianceMin;
+        private float BounceXVarianceMin = -1;
         [SerializeField]
-        private float BounceXVarianceMax;
+        private float BounceXVarianceMax = -1;
 
         private float ElapsedTime { get; set; }
         private float SqrtMapHeight { get; set; }

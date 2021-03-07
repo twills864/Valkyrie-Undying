@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Assets.Bullets.PlayerBullets;
+using Assets.Constants;
 using Assets.FireStrategies.PlayerFireStrategies;
 using Assets.Hierarchy.ColorHandlers;
 using Assets.ObjectPooling;
@@ -17,15 +18,15 @@ namespace Assets.Powerups
         public static RainCloud Instance { get; set; }
 
         [SerializeField]
-        private SpriteRenderer Sprite;
+        private SpriteRenderer Sprite = null;
         protected override ColorHandler DefaultColorHandler()
             => new SpriteColorHandler(Sprite);
 
         [SerializeField]
-        private float Speed;
+        private float Speed = GameConstants.PrefabNumber;
 
         [SerializeField]
-        private float _OffsetFromBottom;
+        private float _OffsetFromBottom = GameConstants.PrefabNumber;
         public float OffsetFromBottom => _OffsetFromBottom;
 
         private Vector2 Size { get; set; }

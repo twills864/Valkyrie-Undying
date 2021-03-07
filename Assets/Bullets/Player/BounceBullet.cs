@@ -1,4 +1,5 @@
-﻿using Assets.Enemies;
+﻿using Assets.Constants;
+using Assets.Enemies;
 using Assets.Util;
 using UnityEngine;
 
@@ -8,7 +9,7 @@ namespace Assets.Bullets.PlayerBullets
     public class BounceBullet : BouncingBullet
     {
         [SerializeField]
-        private float RotationSpeed;
+        private float RotationSpeed = GameConstants.PrefabNumber;
 
         protected override void OnPlayerBulletFrameRun(float deltaTime)
         {

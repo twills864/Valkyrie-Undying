@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Assets.Bullets.PlayerBullets;
+using Assets.Constants;
 using Assets.FireStrategies.PlayerFireStrategies;
 using Assets.GameTasks;
 using Assets.Hierarchy.ColorHandlers;
@@ -25,7 +26,7 @@ namespace Assets.Powerups
             => new NullColorHandler();
 
         [SerializeField]
-        private float AngularVelocity;
+        private float AngularVelocity = GameConstants.PrefabNumber;
 
         private LoopingFrameTimer RespawnTimer { get; } = LoopingFrameTimer.Default();
 

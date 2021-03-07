@@ -1,4 +1,5 @@
-﻿using Assets.FireStrategies.EnemyFireStrategies;
+﻿using Assets.Constants;
+using Assets.FireStrategies.EnemyFireStrategies;
 using Assets.GameTasks;
 using Assets.ObjectPooling;
 using Assets.Util;
@@ -10,9 +11,9 @@ namespace Assets.Enemies
     public class RingEnemy : Enemy
     {
         [SerializeField]
-        private float RotationSpeed;
+        private float RotationSpeed = GameConstants.PrefabNumber;
         [SerializeField]
-        private float MinimumTravelTime;
+        private float MinimumTravelTime = GameConstants.PrefabNumber;
 
         public override int BaseSpawnHealth => 75;
         public override float SpawnHealthScaleRate => 0.75f;

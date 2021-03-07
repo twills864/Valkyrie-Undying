@@ -1,4 +1,5 @@
-﻿using Assets.Enemies;
+﻿using Assets.Constants;
+using Assets.Enemies;
 using Assets.GameTasks;
 using Assets.Hierarchy.ColorHandlers;
 using Assets.ObjectPooling;
@@ -24,10 +25,10 @@ namespace Assets.UI
             => new NullColorHandler();
 
         [SerializeField]
-        private float FadeTime;
+        private float FadeTime = GameConstants.PrefabNumber;
 
         [SerializeField]
-        private float StartDistance;
+        private float StartDistance = GameConstants.PrefabNumber;
 
         private Vector3 StartOffset;
         private Vector3 EndOffset;

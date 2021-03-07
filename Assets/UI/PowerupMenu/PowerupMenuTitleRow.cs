@@ -11,7 +11,7 @@ namespace Assets.UI.PowerupMenu
     public class PowerupMenuTitleRow : MonoBehaviour
     {
         [SerializeField]
-        private Text TextField;
+        private Text TextField = null;
 
         public string Text
         {

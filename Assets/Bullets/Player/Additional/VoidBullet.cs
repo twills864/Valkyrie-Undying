@@ -1,5 +1,6 @@
 ﻿using Assets.Bullets.EnemyBullets;
 using Assets.Bullets.PlayerBullets;
+using Assets.Constants;
 using Assets.Enemies;
 using Assets.GameTasks;
 using Assets.ObjectPooling;
@@ -12,7 +13,7 @@ namespace Assets.Bullets.PlayerBullets
     public class VoidBullet : VoidEffectBullet
     {
         [SerializeField]
-        private float ScaleTime;
+        private float ScaleTime = GameConstants.PrefabNumber;
 
         protected override bool ShouldReflectBullet => BulletLevel > 1;
 

@@ -58,16 +58,16 @@ namespace Assets
         #region Powerup Prefabs
 
         [SerializeField]
-        private PowerupMenu _PowerupMenu;
+        private PowerupMenu _PowerupMenu = null;
 
         [SerializeField]
-        private RainCloud _RainCloud;
+        private RainCloud _RainCloud = null;
 
         [SerializeField]
-        private RainCloudSpawner _RainCloudSpawner;
+        private RainCloudSpawner _RainCloudSpawner = null;
 
         [SerializeField]
-        private SentinelManager _SentinelManager;
+        private SentinelManager _SentinelManager = null;
 
         #endregion Powerup Prefabs
 
@@ -83,16 +83,16 @@ namespace Assets
         #region Screen Prefabs
 
         [SerializeField]
-        private Destructor _Destructor;
+        private Destructor _Destructor = null;
         [SerializeField]
-        private ScreenEdgeColliderSet _ScreenEdgeColliderSet;
+        private ScreenEdgeColliderSet _ScreenEdgeColliderSet = null;
 
         #endregion Screen Prefabs
 
         #region Misc Prefabs
 
         [SerializeField]
-        private PoolManager _PoolManager;
+        private PoolManager _PoolManager = null;
 
         #endregion Misc Prefabs
 

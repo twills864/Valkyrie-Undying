@@ -1,5 +1,6 @@
 ﻿using Assets.Bullets.EnemyBullets;
 using Assets.Bullets.PlayerBullets;
+using Assets.Constants;
 using Assets.Enemies;
 using Assets.Util;
 using UnityEngine;
@@ -10,7 +11,7 @@ namespace Assets.Bullets.PlayerBullets
     public class PestControlBullet : PlayerBullet
     {
         [SerializeField]
-        private float Speed;
+        private float Speed = GameConstants.PrefabNumber;
 
         protected override bool ShouldMarkSelfCollision => false;
 

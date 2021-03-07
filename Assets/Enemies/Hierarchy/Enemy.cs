@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using Assets.Bullets.PlayerBullets;
+using Assets.Constants;
 using Assets.FireStrategies.EnemyFireStrategies;
 using Assets.GameTasks;
 using Assets.Hierarchy.ColorHandlers;
@@ -53,7 +54,7 @@ namespace Assets.Enemies
         }
 
         [SerializeField]
-        private float _victimMarkerDistance;
+        private float _victimMarkerDistance = GameConstants.PrefabNumber;
         public virtual float VictimMarkerDistance => _victimMarkerDistance;
         private VictimMarker _victimMarker;
         public VictimMarker VictimMarker
@@ -72,7 +73,7 @@ namespace Assets.Enemies
 
 
         [SerializeField]
-        private Vector3 HealthBarOffsetScale;
+        private Vector3 HealthBarOffsetScale = Vector3.zero;
 
         protected virtual Vector3 HealthBarOffset => InitialHealthbarOffset;
         protected Vector3 InitialSize { get; private set; }

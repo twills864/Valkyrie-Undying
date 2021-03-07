@@ -8,16 +8,20 @@ namespace Assets.ObjectPooling
     /// <inheritdoc/>
     public class UIElementPoolList : PoolList<UIElement>
     {
+#pragma warning disable 0414
+
         [SerializeField]
-        private FleetingText FleetingTextPrefab;
+        private FleetingText FleetingTextPrefab = null;
         [SerializeField]
-        private AtomTrail AtomTrailPrefab;
+        private AtomTrail AtomTrailPrefab = null;
         [SerializeField]
-        private VictimMarker VictimMarkerPrefab;
+        private VictimMarker VictimMarkerPrefab = null;
         [SerializeField]
-        private VictimMarkerCorner VictimMarkerCornerPrefab;
+        private VictimMarkerCorner VictimMarkerCornerPrefab = null;
         [SerializeField]
-        private EnemyHealthBar EnemyHealthBarPrefab;
+        private EnemyHealthBar EnemyHealthBarPrefab = null;
+
+#pragma warning restore 0414
 
         protected override Color GetDefaultColor(ColorManager colorManager)
             => Color.white;

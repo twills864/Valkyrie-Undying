@@ -9,7 +9,7 @@ namespace Assets.UI
     public class VictimMarkerCorner : UIElement
     {
         [SerializeField]
-        private SpriteRenderer Sprite;
+        private SpriteRenderer Sprite = null;
         protected override ColorHandler DefaultColorHandler()
             => new SpriteColorHandler(Sprite);
 

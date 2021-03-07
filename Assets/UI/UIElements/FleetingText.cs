@@ -11,7 +11,7 @@ namespace Assets.UI
             => new TextMeshColorHandler(TextField);
 
         [SerializeField]
-        private TextMesh TextField;
+        private TextMesh TextField = null;
         private FrameTimer DestroyTimer { get; set; }
         private FrameTimer StartFadeTimer { get; set; }
         private FrameTimer FadeTimer { get; set; }

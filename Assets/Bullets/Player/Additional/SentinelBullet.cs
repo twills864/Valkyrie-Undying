@@ -1,4 +1,5 @@
 ﻿using Assets.Bullets.PlayerBullets;
+using Assets.Constants;
 using Assets.Enemies;
 using Assets.GameTasks;
 using Assets.Util;
@@ -13,7 +14,7 @@ namespace Assets.Bullets.PlayerBullets
         protected override bool ShouldMarkSelfCollision => false;
 
         [SerializeField]
-        private float TravelTime;
+        private float TravelTime = GameConstants.PrefabNumber;
         private EaseInTimer TravelTimer { get; set; }
 
         /// <summary>

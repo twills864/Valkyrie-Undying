@@ -13,13 +13,13 @@ namespace Assets.UI.PowerupMenu
     public class GameSceneDebugPowerupRow : MonoBehaviour
     {
         [SerializeField]
-        private Text PowerupNameField;
+        private Text PowerupNameField = null;
 
         [SerializeField]
         private Button ButtonMinus;
 
         [SerializeField]
-        private InputField InputPowerLevel;
+        private InputField InputPowerLevel = null;
 
         [SerializeField]
         private Button ButtonPlus;

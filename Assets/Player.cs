@@ -1,4 +1,5 @@
 ﻿using Assets.Bullets.EnemyBullets;
+using Assets.Constants;
 using Assets.Enemies;
 using Assets.Hierarchy.ColorHandlers;
 using Assets.ObjectPooling;
@@ -17,12 +18,12 @@ namespace Assets
         public override string LogTagColor => "#60D3FF";
 
         [SerializeField]
-        private SpriteRenderer Sprite;
+        private SpriteRenderer Sprite = null;
         protected override ColorHandler DefaultColorHandler()
             => new SpriteColorHandler(Sprite);
 
         [SerializeField]
-        private GameObject BloodlustAuraObject;
+        private GameObject BloodlustAuraObject = null;
 
         private Rigidbody2D Body { get; set; }
         private LineRenderer LineRenderer { get; set; }
@@ -33,7 +34,7 @@ namespace Assets
         public ColliderBoxMap ColliderMap { get; private set; }
 
         [SerializeField]
-        private float MobileYOffset;
+        private float MobileYOffset = GameConstants.PrefabNumber;
         private static float MobileY;
 
         private float MinX { get; set; }
@@ -51,7 +52,7 @@ namespace Assets
         #endregion Fire Speed
 
         [SerializeField]
-        private float _victimMarkerDistance;
+        private float _victimMarkerDistance = GameConstants.PrefabNumber;
         public float VictimMarkerDistance => _victimMarkerDistance;
         private VictimMarker _victimMarker;
         public VictimMarker VictimMarker

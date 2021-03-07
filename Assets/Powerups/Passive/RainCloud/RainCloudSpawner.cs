@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Assets.Constants;
 using Assets.FireStrategies.PlayerFireStrategies;
 using Assets.GameTasks;
 using Assets.Hierarchy.ColorHandlers;
@@ -18,12 +19,12 @@ namespace Assets.Powerups
         public override GameTaskType TaskType => GameTaskType.Player;
 
         [SerializeField]
-        private SpriteRenderer Sprite;
+        private SpriteRenderer Sprite = null;
         protected override ColorHandler DefaultColorHandler()
             => new SpriteColorHandler(Sprite);
 
         [SerializeField]
-        private float Duration;
+        private float Duration = GameConstants.PrefabNumber;
 
         private MoveTo Move { get; set; }
 

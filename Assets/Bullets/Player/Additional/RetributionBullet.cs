@@ -1,5 +1,6 @@
 ﻿using Assets.Bullets.EnemyBullets;
 using Assets.Bullets.PlayerBullets;
+using Assets.Constants;
 using Assets.Enemies;
 using Assets.GameTasks;
 using Assets.ObjectPooling;
@@ -14,7 +15,7 @@ namespace Assets.Bullets.PlayerBullets
         public override int Damage => base.Damage * BulletLevel;
 
         [SerializeField]
-        private float FadeTime;
+        private float FadeTime = GameConstants.PrefabNumber;
 
         private float Scale { get; set; }
         private float Duration { get; set; }

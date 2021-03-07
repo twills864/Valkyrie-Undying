@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Assets.Bullets.PlayerBullets;
+using Assets.Constants;
 using Assets.Enemies;
 using Assets.Util;
 using UnityEngine;
@@ -14,7 +15,7 @@ namespace Assets.Bullets.PlayerBullets
     public abstract class BouncingBullet : PlayerBullet
     {
         [SerializeField]
-        private int DamageAfterBounce;
+        private int DamageAfterBounce = GameConstants.PrefabNumber;
 
         [SerializeField]
         public float Speed;

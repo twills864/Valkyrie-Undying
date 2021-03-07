@@ -13,12 +13,16 @@ namespace Assets.ObjectPooling
     /// <inheritdoc/>
     public class EnemyBulletPoolList : PoolList<EnemyBullet>
     {
+#pragma warning disable 0414
+
         [SerializeField]
-        private BasicEnemyBullet BasicPrefab;
+        private BasicEnemyBullet BasicPrefab = null;
         [SerializeField]
-        private TankEnemyBullet TankPrefab;
+        private TankEnemyBullet TankPrefab = null;
         [SerializeField]
-        private RingEnemyBullet RingPrefab;
+        private RingEnemyBullet RingPrefab = null;
+
+#pragma warning restore 0414
 
         protected override Color GetDefaultColor(ColorManager colorManager)
             => colorManager.DefaultEnemy;

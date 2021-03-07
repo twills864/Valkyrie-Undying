@@ -6,13 +6,13 @@ namespace Assets.ScreenEdgeColliders
     public class ScreenEdgeColliderSet : MonoBehaviour
     {
         [SerializeField]
-        private ScreenEdgeCollider Top;
+        private ScreenEdgeCollider Top = null;
         [SerializeField]
-        private ScreenEdgeCollider Right;
+        private ScreenEdgeCollider Right = null;
         [SerializeField]
-        private ScreenEdgeCollider Bottom;
+        private ScreenEdgeCollider Bottom = null;
         [SerializeField]
-        private ScreenEdgeCollider Left;
+        private ScreenEdgeCollider Left = null;
 
         /// <summary>
         /// Initializes this set of ScreenEdgeColliders to perfectly cover each edge of the visible screen.
