@@ -121,7 +121,7 @@ namespace Assets.Util
 
         public void ShowPowerupMenuButtonPressed(Button button)
         {
-            _GameManager.SetPowerupMenuVisibility(true);
+            _GameManager.TogglePowerupMenuVisibility();
         }
 
         public void DebugSliderFireLevelChanged(Slider slider)

@@ -326,6 +326,7 @@ namespace Assets
         {
             Player.SetBloodlust(duration, speedScale);
             CurrentFireStrategy.Reset();
+            _Othello.ResetFiretimer();
         }
 
         #endregion OnEnemyKill
@@ -420,9 +421,10 @@ namespace Assets
             _PowerupMenu.AddPowerupRow(powerup);
         }
 
-        public void SetPowerupMenuVisibility(bool visible)
+        public void TogglePowerupMenuVisibility()
         {
-            _PowerupMenu.gameObject.SetActive(visible);
+            bool visible = _PowerupMenu.gameObject.activeSelf;
+            _PowerupMenu.gameObject.SetActive(!visible);
         }
 
         public void PowerupRowPowerLevelChanged(int value)

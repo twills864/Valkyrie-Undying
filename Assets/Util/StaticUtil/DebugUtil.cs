@@ -143,12 +143,12 @@ namespace Assets.Util
 
         private static void InputKeypadPlus(KeyCode keyCode)
         {
-            GameManager.SetPowerupMenuVisibility(true);
+
         }
 
         private static void InputKeypadMinus(KeyCode keyCode)
         {
-            GameManager.SetPowerupMenuVisibility(false);
+
         }
 
         #endregion Input Methods

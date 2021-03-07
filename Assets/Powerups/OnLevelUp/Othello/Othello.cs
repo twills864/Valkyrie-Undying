@@ -113,6 +113,11 @@ namespace Assets.Powerups
             }
         }
 
+        public void ResetFiretimer()
+        {
+            FireTimer.ActivateSelf();
+        }
+
         protected sealed override void OnInit()
         {
             Instance = this;

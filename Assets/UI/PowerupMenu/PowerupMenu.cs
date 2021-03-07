@@ -49,6 +49,11 @@ namespace Assets.UI.PowerupMenu
             this.gameObject.SetActive(false);
         }
 
+        public void OnPowerupAllClick()
+        {
+            foreach (var row in AllPowerupRows.Values)
+                row.IncrementPowerLevel();
+        }
 
         public void SetLevel<TPowerup>(int level) where TPowerup : Powerup
         {
