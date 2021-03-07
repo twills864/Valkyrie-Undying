@@ -61,6 +61,8 @@ MonoBehaviour:
     type: 3}
   WormholePrefab: {fileID: 1802469989454071500, guid: 8a238633ba74c464080ea6fe3b542620,
     type: 3}
+  GatlingPrefab: {fileID: 8518547744633031995, guid: d4ce3f45a324583409febb27c87027ab,
+    type: 3}
   ReflectedPrefab: {fileID: 6158172361450589269, guid: 494c3fda96ed01149af78e4a1583ca26,
     type: 3}
   ShrapnelPrefab: {fileID: 1200275585357827002, guid: ef8f77b6b7123de4d93928b314e808ad,

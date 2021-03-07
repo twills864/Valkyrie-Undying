@@ -251,7 +251,7 @@ namespace Assets.Enemies
             UpdateHealthBar();
             return false;
         }
-        protected virtual void CollideWithBullet(PlayerBullet bullet)
+        public virtual void CollideWithBullet(PlayerBullet bullet)
         {
             if (DamageKills(bullet.Damage))
                 KillEnemy(bullet);

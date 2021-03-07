@@ -46,6 +46,7 @@ namespace Assets.ColorManagers.SubManagers
     public struct PlayerColors
     {
         public float DefaultAdditionalRatio;
+        public float GatlingAlphaScale;
 
         public Color Reflected;
         public Color Retribution;

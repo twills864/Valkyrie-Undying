@@ -30,6 +30,8 @@ namespace Assets.ObjectPooling
         private TrampolineBullet TrampolinePrefab = null;
         [SerializeField]
         private WormholeBullet WormholePrefab = null;
+        [SerializeField]
+        private GatlingBullet GatlingPrefab = null;
 
         #endregion Fired Bullets
 
@@ -66,15 +68,16 @@ namespace Assets.ObjectPooling
         protected override void OnInitSprites(ColorManager colorManager)
         {
             var player = colorManager.Player;
-            Color defaulAdditional = colorManager.DefaultPlayerAdditionalColor();
+            Color defaultAdditional = colorManager.DefaultPlayerAdditionalColor();
 
+            GatlingBullet.LaserAlphaRatio = player.GatlingAlphaScale;
             ReflectedPrefab.SpriteColor = player.Reflected;
-            ShrapnelPrefab.SpriteColor = defaulAdditional;
-            RaindropPrefab.SpriteColor = defaulAdditional;
-            PestControlPrefab.SpriteColor = defaulAdditional;
+            ShrapnelPrefab.SpriteColor = defaultAdditional;
+            RaindropPrefab.SpriteColor = defaultAdditional;
+            PestControlPrefab.SpriteColor = defaultAdditional;
             SentinelPrefab.SpriteColor = player.Sentinel;
-            OthelloPrefab.SpriteColor = defaulAdditional;
-            VictimPrefab.SpriteColor = defaulAdditional;
+            OthelloPrefab.SpriteColor = defaultAdditional;
+            VictimPrefab.SpriteColor = defaultAdditional;
             VoidPrefab.SpriteColor = player.Void;
             RetributionPrefab.SpriteColor = player.Retribution;
         }

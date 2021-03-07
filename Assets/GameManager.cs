@@ -35,8 +35,10 @@ namespace Assets
 
         private bool DebugPauseNextFrame { get; set; }
 
-        private const bool AddingPowerup = true;
+        private const bool AddingPowerup = false;
         public Type GameRowPowerupType => DebugUtil.GetPowerupType<VictimPowerup>();
+
+        public int DefaultFireTypeIndex => AddingPowerup ? 0 : FireStrategies.Count - 1;
 
         #region Prefabs
 
@@ -183,6 +185,7 @@ namespace Assets
                 new FlakStrategy(Prefab<FlakBullet>()),
                 new TrampolineStrategy(Prefab<TrampolineBullet>()),
                 new WormholeStrategy(Prefab<WormholeBullet>()),
+                new GatlingStrategy(Prefab<GatlingBullet>())
             };
         }
 
@@ -241,7 +244,6 @@ namespace Assets
 
         public int WeaponLevel { get; set; }
 
-        public int DefaultFireTypeIndex => AddingPowerup ? 0 : FireStrategies.Count - 1;
         private PlayerFireStrategy CurrentFireStrategy => FireStrategies[FireStrategies.Index];
         private CircularSelector<PlayerFireStrategy> FireStrategies { get; set; }
 
