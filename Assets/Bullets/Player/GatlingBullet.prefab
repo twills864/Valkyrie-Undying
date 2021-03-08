@@ -26,8 +26,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 227538865816969197}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.71, y: 0, z: 0}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 0.1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5623209385438127503}
   m_Father: {fileID: 0}
@@ -97,8 +97,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Sprite: {fileID: 723224575366626964}
   BaseDamage: 20
+  FadeInTime: 0.125
+  FadeOutTime: 0.25
+  StartWidth: 0.04
+  EndWidth: 0.04
   Line: {fileID: 5264899859091859505}
-  AlphaDecayTime: 0.3
 --- !u!1 &8445388326326390040
 GameObject:
   m_ObjectHideFlags: 0
@@ -170,23 +173,32 @@ LineRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Positions:
-  - {x: 0, y: -100, z: 0}
-  - {x: 0, y: 100, z: 0}
+  - {x: 0, y: -1000, z: 0}
+  - {x: 0, y: 1000, z: 1}
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.1
+    widthMultiplier: 1
     widthCurve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0
-        value: 0.3132553
+        time: 0.4542961
+        value: 0.04
         inSlope: 0
         outSlope: 0
-        tangentMode: 1
+        tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
-        outWeight: 0.24462363
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 0.04
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4

@@ -126,19 +126,12 @@ namespace Assets.ObjectPooling
         /// </summary>
         /// <typeparam name="TGet">The type of object to return.</typeparam>
         /// <param name="amountToGet">The number of fresh instances to get.</param>
+        /// <param name="position">The position to give to the fresh instance.</param>
         /// <param name="weaponLevel">The bullet level to give to the fresh instance.</param>
         /// <returns>The array of fresh instances of <typeparamref name="TGet"/> from the appropriate Object Pool.</returns>
-        public TGet[] Get<TGet>(int amountToGet, int weaponLevel) where TGet : PlayerBullet
+        public TGet[] GetMany<TGet>(int amountToGet, Vector2 position, int weaponLevel) where TGet : PlayerBullet
         {
-            TGet GetBullet()
-            {
-                var bullet = Get<TGet>();
-                bullet.BulletLevel = weaponLevel;
-                bullet.OnSpawn();
-                return bullet;
-            }
-
-            TGet[] ret = LinqUtil.Array(amountToGet, GetBullet);
+            TGet[] ret = LinqUtil.Array(amountToGet, () => Get<TGet>(position, weaponLevel));
             return ret;
         }
     }

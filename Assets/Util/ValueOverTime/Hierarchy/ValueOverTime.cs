@@ -36,7 +36,6 @@ namespace Assets.Util
             OnIncrement(deltaTime);
         }
 
-        public void Reset() => Timer.Reset();
         public bool IsFinished => Timer.Activated;
     }
 }

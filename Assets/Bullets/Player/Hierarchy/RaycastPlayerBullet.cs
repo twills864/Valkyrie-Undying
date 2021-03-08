@@ -11,17 +11,21 @@ namespace Assets.Bullets.PlayerBullets
     public abstract class RaycastPlayerBullet : PlayerBullet
     {
         [SerializeField]
-        public LineRenderer Line;
+        public float FadeInTime = GameConstants.PrefabNumber;
 
         [SerializeField]
-        public float AlphaDecayTime;
+        public float FadeOutTime = GameConstants.PrefabNumber;
 
-        /// <summary>
-        /// Whether or not this bullet can currently damage enemies.
-        /// </summary>
-        public bool CollisionActive { get; protected set; }
+        [SerializeField]
+        private float StartWidth = GameConstants.PrefabNumber;
 
-        public Vector3 StartPoint
+        [SerializeField]
+        private float EndWidth = GameConstants.PrefabNumber;
+
+        [SerializeField]
+        public LineRenderer Line = null;
+
+        private Vector3 StartPoint
         {
             get => Line.GetPosition(0);
             set
@@ -30,7 +34,7 @@ namespace Assets.Bullets.PlayerBullets
                 Line.SetPosition(0, value);
             }
         }
-        public Vector3 EndPoint
+        private Vector3 EndPoint
         {
             get => Line.GetPosition(1);
             set
@@ -43,7 +47,8 @@ namespace Assets.Bullets.PlayerBullets
         public virtual float MaxAlpha => 1.0f;
         public virtual float RaycastDistance => SpaceUtil.WorldMapSize.y;
 
-        private FloatValueOverTime AlphaValue { get; set; }
+        private FloatValueOverTime FadeInAlphaValue { get; set; }
+        private FloatValueOverTime FadeOutAlphaValue { get; set; }
 
         protected override ColorHandler DefaultColorHandler()
             => new LineRendererColorHandler(Line);
@@ -53,37 +58,68 @@ namespace Assets.Bullets.PlayerBullets
 
         protected sealed override void OnPlayerBulletInit()
         {
-            AlphaValue = new FloatValueOverTime(MaxAlpha, 0.0f, AlphaDecayTime);
+            FadeInAlphaValue = new FloatValueOverTime(0.0f, MaxAlpha, FadeInTime);
+            FadeOutAlphaValue = new FloatValueOverTime(MaxAlpha, 0.0f, FadeOutTime);
+
+            Line.startWidth = StartWidth;
+            Line.endWidth = EndWidth;
         }
 
         protected virtual void OnPlayerRaycastBulletActivate() { }
         protected sealed override void OnActivate()
         {
-            CollisionActive = true;
-            AlphaValue.Reset();
+            FadeInAlphaValue.Timer.Reset();
+            FadeOutAlphaValue.Timer.Reset();
+            OnPlayerRaycastBulletActivate();
         }
 
+        protected virtual void OnPlayerRaycastBulletSpawn() { }
         public sealed override void OnSpawn()
         {
             StartPoint = transform.position;
-            Alpha = 1.0f;
+            Alpha = MaxAlpha;
+            OnPlayerRaycastBulletSpawn();
         }
 
         protected virtual void OnRaycastPlayerBulletFrameRun(float deltaTime) { }
         protected sealed override void OnPlayerBulletFrameRun(float deltaTime)
         {
-            AlphaValue.Increment(deltaTime);
-            if (!AlphaValue.IsFinished)
+            if(FadeInAlphaValue.IsFinished)
+                FadeOutFrameRun(deltaTime);
+            else
             {
-                Alpha = AlphaValue.Value;
+                FadeInAlphaValue.Increment(deltaTime);
+                if(!FadeInAlphaValue.IsFinished)
+                {
+                    Alpha = FadeInAlphaValue.Value;
+                    OnRaycastPlayerBulletFrameRun(deltaTime);
+                }
+                else
+                {
+                    float overflow = FadeInAlphaValue.Timer.OverflowDeltaTime;
+                    FadeOutFrameRun(deltaTime);
+                }
+            }
+        }
+
+        private void FadeOutFrameRun(float deltaTime)
+        {
+            FadeOutAlphaValue.Increment(deltaTime);
+            if (!FadeOutAlphaValue.IsFinished)
+            {
+                Alpha = FadeOutAlphaValue.Value;
                 OnRaycastPlayerBulletFrameRun(deltaTime);
             }
             else
                 DeactivateSelf();
         }
 
-
-
+        protected virtual void OnRaycastPlayerBulletCollideWithEnemy(Enemy enemy) { }
+        // Don't deactivate self - fadeout begins automatically.
+        public sealed override void OnCollideWithEnemy(Enemy enemy)
+        {
+            OnRaycastPlayerBulletCollideWithEnemy(enemy);
+        }
 
         public void RayCastUp(float angleOffset = 0)
         {
@@ -91,9 +127,9 @@ namespace Assets.Bullets.PlayerBullets
             RayCast(angleUp + angleOffset);
         }
 
-        public void RayCast(float angle)
+        public void RayCast(float angle, float distanceScale = 1.0f)
         {
-            var endPoint = MathUtil.VectorAtRadianAngle(angle, RaycastDistance);
+            var endPoint = MathUtil.VectorAtRadianAngle(angle, RaycastDistance * distanceScale);
             if (GameUtil.RaycastTryGetEnemy(transform.position, endPoint, out Enemy enemy, out RaycastHit2D? hit))
             {
                 EndPoint = hit.Value.point;

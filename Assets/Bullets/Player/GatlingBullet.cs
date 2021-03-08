@@ -1,5 +1,6 @@
 ﻿using Assets.Bullets.PlayerBullets;
 using Assets.Enemies;
+using UnityEngine;
 
 namespace Assets.Bullets.PlayerBullets
 {
@@ -12,10 +13,5 @@ namespace Assets.Bullets.PlayerBullets
         protected override bool ShouldDeactivateOnDestructor => false;
 
         public override float MaxAlpha => LaserAlphaRatio;
-
-        public override void OnCollideWithEnemy(Enemy enemy)
-        {
-
-        }
     }
 }
