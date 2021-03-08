@@ -32,6 +32,8 @@ namespace Assets.ObjectPooling
         private WormholeBullet WormholePrefab = null;
         [SerializeField]
         private GatlingBullet GatlingPrefab = null;
+        [SerializeField]
+        private BfgBullet BfgPrefab = null;
 
         #endregion Fired Bullets
 

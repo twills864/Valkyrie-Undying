@@ -63,6 +63,8 @@ MonoBehaviour:
     type: 3}
   GatlingPrefab: {fileID: 8518547744633031995, guid: d4ce3f45a324583409febb27c87027ab,
     type: 3}
+  BfgPrefab: {fileID: 7447093464715356506, guid: 861d21a5c90651145b2496c51e0c361d,
+    type: 3}
   ReflectedPrefab: {fileID: 6158172361450589269, guid: 494c3fda96ed01149af78e4a1583ca26,
     type: 3}
   ShrapnelPrefab: {fileID: 1200275585357827002, guid: ef8f77b6b7123de4d93928b314e808ad,

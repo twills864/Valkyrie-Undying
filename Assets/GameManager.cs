@@ -185,7 +185,8 @@ namespace Assets
                 new FlakStrategy(Prefab<FlakBullet>()),
                 new TrampolineStrategy(Prefab<TrampolineBullet>()),
                 new WormholeStrategy(Prefab<WormholeBullet>()),
-                new GatlingStrategy(Prefab<GatlingBullet>())
+                new GatlingStrategy(Prefab<GatlingBullet>()),
+                new BfgStrategy(Prefab<BfgBullet>())
             };
         }
 

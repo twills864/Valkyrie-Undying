@@ -14,8 +14,8 @@ namespace Assets.GameTasks
     /// <inheritdoc/>
     public class SequenceGameTask : FiniteTimeGameTask
     {
-        protected int CurrentIndex { get; set; }
-        protected int LastIndex { get; set; }
+        protected int CurrentIndex;
+        protected int LastIndex;
         protected FiniteTimeGameTask[] InnerTasks { get; set; }
 
         protected FiniteTimeGameTask CurrentTask => InnerTasks[CurrentIndex];
@@ -48,6 +48,16 @@ namespace Assets.GameTasks
                 while (!CurrentTask.IsFinished)
                     CurrentTask.RunRemainingTime();
             }
+        }
+
+        public override void ResetSelf()
+        {
+            base.ResetSelf();
+
+            CurrentIndex = 0;
+
+            foreach (var task in InnerTasks)
+                task.ResetSelf();
         }
     }
 }

@@ -33,5 +33,13 @@ namespace Assets.GameTasks
         }
 
         public abstract void RunFrame(float deltaTime);
+
+        /// <summary>
+        /// Resets this task by resetting its timer.
+        /// </summary>
+        public virtual void ResetSelf()
+        {
+            Timer.Reset();
+        }
     }
 }
