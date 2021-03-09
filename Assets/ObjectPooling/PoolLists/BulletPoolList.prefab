@@ -85,3 +85,5 @@ MonoBehaviour:
     type: 3}
   RetributionPrefab: {fileID: 978420639195174655, guid: 30b9d8bcf1567e24098fbbacd9e37a3a,
     type: 3}
+  BfgSpawnerPrefab: {fileID: 2263947680788283758, guid: 745d1b81dbbb9c84bbc20b4d4339c169,
+    type: 3}

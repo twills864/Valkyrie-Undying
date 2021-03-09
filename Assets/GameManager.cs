@@ -144,7 +144,7 @@ namespace Assets
             // Dependency: PoolManager
             _DebugEnemy.Init();
             _DebugEnemy.OnSpawn();
-            EnemyHealthBar.InitStatic();
+            EnemyHealthBar.StaticInit();
             _Monsoon.Init();
             _SentinelManager.Init();
             InitFireStrategies();

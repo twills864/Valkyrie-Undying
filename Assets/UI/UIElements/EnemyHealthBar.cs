@@ -50,7 +50,7 @@ public class EnemyHealthBar : UIElement
         SpriteColor = IgniteColor;
     }
 
-    public static void InitStatic()
+    public static void StaticInit()
     {
         var healthBar = PoolManager.Instance.UIElementPool.Get<EnemyHealthBar>();
         HealthBarHeight = healthBar.Height;

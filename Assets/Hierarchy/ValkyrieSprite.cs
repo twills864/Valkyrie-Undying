@@ -33,6 +33,68 @@ namespace Assets
             set => ColorHandler.Alpha = value;
         }
 
+        #region Transform Position
+
+        public float PositionX
+        {
+            get => transform.position.x;
+            set
+            {
+                transform.position = new Vector3(value, transform.position.y, transform.position.z);
+            }
+        }
+
+        public float PositionY
+        {
+            get => transform.position.y;
+            set
+            {
+                transform.position = new Vector3(transform.position.x, value, transform.position.z);
+            }
+        }
+
+        public float PositionZ
+        {
+            get => transform.position.z;
+            set
+            {
+                transform.position = new Vector3(transform.position.x, transform.position.y, value);
+            }
+        }
+
+        #endregion Transform Position
+
+        #region Transform LocalScale
+
+        public float LocalScaleX
+        {
+            get => transform.localScale.x;
+            set
+            {
+                transform.localScale = new Vector3(value, transform.localScale.y, transform.localScale.z);
+            }
+        }
+
+        public float LocalScaleY
+        {
+            get => transform.localScale.y;
+            set
+            {
+                transform.localScale = new Vector3(transform.localScale.x, value, transform.localScale.z);
+            }
+        }
+
+        public float LocalScaleZ
+        {
+            get => transform.localScale.z;
+            set
+            {
+                transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, value);
+            }
+        }
+
+        #endregion Transform LocalScale
+
 
         public void RotateSprite(float rotation)
         {

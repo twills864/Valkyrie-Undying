@@ -59,6 +59,8 @@ namespace Assets.ObjectPooling
         private VoidBullet VoidPrefab = null;
         [SerializeField]
         private RetributionBullet RetributionPrefab = null;
+        [SerializeField]
+        private BfgBulletSpawner BfgSpawnerPrefab = null;
 
         #endregion Additional Bullets
 
@@ -82,6 +84,8 @@ namespace Assets.ObjectPooling
             VictimPrefab.SpriteColor = defaultAdditional;
             VoidPrefab.SpriteColor = player.Void;
             RetributionPrefab.SpriteColor = player.Retribution;
+
+            BfgBulletSpawner.StaticInit();
         }
 
         /// <summary>

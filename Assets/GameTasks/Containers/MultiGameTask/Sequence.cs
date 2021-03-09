@@ -12,20 +12,18 @@ namespace Assets.GameTasks
     /// Runs a sequence of FiniteTimeGameTasks one after another.
     /// </summary>
     /// <inheritdoc/>
-    public class SequenceGameTask : FiniteTimeGameTask
+    public class SequenceGameTask : MultiGameTask
     {
         protected int CurrentIndex;
         protected int LastIndex;
-        protected FiniteTimeGameTask[] InnerTasks { get; set; }
 
         protected FiniteTimeGameTask CurrentTask => InnerTasks[CurrentIndex];
         private FiniteTimeGameTask LastTask { get; }
         protected bool OnLastTask => CurrentIndex == LastIndex;
 
         public SequenceGameTask(GameTaskRunner target, params FiniteTimeGameTask[] innerTasks)
-            : base(target, innerTasks.Sum(x => x.Duration))
+            : base(target, innerTasks.Sum(x => x.Duration), innerTasks)
         {
-            InnerTasks = innerTasks;
             LastIndex = InnerTasks.Length - 1;
         }
 
@@ -50,14 +48,9 @@ namespace Assets.GameTasks
             }
         }
 
-        public override void ResetSelf()
+        protected override void OnMultiGameTaskReset()
         {
-            base.ResetSelf();
-
             CurrentIndex = 0;
-
-            foreach (var task in InnerTasks)
-                task.ResetSelf();
         }
     }
 }

@@ -29,7 +29,6 @@ namespace Assets.ObjectPooling
             UIElementPool
         };
 
-
         public void Init(in ColorManager colorManager)
         {
             foreach(var pool in AllPoolLists)

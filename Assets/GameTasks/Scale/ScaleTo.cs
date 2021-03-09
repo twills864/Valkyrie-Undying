@@ -13,6 +13,18 @@ namespace Assets.GameTasks
     {
         private VectorValueOverTime ScaleValue { get; set; }
 
+        public Vector3 StartValue
+        {
+            get => ScaleValue.StartValue;
+            set => ScaleValue.StartValue = value;
+        }
+
+        public Vector3 EndValue
+        {
+            get => ScaleValue.EndValue;
+            set => ScaleValue.EndValue = value;
+        }
+
         public ScaleTo(GameTaskRunner target, float scale, float duration)
             : this(target, new Vector3(scale, scale, 0), duration)
         {

@@ -1,4 +1,5 @@
-﻿using Assets.Bullets.PlayerBullets;
+﻿using Assets.Bullets.EnemyBullets;
+using Assets.Bullets.PlayerBullets;
 using Assets.Constants;
 using Assets.Enemies;
 using Assets.GameTasks;
@@ -48,15 +49,11 @@ namespace Assets.Bullets.PlayerBullets
 
         public override void OnSpawn()
         {
-            float x = transform.position.x;
             float y = transform.position.y + SpaceUtil.WorldMap.HeightHalf;
-            float z = transform.position.z;
-            transform.position = new Vector3(x, y, z);
+            PositionY = y;
 
-            x = 0.1f + (BulletLevel * 0.1f);
-            y = transform.localScale.y;
-            z = transform.localScale.z;
-            transform.localScale = new Vector3(x, y, z);
+            float x = 0.1f + (BulletLevel * 0.1f);
+            LocalScaleX = x;
         }
 
         protected override void OnPlayerBulletFrameRun(float deltaTime)
@@ -69,6 +66,18 @@ namespace Assets.Bullets.PlayerBullets
         // Disable deactivating
         public override void OnCollideWithEnemy(Enemy enemy)
         {
+        }
+
+        protected override void OnPlayerBulletTriggerEnter2D(Collider2D collision)
+        {
+            if (IsMaxLevel)
+            {
+                if (CollisionUtil.IsEnemyBullet(collision))
+                {
+                    var bullet = collision.GetComponent<EnemyBullet>();
+                    bullet.DeactivateSelf();
+                }
+            }
         }
     }
 }
