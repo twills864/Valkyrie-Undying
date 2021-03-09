@@ -102,6 +102,7 @@ MonoBehaviour:
   StartWidth: 0.04
   EndWidth: 0.04
   Line: {fileID: 5264899859091859505}
+  LaserAlphaRatio: 0.75
 --- !u!1 &8445388326326390040
 GameObject:
   m_ObjectHideFlags: 0

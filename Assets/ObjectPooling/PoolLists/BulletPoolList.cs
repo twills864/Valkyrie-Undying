@@ -61,6 +61,8 @@ namespace Assets.ObjectPooling
         private RetributionBullet RetributionPrefab = null;
         [SerializeField]
         private BfgBulletSpawner BfgSpawnerPrefab = null;
+        [SerializeField]
+        private BfgBulletFallout BfgFalloutPrefab = null;
 
         #endregion Additional Bullets
 
@@ -74,7 +76,6 @@ namespace Assets.ObjectPooling
             var player = colorManager.Player;
             Color defaultAdditional = colorManager.DefaultPlayerAdditionalColor();
 
-            GatlingBullet.LaserAlphaRatio = player.GatlingAlphaScale;
             ReflectedPrefab.SpriteColor = player.Reflected;
             ShrapnelPrefab.SpriteColor = defaultAdditional;
             RaindropPrefab.SpriteColor = defaultAdditional;
@@ -86,6 +87,8 @@ namespace Assets.ObjectPooling
             RetributionPrefab.SpriteColor = player.Retribution;
 
             BfgBulletSpawner.StaticInit();
+            BfgPrefab.InitSpawner();
+            BfgPrefab.InitFallout();
         }
 
         /// <summary>

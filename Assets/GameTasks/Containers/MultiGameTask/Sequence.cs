@@ -52,5 +52,7 @@ namespace Assets.GameTasks
         {
             CurrentIndex = 0;
         }
+
+        public static SequenceGameTask Default() => new SequenceGameTask(null);
     }
 }

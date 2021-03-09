@@ -17,10 +17,22 @@ namespace Assets.Bullets.PlayerBullets
     {
         public static BfgBulletSpawner Instance { get; set; }
 
+        public static bool TryGetInactiveSpawner(out BfgBulletSpawner bullet)
+        {
+            bullet = Instance;
+            return !bullet.isActiveAndEnabled;
+        }
+
         public static void StaticInit()
         {
             Instance = PoolManager.Instance.BulletPool.Get<BfgBulletSpawner>();
             Instance.DeactivateSelf();
+        }
+
+        public static void StaticInitScale(float initialScaleX, float scaleXPerLevel)
+        {
+            Instance.InitialScaleX = initialScaleX;
+            Instance.ScaleXPerLevel = scaleXPerLevel;
         }
 
         [SerializeField]
@@ -32,6 +44,8 @@ namespace Assets.Bullets.PlayerBullets
         [SerializeField]
         private float FallbackDeactivationTime = GameConstants.PrefabNumber;
 
+        private float InitialScaleX;
+        private float ScaleXPerLevel;
         private ScaleTo ScaleIn { get; set; }
         private SequenceGameTask FallbackDeactivate { get; set; }
 
@@ -48,7 +62,7 @@ namespace Assets.Bullets.PlayerBullets
 
             Vector3 scale = new Vector3(1f, heightScale, 1f);
             ScaleIn = new ScaleTo(this, scale, FadeInTime);
-            var fadeIn = new FadeTo(this, MaxAlpha, FadeInTime);
+            var fadeIn = new FadeTo(this, MaxAlpha, float.Epsilon); //  FadeInTime * 0.25f
             var concurrence = new ConcurrentGameTask(this, ScaleIn, fadeIn);
 
             var delay = new Delay(this, FallbackDeactivationTime - FadeInTime);
@@ -68,7 +82,7 @@ namespace Assets.Bullets.PlayerBullets
 
 
             var endValue = ScaleIn.EndValue;
-            float x = 0.1f + (BulletLevel * 0.1f);
+            float x = InitialScaleX + (BulletLevel * ScaleXPerLevel);
             y = endValue.y;
             float z = endValue.z;
             ScaleIn.EndValue = new Vector3(x, y, z);

@@ -13,6 +13,17 @@ namespace Assets.Bullets.PlayerBullets
     {
         private const float FullBright = 1.0f;
 
+        public override int Damage => base.Damage + (BulletLevel * DamagePerLevel);
+
+        [SerializeField]
+        private int DamagePerLevel = GameConstants.PrefabNumber;
+
+        [SerializeField]
+        private float InitialScaleX = GameConstants.PrefabNumber;
+
+        [SerializeField]
+        private float ScaleXPerLevel = GameConstants.PrefabNumber;
+
         [SerializeField]
         private float FullBrightTime = GameConstants.PrefabNumber;
 
@@ -23,6 +34,8 @@ namespace Assets.Bullets.PlayerBullets
 
         private bool HitBoxActive;
 
+        public void InitSpawner() => BfgBulletSpawner.StaticInitScale(InitialScaleX, ScaleXPerLevel);
+        public void InitFallout() => BfgBulletFallout.StaticInitFadeInfo(FullBrightTime, FadeTime);
 
         protected override void OnPlayerBulletInit()
         {
@@ -45,6 +58,8 @@ namespace Assets.Bullets.PlayerBullets
             HitBoxActive = true;
             Alpha = FullBright;
             Sequence.ResetSelf();
+
+            BfgBulletFallout.ActivateInstance();
         }
 
         public override void OnSpawn()
@@ -52,7 +67,7 @@ namespace Assets.Bullets.PlayerBullets
             float y = transform.position.y + SpaceUtil.WorldMap.HeightHalf;
             PositionY = y;
 
-            float x = 0.1f + (BulletLevel * 0.1f);
+            float x = InitialScaleX + (BulletLevel * ScaleXPerLevel);
             LocalScaleX = x;
         }
 

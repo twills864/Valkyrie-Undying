@@ -159,6 +159,9 @@ namespace Assets
             _Othello.Init();
             Player.Init();
 
+            // Dependency: SpaceUtil, PoolManager
+            BfgBulletFallout.StaticInitColors(in _ColorManager);
+
             // Dependency: _PoolManager, Destructor
             _PowerupManager.Init(in PowerupBalance, _Destructor);
 
@@ -250,6 +253,8 @@ namespace Assets
 
         public void SetFireType(int index, bool skipDropDown = false)
         {
+            BfgBulletSpawner.Instance.DeactivateSelf();
+
             FireStrategies.Index = index;
             CurrentFireStrategy.Reset();
 

@@ -16,11 +16,6 @@ namespace Assets.FireStrategies.PlayerFireStrategies
         public override LoopingFrameTimer FireTimer { get; protected set; }
             = new LoopingFrameTimer(1f);
 
-        private bool TryGetInactiveSpawner(out BfgBulletSpawner bullet)
-        {
-            bullet = BfgBulletSpawner.Instance;
-            return !bullet.isActiveAndEnabled;
-        }
         BulletPoolList PoolList { get; set; }
 
         public BfgStrategy(BfgBullet bullet) : base(bullet)
@@ -32,9 +27,7 @@ namespace Assets.FireStrategies.PlayerFireStrategies
         {
             PlayerBullet[] ret;
 
-
-
-            if (TryGetInactiveSpawner(out BfgBulletSpawner spawner))
+            if (BfgBulletSpawner.TryGetInactiveSpawner(out BfgBulletSpawner spawner))
             {
                 ret = new PlayerBullet[]
                 {
@@ -44,8 +37,9 @@ namespace Assets.FireStrategies.PlayerFireStrategies
             else
             {
                 ret = base.GetBullets(weaponLevel, playerFirePos);
+
+                // Don't need to call DeactivateSelft() - SetActive(false) is enough.
                 spawner.gameObject.SetActive(false);
-                //spawner.DeactivateSelf();
             }
 
             return ret;

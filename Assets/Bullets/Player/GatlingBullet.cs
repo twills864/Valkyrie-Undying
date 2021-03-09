@@ -7,7 +7,8 @@ namespace Assets.Bullets.PlayerBullets
     /// <inheritdoc/>
     public class GatlingBullet : RaycastPlayerBullet
     {
-        public static float LaserAlphaRatio { get; set; }
+        [SerializeField]
+        private float LaserAlphaRatio;
 
         protected override bool ShouldMarkSelfCollision => false;
         protected override bool ShouldDeactivateOnDestructor => false;
