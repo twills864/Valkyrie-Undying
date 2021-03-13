@@ -12,7 +12,7 @@ namespace Assets.ObjectPooling
     /// </summary>
     public abstract class PoolList : MonoBehaviour
     {
-        public virtual void Init(in ColorManager colorManager) { }
+        public abstract void Init(in ColorManager colorManager);
     }
 
     /// <summary>

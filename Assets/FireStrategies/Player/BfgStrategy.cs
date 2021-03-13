@@ -1,4 +1,5 @@
 ﻿using Assets.Bullets.PlayerBullets;
+using Assets.FireStrategyManagers;
 using Assets.ObjectPooling;
 using Assets.Util;
 using UnityEngine;
@@ -13,12 +14,14 @@ namespace Assets.FireStrategies.PlayerFireStrategies
     /// <inheritdoc/>
     public class BfgStrategy : PlayerFireStrategy<BfgBullet>
     {
-        public override LoopingFrameTimer FireTimer { get; protected set; }
-            = new LoopingFrameTimer(1f);
+        protected override float GetFireSpeedRatio(in PlayerFireStrategyManager.PlayerRatio ratios) => ratios.Bfg;
+
+        //public override LoopingFrameTimer FireTimer { get; protected set; }
+        //    = new LoopingFrameTimer(1f);
 
         BulletPoolList PoolList { get; set; }
 
-        public BfgStrategy(BfgBullet bullet) : base(bullet)
+        public BfgStrategy(BfgBullet bullet, in PlayerFireStrategyManager manager) : base(bullet, manager)
         {
             PoolList = PoolManager.Instance.BulletPool;
         }

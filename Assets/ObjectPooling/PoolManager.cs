@@ -24,8 +24,10 @@ namespace Assets.ObjectPooling
         private PoolList[] AllPoolLists => new PoolList[]
         {
             BulletPool,
-            EnemyPool,
             EnemyBulletPool,
+
+            // EnemyPool depends on EnemyBulletPool in order to load fire strategies.
+            EnemyPool,
             UIElementPool
         };
 

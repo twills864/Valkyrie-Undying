@@ -18,6 +18,7 @@ using System.Diagnostics;
 using Assets.ColorManagers;
 using Assets.Powerups.Balance;
 using UnityEngine.UI;
+using Assets.FireStrategyManagers;
 
 namespace Assets
 {
@@ -41,6 +42,9 @@ namespace Assets
         public int DefaultFireTypeIndex => AddingPowerup ? 0 : FireStrategies.Count - 1;
 
         #region Prefabs
+
+        [SerializeField]
+        private PlayerFireStrategyManager _FireStrategyManager;
 
         [SerializeField]
         private PowerupBalanceManager PowerupBalance;
@@ -132,7 +136,7 @@ namespace Assets
             // _ColorManager is a prefab field, and doesn't need initialized.
             _PoolManager.Init(in _ColorManager);
 
-            _PowerupMenu.transform.position += new Vector3(0, 80, 0);
+            _PowerupMenu.transform.position += new Vector3(0, 0, 0);
 
             EnemyTimer.ActivateSelf();
 
@@ -179,17 +183,17 @@ namespace Assets
 
             FireStrategies = new CircularSelector<PlayerFireStrategy>
             {
-                new BasicStrategy(Prefab<BasicBullet>()),
-                new ShotgunStrategy(Prefab<ShotgunBullet>()),
-                new BurstStrategy(Prefab<BurstBullet>()),
-                new BounceStrategy(Prefab<BounceBullet>()),
-                new AtomStrategy(Prefab<AtomBullet>()),
-                new SpreadStrategy(Prefab<SpreadBullet>()),
-                new FlakStrategy(Prefab<FlakBullet>()),
-                new TrampolineStrategy(Prefab<TrampolineBullet>()),
-                new WormholeStrategy(Prefab<WormholeBullet>()),
-                new GatlingStrategy(Prefab<GatlingBullet>()),
-                new BfgStrategy(Prefab<BfgBullet>())
+                new BasicStrategy(Prefab<BasicBullet>(), in _FireStrategyManager),
+                new ShotgunStrategy(Prefab<ShotgunBullet>(), in _FireStrategyManager),
+                new BurstStrategy(Prefab<BurstBullet>(), in _FireStrategyManager),
+                new BounceStrategy(Prefab<BounceBullet>(), in _FireStrategyManager),
+                new AtomStrategy(Prefab<AtomBullet>(), in _FireStrategyManager),
+                new SpreadStrategy(Prefab<SpreadBullet>(), in _FireStrategyManager),
+                new FlakStrategy(Prefab<FlakBullet>(), in _FireStrategyManager),
+                new TrampolineStrategy(Prefab<TrampolineBullet>(), in _FireStrategyManager),
+                new WormholeStrategy(Prefab<WormholeBullet>(), in _FireStrategyManager),
+                new GatlingStrategy(Prefab<GatlingBullet>(), in _FireStrategyManager),
+                new BfgStrategy(Prefab<BfgBullet>(), in _FireStrategyManager)
             };
         }
 

@@ -3,7 +3,7 @@
 namespace Assets.Enemies
 {
     /// <inheritdoc/>
-    public abstract class PermanentVelocityEnemy : Enemy
+    public abstract class PermanentVelocityEnemy : FireStrategyEnemy
     {
         [SerializeField]
         protected float PermanentVelocityX;

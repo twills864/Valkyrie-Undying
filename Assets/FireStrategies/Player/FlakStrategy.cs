@@ -5,6 +5,7 @@ using Assets.Constants;
 using Assets.Util;
 using Assets.ObjectPooling;
 using UnityEngine;
+using Assets.FireStrategyManagers;
 
 namespace Assets.FireStrategies.PlayerFireStrategies
 {
@@ -16,10 +17,12 @@ namespace Assets.FireStrategies.PlayerFireStrategies
         private const int TotalPelletLanes = NumGuaranteedPellets + NumAdditionalPelletLanes;
 
         // Bullets fire in loose pyramid shape
-        const int RowsInPyramid = 5;
+        private const int RowsInPyramid = 5;
 
-        public override LoopingFrameTimer FireTimer { get; protected set; }
-            = new LoopingFrameTimer(0.5f);
+        protected override float GetFireSpeedRatio(in PlayerFireStrategyManager.PlayerRatio ratios) => ratios.Flak;
+
+        //public override LoopingFrameTimer FireTimer { get; protected set; }
+        //    = new LoopingFrameTimer(0.5f);
 
         // Maps loop indexes to their matching assigned lane index
         private Vector2[] LanesVelocityMap { get; set; }
@@ -32,7 +35,7 @@ namespace Assets.FireStrategies.PlayerFireStrategies
         private float BulletSpreadX;
         private float BulletSpreadY;
 
-        public FlakStrategy(FlakBullet bullet) : base(bullet)
+        public FlakStrategy(FlakBullet bullet, in PlayerFireStrategyManager manager) : base(bullet, manager)
         {
             BulletVelocityY = bullet.BulletVelocityY;
             BulletSize = bullet.GetComponent<Renderer>().bounds.size;

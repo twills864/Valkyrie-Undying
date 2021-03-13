@@ -1,4 +1,5 @@
-﻿using Assets.Constants;
+﻿using Assets.Bullets.EnemyBullets;
+using Assets.Constants;
 using Assets.FireStrategies.EnemyFireStrategies;
 using Assets.GameTasks;
 using Assets.UI;
@@ -9,14 +10,9 @@ using UnityEngine.UI;
 namespace Assets.Enemies
 {
     /// <inheritdoc/>
-    public class DebugEnemy : Enemy
+    public class DebugEnemy : FireStrategyEnemy
     {
-        public override int BaseSpawnHealth => 100000;
-        public override float SpawnHealthScaleRate => 1.0f;
         protected override bool ShouldDeactivateOnDestructor => false;
-
-        public override EnemyFireStrategy FireStrategy { get; protected set; }
-            = new DebugEnemyStrategy();
 
         [SerializeField]
         private EnemyHealthBar LastestDamageHealthBar = null;
@@ -33,17 +29,15 @@ namespace Assets.Enemies
         [SerializeField]
         private float InfernoDamageTextDistance = GameConstants.PrefabNumber;
 
-
-
         private Vector2 InfernoDamageAngle { get; set; }
         private CircularSelector<Vector2> AngleLanes { get; set; }
         private int LastDamage { get; set; }
 
+        protected override EnemyFireStrategy InitialFireStrategy()
+            => new VariantLoopingEnemyFireStrategy<BasicEnemyBullet>(FireSpeed, FireSpeedVariance);
 
         protected override void OnEnemyInit()
         {
-            base.OnActivate();
-
             DamageTextAngleStep *= Mathf.Deg2Rad;
             InfernoDamageTextAngle *= Mathf.Deg2Rad;
 
@@ -53,6 +47,9 @@ namespace Assets.Enemies
                 AngleLanes.Add(MathUtil.VectorAtRadianAngle(f, DamageTextDistance));
 
             InfernoDamageAngle = MathUtil.VectorAtRadianAngle(InfernoDamageTextAngle, InfernoDamageTextDistance);
+
+
+            base.OnActivate();
         }
 
 

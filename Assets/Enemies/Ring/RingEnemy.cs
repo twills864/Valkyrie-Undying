@@ -1,4 +1,5 @@
-﻿using Assets.Constants;
+﻿using Assets.Bullets.EnemyBullets;
+using Assets.Constants;
 using Assets.FireStrategies.EnemyFireStrategies;
 using Assets.GameTasks;
 using Assets.ObjectPooling;
@@ -8,20 +9,17 @@ using UnityEngine;
 namespace Assets.Enemies
 {
     /// <inheritdoc/>
-    public class RingEnemy : Enemy
+    public class RingEnemy : PermanentVelocityEnemy
     {
         [SerializeField]
         private float RotationSpeed = GameConstants.PrefabNumber;
         [SerializeField]
         private float MinimumTravelTime = GameConstants.PrefabNumber;
 
-        public override int BaseSpawnHealth => 75;
-        public override float SpawnHealthScaleRate => 0.75f;
-
-        public override EnemyFireStrategy FireStrategy { get; protected set; }
-            = new RingEnemyStrategy();
-
         public RingEnemyRing Ring { get; set; }
+
+        protected override EnemyFireStrategy InitialFireStrategy()
+            => new VariantLoopingEnemyFireStrategy<RingEnemyBullet>(FireSpeed, FireSpeedVariance);
 
         protected override void OnEnemySpawn()
         {
@@ -44,7 +42,7 @@ namespace Assets.Enemies
             RunTask(easeIn);
         }
 
-        protected override void OnEnemyFrame(float deltaTime)
+        protected override void OnFireStrategyEnemyFrame(float deltaTime)
         {
             transform.Rotate(0, 0, deltaTime * RotationSpeed);
 

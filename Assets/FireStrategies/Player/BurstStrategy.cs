@@ -3,14 +3,15 @@ using Assets.Constants;
 using Assets.Util;
 using Assets.ObjectPooling;
 using UnityEngine;
+using Assets.FireStrategyManagers;
 
 namespace Assets.FireStrategies.PlayerFireStrategies
 {
     /// <inheritdoc/>
     public class BurstStrategy : PlayerFireStrategy<BurstBullet>
     {
-        public override LoopingFrameTimer FireTimer { get; protected set; }
-            = new LoopingFrameTimer(0.1f);
+        protected override float GetFireSpeedRatio(in PlayerFireStrategyManager.PlayerRatio playerRatios)
+            => playerRatios.Burst;
 
         private const int BulletsInFirstBurst = 3;
         private const int AdditionalBulletsInMaxBurst = GameConstants.MaxWeaponLevel + 1;
@@ -20,7 +21,7 @@ namespace Assets.FireStrategies.PlayerFireStrategies
         private float BulletSpreadX;
         private float BulletSpreadY;
 
-        public BurstStrategy(BurstBullet bullet) : base(bullet)
+        public BurstStrategy(BurstBullet bullet, in PlayerFireStrategyManager manager) : base(bullet, manager)
         {
             BulletVelocityY = bullet.BulletVelocityY;
             BulletSpreadX = bullet.BulletSpreadX;
@@ -52,6 +53,5 @@ namespace Assets.FireStrategies.PlayerFireStrategies
 
             return ret;
         }
-
     }
 }

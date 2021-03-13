@@ -101,9 +101,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e98cfd0f916193e499f157056dd09599, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  InitialSpawnHealth: 250
+  HealthScaling: 2.5
   Sprite: {fileID: 4856386218752702171}
   _victimMarkerDistance: 1
   HealthBarOffsetScale: {x: 0, y: 0.5, z: 0}
+  FireSpeed: 3
+  FireSpeedVariance: 1
   PermanentVelocityX: 0
   PermanentVelocityY: -0.5
 --- !u!60 &5966208440153828543

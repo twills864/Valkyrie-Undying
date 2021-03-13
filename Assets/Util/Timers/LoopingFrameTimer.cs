@@ -28,6 +28,8 @@ namespace Assets.Util
             }
         }
 
+        public virtual LoopingFrameTimer CreateClone() => new LoopingFrameTimer(ActivationInterval);
+
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         protected virtual string DebuggerDisplay
         {

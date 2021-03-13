@@ -1,14 +1,12 @@
-﻿using Assets.FireStrategies.EnemyFireStrategies;
+﻿using Assets.Bullets.EnemyBullets;
+using Assets.FireStrategies.EnemyFireStrategies;
 
 namespace Assets.Enemies
 {
     /// <inheritdoc/>
     public class BasicEnemy : PermanentVelocityEnemy
     {
-        public override int BaseSpawnHealth => 100;
-        public override float SpawnHealthScaleRate => 1.0f;
-
-        public override EnemyFireStrategy FireStrategy { get; protected set; }
-            = new BasicEnemyStrategy();
+        protected override EnemyFireStrategy InitialFireStrategy()
+            => new VariantLoopingEnemyFireStrategy<BasicEnemyBullet>(FireSpeed, FireSpeedVariance);
     }
 }

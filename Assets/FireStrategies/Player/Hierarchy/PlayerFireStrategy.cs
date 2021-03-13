@@ -1,7 +1,9 @@
 ﻿using System;
 using Assets.Bullets.PlayerBullets;
 using Assets.Constants;
+using Assets.FireStrategyManagers;
 using Assets.ObjectPooling;
+using Assets.Util;
 using UnityEngine;
 
 namespace Assets.FireStrategies.PlayerFireStrategies
@@ -9,8 +11,20 @@ namespace Assets.FireStrategies.PlayerFireStrategies
     /// <inheritdoc/>
     public abstract class PlayerFireStrategy : FireStrategy<PlayerBullet>
     {
-        public PlayerFireStrategy(PlayerBullet bulletPrefab) : base(bulletPrefab)
+        protected abstract float GetFireSpeedRatio(in PlayerFireStrategyManager.PlayerRatio ratios);
+
+        protected float InitialFireSpeed(in PlayerFireStrategyManager manager)
+            => manager.BaseFireSpeed * GetFireSpeedRatio(in manager.PlayerRatios);
+
+        public PlayerFireStrategy(PlayerBullet bulletPrefab, in PlayerFireStrategyManager manager) : base(bulletPrefab)
         {
+            FireTimer = InitialFireTimer(in manager);
+        }
+
+        protected LoopingFrameTimer InitialFireTimer(in PlayerFireStrategyManager manager)
+        {
+            float speed = InitialFireSpeed(in manager);
+            return new LoopingFrameTimer(speed);
         }
 
         public abstract PlayerBullet[] GetBullets(int weaponLevel, Vector2 playerFirePos);
@@ -35,8 +49,8 @@ namespace Assets.FireStrategies.PlayerFireStrategies
     /// <inheritdoc/>
     public abstract class PlayerFireStrategy<TBullet> : PlayerFireStrategy where TBullet : PlayerBullet
     {
-        public PlayerFireStrategy() : this(null) { }
-        public PlayerFireStrategy(TBullet bulletPrefab) : base(bulletPrefab)
+        //public PlayerFireStrategy() : this(null) { }
+        public PlayerFireStrategy(TBullet bulletPrefab, in PlayerFireStrategyManager manager) : base(bulletPrefab, manager)
         {
         }
 

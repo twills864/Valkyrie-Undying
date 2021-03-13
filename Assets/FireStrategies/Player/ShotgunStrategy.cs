@@ -3,6 +3,7 @@ using Assets.Constants;
 using Assets.Util;
 using Assets.ObjectPooling;
 using UnityEngine;
+using Assets.FireStrategyManagers;
 
 namespace Assets.FireStrategies.PlayerFireStrategies
 {
@@ -17,8 +18,10 @@ namespace Assets.FireStrategies.PlayerFireStrategies
         private const int LeftGuaranteedLane = MiddleGuaranteedLane - 2;
         private const int RightGuaranteedLane = MiddleGuaranteedLane + 2;
 
-        public override LoopingFrameTimer FireTimer { get; protected set; }
-            = new LoopingFrameTimer(0.75f);
+        protected override float GetFireSpeedRatio(in PlayerFireStrategyManager.PlayerRatio ratios) => ratios.Shotgun;
+
+        //public override LoopingFrameTimer FireTimer { get; protected set; }
+        //    = new LoopingFrameTimer(0.75f);
 
         // Maps loop indexes to their matching assigned lane index
         private Vector2[] LanesVelocityMap { get; set; }
@@ -31,7 +34,7 @@ namespace Assets.FireStrategies.PlayerFireStrategies
         private float BulletSpreadX;
         private float BulletSpreadY;
 
-        public ShotgunStrategy(ShotgunBullet bullet) : base(bullet)
+        public ShotgunStrategy(ShotgunBullet bullet, in PlayerFireStrategyManager manager) : base(bullet, manager)
         {
             BulletVelocityY = bullet.BulletVelocityY;
             BulletSize = bullet.GetComponent<Renderer>().bounds.size;

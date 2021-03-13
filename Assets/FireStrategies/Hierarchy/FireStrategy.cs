@@ -1,4 +1,5 @@
 ﻿using Assets.Bullets;
+using Assets.FireStrategyManagers;
 using Assets.Util;
 
 namespace Assets.FireStrategies
@@ -6,7 +7,12 @@ namespace Assets.FireStrategies
     /// <inheritdoc/>
     public abstract class FireStrategy
     {
-        public abstract LoopingFrameTimer FireTimer { get; protected set; }
+        public LoopingFrameTimer FireTimer { get; protected set; }
+
+        public FireStrategy()
+        {
+        }
+
         public virtual void Reset() => FireTimer.ActivateSelf();
 
         public bool UpdateActivates(float deltaTime) => FireTimer.UpdateActivates(deltaTime);
@@ -17,10 +23,10 @@ namespace Assets.FireStrategies
     {
         protected TBullet ObjectPrefab { get; }
 
-        public FireStrategy() : this(null)
-        {
-        }
-        public FireStrategy(TBullet bulletPrefab)
+        //public FireStrategy() : this(null)
+        //{
+        //}
+        public FireStrategy(TBullet bulletPrefab) : base()
         {
             ObjectPrefab = bulletPrefab;
         }

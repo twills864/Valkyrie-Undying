@@ -3077,6 +3077,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27c84a57f331f5a438121a77a2babd19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _FireStrategyManager:
+    BaseFireSpeed: 0.5
+    PlayerRatios:
+      Shotgun: 1.5
+      Burst: 0.2
+      Bounce: 1
+      Atom: 0.8
+      Spread: 1
+      Flak: 1
+      Trampoline: 1
+      Wormhole: 1.8
+      Gatling: 1
+      Bfg: 2
   PowerupBalance:
     OnFire:
       PestControl:
@@ -4161,13 +4174,28 @@ PrefabInstance:
       objectReference: {fileID: 82046586}
     - target: {fileID: 7611003520483930335, guid: c939972dae317a24a9504c7774c07490,
         type: 3}
+      propertyPath: FireSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7611003520483930335, guid: c939972dae317a24a9504c7774c07490,
+        type: 3}
       propertyPath: PrefabSprite
       value: 
       objectReference: {fileID: 82046586}
     - target: {fileID: 7611003520483930335, guid: c939972dae317a24a9504c7774c07490,
         type: 3}
+      propertyPath: HealthScaling
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7611003520483930335, guid: c939972dae317a24a9504c7774c07490,
+        type: 3}
       propertyPath: DamageTextDistance
       value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7611003520483930335, guid: c939972dae317a24a9504c7774c07490,
+        type: 3}
+      propertyPath: InitialSpawnHealth
+      value: 100000
       objectReference: {fileID: 0}
     - target: {fileID: 7611003520483930335, guid: c939972dae317a24a9504c7774c07490,
         type: 3}

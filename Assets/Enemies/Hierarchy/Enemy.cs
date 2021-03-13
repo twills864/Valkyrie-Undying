@@ -15,8 +15,19 @@ namespace Assets.Enemies
     /// <inheritdoc/>
     public abstract class Enemy : PooledObject, IVictimHost
     {
+        // The health this enemy spawns with at the start of the game.
+        [SerializeField]
+        protected float InitialSpawnHealth;
+
+        // The rate at which the spawn health of this enemy increases as the game progresses.
+        [SerializeField]
+        protected float HealthScaling;
+
         public override string LogTagColor => "#FFB697";
         public override GameTaskType TaskType => GameTaskType.Enemy;
+
+        public EnemyFireStrategy FireStrategy { get; protected set; }
+        protected abstract EnemyFireStrategy InitialFireStrategy();
 
         [SerializeField]
         protected SpriteRenderer Sprite;
@@ -35,11 +46,6 @@ namespace Assets.Enemies
         public int PointValue { get; set; }
         public int CurrentHealth { get; set; }
 
-        // The health this enemy spawns with at the start of the game
-        public abstract int BaseSpawnHealth { get; }
-
-        // The rate at which the spawn health of this enemy increases as the game progresses
-        public abstract float SpawnHealthScaleRate { get; }
 
         public bool IsVictim
         {
@@ -84,10 +90,6 @@ namespace Assets.Enemies
 
         public SpriteBoxMap SpriteMap { get; protected set; }
         public ColliderBoxMap ColliderMap { get; protected set; }
-
-
-        public abstract EnemyFireStrategy FireStrategy { get; protected set; }
-        public LoopingFrameTimer FireTimer => FireStrategy.FireTimer;
 
         #region Inferno
 
@@ -158,19 +160,18 @@ namespace Assets.Enemies
                 + healthbarOffset
                 ;
 
-
             InfernoTimer = new LoopingFrameTimer(InfernoTickTime);
+
+            FireStrategy = InitialFireStrategy();
+
             OnEnemyInit();
         }
 
         protected virtual void OnEnemyActivate() { }
         protected sealed override void OnActivate()
         {
-            FireStrategy.Reset();
             InfernoTimer.Reset();
 
-            CurrentHealth = BaseSpawnHealth;
-            PointValue = CurrentHealth;
             IsBurning = false;
             VoidPauseCounter = 0;
 
@@ -180,9 +181,14 @@ namespace Assets.Enemies
         protected virtual void OnEnemySpawn() { }
         public sealed override void OnSpawn()
         {
+            CurrentHealth = (int) InitialSpawnHealth;
+            PointValue = CurrentHealth;
+
             var healthBarSpawn = transform.position;// + HealthBarOffset;
             HealthBar = PoolManager.Instance.UIElementPool.Get<EnemyHealthBar>(healthBarSpawn);
             UpdateHealthBar();
+
+
 
             OnEnemySpawn();
         }
@@ -198,21 +204,10 @@ namespace Assets.Enemies
 
             if (!IsVoidPaused)
             {
-                if (FireTimer.UpdateActivates(deltaTime))
-                    FireBullets();
-
                 OnEnemyFrame(deltaTime);
             }
 
             HealthBar.transform.position = (Vector3)ColliderMap.Center + HealthBarOffset;
-        }
-
-        protected virtual void FireBullets()
-        {
-            if (CanFire(FirePosition))
-            {
-                var bullets = FireStrategy.GetBullets(FirePosition);
-            }
         }
 
         protected virtual bool BurnKills()

@@ -1,5 +1,6 @@
 ﻿using Assets.Bullets.PlayerBullets;
 using Assets.Constants;
+using Assets.FireStrategyManagers;
 using Assets.ObjectPooling;
 using Assets.Util;
 using UnityEngine;
@@ -12,12 +13,14 @@ namespace Assets.FireStrategies.PlayerFireStrategies
         private const float DefaultFireTime = 0.4f;
         private const int FireCounterMax = 3;
 
-        public override LoopingFrameTimer FireTimer { get; protected set; }
-            = LoopingFrameTimer.Default();
+        protected override float GetFireSpeedRatio(in PlayerFireStrategyManager.PlayerRatio ratios) => ratios.Gatling;
+
+        //public override LoopingFrameTimer FireTimer { get; protected set; }
+        //    = LoopingFrameTimer.Default();
 
         private LoopingCountdown CenterShot = new LoopingCountdown(FireCounterMax);
 
-        public GatlingStrategy(GatlingBullet bullet) : base(bullet)
+        public GatlingStrategy(GatlingBullet bullet, in PlayerFireStrategyManager manager) : base(bullet, manager)
         {
         }
 

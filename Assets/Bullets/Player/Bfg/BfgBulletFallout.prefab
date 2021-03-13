@@ -96,4 +96,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Sprite: {fileID: 4705214370244944632}
   BaseDamage: 0
-  MaxAlpha: 0.07
+  MaxAlpha: 0.175

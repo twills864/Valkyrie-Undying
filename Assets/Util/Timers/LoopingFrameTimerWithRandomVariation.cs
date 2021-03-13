@@ -8,6 +8,12 @@ namespace Assets.Util
     {
         protected float Variance { get; }
 
+        public override LoopingFrameTimer CreateClone()
+        {
+            float newActivationInterval = ActivationInterval + Variance;
+            return new LoopingFrameTimerWithRandomVariation(newActivationInterval, Variance);
+        }
+
         public LoopingFrameTimerWithRandomVariation(float activationInterval, float plusOrMinusVariance)
             :base(activationInterval - plusOrMinusVariance)
         {
