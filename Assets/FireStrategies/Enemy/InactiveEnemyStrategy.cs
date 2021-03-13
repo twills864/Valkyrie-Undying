@@ -5,10 +5,11 @@ using Assets.Util;
 namespace Assets.FireStrategies.EnemyFireStrategies
 {
     /// <inheritdoc/>
-    public class InactiveEnemyStrategy : VariantLoopingEnemyFireStrategy<BasicEnemyBullet>
+    public class InactiveEnemyStrategy : EnemyFireStrategy<BasicEnemyBullet>
     {
-        public InactiveEnemyStrategy() : base(null, 1.0f, 0.0f)
+        public InactiveEnemyStrategy() : base(null)
         {
+            FireTimer = new InactiveLoopingFrameTimer();
         }
 
         protected override EnemyFireStrategy CloneSelf()
