@@ -19,13 +19,16 @@ namespace Assets.GameTasks
             set => Target.Alpha = value;
         }
 
-        public FadeTo(ValkyrieSprite target, float alpha, float duration) : base(target, duration)
+        public FadeTo(ValkyrieSprite target, float endAlpha, float duration)
+            : this(target, target.Alpha, endAlpha, duration)
         {
-            StartAlpha = target.Alpha;
-            EndAlpha = alpha;
-            AlphaDifference = EndAlpha - StartAlpha;
+        }
 
-            //Alpha = alpha;
+        public FadeTo(ValkyrieSprite target, float startAlpha, float endAlpha, float duration) : base(target, duration)
+        {
+            StartAlpha = startAlpha;
+            EndAlpha = endAlpha;
+            AlphaDifference = EndAlpha - StartAlpha;
         }
 
         protected override void OnFiniteTaskFrameRun(float deltaTime)

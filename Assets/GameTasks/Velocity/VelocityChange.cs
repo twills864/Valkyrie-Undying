@@ -13,8 +13,11 @@ namespace Assets.GameTasks
         private Vector2 EndVelocity { get; set; }
         private Vector2 VelocityDifference { get; set; }
 
+        public VelocityChange(ValkyrieSprite target, Vector2 endVelocity, float duration)
+            : this(target, target.Velocity, endVelocity, duration)
+        {
+        }
 
-        #region Create
         public VelocityChange(ValkyrieSprite target, Vector2 startVelocity, Vector2 endVelocity, float duration) : base(target, duration)
         {
             StartVelocity = startVelocity;
@@ -24,12 +27,6 @@ namespace Assets.GameTasks
             Velocity = StartVelocity;
         }
 
-        public static VelocityChange Default(ValkyrieSprite target, float duration)
-        {
-            var ret = new VelocityChange(target, duration);
-            ret.FinishSelf();
-            return ret;
-        }
         private VelocityChange(ValkyrieSprite target, float duration) : base(target, duration)
         {
             StartVelocity = Vector2.zero;
@@ -37,13 +34,6 @@ namespace Assets.GameTasks
             VelocityDifference = Vector2.zero;
 
             Velocity = Vector2.zero;
-        }
-
-        #endregion Create
-
-        protected override void OnFiniteVelocityTaskFrameRun(float deltaTime)
-        {
-            Velocity = StartVelocity + (Timer.RatioComplete * VelocityDifference);
         }
 
         public void Init(Vector2 startVelocity, Vector2 endVelocity)
@@ -57,5 +47,16 @@ namespace Assets.GameTasks
             Timer.Reset();
         }
 
+        protected override void OnFiniteVelocityTaskFrameRun(float deltaTime)
+        {
+            Velocity = StartVelocity + (Timer.RatioComplete * VelocityDifference);
+        }
+
+        public static VelocityChange Default(ValkyrieSprite target, float duration)
+        {
+            var ret = new VelocityChange(target, duration);
+            ret.FinishSelf();
+            return ret;
+        }
     }
 }

@@ -15,7 +15,7 @@ namespace Assets.GameTasks
         private Vector2 StartPosition { get; set; }
         private Vector2 TotalPositionDifference { get; set; }
 
-        public MoveTo(ValkyrieSprite target, Vector2 to, Vector2 from, float duration) : base(target, duration)
+        public MoveTo(ValkyrieSprite target, Vector2 from, Vector2 to, float duration) : base(target, duration)
         {
             Destination = to;
             StartPosition = from;

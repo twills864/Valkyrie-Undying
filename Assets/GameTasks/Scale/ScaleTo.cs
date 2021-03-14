@@ -26,7 +26,7 @@ namespace Assets.GameTasks
         }
 
         public ScaleTo(ValkyrieSprite target, float scale, float duration)
-            : this(target, new Vector3(scale, scale, 0), duration)
+            : this(target, new Vector3(scale, scale, 1f), duration)
         {
         }
 
@@ -45,7 +45,6 @@ namespace Assets.GameTasks
         {
             ScaleValue = new VectorValueOverTime(scaleStart, scaleEnd, duration);
         }
-
 
         protected override void OnFiniteTaskFrameRun(float deltaTime)
         {
