@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Assets.Constants;
 using LogUtilAssets;
 using UnityEngine;
 
@@ -17,7 +18,7 @@ namespace Assets.GameTasks.GameTaskLists
                 var task = this[i];
 
 #if DEBUG
-                if(!task.Target.isActiveAndEnabled)
+                if (!task.Target.isActiveAndEnabled)
                 {
                     LogUtil.Log("Disabled task is running in GameTaskList!", task.Target);
                     System.Diagnostics.Debugger.Break();
@@ -33,7 +34,7 @@ namespace Assets.GameTasks.GameTaskLists
             }
         }
 
-        public void RemoveTasksRelatedToTarget(GameTaskRunner target)
+        public void RemoveTasksRelatedToTarget(ValkyrieSprite target)
         {
             for (int i = Count - 1; i >= 0; i--)
             {

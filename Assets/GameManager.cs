@@ -224,7 +224,7 @@ namespace Assets
             float playerFireScale = deltaTime * PlayerFireDeltaTimeScale;
 
             Player.RunFrame(deltaTime);
-            _Othello.RunFrame(playerFireScale);
+            _Othello.RunFrameIfEnabled(playerFireScale);
 
             if (CurrentFireStrategy.UpdateActivates(playerFireScale * Player.FireSpeedScale))
             {
@@ -394,7 +394,7 @@ namespace Assets
             GameTaskLists.StartTask(task, taskType);
         }
 
-        public void GameTaskRunnerDeactivated(GameTaskRunner target)
+        public void GameTaskRunnerDeactivated(ValkyrieSprite target)
         {
             GameTaskLists.GameTaskRunnerDeactivated(target);
         }
@@ -489,6 +489,7 @@ namespace Assets
         {
             var text = _PoolManager.UIElementPool.Get<FleetingText>(position);
             text.Text = message;
+
             return text;
         }
     }

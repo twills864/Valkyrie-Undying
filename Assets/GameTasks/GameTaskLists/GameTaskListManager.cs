@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Assets.Constants;
 using Assets.Util;
 
 namespace Assets.GameTasks.GameTaskLists
@@ -32,7 +33,7 @@ namespace Assets.GameTasks.GameTaskLists
                 case GameTaskType.Player:
                     ret = PlayerGameTaskList;
                     break;
-                case GameTaskType.Bullet:
+                case GameTaskType.PlayerBullet:
                     ret = BulletGameTaskList;
                     break;
                 case GameTaskType.Enemy:
@@ -78,7 +79,7 @@ namespace Assets.GameTasks.GameTaskLists
             UIElementGameTaskList.Add(task);
         }
 
-        public void GameTaskRunnerDeactivated(GameTaskRunner target)
+        public void GameTaskRunnerDeactivated(ValkyrieSprite target)
         {
             var taskType = target.TaskType;
             var list = GetList(taskType);

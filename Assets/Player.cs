@@ -1,6 +1,7 @@
 ﻿using Assets.Bullets.EnemyBullets;
 using Assets.Constants;
 using Assets.Enemies;
+using Assets.GameTasks;
 using Assets.Hierarchy.ColorHandlers;
 using Assets.ObjectPooling;
 using Assets.Powerups;
@@ -11,11 +12,12 @@ using UnityEngine;
 namespace Assets
 {
     /// <inheritdoc/>
-    public class Player : FrameRunner, IVictimHost
+    public class Player : ValkyrieSprite, IVictimHost
     {
         public static Player Instance { get; private set; }
 
         public override string LogTagColor => "#60D3FF";
+        public override GameTaskType TaskType => GameTaskType.Player;
 
         [SerializeField]
         private SpriteRenderer Sprite = null;
@@ -115,7 +117,7 @@ namespace Assets
             return ret;
         }
 
-        public override void RunFrame(float deltaTime)
+        protected override void OnFrameRun(float deltaTime)
         {
             if (!BloodlustTimer.Activated && BloodlustTimer.UpdateActivates(deltaTime))
                 ResetBloodlust();

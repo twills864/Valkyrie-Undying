@@ -9,7 +9,7 @@ namespace Assets.GameTasks
 {
     public class MoveSpeedForDuration : FiniteMovementGameTask
     {
-        public MoveSpeedForDuration(GameTaskRunner target, Vector2 velocity, float duration) : base(target, duration)
+        public MoveSpeedForDuration(ValkyrieSprite target, Vector2 velocity, float duration) : base(target, duration)
         {
             Velocity = velocity;
         }

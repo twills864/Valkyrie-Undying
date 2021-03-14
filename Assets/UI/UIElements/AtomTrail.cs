@@ -30,7 +30,7 @@ namespace Assets.UI
             DeactivateTimer.Reset();
         }
 
-        protected override void OnManagedVelocityObjectFrameRun(float deltaTime)
+        protected override void OnFrameRun(float deltaTime)
         {
             if(!DeactivateTimer.Activated)
             {

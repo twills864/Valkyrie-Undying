@@ -15,7 +15,7 @@ namespace Assets.GameTasks
 
 
         #region Create
-        public VelocityChange(GameTaskRunner target, Vector2 startVelocity, Vector2 endVelocity, float duration) : base(target, duration)
+        public VelocityChange(ValkyrieSprite target, Vector2 startVelocity, Vector2 endVelocity, float duration) : base(target, duration)
         {
             StartVelocity = startVelocity;
             EndVelocity = endVelocity;
@@ -24,13 +24,13 @@ namespace Assets.GameTasks
             Velocity = StartVelocity;
         }
 
-        public static VelocityChange Default(GameTaskRunner target, float duration)
+        public static VelocityChange Default(ValkyrieSprite target, float duration)
         {
             var ret = new VelocityChange(target, duration);
             ret.FinishSelf();
             return ret;
         }
-        private VelocityChange(GameTaskRunner target, float duration) : base(target, duration)
+        private VelocityChange(ValkyrieSprite target, float duration) : base(target, duration)
         {
             StartVelocity = Vector2.zero;
             EndVelocity = Vector2.zero;

@@ -16,7 +16,7 @@ namespace Assets.GameTasks
     {
         protected FiniteTimeGameTask[] InnerTasks { get; set; }
 
-        public MultiGameTask(GameTaskRunner target, float duration, params FiniteTimeGameTask[] innerTasks)
+        public MultiGameTask(ValkyrieSprite target, float duration, params FiniteTimeGameTask[] innerTasks)
             : base(target, duration)
         {
             InnerTasks = innerTasks;

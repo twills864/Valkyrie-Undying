@@ -11,7 +11,7 @@ namespace Assets.Bullets.EnemyBullets
         protected float PermanentVelocityY;
 
         private Vector2 _velocity;
-        public override Vector2 Velocity { get => _velocity; }
+        public override Vector2 Velocity { get => _velocity; set { } }
 
         protected virtual void OnPermanentVelocityEnemyBulletInit() { }
         protected sealed override void OnEnemyBulletInit()

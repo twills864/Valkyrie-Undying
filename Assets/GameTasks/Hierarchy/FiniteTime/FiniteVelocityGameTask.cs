@@ -10,7 +10,7 @@ namespace Assets.GameTasks
     /// <inheritdoc/>
     public abstract class FiniteVelocityGameTask : FiniteMovementGameTask
     {
-        public FiniteVelocityGameTask(GameTaskRunner target, float duration) : base(target, duration) { }
+        public FiniteVelocityGameTask(ValkyrieSprite target, float duration) : base(target, duration) { }
 
         /// <summary>
         /// Functionality that will occur after this Task's Timer is updated,

@@ -11,7 +11,7 @@ namespace Assets.GameTasks
     /// <inheritdoc/>
     public class Delay : FiniteTimeGameTask
     {
-        public Delay(GameTaskRunner target, float duration) : base(target, duration)
+        public Delay(ValkyrieSprite target, float duration) : base(target, duration)
         {
         }
 

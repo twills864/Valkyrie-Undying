@@ -33,7 +33,7 @@ namespace Assets.GameTasks
 
         public float OverflowDeltaTime => Timer.OverflowDeltaTime;
 
-        public FiniteTimeGameTask(GameTaskRunner target, float duration) : base(target)
+        public FiniteTimeGameTask(ValkyrieSprite target, float duration) : base(target)
         {
             Duration = duration;
         }

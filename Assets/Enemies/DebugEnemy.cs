@@ -88,13 +88,14 @@ namespace Assets.Enemies
         private FleetingText FleetingDamageText(int damage, Vector2 moveDistance, Color color)
         {
             var text = CreateFleetingTextAtCenter(damage);
-            text.Velocity = Vector2.zero;
             text.SpriteColor = color;
 
-            var duration = text.TotalTextTime * 0.95f;
-            var move = new MoveBy(text, moveDistance, duration);
-            var ease = new EaseIn3(move);
-            text.RunTask(ease);
+            //var duration = text.TotalTextTime * 0.95f;
+            //var move = new MoveBy(text, moveDistance, duration);
+            //var ease = new EaseIn3(move);
+            //text.RunTask(ease);
+
+            text.MoveDistance = moveDistance;
 
             return text;
         }

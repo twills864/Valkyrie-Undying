@@ -14,7 +14,7 @@ namespace Assets.GameTasks
         /// <summary>
         /// The GameTaskRunner that will receive the effects of this GameTask.
         /// </summary>
-        public GameTaskRunner Target { get; }
+        public ValkyrieSprite Target { get; }
 
         /// <summary>
         /// Whether or not this GameTask has finished running.
@@ -27,12 +27,23 @@ namespace Assets.GameTasks
         protected virtual FrameTimerBase Timer { get; set; }
 
 
-        public GameTask(GameTaskRunner target)
+        public GameTask(ValkyrieSprite target)
         {
             Target = target;
         }
 
         public abstract void RunFrame(float deltaTime);
+
+        /// <summary>
+        /// Runs a frame, and returns whether or not the task becomes finished as a result.
+        /// </summary>
+        /// <param name="deltaTime">The amount of time since the last frame.</param>
+        /// <returns>Whether or not this task is finished.</returns>
+        public bool FrameRunFinishes(float deltaTime)
+        {
+            RunFrame(deltaTime);
+            return IsFinished;
+        }
 
         /// <summary>
         /// Resets this task by resetting its timer.

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Assets.Bullets.PlayerBullets;
 using Assets.Constants;
 using Assets.FireStrategies.PlayerFireStrategies;
+using Assets.GameTasks;
 using Assets.Hierarchy.ColorHandlers;
 using Assets.ObjectPooling;
 using Assets.Util;
@@ -13,9 +14,11 @@ using UnityEngine;
 
 namespace Assets.Powerups
 {
-    public class Monsoon : ManagedVelocityObject
+    public class Monsoon : ValkyrieSprite
     {
         public static Monsoon Instance { get; set; }
+
+        public override GameTaskType TaskType => GameTaskType.Player;
 
         [SerializeField]
         private SpriteRenderer Sprite = null;
@@ -59,7 +62,7 @@ namespace Assets.Powerups
             VelocityX = Speed;
         }
 
-        protected override void OnManagedVelocityObjectFrameRun(float deltaTime)
+        protected override void OnFrameRun(float deltaTime)
         {
             var targetX = Player.Instance.transform.position.x;
 

@@ -15,13 +15,14 @@ using UnityEngine;
 
 namespace Assets.Powerups
 {
-    public class SentinelManager : FrameRunner
+    public class SentinelManager : ValkyrieSprite
     {
         public static SentinelManager Instance { get; set; }
 
         const int NumSentinel = 8;
         const float AngleDelta = MathUtil.Pi2f / NumSentinel;
 
+        public override GameTaskType TaskType => GameTaskType.Player;
         protected override ColorHandler DefaultColorHandler()
             => new NullColorHandler();
 
@@ -76,7 +77,7 @@ namespace Assets.Powerups
                 bullet.ActivateSelf();
         }
 
-        public override void RunFrame(float deltaTime)
+        protected override void OnFrameRun(float deltaTime)
         {
             if (Level == 0)
                 return;

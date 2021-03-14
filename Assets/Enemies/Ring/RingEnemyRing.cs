@@ -19,7 +19,7 @@ namespace Assets.Enemies
         protected override EnemyFireStrategy InitialFireStrategy()
             => new InactiveEnemyStrategy();
 
-        protected override void OnEnemyInit()
+        protected override void OnPermanentVelocityEnemyInit()
         {
             Height = Sprite.bounds.size.y;
         }

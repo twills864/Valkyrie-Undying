@@ -21,7 +21,7 @@ namespace Assets.GameTasks
         private FiniteTimeGameTask LastTask { get; }
         protected bool OnLastTask => CurrentIndex == LastIndex;
 
-        public SequenceGameTask(GameTaskRunner target, params FiniteTimeGameTask[] innerTasks)
+        public SequenceGameTask(ValkyrieSprite target, params FiniteTimeGameTask[] innerTasks)
             : base(target, innerTasks.Sum(x => x.Duration), innerTasks)
         {
             LastIndex = InnerTasks.Length - 1;

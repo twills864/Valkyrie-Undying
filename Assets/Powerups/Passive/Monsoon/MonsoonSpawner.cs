@@ -12,7 +12,7 @@ using UnityEngine;
 
 namespace Assets.Powerups
 {
-    public class MonsoonSpawner : GameTaskRunner
+    public class MonsoonSpawner : ValkyrieSprite
     {
         public static MonsoonSpawner Instance { get; set; }
 
@@ -38,14 +38,13 @@ namespace Assets.Powerups
             var y = SpaceUtil.WorldMap.Bottom.y + offsetFromBottom;
             var moveVector = new Vector2(x, y);
             Move = new MoveTo(this, moveVector, Duration);
-            RunTask(Move);
         }
 
         //protected override void OnInit() { }
 
-        protected override void OnManagedVelocityObjectFrameRun(float deltaTime)
+        protected override void OnFrameRun(float deltaTime)
         {
-            if (Move.IsFinished)
+            if (Move.FrameRunFinishes(deltaTime))
             {
                 Monsoon.Instance.Activate(transform.position.x);
                 gameObject.SetActive(false);

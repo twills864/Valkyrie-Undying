@@ -106,15 +106,9 @@ namespace Assets.Enemies
         #region Void
 
         private int _voidPauseCounter;
-        protected int VoidPauseCounter
-        {
-            get => _voidPauseCounter;
-            set
-            {
-                _voidPauseCounter = value;
-                IsPaused = IsVoidPaused;
-            }
-        }
+        protected int VoidPauseCounter;
+
+        public override bool IsPaused => IsVoidPaused;
         protected bool IsVoidPaused => VoidPauseCounter > 0;
 
         private Vector3 VoidPausedVelocity { get; set; }
@@ -194,7 +188,7 @@ namespace Assets.Enemies
         }
 
         protected virtual void OnEnemyFrame(float deltaTime) { }
-        protected sealed override void OnManagedVelocityObjectFrameRun(float deltaTime)
+        protected override void OnFrameRun(float deltaTime)
         {
             if (IsBurning && InfernoTimer.UpdateActivates(deltaTime))
             {
@@ -251,8 +245,8 @@ namespace Assets.Enemies
             if (DamageKills(bullet.Damage))
                 KillEnemy(bullet);
 
-            bullet.OnCollideWithEnemy(this);
             GameManager.Instance.OnEnemyHit(this, bullet);
+            bullet.OnCollideWithEnemy(this);
         }
 
 

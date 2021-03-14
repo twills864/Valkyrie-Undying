@@ -8,7 +8,7 @@ namespace Assets
     /// Represents an object that can be stored inside of an Object Pool.
     /// </summary>
     /// <inheritdoc/>
-    public abstract class PooledObject : GameTaskRunner
+    public abstract class PooledObject : ValkyrieSprite
     {
         private Vector3 InactivePosition => new Vector3(0, -100f, 0);
 
@@ -65,22 +65,12 @@ namespace Assets
             // with the Destructor, which could cause this method to be called twice in a row.
             if (gameObject.activeSelf)
             {
-                transform.position = InactivePosition;
                 gameObject.SetActive(false);
-                ClearGameTasks();
+                //ClearGameTasks();
                 OnDeactivate();
-            }
-        }
 
-        /// <summary>
-        /// Calls GameManager.CreateFleetingText() using the given <paramref name="text"/>
-        /// at the center of this object.
-        /// </summary>
-        /// <param name="text">The text to display.</param>
-        public FleetingText CreateFleetingTextAtCenter(object text)
-        {
-            FleetingText ret = GameManager.Instance.CreateFleetingText(text.ToString(), this.transform.position);
-            return ret;
+                transform.position = InactivePosition;
+            }
         }
     }
 }

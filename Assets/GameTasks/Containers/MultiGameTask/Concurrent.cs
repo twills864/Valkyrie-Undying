@@ -14,7 +14,7 @@ namespace Assets.GameTasks
     /// <inheritdoc/>
     public class ConcurrentGameTask : MultiGameTask
     {
-        public ConcurrentGameTask(GameTaskRunner target, params FiniteTimeGameTask[] innerTasks)
+        public ConcurrentGameTask(ValkyrieSprite target, params FiniteTimeGameTask[] innerTasks)
             : base(target, innerTasks.Max(x => x.Duration), innerTasks)
         {
         }

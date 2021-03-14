@@ -101,7 +101,7 @@ namespace Assets.UI
             UpdateCorners(0f);
         }
 
-        protected override void OnManagedVelocityObjectFrameRun(float deltaTime)
+        protected override void OnFrameRun(float deltaTime)
         {
             if (!Deactivating)
                 transform.position = HostPosition;

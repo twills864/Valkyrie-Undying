@@ -15,7 +15,7 @@ namespace Assets.GameTasks
         private Vector2 StartPosition { get; set; }
         private Vector2 TotalPositionDifference { get; set; }
 
-        public MoveTo(GameTaskRunner target, Vector2 to, Vector2 from, float duration) : base(target, duration)
+        public MoveTo(ValkyrieSprite target, Vector2 to, Vector2 from, float duration) : base(target, duration)
         {
             Destination = to;
             StartPosition = from;
@@ -24,7 +24,7 @@ namespace Assets.GameTasks
             Velocity = TotalPositionDifference / Duration;
         }
 
-        public MoveTo(GameTaskRunner target, Vector2 to, float duration) : base(target, duration)
+        public MoveTo(ValkyrieSprite target, Vector2 to, float duration) : base(target, duration)
         {
             Destination = to;
             StartPosition = target.transform.position;

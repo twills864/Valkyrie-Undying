@@ -116,8 +116,9 @@ namespace Assets.Util
 
         private static void InputMouseBack(KeyCode keyCode)
         {
-            var moveTo = new MoveTo(GameManager._DebugEnemy, SpaceUtil.WorldMap.Center, 1f);
-            var ease = new EaseIn(moveTo);
+            //var moveTo = new MoveTo(GameManager._DebugEnemy, SpaceUtil.WorldMap.Center, 1f);
+            var moveBy = new MoveBy(GameManager._DebugEnemy, new Vector2(1f, 1f), 1f);
+            var ease = new EaseIn(moveBy);
 
             GameManager._DebugEnemy.RunTask(ease);
         }
@@ -135,10 +136,10 @@ namespace Assets.Util
                 }
             }
 
-            //var moveTo = new MoveTo(GameManager._DebugEnemy, SpaceUtil.WorldMap.Center, 1f);
-            //var ease = new EaseOut(moveTo);
+            var moveTo = new MoveTo(GameManager._DebugEnemy, SpaceUtil.WorldMap.Center, 1f);
+            var ease = new EaseOut(moveTo);
 
-            //GameManager._DebugEnemy.RunTask(ease);
+            GameManager._DebugEnemy.RunTask(ease);
         }
 
         private static void InputKeypadPlus(KeyCode keyCode)

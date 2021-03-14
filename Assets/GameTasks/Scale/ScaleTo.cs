@@ -25,23 +25,23 @@ namespace Assets.GameTasks
             set => ScaleValue.EndValue = value;
         }
 
-        public ScaleTo(GameTaskRunner target, float scale, float duration)
+        public ScaleTo(ValkyrieSprite target, float scale, float duration)
             : this(target, new Vector3(scale, scale, 0), duration)
         {
         }
 
-        public ScaleTo(GameTaskRunner target, Vector3 scale, float duration) : base(target, duration)
+        public ScaleTo(ValkyrieSprite target, Vector3 scale, float duration) : base(target, duration)
         {
             var localScale = target.transform.localScale;
             ScaleValue = new VectorValueOverTime(localScale, scale, duration);
         }
 
-        public ScaleTo(GameTaskRunner target, float scaleStart, float scaleEnd, float duration)
+        public ScaleTo(ValkyrieSprite target, float scaleStart, float scaleEnd, float duration)
             : this(target, new Vector3(scaleStart, scaleStart, 0), new Vector3(scaleEnd, scaleEnd, 0), duration)
         {
         }
 
-        public ScaleTo(GameTaskRunner target, Vector3 scaleStart, Vector3 scaleEnd, float duration) : base(target, duration)
+        public ScaleTo(ValkyrieSprite target, Vector3 scaleStart, Vector3 scaleEnd, float duration) : base(target, duration)
         {
             ScaleValue = new VectorValueOverTime(scaleStart, scaleEnd, duration);
         }

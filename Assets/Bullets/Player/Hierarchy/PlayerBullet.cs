@@ -11,7 +11,7 @@ namespace Assets.Bullets.PlayerBullets
     public abstract class PlayerBullet : Bullet
     {
         public override string LogTagColor => "#B381FE";
-        public override GameTaskType TaskType => GameTaskType.Bullet;
+        public override GameTaskType TaskType => GameTaskType.PlayerBullet;
 
         [SerializeField]
         protected int BaseDamage;
@@ -62,8 +62,9 @@ namespace Assets.Bullets.PlayerBullets
             OnPlayerBulletTriggerExit2D(collision);
         }
 
+
         protected virtual void OnPlayerBulletFrameRun(float deltaTime) { }
-        protected sealed override void OnManagedVelocityObjectFrameRun(float deltaTime)
+        protected override void OnFrameRun(float deltaTime)
         {
             OnPlayerBulletFrameRun(deltaTime);
         }

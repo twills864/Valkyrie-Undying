@@ -9,13 +9,21 @@ namespace Assets.GameTasks
 {
     public class MoveBy : FiniteMovementGameTask
     {
-        private Vector2 Distance { get; set; }
+        private Vector2 _distance;
 
-        public MoveBy(GameTaskRunner target, Vector2 distance, float duration) : base(target, duration)
+        public Vector2 Distance
+        {
+            get => _distance;
+            set
+            {
+                _distance = value;
+                Velocity = Distance / Duration;
+            }
+        }
+
+        public MoveBy(ValkyrieSprite target, Vector2 distance, float duration) : base(target, duration)
         {
             Distance = distance;
-
-            Velocity = Distance / Duration;
         }
     }
 }

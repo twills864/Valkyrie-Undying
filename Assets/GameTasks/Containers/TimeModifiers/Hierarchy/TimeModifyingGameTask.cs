@@ -34,5 +34,12 @@ namespace Assets.GameTasks
             TimeModifyingTimer = DefaultTimeModifyingFrameTimer(duration);
             return TimeModifyingTimer;
         }
+
+        public override void ResetSelf()
+        {
+            base.ResetSelf();
+
+            InnerTask.ResetSelf();
+        }
     }
 }

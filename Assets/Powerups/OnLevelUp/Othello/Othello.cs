@@ -17,7 +17,7 @@ namespace Assets.Powerups
     /// <summary>
     /// A mirror self that fires bullets alongside the player.
     /// </summary>
-    public class Othello : GameTaskRunner
+    public class Othello : ValkyrieSprite
     {
         public static Othello Instance { get; set; }
 
@@ -52,6 +52,8 @@ namespace Assets.Powerups
 
         public Vector2 FirePosition => BoxMap.Top;
 
+        private FadeTo FadeTo { get; set; }
+
         /// <summary>
         /// Currently unused
         /// </summary>
@@ -72,8 +74,10 @@ namespace Assets.Powerups
             return ret;
         }
 
-        protected override void OnManagedVelocityObjectFrameRun(float deltaTime)
+        protected override void OnFrameRun(float deltaTime)
         {
+            FadeTo.RunFrame(deltaTime);
+
             transform.position = CalculateNewPosition(Player.Instance.transform.position);
 
             // Only attempt to increment the fire timer if it's not already activated.
@@ -88,8 +92,7 @@ namespace Assets.Powerups
 
             var targetAlpha = Alpha;
             Alpha = 0;
-            var fadeTo = new FadeTo(this, targetAlpha, FadeInTime);
-            RunTask(fadeTo);
+            FadeTo = new FadeTo(this, targetAlpha, FadeInTime);
         }
 
         public void LevelUp(int level, int damage, float fireSpeedModifier)

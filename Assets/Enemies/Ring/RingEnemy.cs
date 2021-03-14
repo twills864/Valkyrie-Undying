@@ -18,6 +18,8 @@ namespace Assets.Enemies
 
         public RingEnemyRing Ring { get; set; }
 
+        private EaseIn Ease { get; set; }
+
         protected override EnemyFireStrategy InitialFireStrategy()
             => new VariantLoopingEnemyFireStrategy<RingEnemyBullet>(FireSpeed, FireSpeedVariance);
 
@@ -38,13 +40,13 @@ namespace Assets.Enemies
             float duration = MinimumTravelTime + distance;
 
             var moveTo = new MoveTo(this, destination, duration);
-            var easeIn = new EaseIn(moveTo);
-            RunTask(easeIn);
+            Ease = new EaseIn(moveTo);
         }
 
         protected override void OnFireStrategyEnemyFrame(float deltaTime)
         {
-            transform.Rotate(0, 0, deltaTime * RotationSpeed);
+            Ease.RunFrame(deltaTime);
+            RotateSprite(deltaTime * RotationSpeed);
 
             if (Ring != null)
                 Ring.transform.position = new Vector3(transform.position.x, transform.position.y, 1f);
