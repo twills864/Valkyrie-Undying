@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 399384417934070447}
   - component: {fileID: 8871012895706201029}
   - component: {fileID: 5069002072005299939}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: EnemyHealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53,6 +53,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -74,9 +75,10 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1553159797
+  m_SortingLayer: 5
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!102 &8871012895706201029
 TextMesh:
   serializedVersion: 3

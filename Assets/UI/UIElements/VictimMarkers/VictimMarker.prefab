@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1796364206223907940}
   - component: {fileID: -4956736669947735502}
   - component: {fileID: 2744186383143280971}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: VictimMarker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,7 +45,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FadeTime: 0.2
-  AlphaMax: 0.8
   StartDistance: 3
 --- !u!212 &2744186383143280971
 SpriteRenderer:
@@ -62,6 +61,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -83,8 +83,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1553159797
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5509132373917844316}
   - component: {fileID: 3851191416017125998}
   - component: {fileID: 1764110798744415782}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: AtomTrail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -70,8 +70,8 @@ TrailRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -28808089
+  m_SortingLayer: 3
   m_SortingOrder: -100
   m_Time: 0.2
   m_Parameters:

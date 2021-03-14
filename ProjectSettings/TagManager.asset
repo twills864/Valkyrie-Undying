@@ -18,11 +18,11 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Enemy Bullets
+  - Enemies
+  - Player
+  - Player Bullets
+  - Screen Edge
   - 
   - 
   - 
@@ -46,6 +46,24 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Test Layer
-    uniqueID: 2792296815
+  - name: BFG Fallout
+    uniqueID: 128260493
+    locked: 0
+  - name: Additional Player Bullets
+    uniqueID: 3240725989
+    locked: 0
+  - name: Player Bullets
+    uniqueID: 4266159207
+    locked: 0
+  - name: Player
+    uniqueID: 342085613
+    locked: 0
+  - name: UI Elements
+    uniqueID: 2741807499
+    locked: 0
+  - name: Enemies
+    uniqueID: 1561911045
+    locked: 0
+  - name: Enemy Bullets
+    uniqueID: 1040220587
     locked: 0

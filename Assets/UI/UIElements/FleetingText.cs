@@ -24,7 +24,8 @@ namespace Assets.UI
             set => Move.Distance = value;
         }
 
-        private ConcurrentGameTask Concurrence { get; set; }
+        private EaseIn3 Ease { get; set; }
+        private SequenceGameTask Sequence { get; set; }
 
         public string Text
         {
@@ -48,21 +49,20 @@ namespace Assets.UI
         protected override void OnUIElementInit()
         {
             Move = new MoveBy(this, DefaultMoveDistance, TotalTextTime);
-            var ease = new EaseIn3(Move);
+            Ease = new EaseIn3(Move);
 
             var delay = new Delay(this, OpaqueTextTime);
             var fade = new FadeTo(this, 0, FadeTime);
 
-            var sequence = new SequenceGameTask(this, delay, fade);
-
-            Concurrence = new ConcurrentGameTask(this, sequence, ease);
+            Sequence = new SequenceGameTask(this, delay, fade);
         }
 
         protected override void OnActivate()
         {
             TextField.color = DefaultColor;
             CurrentyFading = false;
-            Concurrence.ResetSelf();
+            Ease.ResetSelf();
+            Sequence.ResetSelf();
             MoveDistance = DefaultMoveDistance;
             //Velocity = new Vector2(0, Speed);
         }
@@ -70,8 +70,10 @@ namespace Assets.UI
 
         protected override void OnFrameRun(float deltaTime)
         {
-            if (Concurrence.FrameRunFinishes(deltaTime))
+            if (Sequence.FrameRunFinishes(deltaTime))
                 DeactivateSelf();
+
+            Ease.RunFrame(deltaTime);
         }
     }
 }
