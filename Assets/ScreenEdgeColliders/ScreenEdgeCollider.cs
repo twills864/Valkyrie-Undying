@@ -18,7 +18,7 @@ namespace Assets.ScreenEdgeColliders
             bool isNegativeOffset;
 
             Vector2 size;
-            Vector2 position;
+            Vector3 position;
 
             switch (side)
             {
@@ -48,12 +48,16 @@ namespace Assets.ScreenEdgeColliders
             if(isWide)
             {
                 size = new Vector2(SpaceUtil.WorldMapSize.x, ColliderWidth);
-                position = new Vector2(0, (SpaceUtil.WorldMap.Top.y - positionOffset) * negativePositionMultiplier);
+
+                float y = (SpaceUtil.WorldMap.Top.y - positionOffset) * negativePositionMultiplier;
+                position = new Vector3(0, y);
             }
             else
             {
                 size = new Vector2(ColliderWidth, SpaceUtil.WorldMapSize.y);
-                position = new Vector2((SpaceUtil.WorldMap.Right.x - positionOffset) * negativePositionMultiplier, 0);
+
+                float x = (SpaceUtil.WorldMap.Right.x - positionOffset) * negativePositionMultiplier;
+                position = new Vector3(x, 0);
             }
 
             var collider = GetComponent<BoxCollider2D>();

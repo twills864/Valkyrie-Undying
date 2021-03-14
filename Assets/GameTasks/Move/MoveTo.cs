@@ -10,12 +10,12 @@ namespace Assets.GameTasks
     /// <inheritdoc/>
     public class MoveTo : FiniteMovementGameTask
     {
-        private Vector2 Destination { get; set; }
+        private Vector3 Destination { get; set; }
 
-        private Vector2 StartPosition { get; set; }
-        private Vector2 TotalPositionDifference { get; set; }
+        private Vector3 StartPosition { get; set; }
+        private Vector3 TotalPositionDifference { get; set; }
 
-        public MoveTo(ValkyrieSprite target, Vector2 from, Vector2 to, float duration) : base(target, duration)
+        public MoveTo(ValkyrieSprite target, Vector3 from, Vector3 to, float duration) : base(target, duration)
         {
             Destination = to;
             StartPosition = from;
@@ -24,7 +24,7 @@ namespace Assets.GameTasks
             Velocity = TotalPositionDifference / Duration;
         }
 
-        public MoveTo(ValkyrieSprite target, Vector2 to, float duration) : base(target, duration)
+        public MoveTo(ValkyrieSprite target, Vector3 to, float duration) : base(target, duration)
         {
             Destination = to;
             StartPosition = target.transform.position;

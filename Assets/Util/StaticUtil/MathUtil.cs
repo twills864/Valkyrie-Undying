@@ -14,6 +14,11 @@ namespace Assets.Util
         public static Vector2 DefaultVector => Vector2.up;
 
         /// <summary>
+        /// The default direction to apply if a sensitive Vector calculation results in Vector3.zero
+        /// </summary>
+        public static Vector3 DefaultVector3 => Vector3.up;
+
+        /// <summary>
         /// Calculates the result of <paramref name="dividen"/> modulo <paramref name="divisor"/>.
         /// </summary>
         /// <returns>The result of <paramref name="dividen"/> mod <paramref name="divisor"/></returns>
@@ -89,12 +94,24 @@ namespace Assets.Util
         /// <summary>
         /// Returns MathUtil.DefaultVector if a specified <paramref name="vector"/> is equal to Vector2.zero.
         /// </summary>
-        /// <param name="vector">The vector to compare3 to Vector2.zero.</param>
-        /// <returns>The original vector if it is not equal to Vector2.zero; MathUtil.DefaultVector2.zero otherwide.</returns>
+        /// <param name="vector">The vector to compare to Vector2.zero.</param>
+        /// <returns>The original vector if it is not equal to Vector2.zero; MathUtil.DefaultVector2.zero otherwise.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2 DefaultVectorIfZero(Vector2 vector)
         {
             var ret = vector != Vector2.zero ? vector : DefaultVector;
+            return ret;
+        }
+
+        /// <summary>
+        /// Returns MathUtil.DefaultVector3 if a specified <paramref name="vector"/> is equal to Vector3.zero.
+        /// </summary>
+        /// <param name="vector">The vector to compare to Vector3.zero.</param>
+        /// <returns>The original vector if it is not equal to Vector3.zero; MathUtil.DefaultVector3.zero otherwise.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector3 DefaultVector3IfZero(Vector3 vector)
+        {
+            var ret = vector != Vector3.zero ? vector : DefaultVector3;
             return ret;
         }
 
@@ -150,7 +167,7 @@ namespace Assets.Util
         /// </summary>
         /// <param name="angle">The angle at which to point the vector.</param>
         /// <returns>The unit vector at the given angle.</returns>
-        public static Vector2 VectorAtRadianAngle(float angle)
+        public static Vector2 Vector2AtRadianAngle(float angle)
         {
             var x = Mathf.Cos(angle);
             var y = Mathf.Sin(angle);
@@ -164,26 +181,34 @@ namespace Assets.Util
         /// </summary>
         /// <param name="angle">The angle at which to point the vector.</param>
         /// <returns>The vector at the given angle.</returns>
-        public static Vector2 VectorAtRadianAngle(float angle, float length)
+        public static Vector2 Vector2AtRadianAngle(float angle, float length)
         {
-            var ret = VectorAtRadianAngle(angle) * length;
+            var ret = Vector2AtRadianAngle(angle) * length;
             return ret;
         }
 
         /// <summary>
-        /// Returns a Vector2 along the path between two points
-        /// that represents the given ration between them.
+        /// Returns a unit vector pointed at a given <paramref name="angle"/>.
         /// </summary>
-        /// <param name="from">The starting point.</param>
-        /// <param name="to">The destination point.</param>
-        /// <param name="ratio">The ratio of completion.</param>
-        /// <returns>The represented point between the two points.</returns>
-        public static Vector2 ScaledPositionBetween(Vector2 from, Vector2 to, float ratio)
+        /// <param name="angle">The angle at which to point the vector.</param>
+        /// <returns>The unit vector at the given angle.</returns>
+        public static Vector3 Vector3AtRadianAngle(float angle)
         {
-            Vector2 diff = to - from;
-            Vector2 scaled = diff * ratio;
+            var x = Mathf.Cos(angle);
+            var y = Mathf.Sin(angle);
 
-            Vector2 ret = from + scaled;
+            var ret = new Vector3(x, y);
+            return ret;
+        }
+
+        /// <summary>
+        /// Returns a vector of a given length pointed at a given <paramref name="angle"/>.
+        /// </summary>
+        /// <param name="angle">The angle at which to point the vector.</param>
+        /// <returns>The vector at the given angle.</returns>
+        public static Vector3 VectorAtRadianAngle(float angle, float length)
+        {
+            var ret = Vector3AtRadianAngle(angle) * length;
             return ret;
         }
 

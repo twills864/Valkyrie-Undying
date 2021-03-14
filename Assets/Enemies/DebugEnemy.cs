@@ -29,8 +29,8 @@ namespace Assets.Enemies
         [SerializeField]
         private float InfernoDamageTextDistance = GameConstants.PrefabNumber;
 
-        private Vector2 InfernoDamageAngle { get; set; }
-        private CircularSelector<Vector2> AngleLanes { get; set; }
+        private Vector3 InfernoDamageAngle { get; set; }
+        private CircularSelector<Vector3> AngleLanes { get; set; }
         private int LastDamage { get; set; }
 
         protected override EnemyFireStrategy InitialFireStrategy()
@@ -41,13 +41,12 @@ namespace Assets.Enemies
             DamageTextAngleStep *= Mathf.Deg2Rad;
             InfernoDamageTextAngle *= Mathf.Deg2Rad;
 
-            AngleLanes = new CircularSelector<Vector2>();
+            AngleLanes = new CircularSelector<Vector3>();
 
             for (float f = 0; f < MathUtil.Pi2f - 0.01f; f += DamageTextAngleStep)
                 AngleLanes.Add(MathUtil.VectorAtRadianAngle(f, DamageTextDistance));
 
             InfernoDamageAngle = MathUtil.VectorAtRadianAngle(InfernoDamageTextAngle, InfernoDamageTextDistance);
-
 
             base.OnActivate();
         }
@@ -81,11 +80,11 @@ namespace Assets.Enemies
 
         private FleetingText FleetingDamageText(int damage, float moveX, float moveY, Color color)
         {
-            Vector2 moveDistance = new Vector2(moveX, moveY);
+            Vector3 moveDistance = new Vector3(moveX, moveY);
             return FleetingDamageText(damage, moveDistance, color);
         }
 
-        private FleetingText FleetingDamageText(int damage, Vector2 moveDistance, Color color)
+        private FleetingText FleetingDamageText(int damage, Vector3 moveDistance, Color color)
         {
             var text = CreateFleetingTextAtCenter(damage);
             text.SpriteColor = color;

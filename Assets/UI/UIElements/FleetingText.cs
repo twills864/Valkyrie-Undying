@@ -18,7 +18,7 @@ namespace Assets.UI
         private bool CurrentyFading;
 
         private MoveBy Move { get; set; }
-        public Vector2 MoveDistance
+        public Vector3 MoveDistance
         {
             get => Move.Distance;
             set => Move.Distance = value;
@@ -44,7 +44,7 @@ namespace Assets.UI
 
         public float TotalTextTime => OpaqueTextTime + FadeTime;
         public float TotalDistance => Speed * TotalTextTime;
-        private Vector2 DefaultMoveDistance => new Vector2(0, TotalDistance);
+        private Vector3 DefaultMoveDistance => new Vector3(0, TotalDistance);
 
         protected override void OnUIElementInit()
         {

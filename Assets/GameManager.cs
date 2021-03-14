@@ -485,7 +485,7 @@ namespace Assets
         /// <param name="message">The message to give the fleeting text.</param>
         /// <param name="position">The position to place the fleeting text.</param>
         /// <returns></returns>
-        public FleetingText CreateFleetingText(string message, Vector2 position)
+        public FleetingText CreateFleetingText(string message, Vector3 position)
         {
             var text = _PoolManager.UIElementPool.Get<FleetingText>(position);
             text.Text = message;

@@ -50,7 +50,7 @@ namespace Assets.Powerups
         private int Damage { get; set; }
         private float WorldCenterX { get; set; }
 
-        public Vector2 FirePosition => BoxMap.Top;
+        public Vector3 FirePosition => BoxMap.Top;
 
         private FadeTo FadeTo { get; set; }
 

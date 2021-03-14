@@ -63,7 +63,7 @@ namespace Assets.Powerups
             AllLists[list.PowerupManagerIndex] = list;
         }
 
-        public void OnFire(Vector2 firePosition, PlayerBullet[] bullets)
+        public void OnFire(Vector3 firePosition, PlayerBullet[] bullets)
         {
             foreach (var powerup in OnFireList.Where(x => x.IsActive))
                 powerup.OnFire(firePosition, bullets);

@@ -17,7 +17,7 @@ namespace Assets.Powerups
     public abstract class OnFirePowerup : Powerup
     {
         public override void OnLevelUp() { }
-        public abstract void OnFire(Vector2 position, PlayerBullet[] bullets);
+        public abstract void OnFire(Vector3 position, PlayerBullet[] bullets);
 
         protected sealed override void InitBalance(in PowerupBalanceManager balance)
             => InitBalance(in balance.OnFire);

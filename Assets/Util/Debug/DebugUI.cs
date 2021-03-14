@@ -59,21 +59,21 @@ namespace Assets.Util
 
             DebugTextBox = new DebugTextBox(InputField);
 
-            var inputPos = SpaceUtil.ScreenMap.BottomLeft + new Vector2(DebugBorderOffset, DebugBorderOffset);
+            var inputPos = SpaceUtil.ScreenMap.BottomLeft + new Vector3(DebugBorderOffset, DebugBorderOffset);
             SpaceUtil.SetLeftToPosition(InputField, inputPos);
 
-            var buttonPos = SpaceUtil.ScreenMap.BottomRight + new Vector2(-DebugBorderOffset, DebugBorderOffset);
+            var buttonPos = SpaceUtil.ScreenMap.BottomRight + new Vector3(-DebugBorderOffset, DebugBorderOffset);
             SpaceUtil.SetRightToPosition(Button, buttonPos);
 
-            var dropdownFireTypePos = SpaceUtil.ScreenMap.Right + new Vector2(-DebugBorderOffset, 0);
+            var dropdownFireTypePos = SpaceUtil.ScreenMap.Right + new Vector3(-DebugBorderOffset, 0);
             SpaceUtil.SetRightToPosition(DropdownFireType, dropdownFireTypePos);
 
             const int showPowerupMenuButtonOffset = -50;
-            var showPowerupMenuButtonPos = SpaceUtil.ScreenMap.Right + new Vector2(-DebugBorderOffset, showPowerupMenuButtonOffset);
+            var showPowerupMenuButtonPos = SpaceUtil.ScreenMap.Right + new Vector3(-DebugBorderOffset, showPowerupMenuButtonOffset);
             SpaceUtil.SetRightToPosition(ButtonShowPowerupMenu, showPowerupMenuButtonPos);
 
             const int powerupRowOffset = -120;
-            var powerupRowPos = SpaceUtil.ScreenMap.Right + new Vector2(-DebugBorderOffset, powerupRowOffset);
+            var powerupRowPos = SpaceUtil.ScreenMap.Right + new Vector3(-DebugBorderOffset, powerupRowOffset);
             SpaceUtil.SetRightToPosition(PowerupRow, powerupRowPos);
 
 
@@ -86,20 +86,20 @@ namespace Assets.Util
             });
 
             const int sliderFireLevelYOffset = 15;
-            var sliderFireLevelPos = SpaceUtil.ScreenMap.Right + new Vector2(-DebugBorderOffset, DebugBorderOffset + sliderFireLevelYOffset);
+            var sliderFireLevelPos = SpaceUtil.ScreenMap.Right + new Vector3(-DebugBorderOffset, DebugBorderOffset + sliderFireLevelYOffset);
             SpaceUtil.SetRightToPosition(SliderFireLevel, sliderFireLevelPos);
 
             const int sliderFireLevelTextYOffset = 35;
-            var sliderFireLevelTextPos = SpaceUtil.ScreenMap.Right + new Vector2(-DebugBorderOffset, DebugBorderOffset + sliderFireLevelTextYOffset);
+            var sliderFireLevelTextPos = SpaceUtil.ScreenMap.Right + new Vector3(-DebugBorderOffset, DebugBorderOffset + sliderFireLevelTextYOffset);
             SpaceUtil.SetRightToPosition(TextFireLevel, sliderFireLevelTextPos);
 
 
             const int sliderGameSpeedYOffset = 180;
-            var sliderGameSpeedPos = SpaceUtil.ScreenMap.Right + new Vector2(-DebugBorderOffset, DebugBorderOffset + sliderGameSpeedYOffset);
+            var sliderGameSpeedPos = SpaceUtil.ScreenMap.Right + new Vector3(-DebugBorderOffset, DebugBorderOffset + sliderGameSpeedYOffset);
             SpaceUtil.SetRightToPosition(SliderGameSpeed, sliderGameSpeedPos);
 
             const int sliderGameSpeedTextYOffset = 200;
-            var sliderGameSpeedTextPos = SpaceUtil.ScreenMap.Right + new Vector2(-DebugBorderOffset, DebugBorderOffset + sliderGameSpeedTextYOffset);
+            var sliderGameSpeedTextPos = SpaceUtil.ScreenMap.Right + new Vector3(-DebugBorderOffset, DebugBorderOffset + sliderGameSpeedTextYOffset);
             SpaceUtil.SetRightToPosition(TextGameSpeed, sliderGameSpeedTextPos);
 
             //SliderFireLevel.value = 0;

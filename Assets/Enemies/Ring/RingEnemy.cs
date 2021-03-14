@@ -34,7 +34,7 @@ namespace Assets.Enemies
             float minY = SpaceUtil.WorldMap.Center.y + Ring.HeightHalf;
 
             float targetY = RandomUtil.Float(minY, maxY);
-            Vector2 destination = new Vector2(transform.position.x, targetY);
+            Vector3 destination = new Vector3(transform.position.x, targetY);
 
             float distance = transform.position.y - targetY;
             float duration = MinimumTravelTime + distance;

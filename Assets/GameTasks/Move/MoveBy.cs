@@ -9,9 +9,9 @@ namespace Assets.GameTasks
 {
     public class MoveBy : FiniteMovementGameTask
     {
-        private Vector2 _distance;
+        private Vector3 _distance;
 
-        public Vector2 Distance
+        public Vector3 Distance
         {
             get => _distance;
             set
@@ -21,7 +21,7 @@ namespace Assets.GameTasks
             }
         }
 
-        public MoveBy(ValkyrieSprite target, Vector2 distance, float duration) : base(target, duration)
+        public MoveBy(ValkyrieSprite target, Vector3 distance, float duration) : base(target, duration)
         {
             Distance = distance;
         }

@@ -19,7 +19,7 @@ namespace Assets.FireStrategies.EnemyFireStrategies
         //    Variance = strategy.Variance;
         //}
 
-        public abstract EnemyBullet[] GetBullets(Vector2 enemyFirePos);
+        public abstract EnemyBullet[] GetBullets(Vector3 enemyFirePos);
 
         protected abstract EnemyFireStrategy CloneSelf();
     }
@@ -38,7 +38,7 @@ namespace Assets.FireStrategies.EnemyFireStrategies
         //    FireTimer = ClonedFireTimer(strategy);
         //}
 
-        public override EnemyBullet[] GetBullets(Vector2 enemyFirePos)
+        public override EnemyBullet[] GetBullets(Vector3 enemyFirePos)
         {
             TBullet[] ret = new TBullet[]
             {

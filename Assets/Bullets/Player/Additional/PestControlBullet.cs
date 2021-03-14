@@ -25,7 +25,7 @@ namespace Assets.Bullets.PlayerBullets
             }
         }
 
-        public void SetTarget(Vector2 spawnPosition, EnemyBullet enemyBullet)
+        public void SetTarget(Vector3 spawnPosition, EnemyBullet enemyBullet)
         {
             transform.position = spawnPosition;
             var targetPos = enemyBullet.transform.position;

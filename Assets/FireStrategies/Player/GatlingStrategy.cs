@@ -24,7 +24,7 @@ namespace Assets.FireStrategies.PlayerFireStrategies
         {
         }
 
-        public override PlayerBullet[] GetBullets(int weaponLevel, Vector2 playerFirePos)
+        public override PlayerBullet[] GetBullets(int weaponLevel, Vector3 playerFirePos)
         {
             PlayerBullet[] ret;
 

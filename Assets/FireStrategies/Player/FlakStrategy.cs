@@ -26,7 +26,7 @@ namespace Assets.FireStrategies.PlayerFireStrategies
 
         // Maps loop indexes to their matching assigned lane index
         private Vector2[] LanesVelocityMap { get; set; }
-        private Vector2[] LanesPositionMap { get; set; }
+        private Vector3[] LanesPositionMap { get; set; }
 
         private float BulletVelocityY;
         private Vector2 BulletSize;
@@ -48,7 +48,7 @@ namespace Assets.FireStrategies.PlayerFireStrategies
             FillAssignedLanesVelocities();
         }
 
-        public override PlayerBullet[] GetBullets(int weaponLevel, Vector2 playerFirePos)
+        public override PlayerBullet[] GetBullets(int weaponLevel, Vector3 playerFirePos)
         {
 #if !FIREALL
             int numAdditional = 2 + PlusOneIfMaxLevel(weaponLevel);
@@ -79,16 +79,16 @@ namespace Assets.FireStrategies.PlayerFireStrategies
             return ret;
         }
 
-        private void FireLane(FlakBullet bullet, int laneIndex, Vector2 playerFirePos)
+        private void FireLane(FlakBullet bullet, int laneIndex, Vector3 playerFirePos)
         {
-            Vector2 newFirePos = playerFirePos + LanesPositionMap[laneIndex];
+            Vector3 newFirePos = playerFirePos + LanesPositionMap[laneIndex];
             bullet.transform.position = newFirePos;
 
             Vector2 newVelocity = LanesVelocityMap[laneIndex];
             bullet.Velocity = newVelocity;
         }
 
-        private void FireGuaranteedLanes(FlakBullet[] ret, Vector2 playerFirePos)
+        private void FireGuaranteedLanes(FlakBullet[] ret, Vector3 playerFirePos)
         {
             for(int i = 0; i < NumGuaranteedPellets; i++)
                 FireLane(ret[i], i, playerFirePos);
@@ -100,7 +100,7 @@ namespace Assets.FireStrategies.PlayerFireStrategies
         /// </summary>
         private void FillAssignedLanesPositions()
         {
-            LanesPositionMap = new Vector2[TotalPelletLanes];
+            LanesPositionMap = new Vector3[TotalPelletLanes];
 
             // Add a little bit of Y variance to make the pyramid shape less obvious
             float yOffsetVariance = BulletOffsetY * 0.25f;
@@ -113,7 +113,7 @@ namespace Assets.FireStrategies.PlayerFireStrategies
                 for (int x = 0; x <= y; x++)
                 {
                     float xOffset = (xStart + x) * BulletOffsetX;
-                    LanesPositionMap[laneCounter++].Set(xOffset, yOffset + yOffsetVariance);
+                    LanesPositionMap[laneCounter++].Set(xOffset, yOffset + yOffsetVariance, 0f);
 
                     yOffsetVariance = -yOffsetVariance;
                 }

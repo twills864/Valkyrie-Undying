@@ -24,7 +24,7 @@ namespace Assets.FireStrategies.PlayerFireStrategies
 
         // Maps loop indexes to their matching assigned lane index
         private Vector2[] LanesVelocityMap { get; set; }
-        private Vector2[] LanesPositionMap { get; set; }
+        private Vector3[] LanesPositionMap { get; set; }
 
         private float BulletVelocityY;
         private float FireRadius;
@@ -45,7 +45,7 @@ namespace Assets.FireStrategies.PlayerFireStrategies
             FillAssignedLanesMap();
         }
 
-        public override PlayerBullet[] GetBullets(int weaponLevel, Vector2 playerFirePos)
+        public override PlayerBullet[] GetBullets(int weaponLevel, Vector3 playerFirePos)
         {
             int numToGet;
             bool[] shouldFireLanes;
@@ -79,9 +79,9 @@ namespace Assets.FireStrategies.PlayerFireStrategies
             return ret;
         }
 
-        private void FireLane(SpreadBullet bullet, int laneIndex, Vector2 playerFirePos)
+        private void FireLane(SpreadBullet bullet, int laneIndex, Vector3 playerFirePos)
         {
-            Vector2 newFirePos = playerFirePos + LanesPositionMap[laneIndex];
+            Vector3 newFirePos = playerFirePos + LanesPositionMap[laneIndex];
             bullet.transform.position = newFirePos;
 
             Vector2 newVelocity = LanesVelocityMap[laneIndex];
@@ -90,26 +90,26 @@ namespace Assets.FireStrategies.PlayerFireStrategies
             bullet.SetDamage(laneIndex == 0);
         }
 
-        private void FireGuaranteedLanes(SpreadBullet[] ret, Vector2 playerFirePos)
+        private void FireGuaranteedLanes(SpreadBullet[] ret, Vector3 playerFirePos)
         {
             for(int i = 0; i < NumGuaranteedPellets; i++)
                 FireLane(ret[i], i, playerFirePos);
         }
 
-        private Vector2 DampenXPosition(Vector2 vector)
+        private Vector3 DampenXPosition(Vector3 position)
         {
-            var ret = new Vector2(vector.x * DampX, vector.y);
+            var ret = new Vector3(position.x * DampX, position.y);
             return ret;
         }
 
         private void FillAssignedLanesMap()
         {
-            Vector2 anchor = new Vector2(0, -FireRadius);
+            Vector3 anchor = new Vector3(0, -FireRadius);
 
-            LanesPositionMap = new Vector2[TotalPelletLanes];
+            LanesPositionMap = new Vector3[TotalPelletLanes];
             LanesVelocityMap = new Vector2[TotalPelletLanes];
 
-            LanesPositionMap[0] = Vector2.zero;
+            LanesPositionMap[0] = Vector3.zero;
             LanesVelocityMap[0] = new Vector2(0, BulletVelocityY);
 
             const float angleOffset = Mathf.Deg2Rad * 90;
@@ -122,7 +122,7 @@ namespace Assets.FireStrategies.PlayerFireStrategies
                 float angle = (i+1) * AngleBetweenLanesInRadians;
                 angle += angleOffset;
 
-                var unitVector = MathUtil.VectorAtRadianAngle(angle);
+                var unitVector = MathUtil.Vector3AtRadianAngle(angle);
 
                 LanesPositionMap[baseIndex] = anchor + DampenXPosition(unitVector * FireRadius);
                 LanesVelocityMap[baseIndex] = unitVector * BulletVelocityY;

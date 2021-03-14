@@ -39,7 +39,7 @@ namespace Assets.Powerups
             }
         }
 
-        private void CreateShrapnel(Vector2 position)
+        private void CreateShrapnel(Vector3 position)
         {
             if (position.y < MaxY)
                 PoolManager.Instance.BulletPool.Get<ShrapnelBullet>(position);

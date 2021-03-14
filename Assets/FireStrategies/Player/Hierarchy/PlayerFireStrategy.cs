@@ -27,8 +27,8 @@ namespace Assets.FireStrategies.PlayerFireStrategies
             return new LoopingFrameTimer(speed);
         }
 
-        public abstract PlayerBullet[] GetBullets(int weaponLevel, Vector2 playerFirePos);
-        public abstract PlayerBullet[] GetBullets(int weaponLevel, Vector2 playerFirePos, Vector2 velocity);
+        public abstract PlayerBullet[] GetBullets(int weaponLevel, Vector3 playerFirePos);
+        public abstract PlayerBullet[] GetBullets(int weaponLevel, Vector3 playerFirePos, Vector2 velocity);
 
         /// <summary>
         /// Gives an extra level to a given weapon level if it's equal to the
@@ -61,7 +61,7 @@ namespace Assets.FireStrategies.PlayerFireStrategies
         /// <param name="weaponLevel">The current weapon level.</param>
         /// <param name="playerFirePos">The current position from which to fire the bullet.</param>
         /// <returns>A single bullet wrapped in an array.</returns>
-        public override PlayerBullet[] GetBullets(int weaponLevel, Vector2 playerFirePos)
+        public override PlayerBullet[] GetBullets(int weaponLevel, Vector3 playerFirePos)
         {
             TBullet[] ret = new TBullet[]
             {
@@ -79,7 +79,7 @@ namespace Assets.FireStrategies.PlayerFireStrategies
         /// <param name="playerFirePos">The current position from which to fire the bullet.</param>
         /// <param name="velocity">The velocity to give to the bullet.</param>
         /// <returns>A single bullet wrapped in an array.</returns>
-        public override PlayerBullet[] GetBullets(int weaponLevel, Vector2 playerFirePos, Vector2 velocity)
+        public override PlayerBullet[] GetBullets(int weaponLevel, Vector3 playerFirePos, Vector2 velocity)
         {
             TBullet bullet = PoolManager.Instance.BulletPool.Get<TBullet>(playerFirePos, velocity, weaponLevel);
             TBullet[] ret = new TBullet[]

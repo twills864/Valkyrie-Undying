@@ -152,7 +152,7 @@ namespace Assets.ObjectPooling
         /// <typeparam name="TGet">The type of object to return.</typeparam>
         /// <param name="position">The position to give to the fresh instance.</param>
         /// <returns>The initialized fresh instance of <typeparamref name="TGet"/> from the appropriate Object Pool.</returns>
-        public TGet Get<TGet>(Vector2 position) where TGet : T
+        public TGet Get<TGet>(Vector3 position) where TGet : T
         {
             var ret = Get<TGet>();
             ret.transform.position = position;
@@ -169,7 +169,7 @@ namespace Assets.ObjectPooling
         /// <param name="position">The position to give to the fresh instance.</param>
         /// <param name="velocity">The velocity to give to the fresh instance.</param>
         /// <returns>The initialized fresh instance of <typeparamref name="TGet"/> from the appropriate Object Pool.</returns>
-        public TGet Get<TGet>(Vector2 position, Vector2 velocity) where TGet : T
+        public TGet Get<TGet>(Vector3 position, Vector2 velocity) where TGet : T
         {
             var ret = Get<TGet>(position);
             ret.Velocity = velocity;

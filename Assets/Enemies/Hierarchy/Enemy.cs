@@ -74,8 +74,8 @@ namespace Assets.Enemies
         }
 
 
-        public virtual Vector2 FirePosition => SpriteMap.Bottom;
-        protected virtual bool CanFire(Vector2 firePosition) => firePosition.y > FireHeightFloor;
+        public virtual Vector3 FirePosition => SpriteMap.Bottom;
+        protected virtual bool CanFire(Vector3 firePosition) => firePosition.y > FireHeightFloor;
 
 
         [SerializeField]
@@ -301,26 +301,26 @@ namespace Assets.Enemies
             }
         }
 
-        public virtual Vector2 RandomShrapnelPosition()
+        public virtual Vector3 RandomShrapnelPosition()
         {
             var topLeft = SpriteMap.TopLeft;
             var maxX = SpriteMap.Right.x;
             var x = RandomUtil.Float(topLeft.x, maxX);
 
-            var ret = new Vector2(x, topLeft.y);
+            var ret = new Vector3(x, topLeft.y);
             return ret;
         }
 
-        public virtual Vector2 ShrapnelPosition(PlayerBullet bullet)
+        public virtual Vector3 ShrapnelPosition(PlayerBullet bullet)
         {
             var collisionX = bullet.transform.position.x;
             return ShrapnelPosition(collisionX);
         }
-        public virtual Vector2 ShrapnelPosition(float collisionX)
+        public virtual Vector3 ShrapnelPosition(float collisionX)
         {
             var y = ColliderMap.Top.y;
 
-            var ret = new Vector2(collisionX, y);
+            var ret = new Vector3(collisionX, y);
             return ret;
         }
 

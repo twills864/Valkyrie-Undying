@@ -92,7 +92,7 @@ namespace Assets.Powerups
             FireTimer.ActivationInterval = fireSpeed;
         }
 
-        public Vector2 FirePosition
+        public Vector3 FirePosition
         {
             get
             {
@@ -101,12 +101,12 @@ namespace Assets.Powerups
                 var x = top.x + RandomUtil.Float(-BufferX, BufferX);
                 var y = top.y;
 
-                var ret = new Vector2(x, y);
+                var ret = new Vector3(x, y);
                 return ret;
             }
         }
 
-        public void CreateRaindrop(Vector2 position, int damage)
+        public void CreateRaindrop(Vector3 position, int damage)
         {
             var raindrop = (RaindropBullet) MonsoonPool.Get();
             raindrop.transform.position = position;

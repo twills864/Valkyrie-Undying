@@ -21,7 +21,7 @@ namespace Assets.FireStrategies.PlayerFireStrategies
             InitialBulletVelocity = new Vector2(0, BulletSpeed);
         }
 
-        public override PlayerBullet[] GetBullets(int weaponLevel, Vector2 playerFirePos)
+        public override PlayerBullet[] GetBullets(int weaponLevel, Vector3 playerFirePos)
         {
             PlayerBullet[] ret = GetBullets(weaponLevel, playerFirePos, InitialBulletVelocity);
             return ret;

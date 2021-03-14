@@ -33,10 +33,10 @@ namespace Assets.Util
             var camera = Camera.main;
 
             Vector2 screenSize = new Vector2(Screen.width, Screen.height);
-            ScreenMap = new BoxMap(Vector2.zero, screenSize);
+            ScreenMap = new BoxMap(Vector3.zero, screenSize);
 
-            Vector2 mappedScreen = camera.ScreenToWorldPoint(screenSize);
-            Vector2 mappedZero = camera.ScreenToWorldPoint(Vector2.zero);
+            Vector3 mappedScreen = camera.ScreenToWorldPoint(screenSize);
+            Vector3 mappedZero = camera.ScreenToWorldPoint(Vector2.zero);
 
             WorldMapSize = mappedScreen - mappedZero;
 
@@ -52,7 +52,7 @@ namespace Assets.Util
         /// </summary>
         /// <param name="element">The element to position.</param>
         /// <param name="pos">The position to set.</param>
-        public static void SetRightToPosition(MonoBehaviour element, Vector2 pos)
+        public static void SetRightToPosition(MonoBehaviour element, Vector3 pos)
         {
             var rectTransform = (RectTransform)element.transform;
             var rectSize = rectTransform.rect.size;
@@ -65,9 +65,9 @@ namespace Assets.Util
         /// <param name="element">The element to position.</param>
         /// <param name="pos">The position to set.</param>
         /// /// <param name="elementSize">The size of the element.</param>
-        private static void SetRightToPosition(MonoBehaviour element, Vector2 pos, Vector2 elementSize)
+        private static void SetRightToPosition(MonoBehaviour element, Vector3 pos, Vector2 elementSize)
         {
-            var add = new Vector2(-elementSize.x, elementSize.y) * 0.5f;
+            var add = new Vector3(-elementSize.x, elementSize.y) * 0.5f;
             var newPos = pos + add;
 
             element.transform.position = newPos;
@@ -78,7 +78,7 @@ namespace Assets.Util
         /// </summary>
         /// <param name="element">The element to position.</param>
         /// <param name="pos">The position to set.</param>
-        public static void SetLeftToPosition(MonoBehaviour element, Vector2 pos)
+        public static void SetLeftToPosition(MonoBehaviour element, Vector3 pos)
         {
             var rectTransform = (RectTransform)element.transform;
             var rectSize = rectTransform.rect.size;
@@ -91,9 +91,9 @@ namespace Assets.Util
         /// <param name="element">The element to position.</param>
         /// <param name="pos">The position to set.</param>
         /// <param name="elementSize">The size of the element.</param>
-        private static void SetLeftToPosition(MonoBehaviour element, Vector2 pos, Vector2 elementSize)
+        private static void SetLeftToPosition(MonoBehaviour element, Vector3 pos, Vector2 elementSize)
         {
-            var add = new Vector2(elementSize.x, elementSize.y) * 0.5f;
+            var add = new Vector3(elementSize.x, elementSize.y) * 0.5f;
             var newPos = pos + add;
 
             element.transform.position = newPos;
@@ -106,14 +106,14 @@ namespace Assets.Util
         /// <param name="pos">The position to set.</param>
         public static void SetCenterToPosition(MonoBehaviour element, float pos)
         {
-            SetCenterToPosition(element, new Vector2(pos, pos));
+            SetCenterToPosition(element, new Vector3(pos, pos));
         }
         /// <summary>
         /// Center-aligns a given element to a specified position.
         /// </summary>
         /// <param name="element">The element to position.</param>
         /// <param name="pos">The position to set.</param>
-        public static void SetCenterToPosition(MonoBehaviour element, Vector2 pos)
+        public static void SetCenterToPosition(MonoBehaviour element, Vector3 pos)
         {
             var rectTransform = (RectTransform)element.transform;
             var rectSize = rectTransform.rect.size;
@@ -126,9 +126,9 @@ namespace Assets.Util
         /// <param name="element">The element to position.</param>
         /// <param name="pos">The position to set.</param>
         /// /// <param name="elementSize">The size of the element.</param>
-        private static void SetCenterToPosition(MonoBehaviour element, Vector2 pos, Vector2 elementSize)
+        private static void SetCenterToPosition(MonoBehaviour element, Vector3 pos, Vector2 elementSize)
         {
-            var add = new Vector2(elementSize.x, elementSize.y) * 0.5f;
+            var add = new Vector3(elementSize.x, elementSize.y) * 0.5f;
             var newPos = pos + add;
 
             element.transform.position = newPos;
@@ -143,7 +143,7 @@ namespace Assets.Util
         /// </summary>
         /// <param name="enemy">The enemy that will be spawned.</param>
         /// <returns>The random spawn position for the <paramref name="enemy"/></returns>
-        public static Vector2 RandomEnemySpawnPosition(Enemy enemy)
+        public static Vector3 RandomEnemySpawnPosition(Enemy enemy)
         {
             Vector2 size = ((RectTransform)enemy.transform).rect.size;
 
@@ -153,7 +153,7 @@ namespace Assets.Util
             GetWorldBoundsX(sizeX, out float spawnXMin, out float spawnXMax);
             float spawnX = RandomUtil.Float(spawnXMin, spawnXMax);
 
-            var ret = new Vector2(spawnX, spawnY);
+            var ret = new Vector3(spawnX, spawnY);
             return ret;
         }
 

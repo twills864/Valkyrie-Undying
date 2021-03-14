@@ -101,7 +101,7 @@ namespace Assets.ObjectPooling
         /// <param name="position">The position to give to the fresh instance.</param>
         /// <param name="weaponLevel">The bullet level to give to the fresh instance.</param>
         /// <returns>The initialized fresh instance of <typeparamref name="TGet"/> from the appropriate Object Pool.</returns>
-        public TGet Get<TGet>(Vector2 position, int weaponLevel) where TGet : PlayerBullet
+        public TGet Get<TGet>(Vector3 position, int weaponLevel) where TGet : PlayerBullet
         {
             var ret = Get<TGet>(position);
             ret.BulletLevel = weaponLevel;
@@ -121,7 +121,7 @@ namespace Assets.ObjectPooling
         /// <param name="velocity">The velocity to give to the fresh instance.</param>
         /// <param name="weaponLevel">The bullet level to give to the fresh instance.</param>
         /// <returns>The initialized fresh instance of <typeparamref name="TGet"/> from the appropriate Object Pool.</returns>
-        public TGet Get<TGet>(Vector2 position, Vector2 velocity, int weaponLevel) where TGet : PlayerBullet
+        public TGet Get<TGet>(Vector3 position, Vector2 velocity, int weaponLevel) where TGet : PlayerBullet
         {
             var ret = Get<TGet>(position, velocity);
             ret.BulletLevel = weaponLevel;
@@ -138,7 +138,7 @@ namespace Assets.ObjectPooling
         /// <param name="position">The position to give to the fresh instance.</param>
         /// <param name="weaponLevel">The bullet level to give to the fresh instance.</param>
         /// <returns>The array of fresh instances of <typeparamref name="TGet"/> from the appropriate Object Pool.</returns>
-        public TGet[] GetMany<TGet>(int amountToGet, Vector2 position, int weaponLevel) where TGet : PlayerBullet
+        public TGet[] GetMany<TGet>(int amountToGet, Vector3 position, int weaponLevel) where TGet : PlayerBullet
         {
             TGet[] ret = LinqUtil.Array(amountToGet, () => Get<TGet>(position, weaponLevel));
             return ret;

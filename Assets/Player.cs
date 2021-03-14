@@ -42,7 +42,7 @@ namespace Assets
         private float MinX { get; set; }
         private float MaxX { get; set; }
 
-        private Vector2 LastCursorPosition { get; set; }
+        private Vector3 LastCursorPosition { get; set; }
 
 
         #region Fire Speed
@@ -93,25 +93,25 @@ namespace Assets
             MinX = _MinX;
             MaxX = _MaxX;
 
-            SetMobilePosition(Vector2.zero);
+            SetMobilePosition(Vector3.zero);
         }
 
         public void SetMobilePosition(float posX)
         {
             posX = Mathf.Clamp(posX, MinX, MaxX);
-            Vector2 newPos = new Vector2(posX, MobileY);
+            Vector3 newPos = new Vector3(posX, MobileY);
             SetPosition(newPos);
         }
-        public void SetMobilePosition(Vector2 pos)
+        public void SetMobilePosition(Vector3 pos)
         {
             SetMobilePosition(pos.x);
         }
-        public void SetPosition(Vector2 pos)
+        public void SetPosition(Vector3 pos)
         {
             Body.transform.localPosition = pos;
         }
 
-        public Vector2 FirePosition()
+        public Vector3 FirePosition()
         {
             var ret = SpriteMap.Top;
             return ret;
@@ -131,11 +131,11 @@ namespace Assets
                 LastCursorPosition = SpaceUtil.WorldPositionUnderMouse();
             else if (Input.GetMouseButton(0))
             {
-                Vector2 thisCursorPosition = SpaceUtil.WorldPositionUnderMouse();
+                Vector3 thisCursorPosition = SpaceUtil.WorldPositionUnderMouse();
 
                 if (thisCursorPosition != LastCursorPosition)
                 {
-                    Vector2 delta = thisCursorPosition - LastCursorPosition;
+                    Vector3 delta = thisCursorPosition - LastCursorPosition;
 
                     var newX = transform.position.x + delta.x;
                     SetMobilePosition(newX);

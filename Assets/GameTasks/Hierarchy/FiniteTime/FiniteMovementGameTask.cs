@@ -16,7 +16,7 @@ namespace Assets.GameTasks
         /// </summary>
         protected Vector2 Velocity;
 
-        public FiniteMovementGameTask(ValkyrieSprite target, float duration) : base(target, duration) { DBTOTAL = Vector2.zero; }
+        public FiniteMovementGameTask(ValkyrieSprite target, float duration) : base(target, duration) { }
 
         /// <summary>
         /// Functionality that will occur after this Task's Timer is updated,
@@ -42,7 +42,5 @@ namespace Assets.GameTasks
             Target.ApplyVelocity(Velocity, deltaTime);
             //Target.transform.position += new Vector3(Velocity.x * deltaTime, Velocity.y * deltaTime, 0);
         }
-
-        private Vector2 DBTOTAL = Vector2.zero;
     }
 }

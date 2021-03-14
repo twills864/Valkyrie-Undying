@@ -28,7 +28,7 @@ namespace Assets.Powerups
 
         private MoveTo Move { get; set; }
 
-        public void Init(Vector2 spawnPosition, float offsetFromBottom)
+        public void Init(Vector3 spawnPosition, float offsetFromBottom)
         {
             Instance = this;
 
@@ -36,7 +36,7 @@ namespace Assets.Powerups
 
             var x = transform.position.x;
             var y = SpaceUtil.WorldMap.Bottom.y + offsetFromBottom;
-            var moveVector = new Vector2(x, y);
+            var moveVector = new Vector3(x, y);
             Move = new MoveTo(this, moveVector, Duration);
         }
 

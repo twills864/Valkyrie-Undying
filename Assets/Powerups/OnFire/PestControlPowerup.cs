@@ -39,7 +39,7 @@ namespace Assets.Powerups
             PestControlPool = PoolManager.Instance.BulletPool.GetPool<PestControlBullet>();
         }
 
-        public override void OnFire(Vector2 position, PlayerBullet[] bullets)
+        public override void OnFire(Vector3 position, PlayerBullet[] bullets)
         {
             int pestControlCounter = bullets
                 .Select(bullet => bullet.PestControlChance * ChanceModifier)
@@ -50,7 +50,7 @@ namespace Assets.Powerups
                 FirePestControl(position, pestControlCounter);
         }
 
-        private void FirePestControl(Vector2 position, int numberToGet)
+        private void FirePestControl(Vector3 position, int numberToGet)
         {
             var targets = EnemyBulletPoolList.GetPestControlTargets(numberToGet);
 

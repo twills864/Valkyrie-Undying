@@ -247,7 +247,7 @@ namespace Assets.Util
         /// </summary>
         /// <param name="length">The length of the vector to return.</param>
         /// <returns>The random-direction vector of the specified length.</returns>
-        public static Vector2 RandomDirectionVector(float length)
+        public static Vector3 RandomDirectionVector(float length)
         {
             var ret = length * RandomDirectionVector();
             return ret;
@@ -257,7 +257,7 @@ namespace Assets.Util
         /// Returns a unit vector in a pseudo-random direction.
         /// </summary>
         /// <returns>The random-direction unit vector.</returns>
-        public static Vector2 RandomDirectionVector()
+        public static Vector3 RandomDirectionVector()
         {
             const float VectorMax = 1;
             const float VectorHalf = VectorMax * 0.5f;
@@ -265,7 +265,7 @@ namespace Assets.Util
             float x = Float(VectorMax) - VectorHalf;
             float y = Float(VectorMax) - VectorHalf;
 
-            Vector2 ret = MathUtil.DefaultVectorIfZero(new Vector2(x, y));
+            Vector3 ret = MathUtil.DefaultVector3IfZero(new Vector3(x, y));
             ret.Normalize();
 
             return ret;
@@ -276,12 +276,12 @@ namespace Assets.Util
         /// between diagonal-top-left and diagonal-top-right
         /// </summary>
         /// <returns>The random-direction unit vector.</returns>
-        public static Vector2 RandomDirectionVectorTopQuarter()
+        public static Vector3 RandomDirectionVectorTopQuarter()
         {
             float y = 1f;
             float x = Float(-y, y);
 
-            Vector2 ret = new Vector2(x, y);
+            Vector3 ret = new Vector3(x, y);
             ret.Normalize();
             return ret;
         }
@@ -291,9 +291,9 @@ namespace Assets.Util
         /// between diagonal-top-left and diagonal-top-right
         /// </summary>
         /// <returns>The random-direction unit vector.</returns>
-        public static Vector2 RandomDirectionVectorTopQuarter(float length)
+        public static Vector3 RandomDirectionVectorTopQuarter(float length)
         {
-            Vector2 ret = RandomDirectionVectorTopQuarter();
+            Vector3 ret = RandomDirectionVectorTopQuarter();
             ret *= length;
 
             return ret;

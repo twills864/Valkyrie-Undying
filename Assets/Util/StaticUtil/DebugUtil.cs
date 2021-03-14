@@ -117,7 +117,7 @@ namespace Assets.Util
         private static void InputMouseBack(KeyCode keyCode)
         {
             //var moveTo = new MoveTo(GameManager._DebugEnemy, SpaceUtil.WorldMap.Center, 1f);
-            var moveBy = new MoveBy(GameManager._DebugEnemy, new Vector2(1f, 1f), 1f);
+            var moveBy = new MoveBy(GameManager._DebugEnemy, new Vector3(1f, 1f), 1f);
             var ease = new EaseIn(moveBy);
 
             GameManager._DebugEnemy.RunTask(ease);
@@ -207,7 +207,7 @@ namespace Assets.Util
             }
 
             if (Input.GetMouseButton(2))
-                GameManager._DebugEnemy.transform.position = (Vector2)SpaceUtil.WorldPositionUnderMouse();
+                GameManager._DebugEnemy.transform.position = SpaceUtil.WorldPositionUnderMouse();
         }
 
         #endregion Input Engine
@@ -216,14 +216,14 @@ namespace Assets.Util
         /// Draws a red X for a brief time at the specified position.
         /// </summary>
         /// <param name="position">The position to draw the X.</param>
-        public static void RedX(Vector2 position, float rayTime = 1.5f)
+        public static void RedX(Vector3 position, float rayTime = 1.5f)
         {
             const float XRadius = 0.3f;
 
-            Vector2 topLeft = position + new Vector2(-XRadius, XRadius);
-            Vector2 topRight = position + new Vector2(XRadius, XRadius);
-            Vector2 bottomRight = position + new Vector2(XRadius, -XRadius);
-            Vector2 bottomLeft = position + new Vector2(-XRadius, -XRadius);
+            Vector3 topLeft = position + new Vector3(-XRadius, XRadius);
+            Vector3 topRight = position + new Vector3(XRadius, XRadius);
+            Vector3 bottomRight = position + new Vector3(XRadius, -XRadius);
+            Vector3 bottomLeft = position + new Vector3(-XRadius, -XRadius);
 
             Debug.DrawLine(topLeft, bottomRight, ColorRed, rayTime);
             Debug.DrawLine(bottomLeft, topRight, ColorRed, rayTime);
@@ -235,14 +235,27 @@ namespace Assets.Util
         /// </summary>
         /// <param name="position">The position to draw the X.</param>
         /// <param name="message">The message to display.</param>
-        public static void RedX(Vector2 position, object message)
+        public static void RedX(Vector3 position, string message)
         {
             RedX(position);
 
             const float YOffset = 0.5f;
-            var fleetingText = GameManager.Instance.CreateFleetingText(message.ToString(), position + new Vector2(0, YOffset));
+
+            position.y += YOffset;
+            var fleetingText = GameManager.Instance.CreateFleetingText(message, position);
             var text = fleetingText.GetComponent<TextMesh>();
             text.color = ColorRed;
+        }
+
+        /// <summary>
+        /// Draws a red X for a brief time at the specified position, and
+        /// displays a red Fleeting Text at this position.
+        /// </summary>
+        /// <param name="position">The position to draw the X.</param>
+        /// <param name="message">The message to display.</param>
+        public static void RedX(Vector3 position, object message)
+        {
+            RedX(position, message.ToString());
         }
 
         #region Get Types

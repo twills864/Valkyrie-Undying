@@ -5,15 +5,15 @@ namespace Assets.Util
     // Easily allows you to get various information and locations about a given box area
     public interface IBoxMap
     {
-        Vector2 TopLeft { get; }
-        Vector2 Top { get; }
-        Vector2 TopRight { get; }
-        Vector2 Right { get; }
-        Vector2 BottomRight { get; }
-        Vector2 Bottom { get; }
-        Vector2 BottomLeft { get; }
-        Vector2 Left { get; }
-        Vector2 Center { get; }
+        Vector3 TopLeft { get; }
+        Vector3 Top { get; }
+        Vector3 TopRight { get; }
+        Vector3 Right { get; }
+        Vector3 BottomRight { get; }
+        Vector3 Bottom { get; }
+        Vector3 BottomLeft { get; }
+        Vector3 Left { get; }
+        Vector3 Center { get; }
 
         float X { get; }
         float Y { get; }
