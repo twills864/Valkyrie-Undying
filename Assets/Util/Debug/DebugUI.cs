@@ -80,6 +80,7 @@ namespace Assets.Util
 
             var strategiesToAdd = fireStrategies.Select(x => x.GetType().Name).ToList();
             DropdownFireType.AddOptions(strategiesToAdd);
+            DropdownFireType.SetValueWithoutNotify(GameManager.Instance.DefaultFireTypeIndex);
             DropdownFireType.onValueChanged.AddListener(delegate
             {
                 _GameManager.SetFireType(DropdownFireType.value, true);

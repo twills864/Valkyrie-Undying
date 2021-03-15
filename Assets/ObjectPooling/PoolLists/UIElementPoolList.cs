@@ -20,6 +20,8 @@ namespace Assets.ObjectPooling
         private VictimMarkerCorner VictimMarkerCornerPrefab = null;
         [SerializeField]
         private EnemyHealthBar EnemyHealthBarPrefab = null;
+        [SerializeField]
+        private MetronomeLabel MetronomeLabelPrefab = null;
 
 #pragma warning restore 0414
 
@@ -38,6 +40,7 @@ namespace Assets.ObjectPooling
         protected override void OnInit()
         {
             VictimMarker.StaticInit();
+            MetronomeLabel.StaticInit();
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Assets.Bullets.PlayerBullets;
 using Assets.Enemies;
+using Assets.FireStrategies.PlayerFireStrategies;
 using Assets.GameTasks;
 using Assets.Powerups;
 using LogUtilAssets;
@@ -261,6 +262,7 @@ namespace Assets.Util
         #region Get Types
 
         public static Type GetPowerupType<TPowerup>() where TPowerup : Powerup => typeof(TPowerup);
+        public static Type GetOverrideFireStrategyType<TFireStrategy>() where TFireStrategy : PlayerFireStrategy => typeof(TFireStrategy);
         public static Type GetOverrideEnemyType<TEnemy>() where TEnemy : Enemy => typeof(TEnemy);
 
         #endregion Get Types

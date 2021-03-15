@@ -19,6 +19,7 @@ using Assets.ColorManagers;
 using Assets.Powerups.Balance;
 using UnityEngine.UI;
 using Assets.FireStrategyManagers;
+using System.Linq;
 
 namespace Assets
 {
@@ -28,18 +29,54 @@ namespace Assets
         #region Property Fields
 
         private Enemy _victimEnemy;
+        private Enemy _metronomeEnemy;
         private float _playerFireDeltaTimeScale = 1f;
 
         #endregion Property Fields
 
-        public static GameManager Instance { get; set; }
+        public static GameManager Instance { get; private set; }
 
-        private bool DebugPauseNextFrame { get; set; }
+        #region Debug
 
-        private const bool AddingPowerup = false;
-        public Type GameRowPowerupType => DebugUtil.GetPowerupType<VictimPowerup>();
+        private TestingType CurrentTest = TestingType.Nothing;
 
-        public int DefaultFireTypeIndex => AddingPowerup ? 0 : FireStrategies.Count - 1;
+        public Type OverrideDefaultWeaponType => null; // DebugUtil.GetOverrideFireStrategyType<GatlingStrategy>();
+        public Type GameRowPowerupType => DebugUtil.GetPowerupType<RetributionPowerup>();
+
+        private bool DebugPauseNextFrame;
+
+        private enum TestingType
+        {
+            Nothing,
+            NewWeapon,
+            NewPowerup,
+            NewEnemy
+        };
+
+        private bool TestingWeapon => CurrentTest == TestingType.NewWeapon;
+        private bool TestingPowerup => CurrentTest == TestingType.NewPowerup;
+        private bool TestingEnenemy => CurrentTest == TestingType.NewEnemy;
+
+        public int DefaultFireTypeIndex
+        {
+            get
+            {
+                var overrideType = OverrideDefaultWeaponType;
+                if (overrideType != null)
+                {
+                    for(int i = 0; i < FireStrategies.Count; i++)
+                    {
+                        if (FireStrategies[i].GetType() == overrideType)
+                            return i;
+                    }
+                    throw ExceptionUtil.ArgumentException(() => overrideType);
+                }
+                else
+                    return !TestingWeapon ? 0 : FireStrategies.Count - 1;
+            }
+        }
+
+        #endregion Debug
 
         #region Prefabs
 
@@ -320,6 +357,26 @@ namespace Assets
                 }
                 else
                     Player.VictimMarker = newMarker;
+            }
+        }
+
+        public Enemy MetronomeEnemy
+        {
+            get => _metronomeEnemy;
+            set
+            {
+                // Don't handle logic if we're assigning the same metronome
+                if (_metronomeEnemy == value)
+                    return;
+
+                // Deactivate label
+                if (_metronomeEnemy != null)
+                    _metronomeEnemy.MetronomeLabel.StartDeactivation();
+
+                _metronomeEnemy = value;
+
+                var newLabel = _PoolManager.UIElementPool.Get<MetronomeLabel>();
+                _metronomeEnemy.MetronomeLabel = newLabel;
             }
         }
 

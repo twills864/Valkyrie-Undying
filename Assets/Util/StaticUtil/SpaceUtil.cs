@@ -203,6 +203,7 @@ namespace Assets.Util
             Vector3 mousePos = Input.mousePosition;
             var camera = Camera.main;
             Vector3 point = camera.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, camera.nearClipPlane));
+            point.z = 0;
             return point;
         }
 

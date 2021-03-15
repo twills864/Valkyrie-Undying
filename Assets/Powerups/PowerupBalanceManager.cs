@@ -50,6 +50,7 @@ namespace Assets.Powerups.Balance
         public struct OnHitBalance
         {
             public ShrapnelBalance Shrapnel;
+            public MetronomeBalance Metronome;
 
             [Serializable]
             public struct ShrapnelBalance
@@ -61,6 +62,20 @@ namespace Assets.Powerups.Balance
                 {
                     public float BaseChance;
                     public float ChanceIncrease;
+                }
+            }
+
+            [Serializable]
+            public struct MetronomeBalance
+            {
+                public DamageBalance Damage;
+
+                [Serializable]
+                public struct DamageBalance
+                {
+                    public float BaseValue;
+                    public float ExponentBase;
+                    public float Scale;
                 }
             }
         }

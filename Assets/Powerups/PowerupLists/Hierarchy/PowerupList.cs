@@ -29,7 +29,12 @@ namespace Assets.Powerups
 
             var types = ReflectionUtil.GetTypesSubclassableFrom<TPowerUp>();
 
-            foreach(var type in types)
+            Type[] disabledPowerups = new Type[]
+            {
+                typeof(MetronomePowerup)
+            };
+
+            foreach(var type in types.Where(x => !disabledPowerups.Contains(x)))
             {
                 var newPowerup = (TPowerUp) ReflectionUtil.CreateNew(type);
                 newPowerup.PowerupManagerIndex = PowerupManagerIndex;

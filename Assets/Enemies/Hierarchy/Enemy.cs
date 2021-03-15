@@ -46,6 +46,7 @@ namespace Assets.Enemies
         public int PointValue { get; set; }
         public int CurrentHealth { get; set; }
 
+        #region Victim
 
         public bool IsVictim
         {
@@ -72,6 +73,36 @@ namespace Assets.Enemies
                 value.Host = this;
             }
         }
+
+        #endregion Victim
+
+        #region Metronome
+
+        public bool HasMetronome
+        {
+            get => GameManager.Instance.MetronomeEnemy == this;
+            set
+            {
+                if (value)
+                    GameManager.Instance.MetronomeEnemy = this;
+                else if (IsVictim)
+                    GameManager.Instance.MetronomeEnemy = null;
+            }
+        }
+
+        [SerializeField]
+        private MetronomeLabel _metronomeLabel;
+        public MetronomeLabel MetronomeLabel
+        {
+            get => _metronomeLabel;
+            set
+            {
+                _metronomeLabel = value;
+                value.Host = this;
+            }
+        }
+
+        #endregion Metronome
 
 
         public virtual Vector3 FirePosition => SpriteMap.Bottom;

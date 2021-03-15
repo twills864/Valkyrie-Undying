@@ -127,6 +127,7 @@ MonoBehaviour:
   HealthScaling: 1
   Sprite: {fileID: 5374573577975716727}
   _victimMarkerDistance: 0.5
+  _metronomeLabel: {fileID: 0}
   HealthBarOffsetScale: {x: 0, y: -0.5, z: 0}
   FireSpeed: 0
   FireSpeedVariance: 0
