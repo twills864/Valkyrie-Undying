@@ -1,4 +1,5 @@
-﻿using Assets.GameTasks;
+﻿using System;
+using Assets.GameTasks;
 using Assets.Hierarchy.ColorHandlers;
 using Assets.UI;
 using LogUtilAssets;
@@ -204,6 +205,18 @@ namespace Assets
         #endregion Transform LocalScale
 
         #region Transform Rotation
+
+        [Obsolete("Unsure if this is correct")]
+        public float RotationDegrees
+        {
+            get => transform.eulerAngles.z; // unsure if this is correct
+            set
+            {
+                var rotation = transform.eulerAngles;
+                rotation.z = value;
+                transform.eulerAngles = rotation;
+            }
+        }
 
         public void RotateSprite(float rotation)
         {

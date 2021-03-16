@@ -94,6 +94,20 @@ namespace Assets
             MaxX = _MaxX;
 
             SetMobilePosition(Vector3.zero);
+
+            //var startDelay = new Delay(this, 0.5f);
+            //var scaleTo = new ScaleTo(this, 3.0f, 1.5f);
+            //var fadeOut = new FadeTo(this, 1.0f, 0f, 1.5f);
+            //var fadeIn = new FadeTo(this, 0.0f, 0.6f, 1f);
+
+            //var rotateFrom = new RotateTo(this, 0f, 90f, 1.0f);
+            //var rotateTo = new RotateTo(this, 90f, 0f, 1.0f);
+            //var delay = new Delay(this, 1.0f);
+            //var seq = new Sequence(rotateFrom, rotateTo, delay);
+            //var repeat = new RepeatForever(seq);
+
+            //var endless = new EndlessSequence(repeat, startDelay, scaleTo, fadeOut, fadeIn);
+            //this.RunTask(endless);
         }
 
         public void SetMobilePosition(float posX)
