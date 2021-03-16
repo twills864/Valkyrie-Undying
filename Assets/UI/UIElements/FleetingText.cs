@@ -25,7 +25,7 @@ namespace Assets.UI
         }
 
         private EaseIn3 Ease { get; set; }
-        private SequenceGameTask Sequence { get; set; }
+        private Sequence Sequence { get; set; }
 
         public string Text
         {
@@ -54,7 +54,7 @@ namespace Assets.UI
             var delay = new Delay(this, OpaqueTextTime);
             var fade = new FadeTo(this, 0, FadeTime);
 
-            Sequence = new SequenceGameTask(this, delay, fade);
+            Sequence = new Sequence(delay, fade);
         }
 
         protected override void OnActivate()

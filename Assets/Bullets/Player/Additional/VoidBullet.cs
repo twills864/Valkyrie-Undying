@@ -24,7 +24,7 @@ namespace Assets.Bullets.PlayerBullets
         private Delay Delay { get; set; }
         private EaseOut3 ScaleOut { get; set; }
 
-        private SequenceGameTask Sequence { get; set; }
+        private Sequence Sequence { get; set; }
 
         public static VoidBullet StartVoid(Vector3 position, int level, float scale, float duration)
         {
@@ -47,7 +47,7 @@ namespace Assets.Bullets.PlayerBullets
             var scaleOut = new ScaleTo(this, Scale, InitialScale, ScaleTime);
             ScaleOut = new EaseOut3(scaleOut);
 
-            Sequence = new SequenceGameTask(this, ScaleIn, Delay, ScaleOut);
+            Sequence = new Sequence(ScaleIn, Delay, ScaleOut);
         }
 
         protected override void OnPlayerBulletFrameRun(float deltaTime)

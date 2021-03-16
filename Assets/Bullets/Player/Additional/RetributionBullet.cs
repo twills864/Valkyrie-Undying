@@ -23,7 +23,7 @@ namespace Assets.Bullets.PlayerBullets
         private EaseIn3 ScaleIn { get; set; }
         private FadeTo Fade { get; set; }
 
-        private SequenceGameTask Sequence { get; set; }
+        private Sequence Sequence { get; set; }
 
         public static RetributionBullet StartRetribution(Vector3 position, int level, float scale, float duration)
         {
@@ -52,7 +52,7 @@ namespace Assets.Bullets.PlayerBullets
 
             Fade = new FadeTo(this, 0, FadeTime);
 
-            Sequence = new SequenceGameTask(this, ScaleIn, Fade);
+            Sequence = new Sequence(ScaleIn, Fade);
         }
 
         protected override void OnPlayerBulletFrameRun(float deltaTime)

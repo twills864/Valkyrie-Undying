@@ -32,7 +32,7 @@ namespace Assets.Bullets.PlayerBullets
         private Color FullBright;
         private float DelayTime;
         private float FadeTime;
-        private SequenceGameTask FadeOutSequence { get; set; } = SequenceGameTask.Default();
+        private Sequence FadeOutSequence { get; set; } = Sequence.Default();
 
         // Call from BulletPoolList -> BfgBulletPrefab.InitFallout()
         public static void StaticInitFadeInfo(float delayTime, float fadeTime)
@@ -69,7 +69,7 @@ namespace Assets.Bullets.PlayerBullets
             var delay = new Delay(this, DelayTime);
             var fadeOut = new FadeTo(this, 0, FadeTime);
             var deactivate = new GameTaskFunc(this, DeactivateSelf);
-            FadeOutSequence = new SequenceGameTask(this, delay, fadeOut, deactivate);
+            FadeOutSequence = new Sequence(delay, fadeOut, deactivate);
         }
 
         protected override void OnPlayerBulletInit()

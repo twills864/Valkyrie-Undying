@@ -30,7 +30,7 @@ namespace Assets.Bullets.PlayerBullets
         [SerializeField]
         private float FadeTime = GameConstants.PrefabNumber;
 
-        private SequenceGameTask Sequence { get; set; }
+        private Sequence Sequence { get; set; }
 
         private bool HitBoxActive;
 
@@ -50,7 +50,7 @@ namespace Assets.Bullets.PlayerBullets
             var fadeTo = new FadeTo(this, 0.0f, FadeTime);
             var deactivate = GameTaskFunc.DeactivateSelf(this);
 
-            Sequence = new SequenceGameTask(this, delay, removeActive, fadeTo, deactivate);
+            Sequence = new Sequence(delay, removeActive, fadeTo, deactivate);
         }
 
         protected override void OnActivate()

@@ -47,7 +47,7 @@ namespace Assets.Bullets.PlayerBullets
         private float InitialScaleX;
         private float ScaleXPerLevel;
         private ScaleTo ScaleIn { get; set; }
-        private SequenceGameTask FallbackDeactivate { get; set; }
+        private Sequence FallbackDeactivate { get; set; }
 
 
         protected override void OnPlayerBulletInit()
@@ -67,7 +67,7 @@ namespace Assets.Bullets.PlayerBullets
 
             var delay = new Delay(this, FallbackDeactivationTime - FadeInTime);
             var deactivate = new GameTaskFunc(this, DeactivateSelf);
-            FallbackDeactivate = new SequenceGameTask(this, concurrence, delay, deactivate);
+            FallbackDeactivate = new Sequence(concurrence, delay, deactivate);
         }
 
         protected override void OnActivate()

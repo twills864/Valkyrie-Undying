@@ -12,7 +12,7 @@ namespace Assets.GameTasks
     /// Runs a sequence of FiniteTimeGameTasks one after another.
     /// </summary>
     /// <inheritdoc/>
-    public class SequenceGameTask : MultiGameTask
+    public class Sequence : MultiGameTask
     {
         protected int CurrentIndex;
         protected int LastIndex;
@@ -21,8 +21,8 @@ namespace Assets.GameTasks
         private FiniteTimeGameTask LastTask { get; }
         protected bool OnLastTask => CurrentIndex == LastIndex;
 
-        public SequenceGameTask(ValkyrieSprite target, params FiniteTimeGameTask[] innerTasks)
-            : base(target, innerTasks.Sum(x => x.Duration), innerTasks)
+        public Sequence(params FiniteTimeGameTask[] innerTasks)
+            : base(innerTasks[0].Target, innerTasks.Sum(x => x.Duration), innerTasks)
         {
             LastIndex = InnerTasks.Length - 1;
         }
@@ -53,6 +53,15 @@ namespace Assets.GameTasks
             CurrentIndex = 0;
         }
 
-        public static SequenceGameTask Default() => new SequenceGameTask(null);
+
+        /// <summary>
+        /// The default Sequence game task constructor.
+        /// Should only be used for a Sequence that cannot be null, but will
+        /// quickly be replaced by a meaningful Sequence.
+        /// </summary>
+        private Sequence() : base(null, 1.0f)
+        {
+        }
+        public static Sequence Default() => new Sequence();
     }
 }
