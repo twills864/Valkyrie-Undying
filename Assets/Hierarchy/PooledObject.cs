@@ -19,6 +19,16 @@ namespace Assets
         [NonSerialized]
         public int SpawnId;
 
+#if UNITY_EDITOR
+        /// <summary>
+        /// Whether or not this PooledObject was the very first element
+        /// created by this pool.
+        /// Used for debugging.
+        /// </summary>
+        [NonSerialized]
+        public bool IsFirstInPool;
+#endif
+
         /// <summary>
         /// The name initially given to this object by Unity.
         /// </summary>

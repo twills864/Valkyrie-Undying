@@ -15,11 +15,11 @@ namespace Assets.GameTasks
 
         private float LastAngle;
 
-        //public float Rotation
-        //{
-        //    get => Target.Rotation;
-        //    set => Target.Rotation = value;
-        //}
+        public float RotationDegrees
+        {
+            get => Target.RotationDegrees;
+            set => Target.RotationDegrees = value;
+        }
 
         public RotateTo(ValkyrieSprite target, float endAngle, float duration)
             : this(target, target.RotationDegrees, endAngle, duration)
@@ -39,7 +39,9 @@ namespace Assets.GameTasks
         {
             float newAngle = StartAngle + (Timer.RatioComplete * AngleDifference);
             float angleDifference = newAngle - LastAngle;
-            Target.RotateSprite(angleDifference);
+
+            RotationDegrees = newAngle;
+            //Target.RotateSprite(angleDifference);
             LastAngle = newAngle;
         }
 

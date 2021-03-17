@@ -206,10 +206,9 @@ namespace Assets
 
         #region Transform Rotation
 
-        [Obsolete("Unsure if this is correct")]
         public float RotationDegrees
         {
-            get => transform.eulerAngles.z; // unsure if this is correct
+            get => transform.eulerAngles.z;
             set
             {
                 var rotation = transform.eulerAngles;

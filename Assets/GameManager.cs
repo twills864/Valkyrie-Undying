@@ -43,7 +43,7 @@ namespace Assets
         public Type OverrideDefaultWeaponType => null; // DebugUtil.GetOverrideFireStrategyType<GatlingStrategy>();
         public Type GameRowPowerupType => DebugUtil.GetPowerupType<RetributionPowerup>();
 
-        private bool DebugPauseNextFrame;
+        public bool DebugPauseNextFrame;
 
         private enum TestingType
         {
@@ -252,6 +252,7 @@ namespace Assets
             if (DebugPauseNextFrame)
             {
                 Debugger.Break();
+                UnityEngine.Debug.Break();
                 DebugPauseNextFrame = false;
             }
 

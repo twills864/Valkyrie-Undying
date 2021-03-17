@@ -51,3 +51,5 @@ MonoBehaviour:
     type: 3}
   RingEnemyRingPrefab: {fileID: 6916010081278206620, guid: 3f3019af936be0c4998bb17f13e907fb,
     type: 3}
+  CradleEnemyPrefab: {fileID: 6309029274381990922, guid: a0f83ad2d28249e4cbdd221b586de9d8,
+    type: 3}

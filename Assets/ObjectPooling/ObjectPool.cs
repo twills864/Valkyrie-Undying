@@ -77,8 +77,9 @@ namespace Assets.ObjectPooling
         private T CreateNewPooledObject()
         {
             var ret = UnityEngine.Object.Instantiate(ObjectPrefab);
-            ret.Init();
+            ret.IsFirstInPool = Count == 0;
             ret.InitialName = ObjectPrefab.name;
+            ret.Init();
             Add(ret);
             return ret;
         }

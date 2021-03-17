@@ -63,6 +63,7 @@ namespace Assets.GameTasks
         public override void ResetSelf()
         {
             base.ResetSelf();
+            FrameBehaviorIndex = 0;
             InnerSequence.ResetSelf();
             FinalTask.ResetSelf();
         }

@@ -192,6 +192,28 @@ namespace Assets.Util
         /// </summary>
         /// <param name="angle">The angle at which to point the vector.</param>
         /// <returns>The unit vector at the given angle.</returns>
+        public static Vector2 Vector2AtDegreeAngle(float angle)
+        {
+            angle *= Mathf.Deg2Rad;
+            return Vector2AtRadianAngle(angle);
+        }
+
+        /// <summary>
+        /// Returns a vector of a given length pointed at a given <paramref name="angle"/>.
+        /// </summary>
+        /// <param name="angle">The angle at which to point the vector.</param>
+        /// <returns>The vector at the given angle.</returns>
+        public static Vector2 Vector2AtDegreeAngle(float angle, float length)
+        {
+            var ret = Vector2AtDegreeAngle(angle) * length;
+            return ret;
+        }
+
+        /// <summary>
+        /// Returns a unit vector pointed at a given <paramref name="angle"/>.
+        /// </summary>
+        /// <param name="angle">The angle at which to point the vector.</param>
+        /// <returns>The unit vector at the given angle.</returns>
         public static Vector3 Vector3AtRadianAngle(float angle)
         {
             var x = Mathf.Cos(angle);

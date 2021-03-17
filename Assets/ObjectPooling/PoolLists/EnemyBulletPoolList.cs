@@ -21,6 +21,8 @@ namespace Assets.ObjectPooling
         private TankEnemyBullet TankPrefab = null;
         [SerializeField]
         private RingEnemyBullet RingPrefab = null;
+        [SerializeField]
+        private CradleEnemyBullet CradlePrefab = null;
 
 #pragma warning restore 0414
 

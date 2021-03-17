@@ -43,9 +43,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 740a218694dc0734fb1e60c043608a20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BasicPrefab: {fileID: -303583071004373726, guid: fc3383beca5e3194c97bf5e945e6a68d,
+  BasicPrefab: {fileID: 8639787408305147001, guid: d54ca59d92267db479992c7c0c9364e6,
     type: 3}
   TankPrefab: {fileID: 3855309089160610100, guid: ac39a4b5a0ce0694e813e59928b0e98b,
     type: 3}
   RingPrefab: {fileID: 5039637706149626134, guid: f0dd9e73c61a16643934acb9a8b0832b,
+    type: 3}
+  CradlePrefab: {fileID: 3924748408977828432, guid: fc3383beca5e3194c97bf5e945e6a68d,
     type: 3}

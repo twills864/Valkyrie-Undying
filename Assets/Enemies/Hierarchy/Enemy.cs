@@ -219,7 +219,7 @@ namespace Assets.Enemies
         }
 
         protected virtual void OnEnemyFrame(float deltaTime) { }
-        protected override void OnFrameRun(float deltaTime)
+        protected sealed override void OnFrameRun(float deltaTime)
         {
             if (IsBurning && InfernoTimer.UpdateActivates(deltaTime))
             {
