@@ -3,15 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Assets.Util;
 using UnityEngine;
 
 namespace Assets.GameTasks
 {
     public class FadeTo : FiniteTimeGameTask
     {
-        private float StartAlpha { get; set; }
-        private float EndAlpha { get; set; }
-        private float AlphaDifference { get; set; }
+        private FloatRange AlphaRange;
 
         public float Alpha
         {
@@ -26,14 +25,17 @@ namespace Assets.GameTasks
 
         public FadeTo(ValkyrieSprite target, float startAlpha, float endAlpha, float duration) : base(target, duration)
         {
-            StartAlpha = startAlpha;
-            EndAlpha = endAlpha;
-            AlphaDifference = EndAlpha - StartAlpha;
+            AlphaRange = new FloatRange(startAlpha, endAlpha);
         }
 
         protected override void OnFiniteTaskFrameRun(float deltaTime)
         {
-            Alpha = StartAlpha + (Timer.RatioComplete * AlphaDifference);
+            Alpha = AlphaRange.ValueAtRatio(Timer.RatioComplete);
+        }
+
+        protected override string ToFiniteTimeGameTaskString()
+        {
+            return $"{AlphaRange.StartValue} -> {Alpha} -> {AlphaRange.EndValue}";
         }
     }
 }

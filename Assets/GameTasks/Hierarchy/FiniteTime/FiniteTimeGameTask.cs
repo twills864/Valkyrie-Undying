@@ -62,5 +62,11 @@ namespace Assets.GameTasks
         {
             Timer.ActivateSelf();
         }
+
+        protected virtual string ToFiniteTimeGameTaskString() => "";
+        protected sealed override string ToGameTaskString()
+        {
+            return $"{Duration} {ToFiniteTimeGameTaskString()}";
+        }
     }
 }

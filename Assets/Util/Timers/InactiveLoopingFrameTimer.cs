@@ -22,5 +22,7 @@ namespace Assets.Util
         {
             return;
         }
-}
+
+        public override string ToString() => "(InactiveLoopingFrameTimer)";
+    }
 }

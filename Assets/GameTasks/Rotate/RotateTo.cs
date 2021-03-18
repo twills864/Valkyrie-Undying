@@ -3,15 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Assets.Util;
 using UnityEngine;
 
 namespace Assets.GameTasks
 {
     public class RotateTo : FiniteTimeGameTask
     {
-        private float StartAngle;
-        private float EndAngle;
-        private float AngleDifference;
+        private FloatRange AngleRange;
 
         private float LastAngle;
 
@@ -28,17 +27,15 @@ namespace Assets.GameTasks
 
         public RotateTo(ValkyrieSprite target, float startAngle, float endAngle, float duration) : base(target, duration)
         {
-            StartAngle = startAngle;
-            EndAngle = endAngle;
-            AngleDifference = EndAngle - StartAngle;
+            AngleRange = new FloatRange(startAngle, endAngle);
 
-            LastAngle = StartAngle;
+            LastAngle = startAngle;
         }
 
         protected override void OnFiniteTaskFrameRun(float deltaTime)
         {
-            float newAngle = StartAngle + (Timer.RatioComplete * AngleDifference);
-            float angleDifference = newAngle - LastAngle;
+            float newAngle = AngleRange.ValueAtRatio(Timer.RatioComplete);
+            //float angleDifference = newAngle - LastAngle;
 
             RotationDegrees = newAngle;
             //Target.RotateSprite(angleDifference);
@@ -48,7 +45,12 @@ namespace Assets.GameTasks
         public override void ResetSelf()
         {
             base.ResetSelf();
-            LastAngle = StartAngle;
+            LastAngle = AngleRange.StartValue;
+        }
+
+        protected override string ToFiniteTimeGameTaskString()
+        {
+            return $"{AngleRange.StartValue} -> {RotationDegrees} -> {AngleRange.EndValue}";
         }
     }
 }

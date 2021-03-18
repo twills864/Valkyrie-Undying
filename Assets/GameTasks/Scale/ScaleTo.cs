@@ -51,5 +51,10 @@ namespace Assets.GameTasks
             ScaleValue.Timer.Elapsed = Timer.Elapsed;
             Target.transform.localScale = ScaleValue.Value;
         }
+
+        protected override string ToFiniteTimeGameTaskString()
+        {
+            return $"{StartValue} -> {ScaleValue.Value} -> {EndValue}";
+        }
     }
 }

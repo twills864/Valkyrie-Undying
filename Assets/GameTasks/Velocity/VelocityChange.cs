@@ -3,15 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Assets.Util;
 using UnityEngine;
 
 namespace Assets.GameTasks
 {
     public class VelocityChange : FiniteVelocityGameTask
     {
-        private Vector2 StartVelocity { get; set; }
-        private Vector2 EndVelocity { get; set; }
-        private Vector2 VelocityDifference { get; set; }
+        private Vector2Range VelocityRange { get; set; }
 
         public VelocityChange(ValkyrieSprite target, Vector2 endVelocity, float duration)
             : this(target, target.Velocity, endVelocity, duration)
@@ -20,36 +19,30 @@ namespace Assets.GameTasks
 
         public VelocityChange(ValkyrieSprite target, Vector2 startVelocity, Vector2 endVelocity, float duration) : base(target, duration)
         {
-            StartVelocity = startVelocity;
-            EndVelocity = endVelocity;
-            VelocityDifference = endVelocity - startVelocity;
+            VelocityRange = new Vector2Range(startVelocity, endVelocity);
 
-            Velocity = StartVelocity;
+            Velocity = startVelocity;
         }
 
         private VelocityChange(ValkyrieSprite target, float duration) : base(target, duration)
         {
-            StartVelocity = Vector2.zero;
-            EndVelocity = Vector2.zero;
-            VelocityDifference = Vector2.zero;
+            VelocityRange = new Vector2Range();
 
             Velocity = Vector2.zero;
         }
 
         public void Init(Vector2 startVelocity, Vector2 endVelocity)
         {
-            StartVelocity = startVelocity;
-            EndVelocity = endVelocity;
-            VelocityDifference = EndVelocity - StartVelocity;
+            VelocityRange = new Vector2Range(startVelocity, endVelocity);
 
-            Velocity = StartVelocity;
+            Velocity = startVelocity;
 
             Timer.Reset();
         }
 
         protected override void OnFiniteVelocityTaskFrameRun(float deltaTime)
         {
-            Velocity = StartVelocity + (Timer.RatioComplete * VelocityDifference);
+            Velocity = VelocityRange.ValueAtRatio(Timer.RatioComplete);
         }
 
         public static VelocityChange Default(ValkyrieSprite target, float duration)
@@ -57,6 +50,11 @@ namespace Assets.GameTasks
             var ret = new VelocityChange(target, duration);
             ret.FinishSelf();
             return ret;
+        }
+
+        protected override string ToFiniteTimeGameTaskString()
+        {
+            return $"{VelocityRange.StartValue} -> {Velocity} -> {VelocityRange.EndValue}";
         }
     }
 }

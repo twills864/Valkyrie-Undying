@@ -52,5 +52,17 @@ namespace Assets.GameTasks
         {
             Timer.Reset();
         }
+
+        //protected abstract string DebugString();
+        //public override string ToString()
+        //{
+        //    return DebugString();
+        //}
+
+        protected virtual string ToGameTaskString() => "";
+        public sealed override string ToString()
+        {
+            return $"{GetType().Name} {Timer} {ToGameTaskString()}";
+        }
     }
 }
