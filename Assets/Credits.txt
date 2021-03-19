@@ -3,3 +3,7 @@ https://www.clipartmax.com/middle/m2i8K9H7A0A0K9i8_clip-art-of-clouds-and-sun-cl
 
 MeshRendererSortingEditor.cs:
 https://gist.github.com/pavel-fadrhonc/ecbe4ff18e1a4a38a62214bbab69a0e2
+
+Jared Bar's FlattenHierarchyProxy:
+https://stackoverflow.com/a/4818542
+http://blogs.msdn.com/b/jaredpar/archive/2010/02/19/flattening-class-hierarchies-when-debugging-c.aspx

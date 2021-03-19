@@ -7,6 +7,7 @@ using UnityEngine;
 
 namespace Assets
 {
+    [FinalDebugViewLevelAttribute]
     public abstract class ValkyrieSprite : Loggable
     {
         #region Init
