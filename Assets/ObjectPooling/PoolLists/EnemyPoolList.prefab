@@ -53,3 +53,5 @@ MonoBehaviour:
     type: 3}
   CradleEnemyPrefab: {fileID: 6309029274381990922, guid: a0f83ad2d28249e4cbdd221b586de9d8,
     type: 3}
+  LaserEnemyPrefab: {fileID: 6624820949249215805, guid: a3f6f001d392a6e4a89f56e3304e1620,
+    type: 3}

@@ -3202,6 +3202,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27c84a57f331f5a438121a77a2babd19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DebugPauseNextFrame: 0
   _FireStrategyManager:
     BaseFireSpeed: 0.5
     PlayerRatios:

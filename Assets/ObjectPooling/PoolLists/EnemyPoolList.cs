@@ -23,12 +23,14 @@ namespace Assets.ObjectPooling
         private RingEnemyRing RingEnemyRingPrefab = null;
         [SerializeField]
         private CradleEnemy CradleEnemyPrefab = null;
+        [SerializeField]
+        private LaserEnemy LaserEnemyPrefab = null;
 
 #pragma warning restore 0414
 
         private ObjectPool<Enemy>[] RandomEnemyPools { get; set; }
 
-        public Type OverrideEnemyType => null; // DebugUtil.GetOverrideEnemyType<CradleEnemy>();
+        public Type OverrideEnemyType => DebugUtil.GetOverrideEnemyType<LaserEnemy>();
         private ObjectPool<Enemy> OverridePool => OverrideEnemyType != null &&
             PoolMap.TryGetValue(OverrideEnemyType, out var ret) ? ret : null;
 
