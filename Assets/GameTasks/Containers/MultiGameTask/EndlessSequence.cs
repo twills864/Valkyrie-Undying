@@ -18,10 +18,7 @@ namespace Assets.GameTasks
         private Sequence InnerSequence { get; }
         private InfiniteTimeGameTask FinalTask { get; }
 
-        private int FrameBehaviorIndex = 0;
-        private Action<float>[] FrameBehaviors { get; }
-
-        private Action<float> CurrentFrameBehavior => FrameBehaviors[FrameBehaviorIndex];
+        private FrameBehaviorArray FrameBehaviors;
 
         public EndlessSequence(InfiniteTimeGameTask finalTask, params FiniteTimeGameTask[] innerTasks)
             : this(finalTask, new Sequence(innerTasks))
@@ -33,24 +30,19 @@ namespace Assets.GameTasks
             InnerSequence = sequence;
             FinalTask = finalTask;
 
-            FrameBehaviorIndex = 0;
-            FrameBehaviors = new Action<float>[]
-            {
-                RunSequenceFrame,
-                RunEndlessFrame
-            };
+            FrameBehaviors = new FrameBehaviorArray(RunSequenceFrame, RunEndlessFrame);
         }
 
         public override void RunFrame(float deltaTime)
         {
-            CurrentFrameBehavior(deltaTime);
+            FrameBehaviors.CurrentBehavior(deltaTime);
         }
 
         private void RunSequenceFrame(float deltaTime)
         {
             if(InnerSequence.FrameRunFinishes(deltaTime))
             {
-                FrameBehaviorIndex++;
+                FrameBehaviors.BehaviorIndex++;
                 RunEndlessFrame(InnerSequence.OverflowDeltaTime);
             }
         }
@@ -63,7 +55,7 @@ namespace Assets.GameTasks
         public override void ResetSelf()
         {
             base.ResetSelf();
-            FrameBehaviorIndex = 0;
+            FrameBehaviors.BehaviorIndex = 0;
             InnerSequence.ResetSelf();
             FinalTask.ResetSelf();
         }

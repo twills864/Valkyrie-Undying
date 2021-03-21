@@ -42,6 +42,12 @@ namespace Assets.GameTasks
             LastAngle = newAngle;
         }
 
+        public void SetAngleRange(float from, float to)
+        {
+            AngleRange.StartValue = from;
+            AngleRange.EndValue = to;
+        }
+
         public override void ResetSelf()
         {
             base.ResetSelf();

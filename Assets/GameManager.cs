@@ -406,7 +406,7 @@ namespace Assets
 
         #region Enemies
 
-        private LoopingFrameTimer EnemyTimer = new LoopingFrameTimer(3.0f);
+        private LoopingFrameTimer EnemyTimer = new LoopingFrameTimer(30.0f);
 
         #region TryGetRandomEnemy
 
@@ -427,16 +427,22 @@ namespace Assets
 
         public void ReflectBullet(EnemyBullet target)
         {
-            var reflectedBullet = _PoolManager.BulletPool.Get<ReflectedBullet>();
-            reflectedBullet.ReflectBack(target);
-            target.DeactivateSelf();
+            if (target.CanReflect)
+            {
+                var reflectedBullet = _PoolManager.BulletPool.Get<ReflectedBullet>();
+                reflectedBullet.ReflectBack(target);
+                target.DeactivateSelf();
+            }
         }
 
         public void ReflectBulletFromPestControl(EnemyBullet target, PestControlBullet pestControl)
         {
-            var reflectedBullet = _PoolManager.BulletPool.Get<ReflectedBullet>();
-            reflectedBullet.RedirectFromPestControl(target, pestControl);
-            target.DeactivateSelf();
+            if (target.CanReflect)
+            {
+                var reflectedBullet = _PoolManager.BulletPool.Get<ReflectedBullet>();
+                reflectedBullet.RedirectFromPestControl(target, pestControl);
+                target.DeactivateSelf();
+            }
         }
 
         #endregion Enemy Bullets

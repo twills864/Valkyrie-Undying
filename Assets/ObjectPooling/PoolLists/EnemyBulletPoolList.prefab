@@ -51,3 +51,5 @@ MonoBehaviour:
     type: 3}
   CradlePrefab: {fileID: 3924748408977828432, guid: fc3383beca5e3194c97bf5e945e6a68d,
     type: 3}
+  LaserPrefab: {fileID: 9067706296129489397, guid: 7a8db895d36a9224b94e85f48c55b324,
+    type: 3}

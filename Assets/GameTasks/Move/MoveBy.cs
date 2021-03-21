@@ -17,8 +17,33 @@ namespace Assets.GameTasks
             set
             {
                 _distance = value;
-                Velocity = Distance / Duration;
+                DistanceChanged();
             }
+        }
+
+        public float DistanceX
+        {
+            get => _distance.x;
+            set
+            {
+                _distance.x = value;
+                DistanceChanged();
+            }
+        }
+
+        public float DistanceY
+        {
+            get => _distance.y;
+            set
+            {
+                _distance.y = value;
+                DistanceChanged();
+            }
+        }
+
+        private void DistanceChanged()
+        {
+            Velocity = Distance / Duration;
         }
 
         public MoveBy(ValkyrieSprite target, Vector3 distance, float duration) : base(target, duration)

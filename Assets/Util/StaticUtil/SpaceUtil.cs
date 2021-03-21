@@ -158,6 +158,28 @@ namespace Assets.Util
         }
 
         /// <summary>
+        /// Generates and returns a random position for an enemy
+        /// to inevitably travel to.
+        /// </summary>
+        /// <param name="enemy">The enemy that will be spawned.</param>
+        /// <returns>The random spawn position for the <paramref name="enemy"/></returns>
+        public static Vector3 RandomEnemyDestinationTopHalf(Enemy enemy)
+        {
+            Vector2 size = ((RectTransform)enemy.transform).rect.size;
+
+            float sizeY = size.y * enemy.transform.localScale.y;
+            GetWorldBoundsYTopHalf(sizeY, out float spawnYMin, out float spawnYMax);
+            float spawnY = RandomUtil.Float(spawnYMin, spawnYMax);
+
+            float sizeX = size.x * enemy.transform.localScale.x;
+            GetWorldBoundsX(sizeX, out float spawnXMin, out float spawnXMax);
+            float spawnX = RandomUtil.Float(spawnXMin, spawnXMax);
+
+            var ret = new Vector3(spawnX, spawnY);
+            return ret;
+        }
+
+        /// <summary>
         /// Gets the minimum and maximum X world-coordinate values that an object of
         /// the specified <paramref name="width"/> could have while still being
         /// fully visible on the screen.
@@ -170,6 +192,36 @@ namespace Assets.Util
             width *= 0.5f;
             minX = WorldMap.Left.x + width;
             maxX = WorldMap.Right.x - width;
+        }
+
+        /// <summary>
+        /// Gets the minimum and maximum Y world-coordinate values that an object of
+        /// the specified <paramref name="height"/> could have while still being
+        /// fully visible on the screen.
+        /// </summary>
+        /// <param name="height">The width of the object.</param>
+        /// <param name="minY">The minimum Y world-coordinate value.</param>
+        /// <param name="maxY">The maximum Y world-coordinate value.</param>
+        public static void GetWorldBoundsY(float height, out float minY, out float maxY)
+        {
+            height *= 0.5f;
+            minY = WorldMap.Bottom.y + height;
+            maxY = WorldMap.Top.y - height;
+        }
+
+        /// <summary>
+        /// Gets the minimum and maximum Y world-coordinate values that an object of
+        /// the specified <paramref name="height"/> could have in the top half of
+        /// while still being fully visible on the screen.
+        /// </summary>
+        /// <param name="height">The width of the object.</param>
+        /// <param name="minY">The minimum Y world-coordinate value.</param>
+        /// <param name="maxY">The maximum Y world-coordinate value.</param>
+        public static void GetWorldBoundsYTopHalf(float height, out float minY, out float maxY)
+        {
+            height *= 0.5f;
+            minY = WorldMap.Center.y + height;
+            maxY = WorldMap.Top.y - height;
         }
 
         //public static float RatioOfWorldHeight(float yPosition)

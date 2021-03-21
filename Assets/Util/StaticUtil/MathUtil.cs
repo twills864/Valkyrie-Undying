@@ -235,6 +235,28 @@ namespace Assets.Util
         }
 
         /// <summary>
+        /// Returns a unit vector pointed at a given <paramref name="angle"/>.
+        /// </summary>
+        /// <param name="angle">The angle at which to point the vector.</param>
+        /// <returns>The unit vector at the given angle.</returns>
+        public static Vector3 Vector3AtDegreeAngle(float angle)
+        {
+            angle *= Mathf.Deg2Rad;
+            return Vector3AtRadianAngle(angle);
+        }
+
+        /// <summary>
+        /// Returns a vector of a given length pointed at a given <paramref name="angle"/>.
+        /// </summary>
+        /// <param name="angle">The angle at which to point the vector.</param>
+        /// <returns>The vector at the given angle.</returns>
+        public static Vector2 Vector3AtDegreeAngle(float angle, float length)
+        {
+            var ret = Vector3AtDegreeAngle(angle) * length;
+            return ret;
+        }
+
+        /// <summary>
         /// Returns a Vector3 along the path between two points
         /// that represents the given ration between them.
         /// </summary>

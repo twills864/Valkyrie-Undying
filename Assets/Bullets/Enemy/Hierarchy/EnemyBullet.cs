@@ -12,7 +12,9 @@ namespace Assets.Bullets.EnemyBullets
         public override GameTaskType TaskType => GameTaskType.EnemyBullet;
 
         public abstract int ReflectedDamage { get; }
-        protected virtual Color? ReflectedColor => null;
+        public virtual bool CanReflect => true;
+
+        public virtual bool DeactivateOnHit => true;
 
         protected virtual void OnEnemyBulletInit() { }
         protected sealed override void OnBulletInit()
@@ -24,7 +26,7 @@ namespace Assets.Bullets.EnemyBullets
         {
             if(CollisionUtil.IsPlayer(collision))
             {
-                if (Player.Instance.CollideWithBullet(this))
+                if (Player.Instance.CollideWithBullet(this) && DeactivateOnHit)
                     DeactivateSelf();
             }
         }
