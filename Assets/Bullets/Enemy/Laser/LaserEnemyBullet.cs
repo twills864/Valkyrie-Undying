@@ -33,6 +33,7 @@ namespace Assets.Bullets.EnemyBullets
         public bool HitBoxActive { get; private set; }
 
         public float WidthHalf { get; private set; }
+        public bool SequenceActive { get; set; }
 
         protected override void OnEnemyBulletInit()
         {
@@ -60,11 +61,13 @@ namespace Assets.Bullets.EnemyBullets
             HitBoxActive = true;
             Alpha = FullBright;
             Sequence.ResetSelf();
+            SequenceActive = false;
         }
 
         protected override void OnFrameRun(float deltaTime)
         {
-            Sequence.RunFrame(deltaTime);
+            if (SequenceActive)
+                Sequence.RunFrame(deltaTime);
         }
 
         //protected override void OnPlayerBulletTriggerEnter2D(Collider2D collision)

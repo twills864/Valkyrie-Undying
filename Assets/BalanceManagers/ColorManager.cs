@@ -58,6 +58,7 @@ namespace Assets.ColorManagers.SubManagers
     {
         public Color Tank;
         public Color RingEnemyRing;
+        public Color LaserEnemyLaserPrefire;
     }
 
     [Serializable]

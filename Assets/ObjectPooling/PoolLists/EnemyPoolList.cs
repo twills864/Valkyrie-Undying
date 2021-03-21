@@ -30,7 +30,7 @@ namespace Assets.ObjectPooling
 
         private ObjectPool<Enemy>[] RandomEnemyPools { get; set; }
 
-        public Type OverrideEnemyType => DebugUtil.GetOverrideEnemyType<LaserEnemy>();
+        public Type OverrideEnemyType => null; // DebugUtil.GetOverrideEnemyType<LaserEnemy>();
         private ObjectPool<Enemy> OverridePool => OverrideEnemyType != null &&
             PoolMap.TryGetValue(OverrideEnemyType, out var ret) ? ret : null;
 

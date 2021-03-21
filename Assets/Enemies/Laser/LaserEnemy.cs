@@ -13,11 +13,29 @@ namespace Assets.Enemies
     /// <inheritdoc/>
     public class LaserEnemy : Enemy
     {
+        private enum FrameBehaviors
+        {
+            RunFlyInFrame0,
+            RunFireFrame1,
+            WaitForLaserSpawner2,
+            WaitForLaser3
+        }
+
         [SerializeField]
         private float FlyTime = GameConstants.PrefabNumber;
 
         [SerializeField]
         private float RotateTime = GameConstants.PrefabNumber;
+
+
+        //[SerializeField]
+        //private float LaserFadeInTime = GameConstants.PrefabNumber;
+
+        //[SerializeField]
+        //private float LaserFullBrightTime = GameConstants.PrefabNumber;
+
+        //[SerializeField]
+        //private float LaserFullBright = GameConstants.PrefabNumber
 
         private PositionRotator Rotator { get; set; }
 
@@ -40,15 +58,17 @@ namespace Assets.Enemies
 
         private MoveBy MoveVertical { get; set; }
         private MoveBy MoveHorizontal { get; set; }
-        private Sequence FlyInSequence { get; set; }
+        private EaseIn FlyIn { get; set; }
 
         private RotateTo Rotate { get; set; }
         private Sequence FireSequence { get; set; }
 
-        private FrameBehaviorArray FrameBehaviors;
+        private FrameBehaviors FrameBehavior;
+        //private FrameBehaviorArray FrameBehaviors;
 
         public float WidthHalf { get; private set; }
 
+        private LaserEnemyBulletSpawner CurrentSpawner { get; set; }
         private LaserEnemyBullet CurrentLaser { get; set; }
 
         protected override void OnEnemyInit()
@@ -57,9 +77,8 @@ namespace Assets.Enemies
             WidthHalf = sprite.size.x * 0.5f;
 
             Rotator = new PositionRotator(this);
-            FrameBehaviors = new FrameBehaviorArray(RunFlyInFrame, RunFireFrame, WaitForLaser);
 
-            #region FlyInSequence
+            #region FlyIn
 
             MoveVertical = new MoveBy(this, Vector3.zero, FlyTime);
             MoveHorizontal = new MoveBy(this, Vector3.zero, FlyTime);
@@ -68,21 +87,17 @@ namespace Assets.Enemies
             var easeHorizontal = new EaseOut(MoveHorizontal);
 
             var concurrence = new ConcurrentGameTask(this, easeVertical, easeHorizontal);
-            //var changeBehavior = new GameTaskFunc(this, () => FrameBehaviors.BehaviorIndex++);
 
-            var easeIn2 = new EaseIn(concurrence);
+            FlyIn = new EaseIn(concurrence);
 
-            FlyInSequence = new Sequence(easeIn2/*, changeBehavior*/);
-
-            #endregion FlyInSequence
+            #endregion FlyIn
 
             #region FireLoop
 
             var resetRotate = new GameTaskFunc(this, ResetRotate);
             Rotate = new RotateTo(this, 0.0f, RotateTime);
             var fireLaser = new GameTaskFunc(this, FireLaser);
-            //var changeBehavior2 = new GameTaskFunc(this, () => FrameBehaviors.BehaviorIndex++);
-            FireSequence = new Sequence(resetRotate, Rotate, fireLaser/*, changeBehavior2*/);
+            FireSequence = new Sequence(resetRotate, Rotate, fireLaser);
 
             #endregion FireLoop
         }
@@ -95,55 +110,80 @@ namespace Assets.Enemies
             MoveX = difference.x;
             MoveY = difference.y;
 
-            FrameBehaviors.ResetSelf();
-            FlyInSequence.ResetSelf();
+            FrameBehavior = FrameBehaviors.RunFlyInFrame0;
+            FlyIn.ResetSelf();
             FireSequence.ResetSelf();
         }
 
         protected override void OnEnemyFrame(float deltaTime)
         {
-            DebugUI.SetDebugLabel("behavior", FrameBehaviors.CurrentBehavior.Method.Name);
-            FrameBehaviors.CurrentBehavior(deltaTime);
-            if (FrameBehaviors.BehaviorIndex == 3)
-                System.Diagnostics.Debugger.Break();
-        }
 
-        private void RunFlyInFrame(float deltaTime)
-        {
-            Rotator.RunFrame(deltaTime);
-            if (FlyInSequence.FrameRunFinishes(deltaTime))
+            switch(FrameBehavior)
             {
-                FrameBehaviors.BehaviorIndex++;
-                RunFireFrame(FlyInSequence.OverflowDeltaTime);
+                case (FrameBehaviors.RunFlyInFrame0):
+                    RunFlyInFrame0(deltaTime);
+                    break;
+                case FrameBehaviors.RunFireFrame1:
+                    RunFireFrame1(deltaTime);
+                    break;
+                case FrameBehaviors.WaitForLaserSpawner2:
+                    WaitForLaserSpawner2(deltaTime);
+                    break;
+                case FrameBehaviors.WaitForLaser3:
+                    WaitForLaser3(deltaTime);
+                    break;
+                default:
+                    throw ExceptionUtil.ArgumentException(() => FrameBehavior);
             }
         }
-        private void RunFireFrame(float deltaTime)
+
+        private void RunFlyInFrame0(float deltaTime)
+        {
+            Rotator.RunFrame(deltaTime);
+            if (FlyIn.FrameRunFinishes(deltaTime))
+            {
+                FrameBehavior = FrameBehaviors.RunFireFrame1;
+                RunFireFrame1(FlyIn.OverflowDeltaTime);
+            }
+        }
+        private void RunFireFrame1(float deltaTime)
         {
             if (FireSequence.FrameRunFinishes(deltaTime))
             {
-                FrameBehaviors.BehaviorIndex++;
+                FrameBehavior = FrameBehaviors.WaitForLaserSpawner2;
                 //WaitForLaser(FlyInSequence.OverflowDeltaTime);
             }
         }
 
-        private void WaitForLaser(float deltaTime)
+        private void WaitForLaserSpawner2(float deltaTime)
         {
+            if(CurrentSpawner.ReadyToDeactivate)
+            {
+                CurrentSpawner.DeactivateSelf();
+                CurrentSpawner = null;
+                StowUtil.UnstowX(CurrentLaser, StowUtil.LaserEnemyBulletStowX);
+                CurrentLaser.SequenceActive = true;
 
-            FrameBehaviors.BehaviorIndex--;
-            FireSequence.ResetSelf();
+                FrameBehavior = FrameBehaviors.WaitForLaser3;
+            }
+        }
 
-            //if(!CurrentLaser.HitBoxActive)
-            //{
-            //    FrameBehaviors.BehaviorIndex--;
-            //    FireSequence.ResetSelf();
-            //}
+        private void WaitForLaser3(float deltaTime)
+        {
+            if (!CurrentLaser.isActiveAndEnabled)
+            {
+                CurrentLaser.DeactivateSelf();
+                FrameBehavior = FrameBehaviors.RunFireFrame1;
+                FireSequence.ResetSelf();
+            }
         }
 
         private void FireLaser()
         {
-            DebugUI.SetDebugLabel("FIREDANGLE", RotationDegrees);
-            LaserEnemyFireStrategy.GetBullets(this);
+            var bullets = LaserEnemyFireStrategy.GetBullets(this);
 
+            CurrentLaser = (LaserEnemyBullet) bullets[LaserEnemyFireStrategy.LaserIndex];
+            CurrentSpawner = (LaserEnemyBulletSpawner) bullets[LaserEnemyFireStrategy.LaserSpawnerIndex];
         }
         private void ResetRotate()
         {
@@ -165,21 +205,11 @@ namespace Assets.Enemies
             endAngle += 360f;
 
             Rotate.SetAngleRange(startAngle, endAngle);
-
-            //DebugUI.SetDebugLabel("StartAngle", startAngle);
-            //DebugUI.SetDebugLabel("EndAngle", endAngle);
-            //DebugUI.SetDebugLabel("From", transform.position);
-            //DebugUI.SetDebugLabel("To", targetPosition);
-
-            //DebugUtil.RedX(transform.position, RotateTime);
-            //DebugUtil.RedX(targetPosition, RotateTime);
-
-            //Debug.DrawLine(transform.position, targetPosition, Color.red, RotateTime);
         }
 
-        protected override void OnDeath()
+        protected override void OnEnemyDeactivate()
         {
-            PoolManager.Instance.EnemyPool.GetRandomEnemy();
+            CurrentSpawner?.DeactivateSelf();
         }
     }
 }

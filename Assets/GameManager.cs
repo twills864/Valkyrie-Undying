@@ -406,7 +406,7 @@ namespace Assets
 
         #region Enemies
 
-        private LoopingFrameTimer EnemyTimer = new LoopingFrameTimer(30.0f);
+        private LoopingFrameTimer EnemyTimer = new LoopingFrameTimer(3.0f);
 
         #region TryGetRandomEnemy
 

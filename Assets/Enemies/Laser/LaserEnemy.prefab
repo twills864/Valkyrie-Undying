@@ -156,6 +156,6 @@ MonoBehaviour:
   Sprite: {fileID: 6554474539617999353}
   _victimMarkerDistance: 0.5
   _metronomeLabel: {fileID: 0}
-  HealthBarOffsetScale: {x: 0, y: 0.5, z: 0}
+  HealthBarOffsetScale: {x: 0, y: 0.6, z: 0}
   FlyTime: 3
-  RotateTime: 1
+  RotateTime: 0.5

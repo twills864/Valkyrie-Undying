@@ -25,6 +25,8 @@ namespace Assets.ObjectPooling
         private CradleEnemyBullet CradlePrefab = null;
         [SerializeField]
         private LaserEnemyBullet LaserPrefab = null;
+        [SerializeField]
+        private LaserEnemyBulletSpawner LaserSpawnerPrefab = null;
 
 #pragma warning restore 0414
 
@@ -34,6 +36,7 @@ namespace Assets.ObjectPooling
         protected override void OnInitSprites(in ColorManager colorManager)
         {
             TankPrefab.SpriteColor = colorManager.Enemy.Tank;
+            LaserSpawnerPrefab.SpriteColor = colorManager.Enemy.LaserEnemyLaserPrefire;
         }
 
         public EnemyBullet[] GetPestControlTargets(int numToGet)

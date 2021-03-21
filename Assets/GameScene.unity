@@ -3307,6 +3307,7 @@ MonoBehaviour:
     Enemy:
       Tank: {r: 1, g: 0.5019608, b: 0, a: 1}
       RingEnemyRing: {r: 1, g: 1, b: 0, a: 1}
+      LaserEnemyLaserPrefire: {r: 1, g: 0, b: 0.2509804, a: 0.5019608}
     UI:
       VictimMarkerAlpha: 0.7
   Player: {fileID: 8345851456146834253}
