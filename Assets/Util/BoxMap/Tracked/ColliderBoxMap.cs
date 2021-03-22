@@ -5,7 +5,7 @@ namespace Assets.Util
     /// <inheritdoc />
     public class ColliderBoxMap : TrackedBoxMap
     {
-        private Collider2D Collider { get; }
+        public Collider2D Collider { get; private set; }
         protected override Bounds Bounds => Collider.bounds;
 
         public ColliderBoxMap(MonoBehaviour target) : base(target)

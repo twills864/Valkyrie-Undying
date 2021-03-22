@@ -35,6 +35,8 @@ namespace Assets
         public SpriteBoxMap SpriteMap { get; private set; }
         public ColliderBoxMap ColliderMap { get; private set; }
 
+        public Collider2D Collider { get; private set; }
+
         [SerializeField]
         private float MobileYOffset = GameConstants.PrefabNumber;
         private static float MobileY;
@@ -73,6 +75,7 @@ namespace Assets
         {
             SpriteMap = new SpriteBoxMap(this);
             ColliderMap = new ColliderBoxMap(this);
+            Collider = ColliderMap.Collider;
             BloodlustTimer = FrameTimer.Default();
         }
 
@@ -173,6 +176,17 @@ namespace Assets
             BloodlustSpeedScale = speedScale;
 
             BloodlustAuraObject.gameObject.SetActive(true);
+        }
+
+        /// <summary>
+        /// Returns true if the given <paramref name="collider"/> collides with the player.
+        /// </summary>
+        /// <param name="collider">The Collider2D to test.</param>
+        /// <returns>True if the player collides with the given collider; False otherwise.</returns>
+        public bool CollidesWithCollider(Collider2D collider)
+        {
+            bool ret = Collider.IsTouching(collider);
+            return ret;
         }
 
         /// <summary>

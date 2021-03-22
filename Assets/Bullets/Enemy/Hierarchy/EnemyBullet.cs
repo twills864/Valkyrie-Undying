@@ -14,6 +14,7 @@ namespace Assets.Bullets.EnemyBullets
         public abstract int ReflectedDamage { get; }
         public virtual bool CanReflect => true;
 
+        public virtual bool HitsPlayer => true;
         public virtual bool DeactivateOnHit => true;
 
         protected virtual void OnEnemyBulletInit() { }
@@ -26,7 +27,7 @@ namespace Assets.Bullets.EnemyBullets
         {
             if(CollisionUtil.IsPlayer(collision))
             {
-                if (Player.Instance.CollideWithBullet(this) && DeactivateOnHit)
+                if (HitsPlayer && Player.Instance.CollideWithBullet(this) && DeactivateOnHit)
                     DeactivateSelf();
             }
         }

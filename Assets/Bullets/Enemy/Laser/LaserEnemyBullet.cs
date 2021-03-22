@@ -11,12 +11,17 @@ namespace Assets.Bullets.EnemyBullets
     /// <inheritdoc/>
     public class LaserEnemyBullet : EnemyBullet
     {
-        private const float FullBright = 1.0f;
-
         public override bool DeactivateOnHit => false;
+        public override int ReflectedDamage => 0;
+        public override bool CanReflect => false;
+        protected override bool ShouldDeactivateOnDestructor => false;
 
-        //[SerializeField]
-        //private float ScaleY = GameConstants.PrefabNumber;
+
+        [SerializeField]
+        private float FadeInTime = GameConstants.PrefabNumber;
+
+        [SerializeField]
+        private float PrefireFullBrightTime = GameConstants.PrefabNumber;
 
         [SerializeField]
         private float FullBrightTime = GameConstants.PrefabNumber;
@@ -24,62 +29,61 @@ namespace Assets.Bullets.EnemyBullets
         [SerializeField]
         private float FadeTime = GameConstants.PrefabNumber;
 
+        [HideInInspector]
+        public Color PrefireColor;
+        private Color LaserColor;
+
         private Sequence Sequence { get; set; }
 
-        public override int ReflectedDamage => 0;
-        public override bool CanReflect => false;
-        protected override bool ShouldDeactivateOnDestructor => false;
-
-        public bool HitBoxActive { get; private set; }
-
         public float WidthHalf { get; private set; }
-        public bool SequenceActive { get; set; }
+
+        public bool LaserActivated { get; private set; }
+        public Vector3 SpawnPoint;
 
         protected override void OnEnemyBulletInit()
         {
+            LaserColor = SpriteColor;
+
+            float worldHeight = SpaceUtil.WorldMap.Height;
+            LocalScaleX = worldHeight * MathUtil.Sqrt2;
+
             var sprite = GetComponent<SpriteRenderer>();
             WidthHalf = sprite.size.x * 0.5f * transform.localScale.x;
 
-            //LocalScaleY = ScaleY;
-
-            //float worldHeight = SpaceUtil.WorldMap.Height;
-
-            //var spriteHeight = Sprite.size.x;
-            //var heightScale = worldHeight / spriteHeight;
-            //transform.localScale = new Vector3(1, heightScale, 1);
-
-            var delay = new Delay(this, FullBrightTime);
-            var removeActive = new GameTaskFunc(this, () => HitBoxActive = false);
+            var fadeIn = new FadeTo(this, 0f, PrefireColor.a, FadeInTime);
+            var prefireDelay = new Delay(this, PrefireFullBrightTime);
+            var activateCollider = new GameTaskFunc(this, ActivateCollider);
+            var postfireDelay = new Delay(this, FullBrightTime);
             var fadeTo = new FadeTo(this, 0.0f, FadeTime);
             var deactivate = GameTaskFunc.DeactivateSelf(this);
 
-            Sequence = new Sequence(delay, removeActive, fadeTo, deactivate);
+            Sequence = new Sequence(fadeIn, prefireDelay, activateCollider, postfireDelay, fadeTo, deactivate);
         }
 
         protected override void OnActivate()
         {
-            HitBoxActive = true;
-            Alpha = FullBright;
+            LaserActivated = false;
+
+            Color spawnColor = PrefireColor;
+            spawnColor.a = 0;
+            SpriteColor = spawnColor;
+
             Sequence.ResetSelf();
-            SequenceActive = false;
         }
 
         protected override void OnFrameRun(float deltaTime)
         {
-            if (SequenceActive)
-                Sequence.RunFrame(deltaTime);
+            Sequence.RunFrame(deltaTime);
         }
 
-        //protected override void OnPlayerBulletTriggerEnter2D(Collider2D collision)
-        //{
-        //    if (IsMaxLevel)
-        //    {
-        //        if (CollisionUtil.IsEnemyBullet(collision))
-        //        {
-        //            var bullet = collision.GetComponent<EnemyBullet>();
-        //            bullet.DeactivateSelf();
-        //        }
-        //    }
-        //}
+        private void ActivateCollider()
+        {
+            LaserActivated = true;
+            SpriteColor = LaserColor;
+
+            Vector2 direction = transform.position - SpawnPoint;
+            if(GameUtil.RaycastHitsPlayer(SpawnPoint, direction, out RaycastHit2D hit))
+                Player.Instance.CollideWithBullet(this);
+        }
     }
 }

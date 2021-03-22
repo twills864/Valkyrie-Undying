@@ -157,7 +157,7 @@ MonoBehaviour:
   _victimMarkerDistance: 0.6
   _metronomeLabel: {fileID: 0}
   HealthBarOffsetScale: {x: 0, y: 0.5, z: 0}
-  FireSpeed: 1.5
+  FireSpeed: 2.5
   FireSpeedVariance: 0.5
   PermanentVelocityX: 0
   PermanentVelocityY: -1

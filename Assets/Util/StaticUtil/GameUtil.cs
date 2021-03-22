@@ -26,6 +26,15 @@ namespace Assets.Util
             return ret;
         }
 
+        /// <summary>
+        /// Attempts to get the first enemy from a given start <paramref name="position"/>
+        /// in the direction of a given <paramref name="direction"/>
+        /// </summary>
+        /// <param name="position">The start position.</param>
+        /// <param name="direction">The direction to check.</param>
+        /// <param name="enemy">The first enemy hit.</param>
+        /// <param name="raycastHit">The RaycastHid2D object of the represented hit.</param>
+        /// <returns>True if an enemy is hit; False otherwise.</returns>
         public static bool RaycastTryGetEnemy(Vector2 position, Vector2 direction, out Enemy enemy, out RaycastHit2D? raycastHit)
         {
             RaycastHit2D[] hits = Physics2D.RaycastAll(position, direction);
@@ -43,6 +52,22 @@ namespace Assets.Util
             enemy = null;
             raycastHit = null;
             return false;
+        }
+
+        /// <summary>
+        /// Confirms whether or not the player is hit by a raycast from a given start <paramref name="position"/>
+        /// in a given <paramref name="direction"/>.
+        /// </summary>
+        /// <param name="position">The start position.</param>
+        /// <param name="direction">The direction to check.</param>
+        /// <param name="raycastHit">The RaycastHid2D object of the represented hit.</param>
+        /// <returns>True if the player is hit; False otherwise.</returns>
+        /// <returns></returns>
+        public static bool RaycastHitsPlayer(Vector2 position, Vector2 direction, out RaycastHit2D raycastHit)
+        {
+            raycastHit = Physics2D.Raycast(position, direction, float.PositiveInfinity, LayerUtil.LayerPlayer);
+            bool ret = raycastHit.collider != null;
+            return ret;
         }
     }
 }

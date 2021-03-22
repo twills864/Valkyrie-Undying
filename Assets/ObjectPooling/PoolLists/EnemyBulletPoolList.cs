@@ -36,7 +36,8 @@ namespace Assets.ObjectPooling
         protected override void OnInitSprites(in ColorManager colorManager)
         {
             TankPrefab.SpriteColor = colorManager.Enemy.Tank;
-            LaserSpawnerPrefab.SpriteColor = colorManager.Enemy.LaserEnemyLaserPrefire;
+            LaserPrefab.PrefireColor = colorManager.Enemy.LaserEnemyPrefire;
+            //LaserSpawnerPrefab.SpriteColor = colorManager.Enemy.LaserEnemyLaserPrefire;
         }
 
         public EnemyBullet[] GetPestControlTargets(int numToGet)

@@ -8,6 +8,8 @@ namespace Assets.Util
     {
         public const float Pi2f = Mathf.PI * 2f;
         public const float PiHalf = Mathf.PI * 0.5f;
+
+        public const float Sqrt2 = 1.41421356237f;
         /// <summary>
         /// The default direction to apply if a sensitive Vector calculation results in Vector2.zero
         /// </summary>
