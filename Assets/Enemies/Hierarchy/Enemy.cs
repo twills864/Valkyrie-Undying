@@ -273,11 +273,14 @@ namespace Assets.Enemies
         }
         public virtual void CollideWithBullet(PlayerBullet bullet)
         {
-            if (DamageKills(bullet.Damage))
-                KillEnemy(bullet);
+            if (isActiveAndEnabled)
+            {
+                if (DamageKills(bullet.Damage))
+                    KillEnemy(bullet);
 
-            GameManager.Instance.OnEnemyHit(this, bullet);
-            bullet.OnCollideWithEnemy(this);
+                GameManager.Instance.OnEnemyHit(this, bullet);
+                bullet.OnCollideWithEnemy(this);
+            }
         }
 
 

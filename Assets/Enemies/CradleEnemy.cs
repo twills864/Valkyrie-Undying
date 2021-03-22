@@ -1,5 +1,6 @@
 ﻿using System;
 using Assets.Bullets.EnemyBullets;
+using Assets.Constants;
 using Assets.FireStrategies.EnemyFireStrategies;
 using Assets.GameTasks;
 using Assets.Util;
@@ -13,16 +14,16 @@ namespace Assets.Enemies
         private const float AngleDown = 270;
 
         [SerializeField]
-        private float SwivelAngle;
+        private float SwivelAngle = GameConstants.PrefabNumber;
 
         [SerializeField]
-        private float InitialTravelTime;
+        private float InitialTravelTime = GameConstants.PrefabNumber;
 
         [SerializeField]
-        private float FinalTravelSpeed;
+        private float FinalTravelSpeed = GameConstants.PrefabNumber;
 
         [SerializeField]
-        private float RotateTime;
+        private float RotateTime = GameConstants.PrefabNumber;
 
         private float MinAngle;
         private float MaxAngle;
@@ -89,15 +90,14 @@ namespace Assets.Enemies
             // Infinite sequence
             var fireLeft = new GameTaskFunc(this, FireLeft);
             var rotateMiddle1 = new RotateTo(this, MinAngle, AngleDown, rotateTimeHalf);
-            var fireDown1 = new GameTaskFunc(this, FireDown);
+            var fireDown = new GameTaskFunc(this, FireDown);
             var rotateRight = new RotateTo(this, AngleDown, MaxAngle, rotateTimeHalf);
             var fireRight = new GameTaskFunc(this, FireRight);
             var rotateMiddle2 = new RotateTo(this, MaxAngle, AngleDown, rotateTimeHalf);
-            var fireDown2 = new GameTaskFunc(this, FireDown);
             var rotateLeft = new RotateTo(this, AngleDown, MinAngle, rotateTimeHalf);
 
-            var infiniteSequence = new Sequence(fireLeft, rotateMiddle1, fireDown1,
-                rotateRight, fireRight, rotateMiddle2, fireDown2, rotateLeft);
+            var infiniteSequence = new Sequence(fireLeft, rotateMiddle1, fireDown,
+                rotateRight, fireRight, rotateMiddle2, fireDown, rotateLeft);
 
             var repeat = new RepeatForever(infiniteSequence);
             Behavior = new EndlessSequence(repeat, initialSequence);

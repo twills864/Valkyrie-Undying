@@ -1,4 +1,5 @@
 ﻿using Assets.Bullets.PlayerBullets;
+using Assets.Constants;
 using Assets.Enemies;
 using UnityEngine;
 
@@ -8,7 +9,7 @@ namespace Assets.Bullets.PlayerBullets
     public class GatlingBullet : RaycastPlayerBullet
     {
         [SerializeField]
-        private float LaserAlphaRatio;
+        private float LaserAlphaRatio = GameConstants.PrefabNumber;
 
         protected override bool ShouldMarkSelfCollision => false;
         protected override bool ShouldDeactivateOnDestructor => false;

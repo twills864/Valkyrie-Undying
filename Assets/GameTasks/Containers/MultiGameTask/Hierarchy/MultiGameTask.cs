@@ -27,10 +27,13 @@ namespace Assets.GameTasks
         {
             base.ResetSelf();
 
+            OnMultiGameTaskReset();
+        }
+
+        protected void ResetInnerTasks()
+        {
             foreach (var task in InnerTasks)
                 task.ResetSelf();
-
-            OnMultiGameTaskReset();
         }
     }
 }

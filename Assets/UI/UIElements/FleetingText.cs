@@ -1,4 +1,5 @@
-﻿using Assets.GameTasks;
+﻿using Assets.Constants;
+using Assets.GameTasks;
 using Assets.Hierarchy.ColorHandlers;
 using Assets.Util;
 using UnityEngine;
@@ -14,8 +15,6 @@ namespace Assets.UI
 
         [SerializeField]
         private TextMesh TextField = null;
-
-        private bool CurrentyFading;
 
         private MoveBy Move { get; set; }
         public Vector3 MoveDistance
@@ -36,11 +35,11 @@ namespace Assets.UI
         public Color DefaultColor => new Color(1, 1, 1, 1);
 
         [SerializeField]
-        private float OpaqueTextTime = 1f;
+        private float OpaqueTextTime = GameConstants.PrefabNumber;
         [SerializeField]
-        private float FadeTime = 0.5f;
+        private float FadeTime = GameConstants.PrefabNumber;
         [SerializeField]
-        private float Speed = 1f;
+        private float Speed = GameConstants.PrefabNumber;
 
         public float TotalTextTime => OpaqueTextTime + FadeTime;
         public float TotalDistance => Speed * TotalTextTime;
@@ -60,7 +59,6 @@ namespace Assets.UI
         protected override void OnActivate()
         {
             TextField.color = DefaultColor;
-            CurrentyFading = false;
             Ease.ResetSelf();
             Sequence.ResetSelf();
             MoveDistance = DefaultMoveDistance;

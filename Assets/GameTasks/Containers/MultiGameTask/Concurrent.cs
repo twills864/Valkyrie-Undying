@@ -24,5 +24,10 @@ namespace Assets.GameTasks
             foreach (var task in InnerTasks)
                 task.RunFrame(deltaTime);
         }
+
+        protected override void OnMultiGameTaskReset()
+        {
+            ResetInnerTasks();
+        }
     }
 }

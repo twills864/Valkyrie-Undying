@@ -19,5 +19,7 @@ namespace Assets.GameTasks
         {
 
         }
+
+        public static Delay Default() => new Delay(null, 1.0f);
     }
 }

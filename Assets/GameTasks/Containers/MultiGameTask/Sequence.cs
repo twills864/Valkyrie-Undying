@@ -35,6 +35,7 @@ namespace Assets.GameTasks
             {
                 float overflowDt = CurrentTask.OverflowDeltaTime;
                 CurrentIndex++;
+                CurrentTask.ResetSelf();
                 CurrentTask.RunFrame(overflowDt);
             }
 
@@ -51,6 +52,7 @@ namespace Assets.GameTasks
         protected override void OnMultiGameTaskReset()
         {
             CurrentIndex = 0;
+            CurrentTask.ResetSelf();
         }
 
 
@@ -62,6 +64,6 @@ namespace Assets.GameTasks
         private Sequence() : base(null, 1.0f)
         {
         }
-        public static Sequence Default() => new Sequence();
+        public static Sequence Default() => new Sequence(Delay.Default());
     }
 }
