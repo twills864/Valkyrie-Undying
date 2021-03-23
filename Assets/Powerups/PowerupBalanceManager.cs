@@ -174,6 +174,8 @@ namespace Assets.Powerups.Balance
         {
             public OthelloBalance Othello;
             public FireSpeedBalance Firespeed;
+            public MonsoonBalance Monsoon;
+            public SentinelBalance Sentinel;
 
             [Serializable]
             public struct OthelloBalance
@@ -201,40 +203,6 @@ namespace Assets.Powerups.Balance
             {
                 public float Base;
                 public float Increase;
-            }
-        }
-
-        #endregion OnLevelUp
-
-        #region Passive
-
-        [Serializable]
-        public struct PassiveBalance
-        {
-            public InfernoBalance Inferno;
-            public MonsoonBalance Monsoon;
-            public SentinelBalance Sentinel;
-            public VictimBalance Victim;
-
-            [Serializable]
-            public struct InfernoBalance
-            {
-                public FireSpeedBalance FireSpeed;
-                public DamageBalance Damage;
-
-                [Serializable]
-                public struct FireSpeedBalance
-                {
-                    public float Base;
-                    public float Increase;
-                }
-
-                [Serializable]
-                public struct DamageBalance
-                {
-                    public float Base;
-                    public float IncreasePerLevel;
-                }
             }
 
             [Serializable]
@@ -276,6 +244,38 @@ namespace Assets.Powerups.Balance
                 {
                     public float Base;
                     public float MaxValue;
+                }
+            }
+        }
+
+        #endregion OnLevelUp
+
+        #region Passive
+
+        [Serializable]
+        public struct PassiveBalance
+        {
+            public InfernoBalance Inferno;
+            public VictimBalance Victim;
+
+            [Serializable]
+            public struct InfernoBalance
+            {
+                public FireSpeedBalance FireSpeed;
+                public DamageBalance Damage;
+
+                [Serializable]
+                public struct FireSpeedBalance
+                {
+                    public float Base;
+                    public float Increase;
+                }
+
+                [Serializable]
+                public struct DamageBalance
+                {
+                    public float Base;
+                    public float IncreasePerLevel;
                 }
             }
 

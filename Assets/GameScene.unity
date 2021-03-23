@@ -3266,14 +3266,6 @@ MonoBehaviour:
       Firespeed:
         Base: 1.2
         Increase: 0.15
-    Passive:
-      Inferno:
-        FireSpeed:
-          Base: 3
-          Increase: 0.8
-        Damage:
-          Base: 1
-          IncreasePerLevel: 1
       Monsoon:
         FireSpeed:
           Base: 0.5
@@ -3288,6 +3280,14 @@ MonoBehaviour:
         WorldDistance:
           Base: 0.6
           MaxValue: 2.5
+    Passive:
+      Inferno:
+        FireSpeed:
+          Base: 3
+          Increase: 0.8
+        Damage:
+          Base: 1
+          IncreasePerLevel: 1
       Victim:
         FireSpeed:
           Base: 0.5

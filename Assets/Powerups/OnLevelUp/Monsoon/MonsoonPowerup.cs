@@ -12,9 +12,9 @@ namespace Assets.Powerups
     /// Spawns a passive rain cloud behind the player that rains bullets on enemies.
     /// </summary>
     /// <inheritdoc/>
-    public class MonsoonPowerup : PassivePowerup
+    public class MonsoonPowerup : OnLevelUpPowerup
     {
-        protected override void InitBalance(in PowerupBalanceManager.PassiveBalance balance)
+        protected override void InitBalance(in PowerupBalanceManager.OnLevelUpBalance balance)
         {
             float fireSpeedBase = balance.Monsoon.FireSpeed.Base;
             float fireSpeedIncrease = balance.Monsoon.FireSpeed.Increase;
@@ -37,15 +37,6 @@ namespace Assets.Powerups
                 MonsoonSpawner.Instance.Activate();
 
             Monsoon.Instance.LevelUp(Damage, FireSpeed);
-        }
-
-        public override void RunFrame(float deltaTime, float realDeltaTime)
-        {
-            //if (MonsoonSpawner.Instance.isActiveAndEnabled)
-            //    MonsoonSpawner.Instance.RunFrame(deltaTime);
-
-            //if (Monsoon.Instance.isActiveAndEnabled)
-            //    Monsoon.Instance.RunFrame(deltaTime);
         }
     }
 }
