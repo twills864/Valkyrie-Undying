@@ -26,13 +26,13 @@ namespace Assets.Enemies
             OnFireStrategyEnemyActivate();
         }
 
-        protected virtual void OnFireStrategyEnemyFrame(float deltaTime) { }
-        protected sealed override void OnEnemyFrame(float deltaTime)
+        protected virtual void OnFireStrategyEnemyFrame(float deltaTime, float realDeltaTime) { }
+        protected sealed override void OnEnemyFrame(float deltaTime, float realDeltaTime)
         {
             if (FireTimer.UpdateActivates(deltaTime))
                 FireBullets();
 
-            OnFireStrategyEnemyFrame(deltaTime);
+            OnFireStrategyEnemyFrame(deltaTime, realDeltaTime);
         }
 
         protected virtual void FireBullets()

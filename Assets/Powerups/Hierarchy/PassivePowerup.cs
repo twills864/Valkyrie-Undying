@@ -13,7 +13,7 @@ namespace Assets.Powerups
     /// <inheritdoc/>
     public abstract class PassivePowerup : Powerup
     {
-        public abstract void RunFrame(float deltaTime);
+        public abstract void RunFrame(float deltaTime, float realDeltaTime);
         public override void OnLevelUp() { }
 
         protected sealed override void InitBalance(in PowerupBalanceManager balance)

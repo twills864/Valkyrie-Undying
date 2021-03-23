@@ -16,7 +16,7 @@ namespace Assets.Powerups
     {
         public static MonsoonSpawner Instance { get; set; }
 
-        public override GameTaskType TaskType => GameTaskType.Player;
+        public override TimeScaleType TimeScale => TimeScaleType.Player;
 
         [SerializeField]
         private SpriteRenderer Sprite = null;
@@ -42,7 +42,7 @@ namespace Assets.Powerups
 
         //protected override void OnInit() { }
 
-        protected override void OnFrameRun(float deltaTime)
+        protected override void OnFrameRun(float deltaTime, float realDeltaTime)
         {
             if (Move.FrameRunFinishes(deltaTime))
             {

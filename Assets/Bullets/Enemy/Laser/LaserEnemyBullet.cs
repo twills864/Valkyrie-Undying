@@ -71,7 +71,7 @@ namespace Assets.Bullets.EnemyBullets
             Sequence.ResetSelf();
         }
 
-        protected override void OnFrameRun(float deltaTime)
+        protected override void OnFrameRun(float deltaTime, float realDeltaTime)
         {
             Sequence.RunFrame(deltaTime);
         }

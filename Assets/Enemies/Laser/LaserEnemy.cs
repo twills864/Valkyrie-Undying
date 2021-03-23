@@ -103,7 +103,7 @@ namespace Assets.Enemies
             FireSequence.ResetSelf();
         }
 
-        protected override void OnEnemyFrame(float deltaTime)
+        protected override void OnEnemyFrame(float deltaTime, float realDeltaTime)
         {
             switch(FrameBehavior)
             {

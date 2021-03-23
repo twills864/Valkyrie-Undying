@@ -21,7 +21,7 @@ namespace Assets.Powerups
     {
         public static Othello Instance { get; set; }
 
-        public override GameTaskType TaskType => GameTaskType.Player;
+        public override TimeScaleType TimeScale => TimeScaleType.Player;
 
         [SerializeField]
         private SpriteRenderer Sprite = null;
@@ -74,7 +74,7 @@ namespace Assets.Powerups
             return ret;
         }
 
-        protected override void OnFrameRun(float deltaTime)
+        protected override void OnFrameRun(float deltaTime, float realDeltaTime)
         {
             FadeTo.RunFrame(deltaTime);
 

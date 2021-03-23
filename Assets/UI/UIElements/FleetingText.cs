@@ -9,7 +9,7 @@ namespace Assets.UI
     /// <inheritdoc/>
     public class FleetingText : UIElement
     {
-        public override GameTaskType TaskType => GameTaskType.UIElement;
+        public override TimeScaleType TimeScale => TimeScaleType.UIElement;
         protected override ColorHandler DefaultColorHandler()
             => new TextMeshColorHandler(TextField);
 
@@ -66,7 +66,7 @@ namespace Assets.UI
         }
 
 
-        protected override void OnFrameRun(float deltaTime)
+        protected override void OnFrameRun(float deltaTime, float realDeltaTime)
         {
             if (Sequence.FrameRunFinishes(deltaTime))
                 DeactivateSelf();

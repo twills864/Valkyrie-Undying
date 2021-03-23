@@ -55,7 +55,7 @@ namespace Assets.Bullets.PlayerBullets
             Sequence = new Sequence(ScaleIn, Fade);
         }
 
-        protected override void OnPlayerBulletFrameRun(float deltaTime)
+        protected override void OnPlayerBulletFrameRun(float deltaTime, float realDeltaTime)
         {
             if (!Sequence.IsFinished)
                 Sequence.RunFrame(deltaTime);

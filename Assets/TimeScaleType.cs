@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Assets.Constants;
 
-namespace Assets.GameTasks
+namespace Assets
 {
-    public enum GameTaskType
+    public enum TimeScaleType
     {
         Player,
         PlayerBullet,

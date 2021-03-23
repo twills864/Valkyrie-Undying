@@ -11,7 +11,7 @@ namespace Assets.Bullets.PlayerBullets
     public abstract class PlayerBullet : Bullet
     {
         public override string LogTagColor => "#B381FE";
-        public override GameTaskType TaskType => GameTaskType.PlayerBullet;
+        public override TimeScaleType TimeScale => TimeScaleType.PlayerBullet;
 
         [SerializeField]
         protected int BaseDamage;
@@ -63,10 +63,10 @@ namespace Assets.Bullets.PlayerBullets
         }
 
 
-        protected virtual void OnPlayerBulletFrameRun(float deltaTime) { }
-        protected override void OnFrameRun(float deltaTime)
+        protected virtual void OnPlayerBulletFrameRun(float deltaTime, float realDeltaTime) { }
+        protected override void OnFrameRun(float deltaTime, float realDeltaTime)
         {
-            OnPlayerBulletFrameRun(deltaTime);
+            OnPlayerBulletFrameRun(deltaTime, realDeltaTime);
         }
 
         public virtual bool CollidesWithEnemy(Enemy enemy)

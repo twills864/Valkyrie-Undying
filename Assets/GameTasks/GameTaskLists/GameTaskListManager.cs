@@ -25,24 +25,24 @@ namespace Assets.GameTasks.GameTaskLists
             UIElementGameTaskList.RunFrames(uiDt);
         }
 
-        private GameTaskList GetList(GameTaskType taskType)
+        private GameTaskList GetList(TimeScaleType taskType)
         {
             GameTaskList ret;
             switch (taskType)
             {
-                case GameTaskType.Player:
+                case TimeScaleType.Player:
                     ret = PlayerGameTaskList;
                     break;
-                case GameTaskType.PlayerBullet:
+                case TimeScaleType.PlayerBullet:
                     ret = BulletGameTaskList;
                     break;
-                case GameTaskType.Enemy:
+                case TimeScaleType.Enemy:
                     ret = EnemyGameTaskList;
                     break;
-                case GameTaskType.EnemyBullet:
+                case TimeScaleType.EnemyBullet:
                     ret = EnemyBulletGameTaskList;
                     break;
-                case GameTaskType.UIElement:
+                case TimeScaleType.UIElement:
                     ret = UIElementGameTaskList;
                     break;
                 default:
@@ -52,7 +52,7 @@ namespace Assets.GameTasks.GameTaskLists
         }
 
 
-        public void StartTask(GameTask task, GameTaskType taskType)
+        public void StartTask(GameTask task, TimeScaleType taskType)
         {
             var list = GetList(taskType);
             list.Add(task);
@@ -81,7 +81,7 @@ namespace Assets.GameTasks.GameTaskLists
 
         public void GameTaskRunnerDeactivated(ValkyrieSprite target)
         {
-            var taskType = target.TaskType;
+            var taskType = target.TimeScale;
             var list = GetList(taskType);
 
             list.RemoveTasksRelatedToTarget(target);

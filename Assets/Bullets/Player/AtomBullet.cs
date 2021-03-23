@@ -1,6 +1,7 @@
 ﻿using Assets.Bullets.PlayerBullets;
 using Assets.Enemies;
 using Assets.GameTasks;
+using Assets.ObjectPooling;
 using Assets.UI;
 using Assets.Util;
 using UnityEngine;
@@ -30,16 +31,22 @@ namespace Assets.Bullets.PlayerBullets
         {
             VelocityChange.FinishSelf();
             MostRecentTargetVelocity = Vector2.zero;
-
-            Trail = GameManager.Instance.GetAtomTrail();
         }
+
+        protected override void OnBouncingBulletSpawn()
+        {
+            Trail = PoolManager.Instance.UIElementPool.Get<AtomTrail>();
+            Trail.transform.position = transform.position;
+            Trail.OnSpawn();
+        }
+
         protected override void OnBouncingBulletDeactivate()
         {
             Trail.StartDeactivation();
             Trail = null;
         }
 
-        protected override void OnPlayerBulletFrameRun(float deltaTime)
+        protected override void OnPlayerBulletFrameRun(float deltaTime, float realDeltaTime)
         {
             VelocityChange.RunFrame(deltaTime);
             Trail.transform.position = transform.position;

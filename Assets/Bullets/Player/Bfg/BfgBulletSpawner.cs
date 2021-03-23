@@ -88,7 +88,7 @@ namespace Assets.Bullets.PlayerBullets
             ScaleIn.EndValue = new Vector3(x, y, z);
         }
 
-        protected override void OnPlayerBulletFrameRun(float deltaTime)
+        protected override void OnPlayerBulletFrameRun(float deltaTime, float realDeltaTime)
         {
             FallbackDeactivate.RunFrame(deltaTime);
             PositionX = Player.Instance.transform.position.x;

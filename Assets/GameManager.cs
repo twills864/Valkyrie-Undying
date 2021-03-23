@@ -253,7 +253,7 @@ namespace Assets
 
         #region Update
 
-        void Update()
+        private void Update()
         {
             if (DebugPauseNextFrame)
             {
@@ -266,9 +266,6 @@ namespace Assets
 
             float deltaTime = Time.deltaTime;
             float playerFireScale = deltaTime * PlayerFireDeltaTimeScale;
-
-            Player.RunFrame(deltaTime);
-            _Othello.RunFrameIfEnabled(playerFireScale);
 
             if (CurrentFireStrategy.UpdateActivates(playerFireScale * Player.FireSpeedScale))
             {
@@ -283,10 +280,18 @@ namespace Assets
                 var enemy = _PoolManager.EnemyPool.GetRandomEnemy();
             }
 
-            _PoolManager.RunPoolFrames(deltaTime, deltaTime, deltaTime);
-            _DebugEnemy.RunFrame(deltaTime);
-            _PowerupManager.PassiveUpdate(playerFireScale);
+            _PowerupManager.PassiveUpdate(playerFireScale, deltaTime);
             GameTaskLists.RunFrames(playerFireScale, deltaTime, deltaTime, deltaTime);
+        }
+
+        private void LateUpdate()
+        {
+            SyncTimeScales();
+        }
+
+        private void SyncTimeScales()
+        {
+
         }
 
         #endregion Update
@@ -333,6 +338,7 @@ namespace Assets
             {
                 _playerFireDeltaTimeScale = value;
                 CurrentFireStrategy.Reset();
+                TimeScaleManager.Player = value;
             }
         }
 
@@ -459,7 +465,7 @@ namespace Assets
 
         private GameTaskListManager GameTaskLists = new GameTaskListManager();
 
-        public void StartTask(GameTask task, GameTaskType taskType)
+        public void StartTask(GameTask task, TimeScaleType taskType)
         {
             GameTaskLists.StartTask(task, taskType);
         }
@@ -542,12 +548,6 @@ namespace Assets
         }
 
         #endregion Debug
-
-        public AtomTrail GetAtomTrail()
-        {
-            var ret = _PoolManager.UIElementPool.Get<AtomTrail>();
-            return ret;
-        }
 
         /// <summary>
         /// Creates a Fleeting Text with a specified message at a specified position.

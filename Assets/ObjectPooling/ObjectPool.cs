@@ -85,18 +85,6 @@ namespace Assets.ObjectPooling
         }
 
         /// <summary>
-        /// Calls RunFrame() on each active object in the pool
-        /// using the specified <paramref name="deltaTime"/>.
-        /// </summary>
-        /// <param name="deltaTime">The represented amount of time that has passed
-        /// since the last frame.</param>
-        public void RunFrames(float deltaTime)
-        {
-            foreach(var element in ActiveObjects)
-                element.RunFrame(deltaTime);
-        }
-
-        /// <summary>
         /// Recolors each object in the pool to a specified color.
         /// </summary>
         /// <param name="color">The color to give to each object.</param>

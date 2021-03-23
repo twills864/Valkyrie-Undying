@@ -30,7 +30,7 @@ namespace Assets.UI
             DeactivateTimer.Reset();
         }
 
-        protected override void OnFrameRun(float deltaTime)
+        protected override void OnFrameRun(float deltaTime, float realDeltaTime)
         {
             if(!DeactivateTimer.Activated)
             {
@@ -41,7 +41,7 @@ namespace Assets.UI
             }
         }
 
-        protected override void OnDeactivate()
+        public override void OnSpawn()
         {
             Trail.Clear();
         }

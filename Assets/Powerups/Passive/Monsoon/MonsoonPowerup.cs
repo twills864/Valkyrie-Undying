@@ -39,13 +39,13 @@ namespace Assets.Powerups
             Monsoon.Instance.LevelUp(Damage, FireSpeed);
         }
 
-        public override void RunFrame(float deltaTime)
+        public override void RunFrame(float deltaTime, float realDeltaTime)
         {
-            if (MonsoonSpawner.Instance.isActiveAndEnabled)
-                MonsoonSpawner.Instance.RunFrame(deltaTime);
+            //if (MonsoonSpawner.Instance.isActiveAndEnabled)
+            //    MonsoonSpawner.Instance.RunFrame(deltaTime);
 
-            if (Monsoon.Instance.isActiveAndEnabled)
-                Monsoon.Instance.RunFrame(deltaTime);
+            //if (Monsoon.Instance.isActiveAndEnabled)
+            //    Monsoon.Instance.RunFrame(deltaTime);
         }
     }
 }

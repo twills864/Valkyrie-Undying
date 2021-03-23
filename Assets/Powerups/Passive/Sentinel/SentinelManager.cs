@@ -22,7 +22,7 @@ namespace Assets.Powerups
         const int NumSentinel = 8;
         const float AngleDelta = MathUtil.Pi2f / NumSentinel;
 
-        public override GameTaskType TaskType => GameTaskType.Player;
+        public override TimeScaleType TimeScale => TimeScaleType.Player;
         protected override ColorHandler DefaultColorHandler()
             => new NullColorHandler();
 
@@ -77,10 +77,10 @@ namespace Assets.Powerups
                 bullet.ActivateSelf();
         }
 
-        protected override void OnFrameRun(float deltaTime)
+        protected override void OnFrameRun(float deltaTime, float realDeltaTime)
         {
-            if (Level == 0)
-                return;
+            //if (Level == 0)
+            //    return;
 
             Rotation.AddAngle(deltaTime * AngularVelocity);
 
@@ -105,8 +105,15 @@ namespace Assets.Powerups
             }
         }
 
+        private void LateUpdate()
+        {
+            transform.position = Player.Instance.transform.position;
+        }
+
         public void LevelUp(int level, float radius, float respawnInterval)
         {
+            Instance.gameObject.SetActive(true);
+
             Level = level;
 
             RespawnTimer.ActivationInterval = respawnInterval;

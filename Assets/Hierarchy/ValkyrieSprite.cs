@@ -54,35 +54,42 @@ namespace Assets
 
         #region Frames
 
-        public abstract GameTaskType TaskType { get; }
+        public abstract TimeScaleType TimeScale { get; }
 
         public virtual bool IsPaused { get => false; }
 
         public float TotalTime { get; private set; }
 
-        protected virtual void OnFrameRun(float deltaTime) { }
+        public virtual float TimeScaleModifier => TimeScaleManager.GetTimeScaleModifier(TimeScale);
+
+        private void Update()
+        {
+            float deltaTime = Time.deltaTime;
+            float representedDt = deltaTime * TimeScaleModifier;
+
+            RunFrame(representedDt, deltaTime);
+        }
+
         /// <summary>
-        /// ValkyrieSprites will manually handle frame updates
-        /// instead of relying on Unity's implementation of Update().
+        /// ValkyrieSprites will run frames based on their own modified time scale.
+        /// They will also be provided with the true delta time since last frame.
         /// </summary>
-        /// <param name="deltaTime">The amount of time since the last frame.</param>
-        public void RunFrame(float deltaTime)
+        /// <param name="deltaTime">The amount of time since the last frame after applying the relevant time scale.</param>
+        /// <param name="realDeltaTime">The true amount of time since the last frame before applying the relevant time scale.</param>
+        protected virtual void OnFrameRun(float deltaTime, float realDeltaTime) { }
+        /// <summary>
+        /// ValkyrieSprites will run frames based on their own modified time scale.
+        /// They will also be provided with the true delta time since last frame.
+        /// </summary>
+        /// <param name="deltaTime">The amount of time since the last frame after applying the relevant time scale.</param>
+        /// <param name="realDeltaTime">The true amount of time since the last frame before applying the relevant time scale.</param>
+        public void RunFrame(float deltaTime, float realDeltaTime)
         {
             TotalTime += deltaTime;
 
             ApplyVelocity(Velocity, deltaTime);
 
-            OnFrameRun(deltaTime);
-        }
-
-        /// <summary>
-        /// Runs the frame only if this object is enabled.
-        /// </summary>
-        /// <param name="deltaTime">The amount of time since the last frame.</param>
-        public void RunFrameIfEnabled(float deltaTime)
-        {
-            if (gameObject.activeSelf)
-                RunFrame(deltaTime);
+            OnFrameRun(deltaTime, realDeltaTime);
         }
 
 
@@ -92,7 +99,7 @@ namespace Assets
 
         public void RunTask(GameTask task)
         {
-            GameManager.Instance.StartTask(task, TaskType);
+            GameManager.Instance.StartTask(task, TimeScale);
         }
 
         protected void ClearGameTasks()

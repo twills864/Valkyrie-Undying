@@ -66,7 +66,7 @@ namespace Assets.UI
             transform.position = HostPosition;
         }
 
-        protected override void OnFrameRun(float deltaTime)
+        protected override void OnFrameRun(float deltaTime, float realDeltaTime)
         {
             if (!Deactivating)
                 transform.position = HostPosition;

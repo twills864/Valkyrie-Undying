@@ -11,7 +11,7 @@ namespace Assets.Bullets.PlayerBullets
         [SerializeField]
         private float RotationSpeed = GameConstants.PrefabNumber;
 
-        protected override void OnPlayerBulletFrameRun(float deltaTime)
+        protected override void OnPlayerBulletFrameRun(float deltaTime, float realDeltaTime)
         {
             transform.Rotate(0, 0, deltaTime * RotationSpeed);
         }

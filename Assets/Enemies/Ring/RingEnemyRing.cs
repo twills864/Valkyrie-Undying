@@ -31,7 +31,7 @@ namespace Assets.Enemies
             HealthBar.Alpha = 0f;
         }
 
-        protected override void OnFireStrategyEnemyFrame(float deltaTime)
+        protected override void OnFireStrategyEnemyFrame(float deltaTime, float realDeltaTime)
         {
             if(!AlphaCalculator.Activated)
             {

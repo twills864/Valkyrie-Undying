@@ -44,7 +44,7 @@ namespace Assets.Bullets.PlayerBullets
             TravelTimer = new EaseInTimer(TravelTime);
         }
 
-        protected override void OnPlayerBulletFrameRun(float deltaTime)
+        protected override void OnPlayerBulletFrameRun(float deltaTime, float realDeltaTime)
         {
             TravelTimer.Increment(deltaTime);
         }

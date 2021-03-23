@@ -1,4 +1,5 @@
-﻿using Assets.ColorManagers;
+﻿using System;
+using Assets.ColorManagers;
 using UnityEngine;
 
 namespace Assets.ObjectPooling
@@ -40,23 +41,6 @@ namespace Assets.ObjectPooling
         private void Awake()
         {
             Instance = this;
-        }
-
-        /// <summary>
-        /// Calls RunFrames() on each Object Pool managed by this class.
-        /// </summary>
-        /// <param name="bulletDt">Delta time as experienced by each bullet.</param>
-        /// <param name="enemyDt">Delta time as experienced by each enemy.</param>
-        /// /// <param name="enemyDt">Delta time as experienced by each UI element.</param>
-        public void RunPoolFrames(float bulletDt, float enemyDt, float uiDt)
-        {
-            BulletPool.RunFrames(bulletDt);
-            EnemyPool.RunFrames(enemyDt);
-            EnemyBulletPool.RunFrames(enemyDt);
-
-            // UIElementPool should run last to take into account any changes in position, etc.
-            // of elements from previous pools.
-            UIElementPool.RunFrames(uiDt);
         }
 
         /// <summary>

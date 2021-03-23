@@ -42,7 +42,7 @@ namespace Assets.Bullets.PlayerBullets
             Accelerate.ResetSelf();
         }
 
-        protected override void OnPlayerBulletFrameRun(float deltaTime)
+        protected override void OnPlayerBulletFrameRun(float deltaTime, float realDeltaTime)
         {
             Accelerate.RunFrame(deltaTime);
 

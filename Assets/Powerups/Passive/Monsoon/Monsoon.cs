@@ -18,7 +18,7 @@ namespace Assets.Powerups
     {
         public static Monsoon Instance { get; set; }
 
-        public override GameTaskType TaskType => GameTaskType.Player;
+        public override TimeScaleType TimeScale => TimeScaleType.Player;
 
         [SerializeField]
         private SpriteRenderer Sprite = null;
@@ -62,7 +62,7 @@ namespace Assets.Powerups
             VelocityX = Speed;
         }
 
-        protected override void OnFrameRun(float deltaTime)
+        protected override void OnFrameRun(float deltaTime, float realDeltaTime)
         {
             var targetX = Player.Instance.transform.position.x;
 

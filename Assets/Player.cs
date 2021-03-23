@@ -17,7 +17,7 @@ namespace Assets
         public static Player Instance { get; private set; }
 
         public override string LogTagColor => "#60D3FF";
-        public override GameTaskType TaskType => GameTaskType.Player;
+        public override TimeScaleType TimeScale => TimeScaleType.Player;
 
         [SerializeField]
         private SpriteRenderer Sprite = null;
@@ -126,6 +126,7 @@ namespace Assets
         public void SetPosition(Vector3 pos)
         {
             Body.transform.localPosition = pos;
+            SentinelManager.Instance.transform.position = pos;
         }
 
         public Vector3 FirePosition()
@@ -134,7 +135,7 @@ namespace Assets
             return ret;
         }
 
-        protected override void OnFrameRun(float deltaTime)
+        protected override void OnFrameRun(float deltaTime, float realDeltaTime)
         {
             if (!BloodlustTimer.Activated && BloodlustTimer.UpdateActivates(deltaTime))
                 ResetBloodlust();

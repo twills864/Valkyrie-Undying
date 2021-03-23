@@ -46,7 +46,7 @@ namespace Assets.Bullets.EnemyBullets
             DeactivateTimer.Reset();
         }
 
-        protected override void OnFrameRun(float deltaTime)
+        protected override void OnFrameRun(float deltaTime, float realDeltaTime)
         {
             DebugUI.SetDebugLabel("Spawner pos", transform.position);
             FadeIn.RunFrame(deltaTime);

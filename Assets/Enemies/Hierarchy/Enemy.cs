@@ -24,7 +24,7 @@ namespace Assets.Enemies
         protected float HealthScaling;
 
         public override string LogTagColor => "#FFB697";
-        public override GameTaskType TaskType => GameTaskType.Enemy;
+        public override TimeScaleType TimeScale => TimeScaleType.Enemy;
 
         public EnemyFireStrategy FireStrategy { get; protected set; }
         protected abstract EnemyFireStrategy InitialFireStrategy();
@@ -218,8 +218,8 @@ namespace Assets.Enemies
             OnEnemySpawn();
         }
 
-        protected virtual void OnEnemyFrame(float deltaTime) { }
-        protected sealed override void OnFrameRun(float deltaTime)
+        protected virtual void OnEnemyFrame(float deltaTime, float realDeltaTime) { }
+        protected sealed override void OnFrameRun(float deltaTime, float realDeltaTime)
         {
             if (IsBurning && InfernoTimer.UpdateActivates(deltaTime))
             {
@@ -229,7 +229,7 @@ namespace Assets.Enemies
 
             if (!IsVoidPaused)
             {
-                OnEnemyFrame(deltaTime);
+                OnEnemyFrame(deltaTime, realDeltaTime);
             }
 
             HealthBar.transform.position = (Vector3)ColliderMap.Center + HealthBarOffset;

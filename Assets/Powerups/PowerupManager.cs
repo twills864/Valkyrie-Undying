@@ -87,10 +87,10 @@ namespace Assets.Powerups
                 powerup.OnGetHit();
         }
 
-        public void PassiveUpdate(float deltaTime)
+        public void PassiveUpdate(float deltaTime, float realDeltaTime)
         {
             foreach (var powerup in PassivePowerupList.Where(x => x.IsActive))
-                powerup.RunFrame(deltaTime);
+                powerup.RunFrame(deltaTime, realDeltaTime);
         }
 
         public TPowerup GetFirePowerup<TPowerup>() where TPowerup : OnFirePowerup

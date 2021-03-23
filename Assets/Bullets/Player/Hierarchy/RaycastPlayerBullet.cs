@@ -81,34 +81,34 @@ namespace Assets.Bullets.PlayerBullets
             OnPlayerRaycastBulletSpawn();
         }
 
-        protected virtual void OnRaycastPlayerBulletFrameRun(float deltaTime) { }
-        protected sealed override void OnPlayerBulletFrameRun(float deltaTime)
+        protected virtual void OnRaycastPlayerBulletFrameRun(float deltaTime, float realDeltaTime) { }
+        protected sealed override void OnPlayerBulletFrameRun(float deltaTime, float realDeltaTime)
         {
             if(FadeInAlphaValue.IsFinished)
-                FadeOutFrameRun(deltaTime);
+                FadeOutFrameRun(deltaTime, realDeltaTime);
             else
             {
                 FadeInAlphaValue.Increment(deltaTime);
                 if(!FadeInAlphaValue.IsFinished)
                 {
                     Alpha = FadeInAlphaValue.Value;
-                    OnRaycastPlayerBulletFrameRun(deltaTime);
+                    OnRaycastPlayerBulletFrameRun(deltaTime, realDeltaTime);
                 }
                 else
                 {
                     float overflow = FadeInAlphaValue.Timer.OverflowDeltaTime;
-                    FadeOutFrameRun(deltaTime);
+                    FadeOutFrameRun(deltaTime, realDeltaTime);
                 }
             }
         }
 
-        private void FadeOutFrameRun(float deltaTime)
+        private void FadeOutFrameRun(float deltaTime, float realDeltaTime)
         {
             FadeOutAlphaValue.Increment(deltaTime);
             if (!FadeOutAlphaValue.IsFinished)
             {
                 Alpha = FadeOutAlphaValue.Value;
-                OnRaycastPlayerBulletFrameRun(deltaTime);
+                OnRaycastPlayerBulletFrameRun(deltaTime, realDeltaTime);
             }
             else
                 DeactivateSelf();

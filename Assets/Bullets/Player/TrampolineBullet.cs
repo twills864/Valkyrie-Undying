@@ -47,7 +47,7 @@ namespace Assets.Bullets.PlayerBullets
             ResetVelocityY();
         }
 
-        protected override void OnPlayerBulletFrameRun(float deltaTime)
+        protected override void OnPlayerBulletFrameRun(float deltaTime, float realDeltaTime)
         {
             ElapsedTime += (SpeedScaled * deltaTime);
             transform.Rotate(0, 0, deltaTime * RotationSpeed);

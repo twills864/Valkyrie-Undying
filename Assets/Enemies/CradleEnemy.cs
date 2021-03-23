@@ -111,7 +111,7 @@ namespace Assets.Enemies
             Behavior.ResetSelf();
         }
 
-        protected override void OnEnemyFrame(float deltaTime)
+        protected override void OnEnemyFrame(float deltaTime, float realDeltaTime)
         {
             Behavior.RunFrame(deltaTime);
         }

@@ -71,7 +71,7 @@ namespace Assets.Bullets.PlayerBullets
             LocalScaleX = x;
         }
 
-        protected override void OnPlayerBulletFrameRun(float deltaTime)
+        protected override void OnPlayerBulletFrameRun(float deltaTime, float realDeltaTime)
         {
             Sequence.RunFrame(deltaTime);
         }

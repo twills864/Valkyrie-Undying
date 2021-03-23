@@ -47,11 +47,10 @@ namespace Assets.Powerups
             FireTimer.ActivateSelf();
         }
 
-        public override void RunFrame(float deltaTime)
+        public override void RunFrame(float deltaTime, float realDeltaTime)
         {
             if (Input.GetMouseButtonDown(0) && SpaceUtil.TryGetEnemyUnderMouse(out Enemy victim))
                 victim.IsVictim = true;
-
 
             if(FireTimer.UpdateActivates(deltaTime))
                 FireAtVictim();

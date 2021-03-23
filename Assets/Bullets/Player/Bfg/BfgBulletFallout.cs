@@ -84,7 +84,7 @@ namespace Assets.Bullets.PlayerBullets
             FadeOutSequence.ResetSelf();
         }
 
-        protected override void OnPlayerBulletFrameRun(float deltaTime)
+        protected override void OnPlayerBulletFrameRun(float deltaTime, float realDeltaTime)
         {
             FadeOutSequence.RunFrame(deltaTime);
         }

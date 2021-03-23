@@ -36,10 +36,10 @@ namespace Assets.Powerups
             SentinelManager.Instance.LevelUp(Level, Radius, RespawnInterval);
         }
 
-        public override void RunFrame(float deltaTime)
+        public override void RunFrame(float deltaTime, float realDeltaTime)
         {
-            SentinelManager.Instance.transform.position = Player.Instance.transform.position;
-            SentinelManager.Instance.RunFrame(deltaTime);
+            //SentinelManager.Instance.transform.position = Player.Instance.transform.position;
+            //SentinelManager.Instance.RunFrame(deltaTime, deltaTime);
         }
     }
 }

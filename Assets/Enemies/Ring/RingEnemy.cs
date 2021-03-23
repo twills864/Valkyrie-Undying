@@ -43,7 +43,7 @@ namespace Assets.Enemies
             Ease = new EaseIn(moveTo);
         }
 
-        protected override void OnFireStrategyEnemyFrame(float deltaTime)
+        protected override void OnFireStrategyEnemyFrame(float deltaTime, float realDeltaTime)
         {
             Ease.RunFrame(deltaTime);
             RotateSprite(deltaTime * RotationSpeed);

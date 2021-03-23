@@ -50,7 +50,7 @@ namespace Assets.Bullets.PlayerBullets
             Sequence = new Sequence(ScaleIn, Delay, ScaleOut);
         }
 
-        protected override void OnPlayerBulletFrameRun(float deltaTime)
+        protected override void OnPlayerBulletFrameRun(float deltaTime, float realDeltaTime)
         {
             if (!Sequence.IsFinished)
                 Sequence.RunFrame(deltaTime);
