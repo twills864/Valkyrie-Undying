@@ -21,7 +21,7 @@ namespace Assets.Enemies
         }
 
         [SerializeField]
-        private float FlyTime = GameConstants.PrefabNumber;
+        private Vector2 FlyTime = Vector2.zero;
 
         [SerializeField]
         private float RotateTime = GameConstants.PrefabNumber;
@@ -48,7 +48,7 @@ namespace Assets.Enemies
 
         private MoveBy MoveVertical { get; set; }
         private MoveBy MoveHorizontal { get; set; }
-        private EaseIn FlyIn { get; set; }
+        private ConcurrentGameTask FlyIn { get; set; }
 
         private RotateTo Rotate { get; set; }
         private Sequence FireSequence { get; set; }
@@ -68,15 +68,13 @@ namespace Assets.Enemies
 
             #region FlyIn
 
-            MoveVertical = new MoveBy(this, Vector3.zero, FlyTime);
-            MoveHorizontal = new MoveBy(this, Vector3.zero, FlyTime);
+            MoveVertical = new MoveBy(this, Vector3.zero, FlyTime.y);
+            MoveHorizontal = new MoveBy(this, Vector3.zero, FlyTime.x);
 
             var easeVertical = new EaseIn(MoveVertical);
-            var easeHorizontal = new EaseOut(MoveHorizontal);
+            var easeHorizontal = new EaseInOut(MoveHorizontal);
 
-            var concurrence = new ConcurrentGameTask(this, easeVertical, easeHorizontal);
-
-            FlyIn = new EaseIn(concurrence);
+            FlyIn = new ConcurrentGameTask(this, easeVertical, easeHorizontal);
 
             #endregion FlyIn
 
@@ -92,16 +90,38 @@ namespace Assets.Enemies
 
         protected override void OnEnemySpawn()
         {
-            Vector3 destination = SpaceUtil.RandomEnemyDestinationTopHalf(this);
-            Vector3 difference = destination - transform.position;
-
-            MoveX = difference.x;
-            MoveY = difference.y;
-
+            AssignMoves();
             FrameBehavior = FrameBehaviors.RunFlyInFrame0;
             FlyIn.ResetSelf();
             FireSequence.ResetSelf();
         }
+
+        private void AssignMoves()
+        {
+            #region Deprecated random destination
+            //Vector3 destination = SpaceUtil.RandomEnemyDestinationTopHalf(this);
+            //Vector3 difference = destination - transform.position;
+
+            //MoveX = difference.x;
+            //MoveY = difference.y;
+            #endregion Deprecated random destination
+
+            Vector3 destination = SpaceUtil.RandomEnemyDestinationTopHalf(this);
+
+            const float ClampX = 0.9f;
+            float diffX = SpaceUtil.WorldMap.WidthHalf * ClampX;
+
+            destination.x = PositionX;
+            if (destination.x > SpaceUtil.WorldMap.Center.x)
+                diffX *= -1;
+
+            destination.x += diffX;
+
+            Vector3 difference = destination - transform.position;
+            MoveX = difference.x;
+            MoveY = difference.y;
+        }
+
 
         protected override void OnEnemyFrame(float deltaTime, float realDeltaTime)
         {
@@ -179,7 +199,7 @@ namespace Assets.Enemies
 
         protected override void OnEnemyDeactivate()
         {
-            if (!CurrentLaser.LaserActivated)
+            if (CurrentLaser?.LaserActivated == false)
                 CurrentLaser.DeactivateSelf();
         }
     }

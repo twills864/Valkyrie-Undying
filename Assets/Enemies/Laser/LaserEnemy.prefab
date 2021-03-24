@@ -157,5 +157,5 @@ MonoBehaviour:
   _victimMarkerDistance: 0.5
   _metronomeLabel: {fileID: 0}
   HealthBarOffsetScale: {x: 0, y: 0.75, z: 0}
-  FlyTime: 3
+  FlyTime: {x: 1.8, y: 1.8}
   RotateTime: 0.5

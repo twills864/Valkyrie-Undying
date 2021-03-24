@@ -163,12 +163,6 @@ namespace Assets
             InitWithoutDependencies();
             InitWithDependencies();
             InitIndependentColors();
-
-            for(int i = 0; i < 32; i++)
-            {
-                UnityEngine.Debug.Log($"{i} {LayerMask.LayerToName(i)}");
-            }
-
         }
 
         private void InitWithoutDependencies()

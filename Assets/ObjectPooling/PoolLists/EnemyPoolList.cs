@@ -11,6 +11,8 @@ namespace Assets.ObjectPooling
     /// <inheritdoc/>
     public class EnemyPoolList : PoolList<Enemy>
     {
+        public Type OverrideEnemyType => DebugUtil.GetOverrideEnemyType<LaserEnemy>();
+
 #pragma warning disable 0414
 
         [SerializeField]
@@ -30,7 +32,6 @@ namespace Assets.ObjectPooling
 
         private ObjectPool<Enemy>[] RandomEnemyPools { get; set; }
 
-        public Type OverrideEnemyType => null; // DebugUtil.GetOverrideEnemyType<LaserEnemy>();
         private ObjectPool<Enemy> OverridePool => OverrideEnemyType != null &&
             PoolMap.TryGetValue(OverrideEnemyType, out var ret) ? ret : null;
 
