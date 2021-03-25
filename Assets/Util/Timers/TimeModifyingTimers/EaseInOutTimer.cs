@@ -10,9 +10,8 @@ using UnityEngine;
 namespace Assets.Util
 {
     /// <summary>
-    /// Modifies a time scale using the following piecewise-function:
-    /// x <= 0.5: y = 2(x^2)
-    /// x  > 0.5: y = 1 - ([([-2 * x] + 2) ^ 2] / 2)
+    /// Modifies a time scale using the following Bézier curve:
+    /// y = (x^2)(3 - 2x)
     /// </summary>
     public class EaseInOutTimer : TimeModifyingFrameTimer
     {
@@ -27,26 +26,34 @@ namespace Assets.Util
 
         protected override float Invert(float currentRatioComplete)
         {
-            return InvertRatio(currentRatioComplete);
+            return ApproximateInvertRatio(currentRatioComplete);
         }
 
-        // x <= 0.5: y = 2(x^2)
-        // x  > 0.5: y = 1 - ([([-2 * x] + 2) ^ 2] / 2)
+        // y = (x^2)(3 - 2x)
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float AdjustRatio(float currentRatioComplete)
         {
-            float ret;
-            if(currentRatioComplete < 0.5f)
-                ret = 2 * currentRatioComplete * currentRatioComplete;
-            else
-            {
-                float numerator = (-2f * currentRatioComplete) + 2;
-                numerator *= numerator;
-
-                ret = 1 - (0.5f * numerator);
-            }
-
+            float ret = (3f - (2f * currentRatioComplete));
+            ret *= currentRatioComplete * currentRatioComplete;
             return ret;
+
+            #region Piecewise implementation
+            // x <= 0.5: y = 2(x^2)
+            // x  > 0.5: y = 1 - ([([-2 * x] + 2) ^ 2] / 2)
+
+            //float ret;
+            //if(currentRatioComplete < 0.5f)
+            //    ret = 2 * currentRatioComplete * currentRatioComplete;
+            //else
+            //{
+            //    float numerator = (-2f * currentRatioComplete) + 2;
+            //    numerator *= numerator;
+
+            //    ret = 1 - (0.5f * numerator);
+            //}
+
+            //return ret;
+            #endregion Piecewise implementation
         }
 
         // x <= 0.5: x = 2(y^2)
@@ -54,7 +61,7 @@ namespace Assets.Util
         // x  > 0.5: x = 1 - ([([-2 * y] + 2) ^ 2] / 2)
         //           y = 1 + (-sqrt(-2x+2)/2)
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static float InvertRatio(float currentRatioComplete)
+        public static float ApproximateInvertRatio(float currentRatioComplete)
         {
             float ret;
             if (currentRatioComplete < 0.5f)

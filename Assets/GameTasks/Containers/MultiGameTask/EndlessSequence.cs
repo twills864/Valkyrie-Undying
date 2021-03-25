@@ -20,6 +20,10 @@ namespace Assets.GameTasks
 
         private FrameBehaviorArray FrameBehaviors;
 
+        public EndlessSequence(InfiniteTimeGameTask finalTask)
+            : this(finalTask, Sequence.Default())
+        {
+        }
         public EndlessSequence(InfiniteTimeGameTask finalTask, params FiniteTimeGameTask[] innerTasks)
             : this(finalTask, new Sequence(innerTasks))
         {

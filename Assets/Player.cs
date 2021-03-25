@@ -111,6 +111,24 @@ namespace Assets
 
             //var endless = new EndlessSequence(repeat, startDelay, scaleTo, fadeOut, fadeIn);
             //this.RunTask(endless);
+
+
+
+
+            //PositionX = SpaceUtil.WorldMap.Left.x / 2;
+
+            //var start = new Vector3(SpaceUtil.WorldMap.Left.x / 2, PositionY);
+            //var end = new Vector3(SpaceUtil.WorldMap.Right.x / 2, PositionY);
+            //var move1 = new MoveTo(this, start, end, 2.0f);
+            //var move2 = new MoveTo(this, end, start, 2.0f);
+
+            //var ease1 = new EaseInOut(move1);
+            //var ease2 = new EaseInOut(move2);
+            //var sequence = new Sequence(ease1, ease2);
+            //var repeate = new RepeatForever(sequence);
+            //var endless = new EndlessSequence(repeate);
+
+            //RunTask(endless);
         }
 
         public void SetMobilePosition(float posX)
