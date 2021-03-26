@@ -12,7 +12,7 @@ namespace Assets.Bullets.EnemyBullets
     public class LaserEnemyBullet : EnemyBullet
     {
         public override bool DeactivateOnHit => false;
-        public override int ReflectedDamage => 0;
+        //public override int ReflectedDamage => 0;
         public override bool CanReflect => false;
         protected override bool ShouldDeactivateOnDestructor => false;
 

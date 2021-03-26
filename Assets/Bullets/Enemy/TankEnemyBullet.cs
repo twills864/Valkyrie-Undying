@@ -5,6 +5,6 @@ namespace Assets.EnemyBullets
     /// <inheritdoc/>
     public class TankEnemyBullet : PermanentVelocityEnemyBullet
     {
-        public override int ReflectedDamage => 20;
+        //public override int ReflectedDamage => 20;
     }
 }

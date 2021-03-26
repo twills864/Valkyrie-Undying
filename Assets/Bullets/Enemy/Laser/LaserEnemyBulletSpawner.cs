@@ -28,7 +28,7 @@ namespace Assets.Bullets.EnemyBullets
 
         public float WidthHalf { get; private set; }
 
-        public override int ReflectedDamage => throw new NotImplementedException();
+        //public override int ReflectedDamage => throw new NotImplementedException();
 
         protected override void OnEnemyBulletInit()
         {

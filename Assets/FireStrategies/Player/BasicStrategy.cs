@@ -1,6 +1,7 @@
 ﻿using Assets.Bullets.PlayerBullets;
 using Assets.FireStrategyManagers;
 using Assets.Util;
+using UnityEngine;
 
 namespace Assets.FireStrategies.PlayerFireStrategies
 {
@@ -12,9 +13,6 @@ namespace Assets.FireStrategies.PlayerFireStrategies
         }
 
         protected override float GetFireSpeedRatio(in PlayerFireStrategyManager.PlayerRatio ratios) => 1.0f;
-
-        //public override LoopingFrameTimer FireTimer { get; protected set; }
-        //    = new LoopingFrameTimer(0.5f);
 
     }
 }

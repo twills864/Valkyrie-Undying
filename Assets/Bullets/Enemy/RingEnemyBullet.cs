@@ -3,6 +3,6 @@
     /// <inheritdoc/>
     public class RingEnemyBullet : PermanentVelocityEnemyBullet
     {
-        public override int ReflectedDamage => 15;
+        //public override int ReflectedDamage => 15;
     }
 }

@@ -18,7 +18,7 @@ namespace Assets.Bullets.PlayerBullets
         {
             transform.position = source.transform.position;
             transform.localScale = source.transform.localScale;
-            ReflectedDamage = source.ReflectedDamage;
+            ReflectedDamage = source.ReflectDamage;
         }
 
         // Adopt velocity from Pest Control

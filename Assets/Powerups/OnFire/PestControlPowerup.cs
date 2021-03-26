@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using Assets.Bullets.PlayerBullets;
 using Assets.Enemies;
 using Assets.ObjectPooling;
@@ -13,7 +9,9 @@ using UnityEngine;
 namespace Assets.Powerups
 {
     /// <summary>
-    /// Randomly spawns damaging shrapnel behind a hit enemy.
+    /// Randomly fires a Pest Control bullet with the main cannon.
+    /// Pest Control bullets lock onto a random enemy bullet, and
+    /// reflect it on contact.
     /// </summary>
     /// <inheritdoc/>
     public class PestControlPowerup : OnFirePowerup

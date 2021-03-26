@@ -96,5 +96,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Sprite: {fileID: 3851175364935454862}
+  ReflectedDamage: 0
   FadeInTime: 0.15
   FullBrightTime: 0.75

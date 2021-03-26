@@ -11,7 +11,7 @@ namespace Assets.ObjectPooling
     /// <inheritdoc/>
     public class EnemyPoolList : PoolList<Enemy>
     {
-        public Type OverrideEnemyType => DebugUtil.GetOverrideEnemyType<LaserEnemy>();
+        public Type OverrideEnemyType => null; // DebugUtil.GetOverrideEnemyType<LaserEnemy>();
 
 #pragma warning disable 0414
 

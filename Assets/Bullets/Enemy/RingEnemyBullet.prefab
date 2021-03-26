@@ -135,5 +135,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Sprite: {fileID: 3693954503732233064}
+  ReflectedDamage: 15
   PermanentVelocityX: 0
   PermanentVelocityY: -2.5
