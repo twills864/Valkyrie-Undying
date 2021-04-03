@@ -1,4 +1,4 @@
-﻿using Assets.Bullets.PlayerBullets;
+using Assets.Bullets.PlayerBullets;
 using Assets.ColorManagers;
 using Assets.Util;
 using UnityEngine;
@@ -34,6 +34,8 @@ namespace Assets.ObjectPooling
         private GatlingBullet GatlingPrefab = null;
         [SerializeField]
         private BfgBullet BfgPrefab = null;
+        [SerializeField]
+        private OneManArmyBullet OneManArmyPrefab = null;
 
         #endregion Fired Bullets
 

@@ -3216,6 +3216,7 @@ MonoBehaviour:
       Wormhole: 1.8
       Gatling: 1
       Bfg: 2
+      OneManArmy: 1
   PowerupBalance:
     OnFire:
       PestControl:

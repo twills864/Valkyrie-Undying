@@ -89,3 +89,5 @@ MonoBehaviour:
     type: 3}
   BfgFalloutPrefab: {fileID: 8192409895732766174, guid: cc6298e4dda1f4f42a10c699697e946c,
     type: 3}
+  OneManArmyPrefab: {fileID: 6060583007313497720, guid: 92a31f414f664508914e2df0cafd86db,
+    type: 3}

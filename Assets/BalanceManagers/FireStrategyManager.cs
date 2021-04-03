@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -36,6 +36,7 @@ namespace Assets.FireStrategyManagers
             public float Wormhole;
             public float Gatling;
             public float Bfg;
+            public float OneManArmy;
         }
 
         //[Serializable]

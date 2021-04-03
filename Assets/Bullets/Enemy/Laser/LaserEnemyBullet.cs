@@ -30,7 +30,9 @@ namespace Assets.Bullets.EnemyBullets
         [SerializeField]
         private float FadeTime = GameConstants.PrefabNumber;
 
-        [NonSerialized]
+        // Cannot have [NonSerialized] tag due to Unity needing to keep this value for
+        // future instantiated copies.
+        [HideInInspector]
         public Color PrefireColor;
         private Color LaserColor;
 

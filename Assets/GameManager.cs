@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Assets.Bullets;
 using Assets.Bullets.EnemyBullets;
 using Assets.Bullets.PlayerBullets;
@@ -231,6 +231,7 @@ namespace Assets
                 new WormholeStrategy(Prefab<WormholeBullet>(), in _FireStrategyManager),
                 new GatlingStrategy(Prefab<GatlingBullet>(), in _FireStrategyManager),
                 new BfgStrategy(Prefab<BfgBullet>(), in _FireStrategyManager),
+                new OneManArmyStrategy(Prefab<OneManArmyBullet>(), in _FireStrategyManager),
             };
         }
 
