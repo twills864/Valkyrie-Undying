@@ -11,10 +11,5 @@ namespace Assets.FireStrategies.EnemyFireStrategies
         {
             FireTimer = new InactiveLoopingFrameTimer();
         }
-
-        protected override EnemyFireStrategy CloneSelf()
-        {
-            throw new System.NotImplementedException();
-        }
     }
 }

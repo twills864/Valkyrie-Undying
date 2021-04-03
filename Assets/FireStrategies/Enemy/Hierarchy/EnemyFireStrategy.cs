@@ -22,7 +22,7 @@ namespace Assets.FireStrategies.EnemyFireStrategies
         public abstract EnemyBullet[] GetBullets();
         public abstract EnemyBullet[] GetBullets(Vector3 enemyFirePos);
 
-        protected abstract EnemyFireStrategy CloneSelf();
+        //protected abstract EnemyFireStrategy CloneSelf();
     }
 
     /// <inheritdoc/>

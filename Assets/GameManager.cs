@@ -230,7 +230,7 @@ namespace Assets
                 new TrampolineStrategy(Prefab<TrampolineBullet>(), in _FireStrategyManager),
                 new WormholeStrategy(Prefab<WormholeBullet>(), in _FireStrategyManager),
                 new GatlingStrategy(Prefab<GatlingBullet>(), in _FireStrategyManager),
-                new BfgStrategy(Prefab<BfgBullet>(), in _FireStrategyManager)
+                new BfgStrategy(Prefab<BfgBullet>(), in _FireStrategyManager),
             };
         }
 

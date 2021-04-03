@@ -30,10 +30,5 @@ namespace Assets.FireStrategies.EnemyFireStrategies
 
         protected LoopingFrameTimer InitialFireTimer()
             => new LoopingFrameTimerWithRandomVariation(FireSpeed, Variance);
-
-        protected override EnemyFireStrategy CloneSelf()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

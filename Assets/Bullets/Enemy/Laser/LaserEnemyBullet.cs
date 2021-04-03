@@ -1,4 +1,5 @@
-﻿using Assets.Bullets.EnemyBullets;
+﻿using System;
+using Assets.Bullets.EnemyBullets;
 using Assets.Bullets.PlayerBullets;
 using Assets.Constants;
 using Assets.Enemies;
@@ -29,7 +30,7 @@ namespace Assets.Bullets.EnemyBullets
         [SerializeField]
         private float FadeTime = GameConstants.PrefabNumber;
 
-        [HideInInspector]
+        [NonSerialized]
         public Color PrefireColor;
         private Color LaserColor;
 

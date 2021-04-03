@@ -32,10 +32,5 @@ namespace Assets.FireStrategies.EnemyFireStrategies
         //    Vector2 velocityScale = MathUtil.Vector2AtDegreeAngle(degreesAngle);
         //    return GetBullets(enemyFirePos, velocityScale);
         //}
-
-        protected override EnemyFireStrategy CloneSelf()
-        {
-            throw new NotImplementedException();
-        }
     }
 }
