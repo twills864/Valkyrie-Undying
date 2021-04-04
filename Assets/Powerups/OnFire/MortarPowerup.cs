@@ -5,6 +5,7 @@ using Assets.Constants;
 using Assets.Enemies;
 using Assets.ObjectPooling;
 using Assets.Powerups.Balance;
+using Assets.UI;
 using Assets.Util;
 using UnityEngine;
 
@@ -37,6 +38,13 @@ namespace Assets.Powerups
         }
         private Vector3 FirePosition => FiringLeft ? SpaceUtil.WorldMap.BottomLeft : SpaceUtil.WorldMap.BottomRight;
 
+        public override void OnLevelUp()
+        {
+            Player.Instance.ShouldDrawMortar = true;
+            if(!MortarGuide.Instance.isActiveAndEnabled)
+                MortarGuide.Instance.ActivateSelf();
+        }
+
         public override void OnFire(Vector3 position, PlayerBullet[] bullets)
         {
             int max = Math.Min(bullets.Length, 2);
@@ -51,8 +59,13 @@ namespace Assets.Powerups
             var destination = SpaceUtil.WorldMap.Center;
             destination.x = position.x;
             var bullet = PoolManager.Instance.BulletPool.Get<MortarBullet>(firePosition);
+            bullet.MortarDamage = (int)PowerValue;
 
-            var velocity = MathUtil.VelocityVector(firePosition, destination, bullet.Speed);
+            var velocity = (destination - firePosition) * 0.5f;
+            float scale = bullet.Speed / velocity.y;
+            velocity *= scale;
+
+            //var velocity = MathUtil.VelocityVector(firePosition, destination, bullet.Speed);
             bullet.Velocity = velocity;
         }
     }

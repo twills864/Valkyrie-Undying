@@ -55,3 +55,7 @@ MonoBehaviour:
     type: 3}
   MetronomeLabelPrefab: {fileID: 7481403881228809246, guid: af0d4ab044ca5b94da0cce76df4c85fd,
     type: 3}
+  MortarGuidePrefab: {fileID: 2082298233755226002, guid: 6956a4d5c02caf0458eefc30e06483e7,
+    type: 3}
+  LineRendererHostPrefab: {fileID: 7046676237579962594, guid: 35bdbc1be38e073469524fde2349d463,
+    type: 3}

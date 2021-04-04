@@ -65,5 +65,6 @@ namespace Assets.ColorManagers.SubManagers
     public struct UIColors
     {
         public float VictimMarkerAlpha;
+        public float MortarGuideAlpha;
     }
 }

@@ -22,6 +22,10 @@ namespace Assets.ObjectPooling
         private EnemyHealthBar EnemyHealthBarPrefab = null;
         [SerializeField]
         private MetronomeLabel MetronomeLabelPrefab = null;
+        [SerializeField]
+        private MortarGuide MortarGuidePrefab = null;
+        [SerializeField]
+        private LineRendererHost LineRendererHostPrefab = null;
 
 #pragma warning restore 0414
 
@@ -35,6 +39,8 @@ namespace Assets.ObjectPooling
 
             float victimMarkerAlpha = colorManager.UI.VictimMarkerAlpha;
             VictimMarkerCornerPrefab.SpriteColor = colorManager.SetAlpha(defaultPlayer, victimMarkerAlpha);
+
+            MortarGuide.StaticInit(in colorManager);
         }
 
         protected override void OnInit()

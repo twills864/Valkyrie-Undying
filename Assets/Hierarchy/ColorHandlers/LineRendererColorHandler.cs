@@ -9,7 +9,7 @@ namespace Assets.Hierarchy.ColorHandlers
 {
     public class LineRendererColorHandler : ColorHandler
     {
-        private const float StartAlphaScale = 0.5f;
+        //private const float StartAlphaScale = 0.5f;
 
         private LineRenderer Line;
 
@@ -22,7 +22,7 @@ namespace Assets.Hierarchy.ColorHandlers
                 {
                     Line.endColor = value;
 
-                    var startColor = new Color(value.r, value.g, value.b, value.a * StartAlphaScale);
+                    var startColor = new Color(value.r, value.g, value.b, value.a/* * StartAlphaScale*/);
                     Line.startColor = startColor;
                 }
             }

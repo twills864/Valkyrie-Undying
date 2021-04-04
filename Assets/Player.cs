@@ -1,4 +1,5 @@
-﻿using Assets.Bullets.EnemyBullets;
+﻿using System;
+using Assets.Bullets.EnemyBullets;
 using Assets.Constants;
 using Assets.Enemies;
 using Assets.GameTasks;
@@ -26,6 +27,8 @@ namespace Assets
 
         [SerializeField]
         private GameObject BloodlustAuraObject = null;
+        [SerializeField]
+        private MortarGuide MortarGuide = null;
 
         private Rigidbody2D Body { get; set; }
         private LineRenderer LineRenderer { get; set; }
@@ -45,6 +48,9 @@ namespace Assets
         private float MaxX { get; set; }
 
         private Vector3 LastCursorPosition { get; set; }
+
+        [Obsolete("Not sure if this is the way I want to implement this")]
+        public bool ShouldDrawMortar { get; set; }
 
 
         #region Fire Speed
@@ -159,6 +165,9 @@ namespace Assets
                 ResetBloodlust();
 
             HandleMovement();
+
+            if (ShouldDrawMortar)
+                MortarGuide.DrawMortar();
         }
 
         private void HandleMovement()
@@ -196,6 +205,24 @@ namespace Assets
 
             BloodlustAuraObject.gameObject.SetActive(true);
         }
+
+        //private void DrawMortar()
+        //{
+        //    Color color = SpriteColor;
+        //    color.a = 0.5f;
+
+        //    var map = SpaceUtil.WorldMap;
+        //    Vector3 center = new Vector3(PositionX, map.Center.y, 0);
+
+
+        //    Vector3 diff1 = center - map.BottomLeft;
+        //    diff1 *= 2;
+        //    Debug.DrawRay(map.BottomLeft, diff1, color, float.Epsilon);
+
+        //    Vector3 diff2 = center - map.BottomRight;
+        //    diff2 *= 2;
+        //    Debug.DrawRay(map.BottomRight, diff2, color, float.Epsilon);
+        //}
 
         /// <summary>
         /// Returns true if the given <paramref name="collider"/> collides with the player.

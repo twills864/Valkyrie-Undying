@@ -13,7 +13,11 @@ namespace Assets.Bullets.PlayerBullets
     /// <inheritdoc/>
     public class MortarBullet : PlayerBullet
     {
+        public override int Damage => MortarDamage;
+
         [SerializeField]
         public float Speed = GameConstants.PrefabNumber;
+
+        public int MortarDamage { get; set; }
     }
 }

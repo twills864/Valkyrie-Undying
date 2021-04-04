@@ -111,7 +111,7 @@ namespace Assets
 
         #region Color
 
-        protected ColorHandler ColorHandler { get; private set; }
+        public ColorHandler ColorHandler { get; protected set; }
         protected abstract ColorHandler DefaultColorHandler();
 
         public Color SpriteColor
