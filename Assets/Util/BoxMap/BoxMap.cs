@@ -23,8 +23,11 @@ namespace Assets.Util
         public float WidthHalf { get; }
         public float HeightHalf { get; }
 
+        private Rect Rect { get; }
+
         public BoxMap(Rect rect) : this(rect.x, rect.y, rect.width, rect.height)
         {
+
         }
         public BoxMap(Vector3 position, Vector2 size) : this(position.x, position.y, size.x, size.y)
         {
@@ -48,6 +51,14 @@ namespace Assets.Util
             BottomLeft = new Vector3(X, Y);
             Left = new Vector3(X, Y + HeightHalf);
             Center = new Vector3(X + WidthHalf, Y + HeightHalf);
+
+            Rect = new Rect(X, Y, Width, Height);
+        }
+
+        public bool ContainsPoint(Vector3 point)
+        {
+            bool ret = Rect.Contains(point);
+            return ret;
         }
     }
 }

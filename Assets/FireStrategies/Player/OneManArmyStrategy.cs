@@ -3,6 +3,7 @@ using Assets.Bullets.PlayerBullets;
 using Assets.Constants;
 using Assets.Enemies;
 using Assets.FireStrategyManagers;
+using Assets.GameTasks;
 using Assets.ObjectPooling;
 using Assets.Powerups.Balance;
 using Assets.Util;
@@ -35,6 +36,10 @@ namespace Assets.FireStrategies.PlayerFireStrategies
             for (int i = 0; i < numbullets; i++)
             {
                 ret[i].transform.position = spawn;
+
+                if (!SpaceUtil.WorldMap.ContainsPoint(spawn))
+                    ret[i].RunTask(GameTaskFunc.DeactivateSelf(ret[i]));
+
                 spawn.x += offsetX;
             }
 

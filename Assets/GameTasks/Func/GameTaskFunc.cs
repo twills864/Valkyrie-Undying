@@ -11,7 +11,7 @@ namespace Assets.GameTasks
     {
         private Action Func;
 
-        public GameTaskFunc(ValkyrieSprite target, Action func) : base(target, 0f)
+        public GameTaskFunc(ValkyrieSprite target, Action func) : base(target, float.Epsilon)
         {
             Func = func;
         }

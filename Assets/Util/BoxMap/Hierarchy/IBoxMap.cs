@@ -22,5 +22,7 @@ namespace Assets.Util
 
         float WidthHalf { get; }
         float HeightHalf { get; }
+
+        bool ContainsPoint(Vector3 point);
     }
 }

@@ -49,5 +49,12 @@ namespace Assets.Util
 
             return ret;
         }
+
+        public bool ContainsPoint(Vector3 point)
+        {
+            Rect rect = new Rect(X, Y, Width, Height);
+            bool ret = rect.Contains(point);
+            return ret;
+        }
     }
 }
