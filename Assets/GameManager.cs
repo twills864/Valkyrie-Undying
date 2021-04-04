@@ -38,10 +38,10 @@ namespace Assets
 
         #region Debug
 
-        private TestingType CurrentTest = TestingType.Nothing;
+        private TestingType CurrentTest = TestingType.NewPowerup;
 
         public Type OverrideDefaultWeaponType => null; // DebugUtil.GetOverrideFireStrategyType<GatlingStrategy>();
-        public Type GameRowPowerupType => DebugUtil.GetPowerupType<SentinelPowerup>();
+        public Type GameRowPowerupType => DebugUtil.GetPowerupType<MortarPowerup>();
 
         public bool DebugPauseNextFrame;
 

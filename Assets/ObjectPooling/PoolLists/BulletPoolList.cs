@@ -65,6 +65,8 @@ namespace Assets.ObjectPooling
         private BfgBulletSpawner BfgSpawnerPrefab = null;
         [SerializeField]
         private BfgBulletFallout BfgFalloutPrefab = null;
+        [SerializeField]
+        private MortarBullet MortarPrefab = null;
 
         #endregion Additional Bullets
 
@@ -87,6 +89,7 @@ namespace Assets.ObjectPooling
             VictimPrefab.SpriteColor = defaultAdditional;
             VoidPrefab.SpriteColor = player.Void;
             RetributionPrefab.SpriteColor = player.Retribution;
+            MortarPrefab.SpriteColor = defaultAdditional;
 
             BfgBulletSpawner.StaticInit();
             BfgPrefab.InitSpawner();

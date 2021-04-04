@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -33,12 +33,26 @@ namespace Assets.Powerups.Balance
         public struct OnFireBalance
         {
             public PestControlBalance PestControl;
+            public MortarBalance Mortar;
 
             [Serializable]
             public struct PestControlBalance
             {
                 public float ExponentRatio;
                 public float MaxValue;
+            }
+
+            [Serializable]
+            public struct MortarBalance
+            {
+                public PowerBalance Power;
+
+                [Serializable]
+                public struct PowerBalance
+                {
+                    public float Base;
+                    public float Increase;
+                }
             }
         }
 
