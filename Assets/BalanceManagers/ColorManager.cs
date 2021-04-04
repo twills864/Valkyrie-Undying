@@ -36,6 +36,11 @@ namespace Assets.ColorManagers
         {
             return SetAlpha(DefaultPlayer, Player.DefaultAdditionalRatio);
         }
+
+        public Color DefaultPlayerColorWithAlpha(float alpha)
+        {
+            return SetAlpha(DefaultPlayer, alpha);
+        }
     }
 }
 
@@ -46,6 +51,7 @@ namespace Assets.ColorManagers.SubManagers
     public struct PlayerColors
     {
         public float DefaultAdditionalRatio;
+        public float OthelloAlpha;
 
         public Color Reflected;
         public Color Retribution;

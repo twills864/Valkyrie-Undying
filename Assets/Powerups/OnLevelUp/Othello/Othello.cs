@@ -45,7 +45,7 @@ namespace Assets.Powerups
         /// to account for differences in precision.
         /// </summary>
         private float FireSpeedPrecisionScale { get; set; } = 1.01f;
-        private LoopingFrameTimer FireTimer { get; set; }
+        private FrameTimerWithBuffer FireTimer { get; set; }
 
         private int Damage { get; set; }
         private float WorldCenterX { get; set; }
@@ -80,15 +80,20 @@ namespace Assets.Powerups
 
             transform.position = CalculateNewPosition(Player.Instance.transform.position);
 
-            // Only attempt to increment the fire timer if it's not already activated.
-            // This preserves the activation status for when the player fires their main cannon.
-            if(!FireTimer.Activated)
-                FireTimer.Increment(deltaTime * FireSpeedModifier);
+            FireTimer.Increment(deltaTime * FireSpeedModifier);
+
+            //// Only attempt to increment the fire timer if it's not already activated.
+            //// This preserves the activation status for when the player fires their main cannon.
+            //if (!FireTimer.Activated)
+            //    FireTimer.Increment(deltaTime * FireSpeedModifier);
         }
 
         public void Activate()
         {
             gameObject.SetActive(true);
+
+            FireTimer.Reset();
+            FireTimer.TotalTime = -FadeInTime - FadeInTimeFireDelay;
 
             var targetAlpha = Alpha;
             Alpha = 0;
@@ -132,8 +137,8 @@ namespace Assets.Powerups
 
             WorldCenterX = SpaceUtil.WorldMap.Center.x;
 
-            FireTimer = new LoopingFrameTimer(FireTimerIntervalBase);
-            FireTimer.Elapsed = -FadeInTime - FadeInTimeFireDelay;
+            FireTimer = new FrameTimerWithBuffer(FireTimerIntervalBase); // new LoopingFrameTimer(FireTimerIntervalBase);
+            //FireTimer.Elapsed = -FadeInTime - FadeInTimeFireDelay;
             FireSpeedModifier = FireSpeedPrecisionScale;
         }
     }

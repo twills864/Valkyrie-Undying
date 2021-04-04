@@ -197,8 +197,9 @@ namespace Assets
             _Destructor.Init();
             _ScreenEdgeColliderSet.Init();
             _MonsoonSpawner.Init();
+            //_Othello.Alpha = _ColorManager.Player.OthelloAlpha;
             _Othello.Init();
-            Player.Init();
+            Player.Init(in _FireStrategyManager);
 
             // Dependency: SpaceUtil, PoolManager
             BfgBulletFallout.StaticInitColors(in _ColorManager);
@@ -239,7 +240,7 @@ namespace Assets
         {
             var defaultPlayerAdditional = _ColorManager.DefaultPlayerAdditionalColor();
             Player.SpriteColor = _ColorManager.DefaultPlayer;
-            _Othello.SpriteColor = defaultPlayerAdditional;
+            _Othello.SpriteColor = _ColorManager.DefaultPlayerColorWithAlpha(_ColorManager.Player.OthelloAlpha);
             _Monsoon.SpriteColor = defaultPlayerAdditional;
             _MonsoonSpawner.SpriteColor = defaultPlayerAdditional;
         }

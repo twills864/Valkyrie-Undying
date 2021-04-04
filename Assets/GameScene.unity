@@ -3391,6 +3391,7 @@ MonoBehaviour:
     DefaultEnemy: {r: 1, g: 0, b: 0, a: 1}
     Player:
       DefaultAdditionalRatio: 0.9
+      OthelloAlpha: 0.5
       Reflected: {r: 1, g: 0, b: 1, a: 1}
       Retribution: {r: 1, g: 0, b: 0, a: 1}
       Sentinel: {r: 1, g: 1, b: 0, a: 1}

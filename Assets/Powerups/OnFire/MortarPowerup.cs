@@ -40,9 +40,13 @@ namespace Assets.Powerups
 
         public override void OnLevelUp()
         {
-            Player.Instance.ShouldDrawMortar = true;
-            if(!MortarGuide.Instance.isActiveAndEnabled)
+
+            if (!MortarGuide.Instance.isActiveAndEnabled)
+            {
                 MortarGuide.Instance.ActivateSelf();
+                Player.Instance.ShouldDrawMortar = true;
+                Player.Instance.MortarFireTimer.Reset();
+            }
         }
 
         public override void OnFire(Vector3 position, PlayerBullet[] bullets)
@@ -50,7 +54,10 @@ namespace Assets.Powerups
             int max = Math.Min(bullets.Length, 2);
 
             for (int i = 0; i < max; i++)
-                FireMortar(position);
+            {
+                if (Player.Instance.MortarFireTimer.Activated)
+                    FireMortar(position);
+            }
         }
 
         public void FireMortar(Vector3 position)

@@ -1,7 +1,9 @@
 ﻿using System;
 using Assets.Bullets.EnemyBullets;
+using Assets.ColorManagers;
 using Assets.Constants;
 using Assets.Enemies;
+using Assets.FireStrategyManagers;
 using Assets.GameTasks;
 using Assets.Hierarchy.ColorHandlers;
 using Assets.ObjectPooling;
@@ -30,6 +32,9 @@ namespace Assets
         [SerializeField]
         private MortarGuide MortarGuide = null;
 
+        public FrameTimerWithBuffer MortarFireTimer { get; private set; }
+        public bool ShouldDrawMortar { get; set; }
+
         private Rigidbody2D Body { get; set; }
         private LineRenderer LineRenderer { get; set; }
         private SpriteRenderer BloodlustAuraSprite { get; set; }
@@ -48,10 +53,6 @@ namespace Assets
         private float MaxX { get; set; }
 
         private Vector3 LastCursorPosition { get; set; }
-
-        [Obsolete("Not sure if this is the way I want to implement this")]
-        public bool ShouldDrawMortar { get; set; }
-
 
         #region Fire Speed
 
@@ -83,6 +84,14 @@ namespace Assets
             ColliderMap = new ColliderBoxMap(this);
             Collider = ColliderMap.Collider;
             BloodlustTimer = FrameTimer.Default();
+        }
+
+        public void Init(in PlayerFireStrategyManager fireStrategyManager)
+        {
+            Init();
+
+            float mortarTime = fireStrategyManager.BaseFireSpeed * 0.4f;
+            MortarFireTimer = new FrameTimerWithBuffer(mortarTime, mortarTime + FrameTimerWithBuffer.DefaultBuffer);
         }
 
         protected sealed override void OnInit()
@@ -163,6 +172,8 @@ namespace Assets
         {
             if (!BloodlustTimer.Activated && BloodlustTimer.UpdateActivates(deltaTime))
                 ResetBloodlust();
+
+            MortarFireTimer.Increment(deltaTime);
 
             HandleMovement();
 
