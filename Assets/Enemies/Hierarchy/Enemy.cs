@@ -129,7 +129,7 @@ namespace Assets.Enemies
         private LoopingFrameTimer InfernoTimer { get; set; }
 
         protected virtual float InfernoDamageScale => 1f;
-        public virtual int InfernoDamageIncrease { get; set; }
+        public virtual int InfernoDamageIncrease { get; protected set; }
         protected int InfernoDamage { get; set; }
         public bool IsBurning { get; set; }
 

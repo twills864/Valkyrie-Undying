@@ -16,6 +16,9 @@ namespace Assets.Bullets.PlayerBullets
 
         protected override bool ShouldMarkSelfCollision => false;
 
+        public bool IsBurning => FireDamage != 0;
+        public int FireDamage { get; set; }
+
         public override bool CollidesWithEnemy(Enemy enemy)
         {
             bool ret = !Parent.IsTarget(enemy);
@@ -27,6 +30,19 @@ namespace Assets.Bullets.PlayerBullets
         protected override void OnPlayerBulletInit()
         {
             Parent = new PooledObjectTracker();
+        }
+
+        protected override void OnActivate()
+        {
+            FireDamage = 0;
+        }
+
+        public override void OnCollideWithEnemy(Enemy enemy)
+        {
+            if(IsBurning && !enemy.IsBurning)
+                enemy.Ignite(FireDamage, FireDamage);
+
+            base.OnCollideWithEnemy(enemy);
         }
     }
 }
