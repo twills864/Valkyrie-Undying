@@ -153,4 +153,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Sprite: {fileID: 6482078250157783428}
   BaseDamage: 10
-  Speed: 10
+  _Speed: 10

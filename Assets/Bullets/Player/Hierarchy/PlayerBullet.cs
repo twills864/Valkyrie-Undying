@@ -74,6 +74,24 @@ namespace Assets.Bullets.PlayerBullets
             return true;
         }
 
+        public virtual Vector3 GetHitPosition(Enemy enemy)
+        {
+            Vector3 ret = transform.position;
+            return ret;
+        }
+
+        /// <summary>
+        /// Gets the closest point on the enemy's Collider2D to this bullet's transform.
+        /// Intended to be used as an override to GetHitPosition().
+        /// </summary>
+        /// <param name="enemy">The enemy to find the closest point to.</param>
+        /// <returns>The closest point on the enemy to this transform.</returns>
+        protected Vector3 GetClosestPoint(Enemy enemy)
+        {
+            Vector3 ret = enemy.ColliderMap.Collider.ClosestPoint(transform.position);
+            return ret;
+        }
+
         /// <summary>
         /// Debugging method that visualizes the location of this PlayerBullet
         /// colliding with another PlayerBullet.

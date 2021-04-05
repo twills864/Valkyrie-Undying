@@ -41,7 +41,7 @@ namespace Assets
         private TestingType CurrentTest = TestingType.NewPowerup;
 
         public Type OverrideDefaultWeaponType => null; // DebugUtil.GetOverrideFireStrategyType<GatlingStrategy>();
-        public Type GameRowPowerupType => DebugUtil.GetPowerupType<MortarPowerup>();
+        public Type GameRowPowerupType => DebugUtil.GetPowerupType<ShrapnelPowerup>();
 
         public bool DebugPauseNextFrame;
 

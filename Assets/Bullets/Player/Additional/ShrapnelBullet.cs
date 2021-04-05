@@ -1,6 +1,7 @@
 ﻿using Assets.Bullets.PlayerBullets;
 using Assets.Constants;
 using Assets.Enemies;
+using Assets.ObjectPooling;
 using Assets.Util;
 using UnityEngine;
 
@@ -10,13 +11,22 @@ namespace Assets.Bullets.PlayerBullets
     public class ShrapnelBullet : PlayerBullet
     {
         [SerializeField]
-        private float Speed = GameConstants.PrefabNumber;
+        private float _Speed = GameConstants.PrefabNumber;
+        public float Speed => _Speed;
 
         protected override bool ShouldMarkSelfCollision => false;
 
-        protected override void OnActivate()
+        public override bool CollidesWithEnemy(Enemy enemy)
         {
-            Velocity = RandomUtil.RandomDirectionVectorTopQuarter(Speed);
+            bool ret = !Parent.IsTarget(enemy);
+            return ret;
+        }
+
+        public PooledObjectTracker Parent { get; private set; }
+
+        protected override void OnPlayerBulletInit()
+        {
+            Parent = new PooledObjectTracker();
         }
     }
 }

@@ -60,5 +60,21 @@ namespace Assets.Util
             bool ret = Rect.Contains(point);
             return ret;
         }
+
+        public float RatioOfWidth(float x)
+        {
+            float xDiff = x - Left.x;
+            float ratio = xDiff / Width;
+
+            return ratio;
+        }
+
+        public float ClampedRatioOfWidth(float x)
+        {
+            float ratio = RatioOfWidth(x);
+            float ret = Mathf.Clamp(ratio, 0f, 1f);
+
+            return ret;
+        }
     }
 }

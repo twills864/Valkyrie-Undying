@@ -35,7 +35,7 @@ namespace Assets.Powerups
 
         private float Increase;
 
-        public override void OnHit(Enemy enemy, PlayerBullet bullet)
+        public override void OnHit(Enemy enemy, PlayerBullet bullet, Vector3 hitPosition)
         {
             if(enemy.HasMetronome)
             {

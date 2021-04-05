@@ -15,5 +15,7 @@ namespace Assets.Bullets.PlayerBullets
         protected override bool ShouldDeactivateOnDestructor => false;
 
         public override float MaxAlpha => LaserAlphaRatio;
+
+        public override Vector3 GetHitPosition(Enemy enemy) => EndPoint;
     }
 }

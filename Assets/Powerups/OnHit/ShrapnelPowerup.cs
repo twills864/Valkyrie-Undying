@@ -30,19 +30,23 @@ namespace Assets.Powerups
 
         public float MaxY { get; set; }
 
-        public override void OnHit(Enemy enemy, PlayerBullet bullet)
+        public override void OnHit(Enemy enemy, PlayerBullet bullet, Vector3 hitPosition)
         {
-            if(RandomUtil.Bool(ShrapnelChance))
+            if(hitPosition.y < MaxY && RandomUtil.Bool(ShrapnelChance))
             {
-                var shrapnelPos = enemy.ShrapnelPosition(bullet);
-                CreateShrapnel(shrapnelPos);
-            }
-        }
+                float widthRatio = enemy.ColliderMap.ClampedRatioOfWidth(hitPosition.x);
+                widthRatio = (widthRatio - 0.5f) * 2f;
 
-        private void CreateShrapnel(Vector3 position)
-        {
-            if (position.y < MaxY)
-                PoolManager.Instance.BulletPool.Get<ShrapnelBullet>(position);
+                var shrapnel = PoolManager.Instance.BulletPool.Get<ShrapnelBullet>(hitPosition);
+                shrapnel.Parent.Target = enemy;
+
+                float speed = shrapnel.Speed;
+                Vector2 velocity = new Vector2(speed * widthRatio, speed);
+                velocity.Normalize();
+                velocity *= speed;
+
+                shrapnel.Velocity = velocity;
+            }
         }
     }
 }

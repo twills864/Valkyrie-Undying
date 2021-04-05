@@ -94,5 +94,7 @@ namespace Assets.Bullets.PlayerBullets
                 }
             }
         }
+
+        public override Vector3 GetHitPosition(Enemy enemy) => GetClosestPoint(enemy);
     }
 }

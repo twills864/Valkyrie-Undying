@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using Assets.Bullets.PlayerBullets;
 using Assets.Constants;
 using Assets.FireStrategies.EnemyFireStrategies;
@@ -284,6 +285,7 @@ namespace Assets.Enemies
         }
 
 
+
         protected virtual void OnDeath() { }
         protected void KillEnemy(PlayerBullet bullet)
         {
@@ -342,19 +344,6 @@ namespace Assets.Enemies
             var x = RandomUtil.Float(topLeft.x, maxX);
 
             var ret = new Vector3(x, topLeft.y);
-            return ret;
-        }
-
-        public virtual Vector3 ShrapnelPosition(PlayerBullet bullet)
-        {
-            var collisionX = bullet.transform.position.x;
-            return ShrapnelPosition(collisionX);
-        }
-        public virtual Vector3 ShrapnelPosition(float collisionX)
-        {
-            var y = ColliderMap.Top.y;
-
-            var ret = new Vector3(collisionX, y);
             return ret;
         }
 

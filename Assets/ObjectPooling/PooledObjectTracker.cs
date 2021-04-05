@@ -8,13 +8,28 @@ namespace Assets.ObjectPooling
 {
     public class PooledObjectTracker
     {
-        private PooledObject Target { get; set; }
+        private PooledObject _target;
+        public PooledObject Target
+        {
+            get => _target;
+            set
+            {
+                _target = value;
+                TargetSpawnId = _target.SpawnId;
+            }
+        }
+
         private int TargetSpawnId { get; set; }
+
+        public PooledObjectTracker()
+        {
+            _target = null;
+            TargetSpawnId = -1;
+        }
 
         public PooledObjectTracker(PooledObject target)
         {
             Target = target;
-            TargetSpawnId = target.SpawnId;
         }
 
         public bool IsTarget(PooledObject toCompare)

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Assets.Bullets.PlayerBullets;
 using Assets.Enemies;
 using Assets.Powerups.Balance;
+using UnityEngine;
 
 namespace Assets.Powerups
 {
@@ -16,7 +17,7 @@ namespace Assets.Powerups
     public abstract class OnHitPowerup : Powerup
     {
         public override void OnLevelUp() { }
-        public abstract void OnHit(Enemy enemy, PlayerBullet bullet);
+        public abstract void OnHit(Enemy enemy, PlayerBullet bullet, Vector3 hitPosition);
 
         protected sealed override void InitBalance(in PowerupBalanceManager balance)
             => InitBalance(in balance.OnHit);

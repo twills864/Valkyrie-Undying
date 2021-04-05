@@ -25,19 +25,19 @@ namespace Assets.Bullets.PlayerBullets
         [SerializeField]
         public LineRenderer Line = null;
 
-        private Vector3 StartPoint
+        protected Vector3 StartPoint
         {
             get => Line.GetPosition(0);
-            set
+            private set
             {
                 value.z = 10;
                 Line.SetPosition(0, value);
             }
         }
-        private Vector3 EndPoint
+        protected Vector3 EndPoint
         {
             get => Line.GetPosition(1);
-            set
+            private set
             {
                 value.z = 10;
                 Line.SetPosition(1, value);

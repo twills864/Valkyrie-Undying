@@ -71,8 +71,9 @@ namespace Assets.Powerups
 
         public void OnHit(Enemy enemy, PlayerBullet bullet)
         {
+            Vector3 hitPosition = bullet.GetHitPosition(enemy);
             foreach (var powerup in OnHitList.Where(x => x.IsActive))
-                powerup.OnHit(enemy, bullet);
+                powerup.OnHit(enemy, bullet, hitPosition);
         }
 
         public void OnKill(Enemy enemy, PlayerBullet bullet)
