@@ -64,7 +64,7 @@ namespace Assets.Bullets.PlayerBullets
 
 
         protected virtual void OnPlayerBulletFrameRun(float deltaTime, float realDeltaTime) { }
-        protected override void OnFrameRun(float deltaTime, float realDeltaTime)
+        protected sealed override void OnFrameRun(float deltaTime, float realDeltaTime)
         {
             OnPlayerBulletFrameRun(deltaTime, realDeltaTime);
         }

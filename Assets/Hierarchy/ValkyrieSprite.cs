@@ -36,22 +36,6 @@ namespace Assets
 
         #endregion Init
 
-        #region Spawn
-
-        /// <summary>
-        /// Subclass-specific functionality to happen
-        /// immediately after an object is activated.
-        /// </summary>
-        protected virtual void OnValkyrieSpriteActivate() { }
-
-        /// <summary>
-        /// Subclass-specific functionality to happen after an object is spawned
-        /// and has relevant and useful information assigned to it.
-        /// </summary>
-        protected virtual void OnValkyrieSpriteSpawn() { }
-
-        #endregion Spawn
-
         #region Frames
 
         public abstract TimeScaleType TimeScale { get; }
@@ -91,7 +75,6 @@ namespace Assets
 
             OnFrameRun(deltaTime, realDeltaTime);
         }
-
 
         #endregion Frames
 

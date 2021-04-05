@@ -40,7 +40,6 @@ namespace Assets.Powerups
 
         public override void OnLevelUp()
         {
-
             if (!MortarGuide.Instance.isActiveAndEnabled)
             {
                 MortarGuide.Instance.ActivateSelf();
@@ -65,6 +64,7 @@ namespace Assets.Powerups
             var firePosition = FirePosition;
             var destination = SpaceUtil.WorldMap.Center;
             destination.x = position.x;
+
             var bullet = PoolManager.Instance.BulletPool.Get<MortarBullet>(firePosition);
             bullet.MortarDamage = (int)PowerValue;
 
@@ -72,7 +72,6 @@ namespace Assets.Powerups
             float scale = bullet.Speed / velocity.y;
             velocity *= scale;
 
-            //var velocity = MathUtil.VelocityVector(firePosition, destination, bullet.Speed);
             bullet.Velocity = velocity;
         }
     }
