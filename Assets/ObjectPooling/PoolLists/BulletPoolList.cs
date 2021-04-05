@@ -36,6 +36,8 @@ namespace Assets.ObjectPooling
         private BfgBullet BfgPrefab = null;
         [SerializeField]
         private OneManArmyBullet OneManArmyPrefab = null;
+        [SerializeField]
+        private DeadlyDiamondBullet DeadlyDiamondPrefab = null;
 
         #endregion Fired Bullets
 

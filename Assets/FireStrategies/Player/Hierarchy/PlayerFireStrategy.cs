@@ -30,6 +30,8 @@ namespace Assets.FireStrategies.PlayerFireStrategies
         public abstract PlayerBullet[] GetBullets(int weaponLevel, Vector3 playerFirePos);
         public abstract PlayerBullet[] GetBullets(int weaponLevel, Vector3 playerFirePos, Vector2 velocity);
 
+        public virtual void OnActivate() { }
+
         /// <summary>
         /// Gives an extra level to a given weapon level if it's equal to the
         /// maximum obtainable weapon level in the game.

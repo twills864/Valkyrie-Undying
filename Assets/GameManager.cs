@@ -26,21 +26,11 @@ namespace Assets
     /// <inheritdoc/>
     public class GameManager : MonoBehaviour
     {
-        #region Property Fields
-
-        private Enemy _victimEnemy;
-        private Enemy _metronomeEnemy;
-        private float _playerFireDeltaTimeScale = 1f;
-
-        #endregion Property Fields
-
-        public static GameManager Instance { get; private set; }
-
         #region Debug
 
         private TestingType CurrentTest = TestingType.NewPowerup;
 
-        public Type OverrideDefaultWeaponType => null; // DebugUtil.GetOverrideFireStrategyType<GatlingStrategy>();
+        public Type OverrideDefaultWeaponType => DebugUtil.GetOverrideFireStrategyType<DeadlyDiamondStrategy>();
         public Type GameRowPowerupType => DebugUtil.GetPowerupType<ShrapnelPowerup>();
 
         public bool DebugPauseNextFrame;
@@ -64,7 +54,7 @@ namespace Assets
                 var overrideType = OverrideDefaultWeaponType;
                 if (overrideType != null)
                 {
-                    for(int i = 0; i < FireStrategies.Count; i++)
+                    for (int i = 0; i < FireStrategies.Count; i++)
                     {
                         if (FireStrategies[i].GetType() == overrideType)
                             return i;
@@ -77,6 +67,16 @@ namespace Assets
         }
 
         #endregion Debug
+
+        #region Property Fields
+
+        private Enemy _victimEnemy;
+        private Enemy _metronomeEnemy;
+        private float _playerFireDeltaTimeScale = 1f;
+
+        #endregion Property Fields
+
+        public static GameManager Instance { get; private set; }
 
         #region Prefabs
 
@@ -233,6 +233,7 @@ namespace Assets
                 new GatlingStrategy(Prefab<GatlingBullet>(), in _FireStrategyManager),
                 new BfgStrategy(Prefab<BfgBullet>(), in _FireStrategyManager),
                 new OneManArmyStrategy(Prefab<OneManArmyBullet>(), in _FireStrategyManager),
+                new DeadlyDiamondStrategy(Prefab<DeadlyDiamondBullet>(), in _FireStrategyManager),
             };
         }
 
@@ -306,6 +307,7 @@ namespace Assets
 
             FireStrategies.Index = index;
             CurrentFireStrategy.Reset();
+            CurrentFireStrategy.OnActivate();
 
             if (!skipDropDown)
                 DebugUi.DropdownFireType.value = FireStrategies.Index;

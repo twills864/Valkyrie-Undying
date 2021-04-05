@@ -3303,6 +3303,7 @@ MonoBehaviour:
       Gatling: 1
       Bfg: 2
       OneManArmy: 1
+      DeadlyDiamond: 0.4
   PowerupBalance:
     OnFire:
       PestControl:

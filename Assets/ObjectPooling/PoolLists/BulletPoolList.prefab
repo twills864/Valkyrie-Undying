@@ -93,3 +93,5 @@ MonoBehaviour:
     type: 3}
   MortarPrefab: {fileID: 2756657092176400441, guid: 6279dcf8a2df4a998ecf547847e2238f,
     type: 3}
+  DeadlyDiamondPrefab: {fileID: 8040149567088496367, guid: 255eae1043734a9794d74859e1292ac8,
+    type: 3}

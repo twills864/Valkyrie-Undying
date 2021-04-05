@@ -37,6 +37,7 @@ namespace Assets.FireStrategyManagers
             public float Gatling;
             public float Bfg;
             public float OneManArmy;
+            public float DeadlyDiamond;
         }
 
         //[Serializable]
