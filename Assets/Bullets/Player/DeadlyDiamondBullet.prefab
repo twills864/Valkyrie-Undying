@@ -148,7 +148,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Sprite: {fileID: 2959985393852287726}
-  BaseDamage: 7
-  _Speed: 9
+  BaseDamage: 9
+  _Speed: 6
   _OffsetX: 0.25
   _MaxAngle: 12.5
