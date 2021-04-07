@@ -3323,6 +3323,10 @@ MonoBehaviour:
           BaseValue: 0.1
           ExponentBase: 0.9
           Scale: 1
+      CollectivePunishment:
+        Power:
+          Base: 1
+          Increase: 1
     OnKill:
       Bloodlust:
         Duration:

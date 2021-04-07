@@ -260,7 +260,7 @@ namespace Assets.Enemies
             //Init();
         }
 
-        public virtual bool DamageKills(int damage)
+        protected virtual bool DamageKills(int damage)
         {
             if (!isActiveAndEnabled)
                 return false;
@@ -272,6 +272,7 @@ namespace Assets.Enemies
             UpdateHealthBar();
             return false;
         }
+
         public virtual void CollideWithBullet(PlayerBullet bullet)
         {
             if (isActiveAndEnabled)
@@ -284,7 +285,11 @@ namespace Assets.Enemies
             }
         }
 
-
+        public virtual void TrueDamage(int damage, PlayerBullet bullet = null)
+        {
+            if (DamageKills(damage))
+                KillEnemy(bullet);
+        }
 
         protected virtual void OnDeath() { }
         protected void KillEnemy(PlayerBullet bullet)
@@ -335,16 +340,6 @@ namespace Assets.Enemies
                 if (ShouldDeactivateOnDestructor)
                     DeactivateSelf();
             }
-        }
-
-        public virtual Vector3 RandomShrapnelPosition()
-        {
-            var topLeft = SpriteMap.TopLeft;
-            var maxX = SpriteMap.Right.x;
-            var x = RandomUtil.Float(topLeft.x, maxX);
-
-            var ret = new Vector3(x, topLeft.y);
-            return ret;
         }
 
         public void Ignite(int baseDamage, int damageIncreasePerTick)

@@ -52,7 +52,7 @@ namespace Assets.Enemies
         }
 
 
-        public override bool DamageKills(int damage)
+        protected override bool DamageKills(int damage)
         {
             LastDamage = damage;
             CurrentHealth -= damage;

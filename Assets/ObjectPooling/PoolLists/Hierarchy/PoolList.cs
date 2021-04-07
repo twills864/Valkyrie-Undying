@@ -234,7 +234,7 @@ namespace Assets.ObjectPooling
         /// from every Object Pool in this PoolList.
         /// </summary>
         /// <returns>Every active object within this PoolList.</returns>
-        protected IEnumerable<T> GetAllActiveObjects()
+        public IEnumerable<T> GetAllActiveObjects()
         {
             var allActiveObjects = Pools.Select(x => x.ActiveObjects)
                 .SelectMany(x => x);

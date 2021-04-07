@@ -20,6 +20,7 @@ using Assets.Powerups.Balance;
 using UnityEngine.UI;
 using Assets.FireStrategyManagers;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace Assets
 {
@@ -30,8 +31,8 @@ namespace Assets
 
         private TestingType CurrentTest = TestingType.NewPowerup;
 
-        public static Type OverrideDefaultWeaponType => DebugUtil.GetOverrideFireStrategyType<DeadlyDiamondStrategy>();
-        public static Type GameRowPowerupType => DebugUtil.GetPowerupType<ShrapnelPowerup>();
+        public static Type OverrideDefaultWeaponType => null; // DebugUtil.GetOverrideFireStrategyType<DeadlyDiamondStrategy>();
+        public static Type GameRowPowerupType => DebugUtil.GetPowerupType<CollectivePunishmentPowerup>();
         public static Type OverrideEnemyType => null; // DebugUtil.GetOverrideEnemyType<BasicEnemy>();
 
         public bool DebugPauseNextFrame;
@@ -418,6 +419,11 @@ namespace Assets
         #region Enemies
 
         private LoopingFrameTimer EnemyTimer = new LoopingFrameTimer(3.0f);
+
+        public IEnumerable<Enemy> GetAllActiveEnemies()
+        {
+            return _PoolManager.EnemyPool.GetAllActiveObjects();
+        }
 
         #region TryGetRandomEnemy
 
