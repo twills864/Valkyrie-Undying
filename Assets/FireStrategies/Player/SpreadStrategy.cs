@@ -23,8 +23,7 @@ namespace Assets.FireStrategies.PlayerFireStrategies
         //    = new LoopingFrameTimer(0.5f);
 
         // Maps loop indexes to their matching assigned lane index
-        private Vector2[] LanesVelocityMap { get; set; }
-        private Vector3[] LanesPositionMap { get; set; }
+        private FireLane[] FireLanes { get; } = new FireLane[TotalPelletLanes];
 
         private float BulletVelocityY;
         private float FireRadius;
@@ -81,13 +80,11 @@ namespace Assets.FireStrategies.PlayerFireStrategies
 
         private void FireLane(SpreadBullet bullet, int laneIndex, Vector3 playerFirePos)
         {
-            Vector3 newFirePos = playerFirePos + LanesPositionMap[laneIndex];
-            bullet.transform.position = newFirePos;
+            var lane = FireLanes[laneIndex];
+            lane.ApplyToSprite(bullet, playerFirePos);
 
-            Vector2 newVelocity = LanesVelocityMap[laneIndex];
-            bullet.Velocity = newVelocity;
-
-            bullet.SetDamage(laneIndex == 0);
+            bool isMainBullet = laneIndex == 0;
+            bullet.SetDamage(isMainBullet);
         }
 
         private void FireGuaranteedLanes(SpreadBullet[] ret, Vector3 playerFirePos)
@@ -106,11 +103,8 @@ namespace Assets.FireStrategies.PlayerFireStrategies
         {
             Vector3 anchor = new Vector3(0, -FireRadius);
 
-            LanesPositionMap = new Vector3[TotalPelletLanes];
-            LanesVelocityMap = new Vector2[TotalPelletLanes];
-
-            LanesPositionMap[0] = Vector3.zero;
-            LanesVelocityMap[0] = new Vector2(0, BulletVelocityY);
+            Vector2 velocity0 = new Vector2(0, BulletVelocityY);
+            FireLanes[0] = new FireLane(Vector3.zero, velocity0);
 
             const float angleOffset = Mathf.Deg2Rad * 90;
 
@@ -123,13 +117,14 @@ namespace Assets.FireStrategies.PlayerFireStrategies
                 angle += angleOffset;
 
                 var unitVector = MathUtil.Vector3AtRadianAngle(angle);
-
-                LanesPositionMap[baseIndex] = anchor + DampenXPosition(unitVector * FireRadius);
-                LanesVelocityMap[baseIndex] = unitVector * BulletVelocityY;
+                var basePosition = anchor + DampenXPosition(unitVector * FireRadius);
+                var baseVelocity = unitVector * BulletVelocityY;
+                FireLanes[baseIndex] = new FireLane(basePosition, baseVelocity);
 
                 var flippedUnitVector = new Vector2(-unitVector.x, unitVector.y);
-                LanesPositionMap[baseIndex + 1] = anchor + DampenXPosition(flippedUnitVector * FireRadius);
-                LanesVelocityMap[baseIndex + 1] = flippedUnitVector * BulletVelocityY;
+                var flippedPosition = anchor + DampenXPosition(flippedUnitVector * FireRadius);
+                var flippedVelocity = flippedUnitVector * BulletVelocityY;
+                FireLanes[baseIndex + 1] = new FireLane(flippedPosition, flippedVelocity);
             }
         }
     }

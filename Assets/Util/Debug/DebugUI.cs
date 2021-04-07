@@ -49,7 +49,7 @@ namespace Assets.Util
         [SerializeField]
         public Text TextGameSpeed;
 
-        private Type GameRowPowerupType => _GameManager.GameRowPowerupType;
+        private Type GameRowPowerupType => GameManager.GameRowPowerupType;
         private Powerup CurrentDebugPowerup => _GameManager._PowerupManager.AllPowerups[GameRowPowerupType];
 
         public void Init(CircularSelector<PlayerFireStrategy> fireStrategies, PowerupMenu powerupMenu)

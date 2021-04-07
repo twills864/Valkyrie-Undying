@@ -3296,7 +3296,7 @@ MonoBehaviour:
       Burst: 0.2
       Bounce: 1
       Atom: 0.8
-      Spread: 1
+      Spread: 0.9
       Flak: 1
       Trampoline: 1
       Wormhole: 1.8

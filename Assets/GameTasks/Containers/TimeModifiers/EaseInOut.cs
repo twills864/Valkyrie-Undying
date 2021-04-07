@@ -9,9 +9,8 @@ using UnityEngine;
 namespace Assets.GameTasks
 {
     /// <summary>
-    /// Modifies a time scale using the following piecewise-function:
-    /// x <= 0.5: y = 2(x^2)
-    /// x  > 0.5: y = 1 - ([([-2 * x] + 2) ^ 2] / 2)
+    /// Modifies a time scale using the following Bézier curve:
+    /// y = (x^2)(3 - 2x)
     /// </summary>
     public class EaseInOut : TimeModifyingGameTask
     {

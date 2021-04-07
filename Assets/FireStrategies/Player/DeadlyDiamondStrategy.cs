@@ -23,7 +23,7 @@ namespace Assets.FireStrategies.PlayerFireStrategies
 
         const int MiddleLane = (NumLanes / 2);
 
-        readonly FireLaneWithAngle[] FireLanes = new FireLaneWithAngle[NumLanes];
+        private FireLaneWithAngle[] FireLanes { get; } = new FireLaneWithAngle[NumLanes];
 
         private int DiamondLevel;
         private DiamondLevelDelta _DiamondLevelDelta = DiamondLevelDelta.Increasing;

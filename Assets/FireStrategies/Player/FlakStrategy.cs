@@ -25,8 +25,7 @@ namespace Assets.FireStrategies.PlayerFireStrategies
         //    = new LoopingFrameTimer(0.5f);
 
         // Maps loop indexes to their matching assigned lane index
-        private Vector2[] LanesVelocityMap { get; set; }
-        private Vector3[] LanesPositionMap { get; set; }
+        private FireLane[] FireLanes { get; } = new FireLane[TotalPelletLanes];
 
         private float BulletVelocityY;
         private Vector2 BulletSize;
@@ -81,11 +80,8 @@ namespace Assets.FireStrategies.PlayerFireStrategies
 
         private void FireLane(FlakBullet bullet, int laneIndex, Vector3 playerFirePos)
         {
-            Vector3 newFirePos = playerFirePos + LanesPositionMap[laneIndex];
-            bullet.transform.position = newFirePos;
-
-            Vector2 newVelocity = LanesVelocityMap[laneIndex];
-            bullet.Velocity = newVelocity;
+            var lane = FireLanes[laneIndex];
+            lane.ApplyToSprite(bullet, playerFirePos);
         }
 
         private void FireGuaranteedLanes(FlakBullet[] ret, Vector3 playerFirePos)
@@ -100,8 +96,6 @@ namespace Assets.FireStrategies.PlayerFireStrategies
         /// </summary>
         private void FillAssignedLanesPositions()
         {
-            LanesPositionMap = new Vector3[TotalPelletLanes];
-
             // Add a little bit of Y variance to make the pyramid shape less obvious
             float yOffsetVariance = BulletOffsetY * 0.25f;
 
@@ -113,7 +107,8 @@ namespace Assets.FireStrategies.PlayerFireStrategies
                 for (int x = 0; x <= y; x++)
                 {
                     float xOffset = (xStart + x) * BulletOffsetX;
-                    LanesPositionMap[laneCounter++].Set(xOffset, yOffset + yOffsetVariance, 0f);
+                    float newYOffset = yOffset + yOffsetVariance;
+                    FireLanes[laneCounter++].PositionOffset = new Vector3(xOffset, newYOffset);
 
                     yOffsetVariance = -yOffsetVariance;
                 }
@@ -126,8 +121,6 @@ namespace Assets.FireStrategies.PlayerFireStrategies
         /// </summary>
         private void FillAssignedLanesVelocities()
         {
-            LanesVelocityMap = new Vector2[TotalPelletLanes];
-
             int laneCounter = 0;
             for (int y = 0; y < RowsInPyramid; y++)
             {
@@ -136,7 +129,7 @@ namespace Assets.FireStrategies.PlayerFireStrategies
                 for (int x = 0; x <= y; x++)
                 {
                     float xVelocity = (xStart + x) * BulletSpreadX;
-                    LanesVelocityMap[laneCounter++].Set(xVelocity, yVelocity);
+                    FireLanes[laneCounter++].Velocity = new Vector2(xVelocity, yVelocity);
                 }
             }
         }

@@ -30,8 +30,9 @@ namespace Assets
 
         private TestingType CurrentTest = TestingType.NewPowerup;
 
-        public Type OverrideDefaultWeaponType => DebugUtil.GetOverrideFireStrategyType<DeadlyDiamondStrategy>();
-        public Type GameRowPowerupType => DebugUtil.GetPowerupType<ShrapnelPowerup>();
+        public static Type OverrideDefaultWeaponType => DebugUtil.GetOverrideFireStrategyType<DeadlyDiamondStrategy>();
+        public static Type GameRowPowerupType => DebugUtil.GetPowerupType<ShrapnelPowerup>();
+        public static Type OverrideEnemyType => null; // DebugUtil.GetOverrideEnemyType<BasicEnemy>();
 
         public bool DebugPauseNextFrame;
 
