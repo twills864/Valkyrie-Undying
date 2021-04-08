@@ -127,14 +127,14 @@ MonoBehaviour:
   _HealthScaling: 0.75
   _Sprite: {fileID: 970539357841599256}
   _VictimMarkerDistance: 0.7
-  _MetronomeLabel: {fileID: 0}
+  _metronomeLabel: {fileID: 0}
   _HealthBarOffsetScale: {x: 0, y: 0.5, z: 0}
   _FireSpeed: 1.5
   _FireSpeedVariance: 0.5
   _PermanentVelocityX: 0
   _PermanentVelocityY: 0
-  RotationSpeed: 180
-  MinimumTravelTime: 2
+  _RotationSpeed: 180
+  _MinimumTravelTime: 2
 --- !u!60 &648843407322911302
 PolygonCollider2D:
   m_ObjectHideFlags: 0

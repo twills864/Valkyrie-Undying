@@ -10,7 +10,7 @@ namespace Assets.Bullets
         #region Prefabs
 
         [SerializeField]
-        private SpriteRenderer _Sprite;
+        private SpriteRenderer _Sprite = null;
 
         #endregion Prefabs
 

@@ -4489,7 +4489,17 @@ PrefabInstance:
       objectReference: {fileID: 82046586}
     - target: {fileID: 7611003520483930335, guid: c939972dae317a24a9504c7774c07490,
         type: 3}
+      propertyPath: _Sprite
+      value: 
+      objectReference: {fileID: 82046586}
+    - target: {fileID: 7611003520483930335, guid: c939972dae317a24a9504c7774c07490,
+        type: 3}
       propertyPath: FireSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7611003520483930335, guid: c939972dae317a24a9504c7774c07490,
+        type: 3}
+      propertyPath: _FireSpeed
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7611003520483930335, guid: c939972dae317a24a9504c7774c07490,
@@ -4500,6 +4510,11 @@ PrefabInstance:
     - target: {fileID: 7611003520483930335, guid: c939972dae317a24a9504c7774c07490,
         type: 3}
       propertyPath: HealthScaling
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7611003520483930335, guid: c939972dae317a24a9504c7774c07490,
+        type: 3}
+      propertyPath: _HealthScaling
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7611003520483930335, guid: c939972dae317a24a9504c7774c07490,
@@ -4519,6 +4534,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7611003520483930335, guid: c939972dae317a24a9504c7774c07490,
         type: 3}
+      propertyPath: _DamageTextDistance
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7611003520483930335, guid: c939972dae317a24a9504c7774c07490,
+        type: 3}
+      propertyPath: _InitialSpawnHealth
+      value: 100000
+      objectReference: {fileID: 0}
+    - target: {fileID: 7611003520483930335, guid: c939972dae317a24a9504c7774c07490,
+        type: 3}
+      propertyPath: _DamageTextAngleStep
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 7611003520483930335, guid: c939972dae317a24a9504c7774c07490,
+        type: 3}
       propertyPath: HealthBarOffsetScale.y
       value: 0.8
       objectReference: {fileID: 0}
@@ -4534,6 +4564,21 @@ PrefabInstance:
       objectReference: {fileID: 207937696}
     - target: {fileID: 7611003520483930335, guid: c939972dae317a24a9504c7774c07490,
         type: 3}
+      propertyPath: _HealthBarOffsetScale.y
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 7611003520483930335, guid: c939972dae317a24a9504c7774c07490,
+        type: 3}
+      propertyPath: _InfernoDamageTextAngle
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 7611003520483930335, guid: c939972dae317a24a9504c7774c07490,
+        type: 3}
+      propertyPath: _LastestDamageHealthBar
+      value: 
+      objectReference: {fileID: 207937696}
+    - target: {fileID: 7611003520483930335, guid: c939972dae317a24a9504c7774c07490,
+        type: 3}
       propertyPath: InfernoDamageTextDistance
       value: 0.75
       objectReference: {fileID: 0}
@@ -4541,6 +4586,11 @@ PrefabInstance:
         type: 3}
       propertyPath: DamageFleetingTextDistance
       value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7611003520483930335, guid: c939972dae317a24a9504c7774c07490,
+        type: 3}
+      propertyPath: _InfernoDamageTextDistance
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2843794750930479073, guid: c939972dae317a24a9504c7774c07490, type: 3}
@@ -5404,6 +5454,11 @@ PrefabInstance:
       propertyPath: PrefabSprite
       value: 
       objectReference: {fileID: 2132331193}
+    - target: {fileID: 4200373973810473398, guid: 2a0d0a97014dc564a80b742dc6ac172b,
+        type: 3}
+      propertyPath: _MortarGuide
+      value: 
+      objectReference: {fileID: 481503424}
     - target: {fileID: 4200373973810473398, guid: 2a0d0a97014dc564a80b742dc6ac172b,
         type: 3}
       propertyPath: VelocityManager

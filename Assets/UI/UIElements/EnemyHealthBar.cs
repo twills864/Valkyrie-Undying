@@ -10,7 +10,7 @@ public class EnemyHealthBar : UIElement
     #region Prefabs
 
     [SerializeField]
-    private TextMesh _TextMesh;
+    private TextMesh _TextMesh = null;
 
     #endregion Prefabs
 

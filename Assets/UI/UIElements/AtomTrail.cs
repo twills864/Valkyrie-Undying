@@ -13,7 +13,7 @@ namespace Assets.UI
         public float _TrailTime;
 
         [SerializeField]
-        private TrailRenderer _Trail;
+        private TrailRenderer _Trail = null;
 
         #endregion Prefabs
 

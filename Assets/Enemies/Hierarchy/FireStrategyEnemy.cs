@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Assets.Constants;
 using Assets.FireStrategies.EnemyFireStrategies;
 using Assets.Util;
 using UnityEngine;
@@ -14,10 +15,10 @@ namespace Assets.Enemies
         #region Prefabs
 
         [SerializeField]
-        private float _FireSpeed;
+        private float _FireSpeed = GameConstants.PrefabNumber;
 
         [SerializeField]
-        private float _FireSpeedVariance;
+        private float _FireSpeedVariance = GameConstants.PrefabNumber;
 
         #endregion Prefabs
 

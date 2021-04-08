@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Assets.ColorManagers;
+using Assets.Constants;
 using Assets.GameTasks;
 using Assets.Hierarchy.ColorHandlers;
 using Assets.Util;
@@ -23,14 +24,14 @@ namespace Assets.UI
         #region Prefabs
 
         [SerializeField]
-        private float _GuideWidth;
+        private float _GuideWidth = GameConstants.PrefabNumber;
         [SerializeField]
-        private float _FadeInTime;
+        private float _FadeInTime = GameConstants.PrefabNumber;
 
         [SerializeField]
-        private LineRendererHost _LeftHost;
+        private LineRendererHost _LeftHost = null;
         [SerializeField]
-        private LineRendererHost _RightHost;
+        private LineRendererHost _RightHost = null;
 
         #endregion Prefabs
 

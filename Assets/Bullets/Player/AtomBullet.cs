@@ -1,4 +1,5 @@
 ﻿using Assets.Bullets.PlayerBullets;
+using Assets.Constants;
 using Assets.Enemies;
 using Assets.GameTasks;
 using Assets.ObjectPooling;
@@ -14,7 +15,7 @@ namespace Assets.Bullets.PlayerBullets
         #region Prefabs
 
         [SerializeField]
-        private float _VelocityChangerDuration;
+        private float _VelocityChangerDuration = GameConstants.PrefabNumber;
 
         #endregion Prefabs
 

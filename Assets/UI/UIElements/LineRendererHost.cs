@@ -14,7 +14,7 @@ namespace Assets.UI
         #region Prefabs
 
         [SerializeField]
-        private LineRenderer _Line;
+        private LineRenderer _Line = null;
 
         #endregion Prefabs
 

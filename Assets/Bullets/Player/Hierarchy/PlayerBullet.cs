@@ -16,7 +16,7 @@ namespace Assets.Bullets.PlayerBullets
         #region Prefabs
 
         [SerializeField]
-        private int _BaseDamage;
+        private int _BaseDamage = GameConstants.PrefabNumber;
 
         #endregion Prefabs
 

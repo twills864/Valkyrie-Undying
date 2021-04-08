@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.Constants;
+using UnityEngine;
 
 namespace Assets.Enemies
 {
@@ -8,9 +9,9 @@ namespace Assets.Enemies
         #region Prefabs
 
         [SerializeField]
-        private float _PermanentVelocityX;
+        private float _PermanentVelocityX = GameConstants.PrefabNumber;
         [SerializeField]
-        private float _PermanentVelocityY;
+        private float _PermanentVelocityY = GameConstants.PrefabNumber;
 
         #endregion Prefabs
 

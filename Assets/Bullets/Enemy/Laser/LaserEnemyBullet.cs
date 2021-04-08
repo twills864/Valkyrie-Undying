@@ -32,9 +32,11 @@ namespace Assets.Bullets.EnemyBullets
 
         // Cannot have [NonSerialized] tag due to Unity needing to keep this value for
         // future instantiated copies.
+        //
+        // Unity instantiation mechanisms prevent us from turning this into a property
+        // with a proper getter and setter.
         [HideInInspector]
-        private Color _PrefireColor;
-
+        public Color PrefireColor;
         #endregion Prefabs
 
 
@@ -44,10 +46,8 @@ namespace Assets.Bullets.EnemyBullets
         private float PrefireFullBrightTime => _PrefireFullBrightTime;
         private float FullBrightTime => _FullBrightTime;
         private float FadeTime => _FadeTime;
-        public Color PrefireColor => PrefireColor;
 
         #endregion Prefab Properties
-
 
         public Vector3 SpawnPoint { get; set; }
         public float WidthHalf { get; private set; }

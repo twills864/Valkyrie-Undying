@@ -14,7 +14,7 @@ namespace Assets.Bullets.EnemyBullets
         #region Prefabs
 
         [SerializeField]
-        private int _ReflectDamage;
+        private int _ReflectDamage = GameConstants.PrefabNumber;
 
         #endregion Prefabs
 

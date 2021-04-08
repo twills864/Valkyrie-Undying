@@ -23,20 +23,20 @@ namespace Assets.Enemies
 
         // The health this enemy spawns with at the start of the game.
         [SerializeField]
-        private float _InitialSpawnHealth;
+        private float _InitialSpawnHealth = GameConstants.PrefabNumber;
 
         // The rate at which the spawn health of this enemy increases as the game progresses.
         [SerializeField]
-        private float _HealthScaling;
+        private float _HealthScaling = GameConstants.PrefabNumber;
 
         [SerializeField]
-        private SpriteRenderer _Sprite;
+        private SpriteRenderer _Sprite = null;
 
         [SerializeField]
         private float _VictimMarkerDistance = GameConstants.PrefabNumber;
 
         [SerializeField, Obsolete(MetronomePowerup.MetronomeObsolete)]
-        private MetronomeLabel _metronomeLabel;
+        private MetronomeLabel _metronomeLabel = null;
 
         [SerializeField]
         private Vector3 _HealthBarOffsetScale = Vector3.zero;

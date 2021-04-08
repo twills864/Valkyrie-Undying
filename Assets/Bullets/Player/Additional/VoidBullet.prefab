@@ -136,4 +136,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _Sprite: {fileID: 3096297312825821510}
   _BaseDamage: 0
-  ScaleTime: 0.3
+  _ScaleTime: 0
