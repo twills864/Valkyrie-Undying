@@ -8,14 +8,23 @@ namespace Assets.Bullets.PlayerBullets
     /// <inheritdoc/>
     public class BounceBullet : BouncingBullet
     {
+        #region Prefabs
+
         [SerializeField]
-        private float RotationSpeed = GameConstants.PrefabNumber;
+        private float _RotationSpeed = GameConstants.PrefabNumber;
+
+        #endregion Prefabs
+
+        #region Prefab Properties
+
+        private float RotationSpeed => _RotationSpeed;
+
+        #endregion Prefab Properties
 
         protected override void OnPlayerBulletFrameRun(float deltaTime, float realDeltaTime)
         {
             transform.Rotate(0, 0, deltaTime * RotationSpeed);
         }
-
 
         #region Enemy Bounce
 

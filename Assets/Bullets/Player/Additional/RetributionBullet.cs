@@ -14,8 +14,18 @@ namespace Assets.Bullets.PlayerBullets
     {
         public override int Damage => base.Damage * BulletLevel;
 
+        #region Prefabs
+
         [SerializeField]
-        private float FadeTime = GameConstants.PrefabNumber;
+        private float _FadeTime = GameConstants.PrefabNumber;
+
+        #endregion Prefabs
+
+        #region Prefab Properties
+
+        private float FadeTime => _FadeTime;
+
+        #endregion Prefab Properties
 
         private float Scale { get; set; }
         private float Duration { get; set; }

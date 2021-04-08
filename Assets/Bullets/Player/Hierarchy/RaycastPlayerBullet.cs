@@ -10,20 +10,39 @@ namespace Assets.Bullets.PlayerBullets
     /// <inheritdoc/>
     public abstract class RaycastPlayerBullet : PlayerBullet
     {
-        [SerializeField]
-        public float FadeInTime = GameConstants.PrefabNumber;
+        #region Prefabs
 
         [SerializeField]
-        public float FadeOutTime = GameConstants.PrefabNumber;
+        private float _FadeInTime = GameConstants.PrefabNumber;
 
         [SerializeField]
-        private float StartWidth = GameConstants.PrefabNumber;
+        private float _FadeOutTime = GameConstants.PrefabNumber;
 
         [SerializeField]
-        private float EndWidth = GameConstants.PrefabNumber;
+        private float _StartWidth = GameConstants.PrefabNumber;
 
         [SerializeField]
-        public LineRenderer Line = null;
+        private float _EndWidth = GameConstants.PrefabNumber;
+
+        [SerializeField]
+        public LineRenderer _Line = null;
+
+        #endregion Prefabs
+
+        #region Prefab Properties
+
+        public float FadeInTime => _FadeInTime;
+        public float FadeOutTime => _FadeOutTime;
+
+        private float StartWidth => _StartWidth;
+        private float EndWidth => _EndWidth;
+
+        public LineRenderer Line => _Line;
+
+        #endregion Prefab Properties
+
+        protected override ColorHandler DefaultColorHandler()
+            => new LineRendererColorHandler(Line);
 
         protected Vector3 StartPoint
         {
@@ -49,9 +68,6 @@ namespace Assets.Bullets.PlayerBullets
 
         private FloatValueOverTime FadeInAlphaValue { get; set; }
         private FloatValueOverTime FadeOutAlphaValue { get; set; }
-
-        protected override ColorHandler DefaultColorHandler()
-            => new LineRendererColorHandler(Line);
 
         // Collisions will be handled manually.
         public sealed override bool CollidesWithEnemy(Enemy enemy) => false;

@@ -11,14 +11,22 @@ namespace Assets.UI
 {
     public class LineRendererHost : UIElement
     {
-        protected override ColorHandler DefaultColorHandler()
-        {
-            return new LineRendererColorHandler(_Line);
-        }
+        #region Prefabs
 
         [SerializeField]
         private LineRenderer _Line;
 
+        #endregion Prefabs
+
+        #region Prefab Properties
+
         public LineRenderer Line => _Line;
+
+        #endregion Prefab Properties
+
+        protected override ColorHandler DefaultColorHandler()
+        {
+            return new LineRendererColorHandler(_Line);
+        }
     }
 }

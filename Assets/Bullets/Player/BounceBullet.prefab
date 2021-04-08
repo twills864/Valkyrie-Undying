@@ -97,11 +97,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70c0d14f2ac16f74494bdbedfdcb4b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Sprite: {fileID: 5489873118842634418}
-  BaseDamage: 20
-  DamageAfterBounce: 10
-  Speed: 12
-  RotationSpeed: 1080
+  _Sprite: {fileID: 5489873118842634418}
+  _BaseDamage: 20
+  _DamageAfterBounce: 10
+  _Speed: 12
+  _RotationSpeed: 1080
 --- !u!50 &3885119746584834188
 Rigidbody2D:
   serializedVersion: 4

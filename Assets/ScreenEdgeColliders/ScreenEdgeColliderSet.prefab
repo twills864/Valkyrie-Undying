@@ -47,10 +47,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24af34b9381c2fc4a994d2e02a097f34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Top: {fileID: 7820326715331913984}
-  Right: {fileID: 8789279944825214659}
-  Bottom: {fileID: 3224500576265372768}
-  Left: {fileID: 2369527236537067720}
+  _Top: {fileID: 7820326715331913984}
+  _Right: {fileID: 8789279944825214659}
+  _Bottom: {fileID: 3224500576265372768}
+  _Left: {fileID: 2369527236537067720}
 --- !u!1001 &2432799518088149058
 PrefabInstance:
   m_ObjectHideFlags: 0

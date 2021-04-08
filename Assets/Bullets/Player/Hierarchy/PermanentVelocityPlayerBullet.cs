@@ -1,14 +1,26 @@
-﻿using UnityEngine;
+﻿using Assets.Constants;
+using UnityEngine;
 
 namespace Assets.Bullets.PlayerBullets
 {
     /// <inheritdoc/>
     public abstract class PermanentVelocityPlayerBullet : PlayerBullet
     {
+        #region Prefabs
+
         [SerializeField]
-        protected float PermanentVelocityX;
+        private float _PermanentVelocityX = GameConstants.PrefabNumber;
         [SerializeField]
-        protected float PermanentVelocityY;
+        private float _PermanentVelocityY = GameConstants.PrefabNumber;
+
+        #endregion Prefabs
+
+        #region Prefab Properties
+
+        protected float PermanentVelocityX => _PermanentVelocityX;
+        protected float PermanentVelocityY => _PermanentVelocityY;
+
+        #endregion Prefab Properties
 
         private Vector2 _velocity;
         public sealed override Vector2 Velocity => _velocity;

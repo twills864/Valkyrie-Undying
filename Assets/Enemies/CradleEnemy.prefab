@@ -123,16 +123,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95faf3a3d18e2724c90cea96c47354b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InitialSpawnHealth: 120
-  HealthScaling: 1.2
-  Sprite: {fileID: 7132623997797876986}
-  _victimMarkerDistance: 0.5
-  _metronomeLabel: {fileID: 0}
-  HealthBarOffsetScale: {x: 0, y: 0.5, z: 0}
-  SwivelAngle: 35
-  InitialTravelTime: 2
-  FinalTravelSpeed: 0.3
-  RotateTime: 2
+  _InitialSpawnHealth: 120
+  _HealthScaling: 1.2
+  _Sprite: {fileID: 7132623997797876986}
+  _VictimMarkerDistance: 0.5
+  _MetronomeLabel: {fileID: 0}
+  _HealthBarOffsetScale: {x: 0, y: 0.5, z: 0}
+  _SwivelAngle: 35
+  _InitialTravelTime: 2
+  _FinalTravelSpeed: 0.3
+  _RotateTime: 2
 --- !u!60 &8153722176740878649
 PolygonCollider2D:
   m_ObjectHideFlags: 0

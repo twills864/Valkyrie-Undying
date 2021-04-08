@@ -712,10 +712,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc796e7376e381d44aa5b5ffc4710720, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PowerupNameField: {fileID: 6278065076111151218}
-  ButtonMinus: {fileID: 8328576663247304267}
-  InputPowerLevel: {fileID: 4266647110507344199}
-  ButtonPlus: {fileID: 4703423868222246559}
+  _PowerupNameField: {fileID: 6278065076111151218}
+  _ButtonMinus: {fileID: 8328576663247304267}
+  _InputPowerLevel: {fileID: 4266647110507344199}
+  _ButtonPlus: {fileID: 4703423868222246559}
 --- !u!1 &4861088555100811635
 GameObject:
   m_ObjectHideFlags: 0

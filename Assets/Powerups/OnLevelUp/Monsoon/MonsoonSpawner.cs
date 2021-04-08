@@ -18,13 +18,26 @@ namespace Assets.Powerups
 
         public override TimeScaleType TimeScale => TimeScaleType.Player;
 
-        [SerializeField]
-        private SpriteRenderer Sprite = null;
-        protected override ColorHandler DefaultColorHandler()
-            => new SpriteColorHandler(Sprite);
+        #region Prefabs
 
         [SerializeField]
-        private float Duration = GameConstants.PrefabNumber;
+        private SpriteRenderer _Sprite = null;
+
+        [SerializeField]
+        private float _Duration = GameConstants.PrefabNumber;
+
+        #endregion Prefabs
+
+        #region Prefab Properties
+
+        private SpriteRenderer Sprite => _Sprite;
+
+        private float Duration => _Duration;
+
+        #endregion Prefab Properties
+
+        protected override ColorHandler DefaultColorHandler()
+            => new SpriteColorHandler(Sprite);
 
         private MoveTo Move { get; set; }
 
@@ -39,8 +52,6 @@ namespace Assets.Powerups
             var moveVector = new Vector3(x, y);
             Move = new MoveTo(this, moveVector, Duration);
         }
-
-        //protected override void OnInit() { }
 
         protected override void OnFrameRun(float deltaTime, float realDeltaTime)
         {

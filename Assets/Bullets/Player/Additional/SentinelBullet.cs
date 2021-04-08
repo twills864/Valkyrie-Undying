@@ -13,8 +13,20 @@ namespace Assets.Bullets.PlayerBullets
         protected override bool ShouldDeactivateOnDestructor => false;
         protected override bool ShouldMarkSelfCollision => false;
 
+        #region Prefabs
+
         [SerializeField]
-        private float TravelTime = GameConstants.PrefabNumber;
+        private float _TravelTime = GameConstants.PrefabNumber;
+
+        #endregion Prefabs
+
+        #region Prefab Properties
+
+        [SerializeField]
+        private float TravelTime => _TravelTime;
+
+        #endregion Prefab Properties
+
         private EaseInTimer TravelTimer { get; set; }
 
         /// <summary>
@@ -44,14 +56,14 @@ namespace Assets.Bullets.PlayerBullets
             TravelTimer = new EaseInTimer(TravelTime);
         }
 
-        protected override void OnPlayerBulletFrameRun(float deltaTime, float realDeltaTime)
-        {
-            TravelTimer.Increment(deltaTime);
-        }
-
         protected override void OnActivate()
         {
             TravelTimer.Reset();
+        }
+
+        protected override void OnPlayerBulletFrameRun(float deltaTime, float realDeltaTime)
+        {
+            TravelTimer.Increment(deltaTime);
         }
     }
 }

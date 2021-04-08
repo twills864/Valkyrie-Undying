@@ -11,17 +11,33 @@ namespace Assets.UI.PowerupMenu
 {
     public class PowerupMenuPowerupRow : MonoBehaviour
     {
-        [SerializeField]
-        private Text PowerupNameField = null;
+        #region Prefabs
 
         [SerializeField]
-        private Button ButtonMinus;
+        private Text _PowerupNameField = null;
 
         [SerializeField]
-        private InputField InputPowerLevel = null;
+        private Button _ButtonMinus = null;
 
         [SerializeField]
-        private Button ButtonPlus;
+        private InputField _InputPowerLevel = null;
+
+        [SerializeField]
+        private Button _ButtonPlus = null;
+
+        #endregion Prefabs
+
+        #region Prefab Properties
+
+        private Text PowerupNameField => _PowerupNameField;
+
+        private Button ButtonMinus => _ButtonMinus;
+
+        private InputField InputPowerLevel => _InputPowerLevel;
+
+        private Button ButtonPlus => _ButtonPlus;
+
+        #endregion Prefab Properties
 
         public Powerup Powerup { get; set; }
 

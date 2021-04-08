@@ -5,10 +5,21 @@ namespace Assets.Enemies
     /// <inheritdoc/>
     public abstract class PermanentVelocityEnemy : FireStrategyEnemy
     {
+        #region Prefabs
+
         [SerializeField]
-        protected float PermanentVelocityX;
+        private float _PermanentVelocityX;
         [SerializeField]
-        protected float PermanentVelocityY;
+        private float _PermanentVelocityY;
+
+        #endregion Prefabs
+
+        #region Prefab Properties
+
+        protected float PermanentVelocityX => _PermanentVelocityX;
+        protected float PermanentVelocityY => _PermanentVelocityY;
+
+        #endregion Prefab Properties
 
         private Vector2 _velocity;
         public sealed override Vector2 Velocity => !IsVoidPaused ? _velocity : Vector2.zero;

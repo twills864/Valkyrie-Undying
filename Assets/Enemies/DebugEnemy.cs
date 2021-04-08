@@ -14,20 +14,43 @@ namespace Assets.Enemies
     {
         protected override bool ShouldDeactivateOnDestructor => false;
 
-        [SerializeField]
-        private EnemyHealthBar LastestDamageHealthBar = null;
+        #region Prefabs
 
         [SerializeField]
-        private float DamageTextDistance = GameConstants.PrefabNumber;
+        private EnemyHealthBar _LastestDamageHealthBar = null;
 
         [SerializeField]
-        private float DamageTextAngleStep = GameConstants.PrefabNumber;
+        private float _DamageTextDistance = GameConstants.PrefabNumber;
 
         [SerializeField]
-        private float InfernoDamageTextAngle = GameConstants.PrefabNumber;
+        private float _DamageTextAngleStep = GameConstants.PrefabNumber;
 
         [SerializeField]
-        private float InfernoDamageTextDistance = GameConstants.PrefabNumber;
+        private float _InfernoDamageTextAngle = GameConstants.PrefabNumber;
+
+        [SerializeField]
+        private float _InfernoDamageTextDistance = GameConstants.PrefabNumber;
+
+        #endregion Prefabs
+
+        #region Prefab Properties
+
+        [SerializeField]
+        private EnemyHealthBar LastestDamageHealthBar => _LastestDamageHealthBar;
+
+        [SerializeField]
+        private float DamageTextDistance => _DamageTextDistance;
+
+        [SerializeField]
+        private float DamageTextAngleStep => _DamageTextAngleStep;
+
+        [SerializeField]
+        private float InfernoDamageTextAngle => _InfernoDamageTextAngle;
+
+        [SerializeField]
+        private float InfernoDamageTextDistance => _InfernoDamageTextDistance;
+
+        #endregion Prefab Properties
 
         private Vector3 InfernoDamageAngle { get; set; }
         private CircularSelector<Vector3> AngleLanes { get; set; }
@@ -38,8 +61,8 @@ namespace Assets.Enemies
 
         protected override void OnEnemyInit()
         {
-            DamageTextAngleStep *= Mathf.Deg2Rad;
-            InfernoDamageTextAngle *= Mathf.Deg2Rad;
+            _DamageTextAngleStep *= Mathf.Deg2Rad;
+            _InfernoDamageTextAngle *= Mathf.Deg2Rad;
 
             AngleLanes = new CircularSelector<Vector3>();
 

@@ -123,16 +123,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b576ffeacb216244faed94ae1d4d2cfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InitialSpawnHealth: 75
-  HealthScaling: 0.75
-  Sprite: {fileID: 970539357841599256}
-  _victimMarkerDistance: 0.7
-  _metronomeLabel: {fileID: 0}
-  HealthBarOffsetScale: {x: 0, y: 0.5, z: 0}
-  FireSpeed: 1.5
-  FireSpeedVariance: 0.5
-  PermanentVelocityX: 0
-  PermanentVelocityY: 0
+  _InitialSpawnHealth: 75
+  _HealthScaling: 0.75
+  _Sprite: {fileID: 970539357841599256}
+  _VictimMarkerDistance: 0.7
+  _MetronomeLabel: {fileID: 0}
+  _HealthBarOffsetScale: {x: 0, y: 0.5, z: 0}
+  _FireSpeed: 1.5
+  _FireSpeedVariance: 0.5
+  _PermanentVelocityX: 0
+  _PermanentVelocityY: 0
   RotationSpeed: 180
   MinimumTravelTime: 2
 --- !u!60 &648843407322911302

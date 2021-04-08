@@ -10,8 +10,18 @@ namespace Assets.UI.PowerupMenu
 {
     public class PowerupMenuTitleRow : MonoBehaviour
     {
+        #region Prefabs
+
         [SerializeField]
-        private Text TextField = null;
+        private Text _TextField = null;
+
+        #endregion Prefabs
+
+        #region Prefab Properties
+
+        private Text TextField => _TextField;
+
+        #endregion Prefab Properties
 
         public string Text
         {

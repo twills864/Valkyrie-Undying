@@ -13,35 +13,47 @@ namespace Assets.Bullets.EnemyBullets
     public class LaserEnemyBullet : EnemyBullet
     {
         public override bool DeactivateOnHit => false;
-        //public override int ReflectedDamage => 0;
         public override bool CanReflect => false;
         protected override bool ShouldDeactivateOnDestructor => false;
 
+        #region Prefabs
 
         [SerializeField]
-        private float FadeInTime = GameConstants.PrefabNumber;
+        private float _FadeInTime = GameConstants.PrefabNumber;
 
         [SerializeField]
-        private float PrefireFullBrightTime = GameConstants.PrefabNumber;
+        private float _PrefireFullBrightTime = GameConstants.PrefabNumber;
 
         [SerializeField]
-        private float FullBrightTime = GameConstants.PrefabNumber;
+        private float _FullBrightTime = GameConstants.PrefabNumber;
 
         [SerializeField]
-        private float FadeTime = GameConstants.PrefabNumber;
+        private float _FadeTime = GameConstants.PrefabNumber;
 
         // Cannot have [NonSerialized] tag due to Unity needing to keep this value for
         // future instantiated copies.
         [HideInInspector]
-        public Color PrefireColor;
-        private Color LaserColor;
+        private Color _PrefireColor;
 
-        private Sequence Sequence { get; set; }
+        #endregion Prefabs
 
+        #region Prefab Properties
+
+        private float FadeInTime => _FadeInTime;
+        private float PrefireFullBrightTime => _PrefireFullBrightTime;
+        private float FullBrightTime => _FullBrightTime;
+        private float FadeTime => _FadeTime;
+        public Color PrefireColor => PrefireColor;
+
+        #endregion Prefab Properties
+
+        public Vector3 SpawnPoint { get; set; }
         public float WidthHalf { get; private set; }
 
+        private Color LaserColor { get; set; }
         public bool LaserActivated { get; private set; }
-        public Vector3 SpawnPoint;
+
+        private Sequence Behavior { get; set; }
 
         protected override void OnEnemyBulletInit()
         {
@@ -60,7 +72,7 @@ namespace Assets.Bullets.EnemyBullets
             var fadeTo = new FadeTo(this, 0.0f, FadeTime);
             var deactivate = GameTaskFunc.DeactivateSelf(this);
 
-            Sequence = new Sequence(fadeIn, prefireDelay, activateCollider, postfireDelay, fadeTo, deactivate);
+            Behavior = new Sequence(fadeIn, prefireDelay, activateCollider, postfireDelay, fadeTo, deactivate);
         }
 
         protected override void OnActivate()
@@ -71,12 +83,12 @@ namespace Assets.Bullets.EnemyBullets
             spawnColor.a = 0;
             SpriteColor = spawnColor;
 
-            Sequence.ResetSelf();
+            Behavior.ResetSelf();
         }
 
         protected override void OnFrameRun(float deltaTime, float realDeltaTime)
         {
-            Sequence.RunFrame(deltaTime);
+            Behavior.RunFrame(deltaTime);
         }
 
         private void ActivateCollider()

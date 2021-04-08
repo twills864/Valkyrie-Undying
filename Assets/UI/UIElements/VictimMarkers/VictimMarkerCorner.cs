@@ -8,8 +8,19 @@ namespace Assets.UI
     /// <inheritdoc/>
     public class VictimMarkerCorner : UIElement
     {
+        #region Prefabs
+
         [SerializeField]
-        private SpriteRenderer Sprite = null;
+        private SpriteRenderer _Sprite = null;
+
+        #endregion Prefabs
+
+        #region Prefab Properties
+
+        private SpriteRenderer Sprite => _Sprite;
+
+        #endregion Prefab Properties
+
         protected override ColorHandler DefaultColorHandler()
             => new SpriteColorHandler(Sprite);
 

@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9361e0d1fe04b854699d7d33769bccb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AngularVelocity: 2
+  _AngularVelocity: 2
 --- !u!212 &7871444640607229033
 SpriteRenderer:
   m_ObjectHideFlags: 0

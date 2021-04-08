@@ -11,11 +11,20 @@ namespace Assets.Bullets.EnemyBullets
         public override string LogTagColor => "#FFA197";
         public override TimeScaleType TimeScale => TimeScaleType.EnemyBullet;
 
-        [SerializeField]
-        private int ReflectedDamage;
-        public int ReflectDamage => ReflectedDamage;
-        public virtual bool CanReflect => true;
+        #region Prefabs
 
+        [SerializeField]
+        private int _ReflectDamage;
+
+        #endregion Prefabs
+
+        #region Prefab Properties
+
+        public int ReflectDamage => _ReflectDamage;
+
+        #endregion Prefab Properties
+
+        public virtual bool CanReflect => true;
         public virtual bool HitsPlayer => true;
         public virtual bool DeactivateOnHit => true;
 

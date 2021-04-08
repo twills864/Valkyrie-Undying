@@ -13,22 +13,38 @@ namespace Assets.Enemies
     {
         private const float AngleDown = 270;
 
-        [SerializeField]
-        private float SwivelAngle = GameConstants.PrefabNumber;
+        #region Prefabs
 
         [SerializeField]
-        private float InitialTravelTime = GameConstants.PrefabNumber;
+        private float _SwivelAngle = GameConstants.PrefabNumber;
 
         [SerializeField]
-        private float FinalTravelSpeed = GameConstants.PrefabNumber;
+        private float _InitialTravelTime = GameConstants.PrefabNumber;
 
         [SerializeField]
-        private float RotateTime = GameConstants.PrefabNumber;
+        private float _FinalTravelSpeed = GameConstants.PrefabNumber;
 
-        private float MinAngle;
-        private float MaxAngle;
+        [SerializeField]
+        private float _RotateTime = GameConstants.PrefabNumber;
 
-        private Vector2 FireLeftVelocity;
+        #endregion Prefabs
+
+        #region Prefab Properties
+
+        private float SwivelAngle => _SwivelAngle;
+
+        private float InitialTravelTime => _InitialTravelTime;
+
+        private float FinalTravelSpeed => _FinalTravelSpeed;
+
+        private float RotateTime => _RotateTime;
+
+        #endregion Prefab Properties
+
+        private float MinAngle { get; set; }
+        private float MaxAngle { get; set; }
+
+        private Vector2 FireLeftVelocity { get; set; }
         private Vector2 FireRightVelocity => new Vector2(-FireLeftVelocity.x, FireLeftVelocity.y);
 
         private Vector2 FireLeftOffset;

@@ -10,10 +10,20 @@ namespace Assets.Bullets.PlayerBullets
     /// <inheritdoc/>
     public class PestControlBullet : PlayerBullet
     {
-        [SerializeField]
-        private float Speed = GameConstants.PrefabNumber;
-
         protected override bool ShouldMarkSelfCollision => false;
+
+        #region Prefabs
+
+        [SerializeField]
+        private float _Speed = GameConstants.PrefabNumber;
+
+        #endregion Prefabs
+
+        #region Prefab Properties
+
+        public float Speed => _Speed;
+
+        #endregion Prefab Properties
 
         protected override void OnPlayerBulletTriggerEnter2D(Collider2D collision)
         {

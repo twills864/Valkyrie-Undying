@@ -95,8 +95,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 464dce6dfb82a3a4d8d483c3ea1e141a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Sprite: {fileID: 1777918661920015751}
-  BaseDamage: 0
-  FadeInTime: 0.25
-  MaxAlpha: 0.2
-  FallbackDeactivationTime: 2
+  _Sprite: {fileID: 1777918661920015751}
+  _BaseDamage: 0
+  _FadeInTime: 0.25
+  _MaxAlpha: 0.2
+  _FallbackDeactivationTime: 2

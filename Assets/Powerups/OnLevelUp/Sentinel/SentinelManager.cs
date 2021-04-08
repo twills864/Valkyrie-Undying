@@ -17,6 +17,19 @@ namespace Assets.Powerups
 {
     public class SentinelManager : ValkyrieSprite
     {
+        #region Prefabs
+
+        [SerializeField]
+        private float _AngularVelocity = GameConstants.PrefabNumber;
+
+        #endregion Prefabs
+
+        #region Prefab Properties
+
+        private float AngularVelocity => _AngularVelocity;
+
+        #endregion Prefab Properties
+
         public static SentinelManager Instance { get; set; }
 
         const int NumSentinel = 8;
@@ -25,9 +38,6 @@ namespace Assets.Powerups
         public override TimeScaleType TimeScale => TimeScaleType.Player;
         protected override ColorHandler DefaultColorHandler()
             => new NullColorHandler();
-
-        [SerializeField]
-        private float AngularVelocity = GameConstants.PrefabNumber;
 
         private LoopingFrameTimer RespawnTimer { get; } = LoopingFrameTimer.Default();
 

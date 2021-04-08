@@ -16,8 +16,10 @@ namespace Assets.Powerups
     /// Does increasing amounts of damage to an enemy that's hit multiple times in a row.
     /// </summary>
     /// <inheritdoc/>
+    [Obsolete(MetronomeObsolete)]
     public class MetronomePowerup : OnHitPowerup
     {
+        public const string MetronomeObsolete = "Metronome powerup has been suspended indefinitely.";
         protected override void InitBalance(in PowerupBalanceManager.OnHitBalance balance)
         {
             //float exponentBase = balance.Metronome.Damage.ExponentBase;

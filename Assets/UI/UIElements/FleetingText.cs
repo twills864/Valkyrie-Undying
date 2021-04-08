@@ -10,11 +10,33 @@ namespace Assets.UI
     public class FleetingText : UIElement
     {
         public override TimeScaleType TimeScale => TimeScaleType.UIElement;
-        protected override ColorHandler DefaultColorHandler()
-            => new TextMeshColorHandler(TextField);
+
+        #region Prefabs
 
         [SerializeField]
-        private TextMesh TextField = null;
+        private TextMesh _TextField = null;
+
+        [SerializeField]
+        private float _OpaqueTextTime = GameConstants.PrefabNumber;
+        [SerializeField]
+        private float _FadeTime = GameConstants.PrefabNumber;
+        [SerializeField]
+        private float _Speed = GameConstants.PrefabNumber;
+
+        #endregion Prefabs
+
+        #region Prefab Properties
+
+        private TextMesh TextField => _TextField;
+
+        private float OpaqueTextTime => _OpaqueTextTime;
+        private float FadeTime => _FadeTime;
+        private float Speed => _Speed;
+
+        #endregion Prefab Properties
+
+        protected override ColorHandler DefaultColorHandler()
+            => new TextMeshColorHandler(TextField);
 
         private MoveBy Move { get; set; }
         public Vector3 MoveDistance
@@ -33,13 +55,6 @@ namespace Assets.UI
         }
 
         public Color DefaultColor => new Color(1, 1, 1, 1);
-
-        [SerializeField]
-        private float OpaqueTextTime = GameConstants.PrefabNumber;
-        [SerializeField]
-        private float FadeTime = GameConstants.PrefabNumber;
-        [SerializeField]
-        private float Speed = GameConstants.PrefabNumber;
 
         public float TotalTextTime => OpaqueTextTime + FadeTime;
         public float TotalDistance => Speed * TotalTextTime;
@@ -64,7 +79,6 @@ namespace Assets.UI
             MoveDistance = DefaultMoveDistance;
             //Velocity = new Vector2(0, Speed);
         }
-
 
         protected override void OnFrameRun(float deltaTime, float realDeltaTime)
         {

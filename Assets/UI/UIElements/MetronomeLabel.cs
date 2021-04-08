@@ -11,6 +11,7 @@ using UnityEngine;
 namespace Assets.UI
 {
     /// <inheritdoc/>
+    [Obsolete(MetronomePowerup.MetronomeObsolete)]
     public class MetronomeLabel : UIElement
     {
         private static float AlphaMax;
@@ -22,20 +23,32 @@ namespace Assets.UI
             corner.DeactivateSelf();
         }
 
-        protected override ColorHandler DefaultColorHandler()
-            => new TextMeshColorHandler(Mesh);
+        #region Prefabs
 
         [SerializeField]
-        private TextMesh Mesh = null;
+        private TextMesh _Mesh = null;
+
+        [SerializeField]
+        private float _FadeTime = GameConstants.PrefabNumber;
+
+        #endregion Prefabs
+
+        #region Prefab Properties
+
+        private TextMesh Mesh => _Mesh;
+
+        private float FadeTime => _FadeTime;
+
+        #endregion Prefab Properties
+
+        protected override ColorHandler DefaultColorHandler()
+            => new TextMeshColorHandler(Mesh);
 
         public float Text
         {
             get => throw new NotImplementedException();
             set => Mesh.text = value.ToString("0.0");
         }
-
-        [SerializeField]
-        private float FadeTime = GameConstants.PrefabNumber;
 
         public Enemy Host { get; set; }
         public Vector3 HostPosition => Host.ColliderMap.Center;

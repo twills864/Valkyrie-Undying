@@ -16,25 +16,54 @@ namespace Assets.Enemies
     /// <inheritdoc/>
     public abstract class Enemy : PooledObject, IVictimHost
     {
-        // The health this enemy spawns with at the start of the game.
-        [SerializeField]
-        protected float InitialSpawnHealth;
-
-        // The rate at which the spawn health of this enemy increases as the game progresses.
-        [SerializeField]
-        protected float HealthScaling;
-
         public override string LogTagColor => "#FFB697";
         public override TimeScaleType TimeScale => TimeScaleType.Enemy;
 
-        public EnemyFireStrategy FireStrategy { get; protected set; }
-        protected abstract EnemyFireStrategy InitialFireStrategy();
+        #region Prefabs
+
+        // The health this enemy spawns with at the start of the game.
+        [SerializeField]
+        private float _InitialSpawnHealth;
+
+        // The rate at which the spawn health of this enemy increases as the game progresses.
+        [SerializeField]
+        private float _HealthScaling;
 
         [SerializeField]
-        protected SpriteRenderer Sprite;
+        private SpriteRenderer _Sprite;
+
+        [SerializeField]
+        private float _VictimMarkerDistance = GameConstants.PrefabNumber;
+
+        [SerializeField, Obsolete(MetronomePowerup.MetronomeObsolete)]
+        private MetronomeLabel _metronomeLabel;
+
+        [SerializeField]
+        private Vector3 _HealthBarOffsetScale = Vector3.zero;
+
+        #endregion Prefabs
+
+        #region Prefab Properties
+
+        // The health this enemy spawns with at the start of the game.
+        protected float InitialSpawnHealth => _InitialSpawnHealth;
+
+        // The rate at which the spawn health of this enemy increases as the game progresses.
+        protected float HealthScaling => _HealthScaling;
+
+        protected SpriteRenderer Sprite => _Sprite;
+
+        public virtual float VictimMarkerDistance => _VictimMarkerDistance;
+
+        private Vector3 HealthBarOffsetScale => _HealthBarOffsetScale;
+
+        #endregion Prefab Properties
 
         protected override ColorHandler DefaultColorHandler()
             => new SpriteColorHandler(Sprite);
+
+        public EnemyFireStrategy FireStrategy { get; protected set; }
+        protected abstract EnemyFireStrategy InitialFireStrategy();
 
         protected virtual bool ShouldDeactivateOnDestructor => true;
         public virtual bool CanVoidPause => true;
@@ -61,9 +90,6 @@ namespace Assets.Enemies
             }
         }
 
-        [SerializeField]
-        private float _victimMarkerDistance = GameConstants.PrefabNumber;
-        public virtual float VictimMarkerDistance => _victimMarkerDistance;
         private VictimMarker _victimMarker;
         public VictimMarker VictimMarker
         {
@@ -79,6 +105,7 @@ namespace Assets.Enemies
 
         #region Metronome
 
+        [Obsolete(MetronomePowerup.MetronomeObsolete)]
         public bool HasMetronome
         {
             get => GameManager.Instance.MetronomeEnemy == this;
@@ -91,8 +118,7 @@ namespace Assets.Enemies
             }
         }
 
-        [SerializeField]
-        private MetronomeLabel _metronomeLabel;
+        [Obsolete(MetronomePowerup.MetronomeObsolete)]
         public MetronomeLabel MetronomeLabel
         {
             get => _metronomeLabel;
@@ -105,13 +131,8 @@ namespace Assets.Enemies
 
         #endregion Metronome
 
-
         public virtual Vector3 FirePosition => SpriteMap.Bottom;
         protected virtual bool CanFire(Vector3 firePosition) => firePosition.y > FireHeightFloor;
-
-
-        [SerializeField]
-        private Vector3 HealthBarOffsetScale = Vector3.zero;
 
         protected virtual Vector3 HealthBarOffset => InitialHealthbarOffset;
         protected Vector3 InitialSize { get; private set; }
@@ -183,8 +204,7 @@ namespace Assets.Enemies
             float healthbarOffsetYScale = HealthBarOffsetScale.y >= 0 ? 0.5f : -0.5f;
             var healthbarOffset = new Vector3(0, EnemyHealthBar.HealthBarHeight * healthbarOffsetYScale, 0);
             InitialHealthbarOffset = Vector3.Scale(InitialSize, HealthBarOffsetScale)
-                + healthbarOffset
-                ;
+                + healthbarOffset;
 
             InfernoTimer = new LoopingFrameTimer(InfernoTickTime);
 
@@ -213,8 +233,6 @@ namespace Assets.Enemies
             var healthBarSpawn = transform.position;// + HealthBarOffset;
             HealthBar = PoolManager.Instance.UIElementPool.Get<EnemyHealthBar>(healthBarSpawn);
             UpdateHealthBar();
-
-
 
             OnEnemySpawn();
         }
@@ -252,14 +270,6 @@ namespace Assets.Enemies
             return ret;
         }
 
-        private void Start()
-        {
-            //BoxMap = new TrackedBoxMap(this);
-            //FireStrategy = DefaultEnemyFireStrategy;
-            //HealthBar = FindChildEnemyHealthBar();
-            //Init();
-        }
-
         protected virtual bool DamageKills(int damage)
         {
             if (!isActiveAndEnabled)
@@ -294,7 +304,6 @@ namespace Assets.Enemies
         protected virtual void OnDeath() { }
         protected void KillEnemy(PlayerBullet bullet)
         {
-            // Kill enemy
             CreateFleetingTextAtCenter(PointValue);
             GameManager.Instance.OnEnemyKill(this, bullet);
             DeactivateSelf();
@@ -379,8 +388,6 @@ namespace Assets.Enemies
         //    DebugUtil.RedX(BoxMap.BottomLeft, redXTime);
         //    DebugUtil.RedX(BoxMap.BottomRight, redXTime);
         //}
-
-
 
         //private void OnMouseEnter()
         //{

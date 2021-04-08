@@ -96,14 +96,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9421620d852f5144e93cc745de7ec301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Sprite: {fileID: 723224575366626964}
-  BaseDamage: 20
-  FadeInTime: 0.125
-  FadeOutTime: 0.25
-  StartWidth: 0.04
-  EndWidth: 0.04
-  Line: {fileID: 5264899859091859505}
-  LaserAlphaRatio: 0.75
+  _Sprite: {fileID: 723224575366626964}
+  _BaseDamage: 20
+  _FadeInTime: 0.125
+  _FadeOutTime: 0.25
+  _StartWidth: 0.04
+  _EndWidth: 0.04
+  _Line: {fileID: 5264899859091859505}
+  _LaserAlphaRatio: 0.75
 --- !u!1 &8445388326326390040
 GameObject:
   m_ObjectHideFlags: 0

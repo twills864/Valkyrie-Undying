@@ -134,6 +134,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5aa607f394144e14c91be16b1da79249, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Sprite: {fileID: 3096297312825821510}
-  BaseDamage: 0
+  _Sprite: {fileID: 3096297312825821510}
+  _BaseDamage: 0
   ScaleTime: 0.3

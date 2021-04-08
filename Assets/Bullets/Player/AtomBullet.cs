@@ -11,19 +11,26 @@ namespace Assets.Bullets.PlayerBullets
     /// <inheritdoc/>
     public class AtomBullet : BouncingBullet
     {
-        [SerializeField]
-        public float VelocityChangerDuration;
+        #region Prefabs
 
-        //private LinearVelocityChanger VelocityChanger { get; set; }
+        [SerializeField]
+        private float _VelocityChangerDuration;
+
+        #endregion Prefabs
+
+        #region Prefab Properties
+
+        public float VelocityChangerDuration => _VelocityChangerDuration;
+
+        #endregion Prefab Properties
+
         private VelocityChange VelocityChange { get; set; }
         private Vector2 MostRecentTargetVelocity { get; set; }
-
 
         public AtomTrail Trail { get; set; }
 
         protected override void OnBouncingBulletInit()
         {
-            //VelocityChanger = new LinearVelocityChanger(this);
             VelocityChange = VelocityChange.Default(this, VelocityChangerDuration);
         }
 
@@ -38,12 +45,6 @@ namespace Assets.Bullets.PlayerBullets
             Trail = PoolManager.Instance.UIElementPool.Get<AtomTrail>();
             Trail.transform.position = transform.position;
             Trail.OnSpawn();
-        }
-
-        protected override void OnBouncingBulletDeactivate()
-        {
-            Trail.StartDeactivation();
-            Trail = null;
         }
 
         protected override void OnPlayerBulletFrameRun(float deltaTime, float realDeltaTime)
@@ -61,6 +62,12 @@ namespace Assets.Bullets.PlayerBullets
 
             var direction = RandomUtil.RandomDirectionVector(Speed);
             VelocityChange.Init(direction, -direction);
+        }
+
+        protected override void OnBouncingBulletDeactivate()
+        {
+            Trail.StartDeactivation();
+            Trail = null;
         }
     }
 }

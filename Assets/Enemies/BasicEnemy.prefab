@@ -151,13 +151,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10d5f99b6105e6143af10bf643156d0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InitialSpawnHealth: 100
-  HealthScaling: 1
-  Sprite: {fileID: 2513743728701105208}
-  _victimMarkerDistance: 0.6
-  _metronomeLabel: {fileID: 0}
-  HealthBarOffsetScale: {x: 0, y: 0.5, z: 0}
-  FireSpeed: 2.5
-  FireSpeedVariance: 0.5
-  PermanentVelocityX: 0
-  PermanentVelocityY: -1
+  _InitialSpawnHealth: 100
+  _HealthScaling: 1
+  _Sprite: {fileID: 2513743728701105208}
+  _VictimMarkerDistance: 0.6
+  _MetronomeLabel: {fileID: 0}
+  _HealthBarOffsetScale: {x: 0, y: 0.5, z: 0}
+  _FireSpeed: 2.5
+  _FireSpeedVariance: 0.5
+  _PermanentVelocityX: 0
+  _PermanentVelocityY: -1

@@ -14,17 +14,26 @@ namespace Assets.Bullets.PlayerBullets
     /// <inheritdoc/>
     public class DeadlyDiamondBullet : PlayerBullet
     {
+        #region Prefabs
+
         [SerializeField]
         private float _Speed = GameConstants.PrefabNumber;
-        public float Speed => _Speed;
 
         [SerializeField]
         private float _OffsetX = GameConstants.PrefabNumber;
-        public float OffsetX => _OffsetX;
 
         [SerializeField]
         private float _MaxAngle = GameConstants.PrefabNumber;
+
+        #endregion Prefabs
+
+        #region Prefab Properties
+
+        public float Speed => _Speed;
+        public float OffsetX => _OffsetX;
         public float MaxAngle => _MaxAngle;
+
+        #endregion Prefab Properties
 
         protected override void OnPlayerBulletInit()
         {

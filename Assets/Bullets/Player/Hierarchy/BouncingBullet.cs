@@ -14,18 +14,30 @@ namespace Assets.Bullets.PlayerBullets
     /// <inheritdoc/>
     public abstract class BouncingBullet : PlayerBullet
     {
-        [SerializeField]
-        private int DamageAfterBounce = GameConstants.PrefabNumber;
+        public override int Damage => CurrentDamage;
+        protected override bool ShouldMarkSelfCollision => false;
+
+        #region Prefabs
 
         [SerializeField]
-        public float Speed;
+        private int _DamageAfterBounce = GameConstants.PrefabNumber;
+
+        [SerializeField]
+        private float _Speed = GameConstants.PrefabNumber;
+
+        #endregion Prefabs
+
+        #region Prefab Properties
+
+        private int DamageAfterBounce => _DamageAfterBounce;
+        public float Speed => _Speed;
+
+        #endregion Prefab Properties
+
         protected virtual Vector2 InitialVelocity => new Vector2(0, Speed);
 
         public int BouncesLeft { get; set; }
         protected int CurrentDamage { get; set; }
-        public override int Damage => CurrentDamage;
-
-        protected override bool ShouldMarkSelfCollision => false;
 
         protected virtual void OnBouncingBulletInit() { }
         protected sealed override void OnPlayerBulletInit()
@@ -76,6 +88,5 @@ namespace Assets.Bullets.PlayerBullets
         {
             BouncesLeft = 1 + GameUtil.PlusOneIfMaxWeaponLevel(BulletLevel);
         }
-
     }
 }

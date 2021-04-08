@@ -5,14 +5,27 @@ namespace Assets.ScreenEdgeColliders
 {
     public class ScreenEdgeColliderSet : MonoBehaviour
     {
+        #region Prefabs
+
         [SerializeField]
-        private ScreenEdgeCollider Top = null;
+        private ScreenEdgeCollider _Top = null;
         [SerializeField]
-        private ScreenEdgeCollider Right = null;
+        private ScreenEdgeCollider _Right = null;
         [SerializeField]
-        private ScreenEdgeCollider Bottom = null;
+        private ScreenEdgeCollider _Bottom = null;
         [SerializeField]
-        private ScreenEdgeCollider Left = null;
+        private ScreenEdgeCollider _Left = null;
+
+        #endregion Prefabs
+
+        #region Prefab Properties
+
+        private ScreenEdgeCollider Top => _Top;
+        private ScreenEdgeCollider Right => _Right;
+        private ScreenEdgeCollider Bottom => _Bottom;
+        private ScreenEdgeCollider Left => _Left;
+
+        #endregion Prefab Properties
 
         /// <summary>
         /// Initializes this set of ScreenEdgeColliders to perfectly cover each edge of the visible screen.

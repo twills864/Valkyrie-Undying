@@ -21,22 +21,33 @@ namespace Assets.UI
             corner.DeactivateSelf();
         }
 
+        #region Prefabs
+
+        [SerializeField]
+        private float _FadeTime = GameConstants.PrefabNumber;
+
+        [SerializeField]
+        private float _StartDistance = GameConstants.PrefabNumber;
+
+        #endregion Prefabs
+
+        #region Prefab Properties
+
+        private float FadeTime => _FadeTime;
+        private float StartDistance => _StartDistance;
+
+        #endregion Prefab Properties
+
         protected override ColorHandler DefaultColorHandler()
             => new NullColorHandler();
 
-        [SerializeField]
-        private float FadeTime = GameConstants.PrefabNumber;
+        private Vector3 StartOffset { get; set; }
+        private Vector3 EndOffset { get; set; }
 
-        [SerializeField]
-        private float StartDistance = GameConstants.PrefabNumber;
-
-        private Vector3 StartOffset;
-        private Vector3 EndOffset;
-
-        private VictimMarkerCorner TopLeft;
-        private VictimMarkerCorner TopRight;
-        private VictimMarkerCorner BottomRight;
-        private VictimMarkerCorner BottomLeft;
+        private VictimMarkerCorner TopLeft { get; set; }
+        private VictimMarkerCorner TopRight { get; set; }
+        private VictimMarkerCorner BottomRight { get; set; }
+        private VictimMarkerCorner BottomLeft { get; set; }
 
         private IVictimHost _host;
         public IVictimHost Host

@@ -140,8 +140,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PrefabSprite: {fileID: 4011200326403816633}
-  _victimMarkerDistance: 0.6
-  HealthBarOffsetScale: {x: 0, y: 0, z: 0}
+  _VictimMarkerDistance: 0.6
+  _HealthBarOffsetScale: {x: 0, y: 0, z: 0}
 --- !u!198 &2843794750930479074
 ParticleSystem:
   m_ObjectHideFlags: 0

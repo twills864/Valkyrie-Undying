@@ -134,6 +134,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffcf6168867127b43b0d086375b0c274, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Sprite: {fileID: 9092396241500120385}
-  ReflectedDamage: 15
-  Speed: 3
+  _Sprite: {fileID: 9092396241500120385}
+  _ReflectDamage: 15
+  _Speed: 3

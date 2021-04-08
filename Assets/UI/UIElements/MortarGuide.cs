@@ -15,10 +15,26 @@ namespace Assets.UI
     {
         public static MortarGuide Instance { get; set; }
 
-        protected override ColorHandler DefaultColorHandler()
+        public static void StaticInit(in ColorManager colorManager)
         {
-            return new NullColorHandler();
+            Instance.InitInstance(in colorManager);
         }
+
+        #region Prefabs
+
+        [SerializeField]
+        private float _GuideWidth;
+        [SerializeField]
+        private float _FadeInTime;
+
+        [SerializeField]
+        private LineRendererHost _LeftHost;
+        [SerializeField]
+        private LineRendererHost _RightHost;
+
+        #endregion Prefabs
+
+        #region Prefab Properties
 
         [SerializeField]
         private float GuideWidth;
@@ -26,9 +42,16 @@ namespace Assets.UI
         private float FadeInTime;
 
         [SerializeField]
-        private LineRendererHost LeftHost;
+        private LineRendererHost LeftHost => _LeftHost;
         [SerializeField]
-        private LineRendererHost RightHost;
+        private LineRendererHost RightHost => _RightHost;
+
+        #endregion Prefab Properties
+
+        protected override ColorHandler DefaultColorHandler()
+        {
+            return new NullColorHandler();
+        }
 
         private LineRenderer Left { get; set; }
         private LineRenderer Right { get; set; }
@@ -36,11 +59,6 @@ namespace Assets.UI
         private void Awake()
         {
             Instance = this;
-        }
-
-        public static void StaticInit(in ColorManager colorManager)
-        {
-            Instance.InitInstance(in colorManager);
         }
 
         private void InitInstance(in ColorManager colorManager)

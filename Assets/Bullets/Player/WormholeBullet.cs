@@ -10,16 +10,29 @@ namespace Assets.Bullets.PlayerBullets
     /// <inheritdoc/>
     public class WormholeBullet : PlayerBullet
     {
-        [SerializeField]
-        private float StartSpeed = GameConstants.PrefabNumber;
-
-        [SerializeField]
-        private float EndSpeed = GameConstants.PrefabNumber;
-
-        [SerializeField]
-        private float AccelerationTime = GameConstants.PrefabNumber;
-
         protected override bool ShouldMarkSelfCollision => false;
+
+        #region Prefabs
+
+        [SerializeField]
+        private float _StartSpeed = GameConstants.PrefabNumber;
+
+        [SerializeField]
+        private float _EndSpeed = GameConstants.PrefabNumber;
+
+        [SerializeField]
+        private float _AccelerationTime = GameConstants.PrefabNumber;
+
+        #endregion Prefabs
+
+        #region Prefab Properties
+
+        private float StartSpeed => _StartSpeed;
+        private float EndSpeed => _EndSpeed;
+
+        private float AccelerationTime => _AccelerationTime;
+
+        #endregion Prefab Properties
 
         private Vector2 StartVelocity => new Vector2(0, StartSpeed);
         private Vector2 EndVelocity => new Vector2(0, EndSpeed);

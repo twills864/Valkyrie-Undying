@@ -26,14 +26,6 @@ namespace Assets.Bullets.PlayerBullets
                 Instance.FadeOutSequence.ResetSelf();
         }
 
-        [SerializeField]
-        private float MaxAlpha = GameConstants.PrefabNumber;
-
-        private Color FullBright;
-        private float DelayTime;
-        private float FadeTime;
-        private Sequence FadeOutSequence { get; set; } = Sequence.Default();
-
         // Call from BulletPoolList -> BfgBulletPrefab.InitFallout()
         public static void StaticInitFadeInfo(float delayTime, float fadeTime)
         {
@@ -50,6 +42,24 @@ namespace Assets.Bullets.PlayerBullets
             Instance.FullBright = colorManager.DefaultPlayer;
             Instance.OnStaticInit();
         }
+
+        #region Prefabs
+
+        [SerializeField]
+        private float _MaxAlpha = GameConstants.PrefabNumber;
+
+        #endregion Prefabs
+
+        #region Prefab Properties
+
+        private float MaxAlpha => _MaxAlpha;
+
+        #endregion Prefab Properties
+
+        private Color FullBright;
+        private float DelayTime { get; set; }
+        private float FadeTime { get; set; }
+        private Sequence FadeOutSequence { get; set; } = Sequence.Default();
 
         private void OnStaticInit()
         {

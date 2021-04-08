@@ -20,17 +20,31 @@ namespace Assets.Powerups
 
         public override TimeScaleType TimeScale => TimeScaleType.Player;
 
-        [SerializeField]
-        private SpriteRenderer Sprite = null;
-        protected override ColorHandler DefaultColorHandler()
-            => new SpriteColorHandler(Sprite);
+        #region Prefabs
 
         [SerializeField]
-        private float Speed = GameConstants.PrefabNumber;
+        private SpriteRenderer _Sprite = null;
+
+        [SerializeField]
+        private float _Speed = GameConstants.PrefabNumber;
 
         [SerializeField]
         private float _OffsetFromBottom = GameConstants.PrefabNumber;
+
+        #endregion Prefabs
+
+        #region Prefab Properties
+
+        private SpriteRenderer Sprite => _Sprite;
+
+        private float Speed => _Speed;
+
         public float OffsetFromBottom => _OffsetFromBottom;
+
+        #endregion Prefab Properties
+
+        protected override ColorHandler DefaultColorHandler()
+            => new SpriteColorHandler(Sprite);
 
         private Vector2 Size { get; set; }
         private float BufferX { get; set; }

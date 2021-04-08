@@ -5,10 +5,23 @@ namespace Assets.Bullets.EnemyBullets
     /// <inheritdoc/>
     public abstract class PermanentVelocityEnemyBullet : EnemyBullet
     {
+        #region Prefabs
+
         [SerializeField]
-        protected float PermanentVelocityX;
+        protected float _PermanentVelocityX;
         [SerializeField]
-        protected float PermanentVelocityY;
+        protected float _PermanentVelocityY;
+
+        #endregion Prefabs
+
+        #region Prefab Properties
+
+        [SerializeField]
+        public float PermanentVelocityX => _PermanentVelocityX;
+        [SerializeField]
+        public float PermanentVelocityY => _PermanentVelocityY;
+
+        #endregion Prefab Properties
 
         private Vector2 _velocity;
         public override Vector2 Velocity { get => _velocity; set { } }

@@ -140,18 +140,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 405f6cc14f497a542a3f24e7bdca6954, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InitialSpawnHealth: 100000
-  HealthScaling: 1
-  Sprite: {fileID: 1215291524090350062}
-  _victimMarkerDistance: 0.6
-  HealthBarOffsetScale: {x: 0, y: 0.8, z: 0}
-  FireSpeed: 2
-  FireSpeedVariance: 0
-  LastestDamageHealthBar: {fileID: 8401427043427129176}
-  DamageTextDistance: 1
-  DamageTextAngleStep: 15
-  InfernoDamageTextAngle: 45
-  InfernoDamageTextDistance: 0.5
+  _InitialSpawnHealth: 100000
+  _HealthScaling: 1
+  _Sprite: {fileID: 1215291524090350062}
+  _VictimMarkerDistance: 0.6
+  _HealthBarOffsetScale: {x: 0, y: 0.8, z: 0}
+  _FireSpeed: 2
+  _FireSpeedVariance: 0
+  _LastestDamageHealthBar: {fileID: 8401427043427129176}
+  _DamageTextDistance: 1
+  _DamageTextAngleStep: 15
+  _InfernoDamageTextAngle: 45
+  _InfernoDamageTextDistance: 0.5
 --- !u!1001 &2735493065413548216
 PrefabInstance:
   m_ObjectHideFlags: 0

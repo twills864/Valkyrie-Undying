@@ -134,7 +134,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 064b69407dde0344997d360c222fb6c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Sprite: {fileID: 3693954503732233064}
-  ReflectedDamage: 15
-  PermanentVelocityX: 0
-  PermanentVelocityY: -2.5
+  _Sprite: {fileID: 3693954503732233064}
+  _ReflectDamage: 15
+  _PermanentVelocityX: 0
+  _PermanentVelocityY: -2.5

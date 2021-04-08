@@ -23,17 +23,32 @@ namespace Assets.Powerups
 
         public override TimeScaleType TimeScale => TimeScaleType.Player;
 
-        [SerializeField]
-        private SpriteRenderer Sprite = null;
-        protected override ColorHandler DefaultColorHandler()
-            => new SpriteColorHandler(Sprite);
+        #region Prefabs
 
         [SerializeField]
-        private float FireTimerIntervalBase = GameConstants.PrefabNumber;
+        private SpriteRenderer _Sprite = null;
+
         [SerializeField]
-        private float FadeInTime = GameConstants.PrefabNumber;
+        private float _FireTimerIntervalBase = GameConstants.PrefabNumber;
         [SerializeField]
-        private float FadeInTimeFireDelay = GameConstants.PrefabNumber;
+        private float _FadeInTime = GameConstants.PrefabNumber;
+        [SerializeField]
+        private float _FadeInTimeFireDelay = GameConstants.PrefabNumber;
+
+        #endregion Prefabs
+
+        #region Prefab Properties
+
+        private SpriteRenderer Sprite => _Sprite;
+
+        private float FireTimerIntervalBase => _FireTimerIntervalBase;
+        private float FadeInTime => _FadeInTime;
+        private float FadeInTimeFireDelay => _FadeInTimeFireDelay;
+
+        #endregion Prefab Properties
+
+        protected override ColorHandler DefaultColorHandler()
+            => new SpriteColorHandler(Sprite);
 
         private Vector2 Size { get; set; }
         public SpriteBoxMap BoxMap { get; private set; }

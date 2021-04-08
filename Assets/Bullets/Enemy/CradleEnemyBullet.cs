@@ -6,9 +6,17 @@ namespace Assets.Bullets.EnemyBullets
     /// <inheritdoc/>
     public class CradleEnemyBullet : EnemyBullet
     {
-        //public override int ReflectedDamage => 10;
+        #region Prefabs
 
         [SerializeField]
-        public float Speed = GameConstants.PrefabNumber;
+        private float _Speed = GameConstants.PrefabNumber;
+
+        #endregion Prefabs
+
+        #region Prefab Properties
+
+        public float Speed => _Speed;
+
+        #endregion Prefab Properties
     }
 }

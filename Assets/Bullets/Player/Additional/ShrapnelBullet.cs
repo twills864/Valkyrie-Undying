@@ -10,20 +10,23 @@ namespace Assets.Bullets.PlayerBullets
     /// <inheritdoc/>
     public class ShrapnelBullet : PlayerBullet
     {
+        protected override bool ShouldMarkSelfCollision => false;
+
+        #region Prefabs
+
         [SerializeField]
         private float _Speed = GameConstants.PrefabNumber;
+
+        #endregion Prefabs
+
+        #region Prefab Properties
+
         public float Speed => _Speed;
 
-        protected override bool ShouldMarkSelfCollision => false;
+        #endregion Prefab Properties
 
         public bool IsBurning => FireDamage != 0;
         public int FireDamage { get; set; }
-
-        public override bool CollidesWithEnemy(Enemy enemy)
-        {
-            bool ret = !Parent.IsTarget(enemy);
-            return ret;
-        }
 
         public PooledObjectTracker Parent { get; private set; }
 
@@ -37,8 +40,15 @@ namespace Assets.Bullets.PlayerBullets
             FireDamage = 0;
         }
 
+        public override bool CollidesWithEnemy(Enemy enemy)
+        {
+            bool ret = !Parent.IsTarget(enemy);
+            return ret;
+        }
+
         public override void OnCollideWithEnemy(Enemy enemy)
         {
+            // Burn enemy if applicable before deactivating.
             if(IsBurning && !enemy.IsBurning)
                 enemy.Ignite(FireDamage, FireDamage);
 

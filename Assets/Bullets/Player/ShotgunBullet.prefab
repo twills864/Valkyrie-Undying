@@ -134,10 +134,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd1c4c111eb29b447bb6ea4e6f9c1e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Sprite: {fileID: 2959985393852287726}
-  BaseDamage: 10
-  BulletVelocityY: 10
-  BulletOffsetX: 0
-  BulletOffsetY: 0
-  BulletSpreadX: 0.2
-  BulletSpreadY: 0
+  _Sprite: {fileID: 2959985393852287726}
+  _BaseDamage: 10
+  _BulletVelocityY: 10
+  _BulletOffsetX: 0
+  _BulletOffsetY: 0
+  _BulletSpreadX: 0.2
+  _BulletSpreadY: 0

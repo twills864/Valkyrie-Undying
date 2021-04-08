@@ -144,10 +144,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d64cc92e1c2a1d1469f95f3e1cd44ea9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Sprite: {fileID: 2502820598910793803}
-  BaseDamage: 100
-  DamagePerLevel: 20
-  InitialScaleX: 0.2
-  ScaleXPerLevel: 0.15
-  FullBrightTime: 0.3
-  FadeTime: 0.5
+  _Sprite: {fileID: 2502820598910793803}
+  _BaseDamage: 100
+  _DamagePerLevel: 20
+  _InitialScaleX: 0.2
+  _ScaleXPerLevel: 0.15
+  _FullBrightTime: 0.3
+  _FadeTime: 0.5

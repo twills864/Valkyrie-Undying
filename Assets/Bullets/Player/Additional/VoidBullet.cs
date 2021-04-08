@@ -12,10 +12,20 @@ namespace Assets.Bullets.PlayerBullets
     /// <inheritdoc/>
     public class VoidBullet : VoidEffectBullet
     {
-        [SerializeField]
-        private float ScaleTime = GameConstants.PrefabNumber;
-
         protected override bool ShouldReflectBullet => BulletLevel > 1;
+
+        #region Prefabs
+
+        [SerializeField]
+        private float _ScaleTime = GameConstants.PrefabNumber;
+
+        #endregion Prefabs
+
+        #region Prefab Properties
+
+        private float ScaleTime => _ScaleTime;
+
+        #endregion Prefab Properties
 
         private float Scale { get; set; }
         private float Duration { get; set; }
@@ -24,7 +34,7 @@ namespace Assets.Bullets.PlayerBullets
         private Delay Delay { get; set; }
         private EaseOut3 ScaleOut { get; set; }
 
-        private Sequence Sequence { get; set; }
+        private Sequence Behavior { get; set; }
 
         public static VoidBullet StartVoid(Vector3 position, int level, float scale, float duration)
         {
@@ -47,13 +57,13 @@ namespace Assets.Bullets.PlayerBullets
             var scaleOut = new ScaleTo(this, Scale, InitialScale, ScaleTime);
             ScaleOut = new EaseOut3(scaleOut);
 
-            Sequence = new Sequence(ScaleIn, Delay, ScaleOut);
+            Behavior = new Sequence(ScaleIn, Delay, ScaleOut);
         }
 
         protected override void OnPlayerBulletFrameRun(float deltaTime, float realDeltaTime)
         {
-            if (!Sequence.IsFinished)
-                Sequence.RunFrame(deltaTime);
+            if (!Behavior.IsFinished)
+                Behavior.RunFrame(deltaTime);
             else
                 DeactivateSelf();
         }

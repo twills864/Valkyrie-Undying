@@ -134,8 +134,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 508b2c4dd15b4ca19514fc74304c453d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Sprite: {fileID: 2959985393852287726}
-  BaseDamage: 20
-  PermanentVelocityX: 0
-  PermanentVelocityY: 5
-  OffsetX: 0.5
+  _Sprite: {fileID: 2959985393852287726}
+  _BaseDamage: 20
+  _PermanentVelocityX: 0
+  _PermanentVelocityY: 5
+  _OffsetX: 0.5

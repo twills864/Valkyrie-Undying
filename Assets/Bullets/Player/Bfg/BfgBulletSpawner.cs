@@ -35,20 +35,33 @@ namespace Assets.Bullets.PlayerBullets
             Instance.ScaleXPerLevel = scaleXPerLevel;
         }
 
-        [SerializeField]
-        private float FadeInTime = GameConstants.PrefabNumber;
+        #region Prefabs
 
         [SerializeField]
-        private float MaxAlpha = GameConstants.PrefabNumber;
+        private float _FadeInTime = GameConstants.PrefabNumber;
 
         [SerializeField]
-        private float FallbackDeactivationTime = GameConstants.PrefabNumber;
+        private float _MaxAlpha = GameConstants.PrefabNumber;
 
-        private float InitialScaleX;
-        private float ScaleXPerLevel;
+        [SerializeField]
+        private float _FallbackDeactivationTime = GameConstants.PrefabNumber;
+
+        #endregion Prefabs
+
+        #region Prefab Properties
+
+        private float FadeInTime => _FadeInTime;
+
+        private float MaxAlpha => _MaxAlpha;
+
+        private float FallbackDeactivationTime => _FallbackDeactivationTime;
+
+        #endregion Prefab Properties
+
+        private float InitialScaleX { get; set; }
+        private float ScaleXPerLevel { get; set; }
         private ScaleTo ScaleIn { get; set; }
         private Sequence FallbackDeactivate { get; set; }
-
 
         protected override void OnPlayerBulletInit()
         {

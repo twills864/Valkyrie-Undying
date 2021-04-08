@@ -8,8 +8,18 @@ namespace Assets.Bullets.PlayerBullets
     /// <inheritdoc/>
     public class GatlingBullet : RaycastPlayerBullet
     {
+        #region Prefabs
+
         [SerializeField]
-        private float LaserAlphaRatio = GameConstants.PrefabNumber;
+        private float _LaserAlphaRatio = GameConstants.PrefabNumber;
+
+        #endregion Prefabs
+
+        #region Prefab Properties
+
+        private float LaserAlphaRatio => _LaserAlphaRatio;
+
+        #endregion Prefab Properties
 
         protected override bool ShouldMarkSelfCollision => false;
         protected override bool ShouldDeactivateOnDestructor => false;

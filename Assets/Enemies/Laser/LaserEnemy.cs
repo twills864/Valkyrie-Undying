@@ -13,19 +13,30 @@ namespace Assets.Enemies
     /// <inheritdoc/>
     public class LaserEnemy : Enemy
     {
+        #region Prefabs
+
+        [SerializeField]
+        private Vector2 _FlyTime = Vector2.zero;
+
+        [SerializeField]
+        private float _RotateTime = GameConstants.PrefabNumber;
+
+        #endregion Prefabs
+
+        #region Prefab Properties
+
+        private Vector2 FlyTime => _FlyTime;
+
+        private float RotateTime => _RotateTime;
+
+        #endregion Prefab Properties
+
         private enum FrameBehaviors
         {
             RunFlyInFrame0,
             RunFireFrame1,
             WaitForLaser2
         }
-
-        [SerializeField]
-        private Vector2 FlyTime = Vector2.zero;
-
-        [SerializeField]
-        private float RotateTime = GameConstants.PrefabNumber;
-
 
         private PositionRotator Rotator { get; set; }
 
@@ -121,7 +132,6 @@ namespace Assets.Enemies
             MoveX = difference.x;
             MoveY = difference.y;
         }
-
 
         protected override void OnEnemyFrame(float deltaTime, float realDeltaTime)
         {

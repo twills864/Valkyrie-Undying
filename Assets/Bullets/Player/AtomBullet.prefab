@@ -134,8 +134,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aee84d7cadf126847b6041319fd52367, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Sprite: {fileID: 8192347669736508926}
-  BaseDamage: 20
-  DamageAfterBounce: 10
-  Speed: 15
-  VelocityChangerDuration: 0.6
+  _Sprite: {fileID: 8192347669736508926}
+  _BaseDamage: 20
+  _DamageAfterBounce: 10
+  _Speed: 15
+  _VelocityChangerDuration: 0.6

@@ -83,10 +83,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29248f3b5d73ccc46ad39f878abfd8c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Sprite: {fileID: 7995448052064837697}
-  BaseDamage: 5
-  PermanentVelocityX: 0
-  PermanentVelocityY: 10
+  _Sprite: {fileID: 7995448052064837697}
+  _BaseDamage: 5
+  _PermanentVelocityX: 0
+  _PermanentVelocityY: 10
 --- !u!212 &7995448052064837697
 SpriteRenderer:
   m_ObjectHideFlags: 0

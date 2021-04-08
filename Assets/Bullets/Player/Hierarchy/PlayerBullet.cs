@@ -13,8 +13,19 @@ namespace Assets.Bullets.PlayerBullets
         public override string LogTagColor => "#B381FE";
         public override TimeScaleType TimeScale => TimeScaleType.PlayerBullet;
 
+        #region Prefabs
+
         [SerializeField]
-        protected int BaseDamage;
+        private int _BaseDamage;
+
+        #endregion Prefabs
+
+        #region Prefab Properties
+
+        protected int BaseDamage => _BaseDamage;
+
+        #endregion Prefab Properties
+
         public virtual int Damage => BaseDamage;
         public virtual float PestControlChance => Damage * 0.01f;
 

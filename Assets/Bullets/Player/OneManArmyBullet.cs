@@ -12,7 +12,18 @@ namespace Assets.Bullets.PlayerBullets
     /// <inheritdoc/>
     public class OneManArmyBullet : PermanentVelocityPlayerBullet
     {
+        #region Prefabs
+
         [SerializeField]
-        public float OffsetX = GameConstants.PrefabNumber;
+        private float _OffsetX = GameConstants.PrefabNumber;
+
+        #endregion Prefabs
+
+        #region Prefab Properties
+
+        [SerializeField]
+        public float OffsetX => _OffsetX;
+
+        #endregion Prefab Properties
     }
 }

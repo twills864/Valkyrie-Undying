@@ -11,10 +11,24 @@ namespace Assets.Enemies
     /// <inheritdoc/>
     public class RingEnemy : PermanentVelocityEnemy
     {
+        #region Prefabs
+
         [SerializeField]
-        private float RotationSpeed = GameConstants.PrefabNumber;
+        private float _RotationSpeed = GameConstants.PrefabNumber;
         [SerializeField]
-        private float MinimumTravelTime = GameConstants.PrefabNumber;
+        private float _MinimumTravelTime = GameConstants.PrefabNumber;
+
+        #endregion Prefabs
+
+        #region Prefab Properties
+
+        private float RotationSpeed => _RotationSpeed;
+        private float MinimumTravelTime => _MinimumTravelTime;
+
+        #endregion Prefab Properties
+
+
+
 
         public RingEnemyRing Ring { get; set; }
 

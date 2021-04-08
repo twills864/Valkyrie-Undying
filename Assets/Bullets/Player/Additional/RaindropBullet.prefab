@@ -118,10 +118,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39ed3970cf4501a46a70530654126803, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Sprite: {fileID: 2959985393852287726}
-  BaseDamage: 10
-  PermanentVelocityX: 0
-  PermanentVelocityY: 5
+  _Sprite: {fileID: 2959985393852287726}
+  _BaseDamage: 10
+  _PermanentVelocityX: 0
+  _PermanentVelocityY: 5
 --- !u!61 &8588546190477195890
 BoxCollider2D:
   m_ObjectHideFlags: 0

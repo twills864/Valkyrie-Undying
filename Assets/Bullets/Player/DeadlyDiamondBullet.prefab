@@ -147,8 +147,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c15e688e25a425b9a96dba97a93768a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Sprite: {fileID: 2959985393852287726}
-  BaseDamage: 9
+  _Sprite: {fileID: 2959985393852287726}
+  _BaseDamage: 9
   _Speed: 6
   _OffsetX: 0.25
   _MaxAngle: 12.5

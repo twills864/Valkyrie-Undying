@@ -45,10 +45,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70dac901c57304d46b7547f1f3673cba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GuideWidth: 0.03
-  FadeInTime: 1
-  LeftHost: {fileID: 543392517622853295}
-  RightHost: {fileID: 7250492988651088051}
+  _GuideWidth: 0.03
+  _FadeInTime: 1
+  _LeftHost: {fileID: 543392517622853295}
+  _RightHost: {fileID: 7250492988651088051}
 --- !u!1001 &384000318723186769
 PrefabInstance:
   m_ObjectHideFlags: 0

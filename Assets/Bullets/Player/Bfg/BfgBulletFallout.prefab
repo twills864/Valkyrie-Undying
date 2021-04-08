@@ -95,6 +95,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ef0a985e2ccf1c4084ac704b51df7c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Sprite: {fileID: 4705214370244944632}
-  BaseDamage: 0
-  MaxAlpha: 0.175
+  _Sprite: {fileID: 4705214370244944632}
+  _BaseDamage: 0
+  _MaxAlpha: 0.175

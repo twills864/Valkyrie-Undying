@@ -95,11 +95,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3928c3b88917800408e69c2b6649417a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Sprite: {fileID: 2502820598910793803}
-  ReflectedDamage: 0
-  FadeInTime: 0.75
-  PrefireFullBrightTime: 0.75
-  FullBrightTime: 0.15
-  FadeTime: 0.5
-  PrefireColor: {r: 1, g: 0, b: 0.2509804, a: 0.5019608}
-  SpawnPoint: {x: 0, y: 0, z: 0}
+  _Sprite: {fileID: 2502820598910793803}
+  _ReflectDamage: 0
+  _FadeInTime: 0.75
+  _PrefireFullBrightTime: 0.75
+  _FullBrightTime: 0.15
+  _FadeTime: 0.5
+  _PrefireColor: {r: 1, g: 0, b: 0.2509804, a: 0.5019608}
+  _SpawnPoint: {x: 0, y: 0, z: 0}

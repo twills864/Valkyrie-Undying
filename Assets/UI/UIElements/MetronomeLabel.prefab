@@ -108,5 +108,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f73aff18a0131ab45b1fa6c7ca5f93d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Mesh: {fileID: 8059630828151787991}
-  FadeTime: 0.15
+  _Mesh: {fileID: 8059630828151787991}
+  _FadeTime: 0.15

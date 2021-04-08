@@ -7,19 +7,31 @@ namespace Assets.UI
     /// <inheritdoc/>
     public class AtomTrail : UIElement
     {
+        #region Prefabs
+
+        [SerializeField]
+        public float _TrailTime;
+
+        [SerializeField]
+        private TrailRenderer _Trail;
+
+        #endregion Prefabs
+
+        #region Prefab Properties
+
+        public float TrailTime => _TrailTime;
+
+        private TrailRenderer Trail => _Trail;
+
+        #endregion Prefab Properties
+
         protected override ColorHandler DefaultColorHandler()
             => new TrailColorHandler(Trail);
 
-        [SerializeField]
-        public float TrailTime;
-
-        [SerializeField]
-        private TrailRenderer Trail;
         private FrameTimer DeactivateTimer { get; set; }
 
         protected sealed override void OnUIElementInit()
         {
-            Trail = GetComponent<TrailRenderer>();
             DeactivateTimer = new FrameTimer(TrailTime);
             DeactivateTimer.ActivateSelf();
         }

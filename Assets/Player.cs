@@ -18,22 +18,42 @@ namespace Assets
     public class Player : ValkyrieSprite, IVictimHost
     {
         public static Player Instance { get; private set; }
+        private static float MobileY { get; set; }
 
         public override string LogTagColor => "#60D3FF";
         public override TimeScaleType TimeScale => TimeScaleType.Player;
 
-        [SerializeField]
-        private SpriteRenderer Sprite = null;
         protected override ColorHandler DefaultColorHandler()
             => new SpriteColorHandler(Sprite);
 
-        [SerializeField]
-        private GameObject BloodlustAuraObject = null;
-        [SerializeField]
-        private MortarGuide MortarGuide = null;
+        #region Prefabs
 
-        public FrameTimerWithBuffer MortarFireTimer { get; private set; }
-        public bool ShouldDrawMortar { get; set; }
+        [SerializeField]
+        private SpriteRenderer _Sprite = null;
+
+        [SerializeField]
+        private GameObject _BloodlustAuraObject = null;
+
+        [SerializeField]
+        private MortarGuide _MortarGuide = null;
+
+        [SerializeField]
+        private float _MobileYOffset = GameConstants.PrefabNumber;
+
+        [SerializeField]
+        private float _VictimMarkerDistance = GameConstants.PrefabNumber;
+
+        #endregion Prefabs
+
+        #region Prefab Properties
+
+        public SpriteRenderer Sprite => _Sprite;
+        private GameObject BloodlustAuraObject => _BloodlustAuraObject;
+        private MortarGuide MortarGuide => _MortarGuide;
+        private float MobileYOffset => _MobileYOffset;
+        public float VictimMarkerDistance => _VictimMarkerDistance;
+
+        #endregion Prefab Properties
 
         private Rigidbody2D Body { get; set; }
         private LineRenderer LineRenderer { get; set; }
@@ -44,10 +64,6 @@ namespace Assets
         public ColliderBoxMap ColliderMap { get; private set; }
 
         public Collider2D Collider { get; private set; }
-
-        [SerializeField]
-        private float MobileYOffset = GameConstants.PrefabNumber;
-        private static float MobileY;
 
         private float MinX { get; set; }
         private float MaxX { get; set; }
@@ -62,9 +78,8 @@ namespace Assets
 
         #endregion Fire Speed
 
-        [SerializeField]
-        private float _victimMarkerDistance = GameConstants.PrefabNumber;
-        public float VictimMarkerDistance => _victimMarkerDistance;
+        #region Victim
+
         private VictimMarker _victimMarker;
         public VictimMarker VictimMarker
         {
@@ -77,6 +92,14 @@ namespace Assets
             }
         }
 
+        #endregion Victim
+
+        #region Mortar
+
+        public FrameTimerWithBuffer MortarFireTimer { get; private set; }
+        public bool ShouldDrawMortar { get; set; }
+
+        #endregion Mortar
 
         private void Start()
         {
@@ -203,38 +226,6 @@ namespace Assets
                 SetPosition(SpaceUtil.WorldPositionUnderMouse());
         }
 
-        private void ResetBloodlust()
-        {
-            BloodlustSpeedScale = 1.0f;
-            BloodlustAuraObject.gameObject.SetActive(false);
-        }
-
-        public void SetBloodlust(float duration, float speedScale)
-        {
-            BloodlustTimer = new FrameTimer(duration);
-            BloodlustSpeedScale = speedScale;
-
-            BloodlustAuraObject.gameObject.SetActive(true);
-        }
-
-        //private void DrawMortar()
-        //{
-        //    Color color = SpriteColor;
-        //    color.a = 0.5f;
-
-        //    var map = SpaceUtil.WorldMap;
-        //    Vector3 center = new Vector3(PositionX, map.Center.y, 0);
-
-
-        //    Vector3 diff1 = center - map.BottomLeft;
-        //    diff1 *= 2;
-        //    Debug.DrawRay(map.BottomLeft, diff1, color, float.Epsilon);
-
-        //    Vector3 diff2 = center - map.BottomRight;
-        //    diff2 *= 2;
-        //    Debug.DrawRay(map.BottomRight, diff2, color, float.Epsilon);
-        //}
-
         /// <summary>
         /// Returns true if the given <paramref name="collider"/> collides with the player.
         /// </summary>
@@ -279,5 +270,24 @@ namespace Assets
                 return false;
             }
         }
+
+
+        #region Bloodlust
+
+        private void ResetBloodlust()
+        {
+            BloodlustSpeedScale = 1.0f;
+            BloodlustAuraObject.gameObject.SetActive(false);
+        }
+
+        public void SetBloodlust(float duration, float speedScale)
+        {
+            BloodlustTimer = new FrameTimer(duration);
+            BloodlustSpeedScale = speedScale;
+
+            BloodlustAuraObject.gameObject.SetActive(true);
+        }
+
+        #endregion Bloodlust
     }
 }

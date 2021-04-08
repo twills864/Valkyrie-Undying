@@ -120,10 +120,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6808a016f81891848a57729de8efb442, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Sprite: {fileID: 1173633443530965504}
-  BloodlustAuraObject: {fileID: 5388168560827903027}
-  MobileYOffset: 1.5
-  _victimMarkerDistance: 0.75
+  _Sprite: {fileID: 1173633443530965504}
+  _BloodlustAuraObject: {fileID: 5388168560827903027}
+  _MobileYOffset: 1.5
+  _VictimMarkerDistance: 0.75
 --- !u!60 &5303219948123075438
 PolygonCollider2D:
   m_ObjectHideFlags: 0

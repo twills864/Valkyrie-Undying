@@ -11,11 +11,23 @@ namespace Assets.Enemies
 {
     public abstract class FireStrategyEnemy : Enemy
     {
-        [SerializeField]
-        protected float FireSpeed;
+        #region Prefabs
 
         [SerializeField]
-        protected float FireSpeedVariance;
+        private float _FireSpeed;
+
+        [SerializeField]
+        private float _FireSpeedVariance;
+
+        #endregion Prefabs
+
+        #region Prefab Properties
+
+        protected float FireSpeed => _FireSpeed;
+
+        protected float FireSpeedVariance => _FireSpeedVariance;
+
+        #endregion Prefab Properties
 
         public LoopingFrameTimer FireTimer => FireStrategy.FireTimer;
 

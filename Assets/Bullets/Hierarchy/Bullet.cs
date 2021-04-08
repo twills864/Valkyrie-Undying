@@ -7,8 +7,18 @@ namespace Assets.Bullets
     /// <inheritdoc/>
     public abstract class Bullet : PooledObject
     {
+        #region Prefabs
+
         [SerializeField]
-        protected SpriteRenderer Sprite;
+        private SpriteRenderer _Sprite;
+
+        #endregion Prefabs
+
+        #region Prefab Properties
+
+        protected SpriteRenderer Sprite => _Sprite;
+
+        #endregion Prefab Properties
 
         protected override ColorHandler DefaultColorHandler()
             => new SpriteColorHandler(Sprite);

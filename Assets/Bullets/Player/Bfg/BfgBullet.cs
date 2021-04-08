@@ -15,24 +15,44 @@ namespace Assets.Bullets.PlayerBullets
 
         public override int Damage => base.Damage + (BulletLevel * DamagePerLevel);
 
-        [SerializeField]
-        private int DamagePerLevel = GameConstants.PrefabNumber;
+        public override Vector3 GetHitPosition(Enemy enemy) => GetClosestPoint(enemy);
+
+        #region Prefabs
 
         [SerializeField]
-        private float InitialScaleX = GameConstants.PrefabNumber;
+        private int _DamagePerLevel = GameConstants.PrefabNumber;
+
 
         [SerializeField]
-        private float ScaleXPerLevel = GameConstants.PrefabNumber;
+        private float _InitialScaleX = GameConstants.PrefabNumber;
 
         [SerializeField]
-        private float FullBrightTime = GameConstants.PrefabNumber;
+        private float _ScaleXPerLevel = GameConstants.PrefabNumber;
+
 
         [SerializeField]
-        private float FadeTime = GameConstants.PrefabNumber;
+        private float _FullBrightTime = GameConstants.PrefabNumber;
 
-        private Sequence Sequence { get; set; }
+        [SerializeField]
+        private float _FadeTime = GameConstants.PrefabNumber;
 
-        private bool HitBoxActive;
+        #endregion Prefabs
+
+        #region Prefab Properties
+
+        private int DamagePerLevel => _DamagePerLevel;
+
+        private float InitialScaleX => _InitialScaleX;
+        private float ScaleXPerLevel => _ScaleXPerLevel;
+
+        private float FullBrightTime => _FullBrightTime;
+        private float FadeTime => _FadeTime;
+
+        #endregion Prefab Properties
+
+        private Sequence Behavior { get; set; }
+
+        private bool HitBoxActive { get; set; }
 
         public void InitSpawner() => BfgBulletSpawner.StaticInitScale(InitialScaleX, ScaleXPerLevel);
         public void InitFallout() => BfgBulletFallout.StaticInitFadeInfo(FullBrightTime, FadeTime);
@@ -50,14 +70,14 @@ namespace Assets.Bullets.PlayerBullets
             var fadeTo = new FadeTo(this, 0.0f, FadeTime);
             var deactivate = GameTaskFunc.DeactivateSelf(this);
 
-            Sequence = new Sequence(delay, removeActive, fadeTo, deactivate);
+            Behavior = new Sequence(delay, removeActive, fadeTo, deactivate);
         }
 
         protected override void OnActivate()
         {
             HitBoxActive = true;
             Alpha = FullBright;
-            Sequence.ResetSelf();
+            Behavior.ResetSelf();
 
             BfgBulletFallout.ActivateInstance();
         }
@@ -73,7 +93,7 @@ namespace Assets.Bullets.PlayerBullets
 
         protected override void OnPlayerBulletFrameRun(float deltaTime, float realDeltaTime)
         {
-            Sequence.RunFrame(deltaTime);
+            Behavior.RunFrame(deltaTime);
         }
 
         public override bool CollidesWithEnemy(Enemy enemy) => HitBoxActive;
@@ -94,7 +114,5 @@ namespace Assets.Bullets.PlayerBullets
                 }
             }
         }
-
-        public override Vector3 GetHitPosition(Enemy enemy) => GetClosestPoint(enemy);
     }
 }

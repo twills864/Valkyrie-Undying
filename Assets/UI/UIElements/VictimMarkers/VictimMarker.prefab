@@ -44,8 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e39ac6f9b3eb56e40b0ceda7b4cc3ee9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FadeTime: 0.2
-  StartDistance: 3
+  _FadeTime: 0.2
+  _StartDistance: 3
 --- !u!212 &2744186383143280971
 SpriteRenderer:
   m_ObjectHideFlags: 0

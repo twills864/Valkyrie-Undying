@@ -134,6 +134,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf2911bbf8bc80e458ddd642935c77c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Sprite: {fileID: 2365227932041664316}
-  BaseDamage: 20
-  TravelTime: 1
+  _Sprite: {fileID: 2365227932041664316}
+  _BaseDamage: 20
+  _TravelTime: 1

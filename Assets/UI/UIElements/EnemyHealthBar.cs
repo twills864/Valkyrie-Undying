@@ -7,22 +7,27 @@ public class EnemyHealthBar : UIElement
 {
     public static float HealthBarHeight { get; private set; }
 
+    #region Prefabs
+
+    [SerializeField]
+    private TextMesh _TextMesh;
+
+    #endregion Prefabs
+
+    #region Prefab Properties
+
+    private TextMesh TextMesh => _TextMesh;
+
+    #endregion Prefab Properties
+
     protected override ColorHandler DefaultColorHandler()
         => new TextMeshColorHandler(TextMesh);
 
     private Color InitialColor => Color.white;
     private Color IgniteColor => new Color(1f, 0.5f, 0);
 
-    [SerializeField]
-    private TextMesh TextMesh;
-
     public float Height { get; private set; }
     public float HeightHalf { get; private set; }
-
-    private void Awake()
-    {
-        TextMesh = GetComponent<TextMesh>();
-    }
 
     protected override void OnUIElementInit()
     {

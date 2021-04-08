@@ -16,12 +16,24 @@ namespace Assets.Bullets.PlayerBullets
     {
         private const float ScreenBuffer = Destructor.Buffer;
 
+        #region Prefabs
+
         [SerializeField]
-        private float RotationSpeed = -1;
+        private float _RotationSpeed = GameConstants.PrefabNumber;
         [SerializeField]
-        private float BounceXVarianceMin = -1;
+        private float _BounceXVarianceMin = GameConstants.PrefabNumber;
         [SerializeField]
-        private float BounceXVarianceMax = -1;
+        private float _BounceXVarianceMax = GameConstants.PrefabNumber;
+
+        #endregion Prefabs
+
+        #region Prefab Properties
+
+        private float RotationSpeed => _RotationSpeed;
+        private float BounceXVarianceMin => _BounceXVarianceMin;
+        private float BounceXVarianceMax => _BounceXVarianceMax;
+
+        #endregion Prefab Properties
 
         private float ElapsedTime { get; set; }
         private float SqrtMapHeight { get; set; }

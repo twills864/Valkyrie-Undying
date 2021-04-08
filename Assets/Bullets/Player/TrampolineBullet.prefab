@@ -118,13 +118,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfca1e587d7fdb8489b4bc8abfdbb79e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Sprite: {fileID: 7320689364202795330}
-  BaseDamage: 40
-  DamageAfterBounce: 40
-  Speed: 15
-  RotationSpeed: 1080
-  BounceXVarianceMin: 4
-  BounceXVarianceMax: 8
+  _Sprite: {fileID: 7320689364202795330}
+  _BaseDamage: 40
+  _DamageAfterBounce: 40
+  _Speed: 15
+  _RotationSpeed: 1080
+  _BounceXVarianceMin: 4
+  _BounceXVarianceMax: 8
 --- !u!60 &4729551510960159759
 PolygonCollider2D:
   m_ObjectHideFlags: 0

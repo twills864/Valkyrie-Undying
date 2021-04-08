@@ -1,20 +1,38 @@
-﻿using UnityEngine;
+﻿using Assets.Constants;
+using UnityEngine;
 
 namespace Assets.Bullets.PlayerBullets
 {
     /// <inheritdoc/>
     public class FlakBullet : PlayerBullet
     {
-        [SerializeField]
-        public float BulletVelocityY;
+        #region Prefabs
 
         [SerializeField]
-        public float BulletOffsetX;
+        private float _BulletVelocityY = GameConstants.PrefabNumber;
+
         [SerializeField]
-        public float BulletOffsetY;
+        private float _BulletOffsetX = GameConstants.PrefabNumber;
         [SerializeField]
-        public float BulletSpreadX;
+        private float _BulletOffsetY = GameConstants.PrefabNumber;
+
         [SerializeField]
-        public float BulletSpreadY;
+        private float _BulletSpreadX = GameConstants.PrefabNumber;
+        [SerializeField]
+        private float _BulletSpreadY = GameConstants.PrefabNumber;
+
+        #endregion Prefabs
+
+        #region Prefab Properties
+
+        public float BulletVelocityY => _BulletVelocityY;
+
+        public float BulletOffsetX => _BulletOffsetX;
+        public float BulletOffsetY => _BulletOffsetY;
+
+        public float BulletSpreadX => _BulletSpreadX;
+        public float BulletSpreadY => _BulletSpreadY;
+
+        #endregion Prefab Properties
     }
 }
