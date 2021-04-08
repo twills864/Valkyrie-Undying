@@ -27,12 +27,14 @@ namespace Assets.Bullets.PlayerBullets
 
         #endregion Prefabs
 
+
         #region Prefab Properties
 
         private int DamageAfterBounce => _DamageAfterBounce;
         public float Speed => _Speed;
 
         #endregion Prefab Properties
+
 
         protected virtual Vector2 InitialVelocity => new Vector2(0, Speed);
 

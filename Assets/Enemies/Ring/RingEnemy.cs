@@ -20,13 +20,13 @@ namespace Assets.Enemies
 
         #endregion Prefabs
 
+
         #region Prefab Properties
 
         private float RotationSpeed => _RotationSpeed;
         private float MinimumTravelTime => _MinimumTravelTime;
 
         #endregion Prefab Properties
-
 
 
 

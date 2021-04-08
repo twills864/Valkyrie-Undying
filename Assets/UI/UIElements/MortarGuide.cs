@@ -34,19 +34,17 @@ namespace Assets.UI
 
         #endregion Prefabs
 
+
         #region Prefab Properties
 
-        [SerializeField]
-        private float GuideWidth;
-        [SerializeField]
-        private float FadeInTime;
+        private float GuideWidth => _GuideWidth;
+        private float FadeInTime => _FadeInTime;
 
-        [SerializeField]
         private LineRendererHost LeftHost => _LeftHost;
-        [SerializeField]
         private LineRendererHost RightHost => _RightHost;
 
         #endregion Prefab Properties
+
 
         protected override ColorHandler DefaultColorHandler()
         {

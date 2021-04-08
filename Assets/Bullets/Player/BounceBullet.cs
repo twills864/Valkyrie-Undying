@@ -15,11 +15,13 @@ namespace Assets.Bullets.PlayerBullets
 
         #endregion Prefabs
 
+
         #region Prefab Properties
 
         private float RotationSpeed => _RotationSpeed;
 
         #endregion Prefab Properties
+
 
         protected override void OnPlayerBulletFrameRun(float deltaTime, float realDeltaTime)
         {

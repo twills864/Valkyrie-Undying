@@ -33,24 +33,19 @@ namespace Assets.Enemies
 
         #endregion Prefabs
 
+
         #region Prefab Properties
 
-        [SerializeField]
         private EnemyHealthBar LastestDamageHealthBar => _LastestDamageHealthBar;
 
-        [SerializeField]
         private float DamageTextDistance => _DamageTextDistance;
-
-        [SerializeField]
         private float DamageTextAngleStep => _DamageTextAngleStep;
 
-        [SerializeField]
         private float InfernoDamageTextAngle => _InfernoDamageTextAngle;
-
-        [SerializeField]
         private float InfernoDamageTextDistance => _InfernoDamageTextDistance;
 
         #endregion Prefab Properties
+
 
         private Vector3 InfernoDamageAngle { get; set; }
         private CircularSelector<Vector3> AngleLanes { get; set; }

@@ -20,12 +20,13 @@ namespace Assets.Bullets.PlayerBullets
 
         #endregion Prefabs
 
+
         #region Prefab Properties
 
-        [SerializeField]
         private float TravelTime => _TravelTime;
 
         #endregion Prefab Properties
+
 
         private EaseInTimer TravelTimer { get; set; }
 

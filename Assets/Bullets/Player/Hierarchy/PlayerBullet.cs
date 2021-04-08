@@ -20,11 +20,13 @@ namespace Assets.Bullets.PlayerBullets
 
         #endregion Prefabs
 
+
         #region Prefab Properties
 
         protected int BaseDamage => _BaseDamage;
 
         #endregion Prefab Properties
+
 
         public virtual int Damage => BaseDamage;
         public virtual float PestControlChance => Damage * 0.01f;

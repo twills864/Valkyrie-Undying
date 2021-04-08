@@ -19,11 +19,12 @@ namespace Assets.Bullets.PlayerBullets
 
         #endregion Prefabs
 
+
         #region Prefab Properties
 
-        [SerializeField]
         public float OffsetX => _OffsetX;
 
         #endregion Prefab Properties
+
     }
 }

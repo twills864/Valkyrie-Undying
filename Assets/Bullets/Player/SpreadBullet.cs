@@ -28,6 +28,7 @@ namespace Assets.Bullets.PlayerBullets
 
         #endregion Prefabs
 
+
         #region Prefab Properties
 
         public int AdditionalBulletDamage => _AdditionalBulletDamage;
@@ -37,6 +38,7 @@ namespace Assets.Bullets.PlayerBullets
         public float DampX => _DampX;
 
         #endregion Prefab Properties
+
 
         public void SetDamage(bool isMainBullet)
         {

@@ -15,11 +15,13 @@ namespace Assets.Bullets.PlayerBullets
 
         #endregion Prefabs
 
+
         #region Prefab Properties
 
         private float LaserAlphaRatio => _LaserAlphaRatio;
 
         #endregion Prefab Properties
+
 
         protected override bool ShouldMarkSelfCollision => false;
         protected override bool ShouldDeactivateOnDestructor => false;

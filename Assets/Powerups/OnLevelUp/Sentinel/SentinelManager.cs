@@ -24,11 +24,13 @@ namespace Assets.Powerups
 
         #endregion Prefabs
 
+
         #region Prefab Properties
 
         private float AngularVelocity => _AngularVelocity;
 
         #endregion Prefab Properties
+
 
         public static SentinelManager Instance { get; set; }
 

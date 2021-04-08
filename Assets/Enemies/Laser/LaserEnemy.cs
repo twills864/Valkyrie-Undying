@@ -23,13 +23,14 @@ namespace Assets.Enemies
 
         #endregion Prefabs
 
+
         #region Prefab Properties
 
         private Vector2 FlyTime => _FlyTime;
-
         private float RotateTime => _RotateTime;
 
         #endregion Prefab Properties
+
 
         private enum FrameBehaviors
         {

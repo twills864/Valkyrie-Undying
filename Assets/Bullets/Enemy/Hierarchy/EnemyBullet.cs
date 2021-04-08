@@ -18,11 +18,13 @@ namespace Assets.Bullets.EnemyBullets
 
         #endregion Prefabs
 
+
         #region Prefab Properties
 
         public int ReflectDamage => _ReflectDamage;
 
         #endregion Prefab Properties
+
 
         public virtual bool CanReflect => true;
         public virtual bool HitsPlayer => true;

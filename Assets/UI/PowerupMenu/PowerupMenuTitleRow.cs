@@ -17,11 +17,13 @@ namespace Assets.UI.PowerupMenu
 
         #endregion Prefabs
 
+
         #region Prefab Properties
 
         private Text TextField => _TextField;
 
         #endregion Prefab Properties
+
 
         public string Text
         {

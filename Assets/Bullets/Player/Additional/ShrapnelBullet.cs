@@ -19,11 +19,13 @@ namespace Assets.Bullets.PlayerBullets
 
         #endregion Prefabs
 
+
         #region Prefab Properties
 
         public float Speed => _Speed;
 
         #endregion Prefab Properties
+
 
         public bool IsBurning => FireDamage != 0;
         public int FireDamage { get; set; }

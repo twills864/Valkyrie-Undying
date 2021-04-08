@@ -21,11 +21,13 @@ namespace Assets.Bullets.PlayerBullets
 
         #endregion Prefabs
 
+
         #region Prefab Properties
 
         private float FadeTime => _FadeTime;
 
         #endregion Prefab Properties
+
 
         private float Scale { get; set; }
         private float Duration { get; set; }

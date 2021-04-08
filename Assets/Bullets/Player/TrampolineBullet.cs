@@ -27,6 +27,7 @@ namespace Assets.Bullets.PlayerBullets
 
         #endregion Prefabs
 
+
         #region Prefab Properties
 
         private float RotationSpeed => _RotationSpeed;
@@ -34,6 +35,7 @@ namespace Assets.Bullets.PlayerBullets
         private float BounceXVarianceMax => _BounceXVarianceMax;
 
         #endregion Prefab Properties
+
 
         private float ElapsedTime { get; set; }
         private float SqrtMapHeight { get; set; }

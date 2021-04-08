@@ -31,12 +31,14 @@ namespace Assets.UI
 
         #endregion Prefabs
 
+
         #region Prefab Properties
 
         private float FadeTime => _FadeTime;
         private float StartDistance => _StartDistance;
 
         #endregion Prefab Properties
+
 
         protected override ColorHandler DefaultColorHandler()
             => new NullColorHandler();

@@ -37,6 +37,7 @@ namespace Assets.Powerups
 
         #endregion Prefabs
 
+
         #region Prefab Properties
 
         private SpriteRenderer Sprite => _Sprite;
@@ -46,6 +47,7 @@ namespace Assets.Powerups
         private float FadeInTimeFireDelay => _FadeInTimeFireDelay;
 
         #endregion Prefab Properties
+
 
         protected override ColorHandler DefaultColorHandler()
             => new SpriteColorHandler(Sprite);

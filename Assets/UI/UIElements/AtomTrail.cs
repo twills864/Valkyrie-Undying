@@ -17,6 +17,7 @@ namespace Assets.UI
 
         #endregion Prefabs
 
+
         #region Prefab Properties
 
         public float TrailTime => _TrailTime;
@@ -24,6 +25,7 @@ namespace Assets.UI
         private TrailRenderer Trail => _Trail;
 
         #endregion Prefab Properties
+
 
         protected override ColorHandler DefaultColorHandler()
             => new TrailColorHandler(Trail);

@@ -18,6 +18,7 @@ namespace Assets.ScreenEdgeColliders
 
         #endregion Prefabs
 
+
         #region Prefab Properties
 
         private ScreenEdgeCollider Top => _Top;
@@ -26,6 +27,7 @@ namespace Assets.ScreenEdgeColliders
         private ScreenEdgeCollider Left => _Left;
 
         #endregion Prefab Properties
+
 
         /// <summary>
         /// Initializes this set of ScreenEdgeColliders to perfectly cover each edge of the visible screen.

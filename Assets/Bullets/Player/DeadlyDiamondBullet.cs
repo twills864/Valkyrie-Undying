@@ -27,6 +27,7 @@ namespace Assets.Bullets.PlayerBullets
 
         #endregion Prefabs
 
+
         #region Prefab Properties
 
         public float Speed => _Speed;
@@ -34,6 +35,7 @@ namespace Assets.Bullets.PlayerBullets
         public float MaxAngle => _MaxAngle;
 
         #endregion Prefab Properties
+
 
         protected override void OnPlayerBulletInit()
         {

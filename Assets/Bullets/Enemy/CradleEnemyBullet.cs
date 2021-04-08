@@ -13,10 +13,12 @@ namespace Assets.Bullets.EnemyBullets
 
         #endregion Prefabs
 
+
         #region Prefab Properties
 
         public float Speed => _Speed;
 
         #endregion Prefab Properties
+
     }
 }

@@ -29,6 +29,7 @@ namespace Assets.Bullets.PlayerBullets
 
         #endregion Prefabs
 
+
         #region Prefab Properties
 
         public float FadeInTime => _FadeInTime;
@@ -40,6 +41,7 @@ namespace Assets.Bullets.PlayerBullets
         public LineRenderer Line => _Line;
 
         #endregion Prefab Properties
+
 
         protected override ColorHandler DefaultColorHandler()
             => new LineRendererColorHandler(Line);

@@ -50,11 +50,13 @@ namespace Assets.Bullets.PlayerBullets
 
         #endregion Prefabs
 
+
         #region Prefab Properties
 
         private float MaxAlpha => _MaxAlpha;
 
         #endregion Prefab Properties
+
 
         private Color FullBright;
         private float DelayTime { get; set; }

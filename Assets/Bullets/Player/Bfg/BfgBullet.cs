@@ -38,6 +38,7 @@ namespace Assets.Bullets.PlayerBullets
 
         #endregion Prefabs
 
+
         #region Prefab Properties
 
         private int DamagePerLevel => _DamagePerLevel;
@@ -49,6 +50,7 @@ namespace Assets.Bullets.PlayerBullets
         private float FadeTime => _FadeTime;
 
         #endregion Prefab Properties
+
 
         private Sequence Behavior { get; set; }
 

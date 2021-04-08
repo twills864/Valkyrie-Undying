@@ -25,6 +25,7 @@ namespace Assets.Bullets.PlayerBullets
 
         #endregion Prefabs
 
+
         #region Prefab Properties
 
         private float StartSpeed => _StartSpeed;
@@ -33,6 +34,7 @@ namespace Assets.Bullets.PlayerBullets
         private float AccelerationTime => _AccelerationTime;
 
         #endregion Prefab Properties
+
 
         private Vector2 StartVelocity => new Vector2(0, StartSpeed);
         private Vector2 EndVelocity => new Vector2(0, EndSpeed);

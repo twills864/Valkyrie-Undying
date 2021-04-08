@@ -33,13 +33,14 @@ namespace Assets.UI
 
         #endregion Prefabs
 
+
         #region Prefab Properties
 
         private TextMesh Mesh => _Mesh;
-
         private float FadeTime => _FadeTime;
 
         #endregion Prefab Properties
+
 
         protected override ColorHandler DefaultColorHandler()
             => new TextMeshColorHandler(Mesh);

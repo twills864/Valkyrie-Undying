@@ -19,11 +19,13 @@ namespace Assets.Bullets.PlayerBullets
 
         #endregion Prefabs
 
+
         #region Prefab Properties
 
         public float Speed => _Speed;
 
         #endregion Prefab Properties
+
 
         protected override void OnPlayerBulletTriggerEnter2D(Collider2D collision)
         {

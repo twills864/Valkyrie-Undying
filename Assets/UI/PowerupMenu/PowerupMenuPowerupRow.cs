@@ -27,6 +27,7 @@ namespace Assets.UI.PowerupMenu
 
         #endregion Prefabs
 
+
         #region Prefab Properties
 
         private Text PowerupNameField => _PowerupNameField;
@@ -38,6 +39,7 @@ namespace Assets.UI.PowerupMenu
         private Button ButtonPlus => _ButtonPlus;
 
         #endregion Prefab Properties
+
 
         public Powerup Powerup { get; set; }
 

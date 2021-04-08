@@ -37,6 +37,7 @@ namespace Assets.Bullets.EnemyBullets
 
         #endregion Prefabs
 
+
         #region Prefab Properties
 
         private float FadeInTime => _FadeInTime;
@@ -46,6 +47,7 @@ namespace Assets.Bullets.EnemyBullets
         public Color PrefireColor => PrefireColor;
 
         #endregion Prefab Properties
+
 
         public Vector3 SpawnPoint { get; set; }
         public float WidthHalf { get; private set; }

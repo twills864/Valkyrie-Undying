@@ -45,6 +45,7 @@ namespace Assets
 
         #endregion Prefabs
 
+
         #region Prefab Properties
 
         public SpriteRenderer Sprite => _Sprite;
@@ -54,6 +55,7 @@ namespace Assets
         public float VictimMarkerDistance => _VictimMarkerDistance;
 
         #endregion Prefab Properties
+
 
         private Rigidbody2D Body { get; set; }
         private LineRenderer LineRenderer { get; set; }

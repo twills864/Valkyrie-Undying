@@ -21,13 +21,14 @@ namespace Assets.Enemies
 
         #endregion Prefabs
 
+
         #region Prefab Properties
 
         protected float FireSpeed => _FireSpeed;
-
         protected float FireSpeedVariance => _FireSpeedVariance;
 
         #endregion Prefab Properties
+
 
         public LoopingFrameTimer FireTimer => FireStrategy.FireTimer;
 

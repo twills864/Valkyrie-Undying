@@ -20,6 +20,7 @@ public class EnemyHealthBar : UIElement
 
     #endregion Prefab Properties
 
+
     protected override ColorHandler DefaultColorHandler()
         => new TextMeshColorHandler(TextMesh);
 

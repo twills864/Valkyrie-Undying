@@ -18,11 +18,13 @@ namespace Assets.Bullets.PlayerBullets
 
         #endregion Prefabs
 
+
         #region Prefab Properties
 
         public float VelocityChangerDuration => _VelocityChangerDuration;
 
         #endregion Prefab Properties
+
 
         private VelocityChange VelocityChange { get; set; }
         private Vector2 MostRecentTargetVelocity { get; set; }

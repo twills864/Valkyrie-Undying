@@ -29,6 +29,7 @@ namespace Assets.Enemies
 
         #endregion Prefabs
 
+
         #region Prefab Properties
 
         private float SwivelAngle => _SwivelAngle;
@@ -40,6 +41,7 @@ namespace Assets.Enemies
         private float RotateTime => _RotateTime;
 
         #endregion Prefab Properties
+
 
         private float MinAngle { get; set; }
         private float MaxAngle { get; set; }

@@ -48,6 +48,7 @@ namespace Assets.Bullets.PlayerBullets
 
         #endregion Prefabs
 
+
         #region Prefab Properties
 
         private float FadeInTime => _FadeInTime;
@@ -57,6 +58,7 @@ namespace Assets.Bullets.PlayerBullets
         private float FallbackDeactivationTime => _FallbackDeactivationTime;
 
         #endregion Prefab Properties
+
 
         private float InitialScaleX { get; set; }
         private float ScaleXPerLevel { get; set; }

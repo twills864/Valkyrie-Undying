@@ -14,11 +14,13 @@ namespace Assets.Bullets
 
         #endregion Prefabs
 
+
         #region Prefab Properties
 
         protected SpriteRenderer Sprite => _Sprite;
 
         #endregion Prefab Properties
+
 
         protected override ColorHandler DefaultColorHandler()
             => new SpriteColorHandler(Sprite);

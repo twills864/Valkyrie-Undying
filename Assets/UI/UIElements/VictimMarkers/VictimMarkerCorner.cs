@@ -15,11 +15,13 @@ namespace Assets.UI
 
         #endregion Prefabs
 
+
         #region Prefab Properties
 
         private SpriteRenderer Sprite => _Sprite;
 
         #endregion Prefab Properties
+
 
         protected override ColorHandler DefaultColorHandler()
             => new SpriteColorHandler(Sprite);

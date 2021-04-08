@@ -43,6 +43,7 @@ namespace Assets.Enemies
 
         #endregion Prefabs
 
+
         #region Prefab Properties
 
         // The health this enemy spawns with at the start of the game.
@@ -58,6 +59,7 @@ namespace Assets.Enemies
         private Vector3 HealthBarOffsetScale => _HealthBarOffsetScale;
 
         #endregion Prefab Properties
+
 
         protected override ColorHandler DefaultColorHandler()
             => new SpriteColorHandler(Sprite);

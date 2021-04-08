@@ -23,6 +23,7 @@ namespace Assets.Bullets.PlayerBullets
 
         #endregion Prefabs
 
+
         #region Prefab Properties
 
         public float BulletVelocityY => _BulletVelocityY;
@@ -34,6 +35,7 @@ namespace Assets.Bullets.PlayerBullets
         public float BulletSpreadY => _BulletSpreadY;
 
         #endregion Prefab Properties
+
 
 
 

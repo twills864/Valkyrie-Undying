@@ -20,11 +20,13 @@ namespace Assets.Bullets.PlayerBullets
 
         #endregion Prefabs
 
+
         #region Prefab Properties
 
         public float Speed => _Speed;
 
         #endregion Prefab Properties
+
 
         public override int Damage => MortarDamage;
         public int MortarDamage { get; set; }

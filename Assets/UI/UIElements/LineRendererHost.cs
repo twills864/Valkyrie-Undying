@@ -18,11 +18,13 @@ namespace Assets.UI
 
         #endregion Prefabs
 
+
         #region Prefab Properties
 
         public LineRenderer Line => _Line;
 
         #endregion Prefab Properties
+
 
         protected override ColorHandler DefaultColorHandler()
         {

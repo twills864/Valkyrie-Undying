@@ -25,6 +25,7 @@ namespace Assets.UI
 
         #endregion Prefabs
 
+
         #region Prefab Properties
 
         private TextMesh TextField => _TextField;
@@ -34,6 +35,7 @@ namespace Assets.UI
         private float Speed => _Speed;
 
         #endregion Prefab Properties
+
 
         protected override ColorHandler DefaultColorHandler()
             => new TextMeshColorHandler(TextField);
