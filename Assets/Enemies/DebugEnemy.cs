@@ -52,7 +52,8 @@ namespace Assets.Enemies
         private int LastDamage { get; set; }
 
         protected override EnemyFireStrategy InitialFireStrategy()
-            => new VariantLoopingEnemyFireStrategy<BasicEnemyBullet>(FireSpeed, FireSpeedVariance);
+            => new InactiveEnemyStrategy();
+            //=> new VariantLoopingEnemyFireStrategy<BasicEnemyBullet>(FireSpeed, FireSpeedVariance);
 
         protected override void OnEnemyInit()
         {

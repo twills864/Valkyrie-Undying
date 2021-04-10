@@ -275,7 +275,56 @@ namespace Assets.Util
             return ret;
         }
 
+        /// <summary>
+        /// Returns the squared 2D distance between to Vector3 points, ignoring the Z axis.
+        /// </summary>
+        /// <param name="pointA">The first point.</param>
+        /// <param name="pointB">The second point.</param>
+        /// <returns>The squared 2D distance between the two points.</returns>
+        public static float Vector3_2DDistanceSquared(Vector3 pointA, Vector3 pointB)
+        {
+            float x2 = pointA.x - pointB.x;
+            float y2 = pointA.y - pointB.y;
+
+            float distSq= (x2 * x2) + (y2 * y2);
+            return distSq;
+        }
+
         #endregion Vector
+
+        #region Angles
+
+        /// <summary>
+        /// Returns the angle in degrees of the arrow starting at
+        /// <paramref name="from"/> and pointing at <paramref name="to"/>.
+        /// </summary>
+        /// <param name="from">The start point.</param>
+        /// <param name="to">The end point.</param>
+        /// <returns>The angle represented by path between the two points.</returns>
+        public static float AngleDegreesFromPoints(Vector2 from, Vector2 to)
+        {
+            Vector2 difference = to - from;
+
+            float ret = Vector2.Angle(Vector2.right, difference);
+            float DEBUG = Vector2.SignedAngle(Vector2.right, difference);
+            return DEBUG;
+        }
+
+        /// <summary>
+        /// Returns the angle in degrees of the arrow starting at
+        /// <paramref name="from"/> and pointing at <paramref name="to"/>.
+        /// </summary>
+        /// <param name="from">The start point.</param>
+        /// <param name="to">The end point.</param>
+        /// <returns>The angle represented by path between the two points.</returns>
+        public static float AngleRadiansFromPoints(Vector2 from, Vector2 to)
+        {
+            float degrees = AngleDegreesFromPoints(from, to);
+            float radians = degrees * Mathf.Deg2Rad;
+            return radians;
+        }
+
+        #endregion Angles
 
         #region Quaternion
 

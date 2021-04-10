@@ -165,6 +165,9 @@ namespace Assets
             InitWithoutDependencies();
             InitWithDependencies();
             InitIndependentColors();
+
+            //var bullet = _PoolManager.BulletPool.Get<SmiteLightningBullet>(SpaceUtil.WorldMap.Center);
+            //var bullet2 = _PoolManager.BulletPool.Get<SmiteJointBullet>(SpaceUtil.WorldMap.Center + new Vector3(0f, 1f, 0));
         }
 
         private void InitWithoutDependencies()
@@ -418,7 +421,7 @@ namespace Assets
 
         #region Enemies
 
-        private LoopingFrameTimer EnemyTimer = new LoopingFrameTimer(3.0f);
+        private LoopingFrameTimer EnemyTimer = new InactiveLoopingFrameTimer(); // new LoopingFrameTimer(3.0f);
 
         public IEnumerable<Enemy> GetAllActiveEnemies()
         {

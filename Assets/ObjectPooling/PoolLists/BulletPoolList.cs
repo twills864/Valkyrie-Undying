@@ -69,6 +69,10 @@ namespace Assets.ObjectPooling
         private BfgBulletFallout BfgFalloutPrefab = null;
         [SerializeField]
         private MortarBullet MortarPrefab = null;
+        [SerializeField]
+        private SmiteLightningBullet SmiteLightningPrefab = null;
+        [SerializeField]
+        private SmiteJointBullet SmiteJointPrefab = null;
 
         #endregion Additional Bullets
 

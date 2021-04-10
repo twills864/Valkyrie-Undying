@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Assets.ObjectPooling
 {
+    [DebuggerDisplay("({TargetSpawnId}) {Target}")]
     public class PooledObjectTracker
     {
         private PooledObject _target;
@@ -18,6 +20,9 @@ namespace Assets.ObjectPooling
                 TargetSpawnId = _target.SpawnId;
             }
         }
+
+        public bool IsActive => Target.isActiveAndEnabled
+            && Target.SpawnId == TargetSpawnId;
 
         private int TargetSpawnId { get; set; }
 

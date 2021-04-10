@@ -95,3 +95,7 @@ MonoBehaviour:
     type: 3}
   DeadlyDiamondPrefab: {fileID: 8040149567088496367, guid: 255eae1043734a9794d74859e1292ac8,
     type: 3}
+  SmiteLightningPrefab: {fileID: 1308047986309045083, guid: 58bb14e2edbd4a6f9d9749b620fb71a9,
+    type: 3}
+  SmiteJointPrefab: {fileID: 6120797354885354739, guid: d152e8476fb34ccaa418d804da875789,
+    type: 3}

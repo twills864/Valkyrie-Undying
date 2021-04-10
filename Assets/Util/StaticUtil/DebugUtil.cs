@@ -137,10 +137,12 @@ namespace Assets.Util
                 }
             }
 
-            var moveTo = new MoveTo(GameManager._DebugEnemy, SpaceUtil.WorldMap.Center, 1f);
-            var ease = new EaseOut(moveTo);
+            SmiteBullet.DebugTestSmite();
 
-            GameManager._DebugEnemy.RunTask(ease);
+            //var moveTo = new MoveTo(GameManager._DebugEnemy, SpaceUtil.WorldMap.Center, 1f);
+            //var ease = new EaseOut(moveTo);
+
+            //GameManager._DebugEnemy.RunTask(ease);
         }
 
         private static void InputKeypadPlus(KeyCode keyCode)
