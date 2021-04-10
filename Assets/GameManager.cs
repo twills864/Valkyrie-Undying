@@ -32,7 +32,7 @@ namespace Assets
         private TestingType CurrentTest = TestingType.NewPowerup;
 
         public static Type OverrideDefaultWeaponType => null; // DebugUtil.GetOverrideFireStrategyType<DeadlyDiamondStrategy>();
-        public static Type GameRowPowerupType => DebugUtil.GetPowerupType<CollectivePunishmentPowerup>();
+        public static Type GameRowPowerupType => DebugUtil.GetPowerupType<SmitePowerup>();
         public static Type OverrideEnemyType => null; // DebugUtil.GetOverrideEnemyType<BasicEnemy>();
 
         public bool DebugPauseNextFrame;
@@ -421,7 +421,7 @@ namespace Assets
 
         #region Enemies
 
-        private LoopingFrameTimer EnemyTimer = new InactiveLoopingFrameTimer(); // new LoopingFrameTimer(3.0f);
+        private LoopingFrameTimer EnemyTimer = new LoopingFrameTimer(3.0f); // new InactiveLoopingFrameTimer();
 
         public IEnumerable<Enemy> GetAllActiveEnemies()
         {

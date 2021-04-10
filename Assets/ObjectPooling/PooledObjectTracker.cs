@@ -44,6 +44,12 @@ namespace Assets.ObjectPooling
             return ret;
         }
 
+        public void CloneFrom(PooledObjectTracker other)
+        {
+            _target = other._target;
+            TargetSpawnId = other.TargetSpawnId;
+        }
+
         public static implicit operator PooledObjectTracker(PooledObject target)
         {
             return new PooledObjectTracker(target);

@@ -14,23 +14,6 @@ namespace Assets.Bullets.PlayerBullets
     /// <inheritdoc/>
     public class SmiteLightningBullet : SmiteBullet
     {
-        private static float WidthMin;
-        private static float WidthMax;
-
-        public static void StaticInit(float minWidth, float maxWidth)
-        {
-            WidthMax = minWidth;
-            WidthMax = maxWidth;
-        }
-
-        #region Prefabs
-
-        #endregion Prefabs
-
-
-        #region Prefab Properties
-
-        #endregion Prefab Properties
 
         public override float Scale
         {
@@ -38,10 +21,10 @@ namespace Assets.Bullets.PlayerBullets
             set => LocalScaleX = value;
         }
 
-        protected override void OnPlayerBulletInit()
-        {
+        //protected override void OnPlayerBulletInit()
+        //{
 
-        }
+        //}
 
         //protected override void OnActivate()
         //{

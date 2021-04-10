@@ -132,7 +132,7 @@ namespace Assets.Util
                 {
                     LogUtil.Log(gameObject);
 
-                    if(gameObject.TryGetComponent<Enemy>(out Enemy enemy) && enemy.name != "DebugEnemy")
+                    if(gameObject.TryGetComponent<Enemy>(out Enemy enemy) && enemy.name != DebugEnemyName)
                         enemy.DebugKill();
                 }
             }

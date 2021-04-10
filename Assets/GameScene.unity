@@ -3327,6 +3327,10 @@ MonoBehaviour:
         Power:
           Base: 1
           Increase: 1
+      Smite:
+        Chance:
+          Base: 0.01
+          Increase: 0.01
     OnKill:
       Bloodlust:
         Duration:

@@ -305,9 +305,8 @@ namespace Assets.Util
         {
             Vector2 difference = to - from;
 
-            float ret = Vector2.Angle(Vector2.right, difference);
-            float DEBUG = Vector2.SignedAngle(Vector2.right, difference);
-            return DEBUG;
+            float angle = Vector2.SignedAngle(Vector2.right, difference);
+            return angle;
         }
 
         /// <summary>

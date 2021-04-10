@@ -188,8 +188,7 @@ namespace Assets.Enemies
 
         private void ResetRotate()
         {
-            SpaceUtil.GetWorldBoundsX(SpriteMap.Width, out float minX, out float maxX);
-            float x = RandomUtil.Float(minX, maxX);
+            float x = SpaceUtil.RandomWorldPositionX(SpriteMap.Width);
             float y = SpaceUtil.WorldMap.Bottom.y;
 
             Vector3 targetPosition = new Vector3(x, y);

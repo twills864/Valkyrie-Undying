@@ -6,6 +6,7 @@ using Assets.GameTasks;
 using Assets.ObjectPooling;
 using UnityEngine;
 using System.Collections.Generic;
+using Assets.Enemies;
 
 namespace Assets.Bullets.PlayerBullets
 {
@@ -171,20 +172,26 @@ namespace Assets.Bullets.PlayerBullets
         }
 
 
-        public static void StartSmite(Vector3 startPosition, Vector3 targetPosition, int damage)
+        public static void StartSmite(Vector3 startPosition, Enemy target)
         {
             var bullet = PoolManager.Instance.BulletPool.Get<SmiteJointBullet>(startPosition);
+            bullet.InitWithTarget(target);
+        }
 
-            bullet.Previous = null;
-            bullet.Head = bullet;
+        private void InitWithTarget(Enemy target)
+        {
+            Previous = null;
+            Head = this;
 
-            bullet.TargetPosition = targetPosition;
-            bullet.SmiteDamage = damage;
+            TargetEnemy.Target = target;
+            TargetPosition = target.transform.position;
 
-            bullet.NextBranchTimer.ActivateSelf();
-            bullet.SpawnNextBranch();
+            SmiteDamage = BaseDamage;
 
-            bullet.OnSpawn();
+            NextBranchTimer.ActivateSelf();
+            SpawnNextBranch();
+
+            OnSpawn();
         }
     }
 }

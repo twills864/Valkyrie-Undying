@@ -66,6 +66,7 @@ namespace Assets.Powerups.Balance
             public ShrapnelBalance Shrapnel;
             public MetronomeBalance Metronome;
             public CollectivePunishmentBalance CollectivePunishment;
+            public SmiteBalance Smite;
 
             [Serializable]
             public struct ShrapnelBalance
@@ -101,6 +102,19 @@ namespace Assets.Powerups.Balance
 
                 [Serializable]
                 public struct PowerBalance
+                {
+                    public float Base;
+                    public float Increase;
+                }
+            }
+
+            [Serializable]
+            public struct SmiteBalance
+            {
+                public ChanceBalance Chance;
+
+                [Serializable]
+                public struct ChanceBalance
                 {
                     public float Base;
                     public float Increase;

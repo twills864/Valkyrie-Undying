@@ -13,6 +13,7 @@ namespace Assets.Enemies
     public class DebugEnemy : FireStrategyEnemy
     {
         protected override bool ShouldDeactivateOnDestructor => false;
+        public override bool DiesOnSmite => false;
 
         #region Prefabs
 
@@ -52,8 +53,8 @@ namespace Assets.Enemies
         private int LastDamage { get; set; }
 
         protected override EnemyFireStrategy InitialFireStrategy()
-            => new InactiveEnemyStrategy();
-            //=> new VariantLoopingEnemyFireStrategy<BasicEnemyBullet>(FireSpeed, FireSpeedVariance);
+            => new VariantLoopingEnemyFireStrategy<BasicEnemyBullet>(FireSpeed, FireSpeedVariance);
+            //=> new InactiveEnemyStrategy();
 
         protected override void OnEnemyInit()
         {

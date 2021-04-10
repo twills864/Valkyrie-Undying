@@ -78,6 +78,8 @@ namespace Assets.Enemies
         public int PointValue { get; set; }
         public int CurrentHealth { get; set; }
 
+        public virtual bool DiesOnSmite => true;
+
         #region Victim
 
         public bool IsVictim
@@ -299,12 +301,12 @@ namespace Assets.Enemies
 
         public virtual void TrueDamage(int damage, PlayerBullet bullet = null)
         {
-            if (DamageKills(damage))
+            if(isActiveAndEnabled && DamageKills(damage))
                 KillEnemy(bullet);
         }
 
         protected virtual void OnDeath() { }
-        protected void KillEnemy(PlayerBullet bullet)
+        public void KillEnemy(PlayerBullet bullet)
         {
             CreateFleetingTextAtCenter(PointValue);
             GameManager.Instance.OnEnemyKill(this, bullet);

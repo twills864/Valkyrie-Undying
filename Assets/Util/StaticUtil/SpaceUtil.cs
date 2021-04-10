@@ -150,8 +150,7 @@ namespace Assets.Util
             float spawnY = WorldMap.Top.y + size.y;
 
             float sizeX = size.x * enemy.transform.localScale.x;
-            GetWorldBoundsX(sizeX, out float spawnXMin, out float spawnXMax);
-            float spawnX = RandomUtil.Float(spawnXMin, spawnXMax);
+            float spawnX = RandomWorldPositionX(sizeX);
 
             var ret = new Vector3(spawnX, spawnY);
             return ret;
@@ -172,8 +171,7 @@ namespace Assets.Util
             float spawnY = RandomUtil.Float(spawnYMin, spawnYMax);
 
             float sizeX = size.x * enemy.transform.localScale.x;
-            GetWorldBoundsX(sizeX, out float spawnXMin, out float spawnXMax);
-            float spawnX = RandomUtil.Float(spawnXMin, spawnXMax);
+            float spawnX = RandomWorldPositionX(sizeX);
 
             var ret = new Vector3(spawnX, spawnY);
             return ret;
@@ -242,7 +240,29 @@ namespace Assets.Util
             return height;
         }
 
+        /// <summary>
+        /// Returns a random X position that an object of the specified width
+        /// could have while still being fully visible on the screen.
+        /// </summary>
+        /// <param name="widthOfObject">The width of the object.</param>
+        public static float RandomWorldPositionX(float widthOfObject = 0f)
+        {
+            GetWorldBoundsX(widthOfObject, out float posXMin, out float posXMax);
+            float posX = RandomUtil.Float(posXMin, posXMax);
+            return posX;
+        }
 
+        /// <summary>
+        /// Returns a random Y position that an object of the specified height
+        /// could have while still being fully visible on the screen.
+        /// </summary>
+        /// <param name="heightOfObject">The height of the object.</param>
+        public static float RandomWorldPositionY(float heightOfObject = 0f)
+        {
+            GetWorldBoundsY(heightOfObject, out float posYMin, out float posYMax);
+            float posY = RandomUtil.Float(posYMin, posYMax);
+            return posY;
+        }
 
 
 
