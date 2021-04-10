@@ -14,31 +14,10 @@ namespace Assets.Bullets.PlayerBullets
     /// <inheritdoc/>
     public class SmiteLightningBullet : SmiteBullet
     {
-
         public override float Scale
         {
             get => LocalScaleX;
             set => LocalScaleX = value;
         }
-
-        //protected override void OnPlayerBulletInit()
-        //{
-
-        //}
-
-        //protected override void OnActivate()
-        //{
-
-        //}
-
-        //public override void OnSpawn()
-        //{
-
-        //}
-
-        //protected override void OnPlayerBulletFrameRun(float deltaTime, float realDeltaTime)
-        //{
-
-        //}
     }
 }

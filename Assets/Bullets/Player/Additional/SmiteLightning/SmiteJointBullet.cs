@@ -16,6 +16,12 @@ namespace Assets.Bullets.PlayerBullets
     /// <inheritdoc/>
     public class SmiteJointBullet : SmiteBullet
     {
+        public static void StartSmite(Vector3 startPosition, Enemy target)
+        {
+            var bullet = PoolManager.Instance.BulletPool.Get<SmiteJointBullet>(startPosition);
+            bullet.InitWithTarget(target);
+        }
+
         #region Prefabs
 
         [SerializeField]
@@ -56,10 +62,10 @@ namespace Assets.Bullets.PlayerBullets
             set => transform.localScale = new Vector3(value, value, 1f);
         }
 
-        protected override void OnPlayerBulletInit()
+        protected override void OnSmiteBulletInit()
         {
             NextBranchTimer = new FrameTimer(TimeUntilNextSpawn);
-            SetFadeOutSequence(FadeOutTime);
+            SetFadeOutSequenceFadeTime(FadeOutTime);
         }
 
         protected override void OnActivate()
@@ -67,16 +73,11 @@ namespace Assets.Bullets.PlayerBullets
             NextBranchTimer.Reset();
         }
 
-        //public override void OnSpawn()
-        //{
-
-        //}
-
-        protected sealed override void OnSmiteBulletFrameRun(float deltaTime, float realDeltaTime)
+        protected sealed override void OnSmiteBulletFrameRun(float realDeltaTime)
         {
             if (!NextBranchTimer.Activated)
             {
-                if (NextBranchTimer.UpdateActivates(deltaTime))
+                if (NextBranchTimer.UpdateActivates(realDeltaTime))
                     SpawnNextBranch(NextBranchTimer.OverflowDeltaTime);
             }
         }
@@ -86,6 +87,7 @@ namespace Assets.Bullets.PlayerBullets
             var bullet = SpawnNextBranch();
             bullet.RunFrame(overflowDeltaTime, overflowDeltaTime);
         }
+
         private SmiteJointBullet SpawnNextBranch()
         {
             NextSpawnDetails nextSpawn = GetNextSpawnDetails();
@@ -97,8 +99,7 @@ namespace Assets.Bullets.PlayerBullets
 
             lightning.InitFromPreviousLink(this);
 
-            if(lightning.FadeOutSequence == null)
-                lightning.SetFadeOutSequence(FadeOutTime);
+            lightning.SetFadeOutSequenceFadeTime(FadeOutTime);
 
             lightning.OnSpawn();
 
@@ -107,21 +108,11 @@ namespace Assets.Bullets.PlayerBullets
             joint.OnSpawn();
 
             if (!nextSpawn.ReachedDestination)
-            {
                 joint.OnSpawn();
-            }
             else
             {
                 joint.NextBranchTimer.ActivateSelf();
-
-                SmiteBullet link = joint;
-
-                while (link != null)
-                {
-                    link.BeginDeactivating();
-                    //DebugUtil.RedX(link.transform.position);
-                    link = link.Previous;
-                }
+                joint.DeactivateAllLinks();
             }
 
             return joint;
@@ -144,7 +135,8 @@ namespace Assets.Bullets.PlayerBullets
             };
 
             float distSq = MathUtil.Vector3_2DDistanceSquared(transform.position, TargetPosition);
-            if(distSq > MaxWidthSq)
+            bool targetOutOfReach = distSq > MaxWidthSq;
+            if (targetOutOfReach)
             {
                 details.ReachedDestination = false;
 
@@ -169,13 +161,6 @@ namespace Assets.Bullets.PlayerBullets
             }
 
             return details;
-        }
-
-
-        public static void StartSmite(Vector3 startPosition, Enemy target)
-        {
-            var bullet = PoolManager.Instance.BulletPool.Get<SmiteJointBullet>(startPosition);
-            bullet.InitWithTarget(target);
         }
 
         private void InitWithTarget(Enemy target)

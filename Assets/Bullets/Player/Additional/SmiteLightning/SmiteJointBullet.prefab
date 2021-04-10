@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 2320183421881281431}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.01, y: 0.01, z: 1}
+  m_LocalScale: {x: 0.05, y: 0.05, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -135,7 +135,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _Sprite: {fileID: 2959985393852287726}
-  _BaseDamage: 19
+  _BaseDamage: 100
   _TimeUntilNextSpawn: 0.02
   _MinWidth: 0.25
   _MaxWidth: 1.25

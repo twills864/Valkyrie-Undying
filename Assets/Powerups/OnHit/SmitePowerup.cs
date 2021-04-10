@@ -28,7 +28,7 @@ namespace Assets.Powerups
 
         public override void OnHit(Enemy enemy, PlayerBullet bullet, Vector3 hitPosition)
         {
-            if(enemy.isActiveAndEnabled && RandomUtil.Bool(SmiteChance))
+            if(enemy.isActiveAndEnabled && RandomUtil.Bool(SmiteChance) && !(bullet is SmiteBullet))
             {
                 SmiteEnemy(enemy);
             }

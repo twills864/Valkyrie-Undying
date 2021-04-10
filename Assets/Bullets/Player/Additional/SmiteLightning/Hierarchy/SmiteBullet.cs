@@ -7,6 +7,7 @@ using Assets.ObjectPooling;
 using UnityEngine;
 using System.Collections.Generic;
 using Assets.Enemies;
+using Assets.Bullets.EnemyBullets;
 
 namespace Assets.Bullets.PlayerBullets
 {
@@ -18,9 +19,7 @@ namespace Assets.Bullets.PlayerBullets
     {
         public sealed override int Damage => SmiteDamage;
 
-        //public SmiteBullet Next { get; protected set; }
-
-        // Backwards-facing linked list
+        // Backwards-facing linked list with head node
         public SmiteBullet Head { get; protected set; }
         public SmiteBullet Previous { get; protected set; }
 
@@ -34,21 +33,16 @@ namespace Assets.Bullets.PlayerBullets
 
         public Sequence FadeOutSequence { get; set; }
         private bool IsDeactivating { get; set; }
-        public void BeginDeactivating()
+
+        protected virtual void OnSmiteBulletInit() { }
+        protected sealed override void OnPlayerBulletInit()
         {
-            IsDeactivating = true;
+            var fade = new FadeTo(this, 0f, 1.0f);
+            var deactivate = new GameTaskFunc(this, DeactivateSelf);
+            FadeOutSequence = new Sequence(fade, deactivate);
+
+            OnSmiteBulletInit();
         }
-        //public PooledObjectTracker TargetEnemy { get; set; }
-
-        //protected sealed override void OnPlayerBulletInit()
-        //{
-
-        //}
-
-        //protected sealed override void OnActivate()
-        //{
-        //    Alpha = 1.0f;
-        //}
 
         public sealed override void OnSpawn()
         {
@@ -57,7 +51,8 @@ namespace Assets.Bullets.PlayerBullets
             FadeOutSequence.ResetSelf();
         }
 
-        protected virtual void OnSmiteBulletFrameRun(float deltaTime, float realDeltaTime) { }
+        // Smite bullets use the realDeltaTime for updates.
+        protected virtual void OnSmiteBulletFrameRun(float realDeltaTime) { }
         protected sealed override void OnPlayerBulletFrameRun(float deltaTime, float realDeltaTime)
         {
             if (!IsDeactivating)
@@ -65,10 +60,10 @@ namespace Assets.Bullets.PlayerBullets
                 if (TargetEnemy.IsActive)
                     TargetPosition = TargetEnemy.Target.transform.position;
 
-                OnSmiteBulletFrameRun(deltaTime, realDeltaTime);
+                OnSmiteBulletFrameRun(realDeltaTime);
             }
             else
-                FadeOutSequence.RunFrame(deltaTime);
+                FadeOutSequence.RunFrame(realDeltaTime);
 
         }
 
@@ -82,8 +77,11 @@ namespace Assets.Bullets.PlayerBullets
             Previous = existingLink;
             Head = existingLink.Head;
             SmiteDamage = existingLink.SmiteDamage;
-            TargetPosition = existingLink.TargetPosition;
             TargetEnemy.CloneFrom(existingLink.TargetEnemy);
+            TargetPosition = existingLink.TargetPosition;
+
+            if (!TargetEnemy.IsActive)
+                TargetPosition = VectorUtil.WithY(TargetPosition, SpaceUtil.WorldMap.Top.y);
         }
 
         public sealed override bool CollidesWithEnemy(Enemy enemy)
@@ -96,36 +94,53 @@ namespace Assets.Bullets.PlayerBullets
         {
             Head.HitEnemies.Add(enemy);
 
-            if (enemy.DiesOnSmite)
+            if (TargetEnemy.IsTarget(enemy) && enemy.DiesOnSmite)
+            {
                 enemy.KillEnemy(this);
+                DeactivateAllLinks();
+            }
         }
 
-        public void SetFadeOutSequence(float fadeTime)
+        protected override void OnPlayerBulletTriggerEnter2D(Collider2D collision)
         {
-            var fade = new FadeTo(this, 0.0f, fadeTime);
-            var deactivate = new GameTaskFunc(this, DeactivateSelf);
-
-            FadeOutSequence = new Sequence(fade, deactivate);
+            if(CollisionUtil.IsEnemyBullet(collision))
+            {
+                var enemyBullet = collision.GetComponent<EnemyBullet>();
+                GameManager.Instance.ReflectBullet(enemyBullet);
+            }
         }
 
-
-
-
-
-
-
-
-
-        [Obsolete("Test method")]
-        public static void DebugTestSmite()
+        public void BeginDeactivating()
         {
-            Vector3 startPosition = Player.Instance.FirePosition();
-            Vector3 targetPosition = SpaceUtil.WorldPositionUnderMouse();
-
-            var enemy = GameManager.Instance._DebugEnemy;
-
-            //SmiteJointBullet.StartSmite(startPosition, targetPosition, 10);
-            SmiteJointBullet.StartSmite(startPosition, enemy);
+            IsDeactivating = true;
         }
+
+        public void SetFadeOutSequenceFadeTime(float fadeTime)
+        {
+            FadeOutSequence.Duration = fadeTime;
+        }
+
+        public void DeactivateAllLinks()
+        {
+            SmiteBullet link = this;
+
+            do
+            {
+                link.BeginDeactivating();
+                link = link.Previous;
+            } while (link != null);
+        }
+
+        //[Obsolete("Test method")]
+        //public static void DebugTestSmite()
+        //{
+        //    Vector3 startPosition = Player.Instance.FirePosition();
+        //    Vector3 targetPosition = SpaceUtil.WorldPositionUnderMouse();
+
+        //    var enemy = GameManager.Instance._DebugEnemy;
+
+        //    //SmiteJointBullet.StartSmite(startPosition, targetPosition, 10);
+        //    SmiteJointBullet.StartSmite(startPosition, enemy);
+        //}
     }
 }

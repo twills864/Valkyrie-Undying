@@ -447,7 +447,7 @@ namespace Assets
 
         public void ReflectBullet(EnemyBullet target)
         {
-            if (target.CanReflect)
+            if (target.isActiveAndEnabled && target.CanReflect)
             {
                 var reflectedBullet = _PoolManager.BulletPool.Get<ReflectedBullet>();
                 reflectedBullet.ReflectBack(target);
@@ -457,7 +457,7 @@ namespace Assets
 
         public void ReflectBulletFromPestControl(EnemyBullet target, PestControlBullet pestControl)
         {
-            if (target.CanReflect)
+            if (target.isActiveAndEnabled && target.CanReflect)
             {
                 var reflectedBullet = _PoolManager.BulletPool.Get<ReflectedBullet>();
                 reflectedBullet.RedirectFromPestControl(target, pestControl);
