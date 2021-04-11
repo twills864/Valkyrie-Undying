@@ -110,7 +110,8 @@ namespace Assets.Enemies
         protected virtual void OnEnemySpawn() { }
         public sealed override void OnSpawn()
         {
-            CurrentHealth = (int)InitialSpawnHealth;
+            float increase = HealthScaling * Director.EnemyHealthIncrease;
+            CurrentHealth = (int)(InitialSpawnHealth + increase);
             PointValue = CurrentHealth;
 
             var healthBarSpawn = transform.position;// + HealthBarOffset;

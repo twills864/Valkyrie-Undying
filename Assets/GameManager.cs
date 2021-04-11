@@ -180,7 +180,7 @@ namespace Assets
 
             _PowerupMenu.transform.position += new Vector3(0, 0, 0);
 
-            EnemyTimer.ActivateSelf();
+
 
             MonsoonSpawner.Instance = _MonsoonSpawner;
         }
@@ -194,6 +194,7 @@ namespace Assets
             _Monsoon.Init();
             _SentinelManager.Init();
             InitFireStrategies();
+            Director.Init();
 
             // Dependency: FireStrategies
             SetFireType(DefaultFireTypeIndex);
@@ -277,10 +278,9 @@ namespace Assets
                 _Othello.Fire();
             }
 
-            if (EnemyTimer.UpdateActivates(deltaTime))
-            {
-                var enemy = _PoolManager.EnemyPool.GetRandomEnemy();
-            }
+            float enemyTimeScale = TimeScaleManager.GetTimeScaleModifier(TimeScaleType.Enemy);
+            float enemyDeltaTime = deltaTime * enemyTimeScale;
+            Director.RunFrame(enemyDeltaTime, deltaTime);
 
             _PowerupManager.PassiveUpdate(playerFireScale, deltaTime);
             GameTaskLists.RunFrames(playerFireScale, deltaTime, deltaTime, deltaTime);
@@ -420,8 +420,6 @@ namespace Assets
         #endregion Powerups
 
         #region Enemies
-
-        private LoopingFrameTimer EnemyTimer = new LoopingFrameTimer(3.0f); // new InactiveLoopingFrameTimer();
 
         public IEnumerable<Enemy> GetAllActiveEnemies()
         {
