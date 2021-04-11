@@ -14,10 +14,35 @@ namespace Assets.ObjectPooling
         /// </summary>
         public static PoolManager Instance { get; private set; }
 
-        public BulletPoolList BulletPool;
-        public EnemyPoolList EnemyPool;
-        public EnemyBulletPoolList EnemyBulletPool;
-        public UIElementPoolList UIElementPool;
+        #region Prefabs
+
+        [SerializeField]
+        private BulletPoolList _BulletPool;
+
+        [SerializeField]
+        private EnemyPoolList _EnemyPool;
+
+        [SerializeField]
+        private EnemyBulletPoolList _EnemyBulletPool;
+
+        [SerializeField]
+        private UIElementPoolList _UIElementPool;
+
+        [SerializeField]
+        private PickupPoolList _PickupPool;
+
+        #endregion Prefabs
+
+
+        #region Prefab Properties
+
+        public BulletPoolList BulletPool => _BulletPool;
+        public EnemyPoolList EnemyPool => _EnemyPool;
+        public EnemyBulletPoolList EnemyBulletPool => _EnemyBulletPool;
+        public UIElementPoolList UIElementPool => _UIElementPool;
+        public PickupPoolList PickupPool => _PickupPool;
+
+        #endregion Prefab Properties
 
         /// <summary>
         /// An array of each Object Pool managed by this class.
@@ -29,7 +54,8 @@ namespace Assets.ObjectPooling
 
             // EnemyPool depends on EnemyBulletPool in order to load fire strategies.
             EnemyPool,
-            UIElementPool
+            UIElementPool,
+            PickupPool
         };
 
         public void Init(in ColorManager colorManager)

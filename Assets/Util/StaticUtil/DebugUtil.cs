@@ -4,6 +4,8 @@ using Assets.Bullets.PlayerBullets;
 using Assets.Enemies;
 using Assets.FireStrategies.PlayerFireStrategies;
 using Assets.GameTasks;
+using Assets.ObjectPooling;
+using Assets.Pickups;
 using Assets.Powerups;
 using LogUtilAssets;
 using UnityEngine;
@@ -118,10 +120,12 @@ namespace Assets.Util
         private static void InputMouseBack(KeyCode keyCode)
         {
             //var moveTo = new MoveTo(GameManager._DebugEnemy, SpaceUtil.WorldMap.Center, 1f);
-            var moveBy = new MoveBy(GameManager._DebugEnemy, new Vector3(1f, 1f), 1f);
-            var ease = new EaseIn(moveBy);
+            //var moveBy = new MoveBy(GameManager._DebugEnemy, new Vector3(1f, 1f), 1f);
+            //var ease = new EaseIn(moveBy);
 
-            GameManager._DebugEnemy.RunTask(ease);
+            //GameManager._DebugEnemy.RunTask(ease);
+
+            PoolManager.Instance.PickupPool.Get<WeaponPickup>(SpaceUtil.WorldMap.Top);
         }
 
         private static void InputMouseForward(KeyCode keyCode)

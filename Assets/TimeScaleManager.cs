@@ -25,6 +25,7 @@ namespace Assets
                 case TimeScaleType.Enemy: ret = Enemy; break;
                 case TimeScaleType.EnemyBullet: ret = EnemyBullet; break;
                 case TimeScaleType.UIElement: ret = UIElement; break;
+                case TimeScaleType.Default: ret = 1f; break;
                 default: throw ExceptionUtil.ArgumentException(() => type);
             }
             return ret;

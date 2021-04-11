@@ -9,6 +9,7 @@ TagManager:
   - PlayerBullet
   - EnemyBullet
   - ScreenEdge
+  - Pickup
   layers:
   - Default
   - TransparentFX
@@ -23,7 +24,7 @@ TagManager:
   - Player
   - Player Bullets
   - Screen Edge
-  - 
+  - Pickups
   - 
   - 
   - 
@@ -54,6 +55,9 @@ TagManager:
     locked: 0
   - name: Player Bullets
     uniqueID: 4266159207
+    locked: 0
+  - name: Pickups
+    uniqueID: 2312563159
     locked: 0
   - name: Player
     uniqueID: 342085613

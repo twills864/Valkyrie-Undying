@@ -9,6 +9,7 @@ namespace Assets
 {
     public enum TimeScaleType
     {
+        Default,
         Player,
         PlayerBullet,
         Enemy,

@@ -43,11 +43,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07b2e1784e1e6a64bbd03573526d70a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BulletPool: {fileID: 327579223985843940, guid: 1303ca71261795a4ca45b4d33e29312a,
+  _BulletPool: {fileID: 327579223985843940, guid: 1303ca71261795a4ca45b4d33e29312a,
     type: 3}
-  EnemyPool: {fileID: 5020979556914759756, guid: ad9d687e57fa91a488876ab5c9d14101,
+  _EnemyPool: {fileID: 5020979556914759756, guid: ad9d687e57fa91a488876ab5c9d14101,
     type: 3}
-  EnemyBulletPool: {fileID: 6064953405724233396, guid: be42e415c2052ae43ac952d92b3fa875,
+  _EnemyBulletPool: {fileID: 6064953405724233396, guid: be42e415c2052ae43ac952d92b3fa875,
     type: 3}
-  UIElementPool: {fileID: 3543397346209275661, guid: 232df8afde3106346bd8cc000bc57d57,
+  _UIElementPool: {fileID: 3543397346209275661, guid: 232df8afde3106346bd8cc000bc57d57,
+    type: 3}
+  _PickupPool: {fileID: 1686655083598511353, guid: e81ec117e8acd4f44ad5466de4af4898,
     type: 3}
