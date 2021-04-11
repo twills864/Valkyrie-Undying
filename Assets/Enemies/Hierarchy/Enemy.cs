@@ -118,6 +118,17 @@ namespace Assets.Enemies
             HealthBar = PoolManager.Instance.UIElementPool.Get<EnemyHealthBar>(healthBarSpawn);
             UpdateHealthBar();
 
+            WasKilled = false;
+
+#if UNITY_EDITOR
+
+            ActiveInDirector = false;
+            DespawnHandledByDirector = false;
+
+#endif
+
+            Director.EnemySpawned(this);
+
             OnEnemySpawn();
         }
 
@@ -136,16 +147,32 @@ namespace Assets.Enemies
             }
 
             HealthBar.transform.position = (Vector3)ColliderMap.Center + HealthBarOffset;
+
+#if UNITY_EDITOR
+            DebugUpdate(deltaTime, realDeltaTime);
+#endif
         }
 
         protected virtual void OnEnemyDeactivate() { }
         protected sealed override void OnDeactivate()
         {
+            Director.EnemyDeactivated(this);
+
             if (IsVictim)
                 IsVictim = false;
 
             HealthBar.DeactivateSelf();
             HealthBar = null;
+
+#if UNITY_EDITOR
+            if(!DespawnHandledByDirector)
+            {
+                const string Message = "ERROR: ENEMY DEACTIVATED THAT WAS NOT HANDLED BY DIRECTOR.";
+                Log(Message);
+                GameManager.Instance.CreateFleetingText(Message, transform.position);
+                GameManager.Instance.CreateFleetingText(Message, SpaceUtil.WorldMap.Center);
+            }
+#endif
 
             OnEnemyDeactivate();
         }
@@ -181,6 +208,9 @@ namespace Assets.Enemies
 
         #region Damage
 
+        public bool WasKilled { get; set; }
+        public virtual bool InfluencesDirectorGameBalance => true;
+
         protected virtual bool DamageKills(int damage)
         {
             if (!isActiveAndEnabled)
@@ -203,6 +233,7 @@ namespace Assets.Enemies
         protected virtual void OnDeath() { }
         public void KillEnemy(PlayerBullet bullet)
         {
+            WasKilled = true;
             CreateFleetingTextAtCenter(PointValue);
             GameManager.Instance.OnEnemyKill(this, bullet);
             DeactivateSelf();
@@ -375,7 +406,7 @@ namespace Assets.Enemies
             else if (CollisionUtil.IsPlayer(collision))
             {
                 if (Player.Instance.CollideWithEnemy(this))
-                    DeactivateSelf();
+                    KillEnemy(null);
             }
             if (CollisionUtil.IsEnemy(collision) && IsBurning)
             {
@@ -386,7 +417,7 @@ namespace Assets.Enemies
 
         public virtual void CollideWithBullet(PlayerBullet bullet)
         {
-            if (isActiveAndEnabled)
+            if (gameObject.activeSelf)
             {
                 if (DamageKills(bullet.Damage))
                     KillEnemy(bullet);
@@ -398,10 +429,15 @@ namespace Assets.Enemies
 
         private void OnTriggerExit2D(Collider2D collision)
         {
-            if (CollisionUtil.IsDestructor(collision))
+            if (gameObject.activeSelf)
             {
-                if (ShouldDeactivateOnDestructor)
-                    DeactivateSelf();
+                if (CollisionUtil.IsDestructor(collision))
+                {
+                    if (ShouldDeactivateOnDestructor)
+                    {
+                        DeactivateSelf();
+                    }
+                }
             }
         }
 
@@ -409,14 +445,21 @@ namespace Assets.Enemies
 
         #region Debug
 
-        //private void Update()
-        //{
-        //    const float redXTime = float.Epsilon;
-        //    DebugUtil.RedX(BoxMap.TopLeft, redXTime);
-        //    DebugUtil.RedX(BoxMap.TopRight, redXTime);
-        //    DebugUtil.RedX(BoxMap.BottomLeft, redXTime);
-        //    DebugUtil.RedX(BoxMap.BottomRight, redXTime);
-        //}
+#if UNITY_EDITOR
+        private void DebugUpdate(float deltaTime, float realDeltaTime)
+        {
+            const float RedXTime = float.Epsilon;
+
+            if (!ActiveInDirector)
+            {
+                Log("ERROR: ACTIVE ENEMY NOT ACCOUNTED FOR BY DIRECTOR");
+                DebugUtil.RedX(ColliderMap.TopLeft, RedXTime);
+                DebugUtil.RedX(ColliderMap.TopRight, RedXTime);
+                DebugUtil.RedX(ColliderMap.BottomLeft, RedXTime);
+                DebugUtil.RedX(ColliderMap.BottomRight, RedXTime);
+            }
+        }
+#endif
 
         //private void OnMouseEnter()
         //{
@@ -433,6 +476,13 @@ namespace Assets.Enemies
         //    //DebugUtil.RedX(transform.position);
         //    GameManager.Instance.CreateFleetingText("ENEMY ONMOUSEDOWN", SpaceUtil.WorldMap.Center);
         //}
+
+#if UNITY_EDITOR
+
+        public bool ActiveInDirector { get; set; }
+        public bool DespawnHandledByDirector { get; set; }
+
+#endif
 
         public void DebugKill()
         {

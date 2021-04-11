@@ -9,6 +9,7 @@ namespace Assets.Enemies
     {
         private const float HealthbarFadeTime = 0.5f;
         public override bool CanVoidPause => false;
+        public override bool InfluencesDirectorGameBalance => false;
 
         public float Height { get; private set; }
         public float HeightHalf => Height * 0.5f;

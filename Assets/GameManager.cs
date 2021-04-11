@@ -421,26 +421,6 @@ namespace Assets
 
         #region Enemies
 
-        public IEnumerable<Enemy> GetAllActiveEnemies()
-        {
-            return _PoolManager.EnemyPool.GetAllActiveObjects();
-        }
-
-        #region TryGetRandomEnemy
-
-        public bool TryGetRandomEnemy(out Enemy enemy)
-        {
-            var ret = _PoolManager.EnemyPool.TryGetRandomObject(out enemy);
-            return ret;
-        }
-        public bool TryGetRandomEnemyExcluding(Enemy exclusion, out Enemy enemy)
-        {
-            var ret = _PoolManager.EnemyPool.TryGetRandomObjectExcluding(exclusion, out enemy);
-            return ret;
-        }
-
-        #endregion TryGetRandomEnemy
-
         #region Enemy Bullets
 
         public void ReflectBullet(EnemyBullet target)

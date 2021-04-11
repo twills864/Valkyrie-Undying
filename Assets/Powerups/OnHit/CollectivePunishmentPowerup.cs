@@ -28,7 +28,7 @@ namespace Assets.Powerups
 
         public override void OnHit(Enemy enemy, PlayerBullet bullet, Vector3 hitPosition)
         {
-            var allEnemies = GameManager.Instance.GetAllActiveEnemies();
+            var allEnemies = Director.GetAllActiveEnemies();
             int damage = (int)PowerValue;
 
             foreach(var target in allEnemies)

@@ -32,7 +32,7 @@ namespace Assets.Bullets.PlayerBullets
 
         protected override void OnBounce(Enemy enemy)
         {
-            if (GameManager.Instance.TryGetRandomEnemyExcluding(enemy, out Enemy newTarget))
+            if (Director.TryGetRandomEnemyExcluding(enemy, out Enemy newTarget))
                 SetTarget(newTarget);
             else
                 BounceToRandomDirection();
@@ -75,7 +75,7 @@ namespace Assets.Bullets.PlayerBullets
         {
             ApplyBounceDebuff();
 
-            if (GameManager.Instance.TryGetRandomEnemy(out Enemy newTarget))
+            if (Director.TryGetRandomEnemy(out Enemy newTarget))
                 SetTarget(newTarget);
             else
                 SetTargetToCenter();
