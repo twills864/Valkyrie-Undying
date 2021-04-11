@@ -4549,7 +4549,7 @@ PrefabInstance:
     - target: {fileID: 7611003520483930335, guid: c939972dae317a24a9504c7774c07490,
         type: 3}
       propertyPath: _DamageTextAngleStep
-      value: 15
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 7611003520483930335, guid: c939972dae317a24a9504c7774c07490,
         type: 3}
@@ -4574,7 +4574,7 @@ PrefabInstance:
     - target: {fileID: 7611003520483930335, guid: c939972dae317a24a9504c7774c07490,
         type: 3}
       propertyPath: _InfernoDamageTextAngle
-      value: 45
+      value: 225
       objectReference: {fileID: 0}
     - target: {fileID: 7611003520483930335, guid: c939972dae317a24a9504c7774c07490,
         type: 3}
@@ -4594,7 +4594,7 @@ PrefabInstance:
     - target: {fileID: 7611003520483930335, guid: c939972dae317a24a9504c7774c07490,
         type: 3}
       propertyPath: _InfernoDamageTextDistance
-      value: 0.5
+      value: 0.6
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2843794750930479073, guid: c939972dae317a24a9504c7774c07490, type: 3}

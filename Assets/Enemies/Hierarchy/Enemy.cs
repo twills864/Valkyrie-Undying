@@ -64,21 +64,159 @@ namespace Assets.Enemies
         protected override ColorHandler DefaultColorHandler()
             => new SpriteColorHandler(Sprite);
 
-        public EnemyFireStrategy FireStrategy { get; protected set; }
-        protected abstract EnemyFireStrategy InitialFireStrategy();
-
         protected virtual bool ShouldDeactivateOnDestructor => true;
-        public virtual bool CanVoidPause => true;
+
+        public int PointValue { get; set; }
+
+        public SpriteBoxMap SpriteMap { get; protected set; }
+        public ColliderBoxMap ColliderMap { get; protected set; }
+
+
+        #region Valkyrie Sprite Methods
+
+        protected virtual void OnEnemyInit() { }
+        protected sealed override void OnInit()
+        {
+            SpriteMap = new SpriteBoxMap(this);
+            ColliderMap = new ColliderBoxMap(this);
+
+            var collider = gameObject.GetComponent<Collider2D>();
+            var boundsSize = collider.bounds.size;
+            var initialSize = new Vector3(boundsSize.x, boundsSize.y, 0);
+
+            float healthbarOffsetYScale = HealthBarOffsetScale.y >= 0 ? 0.5f : -0.5f;
+            var healthbarOffset = new Vector3(0, EnemyHealthBar.HealthBarHeight * healthbarOffsetYScale, 0);
+            InitialHealthbarOffset = Vector3.Scale(initialSize, HealthBarOffsetScale)
+                + healthbarOffset;
+
+            InfernoTimer = new LoopingFrameTimer(InfernoTickTime);
+
+            FireStrategy = InitialFireStrategy();
+
+            OnEnemyInit();
+        }
+
+        protected virtual void OnEnemyActivate() { }
+        protected sealed override void OnActivate()
+        {
+            InfernoTimer.Reset();
+
+            IsBurning = false;
+            VoidPauseCounter = 0;
+
+            OnEnemyActivate();
+        }
+
+        protected virtual void OnEnemySpawn() { }
+        public sealed override void OnSpawn()
+        {
+            CurrentHealth = (int)InitialSpawnHealth;
+            PointValue = CurrentHealth;
+
+            var healthBarSpawn = transform.position;// + HealthBarOffset;
+            HealthBar = PoolManager.Instance.UIElementPool.Get<EnemyHealthBar>(healthBarSpawn);
+            UpdateHealthBar();
+
+            OnEnemySpawn();
+        }
+
+        protected virtual void OnEnemyFrame(float deltaTime, float realDeltaTime) { }
+        protected sealed override void OnFrameRun(float deltaTime, float realDeltaTime)
+        {
+            if (IsBurning && InfernoTimer.UpdateActivates(deltaTime))
+            {
+                if (BurnKills())
+                    return;
+            }
+
+            if (!IsVoidPaused)
+            {
+                OnEnemyFrame(deltaTime, realDeltaTime);
+            }
+
+            HealthBar.transform.position = (Vector3)ColliderMap.Center + HealthBarOffset;
+        }
+
+        protected virtual void OnEnemyDeactivate() { }
+        protected sealed override void OnDeactivate()
+        {
+            if (IsVictim)
+                IsVictim = false;
+
+            HealthBar.DeactivateSelf();
+            HealthBar = null;
+
+            OnEnemyDeactivate();
+        }
+
+        #endregion Valkyrie Sprite Methods
+
+        #region Firing
 
         /// <summary>
         /// Enemies below this Y limit will not be allowed to fire their weapons.
         /// </summary>
         public static float FireHeightFloor { get; set; }
 
-        public int PointValue { get; set; }
+        public EnemyFireStrategy FireStrategy { get; protected set; }
+        protected abstract EnemyFireStrategy InitialFireStrategy();
+
+        public virtual Vector3 FirePosition => SpriteMap.Bottom;
+        protected virtual bool CanFire(Vector3 firePosition) => firePosition.y > FireHeightFloor;
+
+        #endregion Firing
+
+        #region Health
+
         public int CurrentHealth { get; set; }
 
+        protected virtual Vector3 HealthBarOffset => InitialHealthbarOffset;
+        protected Vector3 InitialHealthbarOffset { get; private set; }
+
+        public EnemyHealthBar HealthBar { get; set; }
+        public void UpdateHealthBar() => HealthBar.SetText(CurrentHealth);
+
+        #endregion Health
+
+        #region Damage
+
+        protected virtual bool DamageKills(int damage)
+        {
+            if (!isActiveAndEnabled)
+                return false;
+
+            CurrentHealth -= damage;
+            if (CurrentHealth <= 0)
+                return true;
+
+            UpdateHealthBar();
+            return false;
+        }
+
+        public virtual void TrueDamage(int damage, PlayerBullet bullet = null)
+        {
+            if (isActiveAndEnabled && DamageKills(damage))
+                KillEnemy(bullet);
+        }
+
+        protected virtual void OnDeath() { }
+        public void KillEnemy(PlayerBullet bullet)
+        {
+            CreateFleetingTextAtCenter(PointValue);
+            GameManager.Instance.OnEnemyKill(this, bullet);
+            DeactivateSelf();
+            OnDeath();
+        }
+
+        #endregion Damage
+
+        #region Powerups
+
+        #region Smite
+
         public virtual bool DiesOnSmite => true;
+
+        #endregion Smite
 
         #region Victim
 
@@ -135,19 +273,6 @@ namespace Assets.Enemies
 
         #endregion Metronome
 
-        public virtual Vector3 FirePosition => SpriteMap.Bottom;
-        protected virtual bool CanFire(Vector3 firePosition) => firePosition.y > FireHeightFloor;
-
-        protected virtual Vector3 HealthBarOffset => InitialHealthbarOffset;
-        protected Vector3 InitialSize { get; private set; }
-        protected Vector3 InitialHealthbarOffset { get; private set; }
-
-        public EnemyHealthBar HealthBar { get; set; }
-        public void UpdateHealthBar() => HealthBar.SetText(CurrentHealth);
-
-        public SpriteBoxMap SpriteMap { get; protected set; }
-        public ColliderBoxMap ColliderMap { get; protected set; }
-
         #region Inferno
 
         protected virtual float InfernoTickTime => 0.75f;
@@ -158,9 +283,48 @@ namespace Assets.Enemies
         protected int InfernoDamage { get; set; }
         public bool IsBurning { get; set; }
 
+        public void Ignite(int baseDamage, int damageIncreasePerTick)
+        {
+            int newInfernoDamageIncrease = (int)(InfernoDamageScale * damageIncreasePerTick);
+            int newInfernoDamage = (int)(InfernoDamageScale * baseDamage) + newInfernoDamageIncrease;
+
+            if (!IsBurning)
+            {
+                InfernoDamage = newInfernoDamage;
+                IsBurning = true;
+                HealthBar.Ignite();
+                InfernoDamageIncrease = newInfernoDamageIncrease;
+            }
+            else
+            {
+                if (InfernoDamageIncrease < newInfernoDamageIncrease)
+                    InfernoDamageIncrease = newInfernoDamageIncrease;
+                if (InfernoDamage < newInfernoDamage)
+                    InfernoDamage = newInfernoDamage;
+            }
+        }
+
+        protected virtual bool BurnKills()
+        {
+            bool ret;
+            if (!DamageKills(InfernoDamage))
+            {
+                InfernoDamage += InfernoDamageIncrease;
+                ret = false;
+            }
+            else
+            {
+                KillEnemy(null);
+                ret = true;
+            }
+            return ret;
+        }
+
         #endregion Inferno
 
         #region Void
+
+        public virtual bool CanVoidPause => true;
 
         private int _voidPauseCounter;
         protected int VoidPauseCounter;
@@ -195,136 +359,9 @@ namespace Assets.Enemies
 
         #endregion Void
 
-        protected virtual void OnEnemyInit() { }
-        protected sealed override void OnInit()
-        {
-            SpriteMap = new SpriteBoxMap(this);
-            ColliderMap = new ColliderBoxMap(this);
+        #endregion Powerups
 
-            var collider = gameObject.GetComponent<Collider2D>();
-            var boundsSize = collider.bounds.size;
-            InitialSize = new Vector3(boundsSize.x, boundsSize.y, 0);
-
-            float healthbarOffsetYScale = HealthBarOffsetScale.y >= 0 ? 0.5f : -0.5f;
-            var healthbarOffset = new Vector3(0, EnemyHealthBar.HealthBarHeight * healthbarOffsetYScale, 0);
-            InitialHealthbarOffset = Vector3.Scale(InitialSize, HealthBarOffsetScale)
-                + healthbarOffset;
-
-            InfernoTimer = new LoopingFrameTimer(InfernoTickTime);
-
-            FireStrategy = InitialFireStrategy();
-
-            OnEnemyInit();
-        }
-
-        protected virtual void OnEnemyActivate() { }
-        protected sealed override void OnActivate()
-        {
-            InfernoTimer.Reset();
-
-            IsBurning = false;
-            VoidPauseCounter = 0;
-
-            OnEnemyActivate();
-        }
-
-        protected virtual void OnEnemySpawn() { }
-        public sealed override void OnSpawn()
-        {
-            CurrentHealth = (int) InitialSpawnHealth;
-            PointValue = CurrentHealth;
-
-            var healthBarSpawn = transform.position;// + HealthBarOffset;
-            HealthBar = PoolManager.Instance.UIElementPool.Get<EnemyHealthBar>(healthBarSpawn);
-            UpdateHealthBar();
-
-            OnEnemySpawn();
-        }
-
-        protected virtual void OnEnemyFrame(float deltaTime, float realDeltaTime) { }
-        protected sealed override void OnFrameRun(float deltaTime, float realDeltaTime)
-        {
-            if (IsBurning && InfernoTimer.UpdateActivates(deltaTime))
-            {
-                if (BurnKills())
-                    return;
-            }
-
-            if (!IsVoidPaused)
-            {
-                OnEnemyFrame(deltaTime, realDeltaTime);
-            }
-
-            HealthBar.transform.position = (Vector3)ColliderMap.Center + HealthBarOffset;
-        }
-
-        protected virtual bool BurnKills()
-        {
-            bool ret;
-            if (!DamageKills(InfernoDamage))
-            {
-                InfernoDamage += InfernoDamageIncrease;
-                ret = false;
-            }
-            else
-            {
-                KillEnemy(null);
-                ret = true;
-            }
-            return ret;
-        }
-
-        protected virtual bool DamageKills(int damage)
-        {
-            if (!isActiveAndEnabled)
-                return false;
-
-            CurrentHealth -= damage;
-            if (CurrentHealth <= 0)
-                return true;
-
-            UpdateHealthBar();
-            return false;
-        }
-
-        public virtual void CollideWithBullet(PlayerBullet bullet)
-        {
-            if (isActiveAndEnabled)
-            {
-                if (DamageKills(bullet.Damage))
-                    KillEnemy(bullet);
-
-                GameManager.Instance.OnEnemyHit(this, bullet);
-                bullet.OnCollideWithEnemy(this);
-            }
-        }
-
-        public virtual void TrueDamage(int damage, PlayerBullet bullet = null)
-        {
-            if(isActiveAndEnabled && DamageKills(damage))
-                KillEnemy(bullet);
-        }
-
-        protected virtual void OnDeath() { }
-        public void KillEnemy(PlayerBullet bullet)
-        {
-            CreateFleetingTextAtCenter(PointValue);
-            GameManager.Instance.OnEnemyKill(this, bullet);
-            DeactivateSelf();
-            OnDeath();
-        }
-
-        protected virtual void OnEnemyDeactivate() { }
-        protected sealed override void OnDeactivate()
-        {
-            if (IsVictim)
-                IsVictim = false;
-
-            HealthBar.DeactivateSelf();
-            HealthBar = null;
-
-            OnEnemyDeactivate();
-        }
+        #region Collision
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
@@ -346,7 +383,19 @@ namespace Assets.Enemies
             }
         }
 
-        protected void OnTriggerExit2D(Collider2D collision)
+        public virtual void CollideWithBullet(PlayerBullet bullet)
+        {
+            if (isActiveAndEnabled)
+            {
+                if (DamageKills(bullet.Damage))
+                    KillEnemy(bullet);
+
+                GameManager.Instance.OnEnemyHit(this, bullet);
+                bullet.OnCollideWithEnemy(this);
+            }
+        }
+
+        private void OnTriggerExit2D(Collider2D collision)
         {
             if (CollisionUtil.IsDestructor(collision))
             {
@@ -355,34 +404,9 @@ namespace Assets.Enemies
             }
         }
 
-        public void Ignite(int baseDamage, int damageIncreasePerTick)
-        {
-            int newInfernoDamageIncrease = (int)(InfernoDamageScale * damageIncreasePerTick);
-            int newInfernoDamage = (int)(InfernoDamageScale * baseDamage) + newInfernoDamageIncrease;
+        #endregion Collision
 
-            if (!IsBurning)
-            {
-                InfernoDamage = newInfernoDamage;
-                IsBurning = true;
-                HealthBar.Ignite();
-                InfernoDamageIncrease = newInfernoDamageIncrease;
-            }
-            else
-            {
-                if (InfernoDamageIncrease < newInfernoDamageIncrease)
-                    InfernoDamageIncrease = newInfernoDamageIncrease;
-                if (InfernoDamage < newInfernoDamage)
-                    InfernoDamage = newInfernoDamage;
-            }
-        }
-
-        private EnemyHealthBar FindChildEnemyHealthBar()
-        {
-            var healthBarTransform = gameObject.transform.Find("EnemyHealthBar");
-            var gObject = healthBarTransform.gameObject;
-            var ret = gObject.GetComponent<EnemyHealthBar>();
-            return ret;
-        }
+        #region Debug
 
         //private void Update()
         //{
@@ -414,5 +438,7 @@ namespace Assets.Enemies
             CurrentHealth = 0;
             KillEnemy(null);
         }
+
+        #endregion Debug
     }
 }
