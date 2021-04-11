@@ -10,6 +10,8 @@ namespace Assets.UI.PowerupMenu
 {
     public class PowerupMenu : MonoBehaviour
     {
+        public static PowerupMenu Instance { get; private set; }
+
 #pragma warning disable 0414
 
         [SerializeField]
@@ -24,6 +26,11 @@ namespace Assets.UI.PowerupMenu
 #pragma warning restore 0414
 
         private Dictionary<Type, PowerupMenuPowerupRow> AllPowerupRows = new Dictionary<Type, PowerupMenuPowerupRow>();
+
+        public void Init()
+        {
+            Instance = this;
+        }
 
         public void AddTitleRow(string title)
         {

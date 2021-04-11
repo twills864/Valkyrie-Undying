@@ -45,3 +45,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WeaponPrefab: {fileID: -7251310750227736950, guid: dcd7fedc1c8f87a458915e1dd5f61245,
     type: 3}
+  PowerupPrefab: {fileID: -7734617704395606978, guid: 1261bea37eafc5e499e2da80fc5191f9,
+    type: 3}

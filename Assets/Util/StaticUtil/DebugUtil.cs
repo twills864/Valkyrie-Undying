@@ -125,7 +125,8 @@ namespace Assets.Util
 
             //GameManager._DebugEnemy.RunTask(ease);
 
-            PoolManager.Instance.PickupPool.Get<WeaponPickup>(SpaceUtil.WorldMap.Top);
+            //PoolManager.Instance.PickupPool.Get<WeaponPickup>(SpaceUtil.WorldMap.Top);
+            GameManager.SpawnPowerup(SpaceUtil.WorldMap.Center);
         }
 
         private static void InputMouseForward(KeyCode keyCode)

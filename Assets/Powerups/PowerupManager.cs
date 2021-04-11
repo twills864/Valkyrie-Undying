@@ -26,12 +26,13 @@ namespace Assets.Powerups
 
         private IPowerupList[] AllLists { get; set; }
 
-        public Dictionary<Type, Powerup> AllPowerups { get; set; }
+        public List<Powerup> AllPowerups { get; private set; }
+        public Dictionary<Type, Powerup> AllPowerupsMap { get; private set; }
 
         public void Init(in PowerupBalanceManager balance, Destructor destructor)
         {
             AllLists = new IPowerupList[6];
-            AllPowerups = new Dictionary<Type, Powerup>();
+            AllPowerupsMap = new Dictionary<Type, Powerup>();
 
             UniqueIdGenerator ids = new UniqueIdGenerator(0);
 
@@ -53,13 +54,15 @@ namespace Assets.Powerups
             PassivePowerupList = new PassivePowerupList(ids);
             InitList(PassivePowerupList, in balance);
 
+            AllPowerups = AllPowerupsMap.Values.ToList();
+
             OnHitList.Get<ShrapnelPowerup>().MaxY = destructor.SizeHalf.y;
             OnFireList.Get<PestControlPowerup>().Init();
         }
 
         private void InitList(IPowerupList list, in PowerupBalanceManager balance)
         {
-            list.Init(AllPowerups, in balance);
+            list.Init(AllPowerupsMap, in balance);
             AllLists[list.PowerupManagerIndex] = list;
         }
 

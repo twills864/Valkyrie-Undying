@@ -47,7 +47,6 @@ namespace Assets.Pickups
         {
             if(CollisionUtil.IsPlayer(collision))
             {
-                GameManager.Instance.CreateFleetingText("PICKUP", SpaceUtil.WorldMap.Center);
                 OnPickUp();
                 DeactivateSelf();
             }

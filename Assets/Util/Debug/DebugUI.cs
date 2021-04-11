@@ -50,7 +50,7 @@ namespace Assets.Util
         public Text TextGameSpeed;
 
         private Type GameRowPowerupType => GameManager.GameRowPowerupType;
-        private Powerup CurrentDebugPowerup => _GameManager._PowerupManager.AllPowerups[GameRowPowerupType];
+        private Powerup CurrentDebugPowerup => _GameManager._PowerupManager.AllPowerupsMap[GameRowPowerupType];
 
         public void Init(CircularSelector<PlayerFireStrategy> fireStrategies, PowerupMenu powerupMenu)
         {

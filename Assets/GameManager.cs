@@ -21,6 +21,7 @@ using UnityEngine.UI;
 using Assets.FireStrategyManagers;
 using System.Linq;
 using System.Collections.Generic;
+using Assets.Pickups;
 
 namespace Assets
 {
@@ -178,6 +179,7 @@ namespace Assets
             // _ColorManager is a prefab field, and doesn't need initialized.
             _PoolManager.Init(in _ColorManager);
 
+            _PowerupMenu.Init();
             _PowerupMenu.transform.position += new Vector3(0, 0, 0);
 
 
@@ -212,6 +214,9 @@ namespace Assets
 
             // Dependency: _PoolManager, Destructor
             _PowerupManager.Init(in PowerupBalance, _Destructor);
+
+            // Dependency: _PowerupManager
+            _PoolManager.PickupPool.InitializePowerups(_PowerupManager.AllPowerups);
 
             // Dependency: FireStrategies, _PowerupMenu
             DebugUi.Init(FireStrategies, _PowerupMenu);
@@ -394,6 +399,12 @@ namespace Assets
                 var newLabel = _PoolManager.UIElementPool.Get<MetronomeLabel>();
                 _metronomeEnemy.MetronomeLabel = newLabel;
             }
+        }
+
+        public PowerupPickup SpawnPowerup(Vector3 position)
+        {
+            var pickup = _PoolManager.PickupPool.GetRandomPowerup(position);
+            return pickup;
         }
 
         public void OnEnemyHit(Enemy enemy, PlayerBullet bullet)
