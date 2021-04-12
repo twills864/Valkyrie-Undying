@@ -125,7 +125,7 @@ namespace Assets.Powerups
             Level = level;
             Damage = damage;
             FireSpeedModifier = fireSpeedModifier;
-            FireTimer.ActivationInterval = FireTimerIntervalBase * fireSpeedModifier;
+            //FireTimer.ActivationInterval = FireTimerIntervalBase * fireSpeedModifier;
         }
 
         public void Fire()

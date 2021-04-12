@@ -28,6 +28,9 @@ namespace Assets.ObjectPooling
 
         protected override void OnInitSprites(in ColorManager colorManager)
         {
+            WeaponPrefab.SpriteColor = colorManager.Pickup.Weapon;
+            PowerupPrefab.SpriteColor = colorManager.Pickup.Powerup;
+
             // TODO: Load powerups, or refactor into somewhere else
         }
 

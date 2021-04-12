@@ -517,12 +517,6 @@ namespace Assets
         {
             _PowerupMenu.SetLevel(GameRowPowerupType, value);
         }
-
-        public void PowerupMenuPowerLevelRowSet(Powerup powerup, int level)
-        {
-            DebugUi.PowerupMenuPowerLevelRowSet(powerup, level);
-        }
-
         #endregion Powerup Menu
 
         #region Debug

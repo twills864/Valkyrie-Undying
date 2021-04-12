@@ -23,6 +23,8 @@ namespace Assets.Pickups
 
             var type = TargetPowerup.GetType();
             PowerupMenu.Instance.SetLevel(type, TargetPowerup.Level);
+
+            DebugUI.Instance.PowerupMenuPowerLevelRowSet(TargetPowerup, TargetPowerup.Level);
         }
     }
 }

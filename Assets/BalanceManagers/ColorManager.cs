@@ -26,6 +26,9 @@ namespace Assets.ColorManagers
         [SerializeField]
         public UIColors UI;
 
+        [SerializeField]
+        public PickupColors Pickup;
+
         public Color SetAlpha(Color color, float alpha)
         {
             color.a = alpha;
@@ -72,5 +75,13 @@ namespace Assets.ColorManagers.SubManagers
     {
         public float VictimMarkerAlpha;
         public float MortarGuideAlpha;
+    }
+
+    [Serializable]
+    public struct PickupColors
+    {
+        public Color Weapon;
+        public Color Powerup;
+        public Color ExtraLife;
     }
 }

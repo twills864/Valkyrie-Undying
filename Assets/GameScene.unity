@@ -3412,6 +3412,10 @@ MonoBehaviour:
     UI:
       VictimMarkerAlpha: 0.7
       MortarGuideAlpha: 0.5
+    Pickup:
+      Weapon: {r: 0.7529412, g: 1, b: 0, a: 1}
+      Powerup: {r: 0, g: 1, b: 0.7529412, a: 1}
+      ExtraLife: {r: 0, g: 1, b: 0, a: 1}
   Player: {fileID: 8345851456146834253}
   _Othello: {fileID: 1232855628}
   _PowerupMenu: {fileID: 2066797313}

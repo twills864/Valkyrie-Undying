@@ -16,6 +16,8 @@ namespace Assets.Util
         public const int DebugLabelFontSize = 20;
         public const float DebugBorderOffset = 20;
 
+        public static DebugUI Instance { get; private set; }
+
         private GameManager _GameManager { get; set; }
         private PowerupMenu _PowerupMenu { get; set; }
 
@@ -54,6 +56,8 @@ namespace Assets.Util
 
         public void Init(CircularSelector<PlayerFireStrategy> fireStrategies, PowerupMenu powerupMenu)
         {
+            Instance = this;
+
             _GameManager = GameManager.Instance;
             _PowerupMenu = powerupMenu;
 

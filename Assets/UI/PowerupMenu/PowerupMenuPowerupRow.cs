@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 using Assets.Powerups;
+using Assets.Util;
 
 namespace Assets.UI.PowerupMenu
 {
@@ -83,7 +84,7 @@ namespace Assets.UI.PowerupMenu
             if (Powerup.Level != value)
             {
                 Powerup.Level = value;
-                GameManager.Instance.PowerupMenuPowerLevelRowSet(Powerup, value);
+                DebugUI.Instance.PowerupMenuPowerLevelRowSet(Powerup, value);
             }
         }
 
