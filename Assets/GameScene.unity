@@ -3427,6 +3427,7 @@ MonoBehaviour:
   _Destructor: {fileID: 6556364}
   _ScreenEdgeColliderSet: {fileID: 29231933}
   _PoolManager: {fileID: 1431298137}
+  _InitialWeaponTime: 10
 --- !u!4 &1640542552
 Transform:
   m_ObjectHideFlags: 0

@@ -8,9 +8,11 @@ namespace Assets.Pickups
 {
     public class WeaponPickup : Pickup
     {
+        public int FireStrategyIndex { get; set; }
+
         protected override void OnPickUp()
         {
-            Player.Instance.LocalScaleX *= 0.9f;
+            GameManager.Instance.SetFireType(FireStrategyIndex);
         }
     }
 }

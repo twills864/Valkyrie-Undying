@@ -11,6 +11,11 @@ namespace Assets.FireStrategies.PlayerFireStrategies
     /// <inheritdoc/>
     public abstract class PlayerFireStrategy : FireStrategy<PlayerBullet>
     {
+        /// <summary>
+        /// The name used to represent this fire strategy.
+        /// </summary>
+        public string StrategyName { get; }
+
         protected abstract float GetFireSpeedRatio(in PlayerFireStrategyManager.PlayerRatio ratios);
 
         protected float InitialFireSpeed(in PlayerFireStrategyManager manager)
@@ -19,6 +24,7 @@ namespace Assets.FireStrategies.PlayerFireStrategies
         public PlayerFireStrategy(PlayerBullet bulletPrefab, in PlayerFireStrategyManager manager) : base(bulletPrefab)
         {
             FireTimer = InitialFireTimer(in manager);
+            StrategyName = CalculateFireStrategyName();
         }
 
         protected LoopingFrameTimer InitialFireTimer(in PlayerFireStrategyManager manager)
@@ -44,6 +50,15 @@ namespace Assets.FireStrategies.PlayerFireStrategies
         protected int PlusOneIfMaxLevel(int weaponLevel)
         {
             int ret = weaponLevel != GameConstants.MaxWeaponLevel ? weaponLevel : weaponLevel + 1;
+            return ret;
+        }
+
+        protected virtual string CalculateFireStrategyName()
+        {
+            string name = this.GetType().Name;
+            name = name.Replace("Strategy", "");
+
+            string ret = StringUtil.AddSpacesBeforeCapitals(name);
             return ret;
         }
     }

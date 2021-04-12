@@ -34,7 +34,7 @@ namespace Assets.Util
         public Button ButtonShowPowerupMenu;
 
         [SerializeField]
-        public Dropdown DropdownFireType;
+        private Dropdown DropdownFireType;
 
         [SerializeField]
         public Slider SliderFireLevel;
@@ -87,7 +87,8 @@ namespace Assets.Util
             DropdownFireType.SetValueWithoutNotify(GameManager.Instance.DefaultFireTypeIndex);
             DropdownFireType.onValueChanged.AddListener(delegate
             {
-                _GameManager.SetFireType(DropdownFireType.value, true);
+                if(!ShouldSkipSettingFireTimeInGameManager)
+                    _GameManager.SetFireType(DropdownFireType.value, skipDropDown: true, skipMessage: true, endlessTime: ShouldSetEndlessWeaponTime);
             });
 
             const int sliderFireLevelYOffset = 15;
@@ -114,6 +115,19 @@ namespace Assets.Util
             //SetDebugLabel("FRAMETIME", frameTime);
 
             PowerupRow.Init(CurrentDebugPowerup);
+        }
+
+        private bool ShouldSkipSettingFireTimeInGameManager = false;
+        private bool ShouldSetEndlessWeaponTime = true;
+        public void SetDropdownFiretype(int index, bool skipSetting, bool infiniteTime)
+        {
+            ShouldSkipSettingFireTimeInGameManager = skipSetting;
+            ShouldSetEndlessWeaponTime = infiniteTime;
+
+            DropdownFireType.value = index;
+
+            ShouldSkipSettingFireTimeInGameManager = false;
+            ShouldSetEndlessWeaponTime = true;
         }
 
         #region Debug Input

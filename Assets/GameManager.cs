@@ -141,6 +141,9 @@ namespace Assets
         [SerializeField]
         private PoolManager _PoolManager = null;
 
+        [SerializeField]
+        private float _InitialWeaponTime = GameConstants.PrefabNumber;
+
         #endregion Misc Prefabs
 
         #endregion Prefabs
@@ -179,10 +182,10 @@ namespace Assets
             // _ColorManager is a prefab field, and doesn't need initialized.
             _PoolManager.Init(in _ColorManager);
 
+            WeaponResetTimer = new FrameTimer(InitialWeaponTime);
+
             _PowerupMenu.Init();
             _PowerupMenu.transform.position += new Vector3(0, 0, 0);
-
-
 
             MonsoonSpawner.Instance = _MonsoonSpawner;
         }
@@ -199,7 +202,7 @@ namespace Assets
             Director.Init();
 
             // Dependency: FireStrategies
-            SetFireType(DefaultFireTypeIndex);
+            SetFireType(DefaultFireTypeIndex, skipMessage: true);
 
             // Dependency: SpaceUtil
             _Destructor.Init();
@@ -273,6 +276,7 @@ namespace Assets
             DebugUtil.HandleInput();
 
             float deltaTime = Time.deltaTime;
+            float playerTime = deltaTime;
             float playerFireScale = deltaTime * PlayerFireDeltaTimeScale;
 
             if (CurrentFireStrategy.UpdateActivates(playerFireScale * Player.FireSpeedScale))
@@ -283,12 +287,23 @@ namespace Assets
                 _Othello.Fire();
             }
 
+            UpdateFireStrategy(playerTime);
+
             float enemyTimeScale = TimeScaleManager.GetTimeScaleModifier(TimeScaleType.Enemy);
             float enemyDeltaTime = deltaTime * enemyTimeScale;
             Director.RunFrame(enemyDeltaTime, deltaTime);
 
             _PowerupManager.PassiveUpdate(playerFireScale, deltaTime);
             GameTaskLists.RunFrames(playerFireScale, deltaTime, deltaTime, deltaTime);
+        }
+
+        private void UpdateFireStrategy(float playerTime)
+        {
+            if (FireStrategies.Index != FireStrategyIndexBasic)
+            {
+                if (WeaponResetTimer.UpdateActivates(playerTime))
+                    SetFireType(FireStrategyIndexBasic, skipMessage: true);
+            }
         }
 
         private void LateUpdate()
@@ -306,12 +321,26 @@ namespace Assets
 
         #region Player Weapons
 
+        private const int FireStrategyIndexBasic = 0;
+
+        public float InitialWeaponTime => _InitialWeaponTime;
         public int WeaponLevel { get; set; }
+        public float WeaponTimeMax { get; set; } = 10f;
+        public FrameTimer WeaponResetTimer { get; set; }
 
         private PlayerFireStrategy CurrentFireStrategy => FireStrategies[FireStrategies.Index];
         private CircularSelector<PlayerFireStrategy> FireStrategies { get; set; }
 
-        public void SetFireType(int index, bool skipDropDown = false)
+        public int GetRandomAssignableFireIndex()
+        {
+            // Skip Basic fire, located at index 0
+            const int FirstAssignable = FireStrategyIndexBasic + 1;
+            int LastAssignableExclusive = FireStrategies.Count;
+            int ret = RandomUtil.Int(FirstAssignable, LastAssignableExclusive);
+            return ret;
+        }
+
+        public void SetFireType(int index, bool skipDropDown = false, bool skipMessage = false, bool endlessTime = false)
         {
             BfgBulletSpawner.Instance.DeactivateSelf();
 
@@ -320,7 +349,17 @@ namespace Assets
             CurrentFireStrategy.OnActivate();
 
             if (!skipDropDown)
-                DebugUi.DropdownFireType.value = FireStrategies.Index;
+                DebugUi.SetDropdownFiretype(FireStrategies.Index, true, endlessTime);
+
+            WeaponResetTimer.Reset();
+            if (index != DefaultFireTypeIndex && endlessTime)
+                WeaponResetTimer.ActivationInterval = float.MaxValue;
+            else
+                WeaponResetTimer.ActivationInterval = InitialWeaponTime;
+
+
+            if(!skipMessage)
+                CreateFleetingText(CurrentFireStrategy.StrategyName, SpaceUtil.WorldMap.Center);
         }
 
         public void FirePlayerBullets(PlayerBullet[] bullets)
@@ -523,11 +562,11 @@ namespace Assets
 
         public void DebugIncrementFireType()
         {
-            SetFireType(FireStrategies.Index + 1);
+            SetFireType(FireStrategies.Index + 1, endlessTime: true);
         }
         public void DebugDecrementFireType()
         {
-            SetFireType(FireStrategies.Index - 1);
+            SetFireType(FireStrategies.Index - 1, endlessTime: true);
         }
 
         public void RecolorPlayerActivity(Color color)
