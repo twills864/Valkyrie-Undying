@@ -3397,7 +3397,8 @@ MonoBehaviour:
           IncreasePerLevel: 5
   _DirectorBalance:
     BaseEnemyPowerupDropChance: 1
-    OneUpOverrideChance: 0.5
+    WeaponLevelOverrideChance: 0.1
+    OneUpOverrideChance: 0.1
   _ColorManager:
     DefaultPlayer: {r: 0.3764706, g: 0.827451, b: 1, a: 1}
     DefaultEnemy: {r: 1, g: 0, b: 0, a: 1}
@@ -3418,7 +3419,8 @@ MonoBehaviour:
     Pickup:
       Weapon: {r: 0.7529412, g: 1, b: 0, a: 1}
       Powerup: {r: 0, g: 1, b: 0.7529412, a: 1}
-      ExtraLife: {r: 0, g: 1, b: 0, a: 1}
+      WeaponLevel: {r: 0, g: 0.40801308, b: 0.9339623, a: 1}
+      OneUp: {r: 0, g: 1, b: 0, a: 1}
   Player: {fileID: 8345851456146834253}
   _Othello: {fileID: 1232855628}
   _PowerupMenu: {fileID: 2066797313}

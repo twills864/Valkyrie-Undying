@@ -82,6 +82,7 @@ namespace Assets.ColorManagers.SubManagers
     {
         public Color Weapon;
         public Color Powerup;
-        public Color ExtraLife;
+        public Color WeaponLevel;
+        public Color OneUp;
     }
 }

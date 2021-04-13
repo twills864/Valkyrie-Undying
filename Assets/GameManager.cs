@@ -375,6 +375,12 @@ namespace Assets
             FirePlayerBullets(new PlayerBullet[] { bullet });
         }
 
+        public void IncreaseWeaponLevel()
+        {
+            if (WeaponLevel < GameConstants.MaxWeaponLevel)
+                DebugUi.SliderFireLevel.value = WeaponLevel + 1;
+        }
+
         #endregion Player Weapons
 
         #region Powerups

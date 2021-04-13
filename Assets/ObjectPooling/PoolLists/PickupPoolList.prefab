@@ -47,3 +47,7 @@ MonoBehaviour:
     type: 3}
   PowerupPrefab: {fileID: -7734617704395606978, guid: 1261bea37eafc5e499e2da80fc5191f9,
     type: 3}
+  WeaponLevelPrefab: {fileID: -5518426965793896964, guid: d3d88ddbcc4c13c46bada53591643c78,
+    type: 3}
+  OneUpPrefab: {fileID: 663597646353357664, guid: 749b31f6faaf02641a0839f719f07fa5,
+    type: 3}

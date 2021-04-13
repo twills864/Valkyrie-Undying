@@ -21,6 +21,8 @@ namespace Assets
     {
         public float BaseEnemyPowerupDropChance;
 
+        public float WeaponLevelOverrideChance;
+
         public float OneUpOverrideChance;
     }
 }

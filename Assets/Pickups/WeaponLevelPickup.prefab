@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: -4827794034390846724}
   - component: {fileID: 4965275229139164333}
   - component: {fileID: 1109973101326323602}
-  - component: {fileID: -7734617704395606978}
+  - component: {fileID: -5518426965793896964}
   m_Layer: 13
-  m_Name: PowerupPickup
+  m_Name: WeaponLevelPickup
   m_TagString: Pickup
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: c9c2ecc231713a545a862de3019b148d, type: 3}
-  m_Color: {r: 0, g: 1, b: 0.7529412, a: 1}
+  m_Color: {r: 0, g: 0.40801308, b: 0.9339623, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -122,7 +122,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &-7734617704395606978
+--- !u!114 &-5518426965793896964
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -131,7 +131,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 589426042693020797}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 198a98445842abf46a99b63221a5d0c5, type: 3}
+  m_Script: {fileID: 11500000, guid: 2a9867deaa8daff4497b786d7208000c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _Sprite: {fileID: -4827794034390846724}

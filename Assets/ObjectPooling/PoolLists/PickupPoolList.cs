@@ -19,6 +19,12 @@ namespace Assets.ObjectPooling
         [SerializeField]
         private PowerupPickup PowerupPrefab = null;
 
+        [SerializeField]
+        private WeaponLevelPickup WeaponLevelPrefab = null;
+
+        [SerializeField]
+        private OneUpPickup OneUpPrefab = null;
+
 #pragma warning restore 0414
 
         public List<Powerup> AllAssignablePowerups { get; private set; }
@@ -30,6 +36,9 @@ namespace Assets.ObjectPooling
         {
             WeaponPrefab.SpriteColor = colorManager.Pickup.Weapon;
             PowerupPrefab.SpriteColor = colorManager.Pickup.Powerup;
+            WeaponLevelPrefab.SpriteColor = colorManager.Pickup.WeaponLevel;
+            OneUpPrefab.SpriteColor = colorManager.Pickup.OneUp;
+
 
             // TODO: Load powerups, or refactor into somewhere else
         }

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Assets.Enemies;
 using Assets.ObjectPooling;
+using Assets.Pickups;
 using Assets.Util;
 using UnityEngine;
 
@@ -112,17 +113,20 @@ namespace Assets
 
         public static void SpawnPowerup(Vector3 position)
         {
-            if (RandomUtil.Bool(Balance.OneUpOverrideChance))
+            Pickup powerup;
+            if(RandomUtil.Bool(Balance.WeaponLevelOverrideChance))
             {
-                var text = GameManager.Instance.CreateFleetingText("One up will go here!", position);
-                text.SpriteColor = Color.green;
-                //text.transform.localScale = new Vector3(2f, 2f);
+                powerup = PoolManager.Instance.PickupPool.Get<WeaponLevelPickup>(position);
+            }
+            else if (RandomUtil.Bool(Balance.OneUpOverrideChance))
+            {
+                powerup = PoolManager.Instance.PickupPool.Get<OneUpPickup>(position);
             }
             else
             {
-                var powerup = PoolManager.Instance.PickupPool.GetRandomPowerup(position);
-                powerup.OnSpawn();
+                powerup = PoolManager.Instance.PickupPool.GetRandomPowerup(position);
             }
+            powerup.OnSpawn();
         }
 
 

@@ -135,4 +135,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _Sprite: {fileID: -4827794034390846724}
-  _PermanentVelocityY: -1.5
