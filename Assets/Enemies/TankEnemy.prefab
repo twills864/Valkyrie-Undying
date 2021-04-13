@@ -104,6 +104,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _InitialSpawnHealth: 250
   _HealthScaling: 2.5
+  _PowerupDropChanceOverride:
+    ShouldOverride: 1
+    Multiplier: 1.5
   _Sprite: {fileID: 4856386218752702171}
   _VictimMarkerDistance: 1
   _metronomeLabel: {fileID: 0}

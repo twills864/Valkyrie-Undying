@@ -20,6 +20,12 @@ namespace Assets.GameTasks
             set => Target.RotationDegrees = value;
         }
 
+        public float EndRotationDegrees
+        {
+            get => AngleRange.EndValue;
+            set => AngleRange.EndValue = value;
+        }
+
         public RotateTo(ValkyrieSprite target, float endAngle, float duration)
             : this(target, target.RotationDegrees, endAngle, duration)
         {

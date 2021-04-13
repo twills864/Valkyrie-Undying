@@ -37,9 +37,11 @@ namespace Assets.Pickups
         protected override ColorHandler DefaultColorHandler()
             => new SpriteColorHandler(Sprite);
 
-        protected override void OnInit()
+        protected virtual void OnPickupInit() { }
+        protected sealed override void OnInit()
         {
             VelocityY = PermanentVelocityY;
+            OnPickupInit();
         }
 
         protected abstract void OnPickUp();

@@ -29,6 +29,14 @@ namespace Assets.Enemies
         [SerializeField]
         private float _HealthScaling = GameConstants.PrefabNumber;
 
+        // Powerup drop chance multiplier will default to the HealthScaling value.
+        // It can be overridden here.
+        [SerializeField]
+        private EnemyPowerupDropChanceOverride _PowerupDropChanceOverride = default;
+
+        [SerializeField]
+        private Tuple<bool, int> _lol;
+
         [SerializeField]
         private SpriteRenderer _Sprite = null;
 
@@ -51,6 +59,8 @@ namespace Assets.Enemies
 
         // The rate at which the spawn health of this enemy increases as the game progresses.
         protected float HealthScaling => _HealthScaling;
+
+        private float? PowerupDropChanceMultiplierOverride => _PowerupDropChanceOverride.Value;
 
         protected SpriteRenderer Sprite => _Sprite;
 
@@ -211,6 +221,8 @@ namespace Assets.Enemies
         public bool WasKilled { get; set; }
         public virtual bool InfluencesDirectorGameBalance => true;
 
+        public float PowerupDropChanceMultiplier => PowerupDropChanceMultiplierOverride ?? HealthScaling;
+
         protected virtual bool DamageKills(int damage)
         {
             if (!isActiveAndEnabled)
@@ -242,7 +254,7 @@ namespace Assets.Enemies
 
         #endregion Damage
 
-        #region Powerups
+        #region Powerup Effects
 
         #region Smite
 
@@ -391,7 +403,7 @@ namespace Assets.Enemies
 
         #endregion Void
 
-        #endregion Powerups
+        #endregion Powerup Effects
 
         #region Collision
 

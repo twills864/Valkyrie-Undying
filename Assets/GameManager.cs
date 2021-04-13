@@ -90,6 +90,9 @@ namespace Assets
         private PowerupBalanceManager PowerupBalance;
 
         [SerializeField]
+        private DirectorBalance _DirectorBalance;
+
+        [SerializeField]
         private ColorManager _ColorManager;
 
         #region Player Prefabs
@@ -199,7 +202,7 @@ namespace Assets
             _Monsoon.Init();
             _SentinelManager.Init();
             InitFireStrategies();
-            Director.Init();
+            Director.Init(_DirectorBalance);
 
             // Dependency: FireStrategies
             SetFireType(DefaultFireTypeIndex, skipMessage: true);

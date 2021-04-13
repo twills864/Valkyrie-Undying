@@ -3395,6 +3395,9 @@ MonoBehaviour:
         Damage:
           Base: 0
           IncreasePerLevel: 5
+  _DirectorBalance:
+    BaseEnemyPowerupDropChance: 1
+    OneUpOverrideChance: 0.5
   _ColorManager:
     DefaultPlayer: {r: 0.3764706, g: 0.827451, b: 1, a: 1}
     DefaultEnemy: {r: 1, g: 0, b: 0, a: 1}

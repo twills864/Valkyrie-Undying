@@ -26,9 +26,12 @@ namespace Assets
         private static int EnemiesSpawned { get; set; }
         public static int EnemyHealthIncrease => EnemiesSpawned;
 
+        private static DirectorBalance Balance;
 
-        public static void Init()
+        public static void Init(DirectorBalance balance)
         {
+            Balance = balance;
+
             EnemySpawnTimer.ActivateSelf();
             EnemyPoolList = PoolManager.Instance.EnemyPool;
 
@@ -94,6 +97,11 @@ namespace Assets
 
         private static void EnemyKilled(Enemy enemy)
         {
+            float powerupMultiplier = enemy.PowerupDropChanceMultiplier;
+            float spawnChance = Balance.BaseEnemyPowerupDropChance * powerupMultiplier;
+            if (RandomUtil.Bool(spawnChance))
+                SpawnPowerup(enemy.transform.position);
+
             // TODO: Handle difficulty
         }
 
@@ -102,10 +110,23 @@ namespace Assets
             // TODO: Handle difficulty
         }
 
+        public static void SpawnPowerup(Vector3 position)
+        {
+            if (RandomUtil.Bool(Balance.OneUpOverrideChance))
+            {
+                var text = GameManager.Instance.CreateFleetingText("One up will go here!", position);
+                text.SpriteColor = Color.green;
+                //text.transform.localScale = new Vector3(2f, 2f);
+            }
+            else
+            {
+                var powerup = PoolManager.Instance.PickupPool.GetRandomPowerup(position);
+                powerup.OnSpawn();
+            }
+        }
 
 
-
-
+        #region Get Enemies
 
         // Can't use standard IEnumerable because enemies may get removed during enumeration.
         public static IEnumerable<Enemy> GetAllActiveEnemies()
@@ -130,5 +151,7 @@ namespace Assets
         }
 
         #endregion TryGetRandomEnemy
+
+        #endregion Get Enemies
     }
 }
