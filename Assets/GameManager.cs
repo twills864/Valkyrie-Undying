@@ -378,7 +378,12 @@ namespace Assets
         public void IncreaseWeaponLevel()
         {
             if (WeaponLevel < GameConstants.MaxWeaponLevel)
+            {
                 DebugUi.SliderFireLevel.value = WeaponLevel + 1;
+
+                string text = $"Weapon level up! {WeaponLevel}/{GameConstants.MaxWeaponLevel}";
+                CreateFleetingText(text, Player.FirePosition());
+            }
         }
 
         #endregion Player Weapons

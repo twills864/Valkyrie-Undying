@@ -17,8 +17,8 @@ namespace Assets.Powerups
         protected override void InitBalance(in PowerupBalanceManager.OnLevelUpBalance balance)
         {
             float respawnIntervalBase = balance.Sentinel.RespawnInterval.Base;
-            float respawnIntervalRatioIncrease = balance.Sentinel.RespawnInterval.Increase;
-            RespawnIntervalCalculator = new ProductLevelValueCalculator(respawnIntervalBase, respawnIntervalRatioIncrease);
+            float respawnIntervalScalePerLevel = balance.Sentinel.RespawnInterval.ScalePerLevel;
+            RespawnIntervalCalculator = new ProductLevelValueCalculator(respawnIntervalBase, respawnIntervalScalePerLevel);
 
             float worldDistanceExponentBase = balance.Sentinel.WorldDistance.Base;
             float worldDistanceMaxValue = balance.Sentinel.WorldDistance.MaxValue;

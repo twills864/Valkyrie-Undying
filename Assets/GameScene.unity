@@ -3307,17 +3307,18 @@ MonoBehaviour:
   PowerupBalance:
     OnFire:
       PestControl:
-        ExponentRatio: 0.8
-        MaxValue: 2
+        BulletDamageBalanceBase: 20
+        BaseChance: 0.2
+        ChanceIncrease: 0.175
       Mortar:
         Power:
           Base: 20
           Increase: 15
     OnHit:
       Shrapnel:
-        Spawn:
-          BaseChance: 0.3
-          ChanceIncrease: 0.8
+        SpawnChance:
+          Base: 0.3
+          Increase: 0.2
       Metronome:
         Damage:
           BaseValue: 0.1
@@ -3342,28 +3343,24 @@ MonoBehaviour:
       Void:
         Duration:
           Base: 0.7
-          Max: 3
+          Increase: 0.7
         SizeScale:
-          Base: 0.7
-          Max: 3
+          Base: 1
+          Increase: 0.9
     OnGetHit:
       Retribution:
         Duration:
           Base: 0.7
-          Max: 3
+          Increase: 0.5
         SizeScale:
-          InitialValue: 0.4
-          Base: 0.7
-          Max: 15
+          Base: 6
+          Increase: 3
     OnLevelUp:
       Othello:
         Damage:
-          Base: 0
-          Increase: 10
-        FireSpeed:
-          Base: 0.8
-          Max: 2
-      Firespeed:
+          Base: 20
+          Increase: 20
+      FireSpeed:
         Base: 1.2
         Increase: 0.15
       Monsoon:
@@ -3376,28 +3373,28 @@ MonoBehaviour:
       Sentinel:
         RespawnInterval:
           Base: 5
-          Increase: 0.75
+          ScalePerLevel: 0.5
         WorldDistance:
           Base: 0.6
-          MaxValue: 2.5
+          MaxValue: 4
     Passive:
       Inferno:
         FireSpeed:
           Base: 3
-          Increase: 0.8
+          ScalePerLevel: 0.8
         Damage:
           Base: 1
-          IncreasePerLevel: 1
+          Increase: 1
       Victim:
         FireSpeed:
           Base: 0.5
-          Scale: 0.85
+          ScalePerLevel: 0.8
         Damage:
-          Base: 0
-          IncreasePerLevel: 5
+          Base: 10
+          Increase: 5
   _DirectorBalance:
     BaseEnemyPowerupDropChance: 1
-    WeaponLevelOverrideChance: 0.1
+    WeaponLevelOverrideChance: 1
     OneUpOverrideChance: 0.1
   _ColorManager:
     DefaultPlayer: {r: 0.3764706, g: 0.827451, b: 1, a: 1}

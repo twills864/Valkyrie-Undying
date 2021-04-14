@@ -16,16 +16,20 @@ namespace Assets.Powerups
     /// <inheritdoc/>
     public class PestControlPowerup : OnFirePowerup
     {
+        private float BulletDamageBalanceBase { get; set; }
+
         protected override void InitBalance(in PowerupBalanceManager.OnFireBalance balance)
         {
-            float exponentRatio = balance.PestControl.ExponentRatio;
-            float maxValue = balance.PestControl.MaxValue;
+            BulletDamageBalanceBase = 1f / balance.PestControl.BulletDamageBalanceBase;
 
-            ChanceModifierCalculator = new AsymptoteScaleLevelValueCalculator(exponentRatio, maxValue);
+            float baseChance = balance.PestControl.BaseChance;
+            float chanceIncrease = balance.PestControl.ChanceIncrease;
+
+            ChanceModifierCalculator = new SumLevelValueCalculator(baseChance, chanceIncrease);
         }
 
         private float ChanceModifier => ChanceModifierCalculator.Value;
-        private AsymptoteScaleLevelValueCalculator ChanceModifierCalculator { get; set; }
+        private SumLevelValueCalculator ChanceModifierCalculator { get; set; }
 
 
         private EnemyBulletPoolList EnemyBulletPoolList;
@@ -40,13 +44,22 @@ namespace Assets.Powerups
         public override void OnFire(Vector3 position, PlayerBullet[] bullets)
         {
             int pestControlCounter = bullets
-                .Select(bullet => bullet.PestControlChance * ChanceModifier)
-                .Where(chance => RandomUtil.Bool(chance))
+                .Where(x => BulletFiresPestControl(x))
                 .Count();
 
             if (pestControlCounter > 0)
                 FirePestControl(position, pestControlCounter);
         }
+
+        private bool BulletFiresPestControl(PlayerBullet bullet)
+        {
+            float damageBalance = bullet.Damage * BulletDamageBalanceBase;
+            float chance =  damageBalance * ChanceModifier;
+
+            bool fires = RandomUtil.Bool(chance);
+            return fires;
+        }
+
 
         private void FirePestControl(Vector3 position, int numberToGet)
         {

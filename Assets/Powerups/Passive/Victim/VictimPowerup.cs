@@ -22,11 +22,11 @@ namespace Assets.Powerups
         protected override void InitBalance(in PowerupBalanceManager.PassiveBalance balance)
         {
             float fireSpeedBase = balance.Victim.FireSpeed.Base;
-            float fireSpeedScale = balance.Victim.FireSpeed.Scale;
+            float fireSpeedScale = balance.Victim.FireSpeed.ScalePerLevel;
             FireTimeCalculator = new ProductLevelValueCalculator(fireSpeedBase, fireSpeedScale);
 
             float damageBase = balance.Victim.Damage.Base;
-            float damageIncrease = balance.Victim.Damage.IncreasePerLevel;
+            float damageIncrease = balance.Victim.Damage.Increase;
             DamageCalculator = new SumLevelValueCalculator(damageBase, damageIncrease);
         }
 
@@ -69,7 +69,7 @@ namespace Assets.Powerups
                 velocity += victim.Velocity;
 
                 bullet.Velocity = velocity;
-                bullet.DamageIncrease = Damage;
+                bullet.VictimDamage = Damage;
             }
         }
     }

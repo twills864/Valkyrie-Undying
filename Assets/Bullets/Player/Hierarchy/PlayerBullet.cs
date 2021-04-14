@@ -29,7 +29,6 @@ namespace Assets.Bullets.PlayerBullets
 
 
         public virtual int Damage => BaseDamage;
-        public virtual float PestControlChance => Damage * 0.01f;
 
         public int BulletLevel { get; set; }
         public bool IsMaxLevel => BulletLevel == GameConstants.MaxWeaponLevel;

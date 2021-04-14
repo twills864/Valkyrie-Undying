@@ -55,7 +55,7 @@ namespace Assets.Powerups
         private Vector2 Size { get; set; }
         public SpriteBoxMap BoxMap { get; private set; }
 
-        private float FireSpeedModifier { get; set; }
+        //private float FireSpeedModifier { get; set; }
 
         /// <summary>
         /// Othello's fire timer activates just slightly faster than real-time
@@ -97,7 +97,7 @@ namespace Assets.Powerups
 
             transform.position = CalculateNewPosition(Player.Instance.transform.position);
 
-            FireTimer.Increment(deltaTime * FireSpeedModifier);
+            FireTimer.Increment(deltaTime/* * FireSpeedModifier*/);
 
             //// Only attempt to increment the fire timer if it's not already activated.
             //// This preserves the activation status for when the player fires their main cannon.
@@ -117,14 +117,14 @@ namespace Assets.Powerups
             FadeTo = new FadeTo(this, targetAlpha, FadeInTime);
         }
 
-        public void LevelUp(int level, int damage, float fireSpeedModifier)
+        public void LevelUp(int level, int damage)
         {
             if (level == 1)
                 Activate();
 
             Level = level;
             Damage = damage;
-            FireSpeedModifier = fireSpeedModifier;
+            //FireSpeedModifier = fireSpeedModifier;
             //FireTimer.ActivationInterval = FireTimerIntervalBase * fireSpeedModifier;
         }
 
@@ -133,7 +133,7 @@ namespace Assets.Powerups
             if (gameObject.activeSelf && FireTimer.Activated)
             {
                 var bullet = PoolManager.Instance.BulletPool.Get<OthelloBullet>(FirePosition, Level);
-                bullet.DamageIncrease = Damage;
+                bullet.OthelloDamage = Damage;
                 FireTimer.TouchTimer();
             }
         }
@@ -156,7 +156,7 @@ namespace Assets.Powerups
 
             FireTimer = new FrameTimerWithBuffer(FireTimerIntervalBase); // new LoopingFrameTimer(FireTimerIntervalBase);
             //FireTimer.Elapsed = -FadeInTime - FadeInTimeFireDelay;
-            FireSpeedModifier = FireSpeedPrecisionScale;
+            //FireSpeedModifier = FireSpeedPrecisionScale;
         }
     }
 }

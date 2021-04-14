@@ -24,11 +24,11 @@ namespace Assets.Powerups
         protected override void InitBalance(in PowerupBalanceManager.PassiveBalance balance)
         {
             float damageIncreaseBase = balance.Inferno.Damage.Base;
-            DamageIncreasePerLevel = balance.Inferno.Damage.IncreasePerLevel;
+            DamageIncreasePerLevel = balance.Inferno.Damage.Increase;
             DamageCalculator = new SumLevelValueCalculator(damageIncreaseBase, DamageIncreasePerLevel);
 
             float fireSpeedBase = balance.Inferno.FireSpeed.Base;
-            float fireSpeedIncrease = balance.Inferno.FireSpeed.Increase;
+            float fireSpeedIncrease = balance.Inferno.FireSpeed.ScalePerLevel;
             FireSpeedCalculator = new ProductLevelValueCalculator(fireSpeedBase, fireSpeedIncrease);
         }
 

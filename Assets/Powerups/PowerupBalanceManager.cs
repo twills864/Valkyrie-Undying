@@ -38,8 +38,10 @@ namespace Assets.Powerups.Balance
             [Serializable]
             public struct PestControlBalance
             {
-                public float ExponentRatio;
-                public float MaxValue;
+                public float BulletDamageBalanceBase;
+                public float BaseChance;
+                public float ChanceIncrease;
+
             }
 
             [Serializable]
@@ -71,13 +73,13 @@ namespace Assets.Powerups.Balance
             [Serializable]
             public struct ShrapnelBalance
             {
-                public SpawnChanceBalance Spawn;
+                public SpawnChanceBalance SpawnChance;
 
                 [Serializable]
                 public struct SpawnChanceBalance
                 {
-                    public float BaseChance;
-                    public float ChanceIncrease;
+                    public float Base;
+                    public float Increase;
                 }
             }
 
@@ -163,14 +165,14 @@ namespace Assets.Powerups.Balance
                 public struct DurationBalance
                 {
                     public float Base;
-                    public float Max;
+                    public float Increase;
                 }
 
                 [Serializable]
                 public struct SizeScaleBalance
                 {
                     public float Base;
-                    public float Max;
+                    public float Increase;
                 }
             }
         }
@@ -194,15 +196,14 @@ namespace Assets.Powerups.Balance
                 public struct DurationBalance
                 {
                     public float Base;
-                    public float Max;
+                    public float Increase;
                 }
 
                 [Serializable]
                 public struct SizeScaleBalance
                 {
-                    public float InitialValue;
                     public float Base;
-                    public float Max;
+                    public float Increase;
                 }
             }
         }
@@ -215,7 +216,7 @@ namespace Assets.Powerups.Balance
         public struct OnLevelUpBalance
         {
             public OthelloBalance Othello;
-            public FireSpeedBalance Firespeed;
+            public FireSpeedBalance FireSpeed;
             public MonsoonBalance Monsoon;
             public SentinelBalance Sentinel;
 
@@ -223,7 +224,7 @@ namespace Assets.Powerups.Balance
             public struct OthelloBalance
             {
                 public DamageBalance Damage;
-                public FireSpeedBalance FireSpeed;
+                //public FireSpeedBalance FireSpeed;
 
                 [Serializable]
                 public struct DamageBalance
@@ -232,12 +233,12 @@ namespace Assets.Powerups.Balance
                     public float Increase;
                 }
 
-                [Serializable]
-                public struct FireSpeedBalance
-                {
-                    public float Base;
-                    public float Max;
-                }
+                //[Serializable]
+                //public struct FireSpeedBalance
+                //{
+                //    public float Base;
+                //    public float Max;
+                //}
             }
 
             [Serializable]
@@ -278,7 +279,7 @@ namespace Assets.Powerups.Balance
                 public struct RespawnIntervalBalance
                 {
                     public float Base;
-                    public float Increase;
+                    public float ScalePerLevel;
                 }
 
                 [Serializable]
@@ -310,14 +311,14 @@ namespace Assets.Powerups.Balance
                 public struct FireSpeedBalance
                 {
                     public float Base;
-                    public float Increase;
+                    public float ScalePerLevel;
                 }
 
                 [Serializable]
                 public struct DamageBalance
                 {
                     public float Base;
-                    public float IncreasePerLevel;
+                    public float Increase;
                 }
             }
 
@@ -331,14 +332,14 @@ namespace Assets.Powerups.Balance
                 public struct FireSpeedBalance
                 {
                     public float Base;
-                    public float Scale;
+                    public float ScalePerLevel;
                 }
 
                 [Serializable]
                 public struct DamageBalance
                 {
                     public float Base;
-                    public float IncreasePerLevel;
+                    public float Increase;
                 }
             }
         }

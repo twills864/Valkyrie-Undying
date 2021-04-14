@@ -20,19 +20,19 @@ namespace Assets.Powerups
         protected override void InitBalance(in PowerupBalanceManager.OnKillBalance balance)
         {
             float durationBase = balance.Void.Duration.Base;
-            float durationMax = balance.Void.Duration.Max;
-            DurationCalculator = new AsymptoteScaleLevelValueCalculator(durationBase, durationMax);
+            float durationIncrease = balance.Void.Duration.Increase;
+            DurationCalculator = new SumLevelValueCalculator(durationBase, durationIncrease);
 
             float sizeScaleBase = balance.Void.SizeScale.Base;
-            float sizeScaleMax = balance.Void.SizeScale.Max;
-            SizeScaleLevel = new AsymptoteScaleLevelValueCalculator(sizeScaleBase, sizeScaleMax);
+            float sizeScaleIncrease = balance.Void.SizeScale.Increase;
+            SizeScaleLevel = new SumLevelValueCalculator(sizeScaleBase, sizeScaleIncrease);
         }
 
         private float Duration => DurationCalculator.Value;
-        private AsymptoteScaleLevelValueCalculator DurationCalculator { get; set; }
+        private SumLevelValueCalculator DurationCalculator { get; set; }
 
         private float SizeScale => SizeScaleLevel.Value;
-        private AsymptoteScaleLevelValueCalculator SizeScaleLevel { get; set; }
+        private SumLevelValueCalculator SizeScaleLevel { get; set; }
 
         public override void OnKill(Enemy enemy, PlayerBullet bullet)
         {

@@ -20,13 +20,13 @@ namespace Assets.Powerups
     {
         protected override void InitBalance(in PowerupBalanceManager.OnHitBalance balance)
         {
-            float shrapnelChanceBase = balance.Shrapnel.Spawn.BaseChance;
-            float shrapnelIncrease = balance.Shrapnel.Spawn.ChanceIncrease;
-            ShrapnelChanceCalculator = new AsymptoteRatioLevelValueCalculator(shrapnelChanceBase, shrapnelIncrease);
+            float shrapnelChanceBase = balance.Shrapnel.SpawnChance.Base;
+            float shrapnelIncrease = balance.Shrapnel.SpawnChance.Increase;
+            ShrapnelChanceCalculator = new SumLevelValueCalculator(shrapnelChanceBase, shrapnelIncrease);
         }
 
         private float ShrapnelChance => ShrapnelChanceCalculator.Value;
-        private AsymptoteRatioLevelValueCalculator ShrapnelChanceCalculator { get; set; }
+        private SumLevelValueCalculator ShrapnelChanceCalculator { get; set; }
 
         public float MaxY { get; set; }
 

@@ -20,21 +20,19 @@ namespace Assets.Powerups
         protected override void InitBalance(in PowerupBalanceManager.OnGetHitBalance balance)
         {
             float durationBase = balance.Retribution.Duration.Base;
-            float durationMax = balance.Retribution.Duration.Max;
-            DurationCalculator = new AsymptoteScaleLevelValueCalculator(durationBase, durationMax);
+            float durationIncrease = balance.Retribution.Duration.Increase;
+            DurationCalculator = new SumLevelValueCalculator(durationBase, durationIncrease);
 
-            float sizeScaleInitialValue = balance.Retribution.SizeScale.InitialValue;
-            float sizeScaleExponentBase = balance.Retribution.SizeScale.Base;
-            float sizeScaleMax = balance.Retribution.SizeScale.Max;
-            SizeScaleLevel = new AsymptoteRatioLevelValueCalculator
-                (sizeScaleInitialValue, sizeScaleExponentBase, sizeScaleMax);
+            float sizeScaleBase = balance.Retribution.SizeScale.Base;
+            float sizeScaleIncrease = balance.Retribution.SizeScale.Increase;
+            SizeScaleLevel = new SumLevelValueCalculator(sizeScaleBase, sizeScaleIncrease);
         }
 
         private float Duration => DurationCalculator.Value;
-        private AsymptoteScaleLevelValueCalculator DurationCalculator { get; set; }
+        private SumLevelValueCalculator DurationCalculator { get; set; }
 
         private float SizeScale => SizeScaleLevel.Value;
-        private AsymptoteRatioLevelValueCalculator SizeScaleLevel { get; set; }
+        private SumLevelValueCalculator SizeScaleLevel { get; set; }
 
         public override void OnGetHit()
         {

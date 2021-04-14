@@ -74,5 +74,10 @@ namespace Assets.Bullets.PlayerBullets
             else
                 DeactivateSelf();
         }
+
+        protected override void OnDeactivate()
+        {
+            transform.localScale = Vector3.zero;
+        }
     }
 }

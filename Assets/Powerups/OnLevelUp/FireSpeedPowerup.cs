@@ -16,8 +16,8 @@ namespace Assets.Powerups
     {
         protected override void InitBalance(in PowerupBalanceManager.OnLevelUpBalance balance)
         {
-            float fireDeltaBase = balance.Firespeed.Base;
-            float fireDeltaIncrease = balance.Firespeed.Increase;
+            float fireDeltaBase = balance.FireSpeed.Base;
+            float fireDeltaIncrease = balance.FireSpeed.Increase;
             PlayerFireDeltaTimeCalculator = new SumLevelValueCalculator(fireDeltaBase, fireDeltaIncrease);
         }
 

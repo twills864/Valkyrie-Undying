@@ -9,8 +9,8 @@ namespace Assets.Bullets.PlayerBullets
     /// <inheritdoc/>
     public class VictimBullet : PlayerBullet
     {
-        public override int Damage => base.Damage + DamageIncrease;
-        public int DamageIncrease { get; set; }
+        public override int Damage => VictimDamage;
+        public int VictimDamage { get; set; }
 
         #region Prefabs
 

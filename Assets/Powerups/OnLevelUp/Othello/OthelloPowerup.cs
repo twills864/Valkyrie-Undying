@@ -16,24 +16,24 @@ namespace Assets.Powerups
     {
         protected override void InitBalance(in PowerupBalanceManager.OnLevelUpBalance balance)
         {
-            float fireSpeedExponentBase = balance.Othello.FireSpeed.Base;
-            float fireSpeedMaxValue = balance.Othello.FireSpeed.Max;
-            FireSpeedModifierCalculator = new AsymptoteScaleLevelValueCalculator(fireSpeedExponentBase, fireSpeedMaxValue);
+            //float fireSpeedBase = balance.Othello.FireSpeed.Base;
+            //float fireSpeedIncrease = balance.Othello.FireSpeed.Max;
+            //FireSpeedModifierCalculator = new SumLevelValueCalculator(fireSpeedBase, fireSpeedIncrease);
 
             float damageBase = balance.Othello.Damage.Base;
             float damageIncrease = balance.Othello.Damage.Increase;
             DamageCalculator = new SumLevelValueCalculator(damageBase, damageIncrease);
         }
 
-        public float FireSpeedModifier => FireSpeedModifierCalculator.Value;
-        private AsymptoteScaleLevelValueCalculator FireSpeedModifierCalculator { get; set; }
+        //public float FireSpeedModifier => FireSpeedModifierCalculator.Value;
+        //private SumLevelValueCalculator FireSpeedModifierCalculator { get; set; }
 
         public int Damage => (int)DamageCalculator.Value;
         private SumLevelValueCalculator DamageCalculator { get; set; }
 
         public override void OnLevelUp()
         {
-            Othello.Instance.LevelUp(Level, Damage, FireSpeedModifier);
+            Othello.Instance.LevelUp(Level, Damage);
         }
     }
 }
