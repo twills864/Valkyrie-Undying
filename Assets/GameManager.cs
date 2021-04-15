@@ -32,8 +32,6 @@ namespace Assets
 
         private TestingType CurrentTest = TestingType.NewPowerup;
 
-        public static Type OverrideDefaultWeaponType => null; // DebugUtil.GetOverrideFireStrategyType<DeadlyDiamondStrategy>();
-        public static Type GameRowPowerupType => DebugUtil.GetPowerupType<SmitePowerup>();
         public static Type OverrideEnemyType => null; // DebugUtil.GetOverrideEnemyType<BasicEnemy>();
 
         public bool DebugPauseNextFrame;
@@ -46,28 +44,13 @@ namespace Assets
             NewEnemy
         };
 
-        private bool TestingWeapon => CurrentTest == TestingType.NewWeapon;
-        private bool TestingPowerup => CurrentTest == TestingType.NewPowerup;
-        private bool TestingEnenemy => CurrentTest == TestingType.NewEnemy;
+        // Unused since saving last weapon and powerup between sessions
+        //private bool TestingWeapon => CurrentTest == TestingType.NewWeapon;
+        //private bool TestingPowerup => CurrentTest == TestingType.NewPowerup;
 
-        public int DefaultFireTypeIndex
-        {
-            get
-            {
-                var overrideType = OverrideDefaultWeaponType;
-                if (overrideType != null)
-                {
-                    for (int i = 0; i < FireStrategies.Count; i++)
-                    {
-                        if (FireStrategies[i].GetType() == overrideType)
-                            return i;
-                    }
-                    throw ExceptionUtil.ArgumentException(() => overrideType);
-                }
-                else
-                    return !TestingWeapon ? 0 : FireStrategies.Count - 1;
-            }
-        }
+        private bool TestingEnemy => CurrentTest == TestingType.NewEnemy;
+
+        public int DefaultFireTypeIndex => SaveUtil.LastWeapon;
 
         #endregion Debug
 
@@ -223,8 +206,9 @@ namespace Assets
 
             // Dependency: _PowerupManager
             _PoolManager.PickupPool.InitializePowerups(_PowerupManager.AllPowerups);
+            SaveUtil.InitializePowerups(_PowerupManager.AllPowerups);
 
-            // Dependency: FireStrategies, _PowerupMenu
+            // Dependency: FireStrategies, _PowerupMenu, SaveUtil
             DebugUi.Init(FireStrategies, _PowerupMenu);
 
             // Dependency: DebugUi
@@ -363,6 +347,8 @@ namespace Assets
 
             if(!skipMessage)
                 CreateFleetingText(CurrentFireStrategy.StrategyName, SpaceUtil.WorldMap.Center);
+
+            SaveUtil.LastWeapon = index;
         }
 
         public void FirePlayerBullets(PlayerBullet[] bullets)
@@ -568,7 +554,7 @@ namespace Assets
 
         public void PowerupRowPowerLevelChanged(int value)
         {
-            _PowerupMenu.SetLevel(GameRowPowerupType, value);
+            _PowerupMenu.SetLevel(SaveUtil.LastPowerup.GetType(), value);
         }
         #endregion Powerup Menu
 

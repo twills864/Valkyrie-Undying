@@ -97,6 +97,8 @@ namespace Assets.UI.PowerupMenu
 
             string title = powerup.PowerupName;
             PowerupNameField.text = title;
+
+            InputPowerLevel.text = powerup.Level.ToString();
         }
     }
 }

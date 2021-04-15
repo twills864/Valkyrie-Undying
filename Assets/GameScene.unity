@@ -3393,8 +3393,8 @@ MonoBehaviour:
           Base: 10
           Increase: 5
   _DirectorBalance:
-    BaseEnemyPowerupDropChance: 1
-    WeaponLevelOverrideChance: 1
+    BaseEnemyPowerupDropChance: 0
+    WeaponLevelOverrideChance: 0.1
     OneUpOverrideChance: 0.1
   _ColorManager:
     DefaultPlayer: {r: 0.3764706, g: 0.827451, b: 1, a: 1}
@@ -3429,7 +3429,7 @@ MonoBehaviour:
   _Destructor: {fileID: 6556364}
   _ScreenEdgeColliderSet: {fileID: 29231933}
   _PoolManager: {fileID: 1431298137}
-  _InitialWeaponTime: 10
+  _InitialWeaponTime: 9999999
 --- !u!4 &1640542552
 Transform:
   m_ObjectHideFlags: 0

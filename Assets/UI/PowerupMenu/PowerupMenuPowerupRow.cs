@@ -79,6 +79,24 @@ namespace Assets.UI.PowerupMenu
             PowerLevel--;
         }
 
+        public void PlusClicked()
+        {
+            IncrementPowerLevel();
+            SetLastPowerup();
+        }
+
+        public void MinusClicked()
+        {
+            DecrementPowerLevel();
+            SetLastPowerup();
+        }
+
+        private void SetLastPowerup()
+        {
+            SaveUtil.LastPowerup = Powerup;
+            DebugUI.Instance.PowerupRow.Init(Powerup);
+        }
+
         private void OnPowerLevelChanged(int value)
         {
             if (Powerup.Level != value)

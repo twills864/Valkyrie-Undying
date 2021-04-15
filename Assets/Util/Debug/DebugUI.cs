@@ -51,8 +51,8 @@ namespace Assets.Util
         [SerializeField]
         public Text TextGameSpeed;
 
-        private Type GameRowPowerupType => GameManager.GameRowPowerupType;
-        private Powerup CurrentDebugPowerup => _GameManager._PowerupManager.AllPowerupsMap[GameRowPowerupType];
+        private Type GameRowPowerupType => SaveUtil.LastPowerup.GetType();
+        private Powerup CurrentDebugPowerup => SaveUtil.LastPowerup;
 
         public void Init(CircularSelector<PlayerFireStrategy> fireStrategies, PowerupMenu powerupMenu)
         {
@@ -87,7 +87,7 @@ namespace Assets.Util
             DropdownFireType.SetValueWithoutNotify(GameManager.Instance.DefaultFireTypeIndex);
             DropdownFireType.onValueChanged.AddListener(delegate
             {
-                if(!ShouldSkipSettingFireTimeInGameManager)
+                if (!ShouldSkipSettingFireTimeInGameManager)
                     _GameManager.SetFireType(DropdownFireType.value, skipDropDown: true, skipMessage: true, endlessTime: ShouldSetEndlessWeaponTime);
             });
 

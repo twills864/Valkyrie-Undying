@@ -128,7 +128,7 @@ namespace Assets.Util
             //PoolManager.Instance.PickupPool.Get<WeaponPickup>(SpaceUtil.WorldMap.Top);
             //GameManager.SpawnPowerup(SpaceUtil.WorldMap.Center);
 
-            PoolManager.Instance.PickupPool.GetRandomPowerup(SpaceUtil.WorldMap.Center);
+            PoolManager.Instance.PickupPool.GetRandomPowerup(SpaceUtil.WorldMap.Center).OnSpawn();
         }
 
         private static void InputMouseForward(KeyCode keyCode)
@@ -145,7 +145,7 @@ namespace Assets.Util
             }
 
             //SmiteBullet.DebugTestSmite();
-            PoolManager.Instance.PickupPool.GetRandomWeapon(SpaceUtil.WorldMap.Center);
+            PoolManager.Instance.PickupPool.GetRandomWeapon(SpaceUtil.WorldMap.Center).OnSpawn();
         }
 
         private static void InputKeypadPlus(KeyCode keyCode)
