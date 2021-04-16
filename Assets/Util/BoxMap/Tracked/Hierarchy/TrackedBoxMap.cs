@@ -11,7 +11,7 @@ namespace Assets.Util
         protected MonoBehaviour Target { get; }
 
         protected abstract Bounds Bounds { get; }
-        protected Vector3 Size => Bounds.size;
+        public Vector3 Size => Bounds.size;
 
 
         public TrackedBoxMap(MonoBehaviour target)

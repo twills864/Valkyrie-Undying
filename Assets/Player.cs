@@ -247,8 +247,8 @@ namespace Assets
         /// false if the player avoids the collision, e.g. with a powerup.</returns>
         public bool CollideWithBullet(EnemyBullet bullet)
         {
-            GameManager.Instance._PowerupManager.OnGetHit();
-            GameManager.Instance.CreateFleetingText("Ow", transform.position);
+            GameManager.Instance.OnGetHit();
+            //GameManager.Instance.CreateFleetingText("Ow", transform.position);
             return true;
         }
 
@@ -262,8 +262,8 @@ namespace Assets
         {
             if (enemy.name != DebugUtil.DebugEnemyName)
             {
-                GameManager.Instance._PowerupManager.OnGetHit();
-                GameManager.Instance.CreateFleetingText("Ow!", transform.position);
+                GameManager.Instance.OnGetHit();
+                //GameManager.Instance.CreateFleetingText("Ow!", transform.position);
                 return true;
             }
             else

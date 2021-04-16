@@ -54,6 +54,7 @@ namespace Assets
 
         #endregion Debug
 
+
         #region Property Fields
 
         private Enemy _victimEnemy;
@@ -62,7 +63,9 @@ namespace Assets
 
         #endregion Property Fields
 
+
         public static GameManager Instance { get; private set; }
+
 
         #region Prefabs
 
@@ -86,6 +89,9 @@ namespace Assets
         [SerializeField]
         public Othello _Othello;
 
+        [SerializeField]
+        public int _StartingExtraLives = GameConstants.PrefabNumber;
+
         #endregion Player Prefabs
 
         #region Powerup Prefabs
@@ -103,6 +109,13 @@ namespace Assets
         private SentinelManager _SentinelManager = null;
 
         #endregion Powerup Prefabs
+
+        #region UI Prefabs
+
+        [SerializeField]
+        private RepeatingSpriteBar _RemainingLivesBar = null;
+
+        #endregion UI Prefabs
 
         #region Debug Prefabs
 
@@ -130,6 +143,9 @@ namespace Assets
         [SerializeField]
         private float _InitialWeaponTime = GameConstants.PrefabNumber;
 
+        [SerializeField]
+        private Sprite _LifeSprite = null;
+
         #endregion Misc Prefabs
 
         #endregion Prefabs
@@ -155,6 +171,7 @@ namespace Assets
             InitWithoutDependencies();
             InitWithDependencies();
             InitIndependentColors();
+            InitGame();
 
             //var bullet = _PoolManager.BulletPool.Get<SmiteLightningBullet>(SpaceUtil.WorldMap.Center);
             //var bullet2 = _PoolManager.BulletPool.Get<SmiteJointBullet>(SpaceUtil.WorldMap.Center + new Vector3(0f, 1f, 0));
@@ -197,6 +214,8 @@ namespace Assets
             //_Othello.Alpha = _ColorManager.Player.OthelloAlpha;
             _Othello.Init();
             Player.Init(in _FireStrategyManager);
+
+            _RemainingLivesBar.Init();
 
             // Dependency: SpaceUtil, PoolManager
             BfgBulletFallout.StaticInitColors(in _ColorManager);
@@ -247,12 +266,19 @@ namespace Assets
             _MonsoonSpawner.SpriteColor = defaultPlayerAdditional;
         }
 
+        private void InitGame()
+        {
+            LivesLeft = _StartingExtraLives;
+        }
+
         #endregion Init
 
         #region Update
 
         private void Update()
         {
+            //var lol = Instantiate(_LifeSprite);
+
             if (DebugPauseNextFrame)
             {
                 Debugger.Break();
@@ -496,6 +522,40 @@ namespace Assets
         #endregion Enemy Bullets
 
         #endregion Enemies
+
+        #region Damage
+
+        public int LivesLeft
+        {
+            get => _RemainingLivesBar.SpritesToRender;
+            set => _RemainingLivesBar.SpritesToRender = value;
+        }
+
+        public void OnGetHit()
+        {
+            _PowerupManager.OnGetHit();
+
+            TakeDamage();
+        }
+
+        public void TakeDamage()
+        {
+            if (LivesLeft > 0)
+            {
+                Player.CreateFleetingTextAtCenter("Ow");
+                LivesLeft--;
+            }
+            else
+            {
+                Player.CreateFleetingTextAtCenter("You died!!");
+                LivesLeft = _StartingExtraLives;
+            }
+
+
+
+        }
+
+        #endregion Damage
 
         #region Game Tasks
 

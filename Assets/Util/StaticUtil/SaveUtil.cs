@@ -42,9 +42,10 @@ namespace Assets.Util
             set => PlayerPrefs.SetInt(LastWeaponIndexKey, value);
         }
 
+        private static readonly string DefaultPowerupName = typeof(FireSpeedPowerup).Name;
         public static Powerup LastPowerup
         {
-            get => PowerupNameMap[PlayerPrefs.GetString(LastPowerupNameKey)];
+            get => PowerupNameMap[PlayerPrefs.GetString(LastPowerupNameKey, DefaultPowerupName)];
             set => PlayerPrefs.SetString(LastPowerupNameKey, value.GetType().Name);
         }
     }
