@@ -92,6 +92,9 @@ namespace Assets
         [SerializeField]
         public int _StartingExtraLives = GameConstants.PrefabNumber;
 
+        [SerializeField]
+        private Scoreboard _Scoreboard = null;
+
         #endregion Player Prefabs
 
         #region Powerup Prefabs
@@ -191,6 +194,8 @@ namespace Assets
             _PowerupMenu.transform.position += new Vector3(0, 0, 0);
 
             MonsoonSpawner.Instance = _MonsoonSpawner;
+
+            _Scoreboard.Init();
         }
 
         private void InitWithDependencies()
@@ -549,6 +554,7 @@ namespace Assets
             {
                 Player.CreateFleetingTextAtCenter("You died!!");
                 LivesLeft = _StartingExtraLives;
+                _Scoreboard.ResetScore();
             }
 
 

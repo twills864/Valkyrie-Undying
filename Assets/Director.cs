@@ -98,6 +98,11 @@ namespace Assets
 
         private static void EnemyKilled(Enemy enemy)
         {
+            var points = enemy.PointValue;
+            enemy.CreateFleetingTextAtCenter(points);
+            Scoreboard.Instance.AddScore(points);
+
+
             float powerupMultiplier = enemy.PowerupDropChanceMultiplier;
             float spawnChance = Balance.BaseEnemyPowerupDropChance * powerupMultiplier;
             if (RandomUtil.Bool(spawnChance))

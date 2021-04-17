@@ -246,7 +246,6 @@ namespace Assets.Enemies
         public void KillEnemy(PlayerBullet bullet)
         {
             WasKilled = true;
-            CreateFleetingTextAtCenter(PointValue);
             GameManager.Instance.OnEnemyKill(this, bullet);
             DeactivateSelf();
             OnDeath();
