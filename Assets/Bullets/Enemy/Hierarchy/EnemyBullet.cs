@@ -40,7 +40,7 @@ namespace Assets.Bullets.EnemyBullets
         {
             if(CollisionUtil.IsPlayer(collision))
             {
-                if (HitsPlayer && Player.Instance.CollideWithBullet(this) && DeactivateOnHit)
+                if (HitsPlayer && Player.Instance.CollidesWithBullet(this) && DeactivateOnHit)
                     DeactivateSelf();
             }
         }

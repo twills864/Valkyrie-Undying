@@ -417,7 +417,7 @@ namespace Assets.Enemies
             }
             else if (CollisionUtil.IsPlayer(collision))
             {
-                if (Player.Instance.CollideWithEnemy(this))
+                if (Player.Instance.CollidesWithEnemy(this))
                     KillEnemy(null);
             }
             if (CollisionUtil.IsEnemy(collision) && IsBurning)

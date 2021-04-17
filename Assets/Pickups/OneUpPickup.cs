@@ -11,6 +11,7 @@ namespace Assets.Pickups
     {
         protected override void OnPickUp()
         {
+            GameManager.Instance.LivesLeft++;
             Player.Instance.CreateFleetingTextAtCenter("One up!").SpriteColor = Color.green;
         }
     }

@@ -294,7 +294,7 @@ namespace Assets
 
             if (CurrentFireStrategy.UpdateActivates(playerFireScale * Player.FireSpeedScale))
             {
-                var bullets = CurrentFireStrategy.GetBullets(WeaponLevel, Player.FirePosition());
+                var bullets = CurrentFireStrategy.GetBullets(WeaponLevel, Player.FirePosition);
                 FirePlayerBullets(bullets);
 
                 _Othello.Fire();
@@ -379,7 +379,7 @@ namespace Assets
 
         public void FirePlayerBullets(PlayerBullet[] bullets)
         {
-            _PowerupManager.OnFire(Player.FirePosition(), bullets);
+            _PowerupManager.OnFire(Player.FirePosition, bullets);
 
         }
         public void FirePlayerBullet(PlayerBullet bullet)
@@ -394,7 +394,7 @@ namespace Assets
                 DebugUi.SliderFireLevel.value = WeaponLevel + 1;
 
                 string text = $"Weapon level up! {WeaponLevel}/{GameConstants.MaxWeaponLevel}";
-                CreateFleetingText(text, Player.FirePosition());
+                CreateFleetingText(text, Player.FirePosition);
             }
         }
 
@@ -542,7 +542,7 @@ namespace Assets
         {
             if (LivesLeft > 0)
             {
-                Player.CreateFleetingTextAtCenter("Ow");
+                //Player.CreateFleetingTextAtCenter("Ow");
                 LivesLeft--;
             }
             else

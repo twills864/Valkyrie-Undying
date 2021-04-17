@@ -43,6 +43,12 @@ namespace Assets
         [SerializeField]
         private float _VictimMarkerDistance = GameConstants.PrefabNumber;
 
+        [SerializeField]
+        private LineRenderer _LaserPointer = null;
+
+        [SerializeField]
+        private PlayerIFrames _PlayerIFrames;
+
         #endregion Prefabs
 
 
@@ -53,12 +59,12 @@ namespace Assets
         private MortarGuide MortarGuide => _MortarGuide;
         private float MobileYOffset => _MobileYOffset;
         public float VictimMarkerDistance => _VictimMarkerDistance;
+        private LineRenderer LaserPointer => _LaserPointer;
+        private PlayerIFrames PlayerIFrames => _PlayerIFrames;
 
         #endregion Prefab Properties
 
 
-        private Rigidbody2D Body { get; set; }
-        private LineRenderer LineRenderer { get; set; }
         private SpriteRenderer BloodlustAuraSprite { get; set; }
 
         public Vector2 Size => Sprite.bounds.size;
@@ -71,6 +77,8 @@ namespace Assets
         private float MaxX { get; set; }
 
         private Vector3 LastCursorPosition { get; set; }
+
+        public Vector3 FirePosition => SpriteMap.Top;
 
         #region Fire Speed
 
@@ -123,9 +131,7 @@ namespace Assets
         {
             Instance = this;
 
-            Body = GetComponent<Rigidbody2D>();
             BloodlustAuraSprite = BloodlustAuraObject.GetComponent<SpriteRenderer>();
-            LineRenderer = GetComponent<LineRenderer>();
 
             //var targetY = Camera.main.ScreenToWorldPoint(new Vector3(0, MobileYOffset));
             var heightHalf = Size.y * 0.5f;
@@ -137,6 +143,9 @@ namespace Assets
             MaxX = _MaxX;
 
             SetMobilePosition(Vector3.zero);
+
+            InIFrames = false;
+            InitIFramesSequence();
 
             //var startDelay = new Delay(this, 0.5f);
             //var scaleTo = new ScaleTo(this, 3.0f, 1.5f);
@@ -183,14 +192,8 @@ namespace Assets
         }
         public void SetPosition(Vector3 pos)
         {
-            Body.transform.localPosition = pos;
+            transform.localPosition = pos;
             SentinelManager.Instance.transform.position = pos;
-        }
-
-        public Vector3 FirePosition()
-        {
-            var ret = SpriteMap.Top;
-            return ret;
         }
 
         protected override void OnFrameRun(float deltaTime, float realDeltaTime)
@@ -204,6 +207,8 @@ namespace Assets
 
             if (ShouldDrawMortar)
                 MortarGuide.DrawMortar();
+
+            IFramesSequence.RunFrame(realDeltaTime);
         }
 
         private void HandleMovement()
@@ -228,6 +233,42 @@ namespace Assets
                 SetPosition(SpaceUtil.WorldPositionUnderMouse());
         }
 
+        #region Damage
+
+        /// <summary>
+        /// Whether or not the player is currently invincible due to being recently damaged.
+        /// </summary>
+        public bool InIFrames { get; set; }
+
+        private Sequence IFramesSequence { get; set; }
+
+        private void InitIFramesSequence()
+        {
+            const float BaseAlpha = 1.0f;
+            float blinkAlpha = PlayerIFrames.BlinkFadeAlpha;
+
+            var blinkOut = new GameTaskFunc(this, () => Alpha = blinkAlpha);
+            var blinkIn = new GameTaskFunc(this, () => Alpha = BaseAlpha);
+
+            var standardDelay = new Delay(this, PlayerIFrames.StandardBlinks.OneBlinkTime);
+            var standardBlinkSequence = new Sequence(blinkOut, standardDelay, blinkIn, standardDelay);
+            var standardBlinks = new Repeat(standardBlinkSequence, PlayerIFrames.StandardBlinks.NumBlinks);
+
+
+            var finalDelay = new Delay(this, PlayerIFrames.FinalBlinks.OneBlinkTime);
+            var finalBlinkSequence = new Sequence(blinkOut, finalDelay, blinkIn, finalDelay);
+            var finalBlinks = new Repeat(finalBlinkSequence, PlayerIFrames.FinalBlinks.NumBlinks);
+
+            var gracePeriod = new Delay(this, PlayerIFrames.GracePeriodTime);
+
+            var restoreMortality = new GameTaskFunc(this, () => InIFrames = false);
+
+            IFramesSequence = new Sequence(standardBlinks, finalBlinks, gracePeriod, restoreMortality);
+
+            // Prevent sequence from running at start
+            IFramesSequence.FinishSelf();
+        }
+
         /// <summary>
         /// Returns true if the given <paramref name="collider"/> collides with the player.
         /// </summary>
@@ -245,10 +286,9 @@ namespace Assets
         /// </summary>
         /// <returns>True if the bullet should behave as if it successfully hits the player;
         /// false if the player avoids the collision, e.g. with a powerup.</returns>
-        public bool CollideWithBullet(EnemyBullet bullet)
+        public bool CollidesWithBullet(EnemyBullet bullet)
         {
-            GameManager.Instance.OnGetHit();
-            //GameManager.Instance.CreateFleetingText("Ow", transform.position);
+            OnHit();
             return true;
         }
 
@@ -258,12 +298,11 @@ namespace Assets
         /// </summary>
         /// <returns>True if the enemy should behave as if it successfully collides with the player;
         /// false if the player avoids the collision, e.g. with a powerup.</returns>
-        public bool CollideWithEnemy(Enemy enemy)
+        public bool CollidesWithEnemy(Enemy enemy)
         {
             if (enemy.name != DebugUtil.DebugEnemyName)
             {
-                GameManager.Instance.OnGetHit();
-                //GameManager.Instance.CreateFleetingText("Ow!", transform.position);
+                OnHit();
                 return true;
             }
             else
@@ -273,6 +312,21 @@ namespace Assets
             }
         }
 
+        private void OnHit()
+        {
+            if (!InIFrames)
+                TakeDamage();
+        }
+
+        private void TakeDamage()
+        {
+            GameManager.Instance.OnGetHit();
+
+            InIFrames = true;
+            IFramesSequence.ResetSelf();
+        }
+
+        #endregion Damage
 
         #region Bloodlust
 

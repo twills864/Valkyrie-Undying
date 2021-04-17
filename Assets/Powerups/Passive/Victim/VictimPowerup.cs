@@ -62,7 +62,7 @@ namespace Assets.Powerups
 
             if (victim != null)
             {
-                var firePosition = Player.Instance.FirePosition();
+                var firePosition = Player.Instance.FirePosition;
                 var bullet = PoolManager.Instance.BulletPool.Get<VictimBullet>(firePosition, FireTimeCalculator.Level);
 
                 var velocity = MathUtil.VelocityVector(firePosition, victim.transform.position, bullet.Speed);

@@ -61,7 +61,7 @@ namespace Assets.Powerups
         {
             if(FireTimer.UpdateActivates(deltaTime))
             {
-                var firePos = Player.Instance.FirePosition();
+                var firePos = Player.Instance.FirePosition;
                 var bullet = (InfernoBullet)InfernoPool.Get();
                 bullet.transform.position = firePos;
                 bullet.BulletLevel = Level;
