@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Assets.UI;
 using UnityEngine;
 
 namespace Assets.Pickups
@@ -12,7 +13,7 @@ namespace Assets.Pickups
         protected override void OnPickUp()
         {
             GameManager.Instance.LivesLeft++;
-            Player.Instance.CreateFleetingTextAtCenter("One up!").SpriteColor = Color.green;
+            NotificationManager.AddNotification("One up!");
         }
     }
 }

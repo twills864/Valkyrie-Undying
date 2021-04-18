@@ -14,6 +14,7 @@ public class EnemyHealthBar : UIElement
 
     #endregion Prefabs
 
+
     #region Prefab Properties
 
     private TextMesh TextMesh => _TextMesh;

@@ -118,6 +118,9 @@ namespace Assets
         [SerializeField]
         private RepeatingSpriteBar _RemainingLivesBar = null;
 
+        [SerializeField]
+        private Notification _Notification = null;
+
         #endregion UI Prefabs
 
         #region Debug Prefabs
@@ -201,6 +204,8 @@ namespace Assets
             MonsoonSpawner.Instance = _MonsoonSpawner;
 
             _Scoreboard.Init();
+
+            NotificationManager.Init(_Notification);
         }
 
         private void InitWithDependencies()
@@ -320,6 +325,8 @@ namespace Assets
 
             _PowerupManager.PassiveUpdate(playerFireScale, deltaTime);
             GameTaskLists.RunFrames(playerFireScale, deltaTime, deltaTime, deltaTime);
+
+            NotificationManager.RunFrame(deltaTime);
         }
 
         private void UpdateFireStrategy(float playerTime)
@@ -411,12 +418,9 @@ namespace Assets
                 WeaponResetTimer.ActivationInterval = InitialWeaponTime;
             }
 
-            if (index == DefaultFireTypeIndex)
+            if (/*index != DefaultFireTypeIndex && */!skipMessage)
+                NotificationManager.AddNotification(CurrentFireStrategy.StrategyName);
 
-
-
-            if(!skipMessage)
-                CreateFleetingText(CurrentFireStrategy.StrategyName, SpaceUtil.WorldMap.Center);
 
             SaveUtil.LastWeapon = index;
         }
@@ -438,7 +442,7 @@ namespace Assets
                 DebugUi.SliderFireLevel.value = WeaponLevel + 1;
 
                 string text = $"Weapon level up! {WeaponLevel}/{GameConstants.MaxWeaponLevel}";
-                CreateFleetingText(text, Player.FirePosition);
+                NotificationManager.AddNotification(text);
             }
         }
 
@@ -591,7 +595,8 @@ namespace Assets
             }
             else
             {
-                Player.CreateFleetingTextAtCenter("You died!!");
+                //Player.CreateFleetingTextAtCenter("You died!!");
+                NotificationManager.AddNotification("You died!!");
                 LivesLeft = _StartingExtraLives;
                 _Scoreboard.ResetScore();
             }

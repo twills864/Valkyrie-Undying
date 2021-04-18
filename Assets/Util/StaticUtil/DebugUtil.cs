@@ -7,6 +7,7 @@ using Assets.GameTasks;
 using Assets.ObjectPooling;
 using Assets.Pickups;
 using Assets.Powerups;
+using Assets.UI;
 using LogUtilAssets;
 using UnityEngine;
 
@@ -129,6 +130,8 @@ namespace Assets.Util
             //GameManager.SpawnPowerup(SpaceUtil.WorldMap.Center);
 
             PoolManager.Instance.PickupPool.GetRandomPowerup(SpaceUtil.WorldMap.Center).OnSpawn();
+
+            NotificationManager.AddNotification("Mouse4!");
         }
 
         private static void InputMouseForward(KeyCode keyCode)
@@ -145,6 +148,7 @@ namespace Assets.Util
             }
 
             //SmiteBullet.DebugTestSmite();
+            NotificationManager.AddNotification("Mouse5!");
         }
 
         private static void InputKeypadPlus(KeyCode keyCode)

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Assets.Constants;
 using Assets.GameTasks;
 using Assets.Powerups;
+using Assets.UI;
 using Assets.UI.PowerupMenu;
 using Assets.Util;
 using UnityEngine;
@@ -18,7 +19,7 @@ namespace Assets.Pickups
 
         protected override void OnPickUp()
         {
-            GameManager.Instance.CreateFleetingText(TargetPowerup.PowerupName, SpaceUtil.WorldMap.Center);
+            NotificationManager.AddNotification(TargetPowerup.PowerupName);
 
             TargetPowerup.Level++;
 
