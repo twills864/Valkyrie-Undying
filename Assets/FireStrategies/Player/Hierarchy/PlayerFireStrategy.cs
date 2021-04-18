@@ -16,6 +16,17 @@ namespace Assets.FireStrategies.PlayerFireStrategies
         /// </summary>
         public string StrategyName { get; }
 
+        public virtual string NotificationName(int weaponLevel)
+        {
+            string ret;
+            if (weaponLevel > 0)
+                ret = $"{StrategyName}!\r\nMk. {weaponLevel}";
+            else
+                ret = $"{StrategyName}!";
+
+            return ret;
+        }
+
         protected abstract float GetFireSpeedRatio(in PlayerFireStrategyManager.PlayerRatio ratios);
 
         protected float InitialFireSpeed(in PlayerFireStrategyManager manager)

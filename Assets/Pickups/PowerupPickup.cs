@@ -19,7 +19,6 @@ namespace Assets.Pickups
 
         protected override void OnPickUp()
         {
-            NotificationManager.AddNotification(TargetPowerup.PowerupName);
 
             TargetPowerup.Level++;
 
@@ -27,6 +26,8 @@ namespace Assets.Pickups
             PowerupMenu.Instance.SetLevel(type, TargetPowerup.Level);
 
             DebugUI.Instance.PowerupMenuPowerLevelRowSet(TargetPowerup, TargetPowerup.Level);
+
+            NotificationManager.AddNotification(TargetPowerup.NotificationName);
         }
     }
 }

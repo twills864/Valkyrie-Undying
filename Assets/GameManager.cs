@@ -418,8 +418,8 @@ namespace Assets
                 WeaponResetTimer.ActivationInterval = InitialWeaponTime;
             }
 
-            if (/*index != DefaultFireTypeIndex && */!skipMessage)
-                NotificationManager.AddNotification(CurrentFireStrategy.StrategyName);
+            if (!skipMessage)
+                NotificationManager.AddNotification(CurrentFireStrategy.NotificationName(WeaponLevel));
 
 
             SaveUtil.LastWeapon = index;
@@ -441,7 +441,8 @@ namespace Assets
             {
                 DebugUi.SliderFireLevel.value = WeaponLevel + 1;
 
-                string text = $"Weapon level up! {WeaponLevel}/{GameConstants.MaxWeaponLevel}";
+                string excitement = new string('!', WeaponLevel);
+                string text = $"Weapon level up!\r\n{WeaponLevel}/{GameConstants.MaxWeaponLevel}{excitement}";
                 NotificationManager.AddNotification(text);
             }
         }

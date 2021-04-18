@@ -45,10 +45,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6db2a028e7ebd04fa61a55d3e2595b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _AnimationTime: 2
+  _AnimationTime: 1.5
   _FadeTime: 0.25
-  _InitialScale: 1
-  _FinalScale: 4
+  _InitialScale: 0.75
+  _FinalScale: 2.5
   _InitialAlpha: 0
   _Label: {fileID: 5332381973720003185}
 --- !u!23 &7661403393295673061
@@ -100,7 +100,7 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7137559125452402533}
-  m_Text: Mouse5!
+  m_Text: Notification!
   m_OffsetZ: 0
   m_CharacterSize: 0.1
   m_LineSpacing: 1
@@ -108,7 +108,7 @@ TextMesh:
   m_Alignment: 1
   m_TabSize: 4
   m_FontSize: 40
-  m_FontStyle: 0
+  m_FontStyle: 1
   m_RichText: 1
   m_Font: {fileID: 0}
   m_Color:

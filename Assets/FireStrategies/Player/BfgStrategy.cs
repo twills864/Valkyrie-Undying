@@ -16,10 +16,9 @@ namespace Assets.FireStrategies.PlayerFireStrategies
     {
         protected override float GetFireSpeedRatio(in PlayerFireStrategyManager.PlayerRatio ratios) => ratios.Bfg;
 
-        //public override LoopingFrameTimer FireTimer { get; protected set; }
-        //    = new LoopingFrameTimer(1f);
+        protected override string CalculateFireStrategyName() => "Battle-Frenzied Guillotine";
 
-        BulletPoolList PoolList { get; set; }
+        private BulletPoolList PoolList { get; set; }
 
         public BfgStrategy(BfgBullet bullet, in PlayerFireStrategyManager manager) : base(bullet, manager)
         {

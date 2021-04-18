@@ -99,6 +99,19 @@ namespace Assets.Powerups
             return ret;
         }
 
+        public virtual string NotificationName
+        {
+            get
+            {
+                string ret;
+                if(Level == 1)
+                     ret = $"{PowerupName}!";
+                else
+                    ret = $"{PowerupName}!\r\nMk. {Level}";
+                return ret;
+            }
+        }
+
 
 
         /// <summary>

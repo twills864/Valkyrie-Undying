@@ -69,7 +69,7 @@ namespace Assets.UI
 
             FadeTo fadeIn = new FadeTo(this, InitialAlpha, FinalAlpha, FadeTime);
             Delay fadeDelay = new Delay(this, AnimationTime - (2 * FadeTime));
-            FadeTo fadeOut = new FadeTo(this, FinalAlpha, InitialAlpha, FadeTime);
+            FadeTo fadeOut = new FadeTo(this, FinalAlpha, 0, FadeTime);
             Sequence fadeSequence = new Sequence(fadeIn, fadeDelay, fadeOut);
 
             Animation = new ConcurrentGameTask(this, grow, fadeSequence);
