@@ -13,9 +13,6 @@ namespace Assets.Pickups
 {
     public abstract class Pickup : PooledObject
     {
-        private const float LeftRotation = 360f;
-        private const float RightRotation = -LeftRotation;
-
         public override string LogTagColor => "#999999";
         public override TimeScaleType TimeScale => TimeScaleType.Default;
 
@@ -33,76 +30,32 @@ namespace Assets.Pickups
 
         #endregion Prefab Properties
 
-
-        protected override ColorHandler DefaultColorHandler()
-            => new SpriteColorHandler(Sprite);
-
-
         #region Prefab Substitutes
 
         private const float PermanentVelocityY = -1.5f;
-        private const float FlyInTime = 0.8f;
-        private const float FlyInDistanceXMax = 1f;
-        private const float FlyInDistanceY = 2f;
 
         #endregion Prefab Substitutes
 
-        private float FlyInMoveX { set => FlyInMove.DistanceX = value; }
-        private MoveBy FlyInMove { get; set; }
-        private EaseIn3 FlyIn { get; set; }
 
-        private RotateTo SpawnRotate { get; set; }
-        private EaseIn SpawnRotateEase { get; set; }
-
-
+        protected override ColorHandler DefaultColorHandler()
+            => new SpriteColorHandler(Sprite);
 
         protected virtual void OnPickupInit() { }
         protected sealed override void OnInit()
         {
             VelocityY = PermanentVelocityY;
-
-            Vector3 move = new Vector3(0.0f, FlyInDistanceY);
-            FlyInMove = new MoveBy(this, move, FlyInTime);
-            FlyIn = new EaseIn3(FlyInMove);
-
-            SpawnRotate = new RotateTo(this, 0f, 360f, FlyInTime);
-            SpawnRotateEase = new EaseIn(SpawnRotate);
-
             OnPickupInit();
         }
 
         protected virtual void OnPickupSpawn() { }
         public sealed override void OnSpawn()
         {
-            float xMove = RandomUtil.Float(FlyInDistanceXMax);
-
-            bool onLeftOfScreen = PositionX > SpaceUtil.WorldMap.Center.x;
-            if (onLeftOfScreen)
-            {
-                SpawnRotate.EndRotationDegrees = LeftRotation;
-                xMove *= -1f;
-            }
-            else
-            {
-                SpawnRotate.EndRotationDegrees = RightRotation;
-            }
-
-            FlyInMoveX = xMove;
-
-            FlyIn.ResetSelf();
-
-            RotationDegrees = 0f;
-            SpawnRotateEase.ResetSelf();
-
             OnPickupSpawn();
         }
 
         protected virtual void OnPickupFrameRun(float deltaTime, float realDeltaTime) { }
         protected sealed override void OnFrameRun(float deltaTime, float realDeltaTime)
         {
-            FlyIn.RunFrame(deltaTime);
-            SpawnRotateEase.RunFrame(deltaTime);
-
             OnPickupFrameRun(deltaTime, realDeltaTime);
         }
 

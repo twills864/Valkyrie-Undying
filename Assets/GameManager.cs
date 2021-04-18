@@ -147,6 +147,9 @@ namespace Assets
         private float _InitialWeaponTime = GameConstants.PrefabNumber;
 
         [SerializeField]
+        private float _WeaponRainTime = GameConstants.PrefabNumber;
+
+        [SerializeField]
         private Sprite _LifeSprite = null;
 
         #endregion Misc Prefabs
@@ -189,6 +192,8 @@ namespace Assets
             _PoolManager.Init(in _ColorManager);
 
             WeaponResetTimer = new FrameTimer(InitialWeaponTime);
+            WeaponRainTimer = new FrameTimer(WeaponRainTime);
+            WeaponRainTimer.TimeUntilActivation = 0.1f;
 
             _PowerupMenu.Init();
             _PowerupMenu.transform.position += new Vector3(0, 0, 0);
@@ -306,6 +311,8 @@ namespace Assets
             }
 
             UpdateFireStrategy(playerTime);
+            WeaponRain(deltaTime);
+
 
             float enemyTimeScale = TimeScaleManager.GetTimeScaleModifier(TimeScaleType.Enemy);
             float enemyDeltaTime = deltaTime * enemyTimeScale;
@@ -322,6 +329,26 @@ namespace Assets
                 if (WeaponResetTimer.UpdateActivates(playerTime))
                     SetFireType(FireStrategyIndexBasic, skipMessage: true);
             }
+        }
+
+        private void WeaponRain(float deltaTime)
+        {
+            if (!WeaponRainTimer.Activated && WeaponRainTimer.UpdateActivates(deltaTime))
+            {
+                var pickup = _PoolManager.PickupPool.Get<WeaponPickup>();
+                pickup.FireStrategyIndex = GetRandomAssignableFireIndex();
+
+                var size = pickup.Size;
+                float spawnX = SpaceUtil.RandomWorldPositionX(size.x);
+                float spawnY = SpaceUtil.WorldMap.Top.y + (size.y * 0.5f);
+
+                pickup.transform.position = new Vector3(spawnX, spawnY);
+            }
+        }
+
+        public void ResetWeaponRainTimer()
+        {
+            WeaponRainTimer.Reset();
         }
 
         private void LateUpdate()
@@ -342,9 +369,11 @@ namespace Assets
         private const int FireStrategyIndexBasic = 0;
 
         public float InitialWeaponTime => _InitialWeaponTime;
+        public float WeaponRainTime => _WeaponRainTime;
         public int WeaponLevel { get; set; }
         public float WeaponTimeMax { get; set; } = 10f;
         public FrameTimer WeaponResetTimer { get; set; }
+        public FrameTimer WeaponRainTimer { get; set; }
 
         private PlayerFireStrategy CurrentFireStrategy => FireStrategies[FireStrategies.Index];
         private CircularSelector<PlayerFireStrategy> FireStrategies { get; set; }
@@ -370,10 +399,20 @@ namespace Assets
                 DebugUi.SetDropdownFiretype(FireStrategies.Index, true, endlessTime);
 
             WeaponResetTimer.Reset();
-            if (index != DefaultFireTypeIndex && endlessTime)
-                WeaponResetTimer.ActivationInterval = float.MaxValue;
+            if (index != DefaultFireTypeIndex)
+            {
+                if (endlessTime)
+                    WeaponResetTimer.ActivationInterval = float.MaxValue;
+                else
+                    WeaponResetTimer.ActivationInterval = InitialWeaponTime;
+            }
             else
+            {
                 WeaponResetTimer.ActivationInterval = InitialWeaponTime;
+            }
+
+            if (index == DefaultFireTypeIndex)
+
 
 
             if(!skipMessage)

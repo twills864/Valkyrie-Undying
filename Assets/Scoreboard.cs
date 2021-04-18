@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Assets.Util;
 using UnityEngine;
 
 public class Scoreboard : MonoBehaviour
@@ -44,6 +45,14 @@ public class Scoreboard : MonoBehaviour
     public void Init()
     {
         Score = 0;
+
+        var textRenderer = Label.GetComponent<Renderer>();
+        Vector2 size = textRenderer.bounds.size;
+
+        Vector3 newPos = SpaceUtil.WorldMap.Top;
+        newPos.y -= size.y * 0.5f;
+
+        transform.position = newPos;
     }
 
     public void AddScore(int score)

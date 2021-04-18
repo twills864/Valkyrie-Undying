@@ -49,14 +49,6 @@ namespace Assets.ObjectPooling
             AllAssignablePowerups = new List<Powerup>(allPowerups);
         }
 
-        public WeaponPickup GetRandomWeapon(Vector3 position)
-        {
-            var weapon = Get<WeaponPickup>(position);
-            weapon.FireStrategyIndex = GameManager.Instance.GetRandomAssignableFireIndex();
-
-            return weapon;
-        }
-
         public PowerupPickup GetRandomPowerup(Vector3 position)
         {
             var pickup = Get<PowerupPickup>(position);

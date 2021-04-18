@@ -44,6 +44,8 @@ namespace Assets.Enemies
             Ring.OnSpawn();
             Ring.Host = this;
 
+            PointValue += Ring.CurrentHealth;
+
             float maxY = SpaceUtil.WorldMap.Top.y - Ring.HeightHalf;
             float minY = SpaceUtil.WorldMap.Center.y + Ring.HeightHalf;
 

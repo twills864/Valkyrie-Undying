@@ -12,7 +12,7 @@ using UnityEngine;
 
 namespace Assets.Pickups
 {
-    public class PowerupPickup : Pickup
+    public class PowerupPickup : EnemyLootPickup
     {
         public Powerup TargetPowerup { get; set; }
 

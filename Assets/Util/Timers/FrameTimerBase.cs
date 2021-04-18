@@ -21,7 +21,12 @@ namespace Assets.Util
         public virtual bool Activated { get; protected set; }
         public float OverflowDeltaTime { get; protected set; }
 
-        public float TimeUntilActivation => ActivationInterval - Elapsed;
+        public float TimeUntilActivation
+        {
+            get => ActivationInterval - Elapsed;
+            set => Elapsed = ActivationInterval - value;
+        }
+
         public virtual float RatioComplete
         {
             get => Elapsed / ActivationInterval;

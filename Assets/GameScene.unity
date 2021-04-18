@@ -3522,7 +3522,7 @@ MonoBehaviour:
           Increase: 0.7
         SizeScale:
           Base: 1
-          Increase: 0.9
+          Increase: 0.1
     OnGetHit:
       Retribution:
         Duration:
@@ -3608,7 +3608,8 @@ MonoBehaviour:
   _Destructor: {fileID: 6556364}
   _ScreenEdgeColliderSet: {fileID: 29231933}
   _PoolManager: {fileID: 1431298137}
-  _InitialWeaponTime: 9999999
+  _InitialWeaponTime: 10
+  _WeaponRainTime: 10
   _LifeSprite: {fileID: 21300000, guid: 447eb817a26506049801485b5cb2fbc1, type: 3}
 --- !u!4 &1640542552
 Transform:

@@ -145,7 +145,6 @@ namespace Assets.Util
             }
 
             //SmiteBullet.DebugTestSmite();
-            PoolManager.Instance.PickupPool.GetRandomWeapon(SpaceUtil.WorldMap.Center).OnSpawn();
         }
 
         private static void InputKeypadPlus(KeyCode keyCode)

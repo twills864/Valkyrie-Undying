@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Assets.Pickups
 {
-    public class WeaponLevelPickup : Pickup
+    public class WeaponLevelPickup : EnemyLootPickup
     {
         protected override void OnPickUp()
         {

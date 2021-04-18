@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Assets.Pickups
 {
-    public class OneUpPickup : Pickup
+    public class OneUpPickup : EnemyLootPickup
     {
         protected override void OnPickUp()
         {
