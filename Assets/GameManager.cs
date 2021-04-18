@@ -515,12 +515,6 @@ namespace Assets
             }
         }
 
-        public PowerupPickup SpawnPowerup(Vector3 position)
-        {
-            var pickup = _PoolManager.PickupPool.GetRandomPowerup(position);
-            return pickup;
-        }
-
         public void OnEnemyHit(Enemy enemy, PlayerBullet bullet)
         {
             _PowerupManager.OnHit(enemy, bullet);

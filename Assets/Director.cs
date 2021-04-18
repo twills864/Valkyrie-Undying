@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Assets.Constants;
 using Assets.Enemies;
 using Assets.ObjectPooling;
 using Assets.Pickups;
@@ -29,6 +30,9 @@ namespace Assets
 
         private static DirectorBalance Balance;
 
+        private static int WeaponLevelsInPlay { get; set; }
+        private static bool CanSpawnWeaponLevelUp => WeaponLevelsInPlay < GameConstants.MaxWeaponLevel;
+
         public static void Init(DirectorBalance balance)
         {
             Balance = balance;
@@ -36,7 +40,9 @@ namespace Assets
             EnemySpawnTimer.ActivateSelf();
             EnemyPoolList = PoolManager.Instance.EnemyPool;
 
-            //DebugUI.SetDebugLabel("AE", DebugActiveEnemiesString);
+            WeaponLevelsInPlay = 0;
+
+            DebugUI.SetDebugLabel("Weapon Levels", () => $"{WeaponLevelsInPlay} {CanSpawnWeaponLevelUp} {WeaponLevelOverrideChance}");
         }
 
         private static string DebugActiveEnemiesString()
@@ -116,12 +122,26 @@ namespace Assets
             // TODO: Handle difficulty
         }
 
+        private static float WeaponLevelOverrideChance
+        {
+            get
+            {
+                int denominator = WeaponLevelsInPlay + 2;
+
+                float chance = 1.0f / denominator;
+                chance += Balance.WeaponLevelOverrideChanceFlatAddition;
+
+                return chance;
+            }
+        }
+
         public static void SpawnPowerup(Vector3 position)
         {
             Pickup powerup;
-            if(RandomUtil.Bool(Balance.WeaponLevelOverrideChance))
+            if(CanSpawnWeaponLevelUp && RandomUtil.Bool(WeaponLevelOverrideChance))
             {
                 powerup = PoolManager.Instance.PickupPool.Get<WeaponLevelPickup>(position);
+                WeaponLevelsInPlay++;
             }
             else if (RandomUtil.Bool(Balance.OneUpOverrideChance))
             {
@@ -132,6 +152,11 @@ namespace Assets
                 powerup = PoolManager.Instance.PickupPool.GetRandomPowerup(position);
             }
             powerup.OnSpawn();
+        }
+
+        public static void WeaponLevelPickupDestructed()
+        {
+            WeaponLevelsInPlay--;
         }
 
 

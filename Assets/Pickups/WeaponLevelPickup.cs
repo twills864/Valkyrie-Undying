@@ -12,5 +12,10 @@ namespace Assets.Pickups
         {
             GameManager.Instance.IncreaseWeaponLevel();
         }
+
+        protected override void OnDestructorDeactivation()
+        {
+            Director.WeaponLevelPickupDestructed();
+        }
     }
 }

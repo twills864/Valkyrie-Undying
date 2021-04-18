@@ -3650,8 +3650,8 @@ MonoBehaviour:
           Base: 10
           Increase: 5
   _DirectorBalance:
-    BaseEnemyPowerupDropChance: 1
-    WeaponLevelOverrideChance: 0.3
+    BaseEnemyPowerupDropChance: 0.3
+    WeaponLevelOverrideChanceFlatAddition: 0.1
     OneUpOverrideChance: 0.3
   _ColorManager:
     DefaultPlayer: {r: 0.3764706, g: 0.827451, b: 1, a: 1}

@@ -70,10 +70,14 @@ namespace Assets.Pickups
             }
         }
 
+        protected virtual void OnDestructorDeactivation() { }
         private void OnTriggerExit2D(Collider2D collision)
         {
-            if (CollisionUtil.IsDestructor(collision))
+            if (CollisionUtil.IsDestructor(collision) && gameObject.activeSelf)
+            {
+                OnDestructorDeactivation();
                 DeactivateSelf();
+            }
         }
     }
 }
