@@ -137,5 +137,5 @@ MonoBehaviour:
   _Sprite: {fileID: 8192347669736508926}
   _BaseDamage: 20
   _DamageAfterBounce: 10
-  _Speed: 15
+  _Speed: 20
   _VelocityChangerDuration: 0.6

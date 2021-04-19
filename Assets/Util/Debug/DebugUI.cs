@@ -141,6 +141,10 @@ namespace Assets.Util
             //SetDebugLabel("FRAMETIME", frameTime);
 
             PowerupRow.Init(CurrentDebugPowerup);
+
+#if !UNITY_EDITOR
+            ToggleUI();
+#endif
         }
 
         private bool ShouldSkipSettingFireTimeInGameManager = false;
@@ -198,6 +202,22 @@ namespace Assets.Util
             var type = powerup.GetType();
             if (type == GameRowPowerupType)
                 PowerupRow.PowerLevel = level;
+        }
+
+        public void ToggleUI()
+        {
+
+            bool active = !InputField.gameObject.activeSelf;
+
+            InputField.gameObject.SetActive(active);
+            Button.gameObject.SetActive(active);
+            ButtonShowPowerupMenu.gameObject.SetActive(active);
+            DropdownFireType.gameObject.SetActive(active);
+            SliderFireLevel.gameObject.SetActive(active);
+            TextFireLevel.gameObject.SetActive(active);
+            PowerupRow.gameObject.SetActive(active);
+            SliderGameSpeed.gameObject.SetActive(active);
+            TextGameSpeed.gameObject.SetActive(active);
         }
 #endregion Debug Input
 

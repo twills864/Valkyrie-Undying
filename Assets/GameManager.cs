@@ -50,7 +50,11 @@ namespace Assets
 
         private bool TestingEnemy => CurrentTest == TestingType.NewEnemy;
 
+#if UNITY_DEBUG
         public int DefaultFireTypeIndex => SaveUtil.LastWeapon;
+#else
+        public int DefaultFireTypeIndex => FireStrategyIndexBasic;
+#endif
 
         #endregion Debug
 

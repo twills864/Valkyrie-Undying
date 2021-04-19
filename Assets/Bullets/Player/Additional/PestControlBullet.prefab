@@ -136,4 +136,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _Sprite: {fileID: 9129541793528949555}
   _BaseDamage: 5
-  _Speed: 10
+  _Speed: 20

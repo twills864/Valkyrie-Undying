@@ -161,6 +161,11 @@ namespace Assets.Util
 
         }
 
+        private static void InputEscape(KeyCode key)
+        {
+            DebugUi.ToggleUI();
+        }
+
         #endregion Input Methods
 
         #region Input Engine
@@ -200,6 +205,7 @@ namespace Assets.Util
             new KeyCodeAction(KeyCode.Mouse4, InputMouseForward),
             new KeyCodeAction(KeyCode.KeypadPlus, InputKeypadPlus),
             new KeyCodeAction(KeyCode.KeypadMinus, InputKeypadMinus),
+            new KeyCodeAction(KeyCode.Escape, InputEscape),
         };
 
         public static void HandleInput()

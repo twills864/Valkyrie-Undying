@@ -42,7 +42,7 @@ namespace Assets
 
             WeaponLevelsInPlay = 0;
 
-            DebugUI.SetDebugLabel("Weapon Levels", () => $"{WeaponLevelsInPlay} {CanSpawnWeaponLevelUp} {WeaponLevelOverrideChance}");
+            //DebugUI.SetDebugLabel("Weapon Levels", () => $"{WeaponLevelsInPlay} {CanSpawnWeaponLevelUp} {WeaponLevelOverrideChance}");
         }
 
         private static string DebugActiveEnemiesString()

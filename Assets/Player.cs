@@ -57,7 +57,12 @@ namespace Assets
         public SpriteRenderer Sprite => _Sprite;
         private GameObject BloodlustAuraObject => _BloodlustAuraObject;
         private MortarGuide MortarGuide => _MortarGuide;
+
+#if UNITY_EDITOR
         private float MobileYOffset => _MobileYOffset;
+#else
+        private float MobileYOffset => _MobileYOffset * 2.0f;
+#endif
         public float VictimMarkerDistance => _VictimMarkerDistance;
         private LineRenderer LaserPointer => _LaserPointer;
         private PlayerIFrames PlayerIFrames => _PlayerIFrames;
@@ -80,15 +85,15 @@ namespace Assets
 
         public Vector3 FirePosition => SpriteMap.Top;
 
-        #region Fire Speed
+#region Fire Speed
 
         public float FireSpeedScale => BloodlustSpeedScale;
         public float BloodlustSpeedScale { get; set; } = 1f;
         private FrameTimer BloodlustTimer { get; set; }
 
-        #endregion Fire Speed
+#endregion Fire Speed
 
-        #region Victim
+#region Victim
 
         private VictimMarker _victimMarker;
         public VictimMarker VictimMarker
@@ -102,14 +107,14 @@ namespace Assets
             }
         }
 
-        #endregion Victim
+#endregion Victim
 
-        #region Mortar
+#region Mortar
 
         public FrameTimerWithBuffer MortarFireTimer { get; private set; }
         public bool ShouldDrawMortar { get; set; }
 
-        #endregion Mortar
+#endregion Mortar
 
         private void Start()
         {
@@ -137,6 +142,7 @@ namespace Assets
 
             //var targetY = Camera.main.ScreenToWorldPoint(new Vector3(0, MobileYOffset));
             var heightHalf = Size.y * 0.5f;
+
             MobileY = SpaceUtil.WorldMap.Bottom.y + heightHalf + MobileYOffset;
             Enemy.FireHeightFloor = MobileY;
 
@@ -235,7 +241,7 @@ namespace Assets
                 SetPosition(SpaceUtil.WorldPositionUnderMouse());
         }
 
-        #region Damage
+#region Damage
 
         /// <summary>
         /// Whether or not the player is currently invincible due to being recently damaged.
@@ -328,9 +334,9 @@ namespace Assets
             IFramesSequence.ResetSelf();
         }
 
-        #endregion Damage
+#endregion Damage
 
-        #region Bloodlust
+#region Bloodlust
 
         private void ResetBloodlust()
         {
@@ -346,6 +352,6 @@ namespace Assets
             BloodlustAuraObject.gameObject.SetActive(true);
         }
 
-        #endregion Bloodlust
+#endregion Bloodlust
     }
 }

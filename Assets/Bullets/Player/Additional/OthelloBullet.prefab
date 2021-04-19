@@ -137,4 +137,4 @@ MonoBehaviour:
   _Sprite: {fileID: 2818045216058683222}
   _BaseDamage: 0
   _PermanentVelocityX: 0
-  _PermanentVelocityY: 5
+  _PermanentVelocityY: 10

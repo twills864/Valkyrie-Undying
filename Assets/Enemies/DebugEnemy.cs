@@ -71,6 +71,13 @@ namespace Assets.Enemies
             base.OnActivate();
         }
 
+        protected override void OnEnemySpawn()
+        {
+#if !UNITY_EDITOR
+            DeactivateSelf();
+#endif
+        }
+
 
         protected override bool DamageKills(int damage)
         {

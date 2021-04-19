@@ -137,7 +137,7 @@ MonoBehaviour:
   _Sprite: {fileID: 6444697561732577964}
   _BaseDamage: 30
   _AdditionalBulletDamage: 20
-  _BulletVelocityY: 10
+  _BulletVelocityY: 20
   _FireRadius: 0.75
   _AngleBetweenLanesInDegrees: 20
   _DampX: 0.6
