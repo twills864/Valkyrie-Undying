@@ -133,6 +133,8 @@ namespace Assets
 
             BloodlustAuraSprite = BloodlustAuraObject.GetComponent<SpriteRenderer>();
 
+            LaserPointer.SetPosition(1, new Vector3(0, SpaceUtil.WorldMap.Height));
+
             //var targetY = Camera.main.ScreenToWorldPoint(new Vector3(0, MobileYOffset));
             var heightHalf = Size.y * 0.5f;
             MobileY = SpaceUtil.WorldMap.Bottom.y + heightHalf + MobileYOffset;

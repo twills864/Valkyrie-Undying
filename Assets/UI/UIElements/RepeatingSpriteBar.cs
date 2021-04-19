@@ -34,6 +34,7 @@ namespace Assets.UI
 
         #endregion Prefab Properties
 
+        public Vector2 SpriteSize => Sprite.bounds.size;
 
         protected override ColorHandler DefaultColorHandler()
         {
@@ -49,10 +50,19 @@ namespace Assets.UI
         private float MaxRenderX { get; set; }
         private float MaxRenderWidth { get; set; }
 
+        private float SpritesOffsetFromTop { get; set; }
+
+        public void Init(float spritesOffsetFromTop)
+        {
+            // + 0.5f to account for the fact that position is
+            // calculated from the cente of the sprite.
+            SpritesOffsetFromTop = spritesOffsetFromTop + 0.5f;
+            Init();
+        }
+
         protected sealed override void OnUIElementInit()
         {
             Vector3 world0 = Camera.main.WorldToScreenPoint(Vector3.zero);
-            Vector3 world02 = world0;
 
             float GetScreenPosition(float worldPosition)
             {
@@ -64,8 +74,7 @@ namespace Assets.UI
             ScreenMargin = GetScreenPosition(_ScreenMargin);
             SpriteMargin = GetScreenPosition(_SpriteMargin);
 
-            var bounds = Sprite.bounds;
-            Vector3 worldBound = Camera.main.WorldToScreenPoint(bounds.size);
+            Vector3 worldBound = Camera.main.WorldToScreenPoint(SpriteSize);
 
             float x = worldBound.x - world0.x;
             float y = worldBound.y - world0.y;
@@ -82,7 +91,8 @@ namespace Assets.UI
 
 
             // In GUI coordinates, 0 = top of screen
-            var screenPos = GetScreenPosition(transform.position.y);
+            float positionY = SpaceUtil.WorldMap.Top.y - (SpriteSize.y * SpritesOffsetFromTop);
+            var screenPos = GetScreenPosition(positionY);
             screenPos = SpaceUtil.ScreenMap.Center.y - screenPos - (SpriteRenderScreenSize.y * 0.5f);
 
             ScreenY = screenPos;

@@ -12,6 +12,12 @@ namespace Assets.UI.PowerupMenu
     {
         public static PowerupMenu Instance { get; private set; }
 
+//#if !UNITY_EDITOR
+        private const float UIScale = 2.5f;
+        private Vector3 UIScaleVector => new Vector3(UIScale, UIScale, 1.0f);
+        private Vector3 UIScaleVectorRow => new Vector3(1.0f, 1.0f, 1.0f);
+        //#endif
+
 #pragma warning disable 0414
 
         [SerializeField]
@@ -30,6 +36,10 @@ namespace Assets.UI.PowerupMenu
         public void Init()
         {
             Instance = this;
+
+#if !UNITY_EDITOR
+            transform.localScale = UIScaleVector;
+#endif
         }
 
         public void AddTitleRow(string title)
@@ -38,6 +48,10 @@ namespace Assets.UI.PowerupMenu
             newTitle.Text = title;
 
             newTitle.transform.parent = PowerupPanelContent.transform;
+
+#if !UNITY_EDITOR
+            newTitle.transform.localScale = UIScaleVectorRow;
+#endif
         }
 
         public void AddPowerupRow(Powerup powerup)
@@ -49,6 +63,10 @@ namespace Assets.UI.PowerupMenu
 
             var powerupType = newRow.Powerup.GetType();
             AllPowerupRows[powerupType] = newRow;
+
+#if !UNITY_EDITOR
+            newRow.transform.localScale = UIScaleVectorRow;
+#endif
         }
 
         public void OnMinimizeClick()

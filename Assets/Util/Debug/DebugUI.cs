@@ -63,6 +63,26 @@ namespace Assets.Util
 
             DebugTextBox = new DebugTextBox(InputField);
 
+#if !UNITY_EDITOR
+            Vector3 newScale = new Vector3(3.0f, 3.0f, 1.0f);
+            InputField.transform.localScale = newScale;
+
+            var setAll = new Component[]
+            {
+                InputField,
+                Button,
+                DropdownFireType,
+                ButtonShowPowerupMenu,
+                PowerupRow,
+                SliderFireLevel,
+                TextFireLevel,
+                SliderGameSpeed,
+                TextGameSpeed,
+            };
+            foreach (Component component in setAll)
+                component.transform.localScale = newScale;
+#endif
+
             var inputPos = SpaceUtil.ScreenMap.BottomLeft + new Vector3(DebugBorderOffset, DebugBorderOffset);
             SpaceUtil.SetLeftToPosition(InputField, inputPos);
 
@@ -72,11 +92,17 @@ namespace Assets.Util
             var dropdownFireTypePos = SpaceUtil.ScreenMap.Right + new Vector3(-DebugBorderOffset, 0);
             SpaceUtil.SetRightToPosition(DropdownFireType, dropdownFireTypePos);
 
-            const int showPowerupMenuButtonOffset = -50;
+#if UNITY_EDITOR
+            const int OffsetScale = 1;
+#else
+            const int OffsetScale = 5;
+#endif
+
+            const int showPowerupMenuButtonOffset = -50 * OffsetScale;
             var showPowerupMenuButtonPos = SpaceUtil.ScreenMap.Right + new Vector3(-DebugBorderOffset, showPowerupMenuButtonOffset);
             SpaceUtil.SetRightToPosition(ButtonShowPowerupMenu, showPowerupMenuButtonPos);
 
-            const int powerupRowOffset = -120;
+            const int powerupRowOffset = -120 * OffsetScale;
             var powerupRowPos = SpaceUtil.ScreenMap.Right + new Vector3(-DebugBorderOffset, powerupRowOffset);
             SpaceUtil.SetRightToPosition(PowerupRow, powerupRowPos);
 
@@ -91,20 +117,20 @@ namespace Assets.Util
                     _GameManager.SetFireType(DropdownFireType.value, skipDropDown: true, skipMessage: true, endlessTime: ShouldSetEndlessWeaponTime);
             });
 
-            const int sliderFireLevelYOffset = 15;
+            const int sliderFireLevelYOffset = 15 * OffsetScale;
             var sliderFireLevelPos = SpaceUtil.ScreenMap.Right + new Vector3(-DebugBorderOffset, DebugBorderOffset + sliderFireLevelYOffset);
             SpaceUtil.SetRightToPosition(SliderFireLevel, sliderFireLevelPos);
 
-            const int sliderFireLevelTextYOffset = 35;
+            const int sliderFireLevelTextYOffset = 35 * OffsetScale;
             var sliderFireLevelTextPos = SpaceUtil.ScreenMap.Right + new Vector3(-DebugBorderOffset, DebugBorderOffset + sliderFireLevelTextYOffset);
             SpaceUtil.SetRightToPosition(TextFireLevel, sliderFireLevelTextPos);
 
 
-            const int sliderGameSpeedYOffset = 180;
+            const int sliderGameSpeedYOffset = 180 * OffsetScale;
             var sliderGameSpeedPos = SpaceUtil.ScreenMap.Right + new Vector3(-DebugBorderOffset, DebugBorderOffset + sliderGameSpeedYOffset);
             SpaceUtil.SetRightToPosition(SliderGameSpeed, sliderGameSpeedPos);
 
-            const int sliderGameSpeedTextYOffset = 200;
+            const int sliderGameSpeedTextYOffset = 200 * OffsetScale;
             var sliderGameSpeedTextPos = SpaceUtil.ScreenMap.Right + new Vector3(-DebugBorderOffset, DebugBorderOffset + sliderGameSpeedTextYOffset);
             SpaceUtil.SetRightToPosition(TextGameSpeed, sliderGameSpeedTextPos);
 
@@ -130,7 +156,7 @@ namespace Assets.Util
             ShouldSetEndlessWeaponTime = true;
         }
 
-        #region Debug Input
+#region Debug Input
 
         public void ButtonPressed(Button button)
         {
@@ -173,10 +199,10 @@ namespace Assets.Util
             if (type == GameRowPowerupType)
                 PowerupRow.PowerLevel = level;
         }
-        #endregion Debug Input
+#endregion Debug Input
 
 
-        #region Debug Labels
+#region Debug Labels
 
         private static Dictionary<string, DebugValue> DebugLabelValues { get; set; } = new Dictionary<string, DebugValue>();
         public static void SetDebugLabel(string key, object value)
@@ -221,9 +247,9 @@ namespace Assets.Util
             string value = kvp.Value.Value;
             GUILayout.Label($"[{key}] {value}");
         }
-        #endregion Debug Labels
+#endregion Debug Labels
 
-        #region Debug Timers
+#region Debug Timers
 
         private static Dictionary<string, Stopwatch> DebugTimers { get; set; } = new Dictionary<string, Stopwatch>();
 
@@ -252,9 +278,9 @@ namespace Assets.Util
         }
 
 
-        #endregion Debug Timers
+#endregion Debug Timers
 
-        #region Draw GUI
+#region Draw GUI
 
         private static GUIStyle GetLabelStyle(TextAnchor textAnchor)
         {
@@ -289,7 +315,7 @@ namespace Assets.Util
             GUILayout.EndArea();
         }
 
-        #endregion Draw GUI
+#endregion Draw GUI
 
 
     }

@@ -98,5 +98,5 @@ MonoBehaviour:
   _Sprite: {fileID: 1777918661920015751}
   _BaseDamage: 0
   _FadeInTime: 0.25
-  _MaxAlpha: 0.2
+  _MaxAlpha: 0.4
   _FallbackDeactivationTime: 2

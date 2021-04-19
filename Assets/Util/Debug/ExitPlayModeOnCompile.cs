@@ -1,6 +1,7 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
+#if UNITY_EDITOR
 [InitializeOnLoad]
 public static class ExitPlayModeOnCompile
 {
@@ -17,3 +18,4 @@ public static class ExitPlayModeOnCompile
         }
     }
 }
+#endif

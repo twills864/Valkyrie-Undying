@@ -75,8 +75,9 @@ namespace Assets.Bullets.PlayerBullets
 
             Alpha = 0f;
 
-            Vector3 scale = new Vector3(1f, heightScale, 1f);
-            ScaleIn = new ScaleTo(this, scale, FadeInTime);
+            Vector3 scaleInitial = new Vector3(0f, heightScale, 1f);
+            Vector3 scaleFinal = new Vector3(1f, heightScale, 1f);
+            ScaleIn = new ScaleTo(this, scaleInitial, scaleFinal, FadeInTime);
             var fadeIn = new FadeTo(this, MaxAlpha, float.Epsilon); //  FadeInTime * 0.25f
             var concurrence = new ConcurrentGameTask(this, ScaleIn, fadeIn);
 
@@ -87,6 +88,7 @@ namespace Assets.Bullets.PlayerBullets
 
         protected override void OnActivate()
         {
+            LocalScaleX = 0f;
             FallbackDeactivate.ResetSelf();
         }
 

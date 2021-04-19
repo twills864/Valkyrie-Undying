@@ -55,7 +55,7 @@ namespace Assets.Util
         public static void SetRightToPosition(MonoBehaviour element, Vector3 pos)
         {
             var rectTransform = (RectTransform)element.transform;
-            var rectSize = rectTransform.rect.size;
+            var rectSize = rectTransform.rect.size * element.transform.localScale.x;
 
             SetRightToPosition(element, pos, rectSize);
         }
@@ -81,7 +81,7 @@ namespace Assets.Util
         public static void SetLeftToPosition(MonoBehaviour element, Vector3 pos)
         {
             var rectTransform = (RectTransform)element.transform;
-            var rectSize = rectTransform.rect.size;
+            var rectSize = rectTransform.rect.size * element.transform.localScale.x;
 
             SetLeftToPosition(element, pos, rectSize);
         }
