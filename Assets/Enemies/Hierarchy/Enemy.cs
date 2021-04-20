@@ -49,8 +49,11 @@ namespace Assets.Enemies
         [SerializeField]
         private Vector3 _HealthBarOffsetScale = Vector3.zero;
 
-        [SerializeField]
+        [SerializeField, Obsolete("Use _FirstSpawnMinute")]
         private int _DifficultyLevel = GameConstants.PrefabNumber;
+
+        [SerializeField]
+        private float _FirstSpawnMinute = GameConstants.PrefabNumber;
 
         #endregion Prefabs
 
@@ -74,7 +77,13 @@ namespace Assets.Enemies
         /// <summary>
         /// Enemies will be introduced to the game in order of their difficulty level.
         /// </summary>
+        [SerializeField, Obsolete("Use FirstSpawnMinute")]
         public int DifficultyLevel => _DifficultyLevel;
+
+        /// <summary>
+        /// The earliest minute of total game time that this enemy can spawn.
+        /// </summary>
+        public float FirstSpawnMinute => _FirstSpawnMinute;
 
         #endregion Prefab Properties
 

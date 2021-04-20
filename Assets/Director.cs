@@ -71,29 +71,38 @@ namespace Assets
             EnemySpawnTimer.ActivateSelf();
             EnemyPoolList = PoolManager.Instance.EnemyPool;
 
-            var pools = EnemyPoolList.GetSpawnableEnemyPools().OrderBy(x => x.ObjectPrefab.DifficultyLevel);
+            var pools = EnemyPoolList.GetSpawnableEnemyPools().OrderBy(x => x.ObjectPrefab.FirstSpawnMinute);
             SpawnableEnemyPools = pools.ToArray();
 
-            int targetDifficultyLevel = SpawnableEnemyPools.First().ObjectPrefab.DifficultyLevel;
-
             HighestSpawnableIndex = 0;
-            EnemiesSpawnedWithoutDifficulyIncrease = 0;
             AdjustHighestSpawnableIndex();
 
-            //DebugUI.SetDebugLabel("SpawnEnemy", () =>
+            #region // Dirty spawn info debug UI
+            //DebugUI.SetDebugLabel("Enemy Spawn", () =>
             //{
-            //    if (HighestSpawnableIndex >= SpawnableEnemyPools.Length)
-            //        return "All!";
+            //    int index = HighestSpawnableIndex - 1;
+            //    float nextSpawn;
+            //    string nextSpawnName;
+            //    if (HighestSpawnableIndex < SpawnableEnemyPools.Length)
+            //    {
+            //        nextSpawn = NextSpawnableEnemy.FirstSpawnMinute;
+            //        nextSpawnName = NextSpawnableEnemy.name;
+            //    }
             //    else
-            //        return $"[{SpawnableEnemyPools[HighestSpawnableIndex-1].ObjectPrefab.DifficultyLevel}] {SpawnableEnemyPools[HighestSpawnableIndex-1]} {EnemiesSpawnedWithoutDifficulyIncrease}/{Balance.EnemiesBetweenDifficulyIncrease}";
+            //    {
+            //        nextSpawn = -1;
+            //        nextSpawnName = "N/A";
+            //    }
+            //    return $"{HighestSpawnableIndex}/{SpawnableEnemyPools.Length} {SpawnableEnemyPools[index].ObjectPrefab.FirstSpawnMinute} {SpawnableEnemyPools[index].ObjectPrefab.name}\r\nNEXT: {nextSpawn} {nextSpawnName}\r\n{(TotalTime / 60.0f).ToString("0.00")} ({TotalTime.ToString("0.00")})";
             //});
+            #endregion
         }
-
-        private static int EnemiesSpawnedWithoutDifficulyIncrease { get; set; }
 
         public static void SpawnEnemy()
         {
             //var enemy = EnemyPoolList.GetRandomEnemy();
+
+            AdjustHighestSpawnableIndex();
 
             int spawnPoolIndex = RandomUtil.Int(HighestSpawnableIndex);
             var pool = SpawnableEnemyPools[spawnPoolIndex];
@@ -103,27 +112,18 @@ namespace Assets
             enemy.OnSpawn();
 
             EnemiesSpawned++;
-
-            if (EnemiesSpawnedWithoutDifficulyIncrease == Balance.EnemiesBetweenDifficulyIncrease)
-            {
-                EnemiesSpawnedWithoutDifficulyIncrease = 0;
-                AdjustHighestSpawnableIndex();
-            }
-            else
-                EnemiesSpawnedWithoutDifficulyIncrease++;
         }
 
+        private static Enemy NextSpawnableEnemy => SpawnableEnemyPools[HighestSpawnableIndex].ObjectPrefab;
         private static void AdjustHighestSpawnableIndex()
         {
             if (HighestSpawnableIndex >= SpawnableEnemyPools.Length)
                 return;
 
-            Enemy HardestSpawnableEnemy() => SpawnableEnemyPools[HighestSpawnableIndex].ObjectPrefab;
-
-            int targetDifficultyLevel = HardestSpawnableEnemy().DifficultyLevel;
+            float totalTimeInMinutes = TotalTime / TimeConstants.OneMinute;
 
             while (HighestSpawnableIndex < SpawnableEnemyPools.Length
-                && HardestSpawnableEnemy().DifficultyLevel == targetDifficultyLevel)
+                && totalTimeInMinutes >= NextSpawnableEnemy.FirstSpawnMinute)
             {
                 HighestSpawnableIndex++;
             }

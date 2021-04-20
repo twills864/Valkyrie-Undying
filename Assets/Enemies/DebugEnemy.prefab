@@ -150,6 +150,7 @@ MonoBehaviour:
   _metronomeLabel: {fileID: 0}
   _HealthBarOffsetScale: {x: 0, y: 0.8, z: 0}
   _DifficultyLevel: -1
+  _FirstSpawnMinute: -1
   _FireSpeed: 2
   _FireSpeedVariance: 0
   _LastestDamageHealthBar: {fileID: 8401427043427129176}
