@@ -15,5 +15,9 @@ namespace Assets
         public float WeaponLevelOverrideChanceFlatAddition;
 
         public float OneUpOverrideChance;
+
+
+
+        public int EnemiesBetweenDifficulyIncrease;
     }
 }

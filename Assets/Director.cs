@@ -37,10 +37,9 @@ namespace Assets
         {
             Balance = balance;
 
-            EnemySpawnTimer.ActivateSelf();
-            EnemyPoolList = PoolManager.Instance.EnemyPool;
-
             WeaponLevelsInPlay = 0;
+
+            InitSpawnMechanics();
 
             //DebugUI.SetDebugLabel("Weapon Levels", () => $"{WeaponLevelsInPlay} {CanSpawnWeaponLevelUp} {WeaponLevelOverrideChance}");
         }
@@ -61,11 +60,73 @@ namespace Assets
                 SpawnEnemy();
         }
 
+
+        #region Enemy Spawning
+
+        private static ObjectPool<Enemy>[] SpawnableEnemyPools { get; set; }
+        private static int HighestSpawnableIndex { get; set; }
+
+        public static void InitSpawnMechanics()
+        {
+            EnemySpawnTimer.ActivateSelf();
+            EnemyPoolList = PoolManager.Instance.EnemyPool;
+
+            var pools = EnemyPoolList.GetSpawnableEnemyPools().OrderBy(x => x.ObjectPrefab.DifficultyLevel);
+            SpawnableEnemyPools = pools.ToArray();
+
+            int targetDifficultyLevel = SpawnableEnemyPools.First().ObjectPrefab.DifficultyLevel;
+
+            HighestSpawnableIndex = 0;
+            EnemiesSpawnedWithoutDifficulyIncrease = 0;
+            AdjustHighestSpawnableIndex();
+
+            //DebugUI.SetDebugLabel("SpawnEnemy", () =>
+            //{
+            //    if (HighestSpawnableIndex >= SpawnableEnemyPools.Length)
+            //        return "All!";
+            //    else
+            //        return $"[{SpawnableEnemyPools[HighestSpawnableIndex-1].ObjectPrefab.DifficultyLevel}] {SpawnableEnemyPools[HighestSpawnableIndex-1]} {EnemiesSpawnedWithoutDifficulyIncrease}/{Balance.EnemiesBetweenDifficulyIncrease}";
+            //});
+        }
+
+        private static int EnemiesSpawnedWithoutDifficulyIncrease { get; set; }
+
         public static void SpawnEnemy()
         {
-            var enemy = EnemyPoolList.GetRandomEnemy();
+            //var enemy = EnemyPoolList.GetRandomEnemy();
+
+            int spawnPoolIndex = RandomUtil.Int(HighestSpawnableIndex);
+            var pool = SpawnableEnemyPools[spawnPoolIndex];
+
+            var enemy = pool.Get();
+            enemy.transform.position = SpaceUtil.RandomEnemySpawnPosition(enemy);
+            enemy.OnSpawn();
 
             EnemiesSpawned++;
+
+            if (EnemiesSpawnedWithoutDifficulyIncrease == Balance.EnemiesBetweenDifficulyIncrease)
+            {
+                EnemiesSpawnedWithoutDifficulyIncrease = 0;
+                AdjustHighestSpawnableIndex();
+            }
+            else
+                EnemiesSpawnedWithoutDifficulyIncrease++;
+        }
+
+        private static void AdjustHighestSpawnableIndex()
+        {
+            if (HighestSpawnableIndex >= SpawnableEnemyPools.Length)
+                return;
+
+            Enemy HardestSpawnableEnemy() => SpawnableEnemyPools[HighestSpawnableIndex].ObjectPrefab;
+
+            int targetDifficultyLevel = HardestSpawnableEnemy().DifficultyLevel;
+
+            while (HighestSpawnableIndex < SpawnableEnemyPools.Length
+                && HardestSpawnableEnemy().DifficultyLevel == targetDifficultyLevel)
+            {
+                HighestSpawnableIndex++;
+            }
         }
 
         public static void EnemySpawned(Enemy enemy)
@@ -76,6 +137,9 @@ namespace Assets
             enemy.ActiveInDirector = true;
 #endif
         }
+
+        #endregion Enemy Spawning
+
 
         public static void EnemyDeactivated(Enemy enemy)
         {

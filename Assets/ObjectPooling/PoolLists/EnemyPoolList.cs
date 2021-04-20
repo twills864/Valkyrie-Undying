@@ -28,7 +28,14 @@ namespace Assets.ObjectPooling
 
 #pragma warning restore 0414
 
-        private ObjectPool<Enemy>[] RandomEnemyPools { get; set; }
+        private ObjectPool<Enemy>[] SpawnableEnemyPools { get; set; }
+
+        public ObjectPool<Enemy>[] GetSpawnableEnemyPools()
+        {
+            ObjectPool<Enemy>[] spawnableEnemypools = new ObjectPool<Enemy>[SpawnableEnemyPools.Length];
+            SpawnableEnemyPools.CopyTo(spawnableEnemypools, 0);
+            return spawnableEnemypools;
+        }
 
         private ObjectPool<Enemy> OverridePool => GameManager.OverrideEnemyType != null &&
             PoolMap.TryGetValue(GameManager.OverrideEnemyType, out var ret) ? ret : null;
@@ -52,7 +59,7 @@ namespace Assets.ObjectPooling
             };
 
 
-            RandomEnemyPools = PoolMap.Where(x => !exclusionTypes.Contains(x.Key))
+            SpawnableEnemyPools = PoolMap.Where(x => !exclusionTypes.Contains(x.Key))
                 .Select(x => x.Value).ToArray();
         }
 
@@ -61,7 +68,7 @@ namespace Assets.ObjectPooling
             ObjectPool<Enemy> pool = OverridePool;
 
             if(pool == null)
-                pool = RandomUtil.RandomElement(RandomEnemyPools);
+                pool = RandomUtil.RandomElement(SpawnableEnemyPools);
 
             var ret = pool.Get();
             ret.transform.position = SpaceUtil.RandomEnemySpawnPosition(ret);

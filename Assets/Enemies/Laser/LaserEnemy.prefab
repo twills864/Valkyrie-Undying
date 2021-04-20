@@ -160,5 +160,6 @@ MonoBehaviour:
   _VictimMarkerDistance: 0.5
   _metronomeLabel: {fileID: 0}
   _HealthBarOffsetScale: {x: 0, y: 0.75, z: 0}
+  _DifficultyLevel: 4
   _FlyTime: {x: 1.8, y: 1.8}
   _RotateTime: 0.5

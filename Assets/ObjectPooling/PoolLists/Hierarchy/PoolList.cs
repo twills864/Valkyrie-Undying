@@ -33,6 +33,13 @@ namespace Assets.ObjectPooling
         /// </summary>
         protected ObjectPool<T>[] Pools { get; private set; }
 
+        public ObjectPool<T>[] GetAllPools()
+        {
+            ObjectPool<T>[] allPools = new ObjectPool<T>[Pools.Length];
+            Pools.CopyTo(allPools, 0);
+            return allPools;
+        }
+
         /// <summary>
         /// An array of all private prefabs represented by this PoolList.
         /// </summary>
@@ -45,6 +52,13 @@ namespace Assets.ObjectPooling
                 PrefabMap = _allPrefabs.ToDictionary(x => x.GetType(), x => x);
                 PoolMap = _allPrefabs.ToDictionary(x => x.GetType(), x => new ObjectPool<T>(x));
             }
+        }
+
+        public T[] GetAllPrefabs()
+        {
+            T[] allPrefabs = new T[AllPrefabs.Length];
+            AllPrefabs.CopyTo(allPrefabs, 0);
+            return allPrefabs;
         }
 
         /// <summary>

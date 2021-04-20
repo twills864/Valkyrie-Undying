@@ -49,6 +49,9 @@ namespace Assets.Enemies
         [SerializeField]
         private Vector3 _HealthBarOffsetScale = Vector3.zero;
 
+        [SerializeField]
+        private int _DifficultyLevel = GameConstants.PrefabNumber;
+
         #endregion Prefabs
 
 
@@ -67,6 +70,11 @@ namespace Assets.Enemies
         public virtual float VictimMarkerDistance => _VictimMarkerDistance;
 
         private Vector3 HealthBarOffsetScale => _HealthBarOffsetScale;
+
+        /// <summary>
+        /// Enemies will be introduced to the game in order of their difficulty level.
+        /// </summary>
+        public int DifficultyLevel => _DifficultyLevel;
 
         #endregion Prefab Properties
 

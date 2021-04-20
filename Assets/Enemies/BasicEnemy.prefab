@@ -160,6 +160,7 @@ MonoBehaviour:
   _VictimMarkerDistance: 0.6
   _metronomeLabel: {fileID: 0}
   _HealthBarOffsetScale: {x: 0, y: 0.5, z: 0}
+  _DifficultyLevel: 1
   _FireSpeed: 2.5
   _FireSpeedVariance: 0.5
   _PermanentVelocityX: 0
