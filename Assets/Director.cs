@@ -56,8 +56,26 @@ namespace Assets
         {
             TotalTime += deltaTime;
 
-            if (EnemySpawnTimer.UpdateActivates(deltaTime))
+            float timeModifier = CalculateSpawnTimerModifier();
+
+            if (EnemySpawnTimer.UpdateActivates(deltaTime * timeModifier))
                 SpawnEnemy();
+        }
+
+        private static float CalculateSpawnTimerModifier()
+        {
+            float modifier;
+
+            int numEnemies = ActiveEnemies.Count;
+
+            if (numEnemies < Balance.InitialTargetEnemiesOnScreen)
+                modifier = 1.5f;
+            else if (numEnemies > Balance.InitialTargetEnemiesOnScreen)
+                modifier = 0.5f;
+            else
+                modifier = 1.0f;
+
+            return modifier;
         }
 
 
@@ -156,6 +174,8 @@ namespace Assets
 #endif
 
             ActiveEnemies.Remove(enemy);
+            if (!ActiveEnemies.Any())
+                EnemySpawnTimer.ActivateSelf();
 
             if (enemy.InfluencesDirectorGameBalance)
             {

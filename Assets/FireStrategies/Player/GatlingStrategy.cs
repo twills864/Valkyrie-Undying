@@ -28,13 +28,13 @@ namespace Assets.FireStrategies.PlayerFireStrategies
         {
             PlayerBullet[] ret;
 
-            if (weaponLevel != GameConstants.MaxWeaponLevel)
-                ret = base.GetBullets(weaponLevel, playerFirePos);
-            else
-            {
-                ret = PoolManager.Instance.BulletPool.GetMany<GatlingBullet>(2, playerFirePos, weaponLevel);
-                FireAdditionalBullet((GatlingBullet) ret[1]);
-            }
+            //if (weaponLevel != GameConstants.MaxWeaponLevel)
+            ret = base.GetBullets(weaponLevel, playerFirePos);
+            //else
+            //{
+            //    ret = PoolManager.Instance.BulletPool.GetMany<GatlingBullet>(2, playerFirePos, weaponLevel);
+            //    FireAdditionalBullet((GatlingBullet) ret[1]);
+            //}
 
             GatlingBullet bullet = (GatlingBullet) ret[0];
 

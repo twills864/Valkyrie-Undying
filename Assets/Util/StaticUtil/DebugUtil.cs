@@ -164,6 +164,13 @@ namespace Assets.Util
         private static void InputEscape(KeyCode key)
         {
             DebugUi.ToggleUI();
+
+#if UNITY_EDITOR
+            var debugEnemy = GameManager.Instance._DebugEnemy;
+            if (debugEnemy.isActiveAndEnabled)
+                debugEnemy.DeactivateSelf();
+#endif
+
         }
 
         #endregion Input Methods

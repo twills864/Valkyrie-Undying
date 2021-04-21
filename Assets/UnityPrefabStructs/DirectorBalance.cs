@@ -18,6 +18,6 @@ namespace Assets
 
 
 
-        public int EnemiesBetweenDifficulyIncrease;
+        public int InitialTargetEnemiesOnScreen;
     }
 }

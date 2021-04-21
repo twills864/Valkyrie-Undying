@@ -52,17 +52,15 @@ namespace Assets.Util
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsScreenEdge(Collider2D collision, out ScreenSide screenSide)
         {
-            bool ret;
-            if(collision.tag == TagScreenEdge)
+            bool ret = IsScreenEdge(collision);
+            if(ret)
             {
-                ret = true;
-
                 var collider = collision.GetComponent<ScreenEdgeCollider>();
                 screenSide = collider.ScreenSide;
             }
             else
             {
-                ret = false;
+                // Default
                 screenSide = ScreenSide.Bottom;
             }
             return ret;

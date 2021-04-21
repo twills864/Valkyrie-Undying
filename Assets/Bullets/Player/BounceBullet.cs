@@ -1,5 +1,6 @@
 ﻿using Assets.Constants;
 using Assets.Enemies;
+using Assets.ScreenEdgeColliders;
 using Assets.Util;
 using UnityEngine;
 
@@ -58,13 +59,15 @@ namespace Assets.Bullets.PlayerBullets
 
         protected override void OnPlayerBulletTriggerEnter2D(Collider2D collision)
         {
+            // Max level bullets can bounce off the screen edge if they've already hit an enemy.
+            const int MaxPossibleBounces = 2 + GameConstants.MaxWeaponLevel;
             if (CollisionUtil.IsScreenEdge(collision))
             {
                 // Edge case preventing us from calling DeactivateSelf() here if BouncesLeft > 0 fails:
                 // Imagine the bullet touches the screen edge, doesn't have any bounces left, and gets deactivated.
                 // The bullet could theoretically miss an enemy behind the screen edge that it should have hit
                 // under normal deactivation rules.
-                if (IsMaxLevel && BouncesLeft > 0)
+                if (IsMaxLevel && BouncesLeft > 0 && BouncesLeft != MaxPossibleBounces)
                     BounceOffScreenEdge();
             }
         }
