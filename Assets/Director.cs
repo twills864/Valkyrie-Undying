@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Assets.Constants;
 using Assets.Enemies;
+using Assets.GameTasks;
 using Assets.ObjectPooling;
 using Assets.Pickups;
 using Assets.Util;
@@ -20,7 +21,11 @@ namespace Assets
     {
         public static float TotalTime { get; private set; }
 
-        private static LoopingFrameTimer EnemySpawnTimer = new LoopingFrameTimer(3.0f); // new InactiveLoopingFrameTimer();
+        private static DirectorBalance Balance;
+        private static LoopingFrameTimer EnemySpawnTimer { get; set; } = LoopingFrameTimer.Default();
+
+        private static ApplyFloatValueOverTime SpawnRateRamp { get; set; }
+        private static float SpawnRateClamp { get; set; }
 
         private static List<Enemy> ActiveEnemies = new List<Enemy>();
         private static EnemyPoolList EnemyPoolList { get; set; }
@@ -28,7 +33,6 @@ namespace Assets
         private static int EnemiesSpawned { get; set; }
         public static int EnemyHealthIncrease => EnemiesSpawned;
 
-        private static DirectorBalance Balance;
 
         private static int WeaponLevelsInPlay { get; set; }
         private static bool CanSpawnWeaponLevelUp => WeaponLevelsInPlay < GameConstants.MaxWeaponLevel;
@@ -36,6 +40,7 @@ namespace Assets
         public static void Init(DirectorBalance balance)
         {
             Balance = balance;
+            EnemySpawnTimer = new LoopingFrameTimer(Balance.SpawnRate.InitialSpawnTime); // new InactiveLoopingFrameTimer();
 
             WeaponLevelsInPlay = 0;
 
@@ -43,6 +48,7 @@ namespace Assets
 
             //DebugUI.SetDebugLabel("Weapon Levels", () => $"{WeaponLevelsInPlay} {CanSpawnWeaponLevelUp} {WeaponLevelOverrideChance}");
         }
+
 
         private static string DebugActiveEnemiesString()
         {
@@ -56,6 +62,7 @@ namespace Assets
         {
             TotalTime += deltaTime;
 
+            SpawnRateRamp.RunFrame(deltaTime);
             float timeModifier = CalculateSpawnTimerModifier();
 
             if (EnemySpawnTimer.UpdateActivates(deltaTime * timeModifier))
@@ -68,12 +75,14 @@ namespace Assets
 
             int numEnemies = ActiveEnemies.Count;
 
-            if (numEnemies < Balance.InitialTargetEnemiesOnScreen)
+            if (numEnemies < Balance.SpawnRate.InitialTargetEnemiesOnScreen)
                 modifier = 1.5f;
-            else if (numEnemies > Balance.InitialTargetEnemiesOnScreen)
+            else if (numEnemies > Balance.SpawnRate.InitialTargetEnemiesOnScreen)
                 modifier = 0.5f;
             else
                 modifier = 1.0f;
+
+            modifier *= SpawnRateRamp.CurrentValue;
 
             return modifier;
         }
@@ -84,7 +93,7 @@ namespace Assets
         private static ObjectPool<Enemy>[] SpawnableEnemyPools { get; set; }
         private static int HighestSpawnableIndex { get; set; }
 
-        public static void InitSpawnMechanics()
+        private static void InitSpawnMechanics()
         {
             EnemySpawnTimer.ActivateSelf();
             EnemyPoolList = PoolManager.Instance.EnemyPool;
@@ -94,6 +103,8 @@ namespace Assets
 
             HighestSpawnableIndex = 0;
             AdjustHighestSpawnableIndex();
+
+            InitSpawnClamp();
 
             #region // Dirty spawn info debug UI
             //DebugUI.SetDebugLabel("Enemy Spawn", () =>
@@ -114,6 +125,19 @@ namespace Assets
             //    return $"{HighestSpawnableIndex}/{SpawnableEnemyPools.Length} {SpawnableEnemyPools[index].ObjectPrefab.FirstSpawnMinute} {SpawnableEnemyPools[index].ObjectPrefab.name}\r\nNEXT: {nextSpawn} {nextSpawnName}\r\n{(TotalTime / 60.0f).ToString("0.00")} ({TotalTime.ToString("0.00")})";
             //});
             #endregion
+        }
+
+        private static void InitSpawnClamp()
+        {
+            Action<float> SetClamp = x => SpawnRateClamp = x;
+            float clampStart = Balance.SpawnRate.SpawnRateSlowStartInit;
+            const float ClampEnd = 1.0f;
+            float clampDuration = Balance.SpawnRate.SpawnRateSlowStartScaleDurationSeconds;
+
+            SpawnRateRamp = new ApplyFloatValueOverTime(Player.Instance, SetClamp, clampStart, ClampEnd, clampDuration);
+            SpawnRateClamp = clampStart;
+
+            DebugUI.SetDebugLabel("Spawn Clamp", () => SpawnRateClamp);
         }
 
         public static void SpawnEnemy()
@@ -194,7 +218,7 @@ namespace Assets
 
 
             float powerupMultiplier = enemy.PowerupDropChanceMultiplier;
-            float spawnChance = Balance.BaseEnemyPowerupDropChance * powerupMultiplier;
+            float spawnChance = Balance.EnemyDrops.BaseEnemyPowerupDropChance * powerupMultiplier;
             if (RandomUtil.Bool(spawnChance))
                 SpawnPowerup(enemy.transform.position);
 
@@ -213,7 +237,7 @@ namespace Assets
                 int denominator = WeaponLevelsInPlay + 2;
 
                 float chance = 1.0f / denominator;
-                chance += Balance.WeaponLevelOverrideChanceFlatAddition;
+                chance += Balance.EnemyDrops.WeaponLevelOverrideChanceFlatAddition;
 
                 return chance;
             }
@@ -227,7 +251,7 @@ namespace Assets
                 powerup = PoolManager.Instance.PickupPool.Get<WeaponLevelPickup>(position);
                 WeaponLevelsInPlay++;
             }
-            else if (RandomUtil.Bool(Balance.OneUpOverrideChance))
+            else if (RandomUtil.Bool(Balance.EnemyDrops.OneUpOverrideChance))
             {
                 powerup = PoolManager.Instance.PickupPool.Get<OneUpPickup>(position);
             }

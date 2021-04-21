@@ -292,9 +292,9 @@ namespace Assets
             LivesLeft = _StartingExtraLives;
         }
 
-#endregion Init
+        #endregion Init
 
-#region Update
+        #region Update
 
         private void Update()
         {
@@ -374,10 +374,10 @@ namespace Assets
 
         }
 
-#endregion Update
+        #endregion Update
 
 
-#region Player Weapons
+        #region Player Weapons
 
         private const int FireStrategyIndexBasic = 0;
 
@@ -453,9 +453,9 @@ namespace Assets
             }
         }
 
-#endregion Player Weapons
+        #endregion Player Weapons
 
-#region Powerups
+        #region Powerups
 
         public PowerupManager _PowerupManager { get; } = new PowerupManager();
 
@@ -526,7 +526,7 @@ namespace Assets
             _PowerupManager.OnHit(enemy, bullet);
         }
 
-#region OnEnemyKill
+        #region OnEnemyKill
 
         public void OnEnemyKill(Enemy enemy, PlayerBullet bullet)
         {
@@ -540,13 +540,13 @@ namespace Assets
             _Othello.ResetFiretimer();
         }
 
-#endregion OnEnemyKill
+        #endregion OnEnemyKill
 
-#endregion Powerups
+        #endregion Powerups
 
-#region Enemies
+        #region Enemies
 
-#region Enemy Bullets
+        #region Enemy Bullets
 
         public void ReflectBullet(EnemyBullet target)
         {
@@ -568,11 +568,11 @@ namespace Assets
             }
         }
 
-#endregion Enemy Bullets
+        #endregion Enemy Bullets
 
-#endregion Enemies
+        #endregion Enemies
 
-#region Damage
+        #region Damage
 
         public int LivesLeft
         {
@@ -606,9 +606,9 @@ namespace Assets
 
         }
 
-#endregion Damage
+        #endregion Damage
 
-#region Game Tasks
+        #region Game Tasks
 
         private GameTaskListManager GameTaskLists = new GameTaskListManager();
 
@@ -644,9 +644,9 @@ namespace Assets
             GameTaskLists.UIElementGameTaskList.Add(task);
         }
 
-#endregion Game Tasks
+        #endregion Game Tasks
 
-#region Powerup Menu
+        #region Powerup Menu
 
         public void AddPowerupMenuTitleRow(string title)
         {
@@ -667,9 +667,9 @@ namespace Assets
         {
             _PowerupMenu.SetLevel(SaveUtil.LastPowerup.GetType(), value);
         }
-#endregion Powerup Menu
+        #endregion Powerup Menu
 
-#region Debug
+        #region Debug
 
         public void DebugIncrementFireType()
         {
@@ -688,7 +688,7 @@ namespace Assets
             _PoolManager.RecolorPlayerActivity(color);
         }
 
-#endregion Debug
+        #endregion Debug
 
         /// <summary>
         /// Creates a Fleeting Text with a specified message at a specified position.

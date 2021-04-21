@@ -10,14 +10,29 @@ namespace Assets
     [Serializable]
     public struct DirectorBalance
     {
-        public float BaseEnemyPowerupDropChance;
+        public EnemyDropInfo EnemyDrops;
+        public SpawnRateInfo SpawnRate;
 
-        public float WeaponLevelOverrideChanceFlatAddition;
+        [Serializable]
+        public struct EnemyDropInfo
+        {
+            public float BaseEnemyPowerupDropChance;
 
-        public float OneUpOverrideChance;
+            public float WeaponLevelOverrideChanceFlatAddition;
+
+            public float OneUpOverrideChance;
+        }
 
 
+        [Serializable]
+        public struct SpawnRateInfo
+        {
+            public int InitialTargetEnemiesOnScreen;
 
-        public int InitialTargetEnemiesOnScreen;
+            public float InitialSpawnTime;
+
+            public float SpawnRateSlowStartInit;
+            public float SpawnRateSlowStartScaleDurationSeconds;
+        }
     }
 }
