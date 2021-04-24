@@ -154,8 +154,8 @@ MonoBehaviour:
   _InitialSpawnHealth: 80
   _HealthScaling: 1
   _PowerupDropChanceOverride:
-    ShouldOverride: 0
-    Multiplier: 0
+    ShouldOverride: 1
+    Multiplier: 1
   _Sprite: {fileID: 2513743728701105208}
   _VictimMarkerDistance: 0.6
   _metronomeLabel: {fileID: 0}

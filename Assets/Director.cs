@@ -48,6 +48,7 @@ namespace Assets
             EnemySpawnTimer = new LoopingFrameTimer(Balance.SpawnRate.InitialSpawnTime); // new InactiveLoopingFrameTimer();
 
             ActiveEnemies.Clear();
+            EnemiesSpawned = 0;
             TotalTime = 0;
             WeaponLevelsInPlay = 0;
 

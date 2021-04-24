@@ -54,8 +54,6 @@ namespace Assets.Util
             {
                 Save = new SaveData(SaveFilePath);
                 Save.LoadGame();
-
-                DebugUI.SetDebugLabel("High score", () => HighScore);
             }
         }
 

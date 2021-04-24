@@ -15,8 +15,10 @@ namespace Assets.Util
     {
         public const int DebugLabelFontSize = 20;
         public const float DebugBorderOffset = 20;
+        public const float MobileGuiScale = 3.0f;
 
         public static DebugUI Instance { get; private set; }
+        public static Vector3 MobileGuiScaleVector => new Vector3(MobileGuiScale, MobileGuiScale, 1.0f);
 
         private GameManager _GameManager { get; set; }
         private PowerupMenu _PowerupMenu { get; set; }
@@ -64,7 +66,7 @@ namespace Assets.Util
             DebugTextBox = new DebugTextBox(InputField);
 
 #if !UNITY_EDITOR
-            Vector3 newScale = new Vector3(3.0f, 3.0f, 1.0f);
+            Vector3 newScale = MobileGuiScaleVector;
             InputField.transform.localScale = newScale;
 
             var setAll = new Component[]

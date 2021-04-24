@@ -86,6 +86,8 @@ namespace Assets
         [SerializeField]
         private ColorManager _ColorManager;
 
+
+
         #region Player Prefabs
 
         [SerializeField]
@@ -101,6 +103,7 @@ namespace Assets
         private Scoreboard _Scoreboard = null;
 
         #endregion Player Prefabs
+
 
         #region Powerup Prefabs
 
@@ -118,6 +121,7 @@ namespace Assets
 
         #endregion Powerup Prefabs
 
+
         #region UI Prefabs
 
         [SerializeField]
@@ -126,7 +130,11 @@ namespace Assets
         [SerializeField]
         private Notification _Notification = null;
 
+        [SerializeField]
+        private GameOverGUI _GameOverGUI = null;
+
         #endregion UI Prefabs
+
 
         #region Debug Prefabs
 
@@ -136,6 +144,7 @@ namespace Assets
         public DebugUI DebugUi;
 
         #endregion Debug Prefabs
+
 
         #region Screen Prefabs
 
@@ -212,6 +221,7 @@ namespace Assets
 
             MonsoonSpawner.Instance = _MonsoonSpawner;
 
+            _GameOverGUI.Init();
             _Scoreboard.Init();
 
             NotificationManager.Init(_Notification);
@@ -495,14 +505,23 @@ namespace Assets
                 {
                     _victimEnemy.VictimMarker = newMarker;
 
-                    if(Player.VictimMarker != null)
+                    if (Player.VictimMarker != null)
                     {
                         Player.VictimMarker.StartDeactivation();
                         Player.VictimMarker = null;
                     }
                 }
-                else if(Player.IsAlive)
-                    Player.VictimMarker = newMarker;
+                else
+                {
+                    if (Player.IsAlive)
+                    {
+                        Player.VictimMarker = newMarker;
+                    }
+                    else
+                    {
+                        newMarker.DeactivateSelf();
+                    }
+                }
             }
         }
 
@@ -603,35 +622,38 @@ namespace Assets
             }
             else
             {
-                GameOver();
-
                 int score = _Scoreboard.Score;
                 //Player.CreateFleetingTextAtCenter("You died!!");
-                NotificationManager.AddNotification("You died!!");
+                //NotificationManager.AddNotification("You died!!");
 
-                bool newHighScore = score > SaveUtil.HighScore;
-                if (newHighScore)
-                {
-                    NotificationManager.AddNotification("New high score!");
-                    NotificationManager.AddNotification($"Old high score: {SaveUtil.HighScore}");
-                    NotificationManager.AddNotification($"Your score: {score}");
-                }
-                else
-                {
-                    NotificationManager.AddNotification($"Score: {score}");
-                    NotificationManager.AddNotification($"High score: {SaveUtil.HighScore}");
-                }
+                //bool newHighScore = score > SaveUtil.HighScore;
+                //if (newHighScore)
+                //{
+                //    NotificationManager.AddNotification("New high score!");
+                //    NotificationManager.AddNotification($"Old high score: {SaveUtil.HighScore}");
+                //    NotificationManager.AddNotification($"Your score: {score}");
+                //}
+                //else
+                //{
+                //    NotificationManager.AddNotification($"Score: {score}");
+                //    NotificationManager.AddNotification($"High score: {SaveUtil.HighScore}");
+                //}
 
                 SaveUtil.HighScore = _Scoreboard.Score;
 
-                LivesLeft = _StartingExtraLives;
+                GameOver();
+
+                //LivesLeft = _StartingExtraLives;
 
                 //_Scoreboard.ResetScore();
+                _Scoreboard.gameObject.SetActive(false);
             }
         }
 
         private void GameOver()
         {
+            _GameOverGUI.Activate(_Scoreboard.Score, SaveUtil.HighScore);
+
             Player.Kill();
             _Othello.Kill();
             _Monsoon.Kill();
