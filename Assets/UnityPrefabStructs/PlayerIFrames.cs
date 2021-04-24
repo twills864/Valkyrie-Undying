@@ -10,7 +10,8 @@ namespace Assets
     [Serializable]
     public struct PlayerIFrames
     {
-        public float BlinkFadeAlpha;
+        public float BlinkFadeOutAlpha;
+        public float BlinkFadeInAlpha;
         public BlinkInfo StandardBlinks;
         public BlinkInfo FinalBlinks;
         public float GracePeriodTime;

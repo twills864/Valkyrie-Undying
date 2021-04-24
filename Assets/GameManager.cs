@@ -588,6 +588,8 @@ namespace Assets
 
         public void TakeDamage()
         {
+            Director.ResetDifficulty();
+
             if (LivesLeft > 0)
             {
                 //Player.CreateFleetingTextAtCenter("Ow");
@@ -600,9 +602,6 @@ namespace Assets
                 LivesLeft = _StartingExtraLives;
                 _Scoreboard.ResetScore();
             }
-
-
-
         }
 
         #endregion Damage

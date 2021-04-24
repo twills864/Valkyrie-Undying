@@ -73,8 +73,10 @@ namespace Assets.Enemies
 
         protected override void OnEnemySpawn()
         {
-#if !UNITY_EDITOR
-            DeactivateSelf();
+#if !UNITY_EDITOR2
+            // Despawn next frame
+            var deactivate = GameTaskFunc.DeactivateSelf(this);
+            RunTask(deactivate);
 #endif
         }
 

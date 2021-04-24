@@ -23,12 +23,14 @@ namespace Assets
 
         private static DirectorBalance Balance;
 
-        private static BalancedRatio DifficultyRatio { get; } = new BalancedRatio();
+        private static BalancedRatio DifficultyRatio { get; set; }
         private static float CurrentDifficulty => DifficultyRatio.CurrentValue;
 
-        private static LoopingFrameTimer EnemySpawnTimer { get; set; } = LoopingFrameTimer.Default();
+        private static LoopingFrameTimer EnemySpawnTimer { get; set; }
 
+        [Obsolete(Constants.ObsoleteConstants.SpawnRampOverhaul)]
         private static ApplyFloatValueOverTime SpawnRateRamp { get; set; }
+        [Obsolete(Constants.ObsoleteConstants.SpawnRampOverhaul)]
         private static float SpawnRateClamp { get; set; }
 
         private static List<Enemy> ActiveEnemies = new List<Enemy>();
@@ -46,9 +48,14 @@ namespace Assets
             EnemySpawnTimer = new LoopingFrameTimer(Balance.SpawnRate.InitialSpawnTime); // new InactiveLoopingFrameTimer();
 
             WeaponLevelsInPlay = 0;
-            DifficultyRatio.Reset(0);
+
+            float initialDifficuly = Balance.Difficuly.InitialDifficultyRatio;
+            float difficultyStep = Balance.Difficuly.DifficultyRatioStep;
+            DifficultyRatio = new BalancedRatio(initialDifficuly, difficultyStep);
 
             InitSpawnMechanics();
+
+            DebugUI.SetDebugLabel("Diffiulty", () => CurrentDifficulty);
 
             //DebugUI.SetDebugLabel("Weapon Levels", () => $"{WeaponLevelsInPlay} {CanSpawnWeaponLevelUp} {WeaponLevelOverrideChance}");
         }
@@ -73,29 +80,14 @@ namespace Assets
                 SpawnEnemy();
         }
 
-        private static float CalculateSpawnTimerModifier()
-        {
-            float modifier;
-
-            int numEnemies = ActiveEnemies.Count;
-
-            if (numEnemies < Balance.SpawnRate.InitialTargetEnemiesOnScreen)
-                modifier = 1.5f;
-            else if (numEnemies > Balance.SpawnRate.InitialTargetEnemiesOnScreen)
-                modifier = 0.5f;
-            else
-                modifier = 1.0f;
-
-            modifier *= SpawnRateRamp.CurrentValue;
-
-            return modifier;
-        }
-
 
         #region Enemy Spawning
 
         private static ObjectPool<Enemy>[] SpawnableEnemyPools { get; set; }
         private static int HighestSpawnableIndex { get; set; }
+
+        // Use weighted random to spawn enemy every other spawn
+        public static bool WeightedSpawnToggle { get; set; }
 
         private static void InitSpawnMechanics()
         {
@@ -131,6 +123,7 @@ namespace Assets
             #endregion
         }
 
+        [Obsolete(Constants.ObsoleteConstants.SpawnRampOverhaul)]
         private static void InitSpawnClamp()
         {
             Action<float> SetClamp = x => SpawnRateClamp = x;
@@ -148,7 +141,14 @@ namespace Assets
 
             AdjustHighestSpawnableIndex();
 
-            int spawnPoolIndex = RandomUtil.Int(HighestSpawnableIndex);
+            int spawnPoolIndex;
+            if (WeightedSpawnToggle)
+                spawnPoolIndex = RandomUtil.Int(HighestSpawnableIndex);
+            else
+                spawnPoolIndex = WeightedRandomUtil.IndexAroundPeakRatio(HighestSpawnableIndex, CurrentDifficulty);
+
+            WeightedSpawnToggle = !WeightedSpawnToggle;
+
             var pool = SpawnableEnemyPools[spawnPoolIndex];
 
             var enemy = pool.Get();
@@ -173,6 +173,28 @@ namespace Assets
             }
         }
 
+        private static float CalculateSpawnTimerModifier()
+        {
+            float modifier;
+
+            int numEnemies = ActiveEnemies.Count;
+
+            if (numEnemies < Balance.SpawnRate.InitialTargetEnemiesOnScreen)
+                modifier = 1.5f;
+            else if (numEnemies > Balance.SpawnRate.InitialTargetEnemiesOnScreen)
+                modifier = 0.5f;
+            else
+                modifier = 1.0f;
+
+            //modifier *= SpawnRateClamp;
+
+            // Adjust modifier by a value [0.5f, 1.5f] depending on difficulty
+            float difficultyModifier = 0.5f + CurrentDifficulty;
+            modifier *= difficultyModifier;
+
+            return modifier;
+        }
+
         public static void EnemySpawned(Enemy enemy)
         {
             ActiveEnemies.Add(enemy);
@@ -184,6 +206,8 @@ namespace Assets
 
         #endregion Enemy Spawning
 
+
+        #region Enemy Deactivation
 
         public static void EnemyDeactivated(Enemy enemy)
         {
@@ -225,12 +249,19 @@ namespace Assets
                 SpawnPowerup(enemy.transform.position);
 
             // TODO: Handle difficulty
+            DifficultyRatio.IncreaseRatio();
         }
 
         private static void EnemyEscaped(Enemy enemy)
         {
             // TODO: Handle difficulty
+            DifficultyRatio.DecreaseRatio();
         }
+
+        #endregion Enemy Deactivation
+
+
+        #region Powerup Drops
 
         private static float WeaponLevelOverrideChance
         {
@@ -268,6 +299,28 @@ namespace Assets
         {
             WeaponLevelsInPlay--;
         }
+
+        #endregion Powerup Drops
+
+
+        #region Difficulty
+
+        public static void IncreaseDifficulty()
+        {
+            DifficultyRatio.IncreaseRatio();
+        }
+
+        public static void DecreaseDifficulty()
+        {
+            DifficultyRatio.DecreaseRatio();
+        }
+
+        public static void ResetDifficulty()
+        {
+            DifficultyRatio.HalveCurrentRatio();
+        }
+
+        #endregion Difficulty
 
 
         #region Get Enemies

@@ -3558,7 +3558,7 @@ MonoBehaviour:
       Trampoline: 1
       Wormhole: 1.8
       Gatling: 1
-      Bfg: 2
+      Bfg: 2.5
       OneManArmy: 1.15
       DeadlyDiamond: 0.45
   PowerupBalance:
@@ -3650,10 +3650,13 @@ MonoBehaviour:
           Base: 10
           Increase: 5
   _DirectorBalance:
+    Difficuly:
+      InitialDifficultyRatio: 0
+      DifficultyRatioStep: 0.05
     EnemyDrops:
-      BaseEnemyPowerupDropChance: 0.3
-      WeaponLevelOverrideChanceFlatAddition: 0.05
-      OneUpOverrideChance: 0.3
+      BaseEnemyPowerupDropChance: 0.25
+      WeaponLevelOverrideChanceFlatAddition: 0.025
+      OneUpOverrideChance: 0.25
     SpawnRate:
       InitialTargetEnemiesOnScreen: 5
       InitialSpawnTime: 3
@@ -5768,6 +5771,16 @@ PrefabInstance:
         type: 3}
       propertyPath: ManagedComponents.Array.data[0]
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4200373973810473398, guid: 2a0d0a97014dc564a80b742dc6ac172b,
+        type: 3}
+      propertyPath: _PlayerIFrames.BlinkFadeInAlpha
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4200373973810473398, guid: 2a0d0a97014dc564a80b742dc6ac172b,
+        type: 3}
+      propertyPath: _PlayerIFrames.BlinkFadeOutAlpha
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 4200373973810473398, guid: 2a0d0a97014dc564a80b742dc6ac172b,
         type: 3}

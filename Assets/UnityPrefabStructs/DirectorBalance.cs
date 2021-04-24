@@ -10,8 +10,16 @@ namespace Assets
     [Serializable]
     public struct DirectorBalance
     {
+        public DifficultyInfo Difficuly;
         public EnemyDropInfo EnemyDrops;
         public SpawnRateInfo SpawnRate;
+
+        [Serializable]
+        public struct DifficultyInfo
+        {
+            public float InitialDifficultyRatio;
+            public float DifficultyRatioStep;
+        }
 
         [Serializable]
         public struct EnemyDropInfo
@@ -31,7 +39,9 @@ namespace Assets
 
             public float InitialSpawnTime;
 
+            [Obsolete(Constants.ObsoleteConstants.SpawnRampOverhaul)]
             public float SpawnRateSlowStartInit;
+            [Obsolete(Constants.ObsoleteConstants.SpawnRampOverhaul)]
             public float SpawnRateSlowStartScaleDurationSeconds;
         }
     }

@@ -253,10 +253,11 @@ namespace Assets
         private void InitIFramesSequence()
         {
             const float BaseAlpha = 1.0f;
-            float blinkAlpha = PlayerIFrames.BlinkFadeAlpha;
+            float blinkOutAlpha = PlayerIFrames.BlinkFadeOutAlpha;
+            float blinkInAlpha = PlayerIFrames.BlinkFadeInAlpha;
 
-            var blinkOut = new GameTaskFunc(this, () => Alpha = blinkAlpha);
-            var blinkIn = new GameTaskFunc(this, () => Alpha = BaseAlpha);
+            var blinkOut = new GameTaskFunc(this, () => Alpha = blinkOutAlpha);
+            var blinkIn = new GameTaskFunc(this, () => Alpha = blinkInAlpha);
 
             var standardDelay = new Delay(this, PlayerIFrames.StandardBlinks.OneBlinkTime);
             var standardBlinkSequence = new Sequence(blinkOut, standardDelay, blinkIn, standardDelay);
@@ -267,11 +268,13 @@ namespace Assets
             var finalBlinkSequence = new Sequence(blinkOut, finalDelay, blinkIn, finalDelay);
             var finalBlinks = new Repeat(finalBlinkSequence, PlayerIFrames.FinalBlinks.NumBlinks);
 
+            var restoreAlpha = new GameTaskFunc(this, () => Alpha = BaseAlpha);
+
             var gracePeriod = new Delay(this, PlayerIFrames.GracePeriodTime);
 
             var restoreMortality = new GameTaskFunc(this, () => InIFrames = false);
 
-            IFramesSequence = new Sequence(standardBlinks, finalBlinks, gracePeriod, restoreMortality);
+            IFramesSequence = new Sequence(standardBlinks, finalBlinks, restoreAlpha, gracePeriod, restoreMortality);
 
             // Prevent sequence from running at start
             IFramesSequence.FinishSelf();

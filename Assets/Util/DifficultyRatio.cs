@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,9 +17,10 @@ namespace Assets.Util
         public const float MaxRatio = 1.0f;
         public const float MiddleRatio = 0.5f;
 
-        private const float RatioStep = 0.1f;
+        private const float DefaultRatioStep = 0.1f;
 
         public float CurrentValue { get; private set; }
+        private float RatioStep { get; }
 
         public float NextIncrease => AdjustDelta(RemainingIncrease);
         public float NextDecrease => AdjustDelta(RemainingDecrease);
@@ -29,11 +31,17 @@ namespace Assets.Util
         public BalancedRatio()
         {
             CurrentValue = MiddleRatio;
+            RatioStep = DefaultRatioStep;
         }
 
-        public BalancedRatio(float currentValue)
+        public BalancedRatio(float initialValue, float ratioStep)
         {
-            CurrentValue = currentValue;
+            CurrentValue = initialValue;
+            RatioStep = ratioStep;
+
+#if UNITY_EDITOR
+            Debug.Assert(0.0f > ratioStep && ratioStep < 0.5f);
+#endif
         }
 
         public void IncreaseRatio()
@@ -66,7 +74,12 @@ namespace Assets.Util
             return delta;
         }
 
-        public void Reset(float ratio)
+        public void HalveCurrentRatio()
+        {
+            CurrentValue *= 0.5f;
+        }
+
+        public void ResetRatio(float ratio = 0.0f)
         {
             CurrentValue = ratio;
         }
