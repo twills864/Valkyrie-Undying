@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6db2a028e7ebd04fa61a55d3e2595b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _AnimationTime: 1.5
+  _AnimationTime: 2
   _FadeTime: 0.25
   _InitialScale: 0.75
   _FinalScale: 2.5

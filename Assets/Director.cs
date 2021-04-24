@@ -47,6 +47,8 @@ namespace Assets
             Balance = balance;
             EnemySpawnTimer = new LoopingFrameTimer(Balance.SpawnRate.InitialSpawnTime); // new InactiveLoopingFrameTimer();
 
+            ActiveEnemies.Clear();
+            TotalTime = 0;
             WeaponLevelsInPlay = 0;
 
             float initialDifficuly = Balance.Difficuly.InitialDifficultyRatio;

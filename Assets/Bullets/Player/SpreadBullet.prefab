@@ -139,5 +139,5 @@ MonoBehaviour:
   _AdditionalBulletDamage: 20
   _BulletVelocityY: 20
   _FireRadius: 0.75
-  _AngleBetweenLanesInDegrees: 20
+  _AngleBetweenLanesInDegrees: 10
   _DampX: 0.6

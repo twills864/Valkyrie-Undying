@@ -335,7 +335,7 @@ namespace Assets.Enemies
 
         #region Inferno
 
-        protected virtual float InfernoTickTime => 0.75f;
+        protected virtual float InfernoTickTime => 1.0f;
         private LoopingFrameTimer InfernoTimer { get; set; }
 
         protected virtual float InfernoDamageScale => 1f;

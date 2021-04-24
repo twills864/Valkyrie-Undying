@@ -137,5 +137,5 @@ MonoBehaviour:
   _Sprite: {fileID: 6915151429221261810}
   _BaseDamage: 30
   _StartSpeed: 1
-  _EndSpeed: 24
+  _EndSpeed: 18
   _AccelerationTime: 0.5

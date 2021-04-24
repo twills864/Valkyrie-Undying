@@ -60,8 +60,8 @@ namespace Assets.Powerups
             if (Move.FrameRunFinishes(deltaTime))
             {
                 Monsoon.Instance.Activate(transform.position.x);
-                gameObject.SetActive(false);
                 Move = null;
+                Kill();
             }
         }
 
@@ -69,6 +69,12 @@ namespace Assets.Powerups
         {
             gameObject.SetActive(true);
             Init(Player.Instance.transform.position, Monsoon.Instance.OffsetFromBottom);
+        }
+
+        public void Kill()
+        {
+            gameObject.SetActive(false);
+            Instance = null;
         }
     }
 }

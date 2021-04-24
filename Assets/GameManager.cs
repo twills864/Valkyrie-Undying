@@ -22,6 +22,7 @@ using Assets.FireStrategyManagers;
 using System.Linq;
 using System.Collections.Generic;
 using Assets.Pickups;
+using UnityEngine.SceneManagement;
 
 namespace Assets
 {
@@ -195,6 +196,8 @@ namespace Assets
 #if !UNITY_EDITOR
             Camera.main.orthographicSize *= 2.0f;
 #endif
+            SaveUtil.InitializeSave();
+
             SpaceUtil.Init();
 
             // _ColorManager is a prefab field, and doesn't need initialized.
@@ -312,24 +315,27 @@ namespace Assets
             float playerTime = deltaTime;
             float playerFireScale = deltaTime * PlayerFireDeltaTimeScale;
 
-            if (CurrentFireStrategy.UpdateActivates(playerFireScale * Player.FireSpeedScale))
+            if (Player.IsAlive)
             {
-                var bullets = CurrentFireStrategy.GetBullets(WeaponLevel, Player.FirePosition);
-                FirePlayerBullets(bullets);
+                if (CurrentFireStrategy.UpdateActivates(playerFireScale * Player.FireSpeedScale))
+                {
+                    var bullets = CurrentFireStrategy.GetBullets(WeaponLevel, Player.FirePosition);
+                    FirePlayerBullets(bullets);
 
-                _Othello.Fire();
+                    _Othello.Fire();
+                }
+
+                UpdateFireStrategy(playerTime);
+                WeaponRain(deltaTime);
+
+
+                float enemyTimeScale = TimeScaleManager.GetTimeScaleModifier(TimeScaleType.Enemy);
+                float enemyDeltaTime = deltaTime * enemyTimeScale;
+                Director.RunFrame(enemyDeltaTime, deltaTime);
+
+                _PowerupManager.PassiveUpdate(playerFireScale, deltaTime);
+                GameTaskLists.RunFrames(playerFireScale, deltaTime, deltaTime, deltaTime);
             }
-
-            UpdateFireStrategy(playerTime);
-            WeaponRain(deltaTime);
-
-
-            float enemyTimeScale = TimeScaleManager.GetTimeScaleModifier(TimeScaleType.Enemy);
-            float enemyDeltaTime = deltaTime * enemyTimeScale;
-            Director.RunFrame(enemyDeltaTime, deltaTime);
-
-            _PowerupManager.PassiveUpdate(playerFireScale, deltaTime);
-            GameTaskLists.RunFrames(playerFireScale, deltaTime, deltaTime, deltaTime);
 
             NotificationManager.RunFrame(deltaTime);
         }
@@ -495,7 +501,7 @@ namespace Assets
                         Player.VictimMarker = null;
                     }
                 }
-                else
+                else if(Player.IsAlive)
                     Player.VictimMarker = newMarker;
             }
         }
@@ -597,11 +603,40 @@ namespace Assets
             }
             else
             {
+                GameOver();
+
+                int score = _Scoreboard.Score;
                 //Player.CreateFleetingTextAtCenter("You died!!");
                 NotificationManager.AddNotification("You died!!");
+
+                bool newHighScore = score > SaveUtil.HighScore;
+                if (newHighScore)
+                {
+                    NotificationManager.AddNotification("New high score!");
+                    NotificationManager.AddNotification($"Old high score: {SaveUtil.HighScore}");
+                    NotificationManager.AddNotification($"Your score: {score}");
+                }
+                else
+                {
+                    NotificationManager.AddNotification($"Score: {score}");
+                    NotificationManager.AddNotification($"High score: {SaveUtil.HighScore}");
+                }
+
+                SaveUtil.HighScore = _Scoreboard.Score;
+
                 LivesLeft = _StartingExtraLives;
-                _Scoreboard.ResetScore();
+
+                //_Scoreboard.ResetScore();
             }
+        }
+
+        private void GameOver()
+        {
+            Player.Kill();
+            _Othello.Kill();
+            _Monsoon.Kill();
+            _MonsoonSpawner.Kill();
+            _SentinelManager.Kill();
         }
 
         #endregion Damage
@@ -700,6 +735,13 @@ namespace Assets
             text.Text = message;
 
             return text;
+        }
+
+        public static void ResetScene()
+        {
+            var scene = SceneManager.GetActiveScene();
+            int index = scene.buildIndex;
+            SceneManager.LoadScene(index);
         }
     }
 }

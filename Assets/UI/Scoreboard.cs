@@ -27,10 +27,10 @@ public class Scoreboard : MonoBehaviour
 
     #endregion Prefab Properties
 
-    private int Score
+    public int Score
     {
         get => _score;
-        set
+        private set
         {
             _score = value;
             Label.text = value.ToString("00000000");

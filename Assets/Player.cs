@@ -136,6 +136,8 @@ namespace Assets
         {
             Instance = this;
 
+            IsAlive = true;
+
             BloodlustAuraSprite = BloodlustAuraObject.GetComponent<SpriteRenderer>();
 
             LaserPointer.SetPosition(1, new Vector3(0, SpaceUtil.WorldMap.Height));
@@ -248,6 +250,8 @@ namespace Assets
         /// </summary>
         public bool InIFrames { get; set; }
 
+        public bool IsAlive { get; set; }
+
         private Sequence IFramesSequence { get; set; }
 
         private void InitIFramesSequence()
@@ -335,6 +339,16 @@ namespace Assets
 
             InIFrames = true;
             IFramesSequence.ResetSelf();
+        }
+
+        public void Kill()
+        {
+            IsAlive = false;
+
+            gameObject.SetActive(false);
+            BloodlustAuraObject.SetActive(false);
+            MortarGuide.gameObject.SetActive(false);
+            VictimMarker?.StartDeactivation();
         }
 
 #endregion Damage

@@ -128,5 +128,11 @@ namespace Assets.Powerups
             raindrop.transform.position = position;
             raindrop.RaindropDamage = damage;
         }
+
+        public void Kill()
+        {
+            gameObject.SetActive(false);
+            Instance = null;
+        }
     }
 }

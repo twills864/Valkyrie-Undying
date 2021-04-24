@@ -19,6 +19,24 @@ namespace Assets.Util
         public const string LastWeaponIndexKey = "LastWeaponIndex";
         public const string LastPowerupNameKey = "LastPowerupName";
 
+        private const string _SaveFileName = "Valkyrie.dat";
+
+        private static SaveData Save = null;
+        private static string SaveFilePath => $"{Application.persistentDataPath}/{_SaveFileName}";
+
+        public static int HighScore
+        {
+            get => Save.HighScore;
+            set
+            {
+                if(value > Save.HighScore)
+                {
+                    Save.HighScore = value;
+                    Save.SaveGame();
+                }
+            }
+        }
+
         public static List<Powerup> AllPowerups
         {
             get => s_allPowerups;
@@ -29,6 +47,17 @@ namespace Assets.Util
             }
         }
         private static Dictionary<string, Powerup> PowerupNameMap { get; set; }
+
+        public static void InitializeSave()
+        {
+            if(Save == null)
+            {
+                Save = new SaveData(SaveFilePath);
+                Save.LoadGame();
+
+                DebugUI.SetDebugLabel("High score", () => HighScore);
+            }
+        }
 
         public static void InitializePowerups(List<Powerup> allPowerups)
         {

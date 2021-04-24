@@ -164,8 +164,12 @@ namespace Assets.Util
 
         public void ButtonPressed(Button button)
         {
-            Color newRando = DebugUtil.GetRandomPlayerColor();
-            _GameManager.RecolorPlayerActivity(newRando);
+            //GameManager.ResetScene();
+            GameManager.Instance.LivesLeft = 0;
+            GameManager.Instance.TakeDamage();
+
+            //Color newRando = DebugUtil.GetRandomPlayerColor();
+            //_GameManager.RecolorPlayerActivity(newRando);
         }
 
         public void ShowPowerupMenuButtonPressed(Button button)

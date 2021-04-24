@@ -84,7 +84,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _Sprite: {fileID: 7995448052064837697}
-  _BaseDamage: 5
+  _BaseDamage: 1
   _PermanentVelocityX: 0
   _PermanentVelocityY: 20
 --- !u!212 &7995448052064837697

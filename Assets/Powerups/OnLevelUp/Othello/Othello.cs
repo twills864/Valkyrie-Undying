@@ -158,5 +158,11 @@ namespace Assets.Powerups
             //FireTimer.Elapsed = -FadeInTime - FadeInTimeFireDelay;
             //FireSpeedModifier = FireSpeedPrecisionScale;
         }
+
+        public void Kill()
+        {
+            gameObject.SetActive(false);
+            Instance = null;
+        }
     }
 }

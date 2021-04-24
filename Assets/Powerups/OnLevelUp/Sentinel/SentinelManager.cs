@@ -154,5 +154,16 @@ namespace Assets.Powerups
 
             ActivateAllSentinels();
         }
+
+        public void Kill()
+        {
+            foreach (var sentinel in Sentinels)
+            {
+                if (sentinel.isActiveAndEnabled)
+                    sentinel.DeactivateSelf();
+            }
+
+            gameObject.SetActive(false);
+        }
     }
 }
