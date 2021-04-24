@@ -196,7 +196,6 @@ namespace Assets
             Camera.main.orthographicSize *= 2.0f;
 #endif
             SpaceUtil.Init();
-            RandomUtil.Init();
 
             // _ColorManager is a prefab field, and doesn't need initialized.
             _PoolManager.Init(in _ColorManager);

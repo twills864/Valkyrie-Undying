@@ -22,6 +22,10 @@ namespace Assets
         public static float TotalTime { get; private set; }
 
         private static DirectorBalance Balance;
+
+        private static BalancedRatio DifficultyRatio { get; } = new BalancedRatio();
+        private static float CurrentDifficulty => DifficultyRatio.CurrentValue;
+
         private static LoopingFrameTimer EnemySpawnTimer { get; set; } = LoopingFrameTimer.Default();
 
         private static ApplyFloatValueOverTime SpawnRateRamp { get; set; }
@@ -33,7 +37,6 @@ namespace Assets
         private static int EnemiesSpawned { get; set; }
         public static int EnemyHealthIncrease => EnemiesSpawned;
 
-
         private static int WeaponLevelsInPlay { get; set; }
         private static bool CanSpawnWeaponLevelUp => WeaponLevelsInPlay < GameConstants.MaxWeaponLevel;
 
@@ -43,6 +46,7 @@ namespace Assets
             EnemySpawnTimer = new LoopingFrameTimer(Balance.SpawnRate.InitialSpawnTime); // new InactiveLoopingFrameTimer();
 
             WeaponLevelsInPlay = 0;
+            DifficultyRatio.Reset(0);
 
             InitSpawnMechanics();
 
@@ -136,8 +140,6 @@ namespace Assets
 
             SpawnRateRamp = new ApplyFloatValueOverTime(Player.Instance, SetClamp, clampStart, ClampEnd, clampDuration);
             SpawnRateClamp = clampStart;
-
-            DebugUI.SetDebugLabel("Spawn Clamp", () => SpawnRateClamp);
         }
 
         public static void SpawnEnemy()

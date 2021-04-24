@@ -10,17 +10,7 @@ namespace Assets.Util
 {
     public static class RandomUtil
     {
-        private static System.Random Random { get; set; }
-            = new Random();
-
-        public static void Init()
-        {
-            Random = new Random();
-        }
-        public static void Init(int seed)
-        {
-            Random = new Random(seed);
-        }
+        private static System.Random Random { get; } = new Random();
 
         #region Int
 
@@ -61,9 +51,9 @@ namespace Assets.Util
         #region Float
 
         /// <summary>
-        /// Returns a random float.
+        /// Returns a random float [0, 1).
         /// </summary>
-        /// <returns>A random float.</returns>
+        /// <returns>A random float [0, 1).</returns>
         public static float Float()
         {
             return (float) Double();
@@ -94,9 +84,9 @@ namespace Assets.Util
         #region Double
 
         /// <summary>
-        /// Returns a random double.
+        /// Returns a random double [0, 1).
         /// </summary>
-        /// <returns>A random double.</returns>
+        /// <returns>A random double [0, 1).</returns>
         public static double Double()
         {
             double ret = Random.NextDouble();
