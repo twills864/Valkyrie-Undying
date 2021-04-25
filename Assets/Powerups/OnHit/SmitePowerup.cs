@@ -16,6 +16,8 @@ namespace Assets.Powerups
     /// <inheritdoc/>
     public class SmitePowerup : OnHitPowerup
     {
+        public override int MaxLevel => 1;
+
         private float SmiteChance => ChanceCalculator.Value;
         private SumLevelValueCalculator ChanceCalculator { get; set; }
 

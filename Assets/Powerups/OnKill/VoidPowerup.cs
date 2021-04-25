@@ -17,6 +17,8 @@ namespace Assets.Powerups
     /// <inheritdoc/>
     public class VoidPowerup : OnKillPowerup
     {
+        public override int MaxLevel => 2;
+
         protected override void InitBalance(in PowerupBalanceManager.OnKillBalance balance)
         {
             float durationBase = balance.Void.Duration.Base;

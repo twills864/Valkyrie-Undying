@@ -130,8 +130,6 @@ namespace Assets.Util
             //GameManager.SpawnPowerup(SpaceUtil.WorldMap.Center);
 
             PoolManager.Instance.PickupPool.GetRandomPowerup(SpaceUtil.WorldMap.Center).OnSpawn();
-
-            NotificationManager.AddNotification("Mouse4!");
         }
 
         private static void InputMouseForward(KeyCode keyCode)
@@ -148,7 +146,7 @@ namespace Assets.Util
             }
 
             //SmiteBullet.DebugTestSmite();
-            NotificationManager.AddNotification("Mouse5!");
+            PickupSpam();
         }
 
         private static void InputKeypadPlus(KeyCode keyCode)
@@ -174,6 +172,7 @@ namespace Assets.Util
         }
 
         #endregion Input Methods
+
 
         #region Input Engine
 
@@ -287,5 +286,28 @@ namespace Assets.Util
         public static Type GetOverrideEnemyType<TEnemy>() where TEnemy : Enemy => typeof(TEnemy);
 
         #endregion Get Types
+
+
+        #region Test Methods
+
+        private static void PickupSpam()
+        {
+            var pool = PoolManager.Instance.PickupPool;
+
+            const int NumPickups = 10;
+
+            Vector3 mousePos = SpaceUtil.WorldPositionUnderMouse();
+            const float PosDelta = 0.1f;
+
+            for (int i = 0; i < NumPickups; i++)
+            {
+                float x = RandomUtil.Float(-PosDelta, PosDelta);
+                float y = RandomUtil.Float(-PosDelta, PosDelta);
+                Vector3 spawnPos = new Vector3(x, y) + mousePos;
+                pool.GetRandomPowerup(spawnPos).OnSpawn();
+            }
+        }
+
+        #endregion Test Methods
     }
 }

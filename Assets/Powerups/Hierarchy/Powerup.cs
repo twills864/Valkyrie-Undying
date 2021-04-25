@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Assets.ObjectPooling;
 using Assets.Powerups.Balance;
 using Assets.Util;
 
@@ -14,7 +15,11 @@ namespace Assets.Powerups
     /// <inheritdoc/>
     public abstract class Powerup
     {
+        #region Property Fields
+
         private int _level;
+
+        #endregion Property Fields
 
         public Powerup()
         {
@@ -41,6 +46,30 @@ namespace Assets.Powerups
         /// when applying powerups of this type.
         /// </summary>
         public bool IsActive => Level != 0;
+
+        /// <summary>
+        /// The maximum level that can be achieved by the player.
+        /// Some powerups may need a hard upper limit.
+        /// </summary>
+        public virtual int MaxLevel => int.MaxValue;
+
+        /// <summary>
+        /// The level achieved by the player, plus the number of pickups
+        /// containing this powerup currently in play.
+        /// Needed to prevent multiple powerup drops from spawning
+        /// when the player is nearing MaxLevel, which could potentially
+        /// result in the player going over MaxLevel.
+        /// </summary>
+        private int NumberCheckedOut { get; set; }
+
+        public void CheckOut() => NumberCheckedOut++;
+        public void CheckIn()
+        {
+            PoolManager.Instance.PickupPool.BeforePowerupCheckIn(this);
+            NumberCheckedOut--;
+        }
+
+        public bool AreAllPowerupsCheckedOut => NumberCheckedOut >= MaxLevel;
 
         /// <summary>
         /// The Powerup Manager has an array of powerup lists

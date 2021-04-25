@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Assets.ColorManagers;
 using Assets.Pickups;
 using Assets.Powerups;
@@ -46,16 +47,33 @@ namespace Assets.ObjectPooling
         public void InitializePowerups(List<Powerup> allPowerups)
         {
             // Create new List so that we can remove elements or otherwise modify this list as needed.
-            AllAssignablePowerups = new List<Powerup>(allPowerups);
+            AllAssignablePowerups = allPowerups.OrderByDescending(x => x.MaxLevel).ToList();
         }
 
         public PowerupPickup GetRandomPowerup(Vector3 position)
         {
-            var pickup = Get<PowerupPickup>(position);
             var powerup = RandomUtil.RandomElement(AllAssignablePowerups);
+            powerup.CheckOut();
+
+            if (powerup.AreAllPowerupsCheckedOut)
+                AllAssignablePowerups.Remove(powerup);
+
+            var pickup = Get<PowerupPickup>(position);
             pickup.TargetPowerup = powerup;
 
             return pickup;
+        }
+
+        /// <summary>
+        /// Restores a powerup's ability to be spawned if
+        /// the powerup that's about to be checked in
+        /// was the last obtainable powerup.
+        /// </summary>
+        /// <param name="powerup">The powerup to check.</param>
+        public void BeforePowerupCheckIn(Powerup powerup)
+        {
+            if (powerup.AreAllPowerupsCheckedOut)
+                AllAssignablePowerups.Add(powerup);
         }
     }
 }
