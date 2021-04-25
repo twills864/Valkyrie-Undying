@@ -148,7 +148,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _Sprite: {fileID: 2959985393852287726}
-  _BaseDamage: 9
+  _BaseDamage: 12
   _Speed: 12
   _OffsetX: 0.25
   _MaxAngle: 12.5

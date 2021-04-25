@@ -99,4 +99,3 @@ MonoBehaviour:
   _BaseDamage: 0
   _FadeInTime: 0.25
   _MaxAlpha: 0.4
-  _FallbackDeactivationTime: 2

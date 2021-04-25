@@ -3644,7 +3644,9 @@ MonoBehaviour:
       Trampoline: 1
       Wormhole: 1.8
       Gatling: 1
-      Bfg: 2.5
+      Bfg:
+        ChargeRatio: 2.5
+        LaserRatio: 1.5
       OneManArmy: 1.15
       DeadlyDiamond: 0.45
   PowerupBalance:

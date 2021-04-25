@@ -35,6 +35,13 @@ namespace Assets.Bullets.PlayerBullets
             Instance.ScaleXPerLevel = scaleXPerLevel;
         }
 
+        #region Property Fields
+
+        private float _fallbackDeactivationTime;
+
+        #endregion Property Fields
+
+
         #region Prefabs
 
         [SerializeField]
@@ -42,9 +49,6 @@ namespace Assets.Bullets.PlayerBullets
 
         [SerializeField]
         private float _MaxAlpha = GameConstants.PrefabNumber;
-
-        [SerializeField]
-        private float _FallbackDeactivationTime = GameConstants.PrefabNumber;
 
         #endregion Prefabs
 
@@ -55,15 +59,30 @@ namespace Assets.Bullets.PlayerBullets
 
         private float MaxAlpha => _MaxAlpha;
 
-        private float FallbackDeactivationTime => _FallbackDeactivationTime;
-
         #endregion Prefab Properties
 
 
         private float InitialScaleX { get; set; }
         private float ScaleXPerLevel { get; set; }
         private ScaleTo ScaleIn { get; set; }
+        private Delay DeactivateDelay { get; set; }
         private Sequence FallbackDeactivate { get; set; }
+
+        public float FallbackDeactivationTime
+        {
+            get => _fallbackDeactivationTime;
+            set
+            {
+                const float TimeDelta = 5f / 60f;
+
+                if (_fallbackDeactivationTime != value)
+                {
+                    _fallbackDeactivationTime = value;
+                    DeactivateDelay.Duration = (value - FadeInTime) + TimeDelta;
+                    FallbackDeactivate.RecalculateDuration();
+                }
+            }
+        }
 
         protected override void OnPlayerBulletInit()
         {
@@ -81,9 +100,9 @@ namespace Assets.Bullets.PlayerBullets
             var fadeIn = new FadeTo(this, MaxAlpha, float.Epsilon); //  FadeInTime * 0.25f
             var concurrence = new ConcurrentGameTask(this, ScaleIn, fadeIn);
 
-            var delay = new Delay(this, FallbackDeactivationTime - FadeInTime);
+            DeactivateDelay = new Delay(this, FallbackDeactivationTime - FadeInTime);
             var deactivate = new GameTaskFunc(this, DeactivateSelf);
-            FallbackDeactivate = new Sequence(concurrence, delay, deactivate);
+            FallbackDeactivate = new Sequence(concurrence, DeactivateDelay, deactivate);
         }
 
         protected override void OnActivate()

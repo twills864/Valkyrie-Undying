@@ -55,6 +55,11 @@ namespace Assets.GameTasks
             CurrentTask.ResetSelf();
         }
 
+        public void RecalculateDuration()
+        {
+            Duration = InnerTasks.Sum(x => x.Duration);
+        }
+
 
         /// <summary>
         /// The default Sequence game task constructor.

@@ -14,15 +14,20 @@ namespace Assets.FireStrategies.PlayerFireStrategies
     /// <inheritdoc/>
     public class BfgStrategy : PlayerFireStrategy<BfgBullet>
     {
-        protected override float GetFireSpeedRatio(in PlayerFireStrategyManager.PlayerRatio ratios) => ratios.Bfg;
+        protected override float GetFireSpeedRatio(in PlayerFireStrategyManager.PlayerRatio ratios) => ratios.Bfg.ChargeRatio;
 
         protected override string CalculateFireStrategyName() => "Battle-Frenzied Guillotine";
 
         private BulletPoolList PoolList { get; set; }
+        private float ChargeActivationInterval { get; set; }
+        private float LaserActivationInterval { get; set; }
 
         public BfgStrategy(BfgBullet bullet, in PlayerFireStrategyManager manager) : base(bullet, manager)
         {
             PoolList = PoolManager.Instance.BulletPool;
+
+            ChargeActivationInterval = manager.BaseFireSpeed * manager.PlayerRatios.Bfg.ChargeRatio;
+            LaserActivationInterval = manager.BaseFireSpeed * manager.PlayerRatios.Bfg.LaserRatio;
         }
 
         public override PlayerBullet[] GetBullets(int weaponLevel, Vector3 playerFirePos)
@@ -31,10 +36,15 @@ namespace Assets.FireStrategies.PlayerFireStrategies
 
             if (BfgBulletSpawner.TryGetInactiveSpawner(out BfgBulletSpawner spawner))
             {
+                BfgBulletSpawner bullet = PoolList.Get<BfgBulletSpawner>(playerFirePos, weaponLevel);
+                bullet.FallbackDeactivationTime = LaserActivationInterval;
+
                 ret = new PlayerBullet[]
                 {
-                    PoolList.Get<BfgBulletSpawner>(playerFirePos, weaponLevel)
+                    bullet
                 };
+
+                FireTimer.ActivationInterval = LaserActivationInterval;
             }
             else
             {
@@ -42,6 +52,8 @@ namespace Assets.FireStrategies.PlayerFireStrategies
 
                 // Don't need to call DeactivateSelft() - SetActive(false) is enough.
                 spawner.gameObject.SetActive(false);
+
+                FireTimer.ActivationInterval = ChargeActivationInterval;
             }
 
             return ret;

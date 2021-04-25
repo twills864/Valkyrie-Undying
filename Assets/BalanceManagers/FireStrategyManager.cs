@@ -35,9 +35,16 @@ namespace Assets.FireStrategyManagers
             public float Trampoline;
             public float Wormhole;
             public float Gatling;
-            public float Bfg;
+            public BfgInfo Bfg;
             public float OneManArmy;
             public float DeadlyDiamond;
+
+            [Serializable]
+            public struct BfgInfo
+            {
+                public float ChargeRatio;
+                public float LaserRatio;
+            }
         }
 
         //[Serializable]
