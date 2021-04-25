@@ -325,6 +325,7 @@ namespace Assets.Powerups.Balance
             [Serializable]
             public struct VictimBalance
             {
+                public float TouchRadius;
                 public FireSpeedBalance FireSpeed;
                 public DamageBalance Damage;
 

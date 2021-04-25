@@ -28,6 +28,8 @@ namespace Assets.Powerups
             float damageBase = balance.Victim.Damage.Base;
             float damageIncrease = balance.Victim.Damage.Increase;
             DamageCalculator = new SumLevelValueCalculator(damageBase, damageIncrease);
+
+            TouchRadius = balance.Victim.TouchRadius;
         }
 
         public float FireTime => FireTimeCalculator.Value;
@@ -37,6 +39,8 @@ namespace Assets.Powerups
         private SumLevelValueCalculator DamageCalculator { get; set; }
 
         private LoopingFrameTimer FireTimer { get; } = LoopingFrameTimer.Default();
+
+        private float TouchRadius { get; set; }
 
         public override void OnLevelUp()
         {
@@ -52,7 +56,7 @@ namespace Assets.Powerups
 
         public override void RunFrame(float deltaTime, float realDeltaTime)
         {
-            if (Input.GetMouseButtonDown(0) && SpaceUtil.TryGetEnemyUnderMouse(out Enemy victim))
+            if (Input.GetMouseButtonDown(0) && TryGetVictimUnderMouse(out Enemy victim))
             {
                 victim.IsVictim = true;
                 GameManager.Instance.VictimWasAutomatic = false;
@@ -62,7 +66,52 @@ namespace Assets.Powerups
                 FireAtVictim();
         }
 
-        public void FireAtVictim()
+        private bool TryGetVictimUnderMouse(out Enemy victim)
+        {
+            var mousePos = SpaceUtil.WorldPositionUnderMouse();
+
+            //DebugUtil.RedX(mousePos + new Vector3(TouchRadius, 0));
+            //DebugUtil.RedX(mousePos + new Vector3(-TouchRadius, 0));
+            //DebugUtil.RedX(mousePos + new Vector3(0, TouchRadius));
+            //DebugUtil.RedX(mousePos + new Vector3(0, -TouchRadius));
+
+            #region // Detect Multiple Collisions
+
+//            var collisions = Physics2D.OverlapCircleAll(mousePos, TouchRadius, LayerUtil.LayerEnemies);
+
+//            if (collisions.Any())
+//            {
+//#if UNITY_EDITOR
+//                var distances = new List<Tuple<float, Enemy>>();
+//                for(int i = 0; i < collisions.Length; i++)
+//                {
+//                    Enemy enemy = collisions[i].GetComponent<Enemy>();
+//                    float distance = Vector2.Distance(enemy.transform.position, mousePos);
+//                    distances.Add(new Tuple<float, Enemy>(distance, enemy));
+//                }
+//#endif
+
+//                victim = collisions[0].GetComponent<Enemy>();
+//                return true;
+//            }
+
+            #endregion // Detect Multiple Collisions
+
+            var collision = Physics2D.OverlapCircle(mousePos, TouchRadius, LayerUtil.LayerEnemies);
+
+            if (collision != null)
+            {
+                victim = collision.GetComponent<Enemy>();
+                return true;
+            }
+            else
+            {
+                victim = null;
+                return false;
+            }
+        }
+
+        private void FireAtVictim()
         {
             Enemy victim = GameManager.Instance.VictimEnemy;
 

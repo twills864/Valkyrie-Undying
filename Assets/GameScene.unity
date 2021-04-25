@@ -3729,6 +3729,7 @@ MonoBehaviour:
           Base: 1
           Increase: 1
       Victim:
+        TouchRadius: 1
         FireSpeed:
           Base: 0.5
           ScalePerLevel: 0.8

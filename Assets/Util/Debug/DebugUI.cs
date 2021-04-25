@@ -142,6 +142,8 @@ namespace Assets.Util
             //TimeSpan frameTime = TimeSpan.FromSeconds((double)1 / (double)Application.targetFrameRate);
             //SetDebugLabel("FRAMETIME", frameTime);
 
+            DebugSliderGameSpeedChanged(SliderGameSpeed);
+
             PowerupRow.Init(CurrentDebugPowerup);
 
 #if !UNITY_EDITOR

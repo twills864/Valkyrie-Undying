@@ -10,7 +10,7 @@ namespace Assets
     /// <inheritdoc/>
     public abstract class PooledObject : ValkyrieSprite
     {
-        private Vector3 InactivePosition => new Vector3(0, -100f, 0);
+        protected Vector3 InactivePosition => new Vector3(0, -100f, 0);
 
         /// <summary>
         /// An ID assigned to this object by its Object Pool when it's spawned.
