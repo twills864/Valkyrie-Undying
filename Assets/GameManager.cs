@@ -51,7 +51,7 @@ namespace Assets
 
         private bool TestingEnemy => CurrentTest == TestingType.NewEnemy;
 
-#if UNITY_DEBUG
+#if UNITY_EDITOR
         public int DefaultFireTypeIndex => SaveUtil.LastWeapon;
 #else
         public int DefaultFireTypeIndex => FireStrategyIndexBasic;
@@ -220,6 +220,8 @@ namespace Assets
             _PowerupMenu.transform.position += new Vector3(0, 0, 0);
 
             MonsoonSpawner.Instance = _MonsoonSpawner;
+
+            VictimWasAutomatic = true;
 
             _GameOverGUI.Init();
             _Scoreboard.Init();
@@ -442,8 +444,8 @@ namespace Assets
             if (!skipMessage)
                 NotificationManager.AddNotification(CurrentFireStrategy.NotificationName(WeaponLevel));
 
-
-            SaveUtil.LastWeapon = index;
+            if(endlessTime)
+                SaveUtil.LastWeapon = index;
         }
 
         public void FirePlayerBullets(PlayerBullet[] bullets)
@@ -484,6 +486,10 @@ namespace Assets
                 TimeScaleManager.Player = value;
             }
         }
+
+        // Whether or not the current Victim was selected automatically
+        // instead of being clicked by the player.
+        public bool VictimWasAutomatic { get; set; }
 
         public Enemy VictimEnemy
         {

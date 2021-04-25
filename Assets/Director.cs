@@ -42,6 +42,9 @@ namespace Assets
         private static int WeaponLevelsInPlay { get; set; }
         private static bool CanSpawnWeaponLevelUp => WeaponLevelsInPlay < GameConstants.MaxWeaponLevel;
 
+        private static bool CheckForVictim { get; set; }
+        public static bool StartCheckingForVictim() => CheckForVictim = true;
+
         public static void Init(DirectorBalance balance)
         {
             Balance = balance;
@@ -51,6 +54,7 @@ namespace Assets
             EnemiesSpawned = 0;
             TotalTime = 0;
             WeaponLevelsInPlay = 0;
+            CheckForVictim = false;
 
             float initialDifficuly = Balance.Difficuly.InitialDifficultyRatio;
             float difficultyStep = Balance.Difficuly.DifficultyRatioStep;
@@ -157,6 +161,9 @@ namespace Assets
             var enemy = pool.Get();
             enemy.transform.position = SpaceUtil.RandomEnemySpawnPosition(enemy);
             enemy.OnSpawn();
+
+            if (CheckForVictim && GameManager.Instance.VictimWasAutomatic)
+                enemy.IsVictim = true;
 
             EnemiesSpawned++;
         }

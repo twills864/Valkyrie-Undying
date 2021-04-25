@@ -186,7 +186,10 @@ namespace Assets.Enemies
             Director.EnemyDeactivated(this);
 
             if (IsVictim)
+            {
                 IsVictim = false;
+                GameManager.Instance.VictimWasAutomatic = true;
+            }
 
             HealthBar.DeactivateSelf();
             HealthBar = null;

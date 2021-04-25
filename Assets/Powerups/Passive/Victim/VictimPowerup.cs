@@ -41,7 +41,10 @@ namespace Assets.Powerups
         public override void OnLevelUp()
         {
             if (Level == 1)
+            {
                 Player.Instance.VictimMarker = PoolManager.Instance.UIElementPool.Get<VictimMarker>();
+                Director.StartCheckingForVictim();
+            }
 
             FireTimer.ActivationInterval = FireTimeCalculator.Value;
             FireTimer.ActivateSelf();
@@ -50,7 +53,10 @@ namespace Assets.Powerups
         public override void RunFrame(float deltaTime, float realDeltaTime)
         {
             if (Input.GetMouseButtonDown(0) && SpaceUtil.TryGetEnemyUnderMouse(out Enemy victim))
+            {
                 victim.IsVictim = true;
+                GameManager.Instance.VictimWasAutomatic = false;
+            }
 
             if(FireTimer.UpdateActivates(deltaTime))
                 FireAtVictim();
