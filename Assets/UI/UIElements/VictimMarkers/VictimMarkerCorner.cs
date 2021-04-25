@@ -31,6 +31,11 @@ namespace Assets.UI
         /// </summary>
         public Vector3 PositionOffset { get; set; }
 
+        protected override void OnUIElementInit()
+        {
+            transform.position = InactivePosition;
+        }
+
         protected override void OnActivate()
         {
             //Alpha = 0;
