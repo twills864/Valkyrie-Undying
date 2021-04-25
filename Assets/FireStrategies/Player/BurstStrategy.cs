@@ -11,21 +11,26 @@ namespace Assets.FireStrategies.PlayerFireStrategies
     public class BurstStrategy : PlayerFireStrategy<BurstBullet>
     {
         protected override float GetFireSpeedRatio(in PlayerFireStrategyManager.PlayerRatio playerRatios)
-            => playerRatios.Burst;
+            => playerRatios.Burst.FireRatio;
 
         private const int BulletsInFirstBurst = 3;
-        private const int AdditionalBulletsInMaxBurst = GameConstants.MaxWeaponLevel + 1;
         private int FireCounter = -BulletsInFirstBurst;
 
         private float BulletVelocityY;
         private float BulletSpreadX;
         private float BulletSpreadY;
 
+        private float FireActivationInterval { get; set; }
+        private float ReloadActivationInterval { get; set; }
+
         public BurstStrategy(BurstBullet bullet, in PlayerFireStrategyManager manager) : base(bullet, manager)
         {
             BulletVelocityY = bullet.BulletVelocityY;
             BulletSpreadX = bullet.BulletSpreadX;
             BulletSpreadY = bullet.BulletSpreadY;
+
+            FireActivationInterval = manager.BaseFireSpeed * manager.PlayerRatios.Burst.FireRatio;
+            ReloadActivationInterval = manager.BaseFireSpeed * manager.PlayerRatios.Burst.ReloadRatio;
         }
 
         private Vector2 NewVelocity()
@@ -37,19 +42,18 @@ namespace Assets.FireStrategies.PlayerFireStrategies
         }
         public override PlayerBullet[] GetBullets(int weaponLevel, Vector3 playerFirePos)
         {
-            PlayerBullet[] ret;
-
-            if(weaponLevel == GameConstants.MaxWeaponLevel
-                || FireCounter < weaponLevel)
-            {
-                ret = base.GetBullets(weaponLevel, playerFirePos, NewVelocity());
-            }
-            else
-                ret = new PlayerBullet[0];
+            PlayerBullet[] ret = base.GetBullets(weaponLevel, playerFirePos, NewVelocity());
 
             FireCounter++;
-            if(FireCounter == AdditionalBulletsInMaxBurst)
+            if (FireCounter != weaponLevel)
+            {
+                FireTimer.ActivationInterval = FireActivationInterval;
+            }
+            else
+            {
                 FireCounter = -BulletsInFirstBurst;
+                FireTimer.ActivationInterval = ReloadActivationInterval;
+            }
 
             return ret;
         }

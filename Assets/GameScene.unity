@@ -3636,7 +3636,9 @@ MonoBehaviour:
     BaseFireSpeed: 0.75
     PlayerRatios:
       Shotgun: 1.5
-      Burst: 0.2
+      Burst:
+        FireRatio: 0.1
+        ReloadRatio: 1.25
       Bounce: 1
       Atom: 0.8
       Spread: 0.9

@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 6416946708125130464}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.71, y: 0, z: 0}
-  m_LocalScale: {x: 0.075, y: 0.075, z: 1}
+  m_LocalScale: {x: 0.09, y: 0.09, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -136,6 +136,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _Sprite: {fileID: 5777162329548128153}
   _BaseDamage: 15
-  _BulletVelocityY: 20
+  _BulletVelocityY: 15
   _BulletSpreadX: 0.1
   _BulletSpreadY: 0.05

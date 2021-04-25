@@ -27,7 +27,7 @@ namespace Assets.FireStrategyManagers
         public struct PlayerRatio
         {
             public float Shotgun;
-            public float Burst;
+            public BurstInfo Burst;
             public float Bounce;
             public float Atom;
             public float Spread;
@@ -38,6 +38,13 @@ namespace Assets.FireStrategyManagers
             public BfgInfo Bfg;
             public float OneManArmy;
             public float DeadlyDiamond;
+
+            [Serializable]
+            public struct BurstInfo
+            {
+                public float FireRatio;
+                public float ReloadRatio;
+            }
 
             [Serializable]
             public struct BfgInfo
