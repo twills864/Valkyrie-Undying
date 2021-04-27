@@ -131,6 +131,7 @@ namespace Assets.Bullets.PlayerBullets
         public override void OnCollideWithEnemy(Enemy enemy)
         {
             ManagedEnemies.Add(enemy);
+            enemy.RetributionBulletCollisionEnter(this);
         }
 
         private void OnCollisionExit2D(Collision2D collision)

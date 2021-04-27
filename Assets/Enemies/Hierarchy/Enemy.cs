@@ -431,6 +431,13 @@ namespace Assets.Enemies
 
         protected float RetributionTimeScale { get; private set; }
 
+        protected virtual void OnRetributionBulletCollisionEnter(RetributionBullet bullet) { }
+        public void RetributionBulletCollisionEnter(RetributionBullet bullet)
+        {
+            RetributionBulletCollisionStay(bullet);
+            OnRetributionBulletCollisionEnter(bullet);
+        }
+
         public void RetributionBulletCollisionStay(RetributionBullet bullet)
         {
             RetributionTimeScale = bullet.RetributionTimescale;

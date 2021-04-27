@@ -1,5 +1,6 @@
 ﻿using System;
 using Assets.Bullets.EnemyBullets;
+using Assets.Bullets.PlayerBullets;
 using Assets.Components;
 using Assets.Constants;
 using Assets.FireStrategies.EnemyFireStrategies;
@@ -205,6 +206,11 @@ namespace Assets.Enemies
             endAngle += 360f;
 
             Rotate.SetAngleRange(startAngle, endAngle);
+        }
+
+        protected override void OnRetributionBulletCollisionEnter(RetributionBullet bullet)
+        {
+            CurrentLaser?.DeactivateSelf();
         }
 
         protected override void OnEnemyDeactivate()
