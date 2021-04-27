@@ -313,10 +313,7 @@ namespace Assets.Util
         private static void TestRetribution()
         {
             Vector3 position = SpaceUtil.WorldPositionUnderMouse();
-            int level = DebugUi.DebugTextBox.GetInt(1);
-            float duration = 1.0f;
-
-            RetributionBullet.StartRetribution(position, level, duration);
+            RetributionBullet.StartRetribution(position);
         }
 
         #endregion Test Methods

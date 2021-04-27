@@ -39,7 +39,7 @@ namespace Assets.Bullets.EnemyBullets
             DeactivateTimer = new FrameTimer(FadeInTime + FullBrightTime);
         }
 
-        protected override void OnActivate()
+        protected override void OnEnemyBulletActivate()
         {
             Alpha = 0f;
             FadeIn.ResetSelf();

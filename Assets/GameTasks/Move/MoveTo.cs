@@ -32,5 +32,15 @@ namespace Assets.GameTasks
 
             Velocity = TotalPositionDifference / Duration;
         }
+
+        public void ReinitializeMove(Vector3 startPosition, Vector3 destination)
+        {
+            StartPosition = startPosition;
+            Destination = destination;
+
+            TotalPositionDifference = destination - startPosition;
+
+            Velocity = TotalPositionDifference / Duration;
+        }
     }
 }

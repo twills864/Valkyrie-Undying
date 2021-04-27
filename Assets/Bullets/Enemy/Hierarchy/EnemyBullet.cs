@@ -1,4 +1,5 @@
-﻿using Assets.Constants;
+﻿using Assets.Bullets.PlayerBullets;
+using Assets.Constants;
 using Assets.GameTasks;
 using Assets.Util;
 using UnityEngine;
@@ -10,6 +11,7 @@ namespace Assets.Bullets.EnemyBullets
     {
         public override string LogTagColor => "#FFA197";
         public override TimeScaleType TimeScale => TimeScaleType.EnemyBullet;
+        public override float TimeScaleModifier => base.TimeScaleModifier * RetributionTimeScale;
 
         #region Prefabs
 
@@ -36,6 +38,13 @@ namespace Assets.Bullets.EnemyBullets
             OnEnemyBulletInit();
         }
 
+        protected virtual void OnEnemyBulletActivate() { }
+        protected sealed override void OnActivate()
+        {
+            RetributionTimeScale = 1.0f;
+            OnEnemyBulletActivate();
+        }
+
         protected void OnTriggerEnter2D(Collider2D collision)
         {
             if(CollisionUtil.IsPlayer(collision))
@@ -43,6 +52,18 @@ namespace Assets.Bullets.EnemyBullets
                 if (HitsPlayer && Player.Instance.CollidesWithBullet(this) && DeactivateOnHit)
                     DeactivateSelf();
             }
+        }
+
+        protected float RetributionTimeScale { get; private set; }
+
+        public void RetributionBulletCollisionStay(RetributionBullet bullet)
+        {
+            RetributionTimeScale = bullet.RetributionTimescale;
+        }
+
+        public void RetributionBulletCollisionExit(RetributionBullet bullet)
+        {
+            RetributionTimeScale = 1.0f;
         }
     }
 }

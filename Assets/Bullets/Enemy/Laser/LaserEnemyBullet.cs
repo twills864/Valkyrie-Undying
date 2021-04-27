@@ -77,7 +77,7 @@ namespace Assets.Bullets.EnemyBullets
             Behavior = new Sequence(fadeIn, prefireDelay, activateCollider, postfireDelay, fadeTo, deactivate);
         }
 
-        protected override void OnActivate()
+        protected override void OnEnemyBulletActivate()
         {
             LaserActivated = false;
 

@@ -18,6 +18,9 @@ namespace Assets.Bullets.PlayerBullets
         #region Prefabs
 
         [SerializeField]
+        private float _ScaleInTime = GameConstants.PrefabNumber;
+
+        [SerializeField]
         private float _FadeTime = GameConstants.PrefabNumber;
 
         #endregion Prefabs
@@ -26,27 +29,25 @@ namespace Assets.Bullets.PlayerBullets
         #region Prefab Properties
 
         private float FadeTime => _FadeTime;
+        private float ScaleInTime => _ScaleInTime;
 
         #endregion Prefab Properties
 
         public float RetributionTimescale => 1.0f - Alpha;
 
         private float Scale { get; set; }
-        private float Duration { get; set; }
 
         private bool IsExploding { get; set; }
 
-        private EaseIn3 ScaleIn { get; set; }
-        private FadeTo Fade { get; set; }
-
+        private MoveTo MoveToCenter { get; set; }
         private Sequence Sequence { get; set; }
 
         private TrackedPooledObjectSet<Enemy> ManagedEnemies { get; set; }
+        private TrackedPooledObjectSet<EnemyBullet> ManagedBullets { get; set; }
 
-        public static RetributionBullet StartRetribution(Vector3 position, int level, float duration)
+        public static RetributionBullet StartRetribution(Vector3 position)
         {
             var bullet = PoolManager.Instance.BulletPool.Get<RetributionBullet>(position);
-            bullet.Init(level, duration);
             bullet.OnSpawn();
 
             return bullet;
@@ -55,7 +56,23 @@ namespace Assets.Bullets.PlayerBullets
         protected override void OnPermanentVelocityBulletInit()
         {
             Scale = SpaceUtil.WorldMap.Height;
+
+            var scaleIn = new ScaleTo(this, float.Epsilon, Scale, ScaleInTime);
+            var scaleEase = new EaseIn3(scaleIn);
+
+            MoveToCenter = new MoveTo(this, Vector3.zero, new Vector3(1f, 1f), ScaleInTime);
+
+            var scaleAndMove = new ConcurrentGameTask(this, scaleEase, MoveToCenter);
+
+            var calmExplosion = new GameTaskFunc(this, () => IsExploding = false);
+
+            var fade = new FadeTo(this, 0, FadeTime);
+            var fadeEase = new EaseOut3(fade);
+
+            Sequence = new Sequence(scaleAndMove, calmExplosion, fadeEase);
+
             ManagedEnemies = new TrackedPooledObjectSet<Enemy>();
+            ManagedBullets = new TrackedPooledObjectSet<EnemyBullet>();
         }
 
         protected override void OnActivate()
@@ -66,21 +83,13 @@ namespace Assets.Bullets.PlayerBullets
 
             IsExploding = true;
             ManagedEnemies.Clear();
+
+            Sequence.ResetSelf();
         }
 
-        private void Init(int level, float duration)
+        public override void OnSpawn()
         {
-            BulletLevel = level;
-            Duration = duration;
-
-            var scaleIn = new ScaleTo(this, float.Epsilon, Scale, Duration);
-            ScaleIn = new EaseIn3(scaleIn);
-
-            var calmExplosion = new GameTaskFunc(this, () => IsExploding = false);
-
-            Fade = new FadeTo(this, 0, FadeTime);
-
-            Sequence = new Sequence(ScaleIn, calmExplosion, Fade);
+            MoveToCenter.ReinitializeMove(transform.position, SpaceUtil.WorldMap.Center);
         }
 
         protected override void OnPlayerBulletFrameRun(float deltaTime, float realDeltaTime)
@@ -91,6 +100,9 @@ namespace Assets.Bullets.PlayerBullets
 
                 foreach(var enemy in ManagedEnemies)
                     enemy.RetributionBulletCollisionStay(this);
+
+                foreach(var bullet in ManagedBullets)
+                    bullet.RetributionBulletCollisionStay(this);
             }
             else
                 DeactivateSelf();
@@ -100,10 +112,13 @@ namespace Assets.Bullets.PlayerBullets
 
         protected override void OnPlayerBulletTriggerEnter2D(Collider2D collision)
         {
-            if (CollisionUtil.IsEnemyBullet(collision) && IsExploding)
+            if (CollisionUtil.IsEnemyBullet(collision))
             {
                 var enemyBullet = collision.GetComponent<EnemyBullet>();
-                enemyBullet.DeactivateSelf();
+                if (IsExploding)
+                    enemyBullet.DeactivateSelf();
+                else
+                    ManagedBullets.Add(enemyBullet);
             }
         }
 

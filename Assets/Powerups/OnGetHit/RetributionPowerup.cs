@@ -37,7 +37,7 @@ namespace Assets.Powerups
         public override void OnGetHit()
         {
             var position = Player.Instance.ColliderMap.Center;
-            RetributionBullet.StartRetribution(position, Level, /*SizeScale, */Duration);
+            RetributionBullet.StartRetribution(position /*,Level, SizeScale, Duration*/);
         }
 
 
