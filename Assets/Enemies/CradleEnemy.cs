@@ -136,16 +136,19 @@ namespace Assets.Enemies
 
         private void FireDown()
         {
-            CradleEnemyFireStrategy.GetBullets(FirePosition, Vector2.down);
+            if(CanFire(FirePosition))
+                CradleEnemyFireStrategy.GetBullets(FirePosition, Vector2.down);
         }
         private void FireLeft()
         {
-            CradleEnemyFireStrategy.GetBullets(FirePositionLeft, FireLeftVelocity);
+            if (CanFire(FirePosition))
+                CradleEnemyFireStrategy.GetBullets(FirePositionLeft, FireLeftVelocity);
         }
 
         private void FireRight()
         {
-            CradleEnemyFireStrategy.GetBullets(FirePositionRight, FireRightVelocity);
+            if (CanFire(FirePosition))
+                CradleEnemyFireStrategy.GetBullets(FirePositionRight, FireRightVelocity);
         }
     }
 }

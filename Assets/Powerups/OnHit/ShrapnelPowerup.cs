@@ -28,11 +28,11 @@ namespace Assets.Powerups
         private float ShrapnelChance => ShrapnelChanceCalculator.Value;
         private SumLevelValueCalculator ShrapnelChanceCalculator { get; set; }
 
-        public float MaxY { get; set; }
+        //public float MaxY { get; set; }
 
         public override void OnHit(Enemy enemy, PlayerBullet bullet, Vector3 hitPosition)
         {
-            if(hitPosition.y < MaxY && RandomUtil.Bool(ShrapnelChance))
+            if (SpaceUtil.WorldMap.ContainsPoint(hitPosition) && RandomUtil.Bool(ShrapnelChance))
             {
                 float widthRatio = enemy.ColliderMap.ClampedRatioOfWidth(hitPosition.x);
                 widthRatio = (widthRatio - 0.5f) * 2f;

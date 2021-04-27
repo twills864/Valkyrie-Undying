@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 namespace Assets.ObjectPooling
 {
     [DebuggerDisplay("({TargetSpawnId}) {Target}")]
-    public class PooledObjectTracker
+    public class PooledObjectTracker<T> where T : PooledObject
     {
-        private PooledObject _target;
-        public PooledObject Target
+        private T _target;
+        public T Target
         {
             get => _target;
             set
@@ -32,7 +32,7 @@ namespace Assets.ObjectPooling
             TargetSpawnId = -1;
         }
 
-        public PooledObjectTracker(PooledObject target)
+        public PooledObjectTracker(T target)
         {
             Target = target;
         }
@@ -44,15 +44,15 @@ namespace Assets.ObjectPooling
             return ret;
         }
 
-        public void CloneFrom(PooledObjectTracker other)
+        public void CloneFrom(PooledObjectTracker<T> other)
         {
             _target = other._target;
             TargetSpawnId = other.TargetSpawnId;
         }
 
-        public static implicit operator PooledObjectTracker(PooledObject target)
+        public static implicit operator PooledObjectTracker<T>(T target)
         {
-            return new PooledObjectTracker(target);
+            return new PooledObjectTracker<T>(target);
         }
     }
 }

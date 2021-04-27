@@ -146,7 +146,9 @@ namespace Assets.Util
             }
 
             //SmiteBullet.DebugTestSmite();
-            PickupSpam();
+            //PickupSpam();
+
+            TestRetribution();
         }
 
         private static void InputKeypadPlus(KeyCode keyCode)
@@ -306,6 +308,15 @@ namespace Assets.Util
                 Vector3 spawnPos = new Vector3(x, y) + mousePos;
                 pool.GetRandomPowerup(spawnPos).OnSpawn();
             }
+        }
+
+        private static void TestRetribution()
+        {
+            Vector3 position = SpaceUtil.WorldPositionUnderMouse();
+            int level = DebugUi.DebugTextBox.GetInt(1);
+            float duration = 1.0f;
+
+            RetributionBullet.StartRetribution(position, level, duration);
         }
 
         #endregion Test Methods

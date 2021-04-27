@@ -23,12 +23,12 @@ namespace Assets.Bullets.PlayerBullets
         public SmiteBullet Head { get; protected set; }
         public SmiteBullet Previous { get; protected set; }
 
-        public List<PooledObjectTracker> HitEnemies { get; } = new List<PooledObjectTracker>();
+        public List<PooledObjectTracker<Enemy>> HitEnemies { get; } = new List<PooledObjectTracker<Enemy>>();
 
         public int SmiteDamage { get; set; }
         public abstract float Scale { get; set; }
 
-        public PooledObjectTracker TargetEnemy { get; } = new PooledObjectTracker();
+        public PooledObjectTracker<Enemy> TargetEnemy { get; } = new PooledObjectTracker<Enemy>();
         public Vector3 TargetPosition { get; set; }
 
         public Sequence FadeOutSequence { get; set; }

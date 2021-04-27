@@ -44,11 +44,11 @@ namespace Assets.Bullets.PlayerBullets
         }
         private float RotationDirection { get; set; }
 
-        public PooledObjectTracker Parent { get; private set; }
+        public PooledObjectTracker<Enemy> Parent { get; private set; }
 
         protected override void OnPlayerBulletInit()
         {
-            Parent = new PooledObjectTracker();
+            Parent = new PooledObjectTracker<Enemy>();
         }
 
         protected override void OnActivate()

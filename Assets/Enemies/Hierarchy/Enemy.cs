@@ -18,6 +18,7 @@ namespace Assets.Enemies
     {
         public override string LogTagColor => "#FFB697";
         public override TimeScaleType TimeScale => TimeScaleType.Enemy;
+        public override float TimeScaleModifier => base.TimeScaleModifier * RetributionTimeScale;
 
         #region Prefabs
 
@@ -131,6 +132,8 @@ namespace Assets.Enemies
             IsBurning = false;
             VoidPauseCounter = 0;
 
+            RetributionTimeScale = 1.0f;
+
             OnEnemyActivate();
         }
 
@@ -162,7 +165,7 @@ namespace Assets.Enemies
         protected virtual void OnEnemyFrame(float deltaTime, float realDeltaTime) { }
         protected sealed override void OnFrameRun(float deltaTime, float realDeltaTime)
         {
-            if (IsBurning && InfernoTimer.UpdateActivates(deltaTime))
+            if (IsBurning && InfernoTimer.UpdateActivates(realDeltaTime))
             {
                 if (BurnKills())
                     return;
@@ -425,6 +428,18 @@ namespace Assets.Enemies
         #endregion Powerup Effects
 
         #region Collision
+
+        protected float RetributionTimeScale { get; private set; }
+
+        public void RetributionBulletCollisionStay(RetributionBullet bullet)
+        {
+            RetributionTimeScale = bullet.RetributionTimescale;
+        }
+
+        public void RetributionBulletCollisionExit(RetributionBullet bullet)
+        {
+            RetributionTimeScale = 1.0f;
+        }
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
