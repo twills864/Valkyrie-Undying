@@ -12,6 +12,7 @@ namespace Assets.Util
         public const string TagEnemy = "Enemy";
         public const string TagEnemyBullet = "EnemyBullet";
         public const string TagScreenEdge = "ScreenEdge";
+        public const string TagPickup = "Pickup";
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsDestructor(Collider2D collision)
@@ -64,6 +65,12 @@ namespace Assets.Util
                 screenSide = ScreenSide.Bottom;
             }
             return ret;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsPickup(Collider2D collision)
+        {
+            return collision.tag == TagPickup;
         }
     }
 

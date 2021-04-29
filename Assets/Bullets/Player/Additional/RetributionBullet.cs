@@ -5,6 +5,7 @@ using Assets.Constants;
 using Assets.Enemies;
 using Assets.GameTasks;
 using Assets.ObjectPooling;
+using Assets.Pickups;
 using Assets.Powerups;
 using Assets.Util;
 using UnityEngine;
@@ -44,10 +45,12 @@ namespace Assets.Bullets.PlayerBullets
         private MoveTo MoveToCenter { get; set; }
         private Sequence Sequence { get; set; }
 
-        private List<ValkyrieSprite> ManagedMiscSprites { get; set; }
+        // Currently unused
+        //private List<ValkyrieSprite> ManagedMiscSprites { get; set; }
         private TrackedPooledObjectSet<Enemy> ManagedEnemies { get; set; }
         private TrackedPooledObjectSet<EnemyBullet> ManagedEnemyBullets { get; set; }
         private TrackedPooledObjectSet<PlayerBullet> ManagedPlayerBullets { get; set; }
+        private TrackedPooledObjectSet<Pickup> ManagedPickups { get; set; }
 
         public sealed override Vector3 GetHitPosition(Enemy enemy)
         {
@@ -81,10 +84,12 @@ namespace Assets.Bullets.PlayerBullets
 
             Sequence = new Sequence(scaleAndMove, calmExplosion, fadeEase);
 
-            ManagedMiscSprites = new List<ValkyrieSprite>();
+            //ManagedMiscSprites = new List<ValkyrieSprite>();
             ManagedEnemies = new TrackedPooledObjectSet<Enemy>();
             ManagedEnemyBullets = new TrackedPooledObjectSet<EnemyBullet>();
             ManagedPlayerBullets = new TrackedPooledObjectSet<PlayerBullet>();
+            ManagedPickups = new TrackedPooledObjectSet<Pickup>();
+
         }
 
         protected override void OnActivate()
@@ -95,10 +100,11 @@ namespace Assets.Bullets.PlayerBullets
 
             IsExploding = true;
 
-            ManagedMiscSprites.Clear();
+            //ManagedMiscSprites.Clear();
             ManagedEnemies.Clear();
             ManagedEnemyBullets.Clear();
             ManagedPlayerBullets.Clear();
+            ManagedPickups.Clear();
 
             Sequence.ResetSelf();
         }
@@ -140,6 +146,12 @@ namespace Assets.Bullets.PlayerBullets
 
                 ManagedPlayerBullets.Add(playerBullet);
             }
+            else if (CollisionUtil.IsPickup(collision))
+            {
+                var pickup = collision.GetComponent<Pickup>();
+
+                ManagedPickups.Add(pickup);
+            }
             // Enemy is handled in OnCollideWithEnemy()
         }
 
@@ -161,10 +173,11 @@ namespace Assets.Bullets.PlayerBullets
         {
             get
             {
-                yield return ManagedMiscSprites;
+                //yield return ManagedMiscSprites;
                 yield return ManagedEnemies;
                 yield return ManagedEnemyBullets;
                 yield return ManagedPlayerBullets;
+                yield return ManagedPickups;
             }
         }
 

@@ -218,7 +218,7 @@ namespace Assets
             if (ShouldDrawMortar)
                 MortarGuide.DrawMortar();
 
-            IFramesSequence.RunFrame(realDeltaTime);
+            IFramesSequence.RunFrame(realDeltaTime * RetributionTimeScale);
         }
 
         private void HandleMovement()

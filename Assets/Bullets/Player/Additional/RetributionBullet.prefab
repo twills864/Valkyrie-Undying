@@ -138,5 +138,5 @@ MonoBehaviour:
   _BaseDamage: 20
   _PermanentVelocityX: 0
   _PermanentVelocityY: 0
-  _ScaleInTime: 1.5
-  _FadeTime: 1.5
+  _ScaleInTime: 1
+  _FadeTime: 2.5
