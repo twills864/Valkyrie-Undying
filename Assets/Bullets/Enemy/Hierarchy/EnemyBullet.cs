@@ -11,7 +11,6 @@ namespace Assets.Bullets.EnemyBullets
     {
         public override string LogTagColor => "#FFA197";
         public override TimeScaleType TimeScale => TimeScaleType.EnemyBullet;
-        public override float TimeScaleModifier => base.TimeScaleModifier * RetributionTimeScale;
 
         #region Prefabs
 
@@ -41,7 +40,6 @@ namespace Assets.Bullets.EnemyBullets
         protected virtual void OnEnemyBulletActivate() { }
         protected sealed override void OnActivate()
         {
-            RetributionTimeScale = 1.0f;
             OnEnemyBulletActivate();
         }
 
@@ -52,18 +50,6 @@ namespace Assets.Bullets.EnemyBullets
                 if (HitsPlayer && Player.Instance.CollidesWithBullet(this) && DeactivateOnHit)
                     DeactivateSelf();
             }
-        }
-
-        protected float RetributionTimeScale { get; private set; }
-
-        public void RetributionBulletCollisionStay(RetributionBullet bullet)
-        {
-            RetributionTimeScale = bullet.RetributionTimescale;
-        }
-
-        public void RetributionBulletCollisionExit(RetributionBullet bullet)
-        {
-            RetributionTimeScale = 1.0f;
         }
     }
 }

@@ -58,12 +58,13 @@ namespace Assets
         {
             gameObject.SetActive(true);
             name = SpawnName;
+            ResetRetributionTimeScale();
             OnActivate();
         }
 
         /// <summary>
         /// Subclass-specific functionality to happen when an object is deactivated.
-        /// </summary>
+        /// </summary>o
         protected virtual void OnDeactivate() { }
 
         /// <summary>

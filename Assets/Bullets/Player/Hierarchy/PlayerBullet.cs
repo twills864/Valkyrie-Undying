@@ -46,6 +46,7 @@ namespace Assets.Bullets.PlayerBullets
         protected virtual void OnPlayerBulletTriggerEnter2D(Collider2D collision) { }
         protected void OnTriggerEnter2D(Collider2D collision)
         {
+            Debug.Log($"{this.tag} -> {collision.tag}");
             if (CollisionUtil.IsPlayerBullet(collision) && ShouldMarkSelfCollision)
             {
                 var otherBullet = collision.GetComponent<PlayerBullet>();

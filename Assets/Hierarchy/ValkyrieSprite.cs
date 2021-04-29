@@ -1,7 +1,9 @@
 ﻿using System;
+using Assets.Bullets.PlayerBullets;
 using Assets.GameTasks;
 using Assets.Hierarchy.ColorHandlers;
 using Assets.UI;
+using Assets.Util;
 using LogUtilAssets;
 using UnityEngine;
 
@@ -19,6 +21,7 @@ namespace Assets
         /// </summary>
         public void Init()
         {
+            RetributionTimeScale = 1.0f;
             ColorHandler = DefaultColorHandler();
             OnInit();
         }
@@ -44,7 +47,16 @@ namespace Assets
 
         public float TotalTime { get; private set; }
 
-        public virtual float TimeScaleModifier => TimeScaleManager.GetTimeScaleModifier(TimeScale);
+        public virtual float TimeScaleModifier
+        {
+            get
+            {
+                float modifier = TimeScaleManager.GetTimeScaleModifier(TimeScale)
+                    * RetributionTimeScale;
+
+                return modifier;
+            }
+        }
 
         private void Update()
         {
@@ -74,7 +86,55 @@ namespace Assets
             ApplyVelocity(Velocity, deltaTime);
 
             OnFrameRun(deltaTime, realDeltaTime);
+
+//#if DEBUG
+//            if (TotalTime < 0.5f && RetributionTimeScale == 0.0f)
+//            {
+//                Log("RETRIBUTION TIME SCALE = 0.0f (Did you call Init?)");
+
+//                var renderer = GetComponent<Renderer>();
+//                var boundsOffset = renderer.bounds.size * 0.5f;
+//                var bottomLeft = transform.position - boundsOffset;
+
+//                var map = new BoxMap(bottomLeft, renderer.bounds.size);
+
+//                const float RedXTime = float.Epsilon;
+//                DebugUtil.RedX(map.TopLeft, RedXTime);
+//                DebugUtil.RedX(map.TopRight, RedXTime);
+//                DebugUtil.RedX(map.BottomLeft, RedXTime);
+//                DebugUtil.RedX(map.BottomRight, RedXTime);
+//            }
+//#endif
         }
+
+        #region Retribution
+
+        // Sprites affected by Retribution are slowed down.
+        public float RetributionTimeScale { get; private set; }
+
+        protected virtual void OnRetributionBulletCollisionEnter(RetributionBullet bullet) { }
+        public void RetributionBulletCollisionEnter(RetributionBullet bullet)
+        {
+            RetributionBulletCollisionStay(bullet);
+            OnRetributionBulletCollisionEnter(bullet);
+        }
+
+        public void RetributionBulletCollisionStay(RetributionBullet bullet)
+        {
+            RetributionTimeScale = bullet.RetributionTimeScale;
+        }
+
+        public void RetributionBulletCollisionExit(RetributionBullet bullet)
+        {
+            ResetRetributionTimeScale();
+        }
+
+        public void ResetRetributionTimeScale()
+        {
+            RetributionTimeScale = 1.0f;
+        }
+
+        #endregion Retribution
 
         #endregion Frames
 

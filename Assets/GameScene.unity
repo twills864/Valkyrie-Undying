@@ -1815,7 +1815,7 @@ PrefabInstance:
     - target: {fileID: 3319949828535807671, guid: 7aaacc5777b91a34fba7dbffc3a219a8,
         type: 3}
       propertyPath: m_RootOrder
-      value: 15
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 3319949828535807671, guid: 7aaacc5777b91a34fba7dbffc3a219a8,
         type: 3}
@@ -1958,7 +1958,7 @@ PrefabInstance:
     - target: {fileID: 6712294020965118592, guid: 1a26054016c2dcb4284d4b08e1592aa7,
         type: 3}
       propertyPath: m_RootOrder
-      value: 16
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 6712294020965118592, guid: 1a26054016c2dcb4284d4b08e1592aa7,
         type: 3}
@@ -3451,7 +3451,7 @@ PrefabInstance:
     - target: {fileID: 6114026069666744393, guid: 7dc1f496142049042aeba1509e469daa,
         type: 3}
       propertyPath: m_RootOrder
-      value: 17
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 6114026069666744393, guid: 7dc1f496142049042aeba1509e469daa,
         type: 3}
@@ -3730,7 +3730,7 @@ MonoBehaviour:
           Base: 3
           ScalePerLevel: 0.8
         Damage:
-          Base: 1
+          Base: 3
           Increase: 1
       Victim:
         TouchRadius: 1
@@ -3745,7 +3745,7 @@ MonoBehaviour:
       InitialDifficultyRatio: 0
       DifficultyRatioStep: 0.05
     EnemyDrops:
-      BaseEnemyPowerupDropChance: 0.25
+      BaseEnemyPowerupDropChance: 0.2
       WeaponLevelOverrideChanceFlatAddition: 0.025
       OneUpOverrideChance: 0.25
     SpawnRate:
@@ -5953,75 +5953,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 405f6cc14f497a542a3f24e7bdca6954, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1001 &7866075183948130332
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 786201786181538167, guid: 35bdbc1be38e073469524fde2349d463,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 14
-      objectReference: {fileID: 0}
-    - target: {fileID: 786201786181538167, guid: 35bdbc1be38e073469524fde2349d463,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.22870228
-      objectReference: {fileID: 0}
-    - target: {fileID: 786201786181538167, guid: 35bdbc1be38e073469524fde2349d463,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.98356783
-      objectReference: {fileID: 0}
-    - target: {fileID: 786201786181538167, guid: 35bdbc1be38e073469524fde2349d463,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 786201786181538167, guid: 35bdbc1be38e073469524fde2349d463,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 786201786181538167, guid: 35bdbc1be38e073469524fde2349d463,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 786201786181538167, guid: 35bdbc1be38e073469524fde2349d463,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 786201786181538167, guid: 35bdbc1be38e073469524fde2349d463,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 786201786181538167, guid: 35bdbc1be38e073469524fde2349d463,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 786201786181538167, guid: 35bdbc1be38e073469524fde2349d463,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 786201786181538167, guid: 35bdbc1be38e073469524fde2349d463,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8452562272185656170, guid: 35bdbc1be38e073469524fde2349d463,
-        type: 3}
-      propertyPath: m_Name
-      value: LineRendererHost
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 35bdbc1be38e073469524fde2349d463, type: 3}
 --- !u!114 &7966575847862259288 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: -4945428288102429179, guid: d8e44ca380f7f0d4fa4c367485d84c53,

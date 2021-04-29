@@ -18,6 +18,7 @@ namespace Assets.Bullets.PlayerBullets
     public abstract class SmiteBullet : PlayerBullet
     {
         public sealed override int Damage => SmiteDamage;
+        protected sealed override bool ShouldMarkSelfCollision => false;
 
         // Backwards-facing linked list with head node
         public SmiteBullet Head { get; protected set; }

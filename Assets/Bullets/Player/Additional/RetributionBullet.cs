@@ -1,9 +1,11 @@
-﻿using Assets.Bullets.EnemyBullets;
+﻿using System.Collections.Generic;
+using Assets.Bullets.EnemyBullets;
 using Assets.Bullets.PlayerBullets;
 using Assets.Constants;
 using Assets.Enemies;
 using Assets.GameTasks;
 using Assets.ObjectPooling;
+using Assets.Powerups;
 using Assets.Util;
 using UnityEngine;
 
@@ -33,7 +35,7 @@ namespace Assets.Bullets.PlayerBullets
 
         #endregion Prefab Properties
 
-        public float RetributionTimescale => 1.0f - Alpha;
+        public float RetributionTimeScale => 1.0f - Alpha;
 
         private float Scale { get; set; }
 
@@ -42,8 +44,16 @@ namespace Assets.Bullets.PlayerBullets
         private MoveTo MoveToCenter { get; set; }
         private Sequence Sequence { get; set; }
 
+        private List<ValkyrieSprite> ManagedMiscSprites { get; set; }
         private TrackedPooledObjectSet<Enemy> ManagedEnemies { get; set; }
-        private TrackedPooledObjectSet<EnemyBullet> ManagedBullets { get; set; }
+        private TrackedPooledObjectSet<EnemyBullet> ManagedEnemyBullets { get; set; }
+        private TrackedPooledObjectSet<PlayerBullet> ManagedPlayerBullets { get; set; }
+
+        public sealed override Vector3 GetHitPosition(Enemy enemy)
+        {
+            Vector3 ret = enemy.transform.position;
+            return ret;
+        }
 
         public static RetributionBullet StartRetribution(Vector3 position)
         {
@@ -71,8 +81,10 @@ namespace Assets.Bullets.PlayerBullets
 
             Sequence = new Sequence(scaleAndMove, calmExplosion, fadeEase);
 
+            ManagedMiscSprites = new List<ValkyrieSprite>();
             ManagedEnemies = new TrackedPooledObjectSet<Enemy>();
-            ManagedBullets = new TrackedPooledObjectSet<EnemyBullet>();
+            ManagedEnemyBullets = new TrackedPooledObjectSet<EnemyBullet>();
+            ManagedPlayerBullets = new TrackedPooledObjectSet<PlayerBullet>();
         }
 
         protected override void OnActivate()
@@ -82,7 +94,11 @@ namespace Assets.Bullets.PlayerBullets
             Sprite.color = color;
 
             IsExploding = true;
+
+            ManagedMiscSprites.Clear();
             ManagedEnemies.Clear();
+            ManagedEnemyBullets.Clear();
+            ManagedPlayerBullets.Clear();
 
             Sequence.ResetSelf();
         }
@@ -98,14 +114,12 @@ namespace Assets.Bullets.PlayerBullets
             {
                 Sequence.RunFrame(deltaTime);
 
-                foreach(var enemy in ManagedEnemies)
-                    enemy.RetributionBulletCollisionStay(this);
-
-                foreach(var bullet in ManagedBullets)
-                    bullet.RetributionBulletCollisionStay(this);
+                SetRetributionScales(RetributionTimeScale);
             }
             else
+            {
                 DeactivateSelf();
+            }
         }
 
         #region Collision
@@ -118,8 +132,15 @@ namespace Assets.Bullets.PlayerBullets
                 if (IsExploding)
                     enemyBullet.DeactivateSelf();
                 else
-                    ManagedBullets.Add(enemyBullet);
+                    ManagedEnemyBullets.Add(enemyBullet);
             }
+            else if (CollisionUtil.IsPlayerBullet(collision))
+            {
+                var playerBullet = collision.GetComponent<PlayerBullet>();
+
+                ManagedPlayerBullets.Add(playerBullet);
+            }
+            // Enemy is handled in OnCollideWithEnemy()
         }
 
         public override bool CollidesWithEnemy(Enemy enemy)
@@ -134,20 +155,42 @@ namespace Assets.Bullets.PlayerBullets
             enemy.RetributionBulletCollisionEnter(this);
         }
 
-        private void OnCollisionExit2D(Collision2D collision)
+        #endregion Collision
+
+        private IEnumerable<IEnumerable<ValkyrieSprite>> AllManagedEnumerables
         {
-            if (CollisionUtil.IsEnemy(collision.otherCollider))
+            get
             {
-                Enemy enemy = collision.otherCollider.GetComponent<Enemy>();
-                enemy.RetributionBulletCollisionExit(this);
+                yield return ManagedMiscSprites;
+                yield return ManagedEnemies;
+                yield return ManagedEnemyBullets;
+                yield return ManagedPlayerBullets;
             }
         }
 
-        #endregion Collision
+        private void SetRetributionScales(float scale)
+        {
+            foreach(var enumerable in AllManagedEnumerables)
+            {
+                foreach (var sprite in enumerable)
+                    sprite.RetributionBulletCollisionStay(this);
+            }
+
+            SetInstanceRetributionScales(scale);
+        }
+
+        private void SetInstanceRetributionScales(float scale)
+        {
+            Player.Instance.RetributionBulletCollisionStay(this);
+            Monsoon.Instance.RetributionBulletCollisionStay(this);
+            SentinelManager.Instance.RetributionBulletCollisionStay(this);
+
+        }
 
         protected override void OnDeactivate()
         {
             transform.localScale = Vector3.zero;
+            SetRetributionScales(1.0f);
         }
     }
 }

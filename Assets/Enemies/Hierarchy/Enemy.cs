@@ -18,7 +18,6 @@ namespace Assets.Enemies
     {
         public override string LogTagColor => "#FFB697";
         public override TimeScaleType TimeScale => TimeScaleType.Enemy;
-        public override float TimeScaleModifier => base.TimeScaleModifier * RetributionTimeScale;
 
         #region Prefabs
 
@@ -131,8 +130,6 @@ namespace Assets.Enemies
 
             IsBurning = false;
             VoidPauseCounter = 0;
-
-            RetributionTimeScale = 1.0f;
 
             OnEnemyActivate();
         }
@@ -428,25 +425,6 @@ namespace Assets.Enemies
         #endregion Powerup Effects
 
         #region Collision
-
-        protected float RetributionTimeScale { get; private set; }
-
-        protected virtual void OnRetributionBulletCollisionEnter(RetributionBullet bullet) { }
-        public void RetributionBulletCollisionEnter(RetributionBullet bullet)
-        {
-            RetributionBulletCollisionStay(bullet);
-            OnRetributionBulletCollisionEnter(bullet);
-        }
-
-        public void RetributionBulletCollisionStay(RetributionBullet bullet)
-        {
-            RetributionTimeScale = bullet.RetributionTimescale;
-        }
-
-        public void RetributionBulletCollisionExit(RetributionBullet bullet)
-        {
-            RetributionTimeScale = 1.0f;
-        }
 
         private void OnTriggerEnter2D(Collider2D collision)
         {

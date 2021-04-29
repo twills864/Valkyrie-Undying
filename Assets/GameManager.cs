@@ -325,7 +325,7 @@ namespace Assets
 
             float deltaTime = Time.deltaTime;
             float playerTime = deltaTime;
-            float playerFireScale = deltaTime * PlayerFireDeltaTimeScale;
+            float playerFireScale = deltaTime * PlayerFireDeltaTimeScale * Player.RetributionTimeScale;
 
             if (Player.IsAlive)
             {

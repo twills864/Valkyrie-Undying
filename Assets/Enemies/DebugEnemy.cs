@@ -69,6 +69,8 @@ namespace Assets.Enemies
             InfernoDamageAngle = MathUtil.VectorAtRadianAngle(InfernoDamageTextAngle, InfernoDamageTextDistance);
 
             base.OnActivate();
+
+            LastestDamageHealthBar.Init();
         }
 
         protected override void OnEnemySpawn()
