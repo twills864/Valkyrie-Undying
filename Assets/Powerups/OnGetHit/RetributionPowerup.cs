@@ -15,8 +15,10 @@ namespace Assets.Powerups
     /// Spawns a damaging void at the player's position on getting hit.
     /// </summary>
     /// <inheritdoc/>
+    [Obsolete(ObsoleteMessage)]
     public class RetributionPowerup : OnGetHitPowerup
     {
+        public const string ObsoleteMessage = "Retribution has become a permanent feature.";
         protected override void InitBalance(in PowerupBalanceManager.OnGetHitBalance balance)
         {
             float durationBase = balance.Retribution.Duration.Base;

@@ -1,5 +1,6 @@
 ﻿using System;
 using Assets.Bullets.EnemyBullets;
+using Assets.Bullets.PlayerBullets;
 using Assets.ColorManagers;
 using Assets.Constants;
 using Assets.Enemies;
@@ -336,6 +337,7 @@ namespace Assets
         private void TakeDamage()
         {
             GameManager.Instance.OnGetHit();
+            RetributionBullet.StartRetribution(ColliderMap.Center);
 
             InIFrames = true;
             IFramesSequence.ResetSelf();

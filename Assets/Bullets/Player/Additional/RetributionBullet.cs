@@ -80,7 +80,7 @@ namespace Assets.Bullets.PlayerBullets
             var calmExplosion = new GameTaskFunc(this, () => IsExploding = false);
 
             var fade = new FadeTo(this, 0, FadeTime);
-            var fadeEase = new EaseOut3(fade);
+            var fadeEase = new EaseOut(fade);
 
             Sequence = new Sequence(scaleAndMove, calmExplosion, fadeEase);
 

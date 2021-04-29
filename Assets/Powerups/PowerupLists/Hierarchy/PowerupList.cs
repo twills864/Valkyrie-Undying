@@ -31,7 +31,8 @@ namespace Assets.Powerups
 
             Type[] disabledPowerups = new Type[]
             {
-                typeof(MetronomePowerup)
+                typeof(MetronomePowerup),
+                typeof(RetributionPowerup)
             };
 
             foreach(var type in types.Where(x => !disabledPowerups.Contains(x)))
