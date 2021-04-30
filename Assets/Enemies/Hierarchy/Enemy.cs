@@ -31,8 +31,13 @@ namespace Assets.Enemies
 
         // Powerup drop chance multiplier will default to the HealthScaling value.
         // It can be overridden here.
+        //[SerializeField]
+        //private EnemyPowerupDropChanceOverride _PowerupDropChanceOverride = default;
+
+        // Exp multiplier will default to the HealthScaling value.
+        // It can be overridden here.
         [SerializeField]
-        private EnemyPowerupDropChanceOverride _PowerupDropChanceOverride = default;
+        private EnemyExpOverride _ExpRatioOverride = default;
 
         [SerializeField]
         private Tuple<bool, int> _lol;
@@ -66,7 +71,7 @@ namespace Assets.Enemies
         // The rate at which the spawn health of this enemy increases as the game progresses.
         protected float HealthScaling => _HealthScaling;
 
-        private float? PowerupDropChanceMultiplierOverride => _PowerupDropChanceOverride.Value;
+        private float? ExpRatioOverride => _ExpRatioOverride.Value;
 
         protected SpriteRenderer Sprite => _Sprite;
 
@@ -243,7 +248,7 @@ namespace Assets.Enemies
         public bool WasKilled { get; set; }
         public virtual bool InfluencesDirectorGameBalance => true;
 
-        public float PowerupDropChanceMultiplier => PowerupDropChanceMultiplierOverride ?? HealthScaling;
+        public float ExpMultiplier => ExpRatioOverride ?? HealthScaling;
 
         protected virtual bool DamageKills(int damage)
         {

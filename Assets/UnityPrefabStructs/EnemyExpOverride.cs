@@ -8,8 +8,7 @@ using Assets.Util;
 namespace Assets
 {
     [Serializable]
-    [Obsolete("Replaced with EnemyExpOverride")]
-    public struct EnemyPowerupDropChanceOverride
+    public struct EnemyExpOverride
     {
         public bool ShouldOverride;
         public float Multiplier;

@@ -125,7 +125,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _InitialSpawnHealth: 125
   _HealthScaling: 1
-  _PowerupDropChanceOverride:
+  _ExpRatioOverride:
     ShouldOverride: 1
     Multiplier: 0
   _Sprite: {fileID: 5374573577975716727}

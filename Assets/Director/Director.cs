@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Assets.Bullets.PlayerBullets;
 using Assets.Constants;
+using Assets.DirectorHelpers;
 using Assets.Enemies;
 using Assets.GameTasks;
 using Assets.ObjectPooling;
@@ -27,6 +28,8 @@ namespace Assets
 
         private static BalancedRatio DifficultyRatio { get; set; }
         private static float CurrentDifficulty => DifficultyRatio.CurrentValue;
+
+        private static ExperienceManager Exp;
 
         private static LoopingFrameTimer EnemySpawnTimer { get; set; }
 
@@ -65,10 +68,12 @@ namespace Assets
             float difficultyStep = Balance.Difficuly.DifficultyRatioStep;
             DifficultyRatio = new BalancedRatio(initialDifficuly, difficultyStep);
 
+            Exp = new ExperienceManager(Balance);
+
             InitSpawnMechanics();
 
             DebugUI.SetDebugLabel("Difficulty", () => CurrentDifficulty);
-
+            DebugUI.SetDebugLabel("Exp", () => Exp.DebugLabel);
             //DebugUI.SetDebugLabel("Weapon Levels", () => $"{WeaponLevelsInPlay} {CanSpawnWeaponLevelUp} {WeaponLevelOverrideChance}");
         }
 
@@ -269,10 +274,13 @@ namespace Assets
             Scoreboard.Instance.AddScore(points);
 
 
-            float powerupMultiplier = enemy.PowerupDropChanceMultiplier;
-            float spawnChance = Balance.EnemyDrops.BaseEnemyPowerupDropChance * powerupMultiplier;
-            if (RandomUtil.Bool(spawnChance))
+            if(Exp.KilledEnemyLevelsUp(enemy))
+            {
                 SpawnPowerup(enemy.transform.position);
+            }
+            //float spawnChance = Balance.EnemyDrops.BaseEnemyPowerupDropChance * enemy.;
+            //if (RandomUtil.Bool(spawnChance))
+            //    SpawnPowerup(enemy.transform.position);
 
             // TODO: Handle difficulty
             DifficultyRatio.IncreaseRatio();

@@ -3901,8 +3901,12 @@ MonoBehaviour:
       InitialDifficultyRatio: 0
       DifficultyRatioStep: 0.05
     EnemyDrops:
-      BaseEnemyPowerupDropChance: 0.15
       WeaponLevelOverrideChanceFlatAddition: 0.025
+      BaseEnemyPowerupDropChance: 0.15
+    Experience:
+      BaseEnemyExpRate: 0.1
+      ExpToFirstLevel: 0
+      ExtraExpPerLevel: 0.25
     SpawnRate:
       InitialTargetEnemiesOnScreen: 5
       InitialSpawnTime: 3
@@ -5063,7 +5067,7 @@ PrefabInstance:
     - target: {fileID: 4011200326403816633, guid: c939972dae317a24a9504c7774c07490,
         type: 3}
       propertyPath: m_SortingLayer
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4011200326403816633, guid: c939972dae317a24a9504c7774c07490,
         type: 3}

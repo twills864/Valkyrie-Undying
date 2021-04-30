@@ -12,6 +12,7 @@ namespace Assets
     {
         public DifficultyInfo Difficuly;
         public EnemyDropInfo EnemyDrops;
+        public EnemyExpInfo Experience;
         public SpawnRateInfo SpawnRate;
 
         [Serializable]
@@ -24,9 +25,16 @@ namespace Assets
         [Serializable]
         public struct EnemyDropInfo
         {
-            public float BaseEnemyPowerupDropChance;
-
             public float WeaponLevelOverrideChanceFlatAddition;
+            public float BaseEnemyPowerupDropChance;
+        }
+
+        [Serializable]
+        public struct EnemyExpInfo
+        {
+            public float BaseEnemyExpRate;
+            public float ExpToFirstLevel;
+            public float ExtraExpPerLevel;
         }
 
 
