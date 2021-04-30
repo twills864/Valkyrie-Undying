@@ -115,18 +115,13 @@ namespace Assets
         protected virtual void OnRetributionBulletCollisionEnter(RetributionBullet bullet) { }
         public void RetributionBulletCollisionEnter(RetributionBullet bullet)
         {
-            RetributionBulletCollisionStay(bullet);
+            SetRetributionTimeScale(bullet);
             OnRetributionBulletCollisionEnter(bullet);
         }
 
-        public void RetributionBulletCollisionStay(RetributionBullet bullet)
+        public void SetRetributionTimeScale(RetributionBullet bullet)
         {
-            RetributionTimeScale = bullet.RetributionTimeScale;
-        }
-
-        public void RetributionBulletCollisionExit(RetributionBullet bullet)
-        {
-            ResetRetributionTimeScale();
+            RetributionTimeScale = bullet.RetributionTimeScaleValue;
         }
 
         public void ResetRetributionTimeScale()

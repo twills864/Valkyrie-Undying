@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Assets.Bullets.PlayerBullets;
 using Assets.Constants;
 using Assets.Enemies;
 using Assets.GameTasks;
@@ -20,6 +21,7 @@ namespace Assets
     public static class Director
     {
         public static float TotalTime { get; private set; }
+        public static float RetributionTimeScale { get; private set; }
 
         private static DirectorBalance Balance;
 
@@ -34,6 +36,7 @@ namespace Assets
         private static float SpawnRateClamp { get; set; }
 
         private static List<Enemy> ActiveEnemies = new List<Enemy>();
+        private static int ActiveTrackedEnemiesCount { get; set; }
         private static EnemyPoolList EnemyPoolList { get; set; }
 
         private static int EnemiesSpawned { get; set; }
@@ -51,8 +54,10 @@ namespace Assets
             EnemySpawnTimer = new LoopingFrameTimer(Balance.SpawnRate.InitialSpawnTime); // new InactiveLoopingFrameTimer();
 
             ActiveEnemies.Clear();
+            ActiveTrackedEnemiesCount = 0;
             EnemiesSpawned = 0;
             TotalTime = 0;
+            RetributionTimeScale = 1.0f;
             WeaponLevelsInPlay = 0;
             CheckForVictim = false;
 
@@ -62,7 +67,7 @@ namespace Assets
 
             InitSpawnMechanics();
 
-            DebugUI.SetDebugLabel("Diffiulty", () => CurrentDifficulty);
+            DebugUI.SetDebugLabel("Difficulty", () => CurrentDifficulty);
 
             //DebugUI.SetDebugLabel("Weapon Levels", () => $"{WeaponLevelsInPlay} {CanSpawnWeaponLevelUp} {WeaponLevelOverrideChance}");
         }
@@ -78,6 +83,8 @@ namespace Assets
 
         public static void RunFrame(float deltaTime, float realDeltaTime)
         {
+            deltaTime *= RetributionTimeScale;
+
             TotalTime += deltaTime;
 
             SpawnRateRamp.RunFrame(deltaTime);
@@ -85,6 +92,11 @@ namespace Assets
 
             if (EnemySpawnTimer.UpdateActivates(deltaTime * timeModifier))
                 SpawnEnemy();
+        }
+
+        public static void SetRetributionTimeScale(RetributionBullet bullet)
+        {
+            RetributionTimeScale = bullet.RetributionTimeScaleValue;
         }
 
 
@@ -130,7 +142,7 @@ namespace Assets
             #endregion
         }
 
-        [Obsolete(Constants.ObsoleteConstants.SpawnRampOverhaul)]
+        [Obsolete(ObsoleteConstants.SpawnRampOverhaul)]
         private static void InitSpawnClamp()
         {
             Action<float> SetClamp = x => SpawnRateClamp = x;
@@ -187,7 +199,7 @@ namespace Assets
         {
             float modifier;
 
-            int numEnemies = ActiveEnemies.Count;
+            int numEnemies = ActiveTrackedEnemiesCount;
 
             if (numEnemies < Balance.SpawnRate.InitialTargetEnemiesOnScreen)
                 modifier = 1.5f;
@@ -205,9 +217,11 @@ namespace Assets
             return modifier;
         }
 
+        // Called from Enemies themselves
         public static void EnemySpawned(Enemy enemy)
         {
             ActiveEnemies.Add(enemy);
+            ActiveTrackedEnemiesCount += enemy.ActiveTrackedEnemiesCountContribution;
 
 #if UNITY_EDITOR
             enemy.ActiveInDirector = true;
@@ -234,6 +248,8 @@ namespace Assets
 #endif
 
             ActiveEnemies.Remove(enemy);
+            ActiveTrackedEnemiesCount -= enemy.ActiveTrackedEnemiesCountContribution;
+
             if (!ActiveEnemies.Any())
                 EnemySpawnTimer.ActivateSelf();
 
@@ -293,10 +309,6 @@ namespace Assets
             {
                 powerup = PoolManager.Instance.PickupPool.Get<WeaponLevelPickup>(position);
                 WeaponLevelsInPlay++;
-            }
-            else if (RandomUtil.Bool(Balance.EnemyDrops.OneUpOverrideChance))
-            {
-                powerup = PoolManager.Instance.PickupPool.Get<OneUpPickup>(position);
             }
             else
             {

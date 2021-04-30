@@ -16,6 +16,8 @@ namespace Assets.Bullets.EnemyBullets
         public override bool CanReflect => false;
         protected override bool ShouldDeactivateOnDestructor => false;
 
+        public override float TimeScaleModifier => Parent.TimeScaleModifier;
+
         #region Prefabs
 
         [SerializeField]
@@ -48,6 +50,8 @@ namespace Assets.Bullets.EnemyBullets
         private float FadeTime => _FadeTime;
 
         #endregion Prefab Properties
+
+        public LaserEnemy Parent { get; set; }
 
         public Vector3 SpawnPoint { get; set; }
         public float WidthHalf { get; private set; }
@@ -85,12 +89,19 @@ namespace Assets.Bullets.EnemyBullets
             spawnColor.a = 0;
             SpriteColor = spawnColor;
 
+            Parent = null;
+
             Behavior.ResetSelf();
         }
 
         protected override void OnFrameRun(float deltaTime, float realDeltaTime)
         {
             Behavior.RunFrame(deltaTime);
+        }
+
+        protected override void OnDeactivate()
+        {
+            Parent = null;
         }
 
         private void ActivateCollider()

@@ -16,6 +16,8 @@ namespace Assets.Powerups
     /// <inheritdoc/>
     public class BloodlustPowerup : OnKillPowerup
     {
+        public override int MaxLevel => 1;
+
         protected override void InitBalance(in PowerupBalanceManager.OnKillBalance balance)
         {
             float baseDuration = balance.Bloodlust.Duration.Base;

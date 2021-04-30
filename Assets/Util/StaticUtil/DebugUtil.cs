@@ -129,7 +129,9 @@ namespace Assets.Util
             //PoolManager.Instance.PickupPool.Get<WeaponPickup>(SpaceUtil.WorldMap.Top);
             //GameManager.SpawnPowerup(SpaceUtil.WorldMap.Center);
 
-            PoolManager.Instance.PickupPool.GetRandomPowerup(SpaceUtil.WorldMap.Center).OnSpawn();
+            //PoolManager.Instance.PickupPool.GetRandomPowerup(SpaceUtil.WorldMap.Center).OnSpawn();
+
+            SpawnSpecificEnemy<LaserEnemy>();
         }
 
         private static void InputMouseForward(KeyCode keyCode)
@@ -314,6 +316,12 @@ namespace Assets.Util
         {
             Vector3 position = SpaceUtil.WorldPositionUnderMouse();
             RetributionBullet.StartRetribution(position);
+        }
+
+        private static TEnemy SpawnSpecificEnemy<TEnemy>() where TEnemy : Enemy
+        {
+            var ret = PoolManager.Instance.EnemyPool.SpawnSpecificEnemy<TEnemy>();
+            return ret;
         }
 
         #endregion Test Methods

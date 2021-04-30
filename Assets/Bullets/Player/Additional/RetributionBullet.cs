@@ -36,7 +36,7 @@ namespace Assets.Bullets.PlayerBullets
 
         #endregion Prefab Properties
 
-        public float RetributionTimeScale => 1.0f - Alpha;
+        public float RetributionTimeScaleValue => 1.0f - Alpha;
 
         private float Scale { get; set; }
 
@@ -120,7 +120,7 @@ namespace Assets.Bullets.PlayerBullets
             {
                 Sequence.RunFrame(deltaTime);
 
-                SetRetributionScales(RetributionTimeScale);
+                SetRetributionScales(RetributionTimeScaleValue);
             }
             else
             {
@@ -186,7 +186,7 @@ namespace Assets.Bullets.PlayerBullets
             foreach(var enumerable in AllManagedEnumerables)
             {
                 foreach (var sprite in enumerable)
-                    sprite.RetributionBulletCollisionStay(this);
+                    sprite.SetRetributionTimeScale(this);
             }
 
             SetInstanceRetributionScales(scale);
@@ -194,10 +194,10 @@ namespace Assets.Bullets.PlayerBullets
 
         private void SetInstanceRetributionScales(float scale)
         {
-            Player.Instance.RetributionBulletCollisionStay(this);
-            Monsoon.Instance.RetributionBulletCollisionStay(this);
-            SentinelManager.Instance.RetributionBulletCollisionStay(this);
-
+            Player.Instance.SetRetributionTimeScale(this);
+            Monsoon.Instance.SetRetributionTimeScale(this);
+            SentinelManager.Instance.SetRetributionTimeScale(this);
+            Director.SetRetributionTimeScale(this);
         }
 
         protected override void OnDeactivate()

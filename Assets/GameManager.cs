@@ -167,6 +167,9 @@ namespace Assets
         private float _WeaponRainTime = GameConstants.PrefabNumber;
 
         [SerializeField]
+        private float _OneUpRainTime = GameConstants.PrefabNumber;
+
+        [SerializeField]
         private Sprite _LifeSprite = null;
 
         #endregion Misc Prefabs
@@ -216,6 +219,9 @@ namespace Assets
             WeaponRainTimer = new FrameTimer(WeaponRainTime);
             WeaponRainTimer.TimeUntilActivation = 0.1f;
 
+            OneUpRainTimer = new LoopingFrameTimer(OneUpRainTime);
+            OneUpRainTimer.TimeUntilActivation = 5f;
+
             _PowerupMenu.Init();
             _PowerupMenu.transform.position += new Vector3(0, 0, 0);
 
@@ -227,6 +233,12 @@ namespace Assets
             _Scoreboard.Init();
 
             NotificationManager.Init(_Notification);
+
+#if !UNITY_EDITOR
+            CanGameOver = true;
+#else
+            CanGameOver = false;
+#endif
         }
 
         private void InitWithDependencies()
@@ -250,7 +262,8 @@ namespace Assets
             //_Othello.Alpha = _ColorManager.Player.OthelloAlpha;
             _Othello.Init();
             Player.Init(in _FireStrategyManager);
-            _RemainingLivesBar.Init(2);
+
+            _RemainingLivesBar.Init(spritesOffsetFromTop: 2);
 
             // Dependency: SpaceUtil, PoolManager
             BfgBulletFallout.StaticInitColors(in _ColorManager);
@@ -303,7 +316,14 @@ namespace Assets
 
         private void InitGame()
         {
+            // Game over is disabled by default in debug.
+            // Start with no lives to clean up the GUI.
+#if UNITY_EDITOR
+            LivesLeft = 0;
+#else
             LivesLeft = _StartingExtraLives;
+#endif
+
         }
 
         #endregion Init
@@ -339,6 +359,7 @@ namespace Assets
 
                 UpdateFireStrategy(playerTime);
                 WeaponRain(deltaTime);
+                OneUpRain(deltaTime);
 
 
                 float enemyTimeScale = TimeScaleManager.GetTimeScaleModifier(TimeScaleType.Enemy);
@@ -361,6 +382,16 @@ namespace Assets
             }
         }
 
+        private Vector3 RandomRainPosition(Pickup pickup)
+        {
+            Vector2 size = pickup.Size;
+            float spawnX = SpaceUtil.RandomWorldPositionX(size.x);
+            float spawnY = SpaceUtil.WorldMap.Top.y + (size.y * 0.5f);
+
+            Vector3 ret = new Vector3(spawnX, spawnY);
+            return ret;
+        }
+
         private void WeaponRain(float deltaTime)
         {
             if (!WeaponRainTimer.Activated && WeaponRainTimer.UpdateActivates(deltaTime))
@@ -368,17 +399,22 @@ namespace Assets
                 var pickup = _PoolManager.PickupPool.Get<WeaponPickup>();
                 pickup.FireStrategyIndex = GetRandomAssignableFireIndex();
 
-                var size = pickup.Size;
-                float spawnX = SpaceUtil.RandomWorldPositionX(size.x);
-                float spawnY = SpaceUtil.WorldMap.Top.y + (size.y * 0.5f);
-
-                pickup.transform.position = new Vector3(spawnX, spawnY);
+                pickup.transform.position = RandomRainPosition(pickup);
             }
         }
 
         public void ResetWeaponRainTimer()
         {
             WeaponRainTimer.Reset();
+        }
+
+        private void OneUpRain(float deltaTime)
+        {
+            if (OneUpRainTimer.UpdateActivates(deltaTime))
+            {
+                var oneUp = _PoolManager.PickupPool.Get<OneUpPickup>();
+                oneUp.transform.position = RandomRainPosition(oneUp);
+            }
         }
 
         private void LateUpdate()
@@ -391,19 +427,21 @@ namespace Assets
 
         }
 
-        #endregion Update
+#endregion Update
 
 
-        #region Player Weapons
+#region Player Weapons
 
         private const int FireStrategyIndexBasic = 0;
 
         public float InitialWeaponTime => _InitialWeaponTime;
         public float WeaponRainTime => _WeaponRainTime;
+        public float OneUpRainTime => _OneUpRainTime;
         public int WeaponLevel { get; set; }
         public float WeaponTimeMax { get; set; } = 10f;
         public FrameTimer WeaponResetTimer { get; set; }
         public FrameTimer WeaponRainTimer { get; set; }
+        public LoopingFrameTimer OneUpRainTimer { get; set; }
 
         private PlayerFireStrategy CurrentFireStrategy => FireStrategies[FireStrategies.Index];
         private CircularSelector<PlayerFireStrategy> FireStrategies { get; set; }
@@ -470,9 +508,9 @@ namespace Assets
             }
         }
 
-        #endregion Player Weapons
+#endregion Player Weapons
 
-        #region Powerups
+#region Powerups
 
         public PowerupManager _PowerupManager { get; } = new PowerupManager();
 
@@ -556,7 +594,7 @@ namespace Assets
             _PowerupManager.OnHit(enemy, bullet);
         }
 
-        #region OnEnemyKill
+#region OnEnemyKill
 
         public void OnEnemyKill(Enemy enemy, PlayerBullet bullet)
         {
@@ -570,13 +608,13 @@ namespace Assets
             _Othello.ResetFiretimer();
         }
 
-        #endregion OnEnemyKill
+#endregion OnEnemyKill
 
-        #endregion Powerups
+#endregion Powerups
 
-        #region Enemies
+#region Enemies
 
-        #region Enemy Bullets
+#region Enemy Bullets
 
         public void ReflectBullet(EnemyBullet target)
         {
@@ -598,11 +636,11 @@ namespace Assets
             }
         }
 
-        #endregion Enemy Bullets
+#endregion Enemy Bullets
 
-        #endregion Enemies
+#endregion Enemies
 
-        #region Damage
+#region Damage
 
         public int LivesLeft
         {
@@ -656,20 +694,28 @@ namespace Assets
             }
         }
 
+        public bool CanGameOver { get; set; }
         private void GameOver()
         {
-            _GameOverGUI.Activate(_Scoreboard.Score, SaveUtil.HighScore);
+            if (CanGameOver)
+            {
+                _GameOverGUI.Activate(_Scoreboard.Score, SaveUtil.HighScore);
 
-            Player.Kill();
-            _Othello.Kill();
-            _Monsoon.Kill();
-            _MonsoonSpawner.Kill();
-            _SentinelManager.Kill();
+                Player.Kill();
+                _Othello.Kill();
+                _Monsoon.Kill();
+                _MonsoonSpawner.Kill();
+                _SentinelManager.Kill();
+            }
+            else
+            {
+                //NotificationManager.AddNotification("Game over skipped!");
+            }
         }
 
-        #endregion Damage
+#endregion Damage
 
-        #region Game Tasks
+#region Game Tasks
 
         private GameTaskListManager GameTaskLists = new GameTaskListManager();
 
@@ -705,9 +751,9 @@ namespace Assets
             GameTaskLists.UIElementGameTaskList.Add(task);
         }
 
-        #endregion Game Tasks
+#endregion Game Tasks
 
-        #region Powerup Menu
+#region Powerup Menu
 
         public void AddPowerupMenuTitleRow(string title)
         {
@@ -728,9 +774,9 @@ namespace Assets
         {
             _PowerupMenu.SetLevel(SaveUtil.LastPowerup.GetType(), value);
         }
-        #endregion Powerup Menu
+#endregion Powerup Menu
 
-        #region Debug
+#region Debug
 
         public void DebugIncrementFireType()
         {
@@ -749,7 +795,7 @@ namespace Assets
             _PoolManager.RecolorPlayerActivity(color);
         }
 
-        #endregion Debug
+#endregion Debug
 
         /// <summary>
         /// Creates a Fleeting Text with a specified message at a specified position.

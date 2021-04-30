@@ -53,6 +53,9 @@ namespace Assets.Util
         [SerializeField]
         public Text TextGameSpeed;
 
+        [SerializeField]
+        public Toggle ToggleCanGameOver;
+
         private Type GameRowPowerupType => SaveUtil.LastPowerup.GetType();
         private Powerup CurrentDebugPowerup => SaveUtil.LastPowerup;
 
@@ -80,9 +83,14 @@ namespace Assets.Util
                 TextFireLevel,
                 SliderGameSpeed,
                 TextGameSpeed,
+                ToggleCanGameOver,
             };
             foreach (Component component in setAll)
                 component.transform.localScale = newScale;
+
+            ToggleCanGameOver.isOn = true;
+#else
+            ToggleCanGameOver.isOn = false;
 #endif
 
             var inputPos = SpaceUtil.ScreenMap.BottomLeft + new Vector3(DebugBorderOffset, DebugBorderOffset);
@@ -100,14 +108,21 @@ namespace Assets.Util
             const int OffsetScale = 5;
 #endif
 
-            const int showPowerupMenuButtonOffset = -50 * OffsetScale;
-            var showPowerupMenuButtonPos = SpaceUtil.ScreenMap.Right + new Vector3(-DebugBorderOffset, showPowerupMenuButtonOffset);
-            SpaceUtil.SetRightToPosition(ButtonShowPowerupMenu, showPowerupMenuButtonPos);
+            void SetRight(MonoBehaviour target, float offsetScaleMultiplier)
+            {
+                float offsetY = offsetScaleMultiplier * OffsetScale;
+                Vector3 pos = SpaceUtil.ScreenMap.Right + new Vector3(-DebugBorderOffset, offsetY);
+                SpaceUtil.SetRightToPosition(target, pos);
+            }
 
-            const int powerupRowOffset = -120 * OffsetScale;
-            var powerupRowPos = SpaceUtil.ScreenMap.Right + new Vector3(-DebugBorderOffset, powerupRowOffset);
-            SpaceUtil.SetRightToPosition(PowerupRow, powerupRowPos);
+            SetRight(ButtonShowPowerupMenu, -50);
+            SetRight(PowerupRow, -120);
+            SetRight(ToggleCanGameOver, -180);
 
+            ToggleCanGameOver.onValueChanged.AddListener(delegate
+            {
+                GameManager.Instance.CanGameOver = ToggleCanGameOver.isOn;
+            });
 
 
             var strategiesToAdd = fireStrategies.Select(x => x.GetType().Name).ToList();
@@ -119,22 +134,10 @@ namespace Assets.Util
                     _GameManager.SetFireType(DropdownFireType.value, skipDropDown: true, skipMessage: true, endlessTime: ShouldSetEndlessWeaponTime);
             });
 
-            const int sliderFireLevelYOffset = 15 * OffsetScale;
-            var sliderFireLevelPos = SpaceUtil.ScreenMap.Right + new Vector3(-DebugBorderOffset, DebugBorderOffset + sliderFireLevelYOffset);
-            SpaceUtil.SetRightToPosition(SliderFireLevel, sliderFireLevelPos);
-
-            const int sliderFireLevelTextYOffset = 35 * OffsetScale;
-            var sliderFireLevelTextPos = SpaceUtil.ScreenMap.Right + new Vector3(-DebugBorderOffset, DebugBorderOffset + sliderFireLevelTextYOffset);
-            SpaceUtil.SetRightToPosition(TextFireLevel, sliderFireLevelTextPos);
-
-
-            const int sliderGameSpeedYOffset = 180 * OffsetScale;
-            var sliderGameSpeedPos = SpaceUtil.ScreenMap.Right + new Vector3(-DebugBorderOffset, DebugBorderOffset + sliderGameSpeedYOffset);
-            SpaceUtil.SetRightToPosition(SliderGameSpeed, sliderGameSpeedPos);
-
-            const int sliderGameSpeedTextYOffset = 200 * OffsetScale;
-            var sliderGameSpeedTextPos = SpaceUtil.ScreenMap.Right + new Vector3(-DebugBorderOffset, DebugBorderOffset + sliderGameSpeedTextYOffset);
-            SpaceUtil.SetRightToPosition(TextGameSpeed, sliderGameSpeedTextPos);
+            SetRight(SliderFireLevel, 35);
+            SetRight(TextFireLevel, 55);
+            SetRight(SliderGameSpeed, 180);
+            SetRight(TextGameSpeed, 200);
 
             //SliderFireLevel.value = 0;
             //DebugSliderFireLevelChanged(SliderFireLevel);
@@ -214,7 +217,6 @@ namespace Assets.Util
 
         public void ToggleUI()
         {
-
             bool active = !InputField.gameObject.activeSelf;
 
             InputField.gameObject.SetActive(active);
@@ -226,6 +228,7 @@ namespace Assets.Util
             PowerupRow.gameObject.SetActive(active);
             SliderGameSpeed.gameObject.SetActive(active);
             TextGameSpeed.gameObject.SetActive(active);
+            ToggleCanGameOver.gameObject.SetActive(active);
         }
 #endregion Debug Input
 

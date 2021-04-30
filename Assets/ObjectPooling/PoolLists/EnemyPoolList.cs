@@ -75,5 +75,14 @@ namespace Assets.ObjectPooling
             ret.OnSpawn();
             return ret;
         }
+
+        // Currently only used for debugging
+        public TEnemy SpawnSpecificEnemy<TEnemy>() where TEnemy : Enemy
+        {
+            var ret = Get<TEnemy>();
+            ret.transform.position = SpaceUtil.RandomEnemySpawnPosition(ret);
+            ret.OnSpawn();
+            return ret;
+        }
     }
 }

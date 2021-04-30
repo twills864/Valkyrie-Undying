@@ -13,7 +13,7 @@ namespace Assets.FireStrategies.PlayerFireStrategies
         protected override float GetFireSpeedRatio(in PlayerFireStrategyManager.PlayerRatio playerRatios)
             => playerRatios.Burst.FireRatio;
 
-        private const int BulletsInFirstBurst = 3;
+        private const int BulletsInFirstBurst = 2;
         private int FireCounter = -BulletsInFirstBurst;
 
         private float BulletVelocityY;

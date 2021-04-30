@@ -93,6 +93,8 @@ namespace Assets.Enemies
 
         protected virtual bool ShouldDeactivateOnDestructor => true;
 
+        public virtual int ActiveTrackedEnemiesCountContribution => 1;
+
         public int PointValue { get; set; }
 
         public SpriteBoxMap SpriteMap { get; protected set; }

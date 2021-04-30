@@ -12,14 +12,6 @@ namespace Assets.Pickups
     {
         public int FireStrategyIndex { get; set; }
 
-        public Vector2 Size { get; private set; }
-
-        protected override void OnPickupInit()
-        {
-            var renderer = GetComponent<Renderer>();
-            Size = renderer.bounds.size;
-        }
-
         protected override void OnPickUp()
         {
             GameManager.Instance.SetFireType(FireStrategyIndex);

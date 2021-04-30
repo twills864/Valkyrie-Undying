@@ -185,6 +185,7 @@ namespace Assets.Enemies
             var bullets = LaserEnemyFireStrategy.GetBullets(this);
 
             CurrentLaser = (LaserEnemyBullet) bullets[0];
+            CurrentLaser.Parent = this;
         }
 
         private void ResetRotate()

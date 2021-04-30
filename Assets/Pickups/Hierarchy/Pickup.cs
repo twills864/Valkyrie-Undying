@@ -40,10 +40,16 @@ namespace Assets.Pickups
         protected override ColorHandler DefaultColorHandler()
             => new SpriteColorHandler(Sprite);
 
+        public Vector2 Size { get; private set; }
+
         protected virtual void OnPickupInit() { }
         protected sealed override void OnInit()
         {
             VelocityY = PermanentVelocityY;
+
+            var renderer = GetComponent<Renderer>();
+            Size = renderer.bounds.size;
+
             OnPickupInit();
         }
 

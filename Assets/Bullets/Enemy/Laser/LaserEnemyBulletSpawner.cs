@@ -13,6 +13,7 @@ using UnityEngine;
 
 namespace Assets.Bullets.EnemyBullets
 {
+    [Obsolete("Laser spawner functionality was merged into LaserEnemyBullet.")]
     public class LaserEnemyBulletSpawner : EnemyBullet
     {
         [SerializeField]
@@ -51,6 +52,8 @@ namespace Assets.Bullets.EnemyBullets
             DebugUI.SetDebugLabel("Spawner pos", transform.position);
             FadeIn.RunFrame(deltaTime);
             DeactivateTimer.Increment(deltaTime);
+
+            CreateFleetingTextAtCenter("SPAWNER");
         }
     }
 }

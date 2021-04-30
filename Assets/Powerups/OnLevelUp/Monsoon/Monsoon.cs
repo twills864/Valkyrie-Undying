@@ -132,7 +132,7 @@ namespace Assets.Powerups
         public void Kill()
         {
             gameObject.SetActive(false);
-            Instance = null;
+            //Instance = null;
         }
     }
 }
