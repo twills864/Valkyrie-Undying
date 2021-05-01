@@ -209,10 +209,10 @@ namespace Assets.Enemies
             Rotate.SetAngleRange(startAngle, endAngle);
         }
 
-        protected override void OnRetributionBulletCollisionEnter(RetributionBullet bullet)
-        {
-            CurrentLaser?.DeactivateSelf();
-        }
+        //protected override void OnRetributionBulletCollisionEnter(RetributionBullet bullet)
+        //{
+        //    CurrentLaser?.DeactivateSelf();
+        //}
 
         protected override void OnEnemyDeactivate()
         {

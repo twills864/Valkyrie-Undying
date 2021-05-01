@@ -3908,10 +3908,10 @@ MonoBehaviour:
       ExpToFirstLevel: 0
       ExtraExpPerLevel: 0.25
     SpawnRate:
-      InitialTargetEnemiesOnScreen: 5
+      InitialTargetEnemiesOnScreen: 1
+      FinalTargetEnemiesOnScreen: 5
+      TargetEnemiesOnScreenRampSeconds: 300
       InitialSpawnTime: 3
-      SpawnRateSlowStartInit: 0.5
-      SpawnRateSlowStartScaleDurationSeconds: 60
   _ColorManager:
     DefaultPlayer: {r: 0.3764706, g: 0.827451, b: 1, a: 1}
     DefaultEnemy: {r: 1, g: 0, b: 0, a: 1}

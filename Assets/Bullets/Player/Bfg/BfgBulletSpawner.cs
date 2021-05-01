@@ -65,24 +65,25 @@ namespace Assets.Bullets.PlayerBullets
         private float InitialScaleX { get; set; }
         private float ScaleXPerLevel { get; set; }
         private ScaleTo ScaleIn { get; set; }
-        private Delay DeactivateDelay { get; set; }
-        private Sequence FallbackDeactivate { get; set; }
+        private ConcurrentGameTask SpawnAnimation { get; set; }
+        //private Delay DeactivateDelay { get; set; }
+        //private Sequence FallbackDeactivate { get; set; }
 
-        public float FallbackDeactivationTime
-        {
-            get => _fallbackDeactivationTime;
-            set
-            {
-                const float TimeDelta = 5f / 60f;
+        //public float FallbackDeactivationTime
+        //{
+        //    get => _fallbackDeactivationTime;
+        //    set
+        //    {
+        //        const float TimeDelta = 5f / 60f;
 
-                if (_fallbackDeactivationTime != value)
-                {
-                    _fallbackDeactivationTime = value;
-                    DeactivateDelay.Duration = (value - FadeInTime) + TimeDelta;
-                    FallbackDeactivate.RecalculateDuration();
-                }
-            }
-        }
+        //        if (_fallbackDeactivationTime != value)
+        //        {
+        //            _fallbackDeactivationTime = value;
+        //            DeactivateDelay.Duration = (value - FadeInTime) + TimeDelta;
+        //            FallbackDeactivate.RecalculateDuration();
+        //        }
+        //    }
+        //}
 
         protected override void OnPlayerBulletInit()
         {
@@ -98,17 +99,18 @@ namespace Assets.Bullets.PlayerBullets
             Vector3 scaleFinal = new Vector3(1f, heightScale, 1f);
             ScaleIn = new ScaleTo(this, scaleInitial, scaleFinal, FadeInTime);
             var fadeIn = new FadeTo(this, MaxAlpha, float.Epsilon); //  FadeInTime * 0.25f
-            var concurrence = new ConcurrentGameTask(this, ScaleIn, fadeIn);
+            SpawnAnimation = new ConcurrentGameTask(this, ScaleIn, fadeIn);
 
-            DeactivateDelay = new Delay(this, FallbackDeactivationTime - FadeInTime);
-            var deactivate = new GameTaskFunc(this, DeactivateSelf);
-            FallbackDeactivate = new Sequence(concurrence, DeactivateDelay, deactivate);
+            //DeactivateDelay = new Delay(this, FallbackDeactivationTime - FadeInTime);
+            //var deactivate = new GameTaskFunc(this, DeactivateSelf);
+            //FallbackDeactivate = new Sequence(concurrence, DeactivateDelay, deactivate);
         }
 
         protected override void OnActivate()
         {
             LocalScaleX = 0f;
-            FallbackDeactivate.ResetSelf();
+            SpawnAnimation.ResetSelf();
+            //FallbackDeactivate.ResetSelf();
         }
 
         public override void OnSpawn()
@@ -126,7 +128,8 @@ namespace Assets.Bullets.PlayerBullets
 
         protected override void OnPlayerBulletFrameRun(float deltaTime, float realDeltaTime)
         {
-            FallbackDeactivate.RunFrame(deltaTime);
+            SpawnAnimation.RunFrame(deltaTime);
+            //FallbackDeactivate.RunFrame(deltaTime);
             PositionX = Player.Instance.transform.position.x;
         }
     }

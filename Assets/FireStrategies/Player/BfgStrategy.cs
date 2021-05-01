@@ -37,7 +37,7 @@ namespace Assets.FireStrategies.PlayerFireStrategies
             if (BfgBulletSpawner.TryGetInactiveSpawner(out BfgBulletSpawner spawner))
             {
                 BfgBulletSpawner bullet = PoolList.Get<BfgBulletSpawner>(playerFirePos, weaponLevel);
-                bullet.FallbackDeactivationTime = LaserActivationInterval;
+                //bullet.FallbackDeactivationTime = LaserActivationInterval;
 
                 ret = new PlayerBullet[]
                 {

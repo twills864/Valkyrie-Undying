@@ -20,6 +20,8 @@ namespace Assets.Bullets.PlayerBullets
         public sealed override int Damage => SmiteDamage;
         protected sealed override bool ShouldMarkSelfCollision => false;
 
+        public sealed override float TimeScaleModifier => Director.RetributionTimeScale;
+
         // Backwards-facing linked list with head node
         public SmiteBullet Head { get; protected set; }
         public SmiteBullet Previous { get; protected set; }

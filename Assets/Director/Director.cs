@@ -33,10 +33,8 @@ namespace Assets
 
         private static LoopingFrameTimer EnemySpawnTimer { get; set; }
 
-        [Obsolete(Constants.ObsoleteConstants.SpawnRampOverhaul)]
+        private static float TargetEnemiesOnScreen { get; set; }
         private static ApplyFloatValueOverTime SpawnRateRamp { get; set; }
-        [Obsolete(Constants.ObsoleteConstants.SpawnRampOverhaul)]
-        private static float SpawnRateClamp { get; set; }
 
         private static List<Enemy> ActiveEnemies = new List<Enemy>();
         private static int ActiveTrackedEnemiesCount { get; set; }
@@ -74,6 +72,8 @@ namespace Assets
 
             DebugUI.SetDebugLabel("Difficulty", () => CurrentDifficulty);
             DebugUI.SetDebugLabel("Exp", () => Exp.DebugLabel);
+            DebugUI.SetDebugLabel("TargetEnemies", () => TargetEnemiesOnScreen);
+            DebugUI.SetDebugLabel("Spawn Rate", () => CalculateSpawnTimerModifier());
             //DebugUI.SetDebugLabel("Weapon Levels", () => $"{WeaponLevelsInPlay} {CanSpawnWeaponLevelUp} {WeaponLevelOverrideChance}");
         }
 
@@ -147,16 +147,15 @@ namespace Assets
             #endregion
         }
 
-        [Obsolete(ObsoleteConstants.SpawnRampOverhaul)]
         private static void InitSpawnClamp()
         {
-            Action<float> SetClamp = x => SpawnRateClamp = x;
-            float clampStart = Balance.SpawnRate.SpawnRateSlowStartInit;
-            const float ClampEnd = 1.0f;
-            float clampDuration = Balance.SpawnRate.SpawnRateSlowStartScaleDurationSeconds;
+            Action<float> SetTarget = x => TargetEnemiesOnScreen = x;
+            float targetStart = Balance.SpawnRate.InitialTargetEnemiesOnScreen;
+            float targetEnd = Balance.SpawnRate.FinalTargetEnemiesOnScreen;
+            float clampDuration = Balance.SpawnRate.TargetEnemiesOnScreenRampSeconds;
 
-            SpawnRateRamp = new ApplyFloatValueOverTime(Player.Instance, SetClamp, clampStart, ClampEnd, clampDuration);
-            SpawnRateClamp = clampStart;
+            SpawnRateRamp = new ApplyFloatValueOverTime(null, SetTarget, targetStart, targetEnd, clampDuration);
+            TargetEnemiesOnScreen = targetStart;
         }
 
         public static void SpawnEnemy()
@@ -206,9 +205,9 @@ namespace Assets
 
             int numEnemies = ActiveTrackedEnemiesCount;
 
-            if (numEnemies < Balance.SpawnRate.InitialTargetEnemiesOnScreen)
+            if (numEnemies < TargetEnemiesOnScreen)
                 modifier = 1.5f;
-            else if (numEnemies > Balance.SpawnRate.InitialTargetEnemiesOnScreen)
+            else if (numEnemies > TargetEnemiesOnScreen)
                 modifier = 0.5f;
             else
                 modifier = 1.0f;

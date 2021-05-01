@@ -42,13 +42,10 @@ namespace Assets
         public struct SpawnRateInfo
         {
             public int InitialTargetEnemiesOnScreen;
+            public int FinalTargetEnemiesOnScreen;
+            public float TargetEnemiesOnScreenRampSeconds;
 
             public float InitialSpawnTime;
-
-            [Obsolete(Constants.ObsoleteConstants.SpawnRampOverhaul)]
-            public float SpawnRateSlowStartInit;
-            [Obsolete(Constants.ObsoleteConstants.SpawnRampOverhaul)]
-            public float SpawnRateSlowStartScaleDurationSeconds;
         }
     }
 }

@@ -351,8 +351,7 @@ namespace Assets
             {
                 if (CurrentFireStrategy.UpdateActivates(playerFireScale * Player.FireSpeedScale))
                 {
-                    var bullets = CurrentFireStrategy.GetBullets(WeaponLevel, Player.FirePosition);
-                    FirePlayerBullets(bullets);
+                    FireCurrentStrategy();
 
                     _Othello.Fire();
                 }
@@ -371,6 +370,12 @@ namespace Assets
             }
 
             NotificationManager.RunFrame(deltaTime);
+        }
+
+        private  void FireCurrentStrategy()
+        {
+            var bullets = CurrentFireStrategy.GetBullets(WeaponLevel, Player.FirePosition);
+            FirePlayerBullets(bullets);
         }
 
         private void UpdateFireStrategy(float playerTime)
@@ -457,7 +462,9 @@ namespace Assets
 
         public void SetFireType(int index, bool skipDropDown = false, bool skipMessage = false, bool endlessTime = false)
         {
-            BfgBulletSpawner.Instance.DeactivateSelf();
+            // Immediately fire BFG if it's charging
+            if (BfgBulletSpawner.Instance.isActiveAndEnabled)
+                FireCurrentStrategy();
 
             FireStrategies.Index = index;
             CurrentFireStrategy.Reset();
