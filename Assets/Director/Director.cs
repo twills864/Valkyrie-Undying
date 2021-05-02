@@ -31,6 +31,8 @@ namespace Assets
 
         private static ExperienceManager Exp;
 
+        private static int EnemiesKilledSinceLastSpawn { get; set; }
+        private static FrameTimer TargetTimeToKill { get; set; }
         private static LoopingFrameTimer EnemySpawnTimer { get; set; }
 
         private static float TargetEnemiesOnScreen { get; set; }
@@ -52,7 +54,9 @@ namespace Assets
         public static void Init(DirectorBalance balance)
         {
             Balance = balance;
+            EnemiesKilledSinceLastSpawn = 0;
             EnemySpawnTimer = new LoopingFrameTimer(Balance.SpawnRate.InitialSpawnTime); // new InactiveLoopingFrameTimer();
+            TargetTimeToKill = new FrameTimer(2f * EnemySpawnTimer.ActivationInterval);
 
             ActiveEnemies.Clear();
             ActiveTrackedEnemiesCount = 0;
@@ -93,10 +97,13 @@ namespace Assets
             TotalTime += deltaTime;
 
             SpawnRateRamp.RunFrame(deltaTime);
+            TargetTimeToKill.Increment(deltaTime);
             float timeModifier = CalculateSpawnTimerModifier();
 
             if (EnemySpawnTimer.UpdateActivates(deltaTime * timeModifier))
+            {
                 SpawnEnemy();
+            }
         }
 
         public static void SetRetributionTimeScale(RetributionBullet bullet)
@@ -180,6 +187,12 @@ namespace Assets
 
             if (CheckForVictim && GameManager.Instance.VictimWasAutomatic)
                 enemy.IsVictim = true;
+
+            if (EnemiesKilledSinceLastSpawn > 1)
+            {
+                DifficultyRatio.IncreaseRatio("EnemiesKilledSinceLastSpawn > 1");
+            }
+            EnemiesKilledSinceLastSpawn = 0;
 
             EnemiesSpawned++;
         }
@@ -282,13 +295,28 @@ namespace Assets
             //    SpawnPowerup(enemy.transform.position);
 
             // TODO: Handle difficulty
-            DifficultyRatio.IncreaseRatio();
+            KilledDifficultyAdjust(enemy);
         }
 
         private static void EnemyEscaped(Enemy enemy)
         {
             // TODO: Handle difficulty
-            DifficultyRatio.DecreaseRatio();
+            DifficultyRatio.DecreaseRatio("Enemy escaped - decrease");
+        }
+
+        private static void KilledDifficultyAdjust(Enemy enemy)
+        {
+            EnemiesKilledSinceLastSpawn += enemy.ActiveTrackedEnemiesCountContribution;
+
+            // Killed before target time - increase difficulty
+            if (!TargetTimeToKill.Activated)
+                DifficultyRatio.IncreaseRatio("Killed before - increase");
+            else
+            {
+                DifficultyRatio.DecreaseRatio("Killed after - decrease");
+            }
+
+            TargetTimeToKill.Reset();
         }
 
         #endregion Enemy Deactivation
@@ -336,12 +364,12 @@ namespace Assets
 
         public static void IncreaseDifficulty()
         {
-            DifficultyRatio.IncreaseRatio();
+            DifficultyRatio.IncreaseRatio("NULL!");
         }
 
         public static void DecreaseDifficulty()
         {
-            DifficultyRatio.DecreaseRatio();
+            DifficultyRatio.DecreaseRatio("NULL!");
         }
 
         public static void ResetDifficulty()

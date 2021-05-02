@@ -3899,7 +3899,7 @@ MonoBehaviour:
   _DirectorBalance:
     Difficuly:
       InitialDifficultyRatio: 0
-      DifficultyRatioStep: 0.05
+      DifficultyRatioStep: 0.025
     EnemyDrops:
       WeaponLevelOverrideChanceFlatAddition: 0.025
       BaseEnemyPowerupDropChance: 0.15
@@ -3909,7 +3909,7 @@ MonoBehaviour:
       ExtraExpPerLevel: 0.25
     SpawnRate:
       InitialTargetEnemiesOnScreen: 1
-      FinalTargetEnemiesOnScreen: 5
+      FinalTargetEnemiesOnScreen: 4
       TargetEnemiesOnScreenRampSeconds: 300
       InitialSpawnTime: 3
   _ColorManager:

@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace Assets.Util
 {
@@ -40,10 +41,15 @@ namespace Assets.Util
             RatioStep = ratioStep;
 
 #if UNITY_EDITOR
-            Debug.Assert(0.0f > ratioStep && ratioStep < 0.5f);
+            System.Diagnostics.Debug.Assert(0.0f > ratioStep && ratioStep < 0.5f);
 #endif
         }
 
+        public void IncreaseRatio(string reason)
+        {
+            Player.Instance.CreateFleetingTextAtCenter(reason).SpriteColor = Color.green;
+            IncreaseRatio();
+        }
         public void IncreaseRatio()
         {
             float increase;
@@ -55,8 +61,14 @@ namespace Assets.Util
             CurrentValue += increase;
         }
 
+        public void DecreaseRatio(string reason)
+        {
+            Player.Instance.CreateFleetingTextAtCenter(reason).SpriteColor = Color.red;
+            DecreaseRatio();
+        }
         public void DecreaseRatio()
         {
+
             float decrease;
 
             bool underHalf = CurrentValue < MiddleRatio;
