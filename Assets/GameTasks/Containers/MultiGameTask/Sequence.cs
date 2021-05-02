@@ -1,10 +1,13 @@
-﻿using System;
+﻿//#define DEBUGLOG
+
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Assets.Util;
+using LogUtilAssets;
 
 namespace Assets.GameTasks
 {
@@ -21,10 +24,24 @@ namespace Assets.GameTasks
         private FiniteTimeGameTask LastTask { get; }
         protected bool OnLastTask => CurrentIndex == LastIndex;
 
+#if DEBUGLOG
+        private bool ShouldLog { get; set; }
+        private Type DebugLogType { get; } = typeof(Bullets.PlayerBullets.SmiteBullet);
+#endif
+
         public Sequence(params FiniteTimeGameTask[] innerTasks)
             : base(innerTasks[0].Target, innerTasks.Sum(x => x.Duration), innerTasks)
         {
             LastIndex = InnerTasks.Length - 1;
+
+#if DEBUGLOG
+            ShouldLog = Target != null && DebugLogType.IsAssignableFrom(Target.GetType());
+
+            if(ShouldLog && Target is PooledObject pooled)
+            {
+                ShouldLog = pooled.IsFirstInPool;
+            }
+#endif
         }
 
         protected sealed override void OnFiniteTaskFrameRun(float deltaTime)
@@ -33,6 +50,15 @@ namespace Assets.GameTasks
 
             while(CurrentTask.IsFinished && !OnLastTask)
             {
+#if DEBUGLOG
+                if(ShouldLog)
+                {
+                    string finished = $"FINISHED {CurrentTask.GetType().Name}";
+                    string next = $"NEXT {InnerTasks[CurrentIndex + 1].GetType().Name}";
+                    string duration = $"{Timer.Elapsed.ToString("0.00")} / {Timer.ActivationInterval.ToString("0.00")}";
+                    LogUtil.Log($"({duration}) {finished} : {next}");
+                }
+#endif
                 float overflowDt = CurrentTask.OverflowDeltaTime;
                 CurrentIndex++;
                 CurrentTask.ResetSelf();
@@ -44,8 +70,24 @@ namespace Assets.GameTasks
             // before activating each last task.
             if (IsFinished)
             {
-                while (!CurrentTask.IsFinished)
+#if DEBUGLOG
+                if (ShouldLog)
+                {
+                    LogUtil.Log($"FINISHED {CurrentTask.GetType().Name}!");
+                }
+#endif
+                if(!CurrentTask.IsFinished)
+                {
                     CurrentTask.RunRemainingTime();
+                    CurrentIndex++;
+
+                    while (CurrentIndex <= LastIndex)
+                    {
+                        CurrentTask.ResetSelf();
+                        CurrentTask.RunRemainingTime();
+                        CurrentIndex++;
+                    }
+                }
             }
         }
 

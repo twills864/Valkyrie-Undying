@@ -36,13 +36,22 @@ namespace Assets.Bullets.PlayerBullets
 
         public Sequence FadeOutSequence { get; set; }
         private bool IsDeactivating { get; set; }
+        private bool DamageActive { get; set; }
 
         protected virtual void OnSmiteBulletInit() { }
         protected sealed override void OnPlayerBulletInit()
         {
+            const float BlinkAlpha = 0.5f;
+            const float BlinkDelay = 0.05f;
+            var blinkOut = new GameTaskFunc(this, () => Alpha = BlinkAlpha);
+            var blinkDelay = new Delay(this, BlinkDelay);
+            var blinkIn = new GameTaskFunc(this, () => Alpha = 1.0f);
+            var turnOffDamage = new GameTaskFunc(this, () => DamageActive = false);
+
             var fade = new FadeTo(this, 0f, 1.0f);
             var deactivate = new GameTaskFunc(this, DeactivateSelf);
-            FadeOutSequence = new Sequence(fade, deactivate);
+            FadeOutSequence = new Sequence(blinkOut, blinkDelay, blinkIn, blinkDelay,
+                blinkOut, blinkDelay, blinkIn, turnOffDamage, fade, deactivate);
 
             OnSmiteBulletInit();
         }
@@ -50,6 +59,7 @@ namespace Assets.Bullets.PlayerBullets
         public sealed override void OnSpawn()
         {
             Alpha = 1.0f;
+            DamageActive = true;
             IsDeactivating = false;
             FadeOutSequence.ResetSelf();
         }
@@ -89,8 +99,13 @@ namespace Assets.Bullets.PlayerBullets
 
         public sealed override bool CollidesWithEnemy(Enemy enemy)
         {
-            bool isNewEnemy = !Head.HitEnemies.Where(x => x.IsTarget(enemy)).Any();
-            return isNewEnemy;
+            if (!DamageActive)
+                return false;
+            else
+            {
+                bool isNewEnemy = !Head.HitEnemies.Where(x => x.IsTarget(enemy)).Any();
+                return isNewEnemy;
+            }
         }
 
         public sealed override void OnCollideWithEnemy(Enemy enemy)
@@ -106,7 +121,7 @@ namespace Assets.Bullets.PlayerBullets
 
         protected override void OnPlayerBulletTriggerEnter2D(Collider2D collision)
         {
-            if(CollisionUtil.IsEnemyBullet(collision))
+            if(DamageActive && CollisionUtil.IsEnemyBullet(collision))
             {
                 var enemyBullet = collision.GetComponent<EnemyBullet>();
                 GameManager.Instance.ReflectBullet(enemyBullet);
@@ -134,16 +149,16 @@ namespace Assets.Bullets.PlayerBullets
             } while (link != null);
         }
 
-        //[Obsolete("Test method")]
-        //public static void DebugTestSmite()
-        //{
-        //    Vector3 startPosition = Player.Instance.FirePosition();
-        //    Vector3 targetPosition = SpaceUtil.WorldPositionUnderMouse();
+        [Obsolete("Test method")]
+        public static void DebugTestSmite()
+        {
+            Vector3 startPosition = Player.Instance.FirePosition;
+            Vector3 targetPosition = SpaceUtil.WorldPositionUnderMouse();
 
-        //    var enemy = GameManager.Instance._DebugEnemy;
+            var enemy = GameManager.Instance._DebugEnemy;
 
-        //    //SmiteJointBullet.StartSmite(startPosition, targetPosition, 10);
-        //    SmiteJointBullet.StartSmite(startPosition, enemy);
-        //}
+            //SmiteJointBullet.StartSmite(startPosition, targetPosition, 10);
+            SmiteJointBullet.StartSmite(startPosition, enemy);
+        }
     }
 }

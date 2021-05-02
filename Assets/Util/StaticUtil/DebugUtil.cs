@@ -147,10 +147,10 @@ namespace Assets.Util
                 }
             }
 
-            //SmiteBullet.DebugTestSmite();
+            SmiteBullet.DebugTestSmite();
             //PickupSpam();
 
-            TestRetribution();
+            //TestRetribution();
         }
 
         private static void InputKeypadPlus(KeyCode keyCode)

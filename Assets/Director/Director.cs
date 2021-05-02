@@ -301,7 +301,7 @@ namespace Assets
         private static void EnemyEscaped(Enemy enemy)
         {
             // TODO: Handle difficulty
-            DifficultyRatio.DecreaseRatio("Enemy escaped - decrease");
+            DifficultyRatio.DecreaseRatio("Enemy escaped");
         }
 
         private static void KilledDifficultyAdjust(Enemy enemy)
@@ -310,10 +310,10 @@ namespace Assets
 
             // Killed before target time - increase difficulty
             if (!TargetTimeToKill.Activated)
-                DifficultyRatio.IncreaseRatio("Killed before - increase");
+                DifficultyRatio.IncreaseRatio("Killed before");
             else
             {
-                DifficultyRatio.DecreaseRatio("Killed after - decrease");
+                DifficultyRatio.DecreaseRatio("Killed after");
             }
 
             TargetTimeToKill.Reset();
