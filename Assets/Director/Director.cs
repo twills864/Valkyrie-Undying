@@ -218,9 +218,9 @@ namespace Assets
 
             int numEnemies = ActiveTrackedEnemiesCount;
 
-            if (numEnemies < TargetEnemiesOnScreen)
-                modifier = 1.5f;
-            else if (numEnemies > TargetEnemiesOnScreen)
+            //if (numEnemies < TargetEnemiesOnScreen)
+                //modifier = 1.5f;
+            if (numEnemies > TargetEnemiesOnScreen)
                 modifier = 0.5f;
             else
                 modifier = 1.0f;
@@ -267,7 +267,7 @@ namespace Assets
             ActiveEnemies.Remove(enemy);
             ActiveTrackedEnemiesCount -= enemy.ActiveTrackedEnemiesCountContribution;
 
-            if (!ActiveEnemies.Any())
+            if (ActiveEnemies.Count < 2)
                 EnemySpawnTimer.ActivateSelf();
 
             if (enemy.InfluencesDirectorGameBalance)
