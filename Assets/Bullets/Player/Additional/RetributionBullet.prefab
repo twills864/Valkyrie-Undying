@@ -140,3 +140,4 @@ MonoBehaviour:
   _PermanentVelocityY: 0
   _ScaleInTime: 1
   _FadeTime: 2.5
+  _TimeScaleAlphaScale: 0.95

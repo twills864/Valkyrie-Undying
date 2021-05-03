@@ -26,6 +26,8 @@ namespace Assets.ObjectPooling
         private MortarGuide MortarGuidePrefab = null;
         [SerializeField]
         private LineRendererHost LineRendererHostPrefab = null;
+        [SerializeField]
+        private ProgressBar ProgressBarPrefab = null;
 
 #pragma warning restore 0414
 

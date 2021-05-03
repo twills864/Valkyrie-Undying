@@ -30,7 +30,6 @@ namespace Assets
     public class GameManager : MonoBehaviour
     {
         #region Debug
-
         private TestingType CurrentTest = TestingType.NewPowerup;
 
         public static Type OverrideEnemyType => null; // DebugUtil.GetOverrideEnemyType<BasicEnemy>();
@@ -72,7 +71,7 @@ namespace Assets
         public static GameManager Instance { get; private set; }
 
 
-        #region Prefabs
+        #region Prefab Properties
 
         [SerializeField]
         private PlayerFireStrategyManager _FireStrategyManager;
@@ -88,7 +87,7 @@ namespace Assets
 
 
 
-        #region Player Prefabs
+        #region Player Prefab Properties
 
         [SerializeField]
         public Player Player;
@@ -102,10 +101,10 @@ namespace Assets
         [SerializeField]
         private Scoreboard _Scoreboard = null;
 
-        #endregion Player Prefabs
+        #endregion Player Prefab Properties
 
 
-        #region Powerup Prefabs
+        #region Powerup Prefab Properties
 
         [SerializeField]
         private PowerupMenu _PowerupMenu = null;
@@ -119,10 +118,10 @@ namespace Assets
         [SerializeField]
         private SentinelManager _SentinelManager = null;
 
-        #endregion Powerup Prefabs
+        #endregion Powerup Prefab Properties
 
 
-        #region UI Prefabs
+        #region UI Prefab Properties
 
         [SerializeField]
         private RepeatingSpriteBar _RemainingLivesBar = null;
@@ -133,29 +132,32 @@ namespace Assets
         [SerializeField]
         private GameOverGUI _GameOverGUI = null;
 
-        #endregion UI Prefabs
+        //[SerializeField]
+        //private ProgressBar _ExpBar = null;
+
+        #endregion UI Prefab Properties
 
 
-        #region Debug Prefabs
+        #region Debug Prefab Properties
 
         [SerializeField]
         public Enemy _DebugEnemy;
         [SerializeField]
         public DebugUI DebugUi;
 
-        #endregion Debug Prefabs
+        #endregion Debug Prefab Properties
 
 
-        #region Screen Prefabs
+        #region Screen Prefab Properties
 
         [SerializeField]
         private Destructor _Destructor = null;
         [SerializeField]
         private ScreenEdgeColliderSet _ScreenEdgeColliderSet = null;
 
-        #endregion Screen Prefabs
+        #endregion Screen Prefab Properties
 
-        #region Misc Prefabs
+        #region Misc Prefab Properties
 
         [SerializeField]
         private PoolManager _PoolManager = null;
@@ -172,7 +174,14 @@ namespace Assets
         [SerializeField]
         private Sprite _LifeSprite = null;
 
-        #endregion Misc Prefabs
+        #endregion Misc Prefab Properties
+
+        #endregion Prefab Properties
+
+
+        #region Prefabs
+
+        //public ProgressBar ExpBar => _ExpBar;
 
         #endregion Prefabs
 
@@ -332,8 +341,6 @@ namespace Assets
 
         private void Update()
         {
-            //var lol = Instantiate(_LifeSprite);
-
             if (DebugPauseNextFrame)
             {
                 Debugger.Break();

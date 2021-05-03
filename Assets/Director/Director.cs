@@ -10,6 +10,7 @@ using Assets.Enemies;
 using Assets.GameTasks;
 using Assets.ObjectPooling;
 using Assets.Pickups;
+using Assets.UI;
 using Assets.Util;
 using UnityEngine;
 
@@ -104,6 +105,16 @@ namespace Assets
             {
                 SpawnEnemy();
             }
+
+            //float xp = DebugUI.Instance.DebugTextBox.GetFloat(0);
+
+            //if(xp != 0)
+            //{
+            //    var expBar = ReflectionUtil.GetMember<ProgressBar>(Exp, "ExpBar");
+            //    expBar.CurrentValue = xp;
+            //}
+
+
         }
 
         public static void SetRetributionTimeScale(RetributionBullet bullet)

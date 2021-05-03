@@ -166,8 +166,9 @@ namespace Assets.Util
         {
             Vector2 size = ((RectTransform)enemy.transform).rect.size;
 
+            const float TopMargin = 2.0f;
             float sizeY = size.y * enemy.transform.localScale.y;
-            GetWorldBoundsYTopHalf(sizeY, out float spawnYMin, out float spawnYMax);
+            GetWorldBoundsYTopHalf(sizeY + TopMargin, out float spawnYMin, out float spawnYMax);
             float spawnY = RandomUtil.Float(spawnYMin, spawnYMax);
 
             float sizeX = size.x * enemy.transform.localScale.x;

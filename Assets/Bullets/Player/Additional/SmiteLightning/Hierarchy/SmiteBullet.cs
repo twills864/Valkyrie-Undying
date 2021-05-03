@@ -65,7 +65,7 @@ namespace Assets.Bullets.PlayerBullets
         }
 
         // Smite bullets use the realDeltaTime for updates.
-        protected virtual void OnSmiteBulletFrameRun(float realDeltaTime) { }
+        protected virtual void OnSmiteBulletFrameRun(float retributionTime) { }
         protected sealed override void OnPlayerBulletFrameRun(float deltaTime, float realDeltaTime)
         {
             if (!IsDeactivating)
@@ -73,7 +73,8 @@ namespace Assets.Bullets.PlayerBullets
                 if (TargetEnemy.IsActive)
                     TargetPosition = TargetEnemy.Target.transform.position;
 
-                OnSmiteBulletFrameRun(realDeltaTime);
+                float retributionTime = realDeltaTime * Director.RetributionTimeScale;
+                OnSmiteBulletFrameRun(retributionTime);
             }
             else
                 FadeOutSequence.RunFrame(realDeltaTime);

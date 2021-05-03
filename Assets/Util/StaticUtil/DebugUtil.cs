@@ -318,7 +318,7 @@ namespace Assets.Util
             RetributionBullet.StartRetribution(position);
         }
 
-        private static TEnemy SpawnSpecificEnemy<TEnemy>() where TEnemy : Enemy
+        public static TEnemy SpawnSpecificEnemy<TEnemy>() where TEnemy : Enemy
         {
             var ret = PoolManager.Instance.EnemyPool.SpawnSpecificEnemy<TEnemy>();
             return ret;

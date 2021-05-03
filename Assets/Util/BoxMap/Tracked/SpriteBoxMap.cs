@@ -12,5 +12,10 @@ namespace Assets.Util
         {
             Sprite = Target.GetComponent<Renderer>();
         }
+
+        public SpriteBoxMap(MonoBehaviour target, Renderer renderer) : base(target)
+        {
+            Sprite = renderer;
+        }
     }
 }

@@ -5,7 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Assets.Enemies;
+using Assets.ObjectPooling;
+using Assets.UI;
 using Assets.Util;
+using UnityEngine;
 
 namespace Assets.DirectorHelpers
 {
@@ -18,6 +21,8 @@ namespace Assets.DirectorHelpers
         public float ExpToNextLevelIncrease { get; private set; }
         public float BaseEnemyExpRate { get; private set; }
 
+        private ProgressBar ExpBar { get; set; }
+
         public ExperienceManager(DirectorBalance balance)
         {
             CurrentLevel = 0;
@@ -25,6 +30,18 @@ namespace Assets.DirectorHelpers
             ExpToNextLevel = balance.Experience.ExpToFirstLevel;
             ExpToNextLevelIncrease = balance.Experience.ExtraExpPerLevel;
             BaseEnemyExpRate = balance.Experience.BaseEnemyExpRate;
+
+            ExpBar = PoolManager.Instance.UIElementPool.Get<ProgressBar>();
+            InitExpBar();
+        }
+
+        private void InitExpBar()
+        {
+            Vector3 pos = SpaceUtil.WorldMap.Top - new Vector3(0, ExpBar.InitialSize.y * 1.5f);
+
+            ExpBar.transform.position = pos;
+            ExpBar.SetValues(0, ExpToNextLevel);
+            ExpBar.OnSpawn();
         }
 
         public bool KilledEnemyLevelsUp(Enemy enemy)
@@ -35,11 +52,17 @@ namespace Assets.DirectorHelpers
 
             bool levelUp = CurrentExp >= ExpToNextLevel;
 
-            if(levelUp)
+            if(!levelUp)
+            {
+                ExpBar.CurrentValue = CurrentExp;
+            }
+            else
             {
                 CurrentLevel++;
                 CurrentExp -= ExpToNextLevel;
                 ExpToNextLevel += ExpToNextLevelIncrease;
+
+                ExpBar.SetValues(CurrentExp, ExpToNextLevel);
             }
 
             return levelUp;

@@ -26,6 +26,9 @@ namespace Assets.Bullets.PlayerBullets
         [SerializeField]
         private float _FadeTime = GameConstants.PrefabNumber;
 
+        [SerializeField]
+        private float _TimeScaleAlphaScale = GameConstants.PrefabNumber;
+
         #endregion Prefabs
 
 
@@ -33,10 +36,11 @@ namespace Assets.Bullets.PlayerBullets
 
         private float FadeTime => _FadeTime;
         private float ScaleInTime => _ScaleInTime;
+        public float TimeScaleAlphaScale => _TimeScaleAlphaScale;
 
         #endregion Prefab Properties
 
-        public float RetributionTimeScaleValue => 1.0f - Alpha;
+        public float RetributionTimeScaleValue => 1.0f - (Alpha * TimeScaleAlphaScale);
 
         private float Scale { get; set; }
 

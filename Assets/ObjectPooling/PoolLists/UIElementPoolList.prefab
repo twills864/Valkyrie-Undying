@@ -59,3 +59,5 @@ MonoBehaviour:
     type: 3}
   LineRendererHostPrefab: {fileID: 7046676237579962594, guid: 35bdbc1be38e073469524fde2349d463,
     type: 3}
+  ProgressBarPrefab: {fileID: -526512498238539134, guid: 011430508a111ad4a80928de973c58e1,
+    type: 3}
