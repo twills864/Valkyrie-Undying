@@ -46,7 +46,14 @@ namespace Assets.Powerups
         {
             if (Level == 1)
             {
-                Player.Instance.VictimMarker = PoolManager.Instance.UIElementPool.Get<VictimMarker>();
+                if(Director.TryGetRandomEnemy(out Enemy enemy))
+                {
+                    enemy.IsVictim = true;
+                }
+                else
+                {
+                    Player.Instance.VictimMarker = PoolManager.Instance.UIElementPool.Get<VictimMarker>();
+                }
                 Director.StartCheckingForVictim();
             }
 

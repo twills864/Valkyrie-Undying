@@ -16,7 +16,7 @@ namespace Assets.Bullets.EnemyBullets
         public override bool CanReflect => false;
         protected override bool ShouldDeactivateOnDestructor => false;
 
-        public override float TimeScaleModifier => Parent.TimeScaleModifier;
+        public override float TimeScaleModifier => Parent?.TimeScaleModifier ?? Director.RetributionTimeScale;
 
         #region Prefabs
 

@@ -217,7 +217,13 @@ namespace Assets.Enemies
         protected override void OnEnemyDeactivate()
         {
             if (CurrentLaser?.LaserActivated == false)
+            {
                 CurrentLaser.DeactivateSelf();
+            }
+            else
+            {
+                CurrentLaser.Parent = null;
+            }
         }
     }
 }

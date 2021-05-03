@@ -35,7 +35,17 @@ namespace Assets.Powerups
         private float SpeedScale => SpeedScaleLevel.Value;
         private SumLevelValueCalculator SpeedScaleLevel { get; set; }
 
+        public override void OnLevelUp()
+        {
+            ActivateBloodlust();
+        }
+
         public override void OnKill(Enemy enemy, PlayerBullet bullet)
+        {
+            ActivateBloodlust();
+        }
+
+        private void ActivateBloodlust()
         {
             GameManager.Instance.SetBloodlust(Duration, SpeedScale);
         }

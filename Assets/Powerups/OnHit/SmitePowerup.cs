@@ -28,6 +28,12 @@ namespace Assets.Powerups
             ChanceCalculator = new SumLevelValueCalculator(chanceBase, chanceIncrease);
         }
 
+        public override void OnLevelUp()
+        {
+            if (Director.TryGetRandomEnemy(out Enemy enemy))
+                SmiteEnemy(enemy);
+        }
+
         public override void OnHit(Enemy enemy, PlayerBullet bullet, Vector3 hitPosition)
         {
             if(enemy.isActiveAndEnabled && RandomUtil.Bool(SmiteChance) && !(bullet is SmiteBullet))

@@ -36,7 +36,18 @@ namespace Assets.Powerups
         private float SizeScale => SizeScaleLevel.Value;
         private SumLevelValueCalculator SizeScaleLevel { get; set; }
 
+        public override void OnLevelUp()
+        {
+            foreach (var enemy in Director.GetAllActiveEnemies())
+                VoidEnemy(enemy);
+        }
+
         public override void OnKill(Enemy enemy, PlayerBullet bullet)
+        {
+            VoidEnemy(enemy);
+        }
+
+        private void VoidEnemy(Enemy enemy)
         {
             if (enemy.CanVoidPause)
             {
