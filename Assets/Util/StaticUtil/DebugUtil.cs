@@ -131,7 +131,7 @@ namespace Assets.Util
 
             //PoolManager.Instance.PickupPool.GetRandomPowerup(SpaceUtil.WorldMap.Center).OnSpawn();
 
-            SpawnSpecificEnemy<LaserEnemy>();
+            SpawnSpecificEnemy<RingEnemy>();
         }
 
         private static void InputMouseForward(KeyCode keyCode)

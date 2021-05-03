@@ -5,28 +5,27 @@ using System.Text;
 using System.Threading.Tasks;
 using Assets.Constants;
 using Assets.FireStrategies.EnemyFireStrategies;
+using Assets.UnityPrefabStructs;
 using Assets.Util;
 using UnityEngine;
 
 namespace Assets.Enemies
 {
-    public abstract class FireStrategyEnemy : Enemy
+    public abstract class BasicFireStrategyEnemy : Enemy
     {
         #region Prefabs
 
         [SerializeField]
-        private float _FireSpeed = GameConstants.PrefabNumber;
-
-        [SerializeField]
-        private float _FireSpeedVariance = GameConstants.PrefabNumber;
+        private VariantFireSpeed _VariantFireSpeed = default;
 
         #endregion Prefabs
 
 
         #region Prefab Properties
 
-        protected float FireSpeed => _FireSpeed;
-        protected float FireSpeedVariance => _FireSpeedVariance;
+        protected VariantFireSpeed VariantFireSpeed => _VariantFireSpeed;
+        protected float FireSpeed => _VariantFireSpeed.FireSpeed;
+        protected float FireSpeedVariance => _VariantFireSpeed.FireSpeedVariance;
 
         #endregion Prefab Properties
 

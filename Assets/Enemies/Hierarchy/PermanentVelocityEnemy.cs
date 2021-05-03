@@ -4,22 +4,19 @@ using UnityEngine;
 namespace Assets.Enemies
 {
     /// <inheritdoc/>
-    public abstract class PermanentVelocityEnemy : FireStrategyEnemy
+    public abstract class PermanentVelocityEnemy : BasicFireStrategyEnemy
     {
         #region Prefabs
 
         [SerializeField]
-        private float _PermanentVelocityX = GameConstants.PrefabNumber;
-        [SerializeField]
-        private float _PermanentVelocityY = GameConstants.PrefabNumber;
+        private Vector2 _PermanentVelocity;
 
         #endregion Prefabs
 
 
         #region Prefab Properties
 
-        protected float PermanentVelocityX => _PermanentVelocityX;
-        protected float PermanentVelocityY => _PermanentVelocityY;
+        protected Vector2 PermanentVelocity => _PermanentVelocity;
 
         #endregion Prefab Properties
 
@@ -30,7 +27,7 @@ namespace Assets.Enemies
         protected virtual void OnPermanentVelocityEnemyInit() { }
         protected sealed override void OnEnemyInit()
         {
-            _velocity = new Vector2(PermanentVelocityX, PermanentVelocityY);
+            _velocity = PermanentVelocity;
             OnPermanentVelocityEnemyInit();
         }
     }

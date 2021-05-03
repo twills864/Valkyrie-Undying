@@ -10,7 +10,7 @@ using UnityEngine.UI;
 namespace Assets.Enemies
 {
     /// <inheritdoc/>
-    public class DebugEnemy : FireStrategyEnemy
+    public class DebugEnemy : BasicFireStrategyEnemy
     {
         protected override bool ShouldDeactivateOnDestructor => false;
         public override bool DiesOnSmite => false;
@@ -53,7 +53,7 @@ namespace Assets.Enemies
         private int LastDamage { get; set; }
 
         protected override EnemyFireStrategy InitialFireStrategy()
-            => new VariantLoopingEnemyFireStrategy<BasicEnemyBullet>(FireSpeed, FireSpeedVariance);
+            => new VariantLoopingEnemyFireStrategy<BasicEnemyBullet>(VariantFireSpeed);
             //=> new InactiveEnemyStrategy();
 
         protected override void OnEnemyInit()

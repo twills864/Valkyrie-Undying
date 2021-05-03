@@ -7,6 +7,6 @@ namespace Assets.Enemies
     public class BasicEnemy : PermanentVelocityEnemy
     {
         protected override EnemyFireStrategy InitialFireStrategy()
-            => new VariantLoopingEnemyFireStrategy<BasicEnemyBullet>(FireSpeed, FireSpeedVariance);
+            => new VariantLoopingEnemyFireStrategy<BasicEnemyBullet>(VariantFireSpeed);
     }
 }

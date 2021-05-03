@@ -142,7 +142,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _InitialSpawnHealth: 100000
   _HealthScaling: 1
-  _PowerupDropChanceOverride:
+  _ExpRatioOverride:
     ShouldOverride: 0
     Multiplier: 0
   _Sprite: {fileID: 1215291524090350062}
@@ -151,8 +151,9 @@ MonoBehaviour:
   _HealthBarOffsetScale: {x: 0, y: 0.8, z: 0}
   _DifficultyLevel: -1
   _FirstSpawnMinute: -1
-  _FireSpeed: 2
-  _FireSpeedVariance: 0
+  _VariantFireSpeed:
+    FireSpeed: 999999
+    FireSpeedVariance: 0
   _LastestDamageHealthBar: {fileID: 8401427043427129176}
   _DamageTextDistance: 1
   _DamageTextAngleStep: 30

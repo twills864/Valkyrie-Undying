@@ -35,7 +35,7 @@ namespace Assets.Enemies
         private EaseIn Ease { get; set; }
 
         protected override EnemyFireStrategy InitialFireStrategy()
-            => new VariantLoopingEnemyFireStrategy<RingEnemyBullet>(FireSpeed, FireSpeedVariance);
+            => new RingEnemyFireStrategy(VariantFireSpeed);
 
         protected override void OnEnemySpawn()
         {

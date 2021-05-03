@@ -162,7 +162,7 @@ MonoBehaviour:
   _HealthBarOffsetScale: {x: 0, y: 0.5, z: 0}
   _DifficultyLevel: 1
   _FirstSpawnMinute: 0
-  _FireSpeed: 5
-  _FireSpeedVariance: 0.5
-  _PermanentVelocityX: 0
-  _PermanentVelocityY: -1
+  _VariantFireSpeed:
+    FireSpeed: 5
+    FireSpeedVariance: 0.5
+  _PermanentVelocity: {x: 0, y: -1}

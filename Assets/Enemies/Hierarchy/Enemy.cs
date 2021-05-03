@@ -19,6 +19,13 @@ namespace Assets.Enemies
         public override string LogTagColor => "#FFB697";
         public override TimeScaleType TimeScale => TimeScaleType.Enemy;
 
+        #region Property Fields
+
+        private VictimMarker _victimMarker;
+        private int _infernoDamage;
+
+        #endregion Property Fields
+
         #region Prefabs
 
         // The health this enemy spawns with at the start of the game.
@@ -38,9 +45,6 @@ namespace Assets.Enemies
         // It can be overridden here.
         [SerializeField]
         private EnemyExpOverride _ExpRatioOverride = default;
-
-        [SerializeField]
-        private Tuple<bool, int> _lol;
 
         [SerializeField]
         private SpriteRenderer _Sprite = null;
@@ -169,7 +173,8 @@ namespace Assets.Enemies
         protected virtual void OnEnemyFrame(float deltaTime, float realDeltaTime) { }
         protected sealed override void OnFrameRun(float deltaTime, float realDeltaTime)
         {
-            if (IsBurning && InfernoTimer.UpdateActivates(realDeltaTime))
+            float retributionTime = realDeltaTime * Director.RetributionTimeScale;
+            if (IsBurning && InfernoTimer.UpdateActivates(retributionTime))
             {
                 if (BurnKills())
                     return;
@@ -202,7 +207,7 @@ namespace Assets.Enemies
             HealthBar = null;
 
 #if UNITY_EDITOR
-            if(!DespawnHandledByDirector)
+            if (!DespawnHandledByDirector)
             {
                 const string Message = "ERROR: ENEMY DEACTIVATED THAT WAS NOT HANDLED BY DIRECTOR.";
                 Log(Message);
@@ -302,7 +307,6 @@ namespace Assets.Enemies
             }
         }
 
-        private VictimMarker _victimMarker;
         public VictimMarker VictimMarker
         {
             get => _victimMarker;
@@ -350,7 +354,13 @@ namespace Assets.Enemies
 
         protected virtual float InfernoDamageScale => 1f;
         public virtual int InfernoDamageIncrease { get; protected set; }
-        protected int InfernoDamage { get; set; }
+
+        private const int InfernoDamageMax = 15;
+        protected int InfernoDamage
+        {
+            get => _infernoDamage;
+            set => _infernoDamage = Math.Min(value, InfernoDamageMax);
+        }
         public bool IsBurning { get; set; }
 
         public void Ignite(int baseDamage, int damageIncreasePerTick)
@@ -396,7 +406,6 @@ namespace Assets.Enemies
 
         public virtual bool CanVoidPause => true;
 
-        private int _voidPauseCounter;
         protected int VoidPauseCounter;
 
         public override bool IsPaused => IsVoidPaused;
@@ -406,7 +415,7 @@ namespace Assets.Enemies
 
         public void VoidPause()
         {
-            if(CanVoidPause)
+            if (CanVoidPause)
             {
                 if (!IsVoidPaused)
                 {

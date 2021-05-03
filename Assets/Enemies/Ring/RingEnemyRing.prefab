@@ -134,10 +134,10 @@ MonoBehaviour:
   _HealthBarOffsetScale: {x: 0, y: -0.5, z: 0}
   _DifficultyLevel: -1
   _FirstSpawnMinute: -1
-  _FireSpeed: 0
-  _FireSpeedVariance: 0
-  _PermanentVelocityX: 0
-  _PermanentVelocityY: 0
+  _VariantFireSpeed:
+    FireSpeed: 0
+    FireSpeedVariance: 0
+  _PermanentVelocity: {x: 0, y: 0}
 --- !u!58 &8387141582971678222
 CircleCollider2D:
   m_ObjectHideFlags: 0

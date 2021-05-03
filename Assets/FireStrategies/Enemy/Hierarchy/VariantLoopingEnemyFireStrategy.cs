@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Assets.Bullets.EnemyBullets;
 using Assets.ObjectPooling;
+using Assets.UnityPrefabStructs;
 using Assets.Util;
 
 namespace Assets.FireStrategies.EnemyFireStrategies
@@ -15,8 +16,8 @@ namespace Assets.FireStrategies.EnemyFireStrategies
         protected float FireSpeed { get; set; }
         protected float Variance { get; set; }
 
-        public VariantLoopingEnemyFireStrategy(float fireSpeed, float variance)
-            : this(PoolManager.Instance.EnemyBulletPool.GetPrefab<T>(), fireSpeed, variance)
+        public VariantLoopingEnemyFireStrategy(VariantFireSpeed variantFireSpeed)
+            : this(PoolManager.Instance.EnemyBulletPool.GetPrefab<T>(), variantFireSpeed.FireSpeed, variantFireSpeed.FireSpeedVariance)
         {
         }
 

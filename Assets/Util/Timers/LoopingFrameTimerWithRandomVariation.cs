@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using Assets.UnityPrefabStructs;
 
 namespace Assets.Util
 {
@@ -13,6 +14,10 @@ namespace Assets.Util
             float newActivationInterval = ActivationInterval + Variance;
             return new LoopingFrameTimerWithRandomVariation(newActivationInterval, Variance);
         }
+
+        public LoopingFrameTimerWithRandomVariation(VariantFireSpeed variantFireSpeed)
+            : this(variantFireSpeed.FireSpeed, variantFireSpeed.FireSpeedVariance)
+        { }
 
         public LoopingFrameTimerWithRandomVariation(float activationInterval, float plusOrMinusVariance)
             :base(activationInterval - plusOrMinusVariance)

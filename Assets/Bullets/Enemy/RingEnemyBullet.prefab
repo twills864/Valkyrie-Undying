@@ -136,5 +136,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _Sprite: {fileID: 3693954503732233064}
   _ReflectDamage: 15
-  _PermanentVelocityX: 0
-  _PermanentVelocityY: -2.5
+  _Speed: {x: 0.125, y: -2.5}
+  _OffsetX: 0.1
