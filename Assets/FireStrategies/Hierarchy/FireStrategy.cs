@@ -13,7 +13,12 @@ namespace Assets.FireStrategies
         {
         }
 
-        public virtual void Reset() => FireTimer.ActivateSelf();
+        protected virtual void OnReset() { }
+        public void Reset()
+        {
+            FireTimer.ActivateSelf();
+            OnReset();
+        }
 
         public bool UpdateActivates(float deltaTime) => FireTimer.UpdateActivates(deltaTime);
     }

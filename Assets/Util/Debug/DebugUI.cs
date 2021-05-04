@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using Assets.Enemies;
 using Assets.FireStrategies.PlayerFireStrategies;
 using Assets.Powerups;
 using Assets.UI.PowerupMenu;
@@ -172,11 +173,13 @@ namespace Assets.Util
         public void ButtonPressed(Button button)
         {
             //GameManager.ResetScene();
-            GameManager.Instance.LivesLeft = 0;
-            GameManager.Instance.TakeDamage();
+            //GameManager.Instance.LivesLeft = 0;
+            //GameManager.Instance.TakeDamage();
 
             //Color newRando = DebugUtil.GetRandomPlayerColor();
             //_GameManager.RecolorPlayerActivity(newRando);
+
+            DebugUtil.SpawnSpecificEnemy<TankEnemy>();
         }
 
         public void ShowPowerupMenuButtonPressed(Button button)

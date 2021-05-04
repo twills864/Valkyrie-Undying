@@ -58,10 +58,5 @@ namespace Assets.FireStrategies.PlayerFireStrategies
 
             return ret;
         }
-
-        public override void Reset()
-        {
-            base.Reset();
-        }
     }
 }

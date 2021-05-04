@@ -98,7 +98,7 @@ MonoBehaviour:
   _Sprite: {fileID: 2502820598910793803}
   _ReflectDamage: 0
   _FadeInTime: 0.75
-  _PrefireFullBrightTime: 0.75
+  _PrefireFullBrightTime: 1
   _FullBrightTime: 0.15
   _FadeTime: 0.5
   PrefireColor: {r: 1, g: 0, b: 0.2509804, a: 0.5019608}

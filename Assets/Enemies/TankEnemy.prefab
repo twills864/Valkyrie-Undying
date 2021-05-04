@@ -114,9 +114,13 @@ MonoBehaviour:
   _DifficultyLevel: 3
   _FirstSpawnMinute: 1
   _VariantFireSpeed:
-    FireSpeed: 3
-    FireSpeedVariance: 1
+    FireSpeed: 0.15
+    FireSpeedVariance: 0
   _PermanentVelocity: {x: 0, y: -0.5}
+  _FireSpeedExtra:
+    ReloadSpeed: 4
+    NumBulletsPerBurst: 3
+    SpeedVariancePerBullet: 0.2
 --- !u!60 &5966208440153828543
 PolygonCollider2D:
   m_ObjectHideFlags: 0

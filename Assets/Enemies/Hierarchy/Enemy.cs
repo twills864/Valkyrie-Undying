@@ -355,7 +355,7 @@ namespace Assets.Enemies
         protected virtual float InfernoDamageScale => 1f;
         public virtual int InfernoDamageIncrease { get; protected set; }
 
-        private const int InfernoDamageMax = 15;
+        private const int InfernoDamageMax = 10;
         protected int InfernoDamage
         {
             get => _infernoDamage;
