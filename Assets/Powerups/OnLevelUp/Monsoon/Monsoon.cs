@@ -124,9 +124,12 @@ namespace Assets.Powerups
 
         public void CreateRaindrop(Vector3 position, int damage)
         {
-            var raindrop = (RaindropBullet) MonsoonPool.Get();
-            raindrop.transform.position = position;
-            raindrop.RaindropDamage = damage;
+            if (SpaceUtil.PointIsInBounds(position))
+            {
+                var raindrop = (RaindropBullet)MonsoonPool.Get();
+                raindrop.transform.position = position;
+                raindrop.RaindropDamage = damage;
+            }
         }
 
         public void Kill()

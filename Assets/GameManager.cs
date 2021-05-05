@@ -700,7 +700,6 @@ namespace Assets
                 //LivesLeft = _StartingExtraLives;
 
                 //_Scoreboard.ResetScore();
-                _Scoreboard.gameObject.SetActive(false);
             }
         }
 
@@ -716,6 +715,8 @@ namespace Assets
                 _Monsoon.Kill();
                 _MonsoonSpawner.Kill();
                 _SentinelManager.Kill();
+
+                _Scoreboard.gameObject.SetActive(false);
             }
             else
             {

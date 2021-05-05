@@ -51,16 +51,14 @@ namespace Assets
         {
             get
             {
-                float modifier = TimeScaleManager.GetTimeScaleModifier(TimeScale)
-                    * RetributionTimeScale;
-
+                float modifier = TimeScaleManager.GetTimeScaleModifier(TimeScale);
                 return modifier;
             }
         }
 
         private void Update()
         {
-            float deltaTime = Time.deltaTime;
+            float deltaTime = Time.deltaTime * RetributionTimeScale;
             float representedDt = deltaTime * TimeScaleModifier;
 
             RunFrame(representedDt, deltaTime);

@@ -37,7 +37,7 @@ namespace Assets.FireStrategies.PlayerFireStrategies
             {
                 ret[i].transform.position = spawn;
 
-                if (!SpaceUtil.WorldMap.ContainsPoint(spawn))
+                if (!SpaceUtil.PointIsInBounds(spawn))
                     ret[i].RunTask(GameTaskFunc.DeactivateSelf(ret[i]));
 
                 spawn.x += offsetX;

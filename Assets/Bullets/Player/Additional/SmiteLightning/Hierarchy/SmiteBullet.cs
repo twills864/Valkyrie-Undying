@@ -20,8 +20,6 @@ namespace Assets.Bullets.PlayerBullets
         public sealed override int Damage => SmiteDamage;
         protected sealed override bool ShouldMarkSelfCollision => false;
 
-        public sealed override float TimeScaleModifier => Director.RetributionTimeScale;
-
         // Backwards-facing linked list with head node
         public SmiteBullet Head { get; protected set; }
         public SmiteBullet Previous { get; protected set; }
@@ -65,7 +63,7 @@ namespace Assets.Bullets.PlayerBullets
         }
 
         // Smite bullets use the realDeltaTime for updates.
-        protected virtual void OnSmiteBulletFrameRun(float retributionTime) { }
+        protected virtual void OnSmiteBulletFrameRun(float realDeltaTime) { }
         protected sealed override void OnPlayerBulletFrameRun(float deltaTime, float realDeltaTime)
         {
             if (!IsDeactivating)
@@ -73,8 +71,7 @@ namespace Assets.Bullets.PlayerBullets
                 if (TargetEnemy.IsActive)
                     TargetPosition = TargetEnemy.Target.transform.position;
 
-                float retributionTime = realDeltaTime * Director.RetributionTimeScale;
-                OnSmiteBulletFrameRun(retributionTime);
+                OnSmiteBulletFrameRun(realDeltaTime);
             }
             else
                 FadeOutSequence.RunFrame(realDeltaTime);

@@ -115,8 +115,6 @@ namespace Assets
             //    var expBar = ReflectionUtil.GetMember<ProgressBar>(Exp, "ExpBar");
             //    expBar.CurrentValue = xp;
             //}
-
-
         }
 
         public static void SetRetributionTimeScale(RetributionBullet bullet)

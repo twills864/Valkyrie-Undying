@@ -18,6 +18,12 @@ namespace Assets.Bullets.PlayerBullets
         protected sealed override bool ShouldDeactivateOnDestructor => false;
         protected sealed override bool ShouldMarkSelfCollision => false;
 
+        #region Property Fields
+
+        private bool _ShouldEraseBullet;
+
+        #endregion Property Fields
+
         #region Prefabs
 
         [SerializeField]
@@ -28,6 +34,7 @@ namespace Assets.Bullets.PlayerBullets
 
         [SerializeField]
         private float _TimeScaleAlphaScale = GameConstants.PrefabNumber;
+        private bool _shouldEraseBullet;
 
         #endregion Prefabs
 
@@ -48,6 +55,12 @@ namespace Assets.Bullets.PlayerBullets
 
         private MoveTo MoveToCenter { get; set; }
         private Sequence Sequence { get; set; }
+
+        private bool ShouldEraseBullet
+        {
+            get { _ShouldEraseBullet = !_ShouldEraseBullet; return _ShouldEraseBullet; }
+            set => _ShouldEraseBullet = !value;
+        }
 
         // Currently unused
         //private List<ValkyrieSprite> ManagedMiscSprites { get; set; }
@@ -104,6 +117,8 @@ namespace Assets.Bullets.PlayerBullets
 
             IsExploding = true;
 
+            ShouldEraseBullet = true;
+
             //ManagedMiscSprites.Clear();
             ManagedEnemies.Clear();
             ManagedEnemyBullets.Clear();
@@ -139,9 +154,9 @@ namespace Assets.Bullets.PlayerBullets
             if (CollisionUtil.IsEnemyBullet(collision))
             {
                 var enemyBullet = collision.GetComponent<EnemyBullet>();
-                //if (IsExploding)
-                //    enemyBullet.DeactivateSelf();
-                //else
+                if (IsExploding && ShouldEraseBullet)
+                    enemyBullet.DeactivateSelf();
+                else
                     ManagedEnemyBullets.Add(enemyBullet);
             }
             else if (CollisionUtil.IsPlayerBullet(collision))
@@ -187,7 +202,7 @@ namespace Assets.Bullets.PlayerBullets
 
         private void SetRetributionScales(float scale)
         {
-            foreach(var enumerable in AllManagedEnumerables)
+            foreach (var enumerable in AllManagedEnumerables)
             {
                 foreach (var sprite in enumerable)
                     sprite.SetRetributionTimeScale(this);

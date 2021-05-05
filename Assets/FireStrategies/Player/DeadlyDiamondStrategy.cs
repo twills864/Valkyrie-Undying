@@ -135,7 +135,7 @@ namespace Assets.FireStrategies.PlayerFireStrategies
         //        var velocity = MathUtil.Vector2AtDegreeAngle(angle, speed);
         //        diamond.Velocity = velocity;
 
-        //        if (!SpaceUtil.WorldMap.ContainsPoint(spawn))
+        //        if (!SpaceUtil.PointIsInBounds(spawn))
         //            diamond.RunTask(GameTaskFunc.DeactivateSelf(ret[i]));
 
         //        spawn.x += offsetX;

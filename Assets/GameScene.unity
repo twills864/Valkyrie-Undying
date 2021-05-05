@@ -3787,7 +3787,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27c84a57f331f5a438121a77a2babd19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DebugPauseNextFrame: 0
   _FireStrategyManager:
     BaseFireSpeed: 0.75
     PlayerRatios:
@@ -3909,6 +3908,7 @@ MonoBehaviour:
       ExtraExpPerLevel: 0.25
     SpawnRate:
       InitialTargetEnemiesOnScreen: 1
+      SecondsUntilTargetEnemyIncrease: 75
       FinalTargetEnemiesOnScreen: 4
       TargetEnemiesOnScreenRampSeconds: 300
       InitialSpawnTime: 3
@@ -3936,7 +3936,7 @@ MonoBehaviour:
       OneUp: {r: 0, g: 1, b: 0, a: 1}
   Player: {fileID: 8345851456146834253}
   _Othello: {fileID: 1232855628}
-  _StartingExtraLives: 2
+  _StartingExtraLives: 1
   _Scoreboard: {fileID: 591635166}
   _PowerupMenu: {fileID: 2066797313}
   _Monsoon: {fileID: 2109226220}
@@ -3952,7 +3952,7 @@ MonoBehaviour:
   _PoolManager: {fileID: 1431298137}
   _InitialWeaponTime: 15
   _WeaponRainTime: 30
-  _OneUpRainTime: 57.777
+  _OneUpRainTime: 111
   _LifeSprite: {fileID: 21300000, guid: 447eb817a26506049801485b5cb2fbc1, type: 3}
 --- !u!4 &1640542552
 Transform:

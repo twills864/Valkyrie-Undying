@@ -173,8 +173,7 @@ namespace Assets.Enemies
         protected virtual void OnEnemyFrame(float deltaTime, float realDeltaTime) { }
         protected sealed override void OnFrameRun(float deltaTime, float realDeltaTime)
         {
-            float retributionTime = realDeltaTime * Director.RetributionTimeScale;
-            if (IsBurning && InfernoTimer.UpdateActivates(retributionTime))
+            if (IsBurning && InfernoTimer.UpdateActivates(realDeltaTime))
             {
                 if (BurnKills())
                     return;

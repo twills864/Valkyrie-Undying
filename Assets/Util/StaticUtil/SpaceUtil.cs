@@ -265,6 +265,17 @@ namespace Assets.Util
             return posY;
         }
 
+        /// <summary>
+        /// Determines whether or not a given world <paramref name="point"/>
+        /// exists within the bounds of the world map.
+        /// </summary>
+        /// <param name="point">The point to check.</param>
+        /// <returns>True if the point exists inside the world map; false otherwise.</returns>
+        public static bool PointIsInBounds(Vector3 point)
+        {
+            bool inside = SpaceUtil.WorldMap.ContainsPoint(point);
+            return inside;
+        }
 
 
         /// <summary>

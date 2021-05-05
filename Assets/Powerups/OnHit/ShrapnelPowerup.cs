@@ -32,7 +32,7 @@ namespace Assets.Powerups
 
         public override void OnHit(Enemy enemy, PlayerBullet bullet, Vector3 hitPosition)
         {
-            if (SpaceUtil.WorldMap.ContainsPoint(hitPosition) && RandomUtil.Bool(ShrapnelChance))
+            if (SpaceUtil.PointIsInBounds(hitPosition) && RandomUtil.Bool(ShrapnelChance))
             {
                 float widthRatio = enemy.ColliderMap.ClampedRatioOfWidth(hitPosition.x);
                 widthRatio = (widthRatio - 0.5f) * 2f;

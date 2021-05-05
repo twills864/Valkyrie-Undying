@@ -73,11 +73,11 @@ namespace Assets.Bullets.PlayerBullets
             NextBranchTimer.Reset();
         }
 
-        protected sealed override void OnSmiteBulletFrameRun(float retributionTime)
+        protected sealed override void OnSmiteBulletFrameRun(float realDeltaTime)
         {
             if (!NextBranchTimer.Activated)
             {
-                if (NextBranchTimer.UpdateActivates(retributionTime))
+                if (NextBranchTimer.UpdateActivates(realDeltaTime))
                     SpawnNextBranch(NextBranchTimer.OverflowDeltaTime);
             }
         }
