@@ -37,7 +37,8 @@ namespace Assets
         private static LoopingFrameTimer EnemySpawnTimer { get; set; }
 
         private static float TargetEnemiesOnScreen { get; set; }
-        private static ApplyFloatValueOverTime SpawnRateRamp { get; set; }
+        private static float TargetEnemiesIncreasePerSecond { get; set; }
+        //private static ApplyFloatValueOverTime SpawnRateRamp { get; set; }
 
         private static List<Enemy> ActiveEnemies = new List<Enemy>();
         private static int ActiveTrackedEnemiesCount { get; set; }
@@ -97,7 +98,8 @@ namespace Assets
 
             TotalTime += deltaTime;
 
-            SpawnRateRamp.RunFrame(deltaTime);
+            TargetEnemiesOnScreen += TargetEnemiesIncreasePerSecond * deltaTime;
+            //SpawnRateRamp.RunFrame(deltaTime);
             TargetTimeToKill.Increment(deltaTime);
             float timeModifier = CalculateSpawnTimerModifier();
 
@@ -133,7 +135,10 @@ namespace Assets
 
         private static void InitSpawnMechanics()
         {
+            // On mobile, DebugEnemy deactivation will activate the spawn timer for us.
+#if UNITY_EDITOR
             EnemySpawnTimer.ActivateSelf();
+#endif
             EnemyPoolList = PoolManager.Instance.EnemyPool;
 
             var pools = EnemyPoolList.GetSpawnableEnemyPools().OrderBy(x => x.ObjectPrefab.FirstSpawnMinute);
@@ -142,7 +147,9 @@ namespace Assets
             HighestSpawnableIndex = 0;
             AdjustHighestSpawnableIndex();
 
-            InitSpawnClamp();
+            TargetEnemiesOnScreen = Balance.SpawnRate.InitialTargetEnemiesOnScreen;
+            TargetEnemiesIncreasePerSecond = 1f / Balance.SpawnRate.SecondsUntilTargetEnemyIncrease;
+            //InitSpawnClamp();
 
             #region // Dirty spawn info debug UI
             //DebugUI.SetDebugLabel("Enemy Spawn", () =>
@@ -165,16 +172,16 @@ namespace Assets
             #endregion
         }
 
-        private static void InitSpawnClamp()
-        {
-            Action<float> SetTarget = x => TargetEnemiesOnScreen = x;
-            float targetStart = Balance.SpawnRate.InitialTargetEnemiesOnScreen;
-            float targetEnd = Balance.SpawnRate.FinalTargetEnemiesOnScreen;
-            float clampDuration = Balance.SpawnRate.TargetEnemiesOnScreenRampSeconds;
+        //private static void InitSpawnClamp()
+        //{
+        //    Action<float> SetTarget = x => TargetEnemiesOnScreen = x;
+        //    float targetStart = Balance.SpawnRate.InitialTargetEnemiesOnScreen;
+        //    float targetEnd = Balance.SpawnRate.FinalTargetEnemiesOnScreen;
+        //    float clampDuration = Balance.SpawnRate.TargetEnemiesOnScreenRampSeconds;
 
-            SpawnRateRamp = new ApplyFloatValueOverTime(null, SetTarget, targetStart, targetEnd, clampDuration);
-            TargetEnemiesOnScreen = targetStart;
-        }
+        //    SpawnRateRamp = new ApplyFloatValueOverTime(null, SetTarget, targetStart, targetEnd, clampDuration);
+        //    TargetEnemiesOnScreen = targetStart;
+        //}
 
         public static void SpawnEnemy()
         {

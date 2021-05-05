@@ -38,7 +38,7 @@ namespace Assets.FireStrategies.EnemyFireStrategies
             int varianceIndex = FireCounter + NumBulletsPerBurst;
             float variance = varianceIndex * SpeedVariancePerBullet;
 
-            float velocityX = FireXFlip * RandomUtil.Float(variance * 0.5f, variance);
+            float velocityX = FireXFlip * RandomUtil.Float(0, variance);
             FireXFlip *= -1f;
             bullet.Velocity = new Vector2(velocityX, bullet.Speed);
 

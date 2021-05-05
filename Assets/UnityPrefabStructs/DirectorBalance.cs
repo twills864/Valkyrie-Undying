@@ -42,7 +42,11 @@ namespace Assets
         public struct SpawnRateInfo
         {
             public int InitialTargetEnemiesOnScreen;
+            public float SecondsUntilTargetEnemyIncrease;
+
+            [Obsolete]
             public int FinalTargetEnemiesOnScreen;
+            [Obsolete]
             public float TargetEnemiesOnScreenRampSeconds;
 
             public float InitialSpawnTime;

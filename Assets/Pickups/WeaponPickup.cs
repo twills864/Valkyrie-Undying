@@ -16,10 +16,5 @@ namespace Assets.Pickups
         {
             GameManager.Instance.SetFireType(FireStrategyIndex);
         }
-
-        protected override void OnDeactivate()
-        {
-            GameManager.Instance.ResetWeaponRainTimer();
-        }
     }
 }

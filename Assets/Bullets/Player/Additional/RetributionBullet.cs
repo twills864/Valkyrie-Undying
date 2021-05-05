@@ -139,9 +139,9 @@ namespace Assets.Bullets.PlayerBullets
             if (CollisionUtil.IsEnemyBullet(collision))
             {
                 var enemyBullet = collision.GetComponent<EnemyBullet>();
-                if (IsExploding)
-                    enemyBullet.DeactivateSelf();
-                else
+                //if (IsExploding)
+                //    enemyBullet.DeactivateSelf();
+                //else
                     ManagedEnemyBullets.Add(enemyBullet);
             }
             else if (CollisionUtil.IsPlayerBullet(collision))

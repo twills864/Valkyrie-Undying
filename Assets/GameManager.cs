@@ -34,6 +34,7 @@ namespace Assets
 
         public static Type OverrideEnemyType => null; // DebugUtil.GetOverrideEnemyType<BasicEnemy>();
 
+        [NonSerialized]
         public bool DebugPauseNextFrame;
 
         private enum TestingType
@@ -225,7 +226,7 @@ namespace Assets
             _PoolManager.Init(in _ColorManager);
 
             WeaponResetTimer = new FrameTimer(InitialWeaponTime);
-            WeaponRainTimer = new FrameTimer(WeaponRainTime);
+            WeaponRainTimer = new LoopingFrameTimer(WeaponRainTime);
             WeaponRainTimer.TimeUntilActivation = 0.1f;
 
             OneUpRainTimer = new LoopingFrameTimer(OneUpRainTime);
@@ -406,18 +407,13 @@ namespace Assets
 
         private void WeaponRain(float deltaTime)
         {
-            if (!WeaponRainTimer.Activated && WeaponRainTimer.UpdateActivates(deltaTime))
+            if (WeaponRainTimer.UpdateActivates(deltaTime))
             {
                 var pickup = _PoolManager.PickupPool.Get<WeaponPickup>();
                 pickup.FireStrategyIndex = GetRandomAssignableFireIndex();
 
                 pickup.transform.position = RandomRainPosition(pickup);
             }
-        }
-
-        public void ResetWeaponRainTimer()
-        {
-            WeaponRainTimer.Reset();
         }
 
         private void OneUpRain(float deltaTime)
@@ -452,7 +448,7 @@ namespace Assets
         public int WeaponLevel { get; set; }
         public float WeaponTimeMax { get; set; } = 10f;
         public FrameTimer WeaponResetTimer { get; set; }
-        public FrameTimer WeaponRainTimer { get; set; }
+        public LoopingFrameTimer WeaponRainTimer { get; set; }
         public LoopingFrameTimer OneUpRainTimer { get; set; }
 
         private PlayerFireStrategy CurrentFireStrategy => FireStrategies[FireStrategies.Index];
