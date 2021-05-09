@@ -103,7 +103,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _InitialSpawnHealth: 250
-  _HealthScaling: 2.5
+  _HealthScaling: 2
   _ExpRatioOverride:
     ShouldOverride: 1
     Multiplier: 1.5
