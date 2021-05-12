@@ -38,6 +38,13 @@ namespace Assets.Bullets.PlayerBullets
 
         private Sequence Behavior { get; set; }
 
+        // Pause enemy without triggering OnHit powerups.
+        public sealed override bool CollidesWithEnemy(Enemy enemy)
+        {
+            OnCollideWithEnemy(enemy);
+            return false;
+        }
+
         public static VoidBullet StartVoid(Vector3 position, int level, float scale, float duration)
         {
             var bullet = PoolManager.Instance.BulletPool.Get<VoidBullet>(position);

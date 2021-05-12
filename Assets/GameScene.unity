@@ -3882,8 +3882,8 @@ MonoBehaviour:
     Passive:
       Inferno:
         FireSpeed:
-          Base: 3
-          ScalePerLevel: 0.8
+          Base: 6
+          ScalePerLevel: 0.75
         Damage:
           Base: 1
           Increase: 1

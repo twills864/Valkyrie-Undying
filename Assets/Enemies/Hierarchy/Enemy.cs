@@ -205,6 +205,8 @@ namespace Assets.Enemies
             HealthBar.DeactivateSelf();
             HealthBar = null;
 
+            ClearGameTasks();
+
 #if UNITY_EDITOR
             if (!DespawnHandledByDirector)
             {
@@ -214,7 +216,6 @@ namespace Assets.Enemies
                 GameManager.Instance.CreateFleetingText(Message, SpaceUtil.WorldMap.Center);
             }
 #endif
-
             OnEnemyDeactivate();
         }
 

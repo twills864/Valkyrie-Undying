@@ -120,11 +120,21 @@ namespace Assets.Util
 
         private static void InputMouseBack(KeyCode keyCode)
         {
-            //var moveTo = new MoveTo(GameManager._DebugEnemy, SpaceUtil.WorldMap.Center, 1f);
-            //var moveBy = new MoveBy(GameManager._DebugEnemy, new Vector3(1f, 1f), 1f);
-            //var ease = new EaseIn(moveBy);
+            var moveTo = new MoveTo(GameManager._DebugEnemy, SpaceUtil.WorldMap.Center, 1f);
+            var moveBy = new MoveBy(GameManager._DebugEnemy, new Vector3(1f, 1f), 1f);
+            var ease = new EaseIn(moveTo);
 
-            //GameManager._DebugEnemy.RunTask(ease);
+            GameManager._DebugEnemy.RunTask(ease);
+
+            foreach(var enemy in Director.GetAllActiveEnemies())
+            {
+                var moveBy2 = new MoveBy(enemy, new Vector3(1f, 1f), 1f);
+                var ease2 = new EaseIn(moveBy2);
+                var moveBy22 = new MoveBy(enemy, new Vector3(-1f, -1f), 1f);
+                var ease22 = new EaseIn(moveBy22);
+                var seq = new Sequence(ease2, ease22);
+                enemy.RunTask(seq);
+            }
 
             //PoolManager.Instance.PickupPool.Get<WeaponPickup>(SpaceUtil.WorldMap.Top);
             //GameManager.SpawnPowerup(SpaceUtil.WorldMap.Center);

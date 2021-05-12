@@ -62,7 +62,7 @@ namespace Assets
 #if UNITY_EDITOR
         private float MobileYOffset => _MobileYOffset;
 #else
-        private float MobileYOffset => _MobileYOffset * 2.0f;
+        private float MobileYOffset => _MobileYOffset * 2.5f;
 #endif
         public float VictimMarkerDistance => _VictimMarkerDistance;
         private LineRenderer LaserPointer => _LaserPointer;
@@ -351,6 +351,7 @@ namespace Assets
             BloodlustAuraObject.SetActive(false);
             MortarGuide.gameObject.SetActive(false);
             VictimMarker?.StartDeactivation();
+            BfgBulletSpawner.Instance.DeactivateSelf();
         }
 
 #endregion Damage

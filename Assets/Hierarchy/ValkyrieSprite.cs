@@ -135,7 +135,7 @@ namespace Assets
 
         public void RunTask(GameTask task)
         {
-            GameManager.Instance.StartTask(task, TimeScale);
+            GameManager.Instance.StartTask(task);
         }
 
         protected void ClearGameTasks()

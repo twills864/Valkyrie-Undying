@@ -16,18 +16,20 @@ namespace Assets.GameTasks.GameTaskLists
             for (int i = Count - 1; i >= 0; i--)
             {
                 var task = this[i];
+                var target = task.Target;
 
 #if DEBUG
-                if (!task.Target.isActiveAndEnabled)
+                if (!target.isActiveAndEnabled)
                 {
-                    LogUtil.Log("Disabled task is running in GameTaskList!", task.Target);
+                    LogUtil.Log("Disabled task is running in GameTaskList!", target);
                     System.Diagnostics.Debugger.Break();
                 }
 #endif
 
-                if (!task.Target.IsPaused)
+                if (!target.IsPaused)
                 {
-                    task.RunFrame(deltaTime);
+                    float scaledTime = deltaTime * target.TimeScaleModifier * target.RetributionTimeScale;
+                    task.RunFrame(scaledTime);
                     if (task.IsFinished)
                         RemoveAt(i);
                 }

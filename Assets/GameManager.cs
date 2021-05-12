@@ -374,7 +374,7 @@ namespace Assets
                 Director.RunFrame(enemyDeltaTime, deltaTime);
 
                 _PowerupManager.PassiveUpdate(playerFireScale, deltaTime);
-                GameTaskLists.RunFrames(playerFireScale, deltaTime, deltaTime, deltaTime);
+                ManagedGameTasks.RunFrames(deltaTime);
             }
 
             NotificationManager.RunFrame(deltaTime);
@@ -728,38 +728,16 @@ namespace Assets
 
 #region Game Tasks
 
-        private GameTaskListManager GameTaskLists = new GameTaskListManager();
+        private GameTaskListManager ManagedGameTasks { get; } = new GameTaskListManager();
 
-        public void StartTask(GameTask task, TimeScaleType taskType)
+        public void StartTask(GameTask task)
         {
-            GameTaskLists.StartTask(task, taskType);
+            ManagedGameTasks.AddTask(task);
         }
 
         public void GameTaskRunnerDeactivated(ValkyrieSprite target)
         {
-            GameTaskLists.GameTaskRunnerDeactivated(target);
-        }
-
-
-        public void AddPlayerTask(GameTask task)
-        {
-            GameTaskLists.PlayerGameTaskList.Add(task);
-        }
-        public void AddBulletTask(GameTask task)
-        {
-            GameTaskLists.BulletGameTaskList.Add(task);
-        }
-        public void AddEnemyTask(GameTask task)
-        {
-            GameTaskLists.EnemyGameTaskList.Add(task);
-        }
-        public void AddEnemyBulletTask(GameTask task)
-        {
-            GameTaskLists.EnemyBulletGameTaskList.Add(task);
-        }
-        public void AddUIElementTask(GameTask task)
-        {
-            GameTaskLists.UIElementGameTaskList.Add(task);
+            ManagedGameTasks.GameTaskRunnerDeactivated(target);
         }
 
 #endregion Game Tasks
