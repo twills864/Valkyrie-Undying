@@ -23,6 +23,7 @@ using System.Linq;
 using System.Collections.Generic;
 using Assets.Pickups;
 using UnityEngine.SceneManagement;
+using Assets.Background;
 
 namespace Assets
 {
@@ -85,6 +86,12 @@ namespace Assets
 
         [SerializeField]
         private ColorManager _ColorManager;
+
+        [SerializeField]
+        private LoopingBackgroundSprite _SpaceLarge;
+
+        [SerializeField]
+        private LoopingBackgroundSprite _SpaceSmall;
 
 
 
@@ -272,6 +279,8 @@ namespace Assets
             //_Othello.Alpha = _ColorManager.Player.OthelloAlpha;
             _Othello.Init();
             Player.Init(in _FireStrategyManager);
+            _SpaceLarge.Init();
+            _SpaceSmall.Init();
 
             _RemainingLivesBar.Init(spritesOffsetFromTop: 2);
 
