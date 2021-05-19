@@ -23,7 +23,7 @@ namespace Assets.Background
 
         #region Prefab Properties
 
-        public float Speed => _Speed;
+        public float Speed => gameObject.name.Contains("Large") ? DebugUI.Instance.DebugTextBox.GetFloat(_Speed) : _Speed;
         private SpriteRenderer Sprite => _Sprite;
 
         #endregion Prefab Properties
