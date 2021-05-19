@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 447eb817a26506049801485b5cb2fbc1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d05d91c9fc6102d45a24905fcd703ae4, type: 3}
   m_Color: {r: 0.3764706, g: 0.827451, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -122,8 +122,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _Sprite: {fileID: 1173633443530965504}
   _BloodlustAuraObject: {fileID: 5388168560827903027}
+  _MortarGuide: {fileID: 0}
   _MobileYOffset: 1.5
   _VictimMarkerDistance: 0.75
+  _LaserPointer: {fileID: 0}
+  _PlayerIFrames:
+    BlinkFadeOutAlpha: 0
+    BlinkFadeInAlpha: 0
+    StandardBlinks:
+      NumBlinks: 0
+      OneBlinkTime: 0
+    FinalBlinks:
+      NumBlinks: 0
+      OneBlinkTime: 0
+    GracePeriodTime: 0
 --- !u!60 &5303219948123075438
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -141,7 +153,7 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 0.98, y: 0.75}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -149,9 +161,9 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0, y: 0.5}
-      - {x: -0.4330127, y: -0.25000003}
-      - {x: 0.43301272, y: -0.24999996}
+    - - {x: 0, y: 0.37626362}
+      - {x: -0.48431802, y: -0.28319767}
+      - {x: 0.48130006, y: -0.28017944}
 --- !u!120 &5303219948123075426
 LineRenderer:
   m_ObjectHideFlags: 0

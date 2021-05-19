@@ -126,22 +126,26 @@ namespace Assets.Util
 
             GameManager._DebugEnemy.RunTask(ease);
 
-            foreach(var enemy in Director.GetAllActiveEnemies())
-            {
-                var moveBy2 = new MoveBy(enemy, new Vector3(1f, 1f), 1f);
-                var ease2 = new EaseIn(moveBy2);
-                var moveBy22 = new MoveBy(enemy, new Vector3(-1f, -1f), 1f);
-                var ease22 = new EaseIn(moveBy22);
-                var seq = new Sequence(ease2, ease22);
-                enemy.RunTask(seq);
-            }
+            //foreach(var enemy in Director.GetAllActiveEnemies())
+            //{
+            //    var moveBy2 = new MoveBy(enemy, new Vector3(1f, 1f), 1f);
+            //    var ease2 = new EaseIn(moveBy2);
+            //    var moveBy22 = new MoveBy(enemy, new Vector3(-1f, -1f), 1f);
+            //    var ease22 = new EaseIn(moveBy22);
+            //    var seq = new Sequence(ease2, ease22);
+            //    enemy.RunTask(seq);
+            //}
 
             //PoolManager.Instance.PickupPool.Get<WeaponPickup>(SpaceUtil.WorldMap.Top);
             //GameManager.SpawnPowerup(SpaceUtil.WorldMap.Center);
 
             //PoolManager.Instance.PickupPool.GetRandomPowerup(SpaceUtil.WorldMap.Center).OnSpawn();
 
+            SpawnSpecificEnemy<BasicEnemy>();
+            SpawnSpecificEnemy<CradleEnemy>();
+            SpawnSpecificEnemy<RingEnemy>();
             SpawnSpecificEnemy<TankEnemy>();
+            SpawnSpecificEnemy<LaserEnemy>();
         }
 
         private static void InputMouseForward(KeyCode keyCode)
