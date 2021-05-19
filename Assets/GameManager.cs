@@ -327,7 +327,7 @@ namespace Assets
         private void InitIndependentColors()
         {
             var defaultPlayerAdditional = _ColorManager.DefaultPlayerAdditionalColor();
-            Player.SpriteColor = _ColorManager.DefaultPlayer;
+            //Player.SpriteColor = _ColorManager.DefaultPlayer;
             _Othello.SpriteColor = _ColorManager.DefaultPlayerColorWithAlpha(_ColorManager.Player.OthelloAlpha);
             _Monsoon.SpriteColor = defaultPlayerAdditional;
             _MonsoonSpawner.SpriteColor = defaultPlayerAdditional;

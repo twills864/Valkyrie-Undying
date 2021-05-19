@@ -80,7 +80,7 @@ SpriteRenderer:
   m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 6b592a1fe77755447a3e5ecce1d60d2f, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -131,14 +131,13 @@ MonoBehaviour:
   _Sprite: {fileID: 970539357841599256}
   _VictimMarkerDistance: 0.7
   _metronomeLabel: {fileID: 0}
-  _HealthBarOffsetScale: {x: 0, y: 0.5, z: 0}
+  _HealthBarOffsetScale: {x: 0, y: 0.45, z: 0}
   _DifficultyLevel: 3
   _FirstSpawnMinute: 1
   _VariantFireSpeed:
     FireSpeed: 3
     FireSpeedVariance: 0.5
   _PermanentVelocity: {x: 0, y: 0}
-  _RotationSpeed: 180
   _MinimumTravelTime: 2
 --- !u!60 &648843407322911302
 PolygonCollider2D:
@@ -157,7 +156,7 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.725, y: 0.81}
+    oldSize: {x: 0.91, y: 0.84}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0

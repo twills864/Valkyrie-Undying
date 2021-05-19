@@ -41,13 +41,13 @@ namespace Assets.ObjectPooling
             PoolMap.TryGetValue(GameManager.OverrideEnemyType, out var ret) ? ret : null;
 
         protected override Color GetDefaultColor(in ColorManager colorManager)
-            => colorManager.DefaultEnemy;
+            => Color.white; // colorManager.DefaultEnemy;
 
         protected override void OnInitSprites(in ColorManager colorManager)
         {
             var enemy = colorManager.Enemy;
 
-            TankPrefab.SpriteColor = enemy.Tank;
+            //TankPrefab.SpriteColor = enemy.Tank;
             RingEnemyRingPrefab.SpriteColor = enemy.RingEnemyRing;
         }
 

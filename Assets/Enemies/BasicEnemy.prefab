@@ -80,7 +80,7 @@ SpriteRenderer:
   m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 4c003cf4ff369e84da674d4798ac4603, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -159,7 +159,7 @@ MonoBehaviour:
   _Sprite: {fileID: 2513743728701105208}
   _VictimMarkerDistance: 0.6
   _metronomeLabel: {fileID: 0}
-  _HealthBarOffsetScale: {x: 0, y: 0.5, z: 0}
+  _HealthBarOffsetScale: {x: 0, y: 0.6, z: 0}
   _DifficultyLevel: 1
   _FirstSpawnMinute: 0
   _VariantFireSpeed:

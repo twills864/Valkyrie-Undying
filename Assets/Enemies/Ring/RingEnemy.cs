@@ -14,8 +14,6 @@ namespace Assets.Enemies
         #region Prefabs
 
         [SerializeField]
-        private float _RotationSpeed = GameConstants.PrefabNumber;
-        [SerializeField]
         private float _MinimumTravelTime = GameConstants.PrefabNumber;
 
         #endregion Prefabs
@@ -23,7 +21,6 @@ namespace Assets.Enemies
 
         #region Prefab Properties
 
-        private float RotationSpeed => _RotationSpeed;
         private float MinimumTravelTime => _MinimumTravelTime;
 
         #endregion Prefab Properties
@@ -62,7 +59,6 @@ namespace Assets.Enemies
         protected override void OnFireStrategyEnemyFrame(float deltaTime, float realDeltaTime)
         {
             Ease.RunFrame(deltaTime);
-            RotateSprite(deltaTime * RotationSpeed);
 
             if (Ring != null)
                 Ring.transform.position = new Vector3(transform.position.x, transform.position.y, 1f);

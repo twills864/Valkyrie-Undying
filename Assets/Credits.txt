@@ -8,6 +8,9 @@ Jared Bar's FlattenHierarchyProxy:
 https://stackoverflow.com/a/4818542
 http://blogs.msdn.com/b/jaredpar/archive/2010/02/19/flattening-class-hierarchies-when-debugging-c.aspx
 
-Player sprite and all enemy sprites:
+Player sprite:
+Made by Kenney Vleugels: www.kenney.nl
+
+All enemy sprites:
 Provided by Wisedawn: https://wisedawn.itch.io/
 Original graphics by Kenney Vleugels: www.kenney.nl
