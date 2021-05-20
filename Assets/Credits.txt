@@ -1,16 +1,31 @@
-Temporary cloud powerup sprite:
+Temporary cloud powerup sprite
 https://www.clipartmax.com/middle/m2i8K9H7A0A0K9i8_clip-art-of-clouds-and-sun-clip-art-of-clouds-in-the/
 
-MeshRendererSortingEditor.cs:
+MeshRendererSortingEditor.cs (Unlicense)
 https://gist.github.com/pavel-fadrhonc/ecbe4ff18e1a4a38a62214bbab69a0e2
 
-Jared Bar's FlattenHierarchyProxy:
-https://stackoverflow.com/a/4818542
-http://blogs.msdn.com/b/jaredpar/archive/2010/02/19/flattening-class-hierarchies-when-debugging-c.aspx
+Player sprite
+Kenney Vleugels' Space Shooter Redux (CC0 1.0 Universal): https://www.kenney.nl/assets/space-shooter-redux
 
-Player sprite:
-Made by Kenney Vleugels: www.kenney.nl
+All enemy sprites
+Original graphics by Kenney Vleugels (CC0): https://www.kenney.nl/assets/space-shooter-redux
+Arrangement provided by Wisedawn (CC0): https://opengameart.org/content/200-cc0-spaceship-sprites (https://wisedawn.itch.io/)
 
-All enemy sprites:
-Provided by Wisedawn: https://wisedawn.itch.io/
-Original graphics by Kenney Vleugels: www.kenney.nl
+
+SOUND EFFECTS:
+512 Sound Effects (8-bit style) (CC0) by SubspaceAudio: https://opengameart.org/content/512-sound-effects-8-bit-style
+Die for the Empire Sound Effects (lasers, bombs, explosions, bullets) (CC-BY-SA 3.0) by TheBlackSword: https://opengameart.org/content/die-for-the-empire-sound-effects-lasers-bombs-explosions-bullets
+
+
+MUSIC:
+"Level 3" by Juhani Junkala (CC0): https://opengameart.org/content/5-chiptunes-action
+"Awake! (Megawall-10)" by cynicmusic (CC0): (http://cynicmusic.com http://pixelsphere.org)
+"Silver" by ISAo (SOUND AIRYLUVS) (OGA-BY 3.0): (https://opengameart.org/content/progressive-trance-edm-silver https://airyluvs.com/)
+"The Evil Sacrifice Archenemies" by ISAo (SOUND AIRYLUVS) (OGA-BY 3.0): (https://opengameart.org/content/boss-battle-emotional-uplifting-metal-rock https://airyluvs.com/)
+"Uplifting Intense Electronic Trailer" by ISAo (SOUND AIRYLUVS) (OGA-BY 3.0): (https://opengameart.org/content/uplifting-intense-electronic-trailer https://airyluvs.com/)
+"Fantastic Japanese-Style Shoot 'em up Game Music" by ISAo (SOUND AIRYLUVS) (OGA-BY 3.0): (https://opengameart.org/content/fantastic-japanese-style-shoot-em-up-game-music https://airyluvs.com/)
+"Orbital Colossus" by Matthew Pablo (CC-BY 3.0): https://opengameart.org/content/space-boss-battle-theme http://www.matthewpablo.com
+
+-----------------------------------------------------------------------------
+No CC-BY 3.0 or OGA-BY 3.0 resources were modified from their original forms.
+-----------------------------------------------------------------------------

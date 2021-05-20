@@ -182,6 +182,9 @@ namespace Assets
         [SerializeField]
         private Sprite _LifeSprite = null;
 
+        [SerializeField]
+        private AudioSource _AudioSource = null;
+
         #endregion Misc Prefab Properties
 
         #endregion Prefab Properties
@@ -248,6 +251,8 @@ namespace Assets
 
             _GameOverGUI.Init();
             _Scoreboard.Init();
+
+            SoundManager.Init(_AudioSource);
 
             NotificationManager.Init(_Notification);
 
@@ -393,6 +398,8 @@ namespace Assets
         {
             var bullets = CurrentFireStrategy.GetBullets(WeaponLevel, Player.FirePosition);
             FirePlayerBullets(bullets);
+
+            SoundManager.PlayTestFire();
         }
 
         private void UpdateFireStrategy(float playerTime)
