@@ -354,6 +354,7 @@ namespace Assets
 
         #region Update
 
+        static int counter = 0;
         private void Update()
         {
             if (DebugPauseNextFrame)
@@ -399,7 +400,10 @@ namespace Assets
             var bullets = CurrentFireStrategy.GetBullets(WeaponLevel, Player.FirePosition);
             FirePlayerBullets(bullets);
 
-            SoundManager.PlayTestFire();
+            float pan = SpaceUtil.PanFromPosition(Player.Instance.PositionX);
+            SoundManager.PlayTestFire(pan);
+
+            //SoundManager.PlayTestFire();
         }
 
         private void UpdateFireStrategy(float playerTime)

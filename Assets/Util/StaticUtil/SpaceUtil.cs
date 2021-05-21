@@ -326,5 +326,23 @@ namespace Assets.Util
 
             return ret;
         }
+
+        #region Pan
+
+        public static float PanFromPosition(Vector3 position)
+        {
+            return PanFromPosition(position.x);
+        }
+
+        public static float PanFromPosition(float x)
+        {
+            float offsetFromCenter = x - SpaceUtil.WorldMap.Center.x;
+            float widthHalf = SpaceUtil.WorldMapSize.x * 0.5f;
+
+            float pan = offsetFromCenter / widthHalf;
+            return pan;
+        }
+
+        #endregion Pan
     }
 }
