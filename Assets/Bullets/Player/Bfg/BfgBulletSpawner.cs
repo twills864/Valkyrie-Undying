@@ -35,6 +35,8 @@ namespace Assets.Bullets.PlayerBullets
             Instance.ScaleXPerLevel = scaleXPerLevel;
         }
 
+        protected override AudioClip InitialFireSound => SoundBank.LaserCharge;
+
         #region Property Fields
 
         private float _fallbackDeactivationTime;

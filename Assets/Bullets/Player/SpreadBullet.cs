@@ -8,6 +8,7 @@ namespace Assets.Bullets.PlayerBullets
     {
         public override int Damage => CurrentDamage;
         public int CurrentDamage { get; private set; }
+        protected override AudioClip InitialFireSound => SoundBank.ShotgunHard;
 
         #region Prefabs
 

@@ -11,6 +11,7 @@ namespace Assets.Bullets.PlayerBullets
     public class ShrapnelBullet : PlayerBullet
     {
         protected override bool ShouldMarkSelfCollision => false;
+        protected override AudioClip InitialFireSound => SoundBank.Silence;
 
         #region Prefabs
 

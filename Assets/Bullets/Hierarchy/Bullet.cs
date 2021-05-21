@@ -30,7 +30,7 @@ namespace Assets.Bullets
         protected virtual void OnBulletInit() { }
         protected sealed override void OnInit()
         {
-
+            FireSound = InitialFireSound;
             OnBulletInit();
         }
 
@@ -43,5 +43,8 @@ namespace Assets.Bullets
                     DeactivateSelf();
             }
         }
+
+        public AudioClip FireSound { get; private set; }
+        protected abstract AudioClip InitialFireSound { get; }
     }
 }

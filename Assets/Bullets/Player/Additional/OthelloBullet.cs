@@ -1,4 +1,5 @@
 ﻿using Assets.Bullets.PlayerBullets;
+using UnityEngine;
 
 namespace Assets.Bullets.PlayerBullets
 {
@@ -7,5 +8,7 @@ namespace Assets.Bullets.PlayerBullets
     {
         public override int Damage => OthelloDamage;
         public int OthelloDamage { get; set; }
+
+        protected override AudioClip InitialFireSound => SoundBank.Silence;
     }
 }

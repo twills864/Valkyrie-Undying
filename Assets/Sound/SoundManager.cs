@@ -13,8 +13,6 @@ namespace Assets
         private const string PathSoundEffect = "Audio/Sounds/";
 
         public static AudioSource AudioSource { get; private set; }
-        public static AudioClip TestFire { get; private set; }
-        public static AudioClip TestFire2 { get; private set; }
 
         private const int NumPanSources = 11;
         private const int PanCenterIndex = NumPanSources / 2;
@@ -25,11 +23,9 @@ namespace Assets
         public static void Init(AudioSource audioSource)
         {
             AudioSource = audioSource;
-            //TestFire = LoadSoundEffect("laser3");
-            TestFire = LoadSoundEffect("sfx_exp_shortest_hard3");
-            TestFire2 = LoadSoundEffect("superLaser");
 
             InitPanSources();
+            SoundBank.Init();
         }
 
         private static void InitPanSources()
@@ -53,19 +49,6 @@ namespace Assets
 
                 PanSources[i].panStereo = pan;
             }
-        }
-
-        private static AudioClip LoadSoundEffect(string name)
-        {
-            string path = $"{PathSoundEffect}{name}";
-
-            AudioClip ret = Resources.Load<AudioClip>(path);
-            return ret;
-        }
-
-        public static void PlayTestFire(float pan)
-        {
-            PlaySoundWithPan(TestFire, pan);
         }
 
         public static void PlaySound(AudioClip clip)

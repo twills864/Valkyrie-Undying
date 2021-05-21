@@ -401,7 +401,11 @@ namespace Assets
             FirePlayerBullets(bullets);
 
             float pan = SpaceUtil.PanFromPosition(Player.Instance.PositionX);
-            SoundManager.PlayTestFire(pan);
+
+            var clip = bullets[0]?.FireSound;
+
+            if(clip != null)
+                SoundManager.PlaySoundWithPan(clip, pan);
 
             //SoundManager.PlayTestFire();
         }

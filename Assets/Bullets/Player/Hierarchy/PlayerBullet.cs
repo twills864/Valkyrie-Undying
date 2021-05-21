@@ -37,9 +37,13 @@ namespace Assets.Bullets.PlayerBullets
 
         protected virtual bool ShouldMarkSelfCollision => true;
 
+        public AudioClip HitSound { get; private set; }
+        protected virtual AudioClip InitialHitSound => SoundBank.ExplosionShortDeep;
+
         protected virtual void OnPlayerBulletInit() { }
         protected sealed override void OnBulletInit()
         {
+            HitSound = InitialHitSound;
             OnPlayerBulletInit();
         }
 

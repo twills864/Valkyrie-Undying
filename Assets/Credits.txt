@@ -26,6 +26,7 @@ MUSIC:
 "Fantastic Japanese-Style Shoot 'em up Game Music" by ISAo (SOUND AIRYLUVS) (OGA-BY 3.0): (https://opengameart.org/content/fantastic-japanese-style-shoot-em-up-game-music https://airyluvs.com/)
 "Orbital Colossus" by Matthew Pablo (CC-BY 3.0): https://opengameart.org/content/space-boss-battle-theme http://www.matthewpablo.com
 
------------------------------------------------------------------------------
-No CC-BY 3.0 or OGA-BY 3.0 resources were modified from their original forms.
------------------------------------------------------------------------------
+-----------------------------------------------------------------------
+All CC-BY 3.0 or OGA-BY 3.0 resources were either unmodified from their
+respective original forms, or amplified to normalize the volume.
+-----------------------------------------------------------------------

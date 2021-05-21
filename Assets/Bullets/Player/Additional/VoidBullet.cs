@@ -13,6 +13,7 @@ namespace Assets.Bullets.PlayerBullets
     public class VoidBullet : VoidEffectBullet
     {
         protected override bool ShouldReflectBullet => BulletLevel > 1;
+        protected override AudioClip InitialFireSound => SoundBank.ExplosionShortSweep;
 
         #region Prefabs
 

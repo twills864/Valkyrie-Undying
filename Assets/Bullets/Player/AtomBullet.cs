@@ -12,6 +12,8 @@ namespace Assets.Bullets.PlayerBullets
     /// <inheritdoc/>
     public class AtomBullet : BouncingBullet
     {
+        protected override AudioClip InitialFireSound => SoundBank.LaserPew;
+
         #region Prefabs
 
         [SerializeField]

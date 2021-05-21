@@ -30,5 +30,7 @@ namespace Assets.Bullets.PlayerBullets
 
         public override int Damage => MortarDamage;
         public int MortarDamage { get; set; }
+
+        protected override AudioClip InitialFireSound => SoundBank.ExplosionShortestCannonFire;
     }
 }

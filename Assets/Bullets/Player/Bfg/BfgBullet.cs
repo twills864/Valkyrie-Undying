@@ -17,6 +17,11 @@ namespace Assets.Bullets.PlayerBullets
 
         public override Vector3 GetHitPosition(Enemy enemy) => GetClosestPoint(enemy);
 
+        protected override AudioClip InitialFireSound =>
+            //SoundBank.LaserDramatic;
+            //SoundBank.Cannon2;
+            SoundBank.ExplosionLongDeep;
+
         #region Prefabs
 
         [SerializeField]

@@ -37,6 +37,9 @@ namespace Assets.Bullets.PlayerBullets
         #endregion Prefab Properties
 
 
+        protected override AudioClip InitialFireSound => SoundBank.ExplosionShortestKnock;
+
+
         private float ElapsedTime { get; set; }
         private float SqrtMapHeight { get; set; }
         private float SpriteHeight { get; set; }

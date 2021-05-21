@@ -18,6 +18,8 @@ namespace Assets.Bullets.PlayerBullets
         protected sealed override bool ShouldDeactivateOnDestructor => false;
         protected sealed override bool ShouldMarkSelfCollision => false;
 
+        protected override AudioClip InitialFireSound => SoundBank.Silence;
+
         #region Property Fields
 
         private bool _ShouldEraseBullet;
@@ -46,6 +48,7 @@ namespace Assets.Bullets.PlayerBullets
         public float TimeScaleAlphaScale => _TimeScaleAlphaScale;
 
         #endregion Prefab Properties
+
 
         public float RetributionTimeScaleValue => 1.0f - (Alpha * TimeScaleAlphaScale);
 

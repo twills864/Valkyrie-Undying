@@ -14,6 +14,8 @@ namespace Assets.Bullets.PlayerBullets
         private int ReflectedDamage { get; set; }
         public override int Damage => ReflectedDamage;
 
+        protected override AudioClip InitialFireSound => SoundBank.Silence;
+
         private void Init(EnemyBullet source)
         {
             transform.position = source.transform.position;

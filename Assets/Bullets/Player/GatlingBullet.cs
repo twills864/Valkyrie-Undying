@@ -25,6 +25,7 @@ namespace Assets.Bullets.PlayerBullets
 
         protected override bool ShouldMarkSelfCollision => false;
         protected override bool ShouldDeactivateOnDestructor => false;
+        protected override AudioClip InitialFireSound => SoundBank.GunShortStrong;
 
         public override float MaxAlpha => LaserAlphaRatio;
 
