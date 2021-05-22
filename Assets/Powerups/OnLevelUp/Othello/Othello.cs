@@ -134,6 +134,9 @@ namespace Assets.Powerups
             {
                 var bullet = PoolManager.Instance.BulletPool.Get<OthelloBullet>(FirePosition, Level);
                 bullet.OthelloDamage = Damage;
+
+                bullet.PlayFireSound();
+
                 FireTimer.TouchTimer();
             }
         }

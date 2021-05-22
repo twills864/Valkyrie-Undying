@@ -40,6 +40,8 @@ namespace Assets.Bullets.PlayerBullets
         public AudioClip HitSound { get; private set; }
         protected virtual AudioClip InitialHitSound => SoundBank.ExplosionShortDeep;
 
+        public void PlayHitSound() => PlaySoundAtCenter(HitSound);
+
         protected virtual void OnPlayerBulletInit() { }
         protected sealed override void OnBulletInit()
         {
@@ -69,6 +71,7 @@ namespace Assets.Bullets.PlayerBullets
 
         public virtual void OnCollideWithEnemy(Enemy enemy)
         {
+            PlayHitSound();
             DeactivateSelf();
         }
 

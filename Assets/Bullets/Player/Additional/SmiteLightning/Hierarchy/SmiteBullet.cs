@@ -19,7 +19,14 @@ namespace Assets.Bullets.PlayerBullets
     {
         public sealed override int Damage => SmiteDamage;
         protected sealed override bool ShouldMarkSelfCollision => false;
-        protected override AudioClip InitialFireSound => SoundBank.Silence;
+        protected override AudioClip InitialFireSound => SoundBank.ExplosionMediumZap;
+        protected override AudioClip InitialHitSound => SoundBank.ZapHard;
+        public AudioClip HitSound2 => SoundBank.ExplosionMediumDeep;
+        public void PlayAllHitSounds()
+        {
+            PlaySoundAtCenter(HitSound);
+            PlaySoundAtCenter(HitSound2);
+        }
 
         // Backwards-facing linked list with head node
         public SmiteBullet Head { get; protected set; }

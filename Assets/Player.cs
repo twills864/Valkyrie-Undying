@@ -341,6 +341,8 @@ namespace Assets
 
             InIFrames = true;
             IFramesSequence.ResetSelf();
+
+            PlaySoundAtCenter(SoundBank.ExplosionLongDramatic);
         }
 
         public void Kill()

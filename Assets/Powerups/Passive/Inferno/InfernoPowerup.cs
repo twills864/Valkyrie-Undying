@@ -66,6 +66,8 @@ namespace Assets.Powerups
                 bullet.transform.position = firePos;
                 bullet.BulletLevel = Level;
                 bullet.DamageIncreasePerTick = DamageIncrease;
+
+                bullet.PlayFireSound();
             }
         }
     }

@@ -164,6 +164,16 @@ namespace Assets
 
         #endregion Color
 
+        #region Sound
+
+        public void PlaySoundAtCenter(AudioClip sound)
+        {
+            float pan = SpaceUtil.PanFromPosition(PositionX);
+            SoundManager.PlaySoundWithPan(sound, pan);
+        }
+
+        #endregion Sound
+
         #region Velocity
 
         public virtual Vector2 Velocity { get; set; }

@@ -277,6 +277,8 @@ namespace Assets.Enemies
         protected virtual void OnDeath() { }
         public void KillEnemy(PlayerBullet bullet)
         {
+            PlaySoundAtCenter(SoundBank.ExplosionShortDeep);
+
             WasKilled = true;
             GameManager.Instance.OnEnemyKill(this, bullet);
             DeactivateSelf();

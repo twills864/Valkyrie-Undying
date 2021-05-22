@@ -46,5 +46,8 @@ namespace Assets.Bullets
 
         public AudioClip FireSound { get; private set; }
         protected abstract AudioClip InitialFireSound { get; }
+
+        public void PlayFireSound() => PlaySoundAtCenter(FireSound);
+
     }
 }

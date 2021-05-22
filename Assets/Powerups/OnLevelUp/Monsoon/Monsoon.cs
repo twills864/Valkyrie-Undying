@@ -129,6 +129,8 @@ namespace Assets.Powerups
                 var raindrop = (RaindropBullet)MonsoonPool.Get();
                 raindrop.transform.position = position;
                 raindrop.RaindropDamage = damage;
+
+                raindrop.PlayFireSound();
             }
         }
 

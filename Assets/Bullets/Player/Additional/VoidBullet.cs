@@ -52,6 +52,8 @@ namespace Assets.Bullets.PlayerBullets
             bullet.Init(level, scale, duration);
             bullet.OnSpawn();
 
+            bullet.PlayFireSound();
+
             return bullet;
         }
 

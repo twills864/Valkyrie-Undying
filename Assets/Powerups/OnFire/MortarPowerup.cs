@@ -73,6 +73,8 @@ namespace Assets.Powerups
             velocity *= scale;
 
             bullet.Velocity = velocity;
+
+            bullet.PlayFireSound();
         }
     }
 }

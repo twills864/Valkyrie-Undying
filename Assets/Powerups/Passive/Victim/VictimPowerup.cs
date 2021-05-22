@@ -132,6 +132,8 @@ namespace Assets.Powerups
 
                 bullet.Velocity = velocity;
                 bullet.VictimDamage = Damage;
+
+                bullet.PlayFireSound();
             }
         }
     }

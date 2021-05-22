@@ -395,17 +395,15 @@ namespace Assets
             NotificationManager.RunFrame(deltaTime);
         }
 
-        private  void FireCurrentStrategy()
+        private void FireCurrentStrategy()
         {
             var bullets = CurrentFireStrategy.GetBullets(WeaponLevel, Player.FirePosition);
             FirePlayerBullets(bullets);
 
-            float pan = SpaceUtil.PanFromPosition(Player.Instance.PositionX);
-
             var clip = bullets[0]?.FireSound;
 
-            if(clip != null)
-                SoundManager.PlaySoundWithPan(clip, pan);
+            if (clip != null)
+                Player.PlaySoundAtCenter(clip);
 
             //SoundManager.PlayTestFire();
         }

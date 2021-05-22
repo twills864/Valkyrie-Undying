@@ -20,6 +20,7 @@ namespace Assets.Bullets.PlayerBullets
         {
             var bullet = PoolManager.Instance.BulletPool.Get<SmiteJointBullet>(startPosition);
             bullet.InitWithTarget(target);
+            bullet.PlayFireSound();
         }
 
         #region Prefabs
@@ -113,6 +114,8 @@ namespace Assets.Bullets.PlayerBullets
             {
                 joint.NextBranchTimer.ActivateSelf();
                 joint.DeactivateAllLinks();
+
+                joint.PlayAllHitSounds();
             }
 
             return joint;

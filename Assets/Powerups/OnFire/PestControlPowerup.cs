@@ -75,6 +75,10 @@ namespace Assets.Powerups
 
                 pestControl.SetTarget(position, target);
             }
+
+            // Question mark notation because there may be no Pest Controls fired
+            // if there aren't any enemy bullets.
+            pestControls[0]?.PlayFireSound();
         }
     }
 }
