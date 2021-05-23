@@ -16,7 +16,8 @@ namespace Assets.Sound
     /// </summary>
     public class MusicManager : MonoBehaviour
     {
-        private static string PlaylistSerializationPath => $@"{Application.dataPath}\Resources\Audio\Music\Playlists.txt";
+        private const string PlaylistsTextResourcePath = @"Audio\Music\Playlists";
+        private static string PlaylistSerializationPath => $@"{Application.dataPath}\Resources\{PlaylistsTextResourcePath}.txt";
 
         #region Singleton
 
@@ -53,19 +54,37 @@ namespace Assets.Sound
 
         #endregion Prefab Properties
 
+        private CircularSelector<string> SongPaths { get; set; }
 
+        private bool ShouldPlayMusic { get; set; }
+        private AudioClip CurrentTrack
+        {
+            get => MusicPlayer.clip;
+            set
+            {
+                MusicPlayer.clip?.UnloadAudioData();
 
-        private AudioClip[] Songs { get; set; }
+                MusicPlayer.clip = value;
+                MusicPlayer.Play();
+                BeginLoadingNextTrack();
 
-        private AudioClip CurrentTrack { get; set; }
+                TimeSpan duration = TimeSpan.FromSeconds(value.length);
+                string dbMessage = $"{value.name.Replace('_', ' ')} ({duration})";
+                Debug.Log(dbMessage);
+                DebugUI.SetDebugLabel("SONG", dbMessage);
+            }
+        }
         private AsyncAudioClip NextTrack { get; set; }
+
+        private void BeginLoadingNextTrack() => NextTrack = new AsyncAudioClip(SongPaths.GetAndIncrement());
 
         private void Init()
         {
 #if UNITY_EDITOR
             GenerateSoundtrackFile();
+            if (MusicPlayer.playOnAwake)
 #endif
-            LoadMusic();
+                LoadMusic();
         }
 
         #region Soundtrack
@@ -95,29 +114,37 @@ namespace Assets.Sound
 
         private void LoadMusic()
         {
-            const string MusicPath = @"Audio\Music\Default";
+            ShouldPlayMusic = true;
 
-            if (MusicPlayer.playOnAwake)
+#if UNITY_EDITOR
+            // Don't call build version because that resource file was initialized when the game started,
+            // and won't have the updated changes if any were applied.
+            var allPlaylists = Playlist.DeserializePlaylists(PlaylistSerializationPath);
+#else
+            var allPlaylists = Playlist.DeserializePlaylistsFromBuild(PlaylistsTextResourcePath);
+#endif
+
+            SongPaths = new CircularSelector<string>(allPlaylists.SelectMany(x => x.AllResourceNames()));
+            RandomUtil.Shuffle(SongPaths);
+
+            CurrentTrack = Resources.Load<AudioClip>(SongPaths.GetAndIncrement());
+
+            Debug.Log(SongPaths.Count);
+            for (int i = 0; i < SongPaths.Count; i++)
             {
-                Songs = Resources.LoadAll<AudioClip>(MusicPath);
+                var song = SongPaths[i];
+                Debug.Log($"[{i}] {song}");
 
-                RandomUtil.Shuffle(Songs);
-
-                Debug.Log(Songs.Length);
-                for (int i = 0; i < Songs.Length; i++)
-                {
-                    var song = Songs[i];
-                    Debug.Log($"[{i}] {song.name} ({song.length})");
-
-                    //NotificationManager.AddNotification(song.name);
-                }
-
-                MusicPlayer.clip = Songs.First();
-                MusicPlayer.Play();
+                //NotificationManager.AddNotification(song.name);
             }
 
-            var allLines = File.ReadAllLines(PlaylistSerializationPath);
-            var test = Playlist.DeserializePlaylists(allLines);
+            Debug.Log(CurrentTrack.length);
+        }
+
+        private void Update()
+        {
+            if (ShouldPlayMusic && !MusicPlayer.isPlaying)
+                CurrentTrack = NextTrack.Clip;
         }
     }
 }

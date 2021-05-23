@@ -75,7 +75,7 @@ namespace Assets
             AudioSource audioSource = PanSources[sourceIndex];
             audioSource.PlayOneShot(clip, volumeScale);
 
-            DebugUI.SetDebugLabel("SOUND", $"{sourceIndex} {audioSource.panStereo.ToString("0.00")} {source.ToString("0.00")} ({((source-0.5f)*2f).ToString("0.00")})");
+            //DebugUI.SetDebugLabel("SOUND", $"{sourceIndex} {audioSource.panStereo.ToString("0.00")} {source.ToString("0.00")} ({((source-0.5f)*2f).ToString("0.00")})");
         }
     }
 }

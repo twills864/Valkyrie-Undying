@@ -10,6 +10,10 @@ namespace Assets.Util
     /// <inheritdoc/>
     public class CircularSelector<T> : List<T>
     {
+        public CircularSelector() : base() { }
+        public CircularSelector(int capacity) : base(capacity) { }
+        public CircularSelector(IEnumerable<T> collection) : base(collection) { }
+
         private int _index;
         public int Index {
             get => _index;

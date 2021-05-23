@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Assets.Util;
+using UnityEngine;
 
 namespace Assets.Sound
 {
@@ -23,7 +24,7 @@ namespace Assets.Sound
 
             // dir.FullName example: C:\Users\TJ\Unity\Valkyrie Undying\Assets\Resources\Audio\Music\Default
             string resourcesPath = StringUtil.TextAfterFirst(dir.FullName, @"Resources\");
-            ResourcesBasePath = resourcesPath.Replace(Name, "");
+            ResourcesBasePath = $"{resourcesPath}\\";
 
             var files = dir.GetFiles().Where(x => x.Extension != ".meta").ToList();
             Songs = files.Select(x => x.Name.Replace(x.Extension, "")).ToList();
@@ -54,6 +55,16 @@ namespace Assets.Sound
                 playlist.Serialize(sb);
             }
 
+            bool ShouldTrimSb()
+            {
+                char c = sb[sb.Length - 1];
+                bool shouldTrim = c == '\n' || c == '\r';
+                return shouldTrim;
+            }
+
+            while(ShouldTrimSb())
+                sb.Length--;
+
             string str = sb.ToString();
             string[] lines = str.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
             return lines;
@@ -66,6 +77,30 @@ namespace Assets.Sound
 
             foreach (var song in Songs)
                 sb.AppendLine(song);
+        }
+
+        public static List<Playlist> DeserializePlaylistsFromBuild(string resourcePath)
+        {
+            const string EnvironmentNewLine = "\r\n";
+            const string NewLine = "\n";
+
+            TextAsset textFile = (TextAsset)Resources.Load(resourcePath);
+            string deserialized = textFile.text;
+
+            // Environment.NewLine may differ depending on build target
+            string[] lines = deserialized.Replace(EnvironmentNewLine, NewLine)
+                .Split(new string[] { NewLine }, StringSplitOptions.None)
+                .ToArray();
+
+            return DeserializePlaylists(lines);
+        }
+
+        public static List<Playlist> DeserializePlaylists(string serializationFilePath)
+        {
+            var lines = File.ReadAllLines(serializationFilePath);
+            var playlists = Playlist.DeserializePlaylists(lines);
+
+            return playlists;
         }
 
         public static List<Playlist> DeserializePlaylists(string[] lines)

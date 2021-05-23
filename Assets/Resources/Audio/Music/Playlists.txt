@@ -1,5 +1,5 @@
 Default
-Audio\Music\
+Audio\Music\Default\
 awake10_megaWall
 dova_Mauve Rhopalocera_master
 dova_The Evil Sacrifice Archenemies_master
@@ -8,8 +8,3 @@ Juhani Junkala [Retro Game Music Pack] Level 3
 Metallic Mistress
 Orbital Colossus
 Silver_master
-
-Test1
-Audio\Music\
-TEST dova_Mauve Rhopalocera_master
-
