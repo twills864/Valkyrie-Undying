@@ -9,7 +9,7 @@ namespace Assets.Bullets.PlayerBullets
     /// <inheritdoc/>
     public class BounceBullet : BouncingBullet
     {
-        protected override AudioClip InitialFireSound => SoundBank.LaserPuff;
+        public override AudioClip FireSound => SoundBank.LaserPuff;
 
         #region Prefabs
 

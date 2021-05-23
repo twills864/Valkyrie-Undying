@@ -1,5 +1,6 @@
 ﻿using Assets.Bullets.EnemyBullets;
 using Assets.FireStrategies.EnemyFireStrategies;
+using UnityEngine;
 
 namespace Assets.Enemies
 {
@@ -8,5 +9,7 @@ namespace Assets.Enemies
     {
         protected override EnemyFireStrategy InitialFireStrategy()
             => new VariantLoopingEnemyFireStrategy<BasicEnemyBullet>(VariantFireSpeed);
+
+        public override AudioClip FireSound => SoundBank.GunPistol;
     }
 }

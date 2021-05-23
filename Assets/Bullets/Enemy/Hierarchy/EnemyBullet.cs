@@ -31,7 +31,7 @@ namespace Assets.Bullets.EnemyBullets
         public virtual bool HitsPlayer => true;
         public virtual bool DeactivateOnHit => true;
 
-        protected override AudioClip InitialFireSound => SoundBank.GunPistol;
+        public override AudioClip FireSound => SoundBank.GunPistol;
 
         protected virtual void OnEnemyBulletInit() { }
         protected sealed override void OnBulletInit()

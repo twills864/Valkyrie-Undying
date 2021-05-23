@@ -14,6 +14,7 @@ namespace Assets.Enemies
     {
         protected override bool ShouldDeactivateOnDestructor => false;
         public override bool DiesOnSmite => false;
+        public override AudioClip FireSound => SoundBank.GunPistol;
 
         #region Prefabs
 

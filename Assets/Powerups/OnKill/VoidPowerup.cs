@@ -38,8 +38,10 @@ namespace Assets.Powerups
 
         public override void OnLevelUp()
         {
+            SoundManager.PlaySound(VoidBullet.VoidBulletFireSound);
+
             foreach (var enemy in Director.GetAllActiveEnemies())
-                VoidEnemy(enemy);
+                VoidEnemy(enemy, false);
         }
 
         public override void OnKill(Enemy enemy, PlayerBullet bullet)
@@ -47,12 +49,12 @@ namespace Assets.Powerups
             VoidEnemy(enemy);
         }
 
-        private void VoidEnemy(Enemy enemy)
+        private void VoidEnemy(Enemy enemy, bool playAudio = true)
         {
             if (enemy.CanVoidPause)
             {
                 var position = enemy.ColliderMap.Center;
-                VoidBullet.StartVoid(position, Level, SizeScale, Duration);
+                VoidBullet.StartVoid(position, Level, SizeScale, Duration, playAudio);
             }
         }
     }

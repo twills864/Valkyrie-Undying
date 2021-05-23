@@ -53,6 +53,7 @@ namespace Assets.Enemies
             if (CanFire(FirePosition))
             {
                 var bullets = FireStrategy.GetBullets(FirePosition);
+                PlayFireSound();
             }
         }
     }

@@ -12,7 +12,7 @@ namespace Assets.Bullets.PlayerBullets
     {
         protected override bool ShouldDeactivateOnDestructor => false;
         protected override bool ShouldMarkSelfCollision => false;
-        protected override AudioClip InitialFireSound => SoundBank.LaserGritty;
+        public override AudioClip FireSound => SoundBank.LaserGritty;
 
         #region Prefabs
 

@@ -112,6 +112,8 @@ namespace Assets.Bullets.EnemyBullets
             Vector2 direction = transform.position - SpawnPoint;
             if(GameUtil.RaycastHitsPlayer(SpawnPoint, direction, out RaycastHit2D hit))
                 Player.Instance.CollidesWithBullet(this);
+
+            Parent.PlayFireSound();
         }
     }
 }

@@ -15,7 +15,7 @@ Arrangement provided by Wisedawn (CC0): https://opengameart.org/content/200-cc0-
 SOUND EFFECTS:
 512 Sound Effects (8-bit style) (CC0) by SubspaceAudio: https://opengameart.org/content/512-sound-effects-8-bit-style
 Die for the Empire Sound Effects (lasers, bombs, explosions, bullets) (CC-BY-SA 3.0) by TheBlackSword: https://opengameart.org/content/die-for-the-empire-sound-effects-lasers-bombs-explosions-bullets
-
+30 weird CC0 SFX (CC0) by rubberduck: https://opengameart.org/content/30-weird-cc0-sfx
 
 MUSIC:
 "Level 3" by Juhani Junkala (CC0): https://opengameart.org/content/5-chiptunes-action
@@ -25,6 +25,7 @@ MUSIC:
 "Uplifting Intense Electronic Trailer" by ISAo (SOUND AIRYLUVS) (OGA-BY 3.0): (https://opengameart.org/content/uplifting-intense-electronic-trailer https://airyluvs.com/)
 "Fantastic Japanese-Style Shoot 'em up Game Music" by ISAo (SOUND AIRYLUVS) (OGA-BY 3.0): (https://opengameart.org/content/fantastic-japanese-style-shoot-em-up-game-music https://airyluvs.com/)
 "Orbital Colossus" by Matthew Pablo (CC-BY 3.0): https://opengameart.org/content/space-boss-battle-theme http://www.matthewpablo.com
+"Metallic Mistress" by FoxEnergy (CC-BY 3.0): https://opengameart.org/content/metallic-mistress
 
 -----------------------------------------------------------------------
 All CC-BY 3.0 or OGA-BY 3.0 resources were either unmodified from their

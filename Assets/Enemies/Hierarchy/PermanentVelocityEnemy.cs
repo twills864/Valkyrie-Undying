@@ -9,7 +9,7 @@ namespace Assets.Enemies
         #region Prefabs
 
         [SerializeField]
-        private Vector2 _PermanentVelocity;
+        private Vector2 _PermanentVelocity = Vector2.zero;
 
         #endregion Prefabs
 

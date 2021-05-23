@@ -27,6 +27,9 @@ namespace Assets.Enemies
         protected override EnemyFireStrategy InitialFireStrategy()
             => new TankEnemyFireStrategy(VariantFireSpeed, FireSpeedExtra);
 
+        public override AudioClip FireSound => SoundBank.ExplosionShortestDeepTacticalFire;
+        public override float FireSoundVolume => 0.5f;
+
         [Serializable]
         public struct TankVariantFireSpeedExtra
         {

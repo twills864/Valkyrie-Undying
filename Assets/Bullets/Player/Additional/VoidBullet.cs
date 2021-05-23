@@ -12,8 +12,10 @@ namespace Assets.Bullets.PlayerBullets
     /// <inheritdoc/>
     public class VoidBullet : VoidEffectBullet
     {
+        public static AudioClip VoidBulletFireSound => SoundBank.ExplosionShortSweep;
         protected override bool ShouldReflectBullet => BulletLevel > 1;
-        protected override AudioClip InitialFireSound => SoundBank.ExplosionShortSweep;
+        public override AudioClip FireSound => VoidBulletFireSound;
+        public override float FireSoundVolume => 0.3f;
 
         #region Prefabs
 
@@ -46,13 +48,14 @@ namespace Assets.Bullets.PlayerBullets
             return false;
         }
 
-        public static VoidBullet StartVoid(Vector3 position, int level, float scale, float duration)
+        public static VoidBullet StartVoid(Vector3 position, int level, float scale, float duration, bool playAudio = true)
         {
             var bullet = PoolManager.Instance.BulletPool.Get<VoidBullet>(position);
             bullet.Init(level, scale, duration);
             bullet.OnSpawn();
 
-            bullet.PlayFireSound();
+            if(playAudio)
+                bullet.PlayFireSound();
 
             return bullet;
         }

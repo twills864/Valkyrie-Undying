@@ -9,6 +9,6 @@ namespace Assets.Bullets.PlayerBullets
         public override int Damage => OthelloDamage;
         public int OthelloDamage { get; set; }
 
-        protected override AudioClip InitialFireSound => SoundBank.Silence;
+        public override AudioClip FireSound => SoundBank.Silence;
     }
 }

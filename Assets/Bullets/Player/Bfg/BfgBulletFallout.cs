@@ -43,7 +43,7 @@ namespace Assets.Bullets.PlayerBullets
             Instance.OnStaticInit();
         }
 
-        protected override AudioClip InitialFireSound => SoundBank.Silence;
+        public override AudioClip FireSound => SoundBank.Silence;
 
         #region Prefabs
 

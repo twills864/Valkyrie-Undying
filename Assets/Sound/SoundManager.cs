@@ -61,7 +61,7 @@ namespace Assets
             AudioSource.PlayOneShot(clip, volume);
         }
 
-        public static void PlaySoundWithPan(AudioClip clip, float pan)
+        public static void PlaySoundWithPan(AudioClip clip, float pan, float volumeScale = 1.0f)
         {
             // Represent pan from 0f to 2f
             float source = (pan + 1f);
@@ -73,7 +73,7 @@ namespace Assets
             sourceIndex = Mathf.Clamp(sourceIndex, 0, NumPanSources - 1);
 
             AudioSource audioSource = PanSources[sourceIndex];
-            audioSource.PlayOneShot(clip);
+            audioSource.PlayOneShot(clip, volumeScale);
 
             DebugUI.SetDebugLabel("SOUND", $"{sourceIndex} {audioSource.panStereo.ToString("0.00")} {source.ToString("0.00")} ({((source-0.5f)*2f).ToString("0.00")})");
         }

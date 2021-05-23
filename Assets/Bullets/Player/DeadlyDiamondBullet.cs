@@ -36,7 +36,7 @@ namespace Assets.Bullets.PlayerBullets
 
         #endregion Prefab Properties
 
-        protected override AudioClip InitialFireSound => SoundBank.LaserBrief;
+        public override AudioClip FireSound => SoundBank.LaserBrief;
 
         protected override void OnPlayerBulletInit()
         {

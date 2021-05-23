@@ -30,7 +30,6 @@ namespace Assets.Bullets
         protected virtual void OnBulletInit() { }
         protected sealed override void OnInit()
         {
-            FireSound = InitialFireSound;
             OnBulletInit();
         }
 
@@ -44,10 +43,10 @@ namespace Assets.Bullets
             }
         }
 
-        public AudioClip FireSound { get; private set; }
-        protected abstract AudioClip InitialFireSound { get; }
+        public abstract AudioClip FireSound { get; }
+        public virtual float FireSoundVolume => 1.0f;
 
-        public void PlayFireSound() => PlaySoundAtCenter(FireSound);
+        public void PlayFireSound() => PlaySoundAtCenter(FireSound, FireSoundVolume);
 
     }
 }

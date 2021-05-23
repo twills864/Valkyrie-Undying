@@ -27,6 +27,6 @@ namespace Assets.Bullets.PlayerBullets
         #endregion Prefab Properties
 
 
-        protected override AudioClip InitialFireSound => SoundBank.ShotgunStrong;
+        public override AudioClip FireSound => SoundBank.ShotgunStrong;
     }
 }

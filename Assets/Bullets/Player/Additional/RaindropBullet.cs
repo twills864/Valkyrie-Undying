@@ -13,6 +13,7 @@ namespace Assets.Bullets.PlayerBullets
         public override int Damage => RaindropDamage;
         public int RaindropDamage { get; set; }
 
-        protected override AudioClip InitialFireSound => SoundBank.ImpactShort;
+        public override AudioClip FireSound => RandomUtil.Select(SoundBank.WaterDrip, SoundBank.WaterDrop);
+        public override float FireSoundVolume => 0.4f;
     }
 }

@@ -24,8 +24,14 @@ namespace Assets
         public static AudioClip Flare { get; private set; }
 
         /// <summary>
+        /// 3shot
+        /// </summary>
+        public static AudioClip LaserBasic { get; private set; }
+
+        /// <summary>
         /// laser3
         /// </summary>
+        [Obsolete]
         public static AudioClip LaserGeneric { get; private set; }
 
         /// <summary>
@@ -169,6 +175,16 @@ namespace Assets
         public static AudioClip LaserDramatic { get; private set; }
 
         /// <summary>
+        /// weird_03
+        /// </summary>
+        public static AudioClip WaterDrop { get; private set; }
+
+        /// <summary>
+        /// weird_03
+        /// </summary>
+        public static AudioClip WaterDrip { get; private set; }
+
+        /// <summary>
         /// cannon2
         /// </summary>
         [Obsolete("TODO")]
@@ -177,6 +193,7 @@ namespace Assets
         public static void Init()
         {
             Flare = LoadSoundEffect("flameThrower");
+            LaserBasic = LoadSoundEffect("3shot");
             LaserGeneric = LoadSoundEffect("laser3");
             LaserPuff = LoadSoundEffect("laser5");
             LaserPew = LoadSoundEffect("laser6");
@@ -206,6 +223,8 @@ namespace Assets
             LaserGritty = LoadSoundEffect("sfx_wpn_laser7");
             LaserBrief = LoadSoundEffect("sfx_wpn_laser8");
             LaserDramatic = LoadSoundEffect("superLaser");
+            WaterDrop = LoadSoundEffect("weird_03");
+            WaterDrip = LoadSoundEffect("weird_04");
         }
 
         private static AudioClip LoadSoundEffect(string name)

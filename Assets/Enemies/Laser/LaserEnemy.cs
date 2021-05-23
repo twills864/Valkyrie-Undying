@@ -14,6 +14,8 @@ namespace Assets.Enemies
     /// <inheritdoc/>
     public class LaserEnemy : Enemy
     {
+        public override AudioClip FireSound => SoundBank.GunPew;
+
         #region Prefabs
 
         [SerializeField]

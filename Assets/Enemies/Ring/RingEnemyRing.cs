@@ -11,6 +11,7 @@ namespace Assets.Enemies
         public override bool CanVoidPause => false;
         public override bool InfluencesDirectorGameBalance => false;
         public override int ActiveTrackedEnemiesCountContribution => 0;
+        public override AudioClip FireSound => SoundBank.Silence;
 
         public float Height { get; private set; }
         public float HeightHalf => Height * 0.5f;

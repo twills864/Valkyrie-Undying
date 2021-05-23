@@ -12,6 +12,7 @@ namespace Assets.Enemies
     public class CradleEnemy : Enemy
     {
         private const float AngleDown = 270;
+        public override AudioClip FireSound => SoundBank.GunPistol;
 
         #region Prefabs
 
@@ -134,21 +135,17 @@ namespace Assets.Enemies
             Behavior.RunFrame(deltaTime);
         }
 
-        private void FireDown()
-        {
-            if(CanFire(FirePosition))
-                CradleEnemyFireStrategy.GetBullets(FirePosition, Vector2.down);
-        }
-        private void FireLeft()
-        {
-            if (CanFire(FirePosition))
-                CradleEnemyFireStrategy.GetBullets(FirePositionLeft, FireLeftVelocity);
-        }
+        private void FireDown() => Fire(FirePosition, Vector2.down);
+        private void FireLeft() => Fire(FirePositionLeft, FireLeftVelocity);
+        private void FireRight() => Fire(FirePositionRight, FireRightVelocity);
 
-        private void FireRight()
+        private void Fire(Vector3 firePosition, Vector2 velocityScale)
         {
-            if (CanFire(FirePosition))
-                CradleEnemyFireStrategy.GetBullets(FirePositionRight, FireRightVelocity);
+            if (CanFire(firePosition))
+            {
+                CradleEnemyFireStrategy.GetBullets(firePosition, velocityScale);
+                PlayFireSound();
+            }
         }
     }
 }

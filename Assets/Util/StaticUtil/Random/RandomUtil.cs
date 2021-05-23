@@ -438,5 +438,22 @@ namespace Assets.Util
         }
 
         #endregion Collections
+
+        #region Select
+
+        /// <summary>
+        /// Returns a random element from the specified parameters with equal probability.
+        /// </summary>
+        /// <typeparam name="T">The type of element to return.</typeparam>
+        /// <param name="one">The first possible option.</param>
+        /// <param name="two">The second possible option.</param>
+        /// <returns>A random element from the specified parameters.</returns>
+        public static T Select<T>(T one, T two)
+        {
+            T ret = Bool() ? one : two;
+            return ret;
+        }
+
+        #endregion Select
     }
 }

@@ -8,8 +8,8 @@ namespace Assets.Bullets.PlayerBullets
     /// <inheritdoc/>
     public class InfernoBullet : PermanentVelocityPlayerBullet
     {
-        protected sealed override AudioClip InitialFireSound => SoundBank.Flare;
-        protected sealed override AudioClip InitialHitSound => SoundBank.ExplosionShortestIgnite;
+        public sealed override AudioClip FireSound => SoundBank.Flare;
+        public sealed override AudioClip HitSound => SoundBank.ExplosionShortestIgnite;
 
         public static int CurrentBaseDamage { get; set; }
 

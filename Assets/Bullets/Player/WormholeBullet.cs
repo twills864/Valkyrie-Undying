@@ -11,7 +11,7 @@ namespace Assets.Bullets.PlayerBullets
     public class WormholeBullet : PlayerBullet
     {
         protected override bool ShouldMarkSelfCollision => false;
-        protected override AudioClip InitialFireSound => SoundBank.LaserPuff;
+        public override AudioClip FireSound => SoundBank.LaserPuff;
 
         #region Prefabs
 

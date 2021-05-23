@@ -234,6 +234,10 @@ namespace Assets.Enemies
         public virtual Vector3 FirePosition => SpriteMap.Bottom;
         protected virtual bool CanFire(Vector3 firePosition) => firePosition.y > FireHeightFloor;
 
+        public abstract AudioClip FireSound { get; }
+        public virtual float FireSoundVolume => 0.3f;
+        public void PlayFireSound() => PlaySoundAtCenter(FireSound, FireSoundVolume);
+
         #endregion Firing
 
         #region Health
@@ -277,7 +281,7 @@ namespace Assets.Enemies
         protected virtual void OnDeath() { }
         public void KillEnemy(PlayerBullet bullet)
         {
-            PlaySoundAtCenter(SoundBank.ExplosionShortDeep);
+            PlaySoundAtCenter(SoundBank.ExplosionShortDeep, 0.8f);
 
             WasKilled = true;
             GameManager.Instance.OnEnemyKill(this, bullet);

@@ -11,6 +11,8 @@ namespace Assets.Enemies
     /// <inheritdoc/>
     public class RingEnemy : PermanentVelocityEnemy
     {
+        public override AudioClip FireSound => SoundBank.GunPistol;
+
         #region Prefabs
 
         [SerializeField]

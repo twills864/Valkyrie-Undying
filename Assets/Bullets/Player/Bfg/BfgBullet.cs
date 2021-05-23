@@ -17,7 +17,7 @@ namespace Assets.Bullets.PlayerBullets
 
         public override Vector3 GetHitPosition(Enemy enemy) => GetClosestPoint(enemy);
 
-        protected override AudioClip InitialFireSound =>
+        public override AudioClip FireSound =>
             //SoundBank.LaserDramatic;
             //SoundBank.Cannon2;
             SoundBank.ExplosionLongDeep;

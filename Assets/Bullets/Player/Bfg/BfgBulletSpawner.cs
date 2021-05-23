@@ -35,7 +35,7 @@ namespace Assets.Bullets.PlayerBullets
             Instance.ScaleXPerLevel = scaleXPerLevel;
         }
 
-        protected override AudioClip InitialFireSound => SoundBank.LaserCharge;
+        public override AudioClip FireSound => SoundBank.LaserCharge;
 
         #region Property Fields
 

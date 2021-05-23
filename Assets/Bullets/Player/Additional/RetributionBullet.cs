@@ -18,7 +18,7 @@ namespace Assets.Bullets.PlayerBullets
         protected sealed override bool ShouldDeactivateOnDestructor => false;
         protected sealed override bool ShouldMarkSelfCollision => false;
 
-        protected override AudioClip InitialFireSound => SoundBank.Silence;
+        public override AudioClip FireSound => SoundBank.Silence;
 
         #region Property Fields
 

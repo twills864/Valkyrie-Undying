@@ -6,6 +6,6 @@ namespace Assets.Bullets.PlayerBullets
     /// <inheritdoc/>
     public class BasicBullet : PermanentVelocityPlayerBullet
     {
-        protected override AudioClip InitialFireSound => SoundBank.LaserGeneric;
+        public override AudioClip FireSound => SoundBank.LaserBasic;
     }
 }

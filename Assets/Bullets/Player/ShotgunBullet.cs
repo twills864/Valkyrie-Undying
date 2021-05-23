@@ -37,6 +37,6 @@ namespace Assets.Bullets.PlayerBullets
         #endregion Prefab Properties
 
 
-        protected override AudioClip InitialFireSound => SoundBank.ExplosionShortestHard;
+        public override AudioClip FireSound => SoundBank.ExplosionShortestHard;
     }
 }

@@ -166,10 +166,10 @@ namespace Assets
 
         #region Sound
 
-        public void PlaySoundAtCenter(AudioClip sound)
+        public void PlaySoundAtCenter(AudioClip sound, float volumeScale = 1.0f)
         {
             float pan = SpaceUtil.PanFromPosition(PositionX);
-            SoundManager.PlaySoundWithPan(sound, pan);
+            SoundManager.PlaySoundWithPan(sound, pan, volumeScale);
         }
 
         #endregion Sound
