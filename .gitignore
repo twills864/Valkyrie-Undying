@@ -94,3 +94,14 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+
+##################################
+
+
+
+# Keep the default, royalty-free soundtrack - ignore any extra songs added.
+/[Aa]ssets/Resources/Audio/Music/*
+!/[Aa]ssets/Resources/Audio/Music/Default/*
+!/[Aa]ssets/Resources/Audio/Music/Default.meta
+!/[Aa]ssets/Resources/Audio/Music/Playlists.txt
+!/[Aa]ssets/Resources/Audio/Music/Playlists.txt.meta

@@ -5,6 +5,10 @@ namespace Assets.Util
 {
     public static class StringUtil
     {
+        #region Substrings
+
+        #region Numerical
+
         /// <summary>
         /// Returns a substring of the <paramref name="source"/>
         /// starting one character after <paramref name="startIndexExclusive"/>,
@@ -47,6 +51,30 @@ namespace Assets.Util
             string ret = source.Substring(0, endIndexExclusive);
             return ret;
         }
+
+        #endregion Numerical
+
+        /// <summary>
+        /// Returns a substring of the <paramref name="source"/>
+        /// starting one character after the first occurrence of
+        /// <paramref name="substring"/>, and extending until the end of the string.
+        /// </summary>
+        /// <param name="source">The source string to parse.</param>
+        /// <param name="substring">The substring to find within the source.</param>
+        /// <returns>The substring represented of the source after the given substring.</returns>
+        public static string TextAfterFirst(string source, string substring)
+        {
+            int startIndexInclusive = source.IndexOf(substring);
+
+            if (startIndexInclusive == -1)
+                throw new ArgumentException($"Source ({source}) must contain substring ({substring}).", "substring");
+
+            startIndexInclusive += substring.Length;
+            string ret = source.Substring(startIndexInclusive);
+            return ret;
+        }
+
+        #endregion Substrings
 
         /// <summary>
         /// Adds a space before each capital letter after the first in a given input.
