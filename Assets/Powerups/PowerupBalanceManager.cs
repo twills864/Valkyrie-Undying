@@ -219,6 +219,7 @@ namespace Assets.Powerups.Balance
             public FireSpeedBalance FireSpeed;
             public MonsoonBalance Monsoon;
             public SentinelBalance Sentinel;
+            public ParapetBalance Parapet;
 
             [Serializable]
             public struct OthelloBalance
@@ -287,6 +288,27 @@ namespace Assets.Powerups.Balance
                 {
                     public float Base;
                     public float MaxValue;
+                }
+            }
+
+            [Serializable]
+            public struct ParapetBalance
+            {
+                public HeightBalance Height;
+                public ScaleBalance Scale;
+
+                [Serializable]
+                public struct HeightBalance
+                {
+                    public float Base;
+                    public float IncreasePerLevel;
+                }
+
+                [Serializable]
+                public struct ScaleBalance
+                {
+                    public Vector2 Base;
+                    public Vector2 IncreasePerLevel;
                 }
             }
         }

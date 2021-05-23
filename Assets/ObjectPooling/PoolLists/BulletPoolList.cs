@@ -73,6 +73,8 @@ namespace Assets.ObjectPooling
         private SmiteLightningBullet SmiteLightningPrefab = null;
         [SerializeField]
         private SmiteJointBullet SmiteJointPrefab = null;
+        [SerializeField]
+        private ParapetBullet ParapetPrefab = null;
 
         #endregion Additional Bullets
 

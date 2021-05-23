@@ -99,3 +99,5 @@ MonoBehaviour:
     type: 3}
   SmiteJointPrefab: {fileID: 6120797354885354739, guid: d152e8476fb34ccaa418d804da875789,
     type: 3}
+  ParapetPrefab: {fileID: 7428050979610242396, guid: e353af3e4b064b5f9bef39ffe2056b1b,
+    type: 3}

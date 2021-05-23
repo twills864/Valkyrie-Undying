@@ -136,6 +136,8 @@ MonoBehaviour:
       NumBlinks: 0
       OneBlinkTime: 0
     GracePeriodTime: 0
+  _parapet: {fileID: 7428050979610242396, guid: e353af3e4b064b5f9bef39ffe2056b1b,
+    type: 3}
 --- !u!60 &5303219948123075438
 PolygonCollider2D:
   m_ObjectHideFlags: 0

@@ -43,7 +43,7 @@ namespace Assets.Bullets
             }
         }
 
-        public abstract AudioClip FireSound { get; }
+        public virtual AudioClip FireSound => SoundBank.Silence;
         public virtual float FireSoundVolume => 1.0f;
 
         public void PlayFireSound() => PlaySoundAtCenter(FireSound, FireSoundVolume);

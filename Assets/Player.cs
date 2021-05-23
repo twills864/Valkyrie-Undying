@@ -115,7 +115,18 @@ namespace Assets
         public FrameTimerWithBuffer MortarFireTimer { get; private set; }
         public bool ShouldDrawMortar { get; set; }
 
-#endregion Mortar
+        #endregion Mortar
+
+#region Parapet
+
+        [SerializeField]
+        private ParapetBullet _parapet = null;
+        private ParapetBullet Parapet => _parapet;
+
+        private ParapetManager ParapetManager { get; set; }
+        public void ActivateParapets(float height) => ParapetManager.ActivateParapets(height);
+
+#endregion Parapet
 
         private void Start()
         {
@@ -140,6 +151,7 @@ namespace Assets
             IsAlive = true;
 
             BloodlustAuraSprite = BloodlustAuraObject.GetComponent<SpriteRenderer>();
+            ParapetManager = new ParapetManager(Parapet);
 
             LaserPointer.SetPosition(1, new Vector3(0, SpaceUtil.WorldMap.Height));
 
@@ -205,6 +217,7 @@ namespace Assets
         {
             transform.localPosition = pos;
             SentinelManager.Instance.transform.position = pos;
+            ParapetManager.Position = pos;
         }
 
         protected override void OnFrameRun(float deltaTime, float realDeltaTime)
