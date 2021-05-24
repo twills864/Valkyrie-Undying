@@ -39,7 +39,7 @@ namespace Assets.Powerups
 
         public override void OnLevelUp()
         {
-            Player.Instance.ActivateParapets(Height);
+            Player.Instance.ActivateParapets(Height, Scale);
         }
     }
 }

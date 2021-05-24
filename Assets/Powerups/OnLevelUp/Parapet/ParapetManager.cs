@@ -19,8 +19,6 @@ namespace Assets.Powerups
         {
             LeftParapet = InitParapet(prefab);
             RightParapet = InitParapet(prefab);
-
-            DebugUI.SetDebugLabel("LEFT", () => LeftParapet.HeightOffset);
         }
 
         private ParapetBullet InitParapet(ParapetBullet prefab)
@@ -28,27 +26,17 @@ namespace Assets.Powerups
             ParapetBullet ret = GameObject.Instantiate(prefab);
 
             ret.Init();
+            ret.transform.localScale = Vector3.zero;
             ret.Alpha = 0;
             ret.gameObject.SetActive(false);
 
             return ret;
         }
 
-        public void ActivateParapets(float height)
+        public void ActivateParapets(float height, Vector3 scale)
         {
-            Activate(LeftParapet, height);
-            Activate(RightParapet, height);
-        }
-
-        private void Activate(ParapetBullet parapet, float height)
-        {
-            parapet.gameObject.SetActive(true);
-
-            const float FadeInTime = 1.0f;
-            var fadeIn = new FadeTo(parapet, 0f, 1.0f, FadeInTime);
-            parapet.RunTask(fadeIn);
-
-            parapet.StartRise(height);
+            LeftParapet.Activate(height, scale);
+            RightParapet.Activate(height, scale);
         }
 
         public Vector3 Position
@@ -61,6 +49,15 @@ namespace Assets.Powerups
                 float parapetOffset = SpaceUtil.WorldMapSize.x * 0.5f;
                 LeftParapet.transform.position = VectorUtil.AddX(parapetPos, -parapetOffset);
                 RightParapet.transform.position = VectorUtil.AddX(parapetPos, parapetOffset);
+            }
+        }
+
+        public Color SpriteColor
+        {
+            set
+            {
+                LeftParapet.SpriteColor = value;
+                RightParapet.SpriteColor = value;
             }
         }
     }

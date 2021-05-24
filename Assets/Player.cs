@@ -124,7 +124,7 @@ namespace Assets
         private ParapetBullet Parapet => _parapet;
 
         private ParapetManager ParapetManager { get; set; }
-        public void ActivateParapets(float height) => ParapetManager.ActivateParapets(height);
+        public void ActivateParapets(float height, Vector3 scale) => ParapetManager.ActivateParapets(height, scale);
 
 #endregion Parapet
 
@@ -136,12 +136,16 @@ namespace Assets
             BloodlustTimer = FrameTimer.Default();
         }
 
-        public void Init(in PlayerFireStrategyManager fireStrategyManager)
+        public void Init(in PlayerFireStrategyManager fireStrategyManager, in ColorManager colorManager)
         {
             Init();
 
             float mortarTime = fireStrategyManager.BaseFireSpeed * 0.4f;
             MortarFireTimer = new FrameTimerWithBuffer(mortarTime, mortarTime + FrameTimerWithBuffer.DefaultBuffer);
+
+            Color parapetColor = colorManager.Player.Reflected;
+            parapetColor.a = 0;
+            ParapetManager.SpriteColor = parapetColor;
         }
 
         protected sealed override void OnInit()

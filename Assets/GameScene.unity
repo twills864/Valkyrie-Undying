@@ -4355,10 +4355,10 @@ MonoBehaviour:
       Parapet:
         Height:
           Base: 3
-          IncreasePerLevel: 1.5
+          IncreasePerLevel: 0.5
         Scale:
-          Base: {x: 0, y: 0}
-          IncreasePerLevel: {x: 0, y: 0}
+          Base: {x: 0.51776, y: 0.32}
+          IncreasePerLevel: {x: 0.25888, y: 0.16}
     Passive:
       Inferno:
         FireSpeed:

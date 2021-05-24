@@ -283,7 +283,7 @@ namespace Assets
             _MonsoonSpawner.Init();
             //_Othello.Alpha = _ColorManager.Player.OthelloAlpha;
             _Othello.Init();
-            Player.Init(in _FireStrategyManager);
+            Player.Init(in _FireStrategyManager, in _ColorManager);
             _SpaceLarge.Init();
             _SpaceSmall.Init();
 
