@@ -14,5 +14,10 @@ namespace Assets.Constants
         /// prevent the unassigned field warning message.
         /// </summary>
         public const int PrefabNumber = 0;
+
+
+        public const string SceneNameMainMenu = "MainMenuScene";
+        public const string SceneNameGame = "GameScene";
+        public const string SceneNameOptions = "OptionsScene";
     }
 }

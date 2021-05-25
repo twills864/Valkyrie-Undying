@@ -14,7 +14,7 @@ namespace Assets.Hierarchy.ColorHandlers
     {
         public abstract Color Color { get; set; }
 
-        public float Alpha
+        public virtual float Alpha
         {
             get => Color.a;
             set

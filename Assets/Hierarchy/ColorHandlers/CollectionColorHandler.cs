@@ -21,6 +21,16 @@ namespace Assets.Hierarchy.ColorHandlers
             }
         }
 
+        public override float Alpha
+        {
+            get => Color.a;
+            set
+            {
+                foreach (var handler in Handlers)
+                    handler.Alpha = value;
+            }
+        }
+
         public CollectionColorHandler(params ColorHandler[] handlers)
         {
             Handlers = handlers;
