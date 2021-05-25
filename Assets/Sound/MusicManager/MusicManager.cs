@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
+using Assets.Hierarchy.ColorHandlers;
 using Assets.UI;
 using Assets.Util;
 using UnityEngine;
@@ -14,31 +15,12 @@ namespace Assets.Sound
     /// <summary>
     /// A singleton GameObject that will play persistent music between scenes.
     /// </summary>
-    public class MusicManager : MonoBehaviour
+    public class MusicManager : SingletonValkyrieSprite
     {
         private const string PlaylistsTextResourcePath = @"Audio\Music\Playlists";
         private static string PlaylistSerializationPath => $@"{Application.dataPath}\Resources\{PlaylistsTextResourcePath}.txt";
 
-        #region Singleton
-
-        public static MusicManager Instance { get; private set; }
-
-        void Awake()
-        {
-            if (Instance != null && Instance != this)
-            {
-                Destroy(gameObject);
-                return;
-            }
-            else
-            {
-                Instance = this;
-                DontDestroyOnLoad(gameObject);
-                Init();
-            }
-        }
-
-        #endregion Singleton
+        protected override ColorHandler DefaultColorHandler() => new NullColorHandler();
 
         #region Prefabs
 
@@ -78,7 +60,7 @@ namespace Assets.Sound
 
         private void BeginLoadingNextTrack() => NextTrack = new AsyncAudioClip(SongPaths.GetAndIncrement());
 
-        private void Init()
+        protected override void OnSingletonInit()
         {
 #if UNITY_EDITOR
             GenerateSoundtrackFile();

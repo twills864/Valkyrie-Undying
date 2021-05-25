@@ -48,7 +48,7 @@ namespace Assets.UI
                 text.fontSize *= scale;
 
                 var textTransform = (RectTransform)text.transform;
-                textTransform.anchoredPosition = VectorUtil.ScaleY(textTransform.anchoredPosition, scale);
+                textTransform.anchoredPosition = VectorUtil.ScaleY2(textTransform.anchoredPosition, scale);
             }
 
             FixlLabel(GameOverLabel);
@@ -57,7 +57,7 @@ namespace Assets.UI
 
             var buttonTransform = (RectTransform)PlayAgainButton.transform;
             buttonTransform.sizeDelta *= scale;
-            buttonTransform.anchoredPosition = VectorUtil.ScaleY(buttonTransform.anchoredPosition, scale);
+            buttonTransform.anchoredPosition = VectorUtil.ScaleY2(buttonTransform.anchoredPosition, scale);
 
             var buttonTextTransform = PlayAgainButton.transform.GetChild(0);
             var buttonText = buttonTextTransform.GetComponent<Text>();

@@ -41,12 +41,7 @@ namespace Assets.Bullets.PlayerBullets
 
         private Sequence Behavior { get; set; }
 
-        // Pause enemy without triggering OnHit powerups.
-        public sealed override bool CollidesWithEnemy(Enemy enemy)
-        {
-            OnCollideWithEnemy(enemy);
-            return false;
-        }
+        public sealed override bool CollidesWithEnemy(Enemy enemy) => base.ActivateOnCollideWithoutColliding(enemy);
 
         public static VoidBullet StartVoid(Vector3 position, int level, float scale, float duration, bool playAudio = true)
         {

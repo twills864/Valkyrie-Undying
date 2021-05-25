@@ -109,7 +109,7 @@ namespace Assets.UI
             float offset = -1f * ratioRemaining * InitialWidth;
 
             FillMask.transform.position = new Vector3(offset, 0);
-            FillMask.transform.localPosition = VectorUtil.WithY(FillMask.transform.localPosition, 0);
+            FillMask.transform.localPosition = VectorUtil.WithY3(FillMask.transform.localPosition, 0);
         }
     }
 }

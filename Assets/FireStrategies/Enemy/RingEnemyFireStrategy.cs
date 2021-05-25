@@ -23,11 +23,11 @@ namespace Assets.FireStrategies.EnemyFireStrategies
             var ret = PoolManager.Instance.EnemyBulletPool.GetMany<RingEnemyBullet>(2);
 
             var left = ret[0];
-            left.transform.position = VectorUtil.AddX(enemyFirePos, -left.OffsetX);
+            left.transform.position = VectorUtil.AddX3(enemyFirePos, -left.OffsetX);
             left.Velocity = left.LeftVelocity;
 
             var right = ret[1];
-            right.transform.position = VectorUtil.AddX(enemyFirePos, right.OffsetX);
+            right.transform.position = VectorUtil.AddX3(enemyFirePos, right.OffsetX);
             right.Velocity = right.RightVelocity;
 
             return ret;

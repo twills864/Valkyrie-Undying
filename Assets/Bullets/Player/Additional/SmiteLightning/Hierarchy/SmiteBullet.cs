@@ -100,7 +100,7 @@ namespace Assets.Bullets.PlayerBullets
             TargetPosition = existingLink.TargetPosition;
 
             if (!TargetEnemy.IsActive)
-                TargetPosition = VectorUtil.WithY(TargetPosition, SpaceUtil.WorldMap.Top.y);
+                TargetPosition = VectorUtil.WithY3(TargetPosition, SpaceUtil.WorldMap.Top.y);
         }
 
         public sealed override bool CollidesWithEnemy(Enemy enemy)

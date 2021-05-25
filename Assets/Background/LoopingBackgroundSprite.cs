@@ -42,10 +42,11 @@ namespace Assets.Background
 
         protected override void OnFrameRun(float deltaTime, float realDeltaTime)
         {
-            float offsetY = (Director.TotalTime * Speed);
-            Vector2 size = SpaceUtil.WorldMapSize;
-            size.y += offsetY;
-            Sprite.size = size;
+            float scaledTime = deltaTime * Director.RetributionTimeScale;
+
+            float increase = (Speed * scaledTime);
+
+            Sprite.size = VectorUtil.AddY2(Sprite.size, increase);
         }
     }
 }

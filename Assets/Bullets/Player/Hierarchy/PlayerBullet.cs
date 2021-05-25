@@ -123,5 +123,15 @@ namespace Assets.Bullets.PlayerBullets
             Log($"Bullet self-collision! {transform.position} {GetComponent<SpriteRenderer>().bounds.center} {thisBulletType.Name} -> {collidingBulletType.Name}");
             DebugUtil.RedX(transform.position, 0.5f);
         }
+
+        #region Common Overrides
+
+        public bool ActivateOnCollideWithoutColliding(Enemy enemy)
+        {
+            OnCollideWithEnemy(enemy);
+            return false;
+        }
+
+        #endregion Common Overrides
     }
 }

@@ -47,8 +47,8 @@ namespace Assets.Powerups
                 parapetPos.y += LeftParapet.HeightOffset;
 
                 float parapetOffset = SpaceUtil.WorldMapSize.x * 0.5f;
-                LeftParapet.transform.position = VectorUtil.AddX(parapetPos, -parapetOffset);
-                RightParapet.transform.position = VectorUtil.AddX(parapetPos, parapetOffset);
+                LeftParapet.transform.position = VectorUtil.AddX3(parapetPos, -parapetOffset);
+                RightParapet.transform.position = VectorUtil.AddX3(parapetPos, parapetOffset);
             }
         }
 

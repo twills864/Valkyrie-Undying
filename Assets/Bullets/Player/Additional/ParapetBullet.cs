@@ -14,23 +14,14 @@ namespace Assets.Bullets.PlayerBullets
     ///
     /// </summary>
     /// <inheritdoc/>
-    public class ParapetBullet : PlayerBullet
+    public class ParapetBullet : VoidEffectBullet
     {
         private const float AnimationTime = 1.0f;
 
-        protected override bool ShouldDeactivateOnDestructor => false;
-        public override bool CollidesWithEnemy(Enemy enemy) => false;
-
         public float HeightOffset { get; set; }
 
-        protected override void OnPlayerBulletTriggerEnter2D(Collider2D collision)
-        {
-            if (CollisionUtil.IsEnemyBullet(collision))
-            {
-                var enemyBullet = collision.GetComponent<EnemyBullet>();
-                GameManager.Instance.ReflectBullet(enemyBullet);
-            }
-        }
+        // Pause enemy without triggering OnHit powerups.
+        public sealed override bool CollidesWithEnemy(Enemy enemy) => base.ActivateOnCollideWithoutColliding(enemy);
 
         public void Activate(float height, Vector3 scale)
         {
