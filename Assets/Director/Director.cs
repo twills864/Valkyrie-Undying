@@ -23,7 +23,7 @@ namespace Assets
     public static class Director
     {
         public static float TotalTime { get; private set; }
-        public static float RetributionTimeScale { get; private set; }
+        public static float RetributionTimeScale { get; private set; } = 1.0f;
 
         private static DirectorBalance Balance;
 

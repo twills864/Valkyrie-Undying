@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Assets.Background;
 using Assets.Constants;
 using Assets.Hierarchy.ColorHandlers;
 using Assets.Util;
@@ -21,6 +22,12 @@ namespace Assets.Scenes.MainMenu
         [SerializeField]
         private ButtonHolder _PlayButton = null;
 
+        [SerializeField]
+        private LoopingBackgroundSprite _SpaceLarge = null;
+
+        [SerializeField]
+        private LoopingBackgroundSprite _SpaceSmall = null;
+
         #endregion Prefabs
 
 
@@ -28,6 +35,8 @@ namespace Assets.Scenes.MainMenu
 
         public TitleHolder Title => _Title;
         public ButtonHolder PlayButton => _PlayButton;
+        public LoopingBackgroundSprite SpaceLarge => _SpaceLarge;
+        public LoopingBackgroundSprite SpaceSmall => _SpaceSmall;
 
         #endregion Prefab Properties
 
@@ -36,7 +45,15 @@ namespace Assets.Scenes.MainMenu
 
         private void Awake()
         {
+#if !UNITY_EDITOR
+            Camera.main.orthographicSize *= 2.0f;
+#endif
+
             SpaceUtil.Init();
+
+            SpaceLarge.Init();
+            SpaceSmall.Init();
+
             PlayButton.Init();
             Title.Init();
 

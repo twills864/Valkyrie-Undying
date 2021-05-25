@@ -7,23 +7,23 @@ using Assets.Hierarchy.ColorHandlers;
 
 namespace Assets
 {
-    public abstract class SingletonValkyrieSprite : ValkyrieSprite
+    public abstract class SingletonValkyrieSpriteBase : ValkyrieSprite
     {
         public override TimeScaleType TimeScale => TimeScaleType.Default;
 
-        public static SingletonValkyrieSprite Instance { get; private set; }
+        protected abstract SingletonValkyrieSpriteBase InstanceToCompare { get; set; }
 
         private void Awake()
         {
-            if (Instance != null && Instance != this)
+            if (InstanceToCompare != null && InstanceToCompare != this)
             {
                 Destroy(gameObject);
-                Instance.OnSceneChange();
+                InstanceToCompare.OnSceneChange();
                 return;
             }
             else
             {
-                Instance = this;
+                InstanceToCompare = this;
                 DontDestroyOnLoad(gameObject);
                 Init();
             }

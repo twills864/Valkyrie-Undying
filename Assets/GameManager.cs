@@ -82,16 +82,16 @@ namespace Assets
         private PowerupBalanceManager PowerupBalance;
 
         [SerializeField]
-        private DirectorBalance _DirectorBalance;
+        private DirectorBalance _DirectorBalance = default;
 
         [SerializeField]
         private ColorManager _ColorManager;
 
         [SerializeField]
-        private LoopingBackgroundSprite _SpaceLarge;
+        private LoopingBackgroundSprite _SpaceLarge = null;
 
         [SerializeField]
-        private LoopingBackgroundSprite _SpaceSmall;
+        private LoopingBackgroundSprite _SpaceSmall = null;
 
 
 

@@ -8,7 +8,7 @@ using UnityEngine.UI;
 namespace Assets.Background
 {
     /// <inheritdoc/>
-    public class LoopingBackgroundSprite : ValkyrieSprite
+    public class LoopingBackgroundSprite : TaggedSingletonValkyrieSprite
     {
         #region Prefabs
 
@@ -23,7 +23,7 @@ namespace Assets.Background
 
         #region Prefab Properties
 
-        public float Speed => gameObject.name.Contains("Large") ? DebugUI.Instance.DebugTextBox.GetFloat(_Speed) : _Speed;
+        public float Speed => _Speed;
         private SpriteRenderer Sprite => _Sprite;
 
         #endregion Prefab Properties
@@ -35,7 +35,7 @@ namespace Assets.Background
             return new NullColorHandler();
         }
 
-        protected override void OnInit()
+        protected override void OnSingletonInit()
         {
             Sprite.size = SpaceUtil.WorldMapSize;
         }
