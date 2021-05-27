@@ -8,7 +8,7 @@ using Assets.Util;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets.Scenes.MainMenu
+namespace Assets.UI.MenuElements
 {
     public class ButtonHolder : ValkyrieSprite
     {
@@ -37,6 +37,6 @@ namespace Assets.Scenes.MainMenu
 
         #endregion Prefab Properties
 
-
+        public Vector2 ButtonSize => SpaceUtil.ScreenSizeToWorldSize(Button.GetComponent<RectTransform>().sizeDelta);
     }
 }

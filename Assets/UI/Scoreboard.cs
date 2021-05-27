@@ -3,65 +3,68 @@ using System.Collections.Generic;
 using Assets.Util;
 using UnityEngine;
 
-public class Scoreboard : MonoBehaviour
+namespace Assets.UI
 {
-    public static Scoreboard Instance { get; set; }
-
-    #region Property Fields
-
-    private int _score;
-
-    #endregion Property Fields
-
-    #region Prefabs
-
-    [SerializeField]
-    private TextMesh _Label = null;
-
-    #endregion Prefabs
-
-
-    #region Prefab Properties
-
-    private TextMesh Label => _Label;
-
-    #endregion Prefab Properties
-
-    public int Score
+    public class Scoreboard : MonoBehaviour
     {
-        get => _score;
-        private set
+        public static Scoreboard Instance { get; set; }
+
+        #region Property Fields
+
+        private int _score;
+
+        #endregion Property Fields
+
+        #region Prefabs
+
+        [SerializeField]
+        private TextMesh _Label = null;
+
+        #endregion Prefabs
+
+
+        #region Prefab Properties
+
+        private TextMesh Label => _Label;
+
+        #endregion Prefab Properties
+
+        public int Score
         {
-            _score = value;
-            Label.text = value.ToString("00000000");
+            get => _score;
+            private set
+            {
+                _score = value;
+                Label.text = value.ToString("00000000");
+            }
         }
-    }
 
-    private void Awake()
-    {
-        Instance = this;
-    }
+        private void Awake()
+        {
+            Instance = this;
+        }
 
-    public void Init()
-    {
-        Score = 0;
+        public void Init()
+        {
+            Score = 0;
 
-        var textRenderer = Label.GetComponent<Renderer>();
-        Vector2 size = textRenderer.bounds.size;
+            var textRenderer = Label.GetComponent<Renderer>();
+            Vector2 size = textRenderer.bounds.size;
 
-        Vector3 newPos = SpaceUtil.WorldMap.Top;
-        newPos.y -= size.y * 0.5f;
+            Vector3 newPos = SpaceUtil.WorldMap.Top;
+            newPos.y -= size.y * 0.5f;
 
-        transform.position = newPos;
-    }
+            transform.position = newPos;
+        }
 
-    public void AddScore(int score)
-    {
-        Score += score;
-    }
+        public void AddScore(int score)
+        {
+            Score += score;
+        }
 
-    public void ResetScore()
-    {
-        Score = 0;
+        public void ResetScore()
+        {
+            Score = 0;
+        }
     }
 }

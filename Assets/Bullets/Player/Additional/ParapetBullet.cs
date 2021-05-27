@@ -23,6 +23,8 @@ namespace Assets.Bullets.PlayerBullets
         // Pause enemy without triggering OnHit powerups.
         public sealed override bool CollidesWithEnemy(Enemy enemy) => base.ActivateOnCollideWithoutColliding(enemy);
 
+        public override bool BouncesTrampolineBullet => true;
+
         public void Activate(float height, Vector3 scale)
         {
             ClearGameTasks();

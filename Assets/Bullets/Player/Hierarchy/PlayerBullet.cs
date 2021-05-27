@@ -41,6 +41,8 @@ namespace Assets.Bullets.PlayerBullets
         public virtual float HitSoundVolume => 0.2f;
         public void PlayHitSound() => PlaySoundAtCenter(HitSound, HitSoundVolume);
 
+        public virtual bool BouncesTrampolineBullet => false;
+
         protected virtual void OnPlayerBulletInit() { }
         protected sealed override void OnBulletInit()
         {

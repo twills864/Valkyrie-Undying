@@ -8,9 +8,9 @@ using Assets.Util;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets.Scenes.MainMenu
+namespace Assets.UI.MenuElements
 {
-    public class TitleHolder : ValkyrieSprite
+    public class TextMeshHolder : ValkyrieSprite
     {
         public override TimeScaleType TimeScale => TimeScaleType.Default;
         protected override ColorHandler DefaultColorHandler() => new TextMeshColorHandler(Text);

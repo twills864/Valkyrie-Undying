@@ -99,9 +99,10 @@ namespace Assets.Bullets.PlayerBullets
             ElapsedTime = - Mathf.Sqrt(SpaceUtil.WorldMap.Top.y - transform.position.y) + SqrtMapHeight;
         }
 
-        private void ReverseVelocityY()
+        private void BounceOffPlayer()
         {
-            Velocity = new Vector2(Velocity.x, -Velocity.y);
+            ResetVelocityY();
+            RandomizeVelocityX();
         }
 
         protected override void OnPlayerBulletTriggerEnter2D(Collider2D collision)
@@ -112,8 +113,19 @@ namespace Assets.Bullets.PlayerBullets
             }
             else if(CollisionUtil.IsPlayer(collision))
             {
-                ResetVelocityY();
-                RandomizeVelocityX();
+                BounceOffPlayer();
+            }
+            else if (CollisionUtil.IsPlayerBullet(collision))
+            {
+                CreateFleetingTextAtCenter(ElapsedTime);
+
+                const float RoughTravellingDownwardsCheck = 1.0f;
+                if (ElapsedTime > RoughTravellingDownwardsCheck)
+                {
+                    var playerBullet = collision.GetComponent<PlayerBullet>();
+                    if (playerBullet.BouncesTrampolineBullet)
+                        BounceOffPlayer();
+                }
             }
         }
 

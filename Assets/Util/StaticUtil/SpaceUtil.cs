@@ -26,16 +26,24 @@ namespace Assets.Util
         /// </summary>
         public static Vector2 WorldMapSize { get; private set; }
 
+        /// <summary>
+        /// Represents the size of the ScreenMap.
+        /// </summary>
+        public static Vector2 ScreenMapSize { get; private set; }
+
+        private static Vector2 ScreenSizeToWorldSizeScale { get; set; }
+        private static Vector2 WorldSizeToScreenSizeScale { get; set; }
+
         public static float InverseWorldMapHeight { get; private set; }
 
         public static void Init()
         {
             var camera = Camera.main;
 
-            Vector2 screenSize = new Vector2(Screen.width, Screen.height);
-            ScreenMap = new BoxMap(Vector3.zero, screenSize);
+            ScreenMapSize = new Vector2(Screen.width, Screen.height);
+            ScreenMap = new BoxMap(Vector3.zero, ScreenMapSize);
 
-            Vector3 mappedScreen = camera.ScreenToWorldPoint(screenSize);
+            Vector3 mappedScreen = camera.ScreenToWorldPoint(ScreenMapSize);
             Vector3 mappedZero = camera.ScreenToWorldPoint(Vector2.zero);
 
             WorldMapSize = mappedScreen - mappedZero;
@@ -43,6 +51,10 @@ namespace Assets.Util
             WorldMap = new BoxMap(mappedZero, WorldMapSize);
 
             InverseWorldMapHeight = 1f / WorldMapSize.y;
+
+
+            ScreenSizeToWorldSizeScale = new Vector2(WorldMap.Width / ScreenMap.Width, WorldMap.Height / ScreenMap.Height);
+            WorldSizeToScreenSizeScale = new Vector2(ScreenMap.Width / WorldMap.Width, ScreenMap.Height / WorldMap.Height);
         }
 
         #region Set Positions
@@ -344,5 +356,26 @@ namespace Assets.Util
         }
 
         #endregion Pan
+
+
+        #region Size Scaling
+
+        public static Vector2 WorldSizeToScreenSize(Vector2 worldSize)
+        {
+            worldSize.x *= WorldSizeToScreenSizeScale.x;
+            worldSize.y *= WorldSizeToScreenSizeScale.y;
+
+            return worldSize;
+        }
+
+        public static Vector2 ScreenSizeToWorldSize(Vector2 screenSize)
+        {
+            screenSize.x *= ScreenSizeToWorldSizeScale.x;
+            screenSize.y *= ScreenSizeToWorldSizeScale.y;
+
+            return screenSize;
+        }
+
+        #endregion Size Scaling
     }
 }

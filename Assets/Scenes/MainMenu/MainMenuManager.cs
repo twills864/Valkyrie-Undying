@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Assets.Background;
 using Assets.Constants;
 using Assets.Hierarchy.ColorHandlers;
+using Assets.UI.MenuElements;
 using Assets.Util;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -17,10 +18,13 @@ namespace Assets.Scenes.MainMenu
         #region Prefabs
 
         [SerializeField]
-        private TitleHolder _Title = null;
+        private TextMeshHolder _Title = null;
 
         [SerializeField]
         private ButtonHolder _PlayButton = null;
+
+        [SerializeField]
+        private ButtonHolder _OptionsButton = null;
 
         [SerializeField]
         private LoopingBackgroundSprite _SpaceLarge = null;
@@ -33,14 +37,16 @@ namespace Assets.Scenes.MainMenu
 
         #region Prefab Properties
 
-        public TitleHolder Title => _Title;
+        public TextMeshHolder Title => _Title;
         public ButtonHolder PlayButton => _PlayButton;
+        public ButtonHolder OptionsButton => _OptionsButton;
         public LoopingBackgroundSprite SpaceLarge => _SpaceLarge;
         public LoopingBackgroundSprite SpaceSmall => _SpaceSmall;
 
         #endregion Prefab Properties
 
 
+        private bool SceneIsLoading => GameSceneLoad != null;
         private AsyncOperation GameSceneLoad { get; set; }
 
         private void Awake()
@@ -59,26 +65,30 @@ namespace Assets.Scenes.MainMenu
 
             Title.PositionY = SpaceUtil.WorldMap.Top.y - Title.BoxMap.Height;
             PlayButton.PositionY = SpaceUtil.WorldMap.Center.y;
+            OptionsButton.PositionY = (SpaceUtil.WorldMap.Center.y + SpaceUtil.WorldMap.Bottom.y) * 0.5f;
         }
 
         private void Update()
         {
             // A Unity bug prevents us from preloading the GameScene in the Awake() method.
-            if (GameSceneLoad == null)
-            {
-                GameSceneLoad = SceneManager.LoadSceneAsync(GameConstants.SceneNameGame, LoadSceneMode.Single);
-                GameSceneLoad.allowSceneActivation = false;
-            }
+            //if (GameSceneLoad == null)
+            //{
+            //    GameSceneLoad = SceneManager.LoadSceneAsync(GameConstants.SceneNameGame, LoadSceneMode.Single);
+            //    GameSceneLoad.allowSceneActivation = false;
+            //}
         }
 
         public void PlayGameButtonPressed()
         {
-            GameSceneLoad.allowSceneActivation = true;
+            //GameSceneLoad.allowSceneActivation = true;
+            if(!SceneIsLoading)
+                GameSceneLoad = SceneManager.LoadSceneAsync(GameConstants.SceneNameGame, LoadSceneMode.Single);
         }
 
         public void OptionsButtonPressed()
         {
-            Debug.Log("OptionsButtonPressed()");
+            if (!SceneIsLoading)
+                SceneManager.LoadSceneAsync(GameConstants.SceneNameOptions, LoadSceneMode.Single);
         }
     }
 }
