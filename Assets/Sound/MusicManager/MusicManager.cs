@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
+using Assets.Constants;
 using Assets.Hierarchy.ColorHandlers;
 using Assets.UI;
 using Assets.Util;
@@ -19,6 +20,9 @@ namespace Assets.Sound
     {
         private const string PlaylistsTextResourcePath = @"Audio\Music\Playlists";
         private static string PlaylistSerializationPath => $@"{Application.dataPath}\Resources\{PlaylistsTextResourcePath}.txt";
+
+        // Can't set this as a prefab because it has to be consistent between instances.
+        public const float MaxMusicVolume = 0.45f;
 
         protected override ColorHandler DefaultColorHandler() => new NullColorHandler();
 
@@ -62,6 +66,8 @@ namespace Assets.Sound
 
         protected override void OnSingletonInit()
         {
+            SetMusicVolume(PlayerPrefs.GetInt(PlayerPrefsKeys.MusicVolumeKey, 100));
+
 #if UNITY_EDITOR
             GenerateSoundtrackFile();
             if (MusicPlayer.playOnAwake)
@@ -127,6 +133,20 @@ namespace Assets.Sound
         {
             if (ShouldPlayMusic && !MusicPlayer.isPlaying)
                 CurrentTrack = NextTrack.Clip;
+        }
+
+        /// <summary>
+        /// Sets the volume of the game's music as a <paramref name="percent"/> from 0 to 100.
+        /// </summary>
+        /// <param name="percent">The game music volume as a percent between 0 and 100.</param>
+        public static void SetMusicVolume(float percent)
+        {
+            float volume = percent * MaxMusicVolume * 0.01f;
+
+            MusicManager instance = (MusicManager) MusicManager.Instance;
+            instance.MusicPlayer.volume = volume;
+
+            PlayerPrefs.SetInt(PlayerPrefsKeys.MusicVolumeKey, (int)percent);
         }
     }
 }

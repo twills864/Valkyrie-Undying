@@ -7,6 +7,7 @@ using Assets.Background;
 using Assets.Constants;
 using Assets.Hierarchy.ColorHandlers;
 using Assets.Scenes.MainMenu;
+using Assets.Sound;
 using Assets.UI.MenuElements;
 using Assets.Util;
 using UnityEngine;
@@ -16,6 +17,8 @@ namespace Assets.Scenes.Options
 {
     public class OptionsManager : MonoBehaviour
     {
+
+
         #region Prefabs
 
         [SerializeField]
@@ -83,12 +86,21 @@ namespace Assets.Scenes.Options
 
             Vector3 sliderOffset = new Vector3(0, OptionMargin);
 
-            Vector3 musicPosition = Title.transform.position - sliderOffset;
+            float musicY = Title.transform.position.y - sliderOffset.y;
+            float musicX = SpaceUtil.WorldMap.Right.x - MusicVolumeSlider.WidthHalf;
+            Vector3 musicPosition = new Vector3(musicX, musicY); // Title.transform.position - sliderOffset;
             MusicVolumeSlider.SetPosition(musicPosition);
-            SoundEffectVolumeSlider.SetPosition(musicPosition - sliderOffset);
+
+            float soundEffectY = Title.transform.position.y - (sliderOffset.y * 2);
+            float soundEffectX = musicPosition.x;
+            Vector3 soundEffectPosition = new Vector3(soundEffectX, soundEffectY);
+            SoundEffectVolumeSlider.SetPosition(soundEffectPosition);
 
             Vector3 cornerOffset = BackButtonMargin + VectorUtil.ScaleX2(BackButton.ButtonSize, -1.0f);
             BackButton.transform.position = SpaceUtil.WorldMap.BottomRight + cornerOffset;
+
+            MusicVolumeSlider.Value = PlayerPrefs.GetInt(PlayerPrefsKeys.MusicVolumeKey, 100);
+            SoundEffectVolumeSlider.Value = PlayerPrefs.GetInt(PlayerPrefsKeys.SoundEffectVolumeKey, 100);
         }
 
         public void BackButtonPressed()
@@ -97,19 +109,14 @@ namespace Assets.Scenes.Options
                 SceneManager.LoadSceneAsync(GameConstants.SceneNameMainMenu, LoadSceneMode.Single);
         }
 
-        private void Update()
-        {
-
-        }
-
         public void MusicVolumeChanged(float value)
         {
-            Debug.Log($"[MusicVolumeChanged] {value}");
+            MusicManager.SetMusicVolume(value);
         }
 
         public void SoundEffectVolumeChanged(float value)
         {
-            Debug.Log($"[SoundEffectVolumeChanged] {value}");
+            SoundManager.SetSoundEffectVolume(value);
         }
     }
 }

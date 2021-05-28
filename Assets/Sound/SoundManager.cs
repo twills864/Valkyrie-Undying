@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Assets.Constants;
 using Assets.Util;
 using UnityEngine;
 
@@ -11,6 +12,10 @@ namespace Assets
     public static class SoundManager
     {
         private const string PathSoundEffect = "Audio/Sounds/";
+
+        // Can't set this as a prefab because it has to be consistent between instances.
+        public const float MaxSoundEffectVolume = 1.0f;
+        private static float SoundEffectVolume { get; set; }
 
         public static AudioSource AudioSource { get; private set; }
 
@@ -32,6 +37,8 @@ namespace Assets
         {
             PanSources = new AudioSource[NumPanSources];
 
+            SoundEffectVolume = 0.01f * PlayerPrefs.GetInt(PlayerPrefsKeys.SoundEffectVolumeKey, 100);
+
             for (int i = 0; i < NumPanSources; i++)
             {
                 if (i != PanCenterIndex)
@@ -48,17 +55,14 @@ namespace Assets
                 pan = pan - 1f;
 
                 PanSources[i].panStereo = pan;
+
             }
         }
 
-        public static void PlaySound(AudioClip clip)
+        public static void PlaySound(AudioClip clip, float volume = 1.0f)
         {
-            AudioSource.PlayOneShot(clip);
-        }
-
-        public static void PlaySoundWithVolume(AudioClip clip, float volume)
-        {
-            AudioSource.PlayOneShot(clip, volume);
+            float scaledVolume = volume * SoundEffectVolume;
+            AudioSource.PlayOneShot(clip, scaledVolume);
         }
 
         public static void PlaySoundWithPan(AudioClip clip, float pan, float volumeScale = 1.0f)
@@ -73,9 +77,22 @@ namespace Assets
             sourceIndex = Mathf.Clamp(sourceIndex, 0, NumPanSources - 1);
 
             AudioSource audioSource = PanSources[sourceIndex];
-            audioSource.PlayOneShot(clip, volumeScale);
+
+            float volume = volumeScale * SoundEffectVolume;
+            audioSource.PlayOneShot(clip, volume);
 
             //DebugUI.SetDebugLabel("SOUND", $"{sourceIndex} {audioSource.panStereo.ToString("0.00")} {source.ToString("0.00")} ({((source-0.5f)*2f).ToString("0.00")})");
+        }
+
+        /// <summary>
+        /// Sets the volume of the game's sound effect as a <paramref name="percent"/> from 0 to 100.
+        /// </summary>
+        /// <param name="percent">The game's sound effect volume as a percent between 0 and 100.</param>
+        public static void SetSoundEffectVolume(float percent)
+        {
+            SoundEffectVolume = percent * MaxSoundEffectVolume * 0.01f;
+
+            PlayerPrefs.SetInt(PlayerPrefsKeys.SoundEffectVolumeKey, (int)percent);
         }
     }
 }

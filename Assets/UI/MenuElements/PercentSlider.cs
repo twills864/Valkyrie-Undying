@@ -49,13 +49,33 @@ namespace Assets.UI.MenuElements
 
         #endregion Prefab Properties
 
-        public Vector2 SliderSize => SpaceUtil.ScreenSizeToWorldSize(Slider.GetComponent<RectTransform>().sizeDelta);
+
+        public int Value
+        {
+            get => (int) Slider.value;
+            set => Slider.value = value;
+        }
+
+        public float SliderScale => Slider.transform.localScale.x;
+        public Vector2 SliderSize => SliderScale * SpaceUtil.ScreenSizeToWorldSize(Slider.GetComponent<RectTransform>().sizeDelta);
         public float SliderOffsetX => (SliderSize.x * 0.5f) + SliderMargin;
+
+
+        public float Width { get; set; }
+        public float WidthHalf => Width * 0.5f;
 
         protected override void OnInit()
         {
             void ValueChanged(float value) => Percent.text = value.ToString();
             Slider.onValueChanged.AddListener(ValueChanged);
+
+            // Initialize label locations
+            SetPosition(transform.position);
+
+            Bounds titleBounds = Title.GetComponent<Renderer>().bounds;
+            Bounds percentBounds = Percent.GetComponent<Renderer>().bounds;
+
+            Width = titleBounds.size.x + percentBounds.size.x + SliderSize.x + (2 * SliderMargin);
         }
 
         public void SetPosition(Vector3 worldPosition)

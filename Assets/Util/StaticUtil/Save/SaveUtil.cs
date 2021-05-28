@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Assets.Constants;
 using Assets.Powerups;
 using UnityEngine;
 
@@ -15,9 +16,6 @@ namespace Assets.Util
         private static List<Powerup> s_allPowerups;
 
         #endregion Property Fields
-
-        public const string LastWeaponIndexKey = "LastWeaponIndex";
-        public const string LastPowerupNameKey = "LastPowerupName";
 
         private const string _SaveFileName = "Valkyrie.dat";
 
@@ -65,15 +63,15 @@ namespace Assets.Util
 
         public static int LastWeapon
         {
-            get => PlayerPrefs.GetInt(LastWeaponIndexKey, 0);
-            set => PlayerPrefs.SetInt(LastWeaponIndexKey, value);
+            get => PlayerPrefs.GetInt(PlayerPrefsKeys.LastWeaponIndexKey, 0);
+            set => PlayerPrefs.SetInt(PlayerPrefsKeys.LastWeaponIndexKey, value);
         }
 
         private static readonly string DefaultPowerupName = typeof(FireSpeedPowerup).Name;
         public static Powerup LastPowerup
         {
-            get => PowerupNameMap[PlayerPrefs.GetString(LastPowerupNameKey, DefaultPowerupName)];
-            set => PlayerPrefs.SetString(LastPowerupNameKey, value.GetType().Name);
+            get => PowerupNameMap[PlayerPrefs.GetString(PlayerPrefsKeys.LastPowerupNameKey, DefaultPowerupName)];
+            set => PlayerPrefs.SetString(PlayerPrefsKeys.LastPowerupNameKey, value.GetType().Name);
         }
     }
 }

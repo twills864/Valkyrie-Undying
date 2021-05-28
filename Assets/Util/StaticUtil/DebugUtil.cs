@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Assets.Bullets.PlayerBullets;
+using Assets.Constants;
 using Assets.Enemies;
 using Assets.FireStrategies.PlayerFireStrategies;
 using Assets.GameTasks;
@@ -146,6 +147,8 @@ namespace Assets.Util
             SpawnSpecificEnemy<RingEnemy>();
             SpawnSpecificEnemy<TankEnemy>();
             SpawnSpecificEnemy<LaserEnemy>();
+
+            UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(GameConstants.SceneNameMainMenu, UnityEngine.SceneManagement.LoadSceneMode.Single);
         }
 
         private static void InputMouseForward(KeyCode keyCode)

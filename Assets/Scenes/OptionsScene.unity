@@ -759,8 +759,13 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -3656931483786500923, guid: b92bfad65cffc2e459dbb5de41720cfa,
         type: 3}
+      propertyPath: m_Volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -3656931483786500923, guid: b92bfad65cffc2e459dbb5de41720cfa,
+        type: 3}
       propertyPath: m_PlayOnAwake
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 570298417519334424, guid: b92bfad65cffc2e459dbb5de41720cfa,
         type: 3}
@@ -1028,6 +1033,11 @@ PrefabInstance:
       objectReference: {fileID: 1105459831}
     - target: {fileID: 6827321481979204062, guid: e9c303869babec3408285877447b66e2,
         type: 3}
+      propertyPath: debugAudio
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6827321481979204062, guid: e9c303869babec3408285877447b66e2,
+        type: 3}
       propertyPath: _BackButton
       value: 
       objectReference: {fileID: 265931444}
@@ -1054,7 +1064,7 @@ PrefabInstance:
     - target: {fileID: 6827321481979204062, guid: e9c303869babec3408285877447b66e2,
         type: 3}
       propertyPath: _BackButtonMargin.x
-      value: 1
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 6827321481979204062, guid: e9c303869babec3408285877447b66e2,
         type: 3}
@@ -1259,6 +1269,16 @@ PrefabInstance:
       propertyPath: m_SizeDelta.x
       value: 80
       objectReference: {fileID: 0}
+    - target: {fileID: 1125359443720856227, guid: 9bafd6774594d244fb83e788fbce15f4,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1125359443720856227, guid: 9bafd6774594d244fb83e788fbce15f4,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.25
+      objectReference: {fileID: 0}
     - target: {fileID: 2409827474436022083, guid: 9bafd6774594d244fb83e788fbce15f4,
         type: 3}
       propertyPath: m_RootOrder
@@ -1317,17 +1337,42 @@ PrefabInstance:
     - target: {fileID: 2488185833504160840, guid: 9bafd6774594d244fb83e788fbce15f4,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.05
+      value: 0.04
       objectReference: {fileID: 0}
     - target: {fileID: 2488185833504160840, guid: 9bafd6774594d244fb83e788fbce15f4,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.05
+      value: 0.04
       objectReference: {fileID: 0}
     - target: {fileID: 3499720021794420122, guid: 9bafd6774594d244fb83e788fbce15f4,
         type: 3}
       propertyPath: m_Text
       value: < Back
+      objectReference: {fileID: 0}
+    - target: {fileID: 3499720021794420122, guid: 9bafd6774594d244fb83e788fbce15f4,
+        type: 3}
+      propertyPath: m_FontData.m_MaxSize
+      value: 56
+      objectReference: {fileID: 0}
+    - target: {fileID: 3499720021794420122, guid: 9bafd6774594d244fb83e788fbce15f4,
+        type: 3}
+      propertyPath: m_FontData.m_MinSize
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3499720021794420122, guid: 9bafd6774594d244fb83e788fbce15f4,
+        type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 56
+      objectReference: {fileID: 0}
+    - target: {fileID: 3499720021794420122, guid: 9bafd6774594d244fb83e788fbce15f4,
+        type: 3}
+      propertyPath: m_FontData.m_VerticalOverflow
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3499720021794420122, guid: 9bafd6774594d244fb83e788fbce15f4,
+        type: 3}
+      propertyPath: m_FontData.m_HorizontalOverflow
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5543123798410294366, guid: 9bafd6774594d244fb83e788fbce15f4,
         type: 3}
