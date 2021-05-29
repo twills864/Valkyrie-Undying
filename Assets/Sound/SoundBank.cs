@@ -190,6 +190,31 @@ namespace Assets
         [Obsolete("TODO")]
         public static AudioClip Cannon2 { get; private set; }
 
+        /// <summary>
+        /// forceField_000
+        /// </summary>
+        public static AudioClip ForceField0 { get; private set; }
+
+        /// <summary>
+        /// forceField_001
+        /// </summary>
+        public static AudioClip ForceField1 { get; private set; }
+
+        /// <summary>
+        /// forceField_002
+        /// </summary>
+        public static AudioClip ForceField2 { get; private set; }
+
+        /// <summary>
+        /// forceField_003
+        /// </summary>
+        public static AudioClip ForceField3 { get; private set; }
+
+        /// <summary>
+        /// forceField_004
+        /// </summary>
+        public static AudioClip ForceField4 { get; private set; }
+
         public static void Init()
         {
             Flare = LoadSoundEffect("flameThrower");
@@ -225,6 +250,21 @@ namespace Assets
             LaserDramatic = LoadSoundEffect("superLaser");
             WaterDrop = LoadSoundEffect("weird_03");
             WaterDrip = LoadSoundEffect("weird_04");
+
+            ForceField0 = LoadSoundEffect("forceField_000");
+            ForceField1 = LoadSoundEffect("forceField_001");
+            ForceField2 = LoadSoundEffect("forceField_002");
+            ForceField3 = LoadSoundEffect("forceField_003");
+            ForceField4 = LoadSoundEffect("forceField_004");
+
+            ForceFields = new AudioClip[]
+            {
+                ForceField0,
+                ForceField1,
+                ForceField2,
+                ForceField3,
+                ForceField4
+            };
         }
 
         private static AudioClip LoadSoundEffect(string name)
@@ -234,5 +274,8 @@ namespace Assets
             AudioClip ret = Resources.Load<AudioClip>(path);
             return ret;
         }
+
+        private static AudioClip[] ForceFields { get; set; }
+        public static AudioClip RandomForceField => RandomUtil.RandomElement(ForceFields);
     }
 }

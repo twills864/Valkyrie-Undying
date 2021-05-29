@@ -326,6 +326,7 @@ namespace Assets
                 new BfgStrategy(Prefab<BfgBullet>(), in _FireStrategyManager),
                 new OneManArmyStrategy(Prefab<OneManArmyBullet>(), in _FireStrategyManager),
                 new DeadlyDiamondStrategy(Prefab<DeadlyDiamondBullet>(), in _FireStrategyManager),
+                new ReflectStrategy(Prefab<ReflectBullet>(), in _FireStrategyManager),
             };
         }
 

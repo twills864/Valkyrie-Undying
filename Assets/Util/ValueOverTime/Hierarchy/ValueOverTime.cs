@@ -40,7 +40,11 @@ namespace Assets.Util
         protected T ValueDifference { get; private set; }
 
         public FrameTimer Timer { get; private set; }
-        public float Duration => Timer.ActivationInterval;
+        public float Duration
+        {
+            get => Timer.ActivationInterval;
+            set => Timer.ActivationInterval = value;
+        }
 
         public ValueOverTime(T startValue, T endValue, float duration)
         {

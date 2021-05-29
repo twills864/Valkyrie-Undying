@@ -38,6 +38,7 @@ namespace Assets.FireStrategyManagers
             public BfgInfo Bfg;
             public float OneManArmy;
             public float DeadlyDiamond;
+            public float Reflect;
 
             [Serializable]
             public struct BurstInfo

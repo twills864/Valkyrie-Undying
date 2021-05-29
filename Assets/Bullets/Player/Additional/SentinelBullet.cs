@@ -74,6 +74,7 @@ namespace Assets.Bullets.PlayerBullets
 
         public override void OnCollideWithEnemy(Enemy enemy)
         {
+            PlayHitSound();
             SentinelManager.Instance.SentinelTriggered(this, enemy);
             DeactivateSelf();
         }

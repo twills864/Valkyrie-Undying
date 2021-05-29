@@ -1097,7 +1097,7 @@ PrefabInstance:
     - target: {fileID: 570298417519334424, guid: b92bfad65cffc2e459dbb5de41720cfa,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -10
       objectReference: {fileID: 0}
     - target: {fileID: 570298417519334424, guid: b92bfad65cffc2e459dbb5de41720cfa,
         type: 3}
@@ -4289,6 +4289,7 @@ MonoBehaviour:
         LaserRatio: 1.5
       OneManArmy: 1.15
       DeadlyDiamond: 0.45
+      Reflect: 1
   PowerupBalance:
     OnFire:
       PestControl:
@@ -4416,7 +4417,7 @@ MonoBehaviour:
       LaserEnemyPrefire: {r: 1, g: 0, b: 0.2509804, a: 0.5019608}
     UI:
       VictimMarkerAlpha: 0.7
-      MortarGuideAlpha: 0.25
+      MortarGuideAlpha: 0.1875
     Pickup:
       Weapon: {r: 0.7529412, g: 1, b: 0, a: 1}
       Powerup: {r: 0, g: 1, b: 0.7529412, a: 1}
