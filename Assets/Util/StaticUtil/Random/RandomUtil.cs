@@ -280,10 +280,40 @@ namespace Assets.Util
         /// Returns a vector of a specified <paramref name="length"/> in a pseudo-random direction
         /// between diagonal-top-left and diagonal-top-right
         /// </summary>
-        /// <returns>The random-direction unit vector.</returns>
+        /// <returns>The random-direction vector.</returns>
         public static Vector3 RandomDirectionVectorTopQuarter(float length)
         {
             Vector3 ret = RandomDirectionVectorTopQuarter();
+            ret *= length;
+
+            return ret;
+        }
+
+
+
+        /// <summary>
+        /// Returns a unit vector in a pseudo-random direction
+        /// excluding the angles between diagonal-bottom-left and diagonal-bottom-right
+        /// </summary>
+        /// <returns>The random-direction unit vector.</returns>
+        public static Vector3 RandomDirectionVectorTopThreeQuarters()
+        {
+            const float AngleBottomRight = -45f;
+            const float AngleBottomLeft = 225f;
+
+            float angleDegrees = Float(AngleBottomRight, AngleBottomLeft);
+            Vector3 ret = MathUtil.Vector3AtDegreeAngle(angleDegrees);
+            return ret;
+        }
+
+        /// <summary>
+        /// Returns a vector of a specified <paramref name="length"/> in a pseudo-random direction
+        /// excluding the angles between diagonal-bottom-left and diagonal-bottom-right
+        /// </summary>
+        /// <returns>The random-direction vector.</returns>
+        public static Vector3 RandomDirectionVectorTopThreeQuarters(float length)
+        {
+            Vector3 ret = RandomDirectionVectorTopThreeQuarters();
             ret *= length;
 
             return ret;

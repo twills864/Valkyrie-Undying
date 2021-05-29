@@ -89,7 +89,7 @@ namespace Assets.Enemies
             var easeVertical = new EaseIn(MoveVertical);
             var easeHorizontal = new EaseInOut(MoveHorizontal);
 
-            FlyIn = new ConcurrentGameTask(this, easeVertical, easeHorizontal);
+            FlyIn = new ConcurrentGameTask(easeVertical, easeHorizontal);
 
             #endregion FlyIn
 

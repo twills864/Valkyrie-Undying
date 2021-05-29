@@ -75,6 +75,8 @@ namespace Assets.ObjectPooling
         private SmiteJointBullet SmiteJointPrefab = null;
         [SerializeField]
         private ParapetBullet ParapetPrefab = null;
+        [SerializeField]
+        private VoidProjectileBullet VoidProjectilePrefab = null;
 
         #endregion Additional Bullets
 
@@ -96,6 +98,7 @@ namespace Assets.ObjectPooling
             OthelloPrefab.SpriteColor = defaultAdditional;
             VictimPrefab.SpriteColor = defaultAdditional;
             VoidPrefab.SpriteColor = player.Void;
+            VoidProjectilePrefab.SpriteColor = player.Void;
             RetributionPrefab.SpriteColor = player.Retribution;
             MortarPrefab.SpriteColor = defaultAdditional;
 

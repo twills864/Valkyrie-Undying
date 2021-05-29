@@ -10,7 +10,19 @@ namespace Assets.GameTasks
 {
     public class VelocityChange : FiniteVelocityGameTask
     {
-        private Vector2Range VelocityRange { get; set; }
+        private Vector2Range VelocityRange;
+
+        public Vector2 StartVelocity
+        {
+            get => VelocityRange.StartValue;
+            set => VelocityRange.StartValue = value;
+        }
+
+        public Vector2 EndVelocity
+        {
+            get => VelocityRange.EndValue;
+            set => VelocityRange.EndValue = value;
+        }
 
         public VelocityChange(ValkyrieSprite target, Vector2 endVelocity, float duration)
             : this(target, target.Velocity, endVelocity, duration)

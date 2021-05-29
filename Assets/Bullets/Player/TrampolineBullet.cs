@@ -117,8 +117,6 @@ namespace Assets.Bullets.PlayerBullets
             }
             else if (CollisionUtil.IsPlayerBullet(collision))
             {
-                CreateFleetingTextAtCenter(ElapsedTime);
-
                 const float RoughTravellingDownwardsCheck = 1.0f;
                 if (ElapsedTime > RoughTravellingDownwardsCheck)
                 {

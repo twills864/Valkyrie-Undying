@@ -101,3 +101,5 @@ MonoBehaviour:
     type: 3}
   ParapetPrefab: {fileID: 7428050979610242396, guid: e353af3e4b064b5f9bef39ffe2056b1b,
     type: 3}
+  VoidProjectilePrefab: {fileID: 6868574156074621370, guid: 0a18a3a0c3a842cf8025b94c817dc9b0,
+    type: 3}

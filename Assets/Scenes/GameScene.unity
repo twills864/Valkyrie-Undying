@@ -1082,7 +1082,7 @@ PrefabInstance:
     - target: {fileID: -3656931483786500923, guid: b92bfad65cffc2e459dbb5de41720cfa,
         type: 3}
       propertyPath: m_PlayOnAwake
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 570298417519334424, guid: b92bfad65cffc2e459dbb5de41720cfa,
         type: 3}
@@ -4327,10 +4327,10 @@ MonoBehaviour:
           Increase: 0.25
       Void:
         Duration:
-          Base: 0.7
-          Increase: 0.7
+          Base: 1.05
+          Increase: 0.775
         SizeScale:
-          Base: 1
+          Base: 1.25
           Increase: 0.1
     OnGetHit:
       Retribution:

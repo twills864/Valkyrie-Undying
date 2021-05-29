@@ -72,7 +72,7 @@ namespace Assets.UI
             FadeTo fadeOut = new FadeTo(this, FinalAlpha, 0, FadeTime);
             Sequence fadeSequence = new Sequence(fadeIn, fadeDelay, fadeOut);
 
-            Animation = new ConcurrentGameTask(this, grow, fadeSequence);
+            Animation = new ConcurrentGameTask(grow, fadeSequence);
             Animation.FinishSelf();
         }
 

@@ -101,7 +101,7 @@ namespace Assets.Bullets.PlayerBullets
             Vector3 scaleFinal = new Vector3(1f, heightScale, 1f);
             ScaleIn = new ScaleTo(this, scaleInitial, scaleFinal, FadeInTime);
             var fadeIn = new FadeTo(this, MaxAlpha, float.Epsilon); //  FadeInTime * 0.25f
-            SpawnAnimation = new ConcurrentGameTask(this, ScaleIn, fadeIn);
+            SpawnAnimation = new ConcurrentGameTask(ScaleIn, fadeIn);
 
             //DeactivateDelay = new Delay(this, FallbackDeactivationTime - FadeInTime);
             //var deactivate = new GameTaskFunc(this, DeactivateSelf);

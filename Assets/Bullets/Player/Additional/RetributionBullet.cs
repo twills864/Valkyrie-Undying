@@ -95,7 +95,7 @@ namespace Assets.Bullets.PlayerBullets
 
             MoveToCenter = new MoveTo(this, Vector3.zero, new Vector3(1f, 1f), ScaleInTime);
 
-            var scaleAndMove = new ConcurrentGameTask(this, scaleEase, MoveToCenter);
+            var scaleAndMove = new ConcurrentGameTask(scaleEase, MoveToCenter);
 
             var calmExplosion = new GameTaskFunc(this, () => IsExploding = false);
 

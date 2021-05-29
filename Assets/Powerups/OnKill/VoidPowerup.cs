@@ -40,8 +40,11 @@ namespace Assets.Powerups
         {
             SoundManager.PlaySound(VoidBullet.VoidBulletFireSound);
 
-            foreach (var enemy in Director.GetAllActiveEnemies())
-                VoidEnemy(enemy, false);
+
+            VoidBullet.StartVoid(SpaceUtil.WorldMap.Center, Level, SizeScale, Duration, true);
+
+            //foreach (var enemy in Director.GetAllActiveEnemies())
+            //    VoidEnemy(enemy, false);
         }
 
         public override void OnKill(Enemy enemy, PlayerBullet bullet)
