@@ -4356,12 +4356,10 @@ MonoBehaviour:
           Base: 10
           IncreasePerLevel: 1
       Sentinel:
+        Radius: 2
         RespawnInterval:
-          Base: 5
-          ScalePerLevel: 0.5
-        WorldDistance:
-          Base: 0.6
-          MaxValue: 4
+          Base: 3.5
+          ScalePerLevel: 0.75
       Parapet:
         Height:
           Base: 3

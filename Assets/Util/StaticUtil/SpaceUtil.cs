@@ -289,6 +289,18 @@ namespace Assets.Util
             return inside;
         }
 
+        /// <summary>
+        /// Determines whether or not a given game <paramref name="sprite"/>
+        /// exists within the bounds of the world map.
+        /// </summary>
+        /// <param name="sprite">The sprite with the position to check.</param>
+        /// <returns>True if the point exists inside the world map; false otherwise.</returns>
+        public static bool SpriteIsInBounds(Component sprite)
+        {
+            return PointIsInBounds(sprite.transform.position);
+        }
+
+
 
         /// <summary>
         /// Returns the current world position under the cursor.

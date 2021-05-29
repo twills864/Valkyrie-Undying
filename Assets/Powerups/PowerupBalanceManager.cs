@@ -273,8 +273,9 @@ namespace Assets.Powerups.Balance
             [Serializable]
             public struct SentinelBalance
             {
+                public float Radius;
                 public RespawnIntervalBalance RespawnInterval;
-                public WorldDistanceBalance WorldDistance;
+                //public WorldDistanceBalance WorldDistance;
 
                 [Serializable]
                 public struct RespawnIntervalBalance
@@ -283,12 +284,12 @@ namespace Assets.Powerups.Balance
                     public float ScalePerLevel;
                 }
 
-                [Serializable]
-                public struct WorldDistanceBalance
-                {
-                    public float Base;
-                    public float MaxValue;
-                }
+                //[Serializable]
+                //public struct WorldDistanceBalance
+                //{
+                //    public float Base;
+                //    public float MaxValue;
+                //}
             }
 
             [Serializable]

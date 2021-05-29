@@ -20,16 +20,18 @@ namespace Assets.Powerups
             float respawnIntervalScalePerLevel = balance.Sentinel.RespawnInterval.ScalePerLevel;
             RespawnIntervalCalculator = new ProductLevelValueCalculator(respawnIntervalBase, respawnIntervalScalePerLevel);
 
-            float worldDistanceExponentBase = balance.Sentinel.WorldDistance.Base;
-            float worldDistanceMaxValue = balance.Sentinel.WorldDistance.MaxValue;
-            DistanceCalculator = new AsymptoteScaleLevelValueCalculator(worldDistanceExponentBase, worldDistanceMaxValue);
+            Radius = balance.Sentinel.Radius;
+
+            //float worldDistanceExponentBase = balance.Sentinel.WorldDistance.Base;
+            //float worldDistanceMaxValue = balance.Sentinel.WorldDistance.MaxValue;
+            //DistanceCalculator = new AsymptoteScaleLevelValueCalculator(worldDistanceExponentBase, worldDistanceMaxValue);
         }
 
         public float RespawnInterval => RespawnIntervalCalculator.Value;
         private ProductLevelValueCalculator RespawnIntervalCalculator { get; set; }
 
-        public float Radius => DistanceCalculator.Value;
-        private AsymptoteScaleLevelValueCalculator DistanceCalculator { get; set; }
+        public float Radius { get; set; }
+        //private AsymptoteScaleLevelValueCalculator DistanceCalculator { get; set; }
 
         public override void OnLevelUp()
         {

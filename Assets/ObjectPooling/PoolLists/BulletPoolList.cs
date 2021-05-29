@@ -77,6 +77,8 @@ namespace Assets.ObjectPooling
         private ParapetBullet ParapetPrefab = null;
         [SerializeField]
         private VoidProjectileBullet VoidProjectilePrefab = null;
+        [SerializeField]
+        private SentinelProjectileBullet SentinelProjectilePrefab = null;
 
         #endregion Additional Bullets
 
@@ -95,6 +97,7 @@ namespace Assets.ObjectPooling
             RaindropPrefab.SpriteColor = defaultAdditional;
             PestControlPrefab.SpriteColor = defaultAdditional;
             SentinelPrefab.SpriteColor = player.Sentinel;
+            SentinelProjectilePrefab.CloneFromSentinel(SentinelPrefab);
             OthelloPrefab.SpriteColor = defaultAdditional;
             VictimPrefab.SpriteColor = defaultAdditional;
             VoidPrefab.SpriteColor = player.Void;

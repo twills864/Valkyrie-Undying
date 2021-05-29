@@ -53,11 +53,14 @@ namespace Assets.Powerups
         private IEnumerable<PlayerBullet> InactiveBullets
             => SentinelPool.Where(x => !x.isActiveAndEnabled);
 
+        private ObjectPool<PlayerBullet> SentinelProjectilePool { get; set; }
+
         protected sealed override void OnInit()
         {
             Instance = this;
 
             SentinelPool = PoolManager.Instance.BulletPool.GetPool<SentinelBullet>();
+            SentinelProjectilePool = PoolManager.Instance.BulletPool.GetPool<SentinelProjectileBullet>();
 
             var sentinels = SentinelPool.GetMany<SentinelBullet>(NumSentinel);
             foreach (var sentinel in sentinels)
@@ -71,6 +74,10 @@ namespace Assets.Powerups
 
             if (RandomUtil.TryGetRandomElement(InactiveBullets, out PlayerBullet bullet))
                 bullet.ActivateSelf();
+            else if (Level == 1)
+                FireRandomSentinel();
+            else
+                FireBestSentinel();
 
             #region Deprecated array implementation
             //var inactiveSentinels = InactiveSentinels.ToArray();
@@ -81,6 +88,49 @@ namespace Assets.Powerups
 
             //timer.Stop();
             //DebugUI.SetDebugLabel(TimerName, timer.Elapsed);
+        }
+
+        private void FireRandomSentinel()
+        {
+            var sentinels = SentinelPool.Where(x => SpaceUtil.SpriteIsInBounds(x));
+            if (RandomUtil.TryGetRandomElement(sentinels, out PlayerBullet bullet))
+                FireSentinelForward(bullet);
+        }
+
+        /// <summary>
+        /// Fires the Sentinel currently directly in front of the player.
+        /// </summary>
+        private void FireBestSentinel()
+        {
+            const float FullCircle = 360f;
+            const float RightAngle = 90f;
+            const float HalfSentinelAngle = FullCircle / NumSentinel * 0.5f;
+
+            float angleDegrees = (FullCircle + RightAngle + HalfSentinelAngle);
+            angleDegrees -= (Rotation.Angle * Mathf.Rad2Deg);
+            angleDegrees %= 360f;
+
+            int index = (int)(angleDegrees * NumSentinel / 360f);
+            index = Mathf.Clamp(index, 0, NumSentinel - 1);
+
+            PlayerBullet sentinel = SentinelPool[index];
+
+            if (SpaceUtil.SpriteIsInBounds(sentinel))
+                FireSentinelForward(sentinel);
+        }
+
+        private void FireSentinelForward(PlayerBullet bullet)
+        {
+            SentinelBullet sentinel = (SentinelBullet)bullet;
+            SentinelProjectileBullet projectile = (SentinelProjectileBullet)SentinelProjectilePool.Get();
+
+            projectile.transform.position = sentinel.transform.position;
+            projectile.Velocity = new Vector2(0, projectile.Speed);
+            projectile.SentinelProjectileDamage = sentinel.Damage;
+
+            // Reset Sentinel entrance animation to finish the illusion that
+            // the Sentinel was fired and immediately respawned.
+            sentinel.ActivateSelf();
         }
 
         public void ActivateAllSentinels()
