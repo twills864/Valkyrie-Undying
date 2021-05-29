@@ -48,7 +48,7 @@ namespace Assets
         private LineRenderer _LaserPointer = null;
 
         [SerializeField]
-        private PlayerIFrames _PlayerIFrames;
+        private PlayerIFrames _PlayerIFrames = default;
 
         #endregion Prefabs
 
@@ -71,8 +71,6 @@ namespace Assets
         #endregion Prefab Properties
 
 
-        private SpriteRenderer BloodlustAuraSprite { get; set; }
-
         public Vector2 Size => Sprite.bounds.size;
         public SpriteBoxMap SpriteMap { get; private set; }
         public ColliderBoxMap ColliderMap { get; private set; }
@@ -86,15 +84,14 @@ namespace Assets
 
         public Vector3 FirePosition => SpriteMap.Top;
 
-#region Fire Speed
+        #region Fire Speed
 
         public float FireSpeedScale => BloodlustSpeedScale;
         public float BloodlustSpeedScale { get; set; } = 1f;
-        private FrameTimer BloodlustTimer { get; set; }
 
-#endregion Fire Speed
+        #endregion Fire Speed
 
-#region Victim
+        #region Victim
 
         private VictimMarker _victimMarker;
         public VictimMarker VictimMarker
@@ -108,32 +105,32 @@ namespace Assets
             }
         }
 
-#endregion Victim
+        #endregion Victim
 
-#region Mortar
+        #region Mortar
 
         public FrameTimerWithBuffer MortarFireTimer { get; private set; }
         public bool ShouldDrawMortar { get; set; }
 
         #endregion Mortar
 
-#region Parapet
+        #region Parapet
 
         [SerializeField]
         private ParapetBullet _parapet = null;
+
         private ParapetBullet Parapet => _parapet;
 
         private ParapetManager ParapetManager { get; set; }
         public void ActivateParapets(float height, Vector3 scale) => ParapetManager.ActivateParapets(height, scale);
 
-#endregion Parapet
+        #endregion Parapet
 
         private void Start()
         {
             SpriteMap = new SpriteBoxMap(this);
             ColliderMap = new ColliderBoxMap(this);
             Collider = ColliderMap.Collider;
-            BloodlustTimer = FrameTimer.Default();
         }
 
         public void Init(in PlayerFireStrategyManager fireStrategyManager, in ColorManager colorManager)
@@ -154,7 +151,8 @@ namespace Assets
 
             IsAlive = true;
 
-            BloodlustAuraSprite = BloodlustAuraObject.GetComponent<SpriteRenderer>();
+            InitBloodlust();
+
             ParapetManager = new ParapetManager(Parapet);
 
             LaserPointer.SetPosition(1, new Vector3(0, SpaceUtil.WorldMap.Height));
@@ -226,8 +224,9 @@ namespace Assets
 
         protected override void OnFrameRun(float deltaTime, float realDeltaTime)
         {
-            if (!BloodlustTimer.Activated && BloodlustTimer.UpdateActivates(deltaTime))
-                ResetBloodlust();
+            float minTime = Math.Min(deltaTime, realDeltaTime);
+
+            BloodlustUpdater.RunFrame(minTime);
 
             MortarFireTimer.Increment(deltaTime);
 
@@ -261,7 +260,7 @@ namespace Assets
                 SetPosition(SpaceUtil.WorldPositionUnderMouse());
         }
 
-#region Damage
+        #region Damage
 
         /// <summary>
         /// Whether or not the player is currently invincible due to being recently damaged.
@@ -374,9 +373,41 @@ namespace Assets
             ParapetManager.Kill();
         }
 
-#endregion Damage
+        #endregion Damage
 
-#region Bloodlust
+        #region Bloodlust
+
+        private float _bloodlustSpeedScaleMax;
+        private float BloodlustSpeedScaleMax
+        {
+            get => _bloodlustSpeedScaleMax;
+            set
+            {
+                _bloodlustSpeedScaleMax = value;
+                BloodlustSpeedScaleMaxScaled = value - 1f;
+            }
+        }
+
+        private float BloodlustSpeedScaleMaxScaled { get; set; }
+
+        private float BloodlustAuraObjectInitialAlpha { get; set; }
+
+        private SpriteRenderer BloodlustAuraSprite { get; set; }
+        private SpriteColorHandler BloodlustColorHandler { get; set; }
+
+        private FuncOverTime BloodlustUpdater { get; set; }
+
+        private void InitBloodlust()
+        {
+            BloodlustAuraSprite = BloodlustAuraObject.GetComponent<SpriteRenderer>();
+            BloodlustColorHandler = new SpriteColorHandler(BloodlustAuraSprite);
+
+            BloodlustAuraObjectInitialAlpha = BloodlustColorHandler.Alpha;
+            BloodlustColorHandler.Alpha = 0;
+
+            BloodlustUpdater = new FuncOverTime(this, BloodlustUpdate, 1.0f);
+            BloodlustUpdater.FinishSelf();
+        }
 
         private void ResetBloodlust()
         {
@@ -386,12 +417,20 @@ namespace Assets
 
         public void SetBloodlust(float duration, float speedScale)
         {
-            BloodlustTimer = new FrameTimer(duration);
-            BloodlustSpeedScale = speedScale;
+            BloodlustUpdater.Duration = duration;
+            BloodlustUpdater.ResetSelf();
 
-            BloodlustAuraObject.gameObject.SetActive(true);
+            BloodlustSpeedScaleMax = speedScale;
+            BloodlustSpeedScale = speedScale;
         }
 
-#endregion Bloodlust
+        private void BloodlustUpdate()
+        {
+            float ratioRemaining = BloodlustUpdater.RatioRemaining;
+            BloodlustSpeedScale = 1f + (BloodlustSpeedScaleMaxScaled * ratioRemaining);
+            BloodlustColorHandler.Alpha = (BloodlustAuraObjectInitialAlpha * ratioRemaining);
+        }
+
+        #endregion Bloodlust
     }
 }

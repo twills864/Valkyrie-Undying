@@ -16,7 +16,7 @@ namespace Assets.Powerups
     /// <inheritdoc/>
     public class BloodlustPowerup : OnKillPowerup
     {
-        public override int MaxLevel => 1;
+        public override int MaxLevel => 2;
 
         protected override void InitBalance(in PowerupBalanceManager.OnKillBalance balance)
         {
@@ -35,6 +35,8 @@ namespace Assets.Powerups
         private float SpeedScale => SpeedScaleLevel.Value;
         private SumLevelValueCalculator SpeedScaleLevel { get; set; }
 
+        private bool ResetFireStrategy => Level > 1;
+
         public override void OnLevelUp()
         {
             ActivateBloodlust();
@@ -47,7 +49,7 @@ namespace Assets.Powerups
 
         private void ActivateBloodlust()
         {
-            GameManager.Instance.SetBloodlust(Duration, SpeedScale);
+            GameManager.Instance.SetBloodlust(Duration, SpeedScale, ResetFireStrategy);
         }
     }
 }

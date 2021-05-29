@@ -186,9 +186,9 @@ namespace Assets.Powerups
 
             float angleDegrees = (FullCircle + RightAngle + HalfSentinelAngle);
             angleDegrees -= (Rotation.Angle * Mathf.Rad2Deg);
-            angleDegrees %= 360f;
+            angleDegrees %= FullCircle;
 
-            int index = (int)(angleDegrees * NumSentinel / 360f);
+            int index = (int)(angleDegrees * NumSentinel / FullCircle);
             index = Mathf.Clamp(index, 0, NumSentinel - 1);
 
             PlayerBullet sentinel = SentinelPool[index];

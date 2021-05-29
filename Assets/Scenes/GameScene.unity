@@ -4297,8 +4297,8 @@ MonoBehaviour:
         ChanceIncrease: 0.175
       Mortar:
         Power:
-          Base: 20
-          Increase: 15
+          Base: 40
+          Increase: 25
     OnHit:
       Shrapnel:
         SpawnChance:
@@ -4320,11 +4320,11 @@ MonoBehaviour:
     OnKill:
       Bloodlust:
         Duration:
-          Base: 0.8
-          IncreasePerLevel: 0.5
+          Base: 1.25
+          IncreasePerLevel: 0.25
         SpeedScale:
-          Base: 1.5
-          Increase: 0.25
+          Base: 2
+          Increase: 0
       Void:
         Duration:
           Base: 1.05
@@ -4416,7 +4416,7 @@ MonoBehaviour:
       LaserEnemyPrefire: {r: 1, g: 0, b: 0.2509804, a: 0.5019608}
     UI:
       VictimMarkerAlpha: 0.7
-      MortarGuideAlpha: 0.5
+      MortarGuideAlpha: 0.25
     Pickup:
       Weapon: {r: 0.7529412, g: 1, b: 0, a: 1}
       Powerup: {r: 0, g: 1, b: 0.7529412, a: 1}
@@ -6573,6 +6573,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 924961050382555185, guid: 2a0d0a97014dc564a80b742dc6ac172b,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 0.78431374
+      objectReference: {fileID: 0}
     - target: {fileID: 1173633443530965504, guid: 2a0d0a97014dc564a80b742dc6ac172b,
         type: 3}
       propertyPath: m_SortingLayer
@@ -6737,6 +6742,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Parameters.colorGradient.key1.a
       value: 0.1254902
+      objectReference: {fileID: 0}
+    - target: {fileID: 5388168560827903027, guid: 2a0d0a97014dc564a80b742dc6ac172b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7538352202377217316, guid: 2a0d0a97014dc564a80b742dc6ac172b,
         type: 3}

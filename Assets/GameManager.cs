@@ -633,11 +633,15 @@ namespace Assets
             _PowerupManager.OnKill(enemy, bullet);
         }
 
-        public void SetBloodlust(float duration, float speedScale)
+        public void SetBloodlust(float duration, float speedScale, bool resetFireStrategy)
         {
             Player.SetBloodlust(duration, speedScale);
-            CurrentFireStrategy.Reset();
-            _Othello.ResetFiretimer();
+
+            if (resetFireStrategy)
+            {
+                CurrentFireStrategy.Reset();
+                _Othello.ResetFiretimer();
+            }
         }
 
 #endregion OnEnemyKill
