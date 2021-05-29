@@ -371,6 +371,7 @@ namespace Assets
             MortarGuide.gameObject.SetActive(false);
             VictimMarker?.StartDeactivation();
             BfgBulletSpawner.Instance.DeactivateSelf();
+            ParapetManager.Kill();
         }
 
 #endregion Damage

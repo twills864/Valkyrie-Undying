@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Assets.Bullets.PlayerBullets;
 using Assets.Constants;
+using Assets.Enemies;
 using Assets.FireStrategies.PlayerFireStrategies;
 using Assets.GameTasks;
 using Assets.Hierarchy.ColorHandlers;
@@ -63,8 +64,85 @@ namespace Assets.Powerups
             SentinelProjectilePool = PoolManager.Instance.BulletPool.GetPool<SentinelProjectileBullet>();
 
             var sentinels = SentinelPool.GetMany<SentinelBullet>(NumSentinel);
-            foreach (var sentinel in sentinels)
+            for (int i = 0; i < sentinels.Length; i++)
+            {
+                SentinelBullet sentinel = sentinels[i];
+                sentinel.Index = i;
                 sentinel.DeactivateSelf();
+            }
+        }
+
+        protected override void OnFrameRun(float deltaTime, float realDeltaTime)
+        {
+            //if (Level == 0)
+            //    return;
+
+            Rotation.AddAngle(deltaTime * AngularVelocity);
+
+            if (RespawnTimer.UpdateActivates(deltaTime))
+                ActivateRandomSentinel();
+
+            float angle = Rotation;
+            for (int i = 0; i < NumSentinel; i++)
+            {
+                var sentinel = (SentinelBullet)SentinelPool[i];
+                if (sentinel.isActiveAndEnabled)
+                {
+                    var offset = (Vector3)MathUtil.VectorAtRadianAngle(angle, Radius);
+
+                    var destination = transform.position + offset;
+                    var ratio = sentinel.RadiusRatio;
+                    var newPos = MathUtil.ScaledPositionBetween(transform.position, destination, ratio);
+                    sentinel.transform.position = newPos;
+                }
+
+                angle += AngleDelta;
+            }
+        }
+
+        private void LateUpdate()
+        {
+            transform.position = Player.Instance.transform.position;
+        }
+
+        public void LevelUp(int level, float radius, float respawnInterval)
+        {
+            Instance.gameObject.SetActive(true);
+
+            Level = level;
+
+            RespawnTimer.ActivationInterval = respawnInterval;
+            RespawnTimer.Reset();
+
+            Radius = radius;
+
+            if (level > 1)
+            {
+                foreach (var sentinel in Sentinels)
+                {
+                    if (sentinel.isActiveAndEnabled)
+                    {
+                        float newDistanceRatio = sentinel.CurrentRadius / Radius;
+                        sentinel.RadiusRatio = newDistanceRatio;
+                    }
+
+                    sentinel.MaxRadius = Radius;
+                }
+            }
+            else
+            {
+                foreach (var sentinel in Sentinels)
+                    sentinel.MaxRadius = Radius;
+            }
+
+            ActivateAllSentinels();
+        }
+
+
+        public void ActivateAllSentinels()
+        {
+            foreach (var bullet in InactiveBullets)
+                bullet.ActivateSelf();
         }
 
         public void ActivateRandomSentinel()
@@ -122,87 +200,84 @@ namespace Assets.Powerups
         private void FireSentinelForward(PlayerBullet bullet)
         {
             SentinelBullet sentinel = (SentinelBullet)bullet;
-            SentinelProjectileBullet projectile = (SentinelProjectileBullet)SentinelProjectilePool.Get();
+            SentinelProjectileBullet projectile = SentinelProjectileBullet.GetProjectile(sentinel);
 
-            projectile.transform.position = sentinel.transform.position;
             projectile.Velocity = new Vector2(0, projectile.Speed);
-            projectile.SentinelProjectileDamage = sentinel.Damage;
 
             // Reset Sentinel entrance animation to finish the illusion that
             // the Sentinel was fired and immediately respawned.
             sentinel.ActivateSelf();
         }
 
-        public void ActivateAllSentinels()
+        public void SentinelTriggered(SentinelBullet sentinel, Enemy enemy)
         {
-            foreach (var bullet in InactiveBullets)
-                bullet.ActivateSelf();
-        }
+            int index = sentinel.Index;
+            int sentinelDamage = sentinel.Damage;
 
-        protected override void OnFrameRun(float deltaTime, float realDeltaTime)
-        {
-            //if (Level == 0)
-            //    return;
+            var triggered = GetNextTriggeredSentinel(index).GetEnumerator();
 
-            Rotation.AddAngle(deltaTime * AngularVelocity);
+            // enemy.CurrentHealth is the health after hitting the first Sentinel.
+            int theoreticalHealth = enemy.CurrentHealth; // - sentinel.Damage;
 
-            if (RespawnTimer.UpdateActivates(deltaTime))
-                ActivateRandomSentinel();
+            Vector2 enemyPosition = enemy.transform.position;
+            Vector2 enemyVelocity = enemy.Velocity;
 
-            float angle = Rotation;
-            for(int i = 0; i < NumSentinel; i++)
+
+            while (theoreticalHealth > 0 && triggered.MoveNext())
             {
-                var sentinel = (SentinelBullet) SentinelPool[i];
-                if(sentinel.isActiveAndEnabled)
-                {
-                    var offset = (Vector3) MathUtil.VectorAtRadianAngle(angle, Radius);
+                SentinelBullet next = triggered.Current;
+                SentinelProjectileBullet projectile = SentinelProjectileBullet.GetProjectile(next);
 
-                    var destination = transform.position + offset;
-                    var ratio = sentinel.RadiusRatio;
-                    var newPos = MathUtil.ScaledPositionBetween(transform.position, destination, ratio);
-                    sentinel.transform.position = newPos;
-                }
+                Vector2 projPos = projectile.transform.position;
+                projectile.Velocity = MathUtil.VelocityVector(projPos, enemyPosition, projectile.Speed)
+                    + enemyVelocity;
 
-                angle += AngleDelta;
+                theoreticalHealth -= sentinelDamage;
+                next.DeactivateSelf();
             }
         }
 
-        private void LateUpdate()
+        /// <summary>
+        /// Gets each next-closest Sentinel to the Sentinel at a given <paramref name="startingIndex"/>.
+        /// The offsets of each next Sentinel follow the pattern (<paramref name="startingIndex"/> +1), -1, +2, -2, +3, ...
+        /// The offsets are adjusted to stay within the bounds of the array.
+        /// </summary>
+        /// <param name="startingIndex">The index of the triggered Sentinel.</param>
+        /// <returns>Each next-closest Sentinel.</returns>
+        private IEnumerable<SentinelBullet> GetNextTriggeredSentinel(int startingIndex)
         {
-            transform.position = Player.Instance.transform.position;
-        }
+            int nextIndex;
+            SentinelBullet nextSentinel;
 
-        public void LevelUp(int level, float radius, float respawnInterval)
-        {
-            Instance.gameObject.SetActive(true);
-
-            Level = level;
-
-            RespawnTimer.ActivationInterval = respawnInterval;
-            RespawnTimer.Reset();
-
-            Radius = radius;
-
-            if (level > 1)
+            bool ShouldYield()
             {
-                foreach (var sentinel in Sentinels)
-                {
-                    if (sentinel.isActiveAndEnabled)
-                    {
-                        float newDistanceRatio = sentinel.CurrentRadius / Radius;
-                        sentinel.RadiusRatio = newDistanceRatio;
-                    }
-
-                    sentinel.MaxRadius = Radius;
-                }
-            }
-            else
-            {
-                foreach (var sentinel in Sentinels)
-                    sentinel.MaxRadius = Radius;
+                nextSentinel = (SentinelBullet) SentinelPool[nextIndex];
+                return nextSentinel.isActiveAndEnabled;
             }
 
-            ActivateAllSentinels();
+            const int MaxLevel = (NumSentinel / 2);
+            for(int level = 1; level < MaxLevel; level++)
+            {
+                nextIndex = startingIndex + level;
+                if (nextIndex >= NumSentinel) nextIndex -= NumSentinel;
+                if (ShouldYield()) yield return nextSentinel;
+
+                nextIndex = startingIndex - level;
+                if (nextIndex < 0) nextIndex += NumSentinel;
+                if (ShouldYield()) yield return nextSentinel;
+            }
+
+            // Fire most distant Sentinel if necessary
+            if(MathUtil.IsEven(NumSentinel))
+            {
+                const int Half = (NumSentinel / 2);
+                if (startingIndex < Half)
+                    nextIndex = startingIndex + Half;
+                else
+                    nextIndex = startingIndex - Half;
+
+                if (ShouldYield()) yield return nextSentinel;
+            }
         }
 
         public void Kill()

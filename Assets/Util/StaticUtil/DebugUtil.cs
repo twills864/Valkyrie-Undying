@@ -148,7 +148,7 @@ namespace Assets.Util
             SpawnSpecificEnemy<TankEnemy>();
             SpawnSpecificEnemy<LaserEnemy>();
 
-            UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(GameConstants.SceneNameMainMenu, UnityEngine.SceneManagement.LoadSceneMode.Single);
+            //UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(GameConstants.SceneNameMainMenu, UnityEngine.SceneManagement.LoadSceneMode.Single);
         }
 
         private static void InputMouseForward(KeyCode keyCode)
@@ -165,6 +165,7 @@ namespace Assets.Util
             }
 
             SmiteBullet.DebugTestSmite();
+
             //PickupSpam();
 
             //TestRetribution();

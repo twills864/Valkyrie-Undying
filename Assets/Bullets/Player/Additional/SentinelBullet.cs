@@ -2,6 +2,7 @@
 using Assets.Constants;
 using Assets.Enemies;
 using Assets.GameTasks;
+using Assets.Powerups;
 using Assets.Util;
 using UnityEngine;
 
@@ -28,7 +29,10 @@ namespace Assets.Bullets.PlayerBullets
 
         #endregion Prefab Properties
 
-
+        /// <summary>
+        /// The index within its holding ObjectPool.
+        /// </summary>
+        public int Index { get; set; }
         private EaseInTimer TravelTimer { get; set; }
 
         /// <summary>
@@ -66,6 +70,12 @@ namespace Assets.Bullets.PlayerBullets
         protected override void OnPlayerBulletFrameRun(float deltaTime, float realDeltaTime)
         {
             TravelTimer.Increment(deltaTime);
+        }
+
+        public override void OnCollideWithEnemy(Enemy enemy)
+        {
+            SentinelManager.Instance.SentinelTriggered(this, enemy);
+            DeactivateSelf();
         }
     }
 }

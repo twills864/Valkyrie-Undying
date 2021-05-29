@@ -39,24 +39,15 @@ namespace Assets.Bullets.PlayerBullets
             transform.localScale = sentinel.transform.localScale;
         }
 
-        protected override void OnPlayerBulletInit()
+        public static SentinelProjectileBullet GetProjectile(SentinelBullet sentinel)
         {
+            SentinelProjectileBullet projectile = (SentinelProjectileBullet)PoolManager.Instance
+                .BulletPool.Get<SentinelProjectileBullet>();
 
-        }
+            projectile.transform.position = sentinel.transform.position;
+            projectile.SentinelProjectileDamage = sentinel.Damage;
 
-        protected override void OnActivate()
-        {
-
-        }
-
-        public override void OnSpawn()
-        {
-
-        }
-
-        protected override void OnPlayerBulletFrameRun(float deltaTime, float realDeltaTime)
-        {
-
+            return projectile;
         }
     }
 }

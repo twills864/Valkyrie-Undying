@@ -60,5 +60,11 @@ namespace Assets.Powerups
                 RightParapet.SpriteColor = value;
             }
         }
+
+        public void Kill()
+        {
+            LeftParapet.DeactivateSelf();
+            RightParapet.DeactivateSelf();
+        }
     }
 }
