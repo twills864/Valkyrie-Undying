@@ -3,28 +3,31 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Assets.Util;
 using UnityEngine;
 
 namespace Assets.GameTasks
 {
-    public class GameTaskFunc : FiniteTimeGameTask
+    /// <inheritdoc/>
+    public class FuncAfterDelay : FiniteTimeGameTask
     {
         private Action Func;
 
-        public GameTaskFunc(ValkyrieSprite target, Action func) : base(target, float.Epsilon)
+        public FuncAfterDelay(ValkyrieSprite target, Action func, float duration) : base(target, duration)
         {
             Func = func;
         }
 
         protected override void OnFiniteTaskFrameRun(float deltaTime)
         {
-            Func();
+            if (Timer.Activated)
+                Func();
         }
 
-        public static GameTaskFunc DeactivateSelf(PooledObject runner)
+        public static FuncAfterDelay DeactivateSelfAfterDelay(PooledObject runner, float delay)
         {
             Action deactivateSelf = runner.DeactivateSelf;
-            GameTaskFunc ret = new GameTaskFunc(runner, deactivateSelf);
+            FuncAfterDelay ret = new FuncAfterDelay(runner, deactivateSelf, delay);
             return ret;
         }
     }

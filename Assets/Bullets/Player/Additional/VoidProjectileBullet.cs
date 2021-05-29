@@ -5,6 +5,7 @@ using Assets.Constants;
 using Assets.GameTasks;
 using Assets.ObjectPooling;
 using UnityEngine;
+using Assets.Enemies;
 
 namespace Assets.Bullets.PlayerBullets
 {
@@ -35,6 +36,8 @@ namespace Assets.Bullets.PlayerBullets
         #endregion Prefab Properties
 
 
+        private CircleCollider2D Collider { get; set; }
+        private FuncAfterDelay ActivateCollider { get; set; }
         private VelocityChange VelocityChange { get; set; }
         private ConcurrentGameTask EntranceAnimation { get; set; }
 
@@ -43,18 +46,20 @@ namespace Assets.Bullets.PlayerBullets
 
         protected override void OnPlayerBulletInit()
         {
-            var scaleIn = new ScaleTo(this, Vector3.zero, transform.localScale, EntranceAnimationTime);
+            Collider = GetComponent<CircleCollider2D>();
+
+            ActivateCollider = new FuncAfterDelay(this, () => Collider.enabled = true, EntranceAnimationTime);
             var fadeIn = new FadeTo(this, 0, Alpha, EntranceAnimationTime);
             VelocityChange = new VelocityChange(this, Vector2.zero, Vector2.zero, EntranceAnimationTime);
             var easeVelocityOut = new EaseOut(VelocityChange);
-            EntranceAnimation = new ConcurrentGameTask(scaleIn, fadeIn, easeVelocityOut);
+            EntranceAnimation = new ConcurrentGameTask(fadeIn, easeVelocityOut, ActivateCollider);
         }
 
         protected override void OnActivate()
         {
+            Collider.enabled = false;
             EntranceAnimation.ResetSelf();
 
-            transform.localScale = Vector3.zero;
             Alpha = 0;
 
             VelocityChange.EndVelocity = RandomUtil.RandomDirectionVectorTopThreeQuarters(Speed);
