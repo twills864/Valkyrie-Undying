@@ -10,6 +10,7 @@ TagManager:
   - EnemyBullet
   - ScreenEdge
   - Pickup
+  - Othello
   layers:
   - Default
   - TransparentFX

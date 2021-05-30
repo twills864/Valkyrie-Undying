@@ -9,6 +9,7 @@ using Assets.FireStrategies.PlayerFireStrategies;
 using Assets.GameTasks;
 using Assets.Hierarchy.ColorHandlers;
 using Assets.ObjectPooling;
+using Assets.Pickups;
 using Assets.Util;
 using UnityEngine;
 
@@ -77,6 +78,29 @@ namespace Assets.Powerups
         /// </summary>
         private int Level { get; set; }
 
+        protected sealed override void OnInit()
+        {
+            Instance = this;
+
+            BoxMap = new SpriteBoxMap(this);
+
+            var sprite = GetComponent<SpriteRenderer>();
+            Size = sprite.size;
+
+            WorldCenterX = SpaceUtil.WorldMap.Center.x;
+
+            FireTimer = new FrameTimerWithBuffer(FireTimerIntervalBase);
+        }
+
+        protected override void OnFrameRun(float deltaTime, float realDeltaTime)
+        {
+            FadeTo.RunFrame(deltaTime);
+
+            transform.position = CalculateNewPosition(Player.Instance.transform.position);
+
+            FireTimer.Increment(deltaTime);
+        }
+
         /// <summary>
         /// Calculates the position that is the same as the player's current position,
         /// but with the X coordinate flipped across the center of the screen.
@@ -92,13 +116,13 @@ namespace Assets.Powerups
             return ret;
         }
 
-        protected override void OnFrameRun(float deltaTime, float realDeltaTime)
+        public void LevelUp(int level, int damage)
         {
-            FadeTo.RunFrame(deltaTime);
+            if (level == 1)
+                Activate();
 
-            transform.position = CalculateNewPosition(Player.Instance.transform.position);
-
-            FireTimer.Increment(deltaTime);
+            Level = level;
+            Damage = damage;
         }
 
         public void Activate()
@@ -111,15 +135,6 @@ namespace Assets.Powerups
             var targetAlpha = Alpha;
             Alpha = 0;
             FadeTo = new FadeTo(this, targetAlpha, FadeInTime);
-        }
-
-        public void LevelUp(int level, int damage)
-        {
-            if (level == 1)
-                Activate();
-
-            Level = level;
-            Damage = damage;
         }
 
         public void Fire()
@@ -151,18 +166,13 @@ namespace Assets.Powerups
             FireTimer.ActivateSelf();
         }
 
-        protected sealed override void OnInit()
+        private void OnTriggerEnter2D(Collider2D collision)
         {
-            Instance = this;
-
-            BoxMap = new SpriteBoxMap(this);
-
-            var sprite = GetComponent<SpriteRenderer>();
-            Size = sprite.size;
-
-            WorldCenterX = SpaceUtil.WorldMap.Center.x;
-
-            FireTimer = new FrameTimerWithBuffer(FireTimerIntervalBase);
+            if (CollisionUtil.IsPickup(collision))
+            {
+                Pickup pickup = collision.GetComponent<Pickup>();
+                pickup.PickUp();
+            }
         }
 
         public void Kill()

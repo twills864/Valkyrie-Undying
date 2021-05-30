@@ -41,6 +41,7 @@ namespace Assets.Pickups
             => new SpriteColorHandler(Sprite);
 
         public Vector2 Size { get; private set; }
+        private bool HasBeenPickedUp { get; set; }
 
         protected virtual void OnPickupInit() { }
         protected sealed override void OnInit()
@@ -56,6 +57,7 @@ namespace Assets.Pickups
         protected virtual void OnPickupSpawn() { }
         public sealed override void OnSpawn()
         {
+            HasBeenPickedUp = false;
             OnPickupSpawn();
         }
 
@@ -65,12 +67,19 @@ namespace Assets.Pickups
             OnPickupFrameRun(deltaTime, realDeltaTime);
         }
 
-        protected abstract void OnPickUp();
-
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if(CollisionUtil.IsPlayer(collision))
+            if (CollisionUtil.IsPlayer(collision))
+                PickUp();
+        }
+
+        protected abstract void OnPickUp();
+        public void PickUp()
+        {
+            if (!HasBeenPickedUp)
             {
+                HasBeenPickedUp = true;
+
                 OnPickUp();
                 DeactivateSelf();
             }
