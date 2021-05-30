@@ -14,19 +14,14 @@ namespace Assets.Powerups
     /// <inheritdoc/>
     public class OthelloPowerup : OnLevelUpPowerup
     {
+        public override int MaxLevel => 2;
+
         protected override void InitBalance(in PowerupBalanceManager.OnLevelUpBalance balance)
         {
-            //float fireSpeedBase = balance.Othello.FireSpeed.Base;
-            //float fireSpeedIncrease = balance.Othello.FireSpeed.Max;
-            //FireSpeedModifierCalculator = new SumLevelValueCalculator(fireSpeedBase, fireSpeedIncrease);
-
             float damageBase = balance.Othello.Damage.Base;
             float damageIncrease = balance.Othello.Damage.Increase;
             DamageCalculator = new SumLevelValueCalculator(damageBase, damageIncrease);
         }
-
-        //public float FireSpeedModifier => FireSpeedModifierCalculator.Value;
-        //private SumLevelValueCalculator FireSpeedModifierCalculator { get; set; }
 
         public int Damage => (int)DamageCalculator.Value;
         private SumLevelValueCalculator DamageCalculator { get; set; }

@@ -4339,7 +4339,7 @@ MonoBehaviour:
       Othello:
         Damage:
           Base: 20
-          Increase: 20
+          Increase: 5
       FireSpeed:
         Base: 1.2
         Increase: 0.15
@@ -4970,6 +4970,11 @@ PrefabInstance:
       propertyPath: PrefabSprite
       value: 
       objectReference: {fileID: 846674334}
+    - target: {fileID: 873214965893566787, guid: 973e689a2ca4bdf46aaf99e27a2a7e05,
+        type: 3}
+      propertyPath: _BulletSpread
+      value: 0.25
+      objectReference: {fileID: 0}
     - target: {fileID: 5352410615180361242, guid: 973e689a2ca4bdf46aaf99e27a2a7e05,
         type: 3}
       propertyPath: m_SortingLayer

@@ -34,6 +34,8 @@ namespace Assets.Powerups
         private float _FadeInTime = GameConstants.PrefabNumber;
         [SerializeField]
         private float _FadeInTimeFireDelay = GameConstants.PrefabNumber;
+        [SerializeField]
+        private float _BulletSpread = GameConstants.PrefabNumber;
 
         #endregion Prefabs
 
@@ -45,6 +47,7 @@ namespace Assets.Powerups
         private float FireTimerIntervalBase => _FireTimerIntervalBase;
         private float FadeInTime => _FadeInTime;
         private float FadeInTimeFireDelay => _FadeInTimeFireDelay;
+        private float BulletSpread => _BulletSpread;
 
         #endregion Prefab Properties
 
@@ -54,8 +57,6 @@ namespace Assets.Powerups
 
         private Vector2 Size { get; set; }
         public SpriteBoxMap BoxMap { get; private set; }
-
-        //private float FireSpeedModifier { get; set; }
 
         /// <summary>
         /// Othello's fire timer activates just slightly faster than real-time
@@ -97,12 +98,7 @@ namespace Assets.Powerups
 
             transform.position = CalculateNewPosition(Player.Instance.transform.position);
 
-            FireTimer.Increment(deltaTime/* * FireSpeedModifier*/);
-
-            //// Only attempt to increment the fire timer if it's not already activated.
-            //// This preserves the activation status for when the player fires their main cannon.
-            //if (!FireTimer.Activated)
-            //    FireTimer.Increment(deltaTime * FireSpeedModifier);
+            FireTimer.Increment(deltaTime);
         }
 
         public void Activate()
@@ -124,18 +120,27 @@ namespace Assets.Powerups
 
             Level = level;
             Damage = damage;
-            //FireSpeedModifier = fireSpeedModifier;
-            //FireTimer.ActivationInterval = FireTimerIntervalBase * fireSpeedModifier;
         }
 
         public void Fire()
         {
             if (gameObject.activeSelf && FireTimer.Activated)
             {
-                var bullet = PoolManager.Instance.BulletPool.Get<OthelloBullet>(FirePosition, Level);
-                bullet.OthelloDamage = Damage;
+                var bullets = PoolManager.Instance.BulletPool.GetMany<OthelloBullet>(Level, FirePosition, Level);
 
-                bullet.PlayFireSound();
+                float offsetX = -(BulletSpread * (Level - 1) * 0.5f);
+                for (int i = 0; i < bullets.Length; i++)
+                {
+                    OthelloBullet bullet = bullets[i];
+                    bullet.OthelloDamage = Damage;
+
+                    bullet.PositionX += offsetX;
+
+                    if (!SpaceUtil.PointIsInBounds(bullet.transform.position))
+                        bullet.RunTask(GameTaskFunc.DeactivateSelf(bullet));
+
+                    offsetX += BulletSpread;
+                }
 
                 FireTimer.TouchTimer();
             }
@@ -157,9 +162,7 @@ namespace Assets.Powerups
 
             WorldCenterX = SpaceUtil.WorldMap.Center.x;
 
-            FireTimer = new FrameTimerWithBuffer(FireTimerIntervalBase); // new LoopingFrameTimer(FireTimerIntervalBase);
-            //FireTimer.Elapsed = -FadeInTime - FadeInTimeFireDelay;
-            //FireSpeedModifier = FireSpeedPrecisionScale;
+            FireTimer = new FrameTimerWithBuffer(FireTimerIntervalBase);
         }
 
         public void Kill()

@@ -26,14 +26,14 @@ namespace Assets.FireStrategies.PlayerFireStrategies
 
         public override PlayerBullet[] GetBullets(int weaponLevel, Vector3 playerFirePos)
         {
-            int numbullets = weaponLevel + 2;
+            int numBullets = weaponLevel + 2;
 
-            var ret = PoolManager.Instance.BulletPool.GetMany<OneManArmyBullet>(numbullets);
+            var ret = PoolManager.Instance.BulletPool.GetMany<OneManArmyBullet>(numBullets);
             float offsetX = ret[0].OffsetX;
 
             Vector3 spawn = playerFirePos;
-            spawn.x -= (offsetX * (numbullets-1) * 0.5f);
-            for (int i = 0; i < numbullets; i++)
+            spawn.x -= (offsetX * (numBullets-1) * 0.5f);
+            for (int i = 0; i < numBullets; i++)
             {
                 ret[i].transform.position = spawn;
 
