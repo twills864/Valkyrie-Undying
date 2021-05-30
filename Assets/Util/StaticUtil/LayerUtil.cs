@@ -11,13 +11,21 @@ namespace Assets.Util
 {
     public static class LayerUtil
     {
-        public const int LayerEnemyBullets = 1 << 8;
-        public const int LayerEnemies = 1 << 9;
-        public const int LayerPlayer = 1 << 10;
-        public const int LayerPlayerBullets = 1 << 11;
-        public const int LayerScreenEdge = 1 << 12;
-        public const int LayerPickups = 1 << 13;
-        public const int LayerBackground = 1 << 14;
+        public const int SourceLayerEnemyBullets = 8;
+        public const int SourceLayerEnemies = 9;
+        public const int SourceLayerPlayer = 10;
+        public const int SourceLayerPlayerBullets = 11;
+        public const int SourceLayerScreenEdge = 12;
+        public const int SourceLayerPickups = 13;
+        public const int SourceLayerBackground = 14;
+
+        public const int LayerEnemyBullets = 1 << SourceLayerEnemyBullets;
+        public const int LayerEnemies = 1 << SourceLayerEnemies;
+        public const int LayerPlayer = 1 << SourceLayerPlayer;
+        public const int LayerPlayerBullets = 1 << SourceLayerPlayerBullets;
+        public const int LayerScreenEdge = 1 << SourceLayerScreenEdge;
+        public const int LayerPickups = 1 << SourceLayerPickups;
+        public const int LayerBackground = 1 << SourceLayerBackground;
 
         //public static LayerMask MaskEnemyBullets => 1 << LayerEnemyBullets;
         //public static LayerMask MaskEnemies => 1 << LayerEnemies;

@@ -4371,6 +4371,9 @@ MonoBehaviour:
         Damage:
           Base: 1
           Increase: 1
+        MaxDamage:
+          Base: 15
+          Increase: 25
       Victim:
         TouchRadius: 1
         FireSpeed:

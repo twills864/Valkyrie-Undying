@@ -330,6 +330,7 @@ namespace Assets.Powerups.Balance
             {
                 public FireSpeedBalance FireSpeed;
                 public DamageBalance Damage;
+                public MaxDamageBalance MaxDamage;
 
                 [Serializable]
                 public struct FireSpeedBalance
@@ -340,6 +341,13 @@ namespace Assets.Powerups.Balance
 
                 [Serializable]
                 public struct DamageBalance
+                {
+                    public float Base;
+                    public float Increase;
+                }
+
+                [Serializable]
+                public struct MaxDamageBalance
                 {
                     public float Base;
                     public float Increase;

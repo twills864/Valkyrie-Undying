@@ -54,10 +54,14 @@ namespace Assets.Pickups
             OnPickupInit();
         }
 
+        protected sealed override void OnActivate()
+        {
+            HasBeenPickedUp = false;
+        }
+
         protected virtual void OnPickupSpawn() { }
         public sealed override void OnSpawn()
         {
-            HasBeenPickedUp = false;
             OnPickupSpawn();
         }
 

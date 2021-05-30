@@ -16,8 +16,11 @@ namespace Assets.Powerups
     /// <inheritdoc/>
     public class InfernoPowerup : PassivePowerup
     {
+        public override int MaxLevel => 2;
+
         public static int CurrentBaseDamage { get; private set; }
         public static int CurrentDamageIncreasePerTick { get; private set; }
+        public static int CurrentMaxDamage { get; private set; }
 
         public static float DamageIncreasePerLevel;
 
@@ -26,6 +29,10 @@ namespace Assets.Powerups
             float damageIncreaseBase = balance.Inferno.Damage.Base;
             DamageIncreasePerLevel = balance.Inferno.Damage.Increase;
             DamageCalculator = new SumLevelValueCalculator(damageIncreaseBase, DamageIncreasePerLevel);
+
+            float maxDamageBase = balance.Inferno.MaxDamage.Base;
+            float maxDamageIncrease = balance.Inferno.MaxDamage.Increase;
+            MaxDamageCalculator = new SumLevelValueCalculator(maxDamageBase, maxDamageIncrease);
 
             float fireSpeedBase = balance.Inferno.FireSpeed.Base;
             float fireSpeedIncrease = balance.Inferno.FireSpeed.ScalePerLevel;
@@ -37,6 +44,9 @@ namespace Assets.Powerups
 
         private int DamageIncrease => (int) DamageCalculator.Value;
         private SumLevelValueCalculator DamageCalculator { get; set; }
+
+        private int MaxDamage => (int)MaxDamageCalculator.Value;
+        private SumLevelValueCalculator MaxDamageCalculator { get; set; }
 
         private LoopingFrameTimer FireTimer { get; } = LoopingFrameTimer.Default();
         private ObjectPool<PlayerBullet> InfernoPool { get; set; }
@@ -52,6 +62,7 @@ namespace Assets.Powerups
         public override void OnLevelUp()
         {
             CurrentDamageIncreasePerTick = DamageIncrease;
+            CurrentMaxDamage = MaxDamage;
 
             FireTimer.ActivationInterval = FireSpeed;
             FireTimer.ActivateSelf();
@@ -66,6 +77,7 @@ namespace Assets.Powerups
                 bullet.transform.position = firePos;
                 bullet.BulletLevel = Level;
                 bullet.DamageIncreasePerTick = DamageIncrease;
+                bullet.MaxDamage = MaxDamage;
 
                 bullet.PlayFireSound();
             }

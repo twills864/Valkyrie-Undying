@@ -47,8 +47,11 @@ namespace Assets.Powerups
 
                 shrapnel.Velocity = velocity;
 
-                if(enemy.IsBurning)
+                if (enemy.IsBurning)
+                {
                     shrapnel.FireDamage = enemy.InfernoDamageIncrease;
+                    shrapnel.FireDamageMax = enemy.InfernoDamageMax;
+                }
             }
         }
     }

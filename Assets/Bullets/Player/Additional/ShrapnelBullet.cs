@@ -33,6 +33,7 @@ namespace Assets.Bullets.PlayerBullets
 
         public bool IsBurning => FireDamage != 0;
         public int FireDamage { get; set; }
+        public int FireDamageMax { get; set; }
 
         public override Vector2 Velocity
         {
@@ -72,7 +73,7 @@ namespace Assets.Bullets.PlayerBullets
         {
             // Burn enemy if applicable before deactivating.
             if(IsBurning && !enemy.IsBurning)
-                enemy.Ignite(FireDamage, FireDamage);
+                enemy.Ignite(FireDamage, FireDamage, FireDamageMax);
 
             base.OnCollideWithEnemy(enemy);
         }

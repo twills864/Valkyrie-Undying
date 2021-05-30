@@ -14,6 +14,7 @@ namespace Assets.Bullets.PlayerBullets
         public static int CurrentBaseDamage { get; set; }
 
         public int DamageIncreasePerTick { get; set; }
+        public int MaxDamage { get; set; }
 
         protected override void OnActivate()
         {
@@ -22,10 +23,13 @@ namespace Assets.Bullets.PlayerBullets
 
         public override void OnCollideWithEnemy(Enemy enemy)
         {
-            if(enemy.isActiveAndEnabled)
-                enemy.Ignite(Damage, DamageIncreasePerTick);
+            PlayHitSound();
 
-            DeactivateSelf();
+            if(enemy.isActiveAndEnabled)
+                enemy.Ignite(Damage, DamageIncreasePerTick, MaxDamage);
+
+            if(BulletLevel <= 1)
+                DeactivateSelf();
         }
     }
 }

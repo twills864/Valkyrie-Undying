@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using Assets.Bullets.PlayerBullets;
 using Assets.Constants;
@@ -361,7 +362,7 @@ namespace Assets.Enemies
         protected virtual float InfernoDamageScale => 1f;
         public virtual int InfernoDamageIncrease { get; protected set; }
 
-        private const int InfernoDamageMax = 10;
+        public int InfernoDamageMax { get; private set; }
         protected int InfernoDamage
         {
             get => _infernoDamage;
@@ -369,8 +370,10 @@ namespace Assets.Enemies
         }
         public bool IsBurning { get; set; }
 
-        public void Ignite(int baseDamage, int damageIncreasePerTick)
+        public void Ignite(int baseDamage, int damageIncreasePerTick, int maxDamage, Enemy ignitingEnemy = null)
         {
+            InfernoDamageMax = maxDamage;
+
             int newInfernoDamageIncrease = (int)(InfernoDamageScale * damageIncreasePerTick);
             int newInfernoDamage = (int)(InfernoDamageScale * baseDamage) + newInfernoDamageIncrease;
 
@@ -387,6 +390,14 @@ namespace Assets.Enemies
                     InfernoDamageIncrease = newInfernoDamageIncrease;
                 if (InfernoDamage < newInfernoDamage)
                     InfernoDamage = newInfernoDamage;
+                if (InfernoDamageMax < maxDamage)
+                    InfernoDamageMax = maxDamage;
+            }
+
+            foreach(var nextEnemy in CollisionUtil.GetAllEnemiesCollidingWith(ColliderMap.Collider))
+            {
+                if (nextEnemy != ignitingEnemy)
+                    nextEnemy.Ignite(baseDamage, damageIncreasePerTick, maxDamage, this);
             }
         }
 
@@ -464,7 +475,9 @@ namespace Assets.Enemies
             if (CollisionUtil.IsEnemy(collision) && IsBurning)
             {
                 Enemy enemy = collision.GetComponent<Enemy>();
-                enemy.Ignite(InfernoPowerup.CurrentBaseDamage, InfernoPowerup.CurrentDamageIncreasePerTick);
+                enemy.Ignite(InfernoPowerup.CurrentBaseDamage,
+                    InfernoPowerup.CurrentDamageIncreasePerTick,
+                    InfernoPowerup.CurrentMaxDamage);
             }
         }
 

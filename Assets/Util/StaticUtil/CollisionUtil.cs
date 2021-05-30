@@ -1,4 +1,7 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.CompilerServices;
+using Assets.Enemies;
 using Assets.ScreenEdgeColliders;
 using UnityEngine;
 
@@ -71,6 +74,31 @@ namespace Assets.Util
         public static bool IsPickup(Collider2D collision)
         {
             return collision.tag == TagPickup;
+        }
+
+
+        /// <summary>
+        /// Returns each enemy that is currently colliding with a specified <paramref name="collider"/>.
+        /// </summary>
+        /// <param name="collider">The Collider to check.</param>
+        /// <returns>Each next enemy that is currently colliding with the specified collider.</returns>
+        public static IEnumerable<Enemy> GetAllEnemiesCollidingWith(Collider2D collider)
+        {
+            ContactFilter2D enemyFilter = new ContactFilter2D()
+            {
+                useTriggers = true,
+                layerMask = Physics2D.GetLayerCollisionMask(LayerUtil.SourceLayerEnemies),
+                useLayerMask = true,
+            };
+
+            List<Collider2D> collisions = new List<Collider2D>();
+            collider.OverlapCollider(enemyFilter, collisions);
+
+            foreach(var collision in collisions)
+            {
+                if(collision.TryGetComponent<Enemy>(out Enemy enemy))
+                    yield return enemy;
+            }
         }
     }
 
