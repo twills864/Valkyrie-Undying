@@ -135,7 +135,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _Sprite: {fileID: 2959985393852287726}
-  _BaseDamage: 12
+  _BaseDamage: 10
   _BulletVelocityY: 20
   _BulletOffsetX: 0
   _BulletOffsetY: 0

@@ -529,7 +529,7 @@ namespace Assets
                 DebugUi.SliderFireLevel.value = WeaponLevel + 1;
 
                 string excitement = new string('!', WeaponLevel);
-                string text = $"Weapon level up!\r\n{WeaponLevel}/{GameConstants.MaxWeaponLevel}{excitement}";
+                string text = $"Heavy weapon level up!\r\n{WeaponLevel}/{GameConstants.MaxWeaponLevel}{excitement}";
                 NotificationManager.AddNotification(text);
             }
         }

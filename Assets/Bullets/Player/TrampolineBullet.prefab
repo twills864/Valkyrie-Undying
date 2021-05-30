@@ -119,8 +119,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _Sprite: {fileID: 7320689364202795330}
-  _BaseDamage: 40
-  _DamageAfterBounce: 40
+  _BaseDamage: 30
+  _DamageAfterBounce: 30
   _Speed: 15
   _RotationSpeed: 1080
   _BounceXVarianceMin: 4
