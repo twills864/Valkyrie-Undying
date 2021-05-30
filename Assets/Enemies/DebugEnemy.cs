@@ -10,7 +10,7 @@ using UnityEngine.UI;
 namespace Assets.Enemies
 {
     /// <inheritdoc/>
-    public class DebugEnemy : BasicFireStrategyEnemy
+    public class DebugEnemy : AutomaticFireStrategyEnemy
     {
         protected override bool ShouldDeactivateOnDestructor => false;
         public override bool DiesOnSmite => false;

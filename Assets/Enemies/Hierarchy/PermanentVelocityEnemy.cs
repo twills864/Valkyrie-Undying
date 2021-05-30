@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Assets.Enemies
 {
     /// <inheritdoc/>
-    public abstract class PermanentVelocityEnemy : BasicFireStrategyEnemy
+    public abstract class PermanentVelocityEnemy : AutomaticFireStrategyEnemy
     {
         #region Prefabs
 

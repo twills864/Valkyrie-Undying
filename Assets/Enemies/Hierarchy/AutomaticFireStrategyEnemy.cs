@@ -11,7 +11,7 @@ using UnityEngine;
 
 namespace Assets.Enemies
 {
-    public abstract class BasicFireStrategyEnemy : Enemy
+    public abstract class AutomaticFireStrategyEnemy : Enemy
     {
         #region Prefabs
 

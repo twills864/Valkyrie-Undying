@@ -70,7 +70,18 @@ namespace Assets.Util
         private static readonly string DefaultPowerupName = typeof(FireSpeedPowerup).Name;
         public static Powerup LastPowerup
         {
-            get => PowerupNameMap[PlayerPrefs.GetString(PlayerPrefsKeys.LastPowerupNameKey, DefaultPowerupName)];
+            get
+            {
+                try
+                {
+                    return PowerupNameMap[PlayerPrefs.GetString(PlayerPrefsKeys.LastPowerupNameKey, DefaultPowerupName)];
+                }
+                catch
+                {
+                    PlayerPrefs.SetString(PlayerPrefsKeys.LastPowerupNameKey, DefaultPowerupName);
+                    return PowerupNameMap[DefaultPowerupName];
+                }
+            }
             set => PlayerPrefs.SetString(PlayerPrefsKeys.LastPowerupNameKey, value.GetType().Name);
         }
     }
