@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Assets.Powerups.Balance;
+using Assets.UnityPrefabStructs;
 using Assets.Util;
 
 namespace Assets.Powerups
@@ -16,27 +17,30 @@ namespace Assets.Powerups
     {
         protected override void InitBalance(in PowerupBalanceManager.OnLevelUpBalance balance)
         {
-            float fireSpeedBase = balance.Monsoon.FireSpeed.Base;
-            float fireSpeedIncrease = balance.Monsoon.FireSpeed.Increase;
+            float fireSpeedIncrease = balance.Monsoon.VariantFireSpeed.Increase;
+
+            float fireSpeedBase = balance.Monsoon.VariantFireSpeed.FireSpeed;
             FireSpeedCalculator = new ProductLevelValueCalculator(fireSpeedBase, fireSpeedIncrease);
+
+            float varianceBase = balance.Monsoon.VariantFireSpeed.Variance;
+            VarianceCalculator = new ProductLevelValueCalculator(varianceBase, fireSpeedIncrease);
 
             float damageBase = balance.Monsoon.Damage.Base;
             float damageIncrease = balance.Monsoon.Damage.IncreasePerLevel;
             DamageCalculator = new SumLevelValueCalculator(damageBase, damageIncrease);
         }
 
-        public float FireSpeed => FireSpeedCalculator.Value;
+        private VariantFireSpeed FireSpeed => new VariantFireSpeed(FireSpeedCalculator.Value, VarianceCalculator.Value);
+
         private ProductLevelValueCalculator FireSpeedCalculator { get; set; }
+        private ProductLevelValueCalculator VarianceCalculator { get; set; }
 
         public int Damage => (int) DamageCalculator.Value;
         private SumLevelValueCalculator DamageCalculator { get; set; }
 
         public override void OnLevelUp()
         {
-            if(Level == 1)
-                MonsoonSpawner.Instance.Activate();
-
-            Monsoon.Instance.LevelUp(Damage, FireSpeed);
+            Monsoon.Instance.LevelUp(Level, Damage, FireSpeed);
         }
     }
 }

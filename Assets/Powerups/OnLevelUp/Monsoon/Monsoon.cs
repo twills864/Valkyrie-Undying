@@ -9,6 +9,7 @@ using Assets.FireStrategies.PlayerFireStrategies;
 using Assets.GameTasks;
 using Assets.Hierarchy.ColorHandlers;
 using Assets.ObjectPooling;
+using Assets.UnityPrefabStructs;
 using Assets.Util;
 using UnityEngine;
 
@@ -31,6 +32,9 @@ namespace Assets.Powerups
         [SerializeField]
         private float _OffsetFromBottom = GameConstants.PrefabNumber;
 
+        [SerializeField]
+        private float _FadeInTime = GameConstants.PrefabNumber;
+
         #endregion Prefabs
 
 
@@ -42,6 +46,8 @@ namespace Assets.Powerups
 
         public float OffsetFromBottom => _OffsetFromBottom;
 
+        private float FadeInTime => _FadeInTime;
+
         #endregion Prefab Properties
 
 
@@ -52,7 +58,7 @@ namespace Assets.Powerups
         private float BufferX { get; set; }
         private SpriteBoxMap BoxMap { get; set; }
 
-        private LoopingFrameTimer FireTimer { get; } = new LoopingFrameTimer(0.5f);
+        private LoopingFrameTimerWithRandomVariation FireTimer { get; set; }
 
         private int Level { get; set; }
         private int Damage { get; set; }
@@ -68,14 +74,6 @@ namespace Assets.Powerups
             BufferX = Size.x;
             BoxMap = new SpriteBoxMap(this);
             MonsoonPool = PoolManager.Instance.BulletPool.GetPool<RaindropBullet>();
-        }
-
-        public void OnSpawn(float xPosition)
-        {
-            float newX = xPosition;
-            float newY = SpaceUtil.WorldMap.Bottom.y + OffsetFromBottom;
-            transform.position = new Vector3(newX, newY, 0);
-            VelocityX = Speed;
         }
 
         protected override void OnFrameRun(float deltaTime, float realDeltaTime)
@@ -96,16 +94,27 @@ namespace Assets.Powerups
                 CreateRaindrop(FirePosition, Damage);
         }
 
-        public void Activate(float xPosition)
+        private void Activate(float xPosition)
         {
             gameObject.SetActive(true);
-            OnSpawn(xPosition);
+
+            float newY = SpaceUtil.WorldMap.Bottom.y + OffsetFromBottom;
+            transform.position = new Vector3(xPosition, newY, 0);
+            VelocityX = Speed;
+
+            var fadeIn = new FadeTo(this, 0, Alpha, FadeInTime);
+            RunTask(fadeIn);
+            Alpha = 0;
+            FireTimer.Elapsed -= FadeInTime;
         }
 
-        public void LevelUp(int damage, float fireSpeed)
+        public void LevelUp(int level, int damage, VariantFireSpeed fireSpeed)
         {
             Damage = damage;
-            FireTimer.ActivationInterval = fireSpeed;
+            FireTimer = new LoopingFrameTimerWithRandomVariation(fireSpeed);
+
+            if(level == 1)
+                Activate(Player.Instance.PositionX);
         }
 
         public Vector3 FirePosition

@@ -11,5 +11,11 @@ namespace Assets.UnityPrefabStructs
     {
         public float FireSpeed;
         public float FireSpeedVariance;
+
+        public VariantFireSpeed(float fireSpeed, float fireSpeedVariance)
+        {
+            FireSpeed = fireSpeed;
+            FireSpeedVariance = fireSpeedVariance;
+        }
     }
 }

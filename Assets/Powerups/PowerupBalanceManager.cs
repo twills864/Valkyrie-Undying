@@ -252,13 +252,14 @@ namespace Assets.Powerups.Balance
             [Serializable]
             public struct MonsoonBalance
             {
-                public FireSpeedBalance FireSpeed;
+                public VariantFireSpeedBalance VariantFireSpeed;
                 public DamageBalance Damage;
 
                 [Serializable]
-                public struct FireSpeedBalance
+                public struct VariantFireSpeedBalance
                 {
-                    public float Base;
+                    public float FireSpeed;
+                    public float Variance;
                     public float Increase;
                 }
 

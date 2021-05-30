@@ -121,9 +121,6 @@ namespace Assets
         private Monsoon _Monsoon = null;
 
         [SerializeField]
-        private MonsoonSpawner _MonsoonSpawner = null;
-
-        [SerializeField]
         private SentinelManager _SentinelManager = null;
 
         #endregion Powerup Prefab Properties
@@ -245,8 +242,6 @@ namespace Assets
             _PowerupMenu.Init();
             _PowerupMenu.transform.position += new Vector3(0, 0, 0);
 
-            MonsoonSpawner.Instance = _MonsoonSpawner;
-
             VictimWasAutomatic = true;
 
             _GameOverGUI.Init();
@@ -280,7 +275,6 @@ namespace Assets
             // Dependency: SpaceUtil
             _Destructor.Init();
             _ScreenEdgeColliderSet.Init();
-            _MonsoonSpawner.Init();
             //_Othello.Alpha = _ColorManager.Player.OthelloAlpha;
             _Othello.Init();
             Player.Init(in _FireStrategyManager, in _ColorManager);
@@ -336,7 +330,6 @@ namespace Assets
             //Player.SpriteColor = _ColorManager.DefaultPlayer;
             _Othello.SpriteColor = _ColorManager.DefaultPlayerColorWithAlpha(_ColorManager.Player.OthelloAlpha);
             _Monsoon.SpriteColor = defaultPlayerAdditional;
-            _MonsoonSpawner.SpriteColor = defaultPlayerAdditional;
         }
 
         private void InitGame()
@@ -740,7 +733,6 @@ namespace Assets
                 Player.Kill();
                 _Othello.Kill();
                 _Monsoon.Kill();
-                _MonsoonSpawner.Kill();
                 _SentinelManager.Kill();
 
                 _Scoreboard.gameObject.SetActive(false);
