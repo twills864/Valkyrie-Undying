@@ -61,6 +61,20 @@ namespace Assets.Util
             return ret;
         }
 
+        public bool ContainsXCoordinate(float x)
+        {
+            bool ret = x >= Left.x
+                && x <= Right.x;
+            return ret;
+        }
+
+        public bool ContainsYCoordinate(float y)
+        {
+            bool ret = y >= Bottom.y
+                && y <= Top.y;
+            return ret;
+        }
+
         public float RatioOfWidth(float x)
         {
             float xDiff = x - Left.x;

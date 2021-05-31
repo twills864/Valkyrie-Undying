@@ -17,8 +17,14 @@ namespace Assets.FireStrategies.PlayerFireStrategies
     /// <inheritdoc/>
     public class OneManArmyStrategy : PlayerFireStrategy<OneManArmyBullet>
     {
+        protected override string CalculateFireStrategyName() => "One-Man Army";
+
+        private float WidthHalf { get; set; }
+
         public OneManArmyStrategy(OneManArmyBullet bullet, in PlayerFireStrategyManager manager) : base(bullet, manager)
         {
+            var renderer = bullet.GetComponent<Renderer>();
+            WidthHalf = renderer.bounds.size.x * 0.5f;
         }
 
         protected override float GetFireSpeedRatio(in PlayerFireStrategyManager.PlayerRatio ratios)
@@ -33,14 +39,42 @@ namespace Assets.FireStrategies.PlayerFireStrategies
 
             Vector3 spawn = playerFirePos;
             spawn.x -= (offsetX * (numBullets-1) * 0.5f);
-            for (int i = 0; i < numBullets; i++)
+
+            if (weaponLevel != GameConstants.MaxWeaponLevel)
             {
-                ret[i].transform.position = spawn;
+                for (int i = 0; i < numBullets; i++)
+                {
+                    ret[i].transform.position = spawn;
 
-                if (!SpaceUtil.PointIsInBounds(spawn))
-                    ret[i].RunTask(GameTaskFunc.DeactivateSelf(ret[i]));
+                    if (!SpaceUtil.PointIsInBounds(spawn))
+                        ret[i].RunTask(GameTaskFunc.DeactivateSelf(ret[i]));
 
-                spawn.x += offsetX;
+                    spawn.x += offsetX;
+                }
+            }
+            else
+            {
+                bool left = playerFirePos.x < SpaceUtil.WorldMap.Center.x;
+                if (left)
+                {
+                    if (!SpaceUtil.XCoordinateIsInBounds(spawn.x))
+                        spawn.x = SpaceUtil.WorldMap.Left.x + WidthHalf;
+                }
+                else
+                {
+                    float finalX = spawn.x + ((numBullets-1) * offsetX);
+                    if(!SpaceUtil.XCoordinateIsInBounds(finalX))
+                    {
+                        spawn.x = SpaceUtil.WorldMap.Right.x - WidthHalf;
+                        offsetX *= -1f;
+                    }
+                }
+
+                for (int i = 0; i < numBullets; i++)
+                {
+                    ret[i].transform.position = spawn;
+                    spawn.x += offsetX;
+                }
             }
 
             return ret;

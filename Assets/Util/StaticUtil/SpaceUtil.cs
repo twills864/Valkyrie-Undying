@@ -278,6 +278,30 @@ namespace Assets.Util
         }
 
         /// <summary>
+        /// Determines whether or not a given game <paramref name="x"/>-coordinate
+        /// could exist within the bounds of the world map, given a valid y-coordinate.
+        /// </summary>
+        /// <param name="x">The x-coordinate to check.</param>
+        /// <returns>True if the x-coordinate could exist inside the world map; false otherwise.</returns>
+        public static bool XCoordinateIsInBounds(float x)
+        {
+            bool inside = WorldMap.ContainsXCoordinate(x);
+            return inside;
+        }
+
+        /// <summary>
+        /// Determines whether or not a given game <paramref name="y"/>-coordinate
+        /// could exist within the bounds of the world map, given a valid x-coordinate.
+        /// </summary>
+        /// <param name="y">The y-coordinate to check.</param>
+        /// <returns>True if the y-coordinate could exist inside the world map; false otherwise.</returns>
+        public static bool YCoordinateIsInBounds(float y)
+        {
+            bool inside = WorldMap.ContainsYCoordinate(y);
+            return inside;
+        }
+
+        /// <summary>
         /// Determines whether or not a given world <paramref name="point"/>
         /// exists within the bounds of the world map.
         /// </summary>

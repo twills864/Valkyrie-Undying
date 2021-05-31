@@ -19,15 +19,15 @@ Die for the Empire Sound Effects (lasers, bombs, explosions, bullets) (CC-BY-SA 
 
 MUSIC:
 "Level 3" by Juhani Junkala (CC0): https://opengameart.org/content/5-chiptunes-action
-"Awake! (Megawall-10)" by cynicmusic (CC0): (http://cynicmusic.com http://pixelsphere.org)
 "Silver" by ISAo (SOUND AIRYLUVS) (OGA-BY 3.0): (https://opengameart.org/content/progressive-trance-edm-silver https://airyluvs.com/)
 "The Evil Sacrifice Archenemies" by ISAo (SOUND AIRYLUVS) (OGA-BY 3.0): (https://opengameart.org/content/boss-battle-emotional-uplifting-metal-rock https://airyluvs.com/)
 "Uplifting Intense Electronic Trailer" by ISAo (SOUND AIRYLUVS) (OGA-BY 3.0): (https://opengameart.org/content/uplifting-intense-electronic-trailer https://airyluvs.com/)
 "Fantastic Japanese-Style Shoot 'em up Game Music" by ISAo (SOUND AIRYLUVS) (OGA-BY 3.0): (https://opengameart.org/content/fantastic-japanese-style-shoot-em-up-game-music https://airyluvs.com/)
 "Orbital Colossus" by Matthew Pablo (CC-BY 3.0): https://opengameart.org/content/space-boss-battle-theme http://www.matthewpablo.com
-"Metallic Mistress" by FoxEnergy (CC-BY 3.0): https://opengameart.org/content/metallic-mistress
 
 -----------------------------------------------------------------------
+The song "Silver" by ISAo was adjusted using an equalizer filter.
+
 All CC-BY 3.0 or OGA-BY 3.0 resources were either unmodified from their
 respective original forms, or amplified to normalize the volume.
 -----------------------------------------------------------------------
