@@ -183,7 +183,7 @@ namespace Assets.Bullets.PlayerBullets
             return !alreadyManaged;
         }
 
-        public override void OnCollideWithEnemy(Enemy enemy)
+        public override void OnCollideWithEnemy(Enemy enemy, Vector3 hitPosition)
         {
             ManagedEnemies.Add(enemy);
             enemy.RetributionBulletCollisionEnter(this);

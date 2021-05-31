@@ -69,7 +69,7 @@ namespace Assets.Bullets.PlayerBullets
         }
 
         protected abstract void OnBounce(Enemy enemy);
-        public sealed override void OnCollideWithEnemy(Enemy enemy)
+        public sealed override void OnCollideWithEnemy(Enemy enemy, Vector3 hitPosition)
         {
             if (BouncesLeft > 0)
             {

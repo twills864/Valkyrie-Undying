@@ -176,6 +176,9 @@ namespace Assets
 
         #region Velocity
 
+        /// <summary>
+        /// The velocity that will be applied to this sprite each frame.
+        /// </summary>
         public virtual Vector2 Velocity { get; set; }
         public float VelocityX
         {
@@ -193,6 +196,13 @@ namespace Assets
             Vector3 translate = new Vector3(velocity.x * deltaTime, velocity.y * deltaTime, 0);
             transform.Translate(translate, Space.World);
         }
+
+        /// <summary>
+        /// The absolute velocity of this sprite, theoretically equal to
+        /// the Velocity property plus the velocities of any other forces
+        /// currently acting to move the sprite.
+        /// </summary>
+        public virtual Vector2 RepresentedVelocity => Velocity;
 
         #endregion Velocity
 

@@ -69,6 +69,9 @@ TagManager:
   - name: Enemies
     uniqueID: 1561911045
     locked: 0
+  - name: Particles
+    uniqueID: 78957305
+    locked: 0
   - name: Enemy Bullets
     uniqueID: 1040220587
     locked: 0

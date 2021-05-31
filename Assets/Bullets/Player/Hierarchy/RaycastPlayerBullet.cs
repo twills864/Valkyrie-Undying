@@ -134,7 +134,7 @@ namespace Assets.Bullets.PlayerBullets
 
         protected virtual void OnRaycastPlayerBulletCollideWithEnemy(Enemy enemy) { }
         // Don't deactivate self - fadeout begins automatically.
-        public sealed override void OnCollideWithEnemy(Enemy enemy)
+        public sealed override void OnCollideWithEnemy(Enemy enemy, Vector3 hitPosition)
         {
             OnRaycastPlayerBulletCollideWithEnemy(enemy);
         }

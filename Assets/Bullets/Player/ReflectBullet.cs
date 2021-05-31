@@ -101,7 +101,7 @@ namespace Assets.Bullets.PlayerBullets
 
         public override bool CollidesWithEnemy(Enemy enemy) => !FadingOut;
 
-        public override void OnCollideWithEnemy(Enemy enemy)
+        public override void OnCollideWithEnemy(Enemy enemy, Vector3 hitPosition)
         {
             PlayHitSound();
 

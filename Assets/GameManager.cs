@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using Assets.Pickups;
 using UnityEngine.SceneManagement;
 using Assets.Background;
+using Assets.Particles;
 
 namespace Assets
 {
@@ -136,6 +137,9 @@ namespace Assets
 
         [SerializeField]
         private GameOverGUI _GameOverGUI = null;
+
+        [SerializeField]
+        private ParticleManager _ParticleManager = null;
 
         //[SerializeField]
         //private ProgressBar _ExpBar = null;
@@ -250,6 +254,8 @@ namespace Assets
             SoundManager.Init(_AudioSource);
 
             NotificationManager.Init(_Notification);
+
+            _ParticleManager.Init();
 
 #if !UNITY_EDITOR
             CanGameOver = true;
@@ -615,9 +621,9 @@ namespace Assets
             }
         }
 
-        public void OnEnemyHit(Enemy enemy, PlayerBullet bullet)
+        public void OnEnemyHit(Enemy enemy, PlayerBullet bullet, Vector3 hitPosition)
         {
-            _PowerupManager.OnHit(enemy, bullet);
+            _PowerupManager.OnHit(enemy, bullet, hitPosition);
         }
 
 #region OnEnemyKill

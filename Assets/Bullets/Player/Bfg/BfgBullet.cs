@@ -22,6 +22,8 @@ namespace Assets.Bullets.PlayerBullets
             //SoundBank.Cannon2;
             SoundBank.ExplosionLongDeep;
 
+        public override Vector2 RepresentedVelocity => new Vector2(0, 40f);
+
         #region Prefabs
 
         [SerializeField]
@@ -106,7 +108,7 @@ namespace Assets.Bullets.PlayerBullets
         public override bool CollidesWithEnemy(Enemy enemy) => HitBoxActive;
 
         // Disable deactivating
-        public override void OnCollideWithEnemy(Enemy enemy)
+        public override void OnCollideWithEnemy(Enemy enemy, Vector3 hitPosition)
         {
         }
 

@@ -6,6 +6,7 @@ using Assets.Enemies;
 using Assets.FireStrategies.PlayerFireStrategies;
 using Assets.GameTasks;
 using Assets.ObjectPooling;
+using Assets.Particles;
 using Assets.Pickups;
 using Assets.Powerups;
 using Assets.UI;
@@ -82,6 +83,11 @@ namespace Assets.Util
 
         private static void InputW(KeyCode keyCode)
         {
+            Vector3 position = SpaceUtil.WorldPositionUnderMouse();
+            Vector3 velocity = new Vector3(0, -1f);
+            Color32 color = new Color32(byte.MaxValue, 0, 0, byte.MaxValue);
+            int count = 2;
+            ParticleManager.Instance.Emit(position, velocity, color, count);
         }
 
         private static void InputA(KeyCode keyCode)
@@ -91,7 +97,7 @@ namespace Assets.Util
 
         private static void InputS(KeyCode keyCode)
         {
-
+            ParticleManager.Instance.EmitTest();
         }
 
         private static void InputD(KeyCode keyCode)

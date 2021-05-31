@@ -21,7 +21,7 @@ namespace Assets.Bullets.PlayerBullets
             CurrentBaseDamage = BaseDamage;
         }
 
-        public override void OnCollideWithEnemy(Enemy enemy)
+        public override void OnCollideWithEnemy(Enemy enemy, Vector3 hitPosition)
         {
             PlayHitSound();
 

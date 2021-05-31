@@ -69,7 +69,7 @@ namespace Assets.Bullets.PlayerBullets
             OnPlayerBulletTriggerEnter2D(collision);
         }
 
-        public virtual void OnCollideWithEnemy(Enemy enemy)
+        public virtual void OnCollideWithEnemy(Enemy enemy, Vector3 hitPosition)
         {
             PlayHitSound();
             DeactivateSelf();
@@ -130,7 +130,8 @@ namespace Assets.Bullets.PlayerBullets
 
         public bool ActivateOnCollideWithoutColliding(Enemy enemy)
         {
-            OnCollideWithEnemy(enemy);
+            Vector3 hitPosition = GetHitPosition(enemy);
+            OnCollideWithEnemy(enemy, hitPosition);
             return false;
         }
 

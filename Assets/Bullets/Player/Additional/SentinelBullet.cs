@@ -72,7 +72,7 @@ namespace Assets.Bullets.PlayerBullets
             TravelTimer.Increment(deltaTime);
         }
 
-        public override void OnCollideWithEnemy(Enemy enemy)
+        public override void OnCollideWithEnemy(Enemy enemy, Vector3 hitPosition)
         {
             PlayHitSound();
             SentinelManager.Instance.SentinelTriggered(this, enemy);

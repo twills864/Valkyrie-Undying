@@ -18,7 +18,7 @@ namespace Assets.Bullets.PlayerBullets
 
         protected float InitialScale => float.Epsilon;
 
-        public sealed override void OnCollideWithEnemy(Enemy enemy)
+        public sealed override void OnCollideWithEnemy(Enemy enemy, Vector3 hitPosition)
         {
             enemy.VoidPause();
         }

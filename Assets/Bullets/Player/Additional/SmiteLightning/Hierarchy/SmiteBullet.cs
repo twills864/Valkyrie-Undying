@@ -114,7 +114,7 @@ namespace Assets.Bullets.PlayerBullets
             }
         }
 
-        public sealed override void OnCollideWithEnemy(Enemy enemy)
+        public sealed override void OnCollideWithEnemy(Enemy enemy, Vector3 hitPosition)
         {
             Head.HitEnemies.Add(enemy);
 

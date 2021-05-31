@@ -77,7 +77,7 @@ namespace Assets.Bullets.PlayerBullets
             }
         }
 
-        public override void OnCollideWithEnemy(Enemy enemy)
+        public override void OnCollideWithEnemy(Enemy enemy, Vector3 hitPosition)
         {
             if(!WarpDebuffDeactivates())
                 EnemyWarpDestination = new Vector3(transform.position.x, enemy.SpriteMap.Top.y, 0);

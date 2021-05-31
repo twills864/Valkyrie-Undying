@@ -7,6 +7,7 @@ using Assets.FireStrategies.EnemyFireStrategies;
 using Assets.GameTasks;
 using Assets.Hierarchy.ColorHandlers;
 using Assets.ObjectPooling;
+using Assets.Particles;
 using Assets.Powerups;
 using Assets.UI;
 using Assets.Util;
@@ -488,8 +489,12 @@ namespace Assets.Enemies
                 if (DamageKills(bullet.Damage))
                     KillEnemy(bullet);
 
-                GameManager.Instance.OnEnemyHit(this, bullet);
-                bullet.OnCollideWithEnemy(this);
+                Vector3 hitPosition = bullet.GetHitPosition(this);
+
+                ParticleHitEffect(hitPosition, bullet.RepresentedVelocity);
+
+                GameManager.Instance.OnEnemyHit(this, bullet, hitPosition);
+                bullet.OnCollideWithEnemy(this, hitPosition);
             }
         }
 
@@ -506,6 +511,16 @@ namespace Assets.Enemies
                 }
             }
         }
+
+        #region Particles
+
+        protected void ParticleHitEffect(Vector3 hitPosition, Vector3 bulletVelocity)
+        {
+            const int Count = 3;
+            ParticleManager.Instance.Emit(hitPosition, bulletVelocity, SpriteColor, Count);
+        }
+
+        #endregion Particles
 
         #endregion Collision
 
