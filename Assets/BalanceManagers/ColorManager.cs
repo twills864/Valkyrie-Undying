@@ -16,6 +16,7 @@ namespace Assets.ColorManagers
     {
         public Color DefaultPlayer;
         public Color DefaultEnemy;
+        public Color DefaultEnemyAlt;
 
         [SerializeField]
         public PlayerColors Player;
@@ -66,6 +67,7 @@ namespace Assets.ColorManagers.SubManagers
     public struct EnemyColors
     {
         public Color Tank;
+        public Color TankAlt;
         public Color RingEnemyRing;
         public Color LaserEnemyPrefire;
     }

@@ -16,6 +16,21 @@ namespace Assets.Bullets.PlayerBullets
     {
         private const float ScreenBuffer = Destructor.Buffer;
 
+        // f(t) = -(t-sqrt(mapHeight))^2 + mapHeight
+        // f'(t) = -2(t - sqrt(mapHeight))
+        public override Vector2 RepresentedVelocity
+        {
+            get
+            {
+                float x = VelocityX;
+                float y = ElapsedTime - Mathf.Sqrt(SpaceUtil.WorldMapSize.y);
+                y *= -2f;
+
+                Vector2 velocity = new Vector2(x, y);
+                return velocity;
+            }
+        }
+
         #region Prefabs
 
         [SerializeField]
@@ -35,7 +50,6 @@ namespace Assets.Bullets.PlayerBullets
         private float BounceXVarianceMax => _BounceXVarianceMax;
 
         #endregion Prefab Properties
-
 
         public override AudioClip FireSound => SoundBank.ExplosionShortestKnock;
 

@@ -102,10 +102,13 @@ namespace Assets.Bullets.PlayerBullets
 
             lightning.SetFadeOutSequenceFadeTime(FadeOutTime);
 
+            lightning.SetRepresentedVelocity(nextSpawn.DistanceDelta);
+
             lightning.OnSpawn();
 
             var joint = PoolManager.Instance.BulletPool.Get<SmiteJointBullet>(nextSpawn.NextJointPoint);
             joint.InitFromPreviousLink(lightning);
+            joint.SetRepresentedVelocity(nextSpawn.DistanceDelta);
             joint.OnSpawn();
 
             if (!nextSpawn.ReachedDestination)
@@ -126,6 +129,7 @@ namespace Assets.Bullets.PlayerBullets
             public float Angle;
             public float Width;
             public Vector3 SpawnPoint;
+            public Vector3 DistanceDelta;
             public Vector3 NextJointPoint;
             public bool ReachedDestination;
         }
@@ -148,10 +152,10 @@ namespace Assets.Bullets.PlayerBullets
 
                 details.Width = RandomUtil.Float(MinWidth, MaxWidth);
 
-                Vector3 distanceDelta = MathUtil.Vector3AtDegreeAngle(details.Angle, details.Width);
-                details.NextJointPoint = transform.position + distanceDelta;
+                details.DistanceDelta = MathUtil.Vector3AtDegreeAngle(details.Angle, details.Width);
+                details.NextJointPoint = transform.position + details.DistanceDelta;
 
-                details.SpawnPoint = transform.position + (0.5f * distanceDelta);
+                details.SpawnPoint = transform.position + (0.5f * details.DistanceDelta);
             }
             else
             {
@@ -160,6 +164,8 @@ namespace Assets.Bullets.PlayerBullets
                 details.Width = Mathf.Sqrt(distSq);
 
                 details.NextJointPoint = TargetPosition;
+
+                details.DistanceDelta = (details.NextJointPoint - transform.position);
                 details.SpawnPoint = 0.5f * (transform.position + details.NextJointPoint);
             }
 

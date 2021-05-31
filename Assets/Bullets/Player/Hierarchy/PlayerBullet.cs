@@ -19,15 +19,18 @@ namespace Assets.Bullets.PlayerBullets
         [SerializeField]
         private int _BaseDamage = GameConstants.PrefabNumber;
 
+        [SerializeField]
+        private ParticlePrefab _Particles = default;
+
         #endregion Prefabs
 
 
         #region Prefab Properties
 
         protected int BaseDamage => _BaseDamage;
+        protected ParticlePrefab Particles => _Particles;
 
         #endregion Prefab Properties
-
 
         public virtual int Damage => BaseDamage;
 
@@ -109,12 +112,23 @@ namespace Assets.Bullets.PlayerBullets
 
         #region Particles
 
+        public virtual bool OverrideEnemyVelocityOnKill => true;
+
+        [Serializable]
+        protected struct ParticlePrefab
+        {
+            public int BulletParticles;
+            public int EnemyParticles;
+        }
+
+        public int BulletParticles => Particles.BulletParticles;
+        public int EnemyParticles => Particles.EnemyParticles;
+
         public Color32 ParticleColor => SpriteColor;
 
         protected void ParticleHitEffect(Vector3 hitPosition)
         {
-            const int Count = 8;
-            ParticleManager.Instance.Emit(hitPosition, RepresentedVelocity, ParticleColor, Count);
+            ParticleManager.Instance.Emit(hitPosition, RepresentedVelocity, BulletParticles, ParticleColor);
         }
 
         #endregion Particles
@@ -140,7 +154,8 @@ namespace Assets.Bullets.PlayerBullets
         public bool ActivateOnCollideWithoutColliding(Enemy enemy)
         {
             Vector3 hitPosition = GetHitPosition(enemy);
-            CollideWithEnemy(enemy, hitPosition);
+            OnCollideWithEnemy(enemy, hitPosition);
+            //CollideWithEnemy(enemy, hitPosition);
             return false;
         }
 

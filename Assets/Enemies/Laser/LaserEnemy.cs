@@ -218,13 +218,15 @@ namespace Assets.Enemies
 
         protected override void OnEnemyDeactivate()
         {
-            if (CurrentLaser?.LaserActivated == false)
+            if(CurrentLaser != null)
             {
-                CurrentLaser.DeactivateSelf();
-            }
-            else
-            {
-                CurrentLaser.Parent = null;
+                // Deactivate pre-fire laser before it fires
+                if (!CurrentLaser.LaserActivated)
+                    CurrentLaser.DeactivateSelf();
+
+                // Let post-fire laser fade itself out
+                else
+                    CurrentLaser.Parent = null;
             }
         }
     }

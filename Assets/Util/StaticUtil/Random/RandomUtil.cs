@@ -319,9 +319,60 @@ namespace Assets.Util
             return ret;
         }
 
-        #endregion Vectors
+        private static Vector2 RandomPointInBounds(Collider2D collider, Vector2 min, Vector2 max)
+        {
+            Vector2 point;
 
-        #region Collections
+#if UNITY_EDITOR
+            const int MaxCount = 10000;
+            int count = 0;
+#endif
+
+            do
+            {
+#if UNITY_EDITOR
+                if (count >= MaxCount)
+                {
+                    Debug.LogError("ERROR: Random point inside collider not found after 10000 iterations.", collider);
+                    Debug.LogError($"MIN: {min}", collider);
+                    Debug.LogError($"MAX: {max}", collider);
+                    Debug.LogError($"BOUNDS: {collider.bounds}", collider);
+                    Debug.LogError($"\r\n\r\n\r\n\r\n\r\n{RandomUtil.Float()}", collider);
+
+                    return (min + max) * 0.5f;
+                }
+                count++;
+#endif
+
+                point.x = Float(min.x, max.x);
+                point.y = Float(min.y, max.y);
+            } while (!collider.OverlapPoint(point));
+
+            return point;
+        }
+
+        public static Vector2 RandomPointInsiderCollider(Collider2D collider)
+        {
+            Vector2 min = collider.bounds.min;
+            Vector2 max = collider.bounds.max;
+
+            Vector2 point = RandomPointInBounds(collider, min, max);
+
+            return point;
+        }
+
+        public static Vector2[] RandomsPointsInsiderCollider(Collider2D collider, int count)
+        {
+            Vector2 min = collider.bounds.min;
+            Vector2 max = collider.bounds.max;
+
+            Vector2[] points = LinqUtil.Array(count, () => RandomPointInBounds(collider, min, max));
+            return points;
+        }
+
+#endregion Vectors
+
+#region Collections
 
         /// <summary>
         /// Returns a random element of a given IList&lt;<typeparamref name="T"/>&gt; with equal probabilities.
@@ -467,9 +518,9 @@ namespace Assets.Util
             return ret;
         }
 
-        #endregion Collections
+#endregion Collections
 
-        #region Select
+#region Select
 
         /// <summary>
         /// Returns a random element from the specified parameters with equal probability.
@@ -484,6 +535,6 @@ namespace Assets.Util
             return ret;
         }
 
-        #endregion Select
+#endregion Select
     }
 }

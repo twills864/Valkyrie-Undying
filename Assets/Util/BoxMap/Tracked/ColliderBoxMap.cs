@@ -12,5 +12,10 @@ namespace Assets.Util
         {
             Collider = Target.GetComponent<Collider2D>();
         }
+
+        public ColliderBoxMap(Collider2D collider) : base(collider.gameObject.GetComponent<MonoBehaviour>())
+        {
+            Collider = collider;
+        }
     }
 }

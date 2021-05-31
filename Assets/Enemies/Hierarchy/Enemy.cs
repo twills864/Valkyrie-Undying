@@ -283,12 +283,18 @@ namespace Assets.Enemies
         protected virtual void OnDeath() { }
         public void KillEnemy(PlayerBullet bullet)
         {
-            PlaySoundAtCenter(SoundBank.ExplosionShortDeep, 0.8f);
+            if (isActiveAndEnabled)
+            {
+                WasKilled = true;
 
-            WasKilled = true;
-            GameManager.Instance.OnEnemyKill(this, bullet);
-            DeactivateSelf();
-            OnDeath();
+                PlaySoundAtCenter(SoundBank.ExplosionShortDeep, 0.8f);
+
+                ParticleDeathEffect(bullet);
+
+                GameManager.Instance.OnEnemyKill(this, bullet);
+                DeactivateSelf();
+                OnDeath();
+            }
         }
 
         #endregion Damage
@@ -492,7 +498,7 @@ namespace Assets.Enemies
 
                 Vector3 hitPosition = bullet.GetHitPosition(this);
 
-                ParticleHitEffect(hitPosition, bullet.RepresentedVelocity);
+                ParticleHitEffect(hitPosition, bullet.RepresentedVelocity, bullet.EnemyParticles);
 
                 GameManager.Instance.OnEnemyHit(this, bullet, hitPosition);
                 bullet.CollideWithEnemy(this, hitPosition);
@@ -521,10 +527,24 @@ namespace Assets.Enemies
         [HideInInspector]
         public Color32 ParticleColor;
 
-        protected void ParticleHitEffect(Vector3 hitPosition, Vector3 bulletVelocity)
+        [HideInInspector]
+        public Color32 ParticleColorAlt;
+
+        protected void ParticleHitEffect(Vector3 hitPosition, Vector3 bulletVelocity, int count)
         {
-            const int Count = 3;
-            ParticleManager.Instance.Emit(hitPosition, bulletVelocity, ParticleColor, Count);
+            ParticleManager.Instance.Emit(hitPosition, bulletVelocity, count, ParticleColor, ParticleColorAlt);
+        }
+
+        protected void ParticleDeathEffect(PlayerBullet bullet, int count = 20)
+        {
+            Vector3 particleVelocity;
+
+            if(bullet != null && bullet.OverrideEnemyVelocityOnKill)
+                particleVelocity = bullet.RepresentedVelocity;
+            else
+                particleVelocity = RepresentedVelocity;
+
+            ParticleManager.Instance.EmitInColliderBounds(ColliderMap.Collider, particleVelocity, count, ParticleColor, ParticleColorAlt);
         }
 
         #endregion Particles

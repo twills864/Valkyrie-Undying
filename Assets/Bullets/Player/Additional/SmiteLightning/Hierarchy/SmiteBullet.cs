@@ -29,6 +29,14 @@ namespace Assets.Bullets.PlayerBullets
             PlaySoundAtCenter(HitSound2);
         }
 
+        private Vector2 _representedVelocity;
+        public override Vector2 RepresentedVelocity => _representedVelocity;
+        public void SetRepresentedVelocity(Vector2 distanceDelta)
+        {
+            const float Vel = 40f;
+            _representedVelocity = MathUtil.VelocityVector(distanceDelta, Vel);
+        }
+
         // Backwards-facing linked list with head node
         public SmiteBullet Head { get; protected set; }
         public SmiteBullet Previous { get; protected set; }

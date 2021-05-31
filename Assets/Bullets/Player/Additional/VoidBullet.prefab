@@ -136,5 +136,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _Sprite: {fileID: 3096297312825821510}
   _BaseDamage: 10
+  _Particles:
+    BulletParticles: 100
+    EnemyParticles: 100
   _ScaleTime: 0.3
   _TimeBetweenProjectiles: 0.18

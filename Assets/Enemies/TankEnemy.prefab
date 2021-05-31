@@ -116,6 +116,9 @@ MonoBehaviour:
   ParticleColor:
     serializedVersion: 2
     rgba: 4278223103
+  ParticleColorAlt:
+    serializedVersion: 2
+    rgba: 4290822336
   _VariantFireSpeed:
     FireSpeed: 0.15
     FireSpeedVariance: 0

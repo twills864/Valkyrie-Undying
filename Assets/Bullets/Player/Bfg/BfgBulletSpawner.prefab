@@ -97,5 +97,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _Sprite: {fileID: 1777918661920015751}
   _BaseDamage: 0
+  _Particles:
+    BulletParticles: 0
+    EnemyParticles: 0
   _FadeInTime: 0.25
   _MaxAlpha: 0.4

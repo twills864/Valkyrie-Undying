@@ -150,7 +150,7 @@ namespace Assets
         #region Debug Prefab Properties
 
         [SerializeField]
-        public Enemy _DebugEnemy;
+        public DebugEnemy _DebugEnemy;
         [SerializeField]
         public DebugUI DebugUi;
 

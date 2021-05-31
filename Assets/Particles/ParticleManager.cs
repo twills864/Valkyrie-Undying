@@ -24,12 +24,16 @@ namespace Assets.Particles
         private float _VelocityNoiseScale = GameConstants.PrefabNumber;
 
         [SerializeField]
+        private float _VelocityNoiseOffset = GameConstants.PrefabNumber;
+
+        [SerializeField]
         private float _PositionNoiseOffset = GameConstants.PrefabNumber;
 
 
         #endregion Prefabs
 
         public float VelocityNoiseScale => _VelocityNoiseScale;
+        public float VelocityNoiseOffset => _VelocityNoiseOffset;
         public float PositionNoiseOffset => _PositionNoiseOffset;
 
         #region Prefab Properties
@@ -47,7 +51,7 @@ namespace Assets.Particles
             Particle = GetComponent<ParticleSystem>();
         }
 
-        public void Emit(Vector3 position, Vector3 velocity, Color32 color, int count)
+        public void Emit(Vector3 position, Vector3 velocity, int count, Color32 color)
         {
             const float VelocityClamp = 0.5f;
             velocity *= VelocityClamp;
@@ -66,12 +70,53 @@ namespace Assets.Particles
             }
         }
 
+        public void Emit(Vector3 position, Vector3 velocity, int count, params Color32[] color)
+        {
+            const float VelocityClamp = 0.5f;
+            velocity *= VelocityClamp;
+
+            var emit = new EmitParams();
+
+            for (int i = 0; i < count; i++)
+            {
+                emit.startColor = RandomUtil.RandomElement(color);
+                emit.velocity = AddVelocityNoise(velocity);
+                emit.position = AddPositionNoise(position);
+
+                Particle.Emit(emit, 1);
+            }
+        }
+
+        public void EmitInColliderBounds(Collider2D collider, Vector3 velocity, int count, params Color32[] color)
+        {
+            const float VelocityClamp = 0.5f;
+            velocity *= VelocityClamp;
+
+            Vector2[] points = RandomUtil.RandomsPointsInsiderCollider(collider, count);
+
+            var emit = new EmitParams();
+
+            for (int i = 0; i < count; i++)
+            {
+                emit.startColor = RandomUtil.RandomElement(color);
+                emit.velocity = AddVelocityNoise(velocity);
+                emit.position = AddPositionNoise(points[i]);
+
+                Particle.Emit(emit, 1);
+            }
+        }
+
+
+
         private Vector3 AddVelocityNoise(Vector3 velocity)
         {
             float scaleMin = 1f - VelocityNoiseScale;
             float scaleMax = 1f + VelocityNoiseScale;
 
+            velocity.x += RandomUtil.Float(-VelocityNoiseOffset, VelocityNoiseOffset);
             velocity.x *= RandomUtil.Float(scaleMin, scaleMax);
+
+            velocity.y += RandomUtil.Float(-VelocityNoiseOffset, VelocityNoiseOffset);
             velocity.y *= RandomUtil.Float(scaleMin, scaleMax);
 
             return velocity;

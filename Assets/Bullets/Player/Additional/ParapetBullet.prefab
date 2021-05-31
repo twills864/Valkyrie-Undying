@@ -120,6 +120,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _Sprite: {fileID: 2959985393852287726}
   _BaseDamage: -1
+  _Particles:
+    BulletParticles: 100
+    EnemyParticles: 100
 --- !u!61 &3527538921233836990
 BoxCollider2D:
   m_ObjectHideFlags: 0
