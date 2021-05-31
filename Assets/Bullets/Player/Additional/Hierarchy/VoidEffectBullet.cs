@@ -11,6 +11,7 @@ namespace Assets.Bullets.PlayerBullets
     /// <inheritdoc/>
     public abstract class VoidEffectBullet : PlayerBullet
     {
+        protected override bool AutomaticallyDeactivate => false;
         protected sealed override bool ShouldDeactivateOnDestructor => false;
         protected sealed override bool ShouldMarkSelfCollision => false;
 
@@ -18,7 +19,7 @@ namespace Assets.Bullets.PlayerBullets
 
         protected float InitialScale => float.Epsilon;
 
-        public sealed override void OnCollideWithEnemy(Enemy enemy, Vector3 hitPosition)
+        protected sealed override void OnCollideWithEnemy(Enemy enemy, Vector3 hitPosition)
         {
             enemy.VoidPause();
         }

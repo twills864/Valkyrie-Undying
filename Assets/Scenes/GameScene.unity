@@ -639,6 +639,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6309635329795138238, guid: 698c4a53c4cd8c14c83978de516a347e,
         type: 3}
+      propertyPath: InitialModule.rotation3D
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6309635329795138238, guid: 698c4a53c4cd8c14c83978de516a347e,
+        type: 3}
       propertyPath: ClampVelocityModule.dampen
       value: 0.2
       objectReference: {fileID: 0}
@@ -654,8 +659,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6309635329795138238, guid: 698c4a53c4cd8c14c83978de516a347e,
         type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 0.075
+      objectReference: {fileID: 0}
+    - target: {fileID: 6309635329795138238, guid: 698c4a53c4cd8c14c83978de516a347e,
+        type: 3}
       propertyPath: LifetimeByEmitterSpeedModule.enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6560101276494375404, guid: 698c4a53c4cd8c14c83978de516a347e,
+        type: 3}
+      propertyPath: _VelocityNoiseScale
+      value: 0.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 6560101276494375404, guid: 698c4a53c4cd8c14c83978de516a347e,
+        type: 3}
+      propertyPath: _PositionNoiseOffset
+      value: 0.15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 698c4a53c4cd8c14c83978de516a347e, type: 3}

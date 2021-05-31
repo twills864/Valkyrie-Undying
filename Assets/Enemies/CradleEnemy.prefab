@@ -134,6 +134,9 @@ MonoBehaviour:
   _HealthBarOffsetScale: {x: 0, y: 0.5, z: 0}
   _DifficultyLevel: 2
   _FirstSpawnMinute: 0.5
+  ParticleColor:
+    serializedVersion: 2
+    rgba: 4278190335
   _SwivelAngle: 35
   _InitialTravelTime: 2
   _FinalTravelSpeed: 0.3

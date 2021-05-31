@@ -10,6 +10,7 @@ namespace Assets.Bullets.PlayerBullets
     /// <inheritdoc/>
     public class WormholeBullet : PlayerBullet
     {
+        protected override bool AutomaticallyDeactivate => false;
         protected override bool ShouldMarkSelfCollision => false;
         public override AudioClip FireSound => SoundBank.LaserPuff;
 
@@ -77,7 +78,7 @@ namespace Assets.Bullets.PlayerBullets
             }
         }
 
-        public override void OnCollideWithEnemy(Enemy enemy, Vector3 hitPosition)
+        protected override void OnCollideWithEnemy(Enemy enemy, Vector3 hitPosition)
         {
             if(!WarpDebuffDeactivates())
                 EnemyWarpDestination = new Vector3(transform.position.x, enemy.SpriteMap.Top.y, 0);

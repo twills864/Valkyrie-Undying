@@ -2,6 +2,7 @@
 using Assets.Constants;
 using Assets.Enemies;
 using Assets.GameTasks;
+using Assets.Particles;
 using Assets.Util;
 using UnityEngine;
 
@@ -49,6 +50,13 @@ namespace Assets.Bullets.PlayerBullets
             OnPlayerBulletInit();
         }
 
+        protected virtual void OnPlayerBulletFrameRun(float deltaTime, float realDeltaTime) { }
+        protected sealed override void OnFrameRun(float deltaTime, float realDeltaTime)
+        {
+            OnPlayerBulletFrameRun(deltaTime, realDeltaTime);
+        }
+
+
         protected virtual void OnPlayerBulletTriggerEnter2D(Collider2D collision) { }
         protected void OnTriggerEnter2D(Collider2D collision)
         {
@@ -69,25 +77,6 @@ namespace Assets.Bullets.PlayerBullets
             OnPlayerBulletTriggerEnter2D(collision);
         }
 
-        public virtual void OnCollideWithEnemy(Enemy enemy, Vector3 hitPosition)
-        {
-            PlayHitSound();
-            DeactivateSelf();
-        }
-
-        protected virtual void OnPlayerBulletTriggerExit2D(Collider2D collision) { }
-        protected sealed override void OnBulletTriggerExit2D(Collider2D collision)
-        {
-            OnPlayerBulletTriggerExit2D(collision);
-        }
-
-
-        protected virtual void OnPlayerBulletFrameRun(float deltaTime, float realDeltaTime) { }
-        protected sealed override void OnFrameRun(float deltaTime, float realDeltaTime)
-        {
-            OnPlayerBulletFrameRun(deltaTime, realDeltaTime);
-        }
-
         public virtual bool CollidesWithEnemy(Enemy enemy)
         {
             return true;
@@ -99,17 +88,37 @@ namespace Assets.Bullets.PlayerBullets
             return ret;
         }
 
-        /// <summary>
-        /// Gets the closest point on the enemy's Collider2D to this bullet's transform.
-        /// Intended to be used as an override to GetHitPosition().
-        /// </summary>
-        /// <param name="enemy">The enemy to find the closest point to.</param>
-        /// <returns>The closest point on the enemy to this transform.</returns>
-        protected Vector3 GetClosestPoint(Enemy enemy)
+        protected virtual bool AutomaticallyDeactivate => true;
+        protected virtual void OnCollideWithEnemy(Enemy enemy, Vector3 hitPosition) { }
+        public void CollideWithEnemy(Enemy enemy, Vector3 hitPosition)
         {
-            Vector3 ret = enemy.ColliderMap.Collider.ClosestPoint(transform.position);
-            return ret;
+            PlayHitSound();
+            ParticleHitEffect(hitPosition);
+
+            if(AutomaticallyDeactivate)
+                DeactivateSelf();
+
+            OnCollideWithEnemy(enemy, hitPosition);
         }
+
+        protected virtual void OnPlayerBulletTriggerExit2D(Collider2D collision) { }
+        protected sealed override void OnBulletTriggerExit2D(Collider2D collision)
+        {
+            OnPlayerBulletTriggerExit2D(collision);
+        }
+
+        #region Particles
+
+        public Color32 ParticleColor => SpriteColor;
+
+        protected void ParticleHitEffect(Vector3 hitPosition)
+        {
+            const int Count = 8;
+            ParticleManager.Instance.Emit(hitPosition, RepresentedVelocity, ParticleColor, Count);
+        }
+
+        #endregion Particles
+
 
         /// <summary>
         /// Debugging method that visualizes the location of this PlayerBullet
@@ -131,8 +140,33 @@ namespace Assets.Bullets.PlayerBullets
         public bool ActivateOnCollideWithoutColliding(Enemy enemy)
         {
             Vector3 hitPosition = GetHitPosition(enemy);
-            OnCollideWithEnemy(enemy, hitPosition);
+            CollideWithEnemy(enemy, hitPosition);
             return false;
+        }
+
+        /// <summary>
+        /// Gets the closest point on the enemy's Collider2D to this bullet's transform.
+        /// Intended to be used as an override to GetHitPosition().
+        /// </summary>
+        /// <param name="enemy">The enemy to find the closest point to.</param>
+        /// <returns>The closest point on the enemy to this transform.</returns>
+        protected Vector3 GetClosestPointOnEnemy(Enemy enemy)
+        {
+            Vector3 ret = enemy.ColliderMap.Collider.ClosestPoint(transform.position);
+            return ret;
+        }
+
+
+        /// <summary>
+        /// Gets the closest point this bullet's Collider2D to the enemy's position.
+        /// Intended to be used as an override to GetHitPosition().
+        /// </summary>
+        /// <param name="enemy">The enemy to find the closest point to.</param>
+        /// <returns>The closest point this bullet to the enemy.</returns>
+        protected Vector3 GetClosestPointOnBullet(Enemy enemy)
+        {
+            Vector3 ret = ColliderMap.Collider.ClosestPoint(enemy.transform.position);
+            return ret;
         }
 
         #endregion Common Overrides

@@ -134,6 +134,9 @@ MonoBehaviour:
   _HealthBarOffsetScale: {x: 0, y: 0.45, z: 0}
   _DifficultyLevel: 3
   _FirstSpawnMinute: 1
+  ParticleColor:
+    serializedVersion: 2
+    rgba: 4278190335
   _VariantFireSpeed:
     FireSpeed: 3
     FireSpeedVariance: 0.5

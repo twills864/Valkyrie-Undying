@@ -18,6 +18,7 @@ namespace Assets.Bullets.PlayerBullets
     public abstract class SmiteBullet : PlayerBullet
     {
         public sealed override int Damage => SmiteDamage;
+        protected override bool AutomaticallyDeactivate => false;
         protected sealed override bool ShouldMarkSelfCollision => false;
         public override AudioClip FireSound => SoundBank.ExplosionMediumZap;
         public override AudioClip HitSound => SoundBank.ZapHard;
@@ -114,7 +115,7 @@ namespace Assets.Bullets.PlayerBullets
             }
         }
 
-        public sealed override void OnCollideWithEnemy(Enemy enemy, Vector3 hitPosition)
+        protected sealed override void OnCollideWithEnemy(Enemy enemy, Vector3 hitPosition)
         {
             Head.HitEnemies.Add(enemy);
 

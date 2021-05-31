@@ -45,7 +45,15 @@ namespace Assets.ObjectPooling
 
         protected override void OnInitSprites(in ColorManager colorManager)
         {
+            var def = colorManager.DefaultEnemy;
             var enemy = colorManager.Enemy;
+
+            BasicPrefab.ParticleColor = def;
+            TankPrefab.ParticleColor = enemy.Tank;
+            RingEnemyPrefab.ParticleColor = def;
+            RingEnemyRingPrefab.ParticleColor = enemy.RingEnemyRing;
+            CradleEnemyPrefab.ParticleColor = def;
+            LaserEnemyPrefab.ParticleColor = def;
 
             //TankPrefab.SpriteColor = enemy.Tank;
             RingEnemyRingPrefab.SpriteColor = enemy.RingEnemyRing;

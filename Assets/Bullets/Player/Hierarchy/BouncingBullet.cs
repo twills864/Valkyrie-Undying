@@ -15,6 +15,7 @@ namespace Assets.Bullets.PlayerBullets
     public abstract class BouncingBullet : PlayerBullet
     {
         public override int Damage => CurrentDamage;
+        protected override bool AutomaticallyDeactivate => false;
         protected override bool ShouldMarkSelfCollision => false;
 
         #region Prefabs
@@ -69,7 +70,7 @@ namespace Assets.Bullets.PlayerBullets
         }
 
         protected abstract void OnBounce(Enemy enemy);
-        public sealed override void OnCollideWithEnemy(Enemy enemy, Vector3 hitPosition)
+        protected sealed override void OnCollideWithEnemy(Enemy enemy, Vector3 hitPosition)
         {
             if (BouncesLeft > 0)
             {

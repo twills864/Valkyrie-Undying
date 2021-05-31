@@ -486,15 +486,19 @@ namespace Assets.Enemies
         {
             if (gameObject.activeSelf)
             {
-                if (DamageKills(bullet.Damage))
-                    KillEnemy(bullet);
+                // Kill later in order to preserve position before DeactivateSelf()
+                // sets position to PooledObject.InactivePosition
+                bool shouldKill = DamageKills(bullet.Damage);
 
                 Vector3 hitPosition = bullet.GetHitPosition(this);
 
                 ParticleHitEffect(hitPosition, bullet.RepresentedVelocity);
 
                 GameManager.Instance.OnEnemyHit(this, bullet, hitPosition);
-                bullet.OnCollideWithEnemy(this, hitPosition);
+                bullet.CollideWithEnemy(this, hitPosition);
+
+                if (shouldKill)
+                    KillEnemy(bullet);
             }
         }
 
@@ -514,10 +518,13 @@ namespace Assets.Enemies
 
         #region Particles
 
+        [HideInInspector]
+        public Color32 ParticleColor;
+
         protected void ParticleHitEffect(Vector3 hitPosition, Vector3 bulletVelocity)
         {
             const int Count = 3;
-            ParticleManager.Instance.Emit(hitPosition, bulletVelocity, SpriteColor, Count);
+            ParticleManager.Instance.Emit(hitPosition, bulletVelocity, ParticleColor, Count);
         }
 
         #endregion Particles

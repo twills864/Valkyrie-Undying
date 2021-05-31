@@ -14,15 +14,16 @@ namespace Assets.Bullets.PlayerBullets
         private const float FullBright = 1.0f;
 
         public override int Damage => base.Damage + (BulletLevel * DamagePerLevel);
+        protected override bool AutomaticallyDeactivate => false;
 
-        public override Vector3 GetHitPosition(Enemy enemy) => GetClosestPoint(enemy);
+        public override Vector3 GetHitPosition(Enemy enemy) => base.GetClosestPointOnBullet(enemy);
 
         public override AudioClip FireSound =>
             //SoundBank.LaserDramatic;
             //SoundBank.Cannon2;
             SoundBank.ExplosionLongDeep;
 
-        public override Vector2 RepresentedVelocity => new Vector2(0, 40f);
+        public override Vector2 RepresentedVelocity => new Vector2(0, RepresentedVelocityY);
 
         #region Prefabs
 
@@ -43,6 +44,9 @@ namespace Assets.Bullets.PlayerBullets
         [SerializeField]
         private float _FadeTime = GameConstants.PrefabNumber;
 
+        [SerializeField]
+        private float _RepresentedVelocityY = GameConstants.PrefabNumber;
+
         #endregion Prefabs
 
 
@@ -55,6 +59,8 @@ namespace Assets.Bullets.PlayerBullets
 
         private float FullBrightTime => _FullBrightTime;
         private float FadeTime => _FadeTime;
+
+        public float RepresentedVelocityY => _RepresentedVelocityY;
 
         #endregion Prefab Properties
 
@@ -106,11 +112,6 @@ namespace Assets.Bullets.PlayerBullets
         }
 
         public override bool CollidesWithEnemy(Enemy enemy) => HitBoxActive;
-
-        // Disable deactivating
-        public override void OnCollideWithEnemy(Enemy enemy, Vector3 hitPosition)
-        {
-        }
 
         protected override void OnPlayerBulletTriggerEnter2D(Collider2D collision)
         {

@@ -15,8 +15,9 @@ namespace Assets.Bullets.PlayerBullets
     /// <inheritdoc/>
     public class RetributionBullet : PermanentVelocityPlayerBullet
     {
-        protected sealed override bool ShouldDeactivateOnDestructor => false;
-        protected sealed override bool ShouldMarkSelfCollision => false;
+        protected override bool AutomaticallyDeactivate => false;
+        protected override bool ShouldDeactivateOnDestructor => false;
+        protected override bool ShouldMarkSelfCollision => false;
 
         public override AudioClip FireSound => SoundBank.Silence;
 
@@ -72,11 +73,7 @@ namespace Assets.Bullets.PlayerBullets
         private TrackedPooledObjectSet<PlayerBullet> ManagedPlayerBullets { get; set; }
         private TrackedPooledObjectSet<Pickup> ManagedPickups { get; set; }
 
-        public sealed override Vector3 GetHitPosition(Enemy enemy)
-        {
-            Vector3 ret = enemy.transform.position;
-            return ret;
-        }
+        public sealed override Vector3 GetHitPosition(Enemy enemy) => enemy.transform.position;
 
         public static RetributionBullet StartRetribution(Vector3 position)
         {
@@ -183,7 +180,7 @@ namespace Assets.Bullets.PlayerBullets
             return !alreadyManaged;
         }
 
-        public override void OnCollideWithEnemy(Enemy enemy, Vector3 hitPosition)
+        protected override void OnCollideWithEnemy(Enemy enemy, Vector3 hitPosition)
         {
             ManagedEnemies.Add(enemy);
             enemy.RetributionBulletCollisionEnter(this);

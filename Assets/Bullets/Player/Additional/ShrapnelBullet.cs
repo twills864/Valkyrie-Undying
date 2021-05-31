@@ -69,13 +69,11 @@ namespace Assets.Bullets.PlayerBullets
             return ret;
         }
 
-        public override void OnCollideWithEnemy(Enemy enemy, Vector3 hitPosition)
+        protected override void OnCollideWithEnemy(Enemy enemy, Vector3 hitPosition)
         {
             // Burn enemy if applicable before deactivating.
             if(IsBurning && !enemy.IsBurning)
                 enemy.Ignite(FireDamage, FireDamage, FireDamageMax);
-
-            base.OnCollideWithEnemy(enemy, hitPosition);
         }
     }
 }

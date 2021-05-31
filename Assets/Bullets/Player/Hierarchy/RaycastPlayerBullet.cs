@@ -10,6 +10,11 @@ namespace Assets.Bullets.PlayerBullets
     /// <inheritdoc/>
     public abstract class RaycastPlayerBullet : PlayerBullet
     {
+        protected override bool AutomaticallyDeactivate => false;
+
+        private Vector3 _representedVelocity { get; set; }
+        public override Vector2 RepresentedVelocity => _representedVelocity;
+
         #region Prefabs
 
         [SerializeField]
@@ -134,7 +139,7 @@ namespace Assets.Bullets.PlayerBullets
 
         protected virtual void OnRaycastPlayerBulletCollideWithEnemy(Enemy enemy) { }
         // Don't deactivate self - fadeout begins automatically.
-        public sealed override void OnCollideWithEnemy(Enemy enemy, Vector3 hitPosition)
+        protected sealed override void OnCollideWithEnemy(Enemy enemy, Vector3 hitPosition)
         {
             OnRaycastPlayerBulletCollideWithEnemy(enemy);
         }
@@ -147,14 +152,16 @@ namespace Assets.Bullets.PlayerBullets
 
         public void RayCast(float angle, float distanceScale = 1.0f)
         {
-            var endPoint = MathUtil.VectorAtRadianAngle(angle, RaycastDistance * distanceScale);
-            if (GameUtil.RaycastTryGetEnemy(transform.position, endPoint, out Enemy enemy, out RaycastHit2D? hit))
+            var endDirection = MathUtil.VectorAtRadianAngle(angle, RaycastDistance * distanceScale);
+            if (GameUtil.RaycastTryGetEnemy(transform.position, endDirection, out Enemy enemy, out RaycastHit2D? hit))
             {
                 EndPoint = hit.Value.point;
                 enemy.CollideWithBullet(this);
             }
             else
-                EndPoint = (Vector3)endPoint + transform.position;
+                EndPoint = (Vector3)endDirection + transform.position;
+
+            _representedVelocity = endDirection;
         }
     }
 }

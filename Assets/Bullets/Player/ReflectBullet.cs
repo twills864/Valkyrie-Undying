@@ -16,6 +16,7 @@ namespace Assets.Bullets.PlayerBullets
     /// <inheritdoc/>
     public class ReflectBullet : PermanentVelocityPlayerBullet
     {
+        protected override bool AutomaticallyDeactivate => false;
         public override AudioClip FireSound => SoundBank.RandomForceField;
 
         #region Prefabs
@@ -101,10 +102,8 @@ namespace Assets.Bullets.PlayerBullets
 
         public override bool CollidesWithEnemy(Enemy enemy) => !FadingOut;
 
-        public override void OnCollideWithEnemy(Enemy enemy, Vector3 hitPosition)
+        protected override void OnCollideWithEnemy(Enemy enemy, Vector3 hitPosition)
         {
-            PlayHitSound();
-
             if (PenetrationCount == 0)
                 BeginFadeOut();
             else

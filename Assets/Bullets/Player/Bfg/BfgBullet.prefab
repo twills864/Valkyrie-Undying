@@ -151,3 +151,4 @@ MonoBehaviour:
   _ScaleXPerLevel: 0.15
   _FullBrightTime: 0.3
   _FadeTime: 0.5
+  _RepresentedVelocityY: 60

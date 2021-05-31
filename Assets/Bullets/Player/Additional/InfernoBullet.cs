@@ -8,8 +8,9 @@ namespace Assets.Bullets.PlayerBullets
     /// <inheritdoc/>
     public class InfernoBullet : PermanentVelocityPlayerBullet
     {
-        public sealed override AudioClip FireSound => SoundBank.Flare;
-        public sealed override AudioClip HitSound => SoundBank.ExplosionShortestIgnite;
+        protected override bool AutomaticallyDeactivate => false;
+        public override AudioClip FireSound => SoundBank.Flare;
+        public override AudioClip HitSound => SoundBank.ExplosionShortestIgnite;
 
         public static int CurrentBaseDamage { get; set; }
 
@@ -21,10 +22,8 @@ namespace Assets.Bullets.PlayerBullets
             CurrentBaseDamage = BaseDamage;
         }
 
-        public override void OnCollideWithEnemy(Enemy enemy, Vector3 hitPosition)
+        protected override void OnCollideWithEnemy(Enemy enemy, Vector3 hitPosition)
         {
-            PlayHitSound();
-
             if(enemy.isActiveAndEnabled)
                 enemy.Ignite(Damage, DamageIncreasePerTick, MaxDamage);
 

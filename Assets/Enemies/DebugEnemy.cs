@@ -68,6 +68,8 @@ namespace Assets.Enemies
 
             InfernoDamageAngle = MathUtil.VectorAtRadianAngle(InfernoDamageTextAngle, InfernoDamageTextDistance);
 
+            ParticleColor = SpriteColor;
+
             base.OnActivate();
 
             LastestDamageHealthBar.Init();
