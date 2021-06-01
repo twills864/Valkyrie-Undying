@@ -349,6 +349,13 @@ namespace Assets.Util
             return ret;
         }
 
+        public static TEnemy SpawnSpecificEnemy<TEnemy>(Vector3 position) where TEnemy : Enemy
+        {
+            var ret = SpawnSpecificEnemy<TEnemy>();
+            ret.transform.position = position;
+            return ret;
+        }
+
         #endregion Test Methods
     }
 }

@@ -377,8 +377,15 @@ namespace Assets.Enemies
         }
         public bool IsBurning { get; set; }
 
-        public void Ignite(int baseDamage, int damageIncreasePerTick, int maxDamage, Enemy ignitingEnemy = null)
+        public void Ignite(int baseDamage, int damageIncreasePerTick, int maxDamage)
         {
+            if (baseDamage <= InfernoDamage
+                && damageIncreasePerTick <= InfernoDamageIncrease
+                && maxDamage <= InfernoDamageMax)
+            {
+                return;
+            }
+
             InfernoDamageMax = maxDamage;
 
             int newInfernoDamageIncrease = (int)(InfernoDamageScale * damageIncreasePerTick);
@@ -403,8 +410,7 @@ namespace Assets.Enemies
 
             foreach(var nextEnemy in CollisionUtil.GetAllEnemiesCollidingWith(ColliderMap.Collider))
             {
-                if (nextEnemy != ignitingEnemy)
-                    nextEnemy.Ignite(baseDamage, damageIncreasePerTick, maxDamage, this);
+                nextEnemy.Ignite(baseDamage, damageIncreasePerTick, maxDamage);
             }
         }
 
