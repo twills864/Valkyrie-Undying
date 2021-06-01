@@ -31,8 +31,11 @@ namespace Assets.Powerups
             var allEnemies = Director.GetAllActiveEnemies();
             int damage = (int)PowerValue;
 
-            foreach(var target in allEnemies)
+            foreach (var target in allEnemies)
+            {
+                target.CollectivePunishmentParticleEffect(Level);
                 target.TrueDamage(damage);
+            }
         }
     }
 }

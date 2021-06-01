@@ -124,7 +124,7 @@ namespace Assets.Bullets.PlayerBullets
         public int BulletParticles => Particles.BulletParticles;
         public int EnemyParticles => Particles.EnemyParticles;
 
-        public Color32 ParticleColor => SpriteColor;
+        public Color32 ParticleColor => ColorUtil.Opaque(SpriteColor);
 
         protected void ParticleHitEffect(Vector3 hitPosition)
         {

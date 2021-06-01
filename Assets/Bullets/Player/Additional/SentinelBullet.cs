@@ -15,6 +15,8 @@ namespace Assets.Bullets.PlayerBullets
         protected override bool ShouldMarkSelfCollision => false;
         public override AudioClip FireSound => SoundBank.LaserGritty;
 
+        public override Vector2 RepresentedVelocity => SentinelManager.Instance.CalculateRepresentedVelocity(this);
+
         #region Prefabs
 
         [SerializeField]

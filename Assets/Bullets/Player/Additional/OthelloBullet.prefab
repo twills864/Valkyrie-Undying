@@ -137,7 +137,7 @@ MonoBehaviour:
   _Sprite: {fileID: 2818045216058683222}
   _BaseDamage: 0
   _Particles:
-    BulletParticles: 5
+    BulletParticles: 0
     EnemyParticles: 5
   _PermanentVelocityX: 0
   _PermanentVelocityY: 10

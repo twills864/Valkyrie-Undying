@@ -99,13 +99,14 @@ MonoBehaviour:
   _Sprite: {fileID: 723224575366626964}
   _BaseDamage: 20
   _Particles:
-    BulletParticles: 5
-    EnemyParticles: 5
+    BulletParticles: 1
+    EnemyParticles: 8
+  _Line: {fileID: 5264899859091859505}
   _FadeInTime: 0.125
   _FadeOutTime: 0.25
   _StartWidth: 0.04
   _EndWidth: 0.04
-  _Line: {fileID: 5264899859091859505}
+  _RepresentedVelocitySpeed: 20
   _LaserAlphaRatio: 0.75
 --- !u!1 &8445388326326390040
 GameObject:

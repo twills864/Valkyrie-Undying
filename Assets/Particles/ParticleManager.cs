@@ -53,9 +53,6 @@ namespace Assets.Particles
 
         public void Emit(Vector3 position, Vector3 velocity, int count, Color32 color)
         {
-            const float VelocityClamp = 0.5f;
-            velocity *= VelocityClamp;
-
             var emit = new EmitParams()
             {
                 startColor = color,
@@ -72,9 +69,6 @@ namespace Assets.Particles
 
         public void Emit(Vector3 position, Vector3 velocity, int count, params Color32[] color)
         {
-            const float VelocityClamp = 0.5f;
-            velocity *= VelocityClamp;
-
             var emit = new EmitParams();
 
             for (int i = 0; i < count; i++)
@@ -111,13 +105,14 @@ namespace Assets.Particles
         private Vector3 AddVelocityNoise(Vector3 velocity)
         {
             float scaleMin = 1f - VelocityNoiseScale;
-            float scaleMax = 1f + VelocityNoiseScale;
+            const float ScaleMax = 1f;
+            //float scaleMax = 1f + VelocityNoiseScale;
 
             velocity.x += RandomUtil.Float(-VelocityNoiseOffset, VelocityNoiseOffset);
-            velocity.x *= RandomUtil.Float(scaleMin, scaleMax);
+            velocity.x *= RandomUtil.Float(scaleMin, ScaleMax);
 
             velocity.y += RandomUtil.Float(-VelocityNoiseOffset, VelocityNoiseOffset);
-            velocity.y *= RandomUtil.Float(scaleMin, scaleMax);
+            velocity.y *= RandomUtil.Float(scaleMin, ScaleMax);
 
             return velocity;
         }

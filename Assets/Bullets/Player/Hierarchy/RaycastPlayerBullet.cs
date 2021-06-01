@@ -18,6 +18,9 @@ namespace Assets.Bullets.PlayerBullets
         #region Prefabs
 
         [SerializeField]
+        public LineRenderer _Line = null;
+
+        [SerializeField]
         private float _FadeInTime = GameConstants.PrefabNumber;
 
         [SerializeField]
@@ -30,12 +33,14 @@ namespace Assets.Bullets.PlayerBullets
         private float _EndWidth = GameConstants.PrefabNumber;
 
         [SerializeField]
-        public LineRenderer _Line = null;
+        private float _RepresentedVelocitySpeed = GameConstants.PrefabNumber;
 
         #endregion Prefabs
 
 
         #region Prefab Properties
+
+        public LineRenderer Line => _Line;
 
         public float FadeInTime => _FadeInTime;
         public float FadeOutTime => _FadeOutTime;
@@ -43,7 +48,7 @@ namespace Assets.Bullets.PlayerBullets
         private float StartWidth => _StartWidth;
         private float EndWidth => _EndWidth;
 
-        public LineRenderer Line => _Line;
+        public float RepresentedVelocitySpeed => _RepresentedVelocitySpeed;
 
         #endregion Prefab Properties
 
@@ -156,12 +161,12 @@ namespace Assets.Bullets.PlayerBullets
             if (GameUtil.RaycastTryGetEnemy(transform.position, endDirection, out Enemy enemy, out RaycastHit2D? hit))
             {
                 EndPoint = hit.Value.point;
+
+                _representedVelocity = endDirection.normalized * RepresentedVelocitySpeed;
                 enemy.CollideWithBullet(this);
             }
             else
                 EndPoint = (Vector3)endDirection + transform.position;
-
-            _representedVelocity = endDirection;
         }
     }
 }

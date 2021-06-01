@@ -553,6 +553,11 @@ namespace Assets.Enemies
             ParticleManager.Instance.EmitInColliderBounds(ColliderMap.Collider, particleVelocity, count, ParticleColor, ParticleColorAlt);
         }
 
+        public void CollectivePunishmentParticleEffect(int count)
+        {
+            ParticleHitEffect(transform.position, Vector3.zero, count);
+        }
+
         #endregion Particles
 
         #endregion Collision

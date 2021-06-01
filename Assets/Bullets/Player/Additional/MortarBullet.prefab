@@ -137,6 +137,6 @@ MonoBehaviour:
   _Sprite: {fileID: 2959985393852287726}
   _BaseDamage: -1
   _Particles:
-    BulletParticles: 8
+    BulletParticles: 0
     EnemyParticles: 8
   _Speed: 20

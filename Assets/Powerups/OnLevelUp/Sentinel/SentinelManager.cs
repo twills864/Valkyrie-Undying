@@ -105,6 +105,28 @@ namespace Assets.Powerups
             transform.position = Player.Instance.transform.position;
         }
 
+        /// <summary>
+        /// Calculates the represented velocity of a given <paramref name="sentinel"/>.
+        /// (Does not take the entrance animation into consideration.)
+        /// </summary>
+        /// <param name="sentinel">The sentinel to calculate the represented velocity for.</param>
+        /// <returns>The sentinel's represented velocity.</returns>
+        public Vector2 CalculateRepresentedVelocity(SentinelBullet sentinel)
+        {
+            int index = sentinel.Index;
+            float angleOffset = index * MathUtil.Pi2f / NumSentinel;
+
+            // Apply 90 degree offset to calculate correct velocity
+            const float HardOffset = MathUtil.PiHalf;
+
+            float angle = Rotation + angleOffset + HardOffset;
+
+            const float Magnitude = 11f;
+            Vector2 velocity = MathUtil.VectorAtRadianAngle(angle, Magnitude);
+
+            return velocity;
+        }
+
         public void LevelUp(int level, float radius, float respawnInterval)
         {
             Instance.gameObject.SetActive(true);
