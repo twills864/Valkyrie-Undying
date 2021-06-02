@@ -77,6 +77,8 @@ namespace Assets
 
         public Collider2D Collider { get; private set; }
 
+        public Vector3 InitialScale { get; private set; }
+
         private float MinX { get; set; }
         private float MaxX { get; set; }
 
@@ -163,6 +165,8 @@ namespace Assets
             MobileY = SpaceUtil.WorldMap.Bottom.y + heightHalf + MobileYOffset;
             Enemy.FireHeightFloor = MobileY;
 
+            InitialScale = transform.localScale;
+
             SpaceUtil.GetWorldBoundsX(Size.x, out float _MinX, out float _MaxX);
             MinX = _MinX;
             MaxX = _MaxX;
@@ -220,6 +224,7 @@ namespace Assets
             transform.localPosition = pos;
             SentinelManager.Instance.transform.position = pos;
             ParapetManager.Position = pos;
+            BloodlustAuraObject.transform.position = pos;
         }
 
         protected override void OnFrameRun(float deltaTime, float realDeltaTime)

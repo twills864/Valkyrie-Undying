@@ -220,6 +220,7 @@ namespace Assets.Powerups.Balance
             public MonsoonBalance Monsoon;
             public SentinelBalance Sentinel;
             public ParapetBalance Parapet;
+            public JettisonBalance Jettison;
 
             [Serializable]
             public struct OthelloBalance
@@ -312,6 +313,13 @@ namespace Assets.Powerups.Balance
                     public Vector2 Base;
                     public Vector2 IncreasePerLevel;
                 }
+            }
+
+            [Serializable]
+            public struct JettisonBalance
+            {
+                public float ScaleXPerLevel;
+                public float ScaleTime;
             }
         }
 

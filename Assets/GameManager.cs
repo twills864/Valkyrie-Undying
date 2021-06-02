@@ -292,7 +292,7 @@ namespace Assets
             // Dependency: SpaceUtil, PoolManager
             BfgBulletFallout.StaticInitColors(in _ColorManager);
 
-            // Dependency: _PoolManager, Destructor
+            // Dependency: _PoolManager, Destructor, Player
             _PowerupManager.Init(in PowerupBalance, _Destructor);
 
             // Dependency: _PowerupManager
