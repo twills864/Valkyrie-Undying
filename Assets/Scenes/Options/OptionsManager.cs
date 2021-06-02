@@ -12,6 +12,7 @@ using Assets.UI.MenuElements;
 using Assets.Util;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace Assets.Scenes.Options
 {
@@ -34,6 +35,9 @@ namespace Assets.Scenes.Options
         private PercentSlider _SoundEffectVolumeSlider = null;
 
         [SerializeField]
+        public Toggle _ToggleGore = null;
+
+        [SerializeField]
         private LoopingBackgroundSprite _SpaceLarge = null;
 
         [SerializeField]
@@ -54,6 +58,7 @@ namespace Assets.Scenes.Options
         private ButtonHolder BackButton => _BackButton;
         private PercentSlider MusicVolumeSlider => _MusicVolumeSlider;
         private PercentSlider SoundEffectVolumeSlider => _SoundEffectVolumeSlider;
+        public Toggle ToggleGore => _ToggleGore;
         private LoopingBackgroundSprite SpaceLarge => _SpaceLarge;
         private LoopingBackgroundSprite SpaceSmall => _SpaceSmall;
         private float OptionMargin => _OptionMargin;
@@ -96,11 +101,24 @@ namespace Assets.Scenes.Options
             Vector3 soundEffectPosition = new Vector3(soundEffectX, soundEffectY);
             SoundEffectVolumeSlider.SetPosition(soundEffectPosition);
 
+            var canvas = ToggleGore.GetComponentInParent<Canvas>();
+            canvas.transform.position = Vector3.zero;
+
+            float toggleGoreY = Title.transform.position.y - (sliderOffset.y * 3);
+            float toggleGoreX = musicPosition.x;
+            Vector3 toggleGorePosition = new Vector3(toggleGoreX, toggleGoreY);
+            ToggleGore.transform.position = toggleGorePosition;
+
+            ToggleGore.isOn = PlayerPrefsUtil.GetBoolFromPrefs(PlayerPrefsUtil.ToggleGoreKey, false);
+
+
+            //ToggleGore.transform.position = Vector3.zero;
+
             Vector3 cornerOffset = BackButtonMargin + VectorUtil.ScaleX2(BackButton.ButtonSize, -1.0f);
             BackButton.transform.position = SpaceUtil.WorldMap.BottomRight + cornerOffset;
 
-            MusicVolumeSlider.Value = PlayerPrefs.GetInt(PlayerPrefsKeys.MusicVolumeKey, 100);
-            SoundEffectVolumeSlider.Value = PlayerPrefs.GetInt(PlayerPrefsKeys.SoundEffectVolumeKey, 100);
+            MusicVolumeSlider.Value = PlayerPrefs.GetInt(PlayerPrefsUtil.MusicVolumeKey, 100);
+            SoundEffectVolumeSlider.Value = PlayerPrefs.GetInt(PlayerPrefsUtil.SoundEffectVolumeKey, 100);
         }
 
         public void BackButtonPressed()
@@ -117,6 +135,11 @@ namespace Assets.Scenes.Options
         public void SoundEffectVolumeChanged(float value)
         {
             SoundManager.SetSoundEffectVolume(value);
+        }
+
+        public void ToggleGoreChanged(bool value)
+        {
+            PlayerPrefsUtil.SaveBoolToPrefs(PlayerPrefsUtil.ToggleGoreKey, value);
         }
     }
 }

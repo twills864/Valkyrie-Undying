@@ -4942,6 +4942,9 @@ MonoBehaviour:
       Sentinel: {r: 1, g: 1, b: 0, a: 1}
       Void: {r: 1, g: 0, b: 1, a: 1}
     Enemy:
+      Gore:
+        DefaultPrimary: {r: 1, g: 0, b: 0, a: 1}
+        DefaultAlt: {r: 0.6, g: 0.049802016, b: 0, a: 1}
       Tank: {r: 1, g: 0.5019608, b: 0, a: 1}
       TankAlt: {r: 0.7529412, g: 0.7529412, b: 0.7529412, a: 1}
       RingEnemyRing: {r: 1, g: 1, b: 0, a: 1}

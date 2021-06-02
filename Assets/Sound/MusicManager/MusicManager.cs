@@ -66,7 +66,7 @@ namespace Assets.Sound
 
         protected override void OnSingletonInit()
         {
-            SetMusicVolume(PlayerPrefs.GetInt(PlayerPrefsKeys.MusicVolumeKey, 100));
+            SetMusicVolume(PlayerPrefs.GetInt(PlayerPrefsUtil.MusicVolumeKey, 100));
 
 #if UNITY_EDITOR
             GenerateSoundtrackFile();
@@ -146,7 +146,7 @@ namespace Assets.Sound
             MusicManager instance = (MusicManager) MusicManager.Instance;
             instance.MusicPlayer.volume = volume;
 
-            PlayerPrefs.SetInt(PlayerPrefsKeys.MusicVolumeKey, (int)percent);
+            PlayerPrefs.SetInt(PlayerPrefsUtil.MusicVolumeKey, (int)percent);
         }
     }
 }

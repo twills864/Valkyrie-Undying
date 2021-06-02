@@ -66,10 +66,18 @@ namespace Assets.ColorManagers.SubManagers
     [Serializable]
     public struct EnemyColors
     {
+        public EnemyGoreColors Gore;
         public Color Tank;
         public Color TankAlt;
         public Color RingEnemyRing;
         public Color LaserEnemyPrefire;
+    }
+
+    [Serializable]
+    public struct EnemyGoreColors
+    {
+        public Color DefaultPrimary;
+        public Color DefaultAlt;
     }
 
     [Serializable]

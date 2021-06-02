@@ -115,10 +115,10 @@ MonoBehaviour:
   _FirstSpawnMinute: 1
   ParticleColor:
     serializedVersion: 2
-    rgba: 4278223103
+    rgba: 4278190335
   ParticleColorAlt:
     serializedVersion: 2
-    rgba: 4290822336
+    rgba: 4278193561
   _VariantFireSpeed:
     FireSpeed: 0.15
     FireSpeedVariance: 0

@@ -5,6 +5,7 @@ using System.Linq;
 using Assets.Util;
 using System;
 using Assets.ColorManagers;
+using Assets.Constants;
 
 namespace Assets.ObjectPooling
 {
@@ -47,7 +48,22 @@ namespace Assets.ObjectPooling
         {
             var enemy = colorManager.Enemy;
 
-            foreach(var prefab in AllPrefabs)
+            bool showGore = PlayerPrefsUtil.GetBoolFromPrefs(PlayerPrefsUtil.ToggleGoreKey, false);
+            if (!showGore)
+                InitRealParticles(in colorManager);
+            else
+                InitGoreParticles(in colorManager);
+
+            RingEnemyRingPrefab.ParticleColor = enemy.RingEnemyRing;
+            RingEnemyRingPrefab.ParticleColorAlt = enemy.RingEnemyRing;
+            RingEnemyRingPrefab.SpriteColor = enemy.RingEnemyRing;
+        }
+
+        private void InitRealParticles(in ColorManager colorManager)
+        {
+            var enemy = colorManager.Enemy;
+
+            foreach (var prefab in AllPrefabs)
             {
                 prefab.ParticleColor = colorManager.DefaultEnemy;
                 prefab.ParticleColorAlt = colorManager.DefaultEnemyAlt;
@@ -55,11 +71,20 @@ namespace Assets.ObjectPooling
 
             TankPrefab.ParticleColor = enemy.Tank;
             TankPrefab.ParticleColorAlt = enemy.TankAlt;
-            RingEnemyRingPrefab.ParticleColor = enemy.RingEnemyRing;
-            RingEnemyRingPrefab.ParticleColorAlt = enemy.RingEnemyRing;
+        }
 
-            //TankPrefab.SpriteColor = enemy.Tank;
-            RingEnemyRingPrefab.SpriteColor = enemy.RingEnemyRing;
+        private void InitGoreParticles(in ColorManager colorManager)
+        {
+            var enemy = colorManager.Enemy;
+
+            foreach (var prefab in AllPrefabs)
+            {
+                prefab.ParticleColor = enemy.Gore.DefaultPrimary;
+                prefab.ParticleColorAlt = enemy.Gore.DefaultAlt;
+            }
+
+            TankPrefab.ParticleColor = enemy.Gore.DefaultPrimary;
+            TankPrefab.ParticleColorAlt = enemy.Gore.DefaultAlt;
         }
 
         protected override void OnPoolMapSet()

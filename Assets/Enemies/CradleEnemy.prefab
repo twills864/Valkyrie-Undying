@@ -139,7 +139,7 @@ MonoBehaviour:
     rgba: 4278190335
   ParticleColorAlt:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4278193561
   _SwivelAngle: 35
   _InitialTravelTime: 2
   _FinalTravelSpeed: 0.3

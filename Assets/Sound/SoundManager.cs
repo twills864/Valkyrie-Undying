@@ -37,7 +37,7 @@ namespace Assets
         {
             PanSources = new AudioSource[NumPanSources];
 
-            SoundEffectVolume = 0.01f * PlayerPrefs.GetInt(PlayerPrefsKeys.SoundEffectVolumeKey, 100);
+            SoundEffectVolume = 0.01f * PlayerPrefs.GetInt(PlayerPrefsUtil.SoundEffectVolumeKey, 100);
 
             for (int i = 0; i < NumPanSources; i++)
             {
@@ -92,7 +92,7 @@ namespace Assets
         {
             SoundEffectVolume = percent * MaxSoundEffectVolume * 0.01f;
 
-            PlayerPrefs.SetInt(PlayerPrefsKeys.SoundEffectVolumeKey, (int)percent);
+            PlayerPrefs.SetInt(PlayerPrefsUtil.SoundEffectVolumeKey, (int)percent);
         }
     }
 }

@@ -63,8 +63,8 @@ namespace Assets.Util
 
         public static int LastWeapon
         {
-            get => PlayerPrefs.GetInt(PlayerPrefsKeys.LastWeaponIndexKey, 0);
-            set => PlayerPrefs.SetInt(PlayerPrefsKeys.LastWeaponIndexKey, value);
+            get => PlayerPrefs.GetInt(PlayerPrefsUtil.LastWeaponIndexKey, 0);
+            set => PlayerPrefs.SetInt(PlayerPrefsUtil.LastWeaponIndexKey, value);
         }
 
         private static readonly string DefaultPowerupName = typeof(FireSpeedPowerup).Name;
@@ -74,15 +74,15 @@ namespace Assets.Util
             {
                 try
                 {
-                    return PowerupNameMap[PlayerPrefs.GetString(PlayerPrefsKeys.LastPowerupNameKey, DefaultPowerupName)];
+                    return PowerupNameMap[PlayerPrefs.GetString(PlayerPrefsUtil.LastPowerupNameKey, DefaultPowerupName)];
                 }
                 catch
                 {
-                    PlayerPrefs.SetString(PlayerPrefsKeys.LastPowerupNameKey, DefaultPowerupName);
+                    PlayerPrefs.SetString(PlayerPrefsUtil.LastPowerupNameKey, DefaultPowerupName);
                     return PowerupNameMap[DefaultPowerupName];
                 }
             }
-            set => PlayerPrefs.SetString(PlayerPrefsKeys.LastPowerupNameKey, value.GetType().Name);
+            set => PlayerPrefs.SetString(PlayerPrefsUtil.LastPowerupNameKey, value.GetType().Name);
         }
     }
 }
