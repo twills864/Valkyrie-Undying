@@ -57,6 +57,9 @@ namespace Assets.Util
         [SerializeField]
         public Toggle ToggleCanGameOver;
 
+        [SerializeField]
+        public Toggle ToggleGodMode;
+
         private Type GameRowPowerupType => SaveUtil.LastPowerup.GetType();
         private Powerup CurrentDebugPowerup => SaveUtil.LastPowerup;
 
@@ -85,13 +88,17 @@ namespace Assets.Util
                 SliderGameSpeed,
                 TextGameSpeed,
                 ToggleCanGameOver,
+                ToggleGodMode,
             };
             foreach (Component component in setAll)
                 component.transform.localScale = newScale;
 
             ToggleCanGameOver.isOn = true;
+            ToggleGodMode.isOn = false;
 #else
             ToggleCanGameOver.isOn = false;
+            ToggleGodMode.isOn = true;
+            Player.Instance.GodMode = true;
 #endif
 
             var inputPos = SpaceUtil.ScreenMap.BottomLeft + new Vector3(DebugBorderOffset, DebugBorderOffset);
@@ -120,11 +127,10 @@ namespace Assets.Util
             SetRight(PowerupRow, -120);
             SetRight(ToggleCanGameOver, -180);
 
-            ToggleCanGameOver.onValueChanged.AddListener(delegate
-            {
-                GameManager.Instance.CanGameOver = ToggleCanGameOver.isOn;
-            });
+            ToggleCanGameOver.onValueChanged.AddListener(isOn => GameManager.Instance.CanGameOver = isOn);
 
+            SetRight(ToggleGodMode, -210);
+            ToggleGodMode.onValueChanged.AddListener(isOn => Player.Instance.GodMode = isOn);
 
             var strategiesToAdd = fireStrategies.Select(x => x.GetType().Name).ToList();
             DropdownFireType.AddOptions(strategiesToAdd);
@@ -232,6 +238,7 @@ namespace Assets.Util
             SliderGameSpeed.gameObject.SetActive(active);
             TextGameSpeed.gameObject.SetActive(active);
             ToggleCanGameOver.gameObject.SetActive(active);
+            ToggleGodMode.gameObject.SetActive(active);
         }
 #endregion Debug Input
 

@@ -344,9 +344,13 @@ namespace Assets
             }
         }
 
+        public bool GodMode { get; set; } = false;
+
         private void OnHit()
         {
-            if (!InIFrames)
+            if (GodMode)
+                CreateFleetingTextAtCenter("Ow");
+            else if (!InIFrames)
                 TakeDamage();
         }
 

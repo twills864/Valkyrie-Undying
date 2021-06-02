@@ -299,7 +299,7 @@ namespace Assets
             _PoolManager.PickupPool.InitializePowerups(_PowerupManager.AllPowerups);
             SaveUtil.InitializePowerups(_PowerupManager.AllPowerups);
 
-            // Dependency: FireStrategies, _PowerupMenu, SaveUtil
+            // Dependency: FireStrategies, _PowerupMenu, SaveUtil, Player
             DebugUi.Init(FireStrategies, _PowerupMenu);
 
             // Dependency: DebugUi
@@ -354,7 +354,6 @@ namespace Assets
 
         #region Update
 
-        static int counter = 0;
         private void Update()
         {
             if (DebugPauseNextFrame)
