@@ -28,10 +28,11 @@ namespace Assets.Powerups
 
         public override void OnHit(Enemy enemy, PlayerBullet bullet, Vector3 hitPosition)
         {
-            var allEnemies = Director.GetAllActiveEnemies();
             int damage = (int)PowerValue;
+            enemy.TrueDamage(damage);
 
-            foreach (var target in allEnemies)
+            var allEnemies = Director.GetAllActiveEnemies();
+            foreach (var target in allEnemies.Where(x => x != enemy))
             {
                 target.CollectivePunishmentParticleEffect(Level);
                 target.TrueDamage(damage);

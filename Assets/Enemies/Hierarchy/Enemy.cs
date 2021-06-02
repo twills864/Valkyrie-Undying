@@ -139,9 +139,9 @@ namespace Assets.Enemies
         protected virtual void OnEnemyActivate() { }
         protected sealed override void OnActivate()
         {
-            InfernoTimer.Reset();
+            DeathParticleVelocity = null;
 
-            IsBurning = false;
+            ResetInferno();
             VoidPauseCounter = 0;
 
             OnEnemyActivate();
@@ -377,6 +377,15 @@ namespace Assets.Enemies
         }
         public bool IsBurning { get; set; }
 
+        private void ResetInferno()
+        {
+            InfernoTimer.Reset();
+            IsBurning = false;
+            InfernoDamage = 0;
+            InfernoDamageIncrease = 0;
+            InfernoDamageMax = 0;
+        }
+
         public void Ignite(int baseDamage, int damageIncreasePerTick, int maxDamage)
         {
             if (baseDamage <= InfernoDamage
@@ -408,7 +417,7 @@ namespace Assets.Enemies
                     InfernoDamageMax = maxDamage;
             }
 
-            foreach(var nextEnemy in CollisionUtil.GetAllEnemiesCollidingWith(ColliderMap.Collider))
+            foreach (var nextEnemy in CollisionUtil.GetAllEnemiesCollidingWith(ColliderMap.Collider))
             {
                 nextEnemy.Ignite(baseDamage, damageIncreasePerTick, maxDamage);
             }
@@ -501,6 +510,8 @@ namespace Assets.Enemies
                 // Kill later in order to preserve position before DeactivateSelf()
                 // sets position to PooledObject.InactivePosition
                 bool shouldKill = DamageKills(bullet.Damage);
+                if (shouldKill && bullet.OverrideEnemyVelocityOnKill)
+                    DeathParticleVelocity = bullet.RepresentedVelocity;
 
                 Vector3 hitPosition = bullet.GetHitPosition(this);
 
@@ -536,6 +547,13 @@ namespace Assets.Enemies
         [HideInInspector]
         public Color32 ParticleColorAlt;
 
+        private Vector2? _deathParticleVelocity;
+        private Vector2? DeathParticleVelocity
+        {
+            get => _deathParticleVelocity;
+            set => _deathParticleVelocity = value;
+        }
+
         protected void ParticleHitEffect(Vector3 hitPosition, Vector3 bulletVelocity, int count)
         {
             ParticleManager.Instance.Emit(hitPosition, bulletVelocity, count, ParticleColor, ParticleColorAlt);
@@ -545,7 +563,9 @@ namespace Assets.Enemies
         {
             Vector3 particleVelocity;
 
-            if(bullet?.OverrideEnemyVelocityOnKill == true)
+            if (DeathParticleVelocity.HasValue)
+                particleVelocity = DeathParticleVelocity.Value;
+            else if (bullet?.OverrideEnemyVelocityOnKill == true)
                 particleVelocity = bullet.RepresentedVelocity;
             else
                 particleVelocity = RepresentedVelocity;
