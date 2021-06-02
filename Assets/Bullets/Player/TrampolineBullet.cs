@@ -23,8 +23,7 @@ namespace Assets.Bullets.PlayerBullets
             get
             {
                 float x = VelocityX;
-                float y = ElapsedTime - Mathf.Sqrt(SpaceUtil.WorldMapSize.y);
-                y *= -2f;
+                float y = -2f * (ElapsedTime - Mathf.Sqrt(SpaceUtil.WorldMapSize.y));
 
                 Vector2 velocity = new Vector2(x, y);
                 return velocity;

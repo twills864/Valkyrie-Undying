@@ -545,10 +545,13 @@ namespace Assets.Enemies
         {
             Vector3 particleVelocity;
 
-            if(bullet != null && bullet.OverrideEnemyVelocityOnKill)
+            if(bullet?.OverrideEnemyVelocityOnKill == true)
                 particleVelocity = bullet.RepresentedVelocity;
             else
                 particleVelocity = RepresentedVelocity;
+
+            const float DeathScale = 1.2f;
+            particleVelocity *= DeathScale;
 
             ParticleManager.Instance.EmitInColliderBounds(ColliderMap.Collider, particleVelocity, count, ParticleColor, ParticleColorAlt);
         }
