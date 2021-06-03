@@ -6,9 +6,9 @@ using UnityEngine;
 namespace Assets.FireStrategies.PlayerFireStrategies
 {
     /// <inheritdoc/>
-    public class BasicStrategy : PlayerFireStrategy<BasicBullet>
+    public class DefaultStrategy : PlayerFireStrategy<DefaultBullet>
     {
-        public BasicStrategy(BasicBullet bullet, in PlayerFireStrategyManager manager) : base(bullet, manager)
+        public DefaultStrategy(DefaultBullet bullet, in PlayerFireStrategyManager manager) : base(bullet, manager)
         {
         }
 

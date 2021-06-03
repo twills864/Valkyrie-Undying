@@ -13,7 +13,7 @@ namespace Assets.ObjectPooling
         #region Fired Bullets
 
         [SerializeField]
-        private BasicBullet BasicPrefab = null;
+        private DefaultBullet DefaultPrefab = null;
         [SerializeField]
         private ShotgunBullet ShotgunPrefab = null;
         [SerializeField]

@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f559a9346b5bfe140ac6b38825dd6b2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BasicPrefab: {fileID: 385087358628592150, guid: 53c3fe6e2f38cc84dad4076ea5480157,
+  DefaultPrefab: {fileID: 385087358628592150, guid: 53c3fe6e2f38cc84dad4076ea5480157,
     type: 3}
   ShotgunPrefab: {fileID: 9130137281552897155, guid: e102288797baf564e89b34b6ffa79ea2,
     type: 3}
@@ -66,6 +66,10 @@ MonoBehaviour:
   BfgPrefab: {fileID: 7447093464715356506, guid: 861d21a5c90651145b2496c51e0c361d,
     type: 3}
   OneManArmyPrefab: {fileID: 6060583007313497720, guid: 92a31f414f664508914e2df0cafd86db,
+    type: 3}
+  DeadlyDiamondPrefab: {fileID: 8040149567088496367, guid: 255eae1043734a9794d74859e1292ac8,
+    type: 3}
+  ReflectPrefab: {fileID: 9223372036854775807, guid: d555cd068d714775b5fe9c5e9065829e,
     type: 3}
   ReflectedPrefab: {fileID: 6158172361450589269, guid: 494c3fda96ed01149af78e4a1583ca26,
     type: 3}
@@ -93,8 +97,6 @@ MonoBehaviour:
     type: 3}
   MortarPrefab: {fileID: 2756657092176400441, guid: 6279dcf8a2df4a998ecf547847e2238f,
     type: 3}
-  DeadlyDiamondPrefab: {fileID: 8040149567088496367, guid: 255eae1043734a9794d74859e1292ac8,
-    type: 3}
   SmiteLightningPrefab: {fileID: 1308047986309045083, guid: 58bb14e2edbd4a6f9d9749b620fb71a9,
     type: 3}
   SmiteJointPrefab: {fileID: 6120797354885354739, guid: d152e8476fb34ccaa418d804da875789,
@@ -103,7 +105,5 @@ MonoBehaviour:
     type: 3}
   VoidProjectilePrefab: {fileID: 6868574156074621370, guid: 0a18a3a0c3a842cf8025b94c817dc9b0,
     type: 3}
-  SentinelProjectilePrefab: {fileID: 9928429122689216097, guid: 2795855d65704b058352086111b378c9,
-    type: 3}
-  ReflectPrefab: {fileID: 9287720848893935477, guid: d555cd068d714775b5fe9c5e9065829e,
+  SentinelProjectilePrefab: {fileID: 9223372036854775807, guid: 2795855d65704b058352086111b378c9,
     type: 3}

@@ -313,7 +313,7 @@ namespace Assets
 
             FireStrategies = new CircularSelector<PlayerFireStrategy>
             {
-                new BasicStrategy(Prefab<BasicBullet>(), in _FireStrategyManager),
+                new DefaultStrategy(Prefab<DefaultBullet>(), in _FireStrategyManager),
                 new ShotgunStrategy(Prefab<ShotgunBullet>(), in _FireStrategyManager),
                 new BurstStrategy(Prefab<BurstBullet>(), in _FireStrategyManager),
                 new BounceStrategy(Prefab<BounceBullet>(), in _FireStrategyManager),
