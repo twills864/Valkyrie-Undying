@@ -81,6 +81,8 @@ namespace Assets.ObjectPooling
         private VoidProjectileBullet VoidProjectilePrefab = null;
         [SerializeField]
         private SentinelProjectileBullet SentinelProjectilePrefab = null;
+        [SerializeField]
+        private DefaultExtraBullet DefaultExtraPrefab = null;
 
         #endregion Additional Bullets
 

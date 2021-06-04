@@ -28,7 +28,8 @@ namespace Assets.ObjectPooling
 
 #pragma warning restore 0414
 
-        public List<Powerup> AllAssignablePowerups { get; private set; }
+        public List<Powerup> AssignableRegularPowerups { get; private set; }
+        public List<Powerup> AssignableDefaultWeaponPowerups { get; private set; }
 
         protected override Color GetDefaultColor(in ColorManager colorManager)
             => Color.white;
@@ -36,32 +37,56 @@ namespace Assets.ObjectPooling
         protected override void OnInitSprites(in ColorManager colorManager)
         {
             WeaponPrefab.SpriteColor = colorManager.Pickup.Weapon;
-            PowerupPrefab.SpriteColor = colorManager.Pickup.Powerup;
             WeaponLevelPrefab.SpriteColor = colorManager.Pickup.WeaponLevel;
             OneUpPrefab.SpriteColor = colorManager.Pickup.OneUp;
 
+            PowerupPrefab.SpriteColor = colorManager.Pickup.Powerup;
+            PowerupPrefab.InitialSpriteColor = colorManager.Pickup.Powerup;
+            PowerupPrefab.DefaultWeaponSpriteColor = colorManager.Pickup.DefaultWeaponPowerup;
 
             // TODO: Load powerups, or refactor into somewhere else
         }
 
         public void InitializePowerups(List<Powerup> allPowerups)
         {
-            // Create new List so that we can remove elements or otherwise modify this list as needed.
-            AllAssignablePowerups = allPowerups.OrderByDescending(x => x.MaxLevel).ToList();
+            var ordered = allPowerups.OrderByDescending(x => x.MaxLevel);
+
+            AssignableRegularPowerups = ordered.Where(x => !x.IsDefaultWeaponPowerup).ToList();
+            AssignableDefaultWeaponPowerups = ordered.Where(x => x.IsDefaultWeaponPowerup).ToList();
         }
 
-        public PowerupPickup GetRandomPowerup(Vector3 position)
+        public PowerupPickup GetRandomPowerup(Vector3 position, float defaultWeaponPowerupOverrideChance)
         {
-            var powerup = RandomUtil.RandomElement(AllAssignablePowerups);
+            var powerup = SelectPowerup(defaultWeaponPowerupOverrideChance);
             powerup.CheckOut();
 
             if (powerup.AreAllPowerupsCheckedOut)
-                AllAssignablePowerups.Remove(powerup);
+            {
+                if (!powerup.IsDefaultWeaponPowerup)
+                    AssignableRegularPowerups.Remove(powerup);
+                else
+                    AssignableDefaultWeaponPowerups.Remove(powerup);
+            }
 
             var pickup = Get<PowerupPickup>(position);
             pickup.TargetPowerup = powerup;
 
             return pickup;
+        }
+
+        /// <summary>
+        /// Selects a random powerup with a specified chance of selecting a default weapon powerup.
+        /// </summary>
+        private Powerup SelectPowerup(float defaultWeaponPowerupOverrideChance)
+        {
+            Powerup powerup;
+
+            if (AssignableDefaultWeaponPowerups.Any() && RandomUtil.Bool(defaultWeaponPowerupOverrideChance))
+                powerup = RandomUtil.RandomElement(AssignableDefaultWeaponPowerups);
+            else
+                powerup = RandomUtil.RandomElement(AssignableRegularPowerups);
+
+            return powerup;
         }
 
         /// <summary>
@@ -73,7 +98,12 @@ namespace Assets.ObjectPooling
         public void BeforePowerupCheckIn(Powerup powerup)
         {
             if (powerup.AreAllPowerupsCheckedOut)
-                AllAssignablePowerups.Add(powerup);
+            {
+                if (!powerup.IsDefaultWeaponPowerup)
+                    AssignableRegularPowerups.Add(powerup);
+                else
+                    AssignableDefaultWeaponPowerups.Add(powerup);
+            }
         }
     }
 }

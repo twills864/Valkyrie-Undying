@@ -27,6 +27,7 @@ namespace Assets
         {
             public float WeaponLevelOverrideChanceFlatAddition;
             public float BaseEnemyPowerupDropChance;
+            public float DefaultWeaponPowerupOverrideChance;
         }
 
         [Serializable]

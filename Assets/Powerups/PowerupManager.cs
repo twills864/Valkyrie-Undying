@@ -24,6 +24,11 @@ namespace Assets.Powerups
         private OnLevelUpList OnLevelUpList { get; set; }
         private PassivePowerupList PassivePowerupList { get; set; }
 
+        private OnDefaultWeaponFireList OnDefaultWeaponFireList { get; set; }
+        private OnDefaultWeaponHitList OnDefaultWeaponHitList { get; set; }
+        private OnDefaultWeaponKillList OnDefaultWeaponKillList { get; set; }
+        private OnDefaultWeaponLevelUpList OnDefaultWeaponLevelUpList { get; set; }
+
         private IPowerupList[] AllLists { get; set; }
 
         public List<Powerup> AllPowerups { get; private set; }
@@ -31,11 +36,23 @@ namespace Assets.Powerups
 
         public void Init(in PowerupBalanceManager balance, Destructor destructor)
         {
-            AllLists = new IPowerupList[6];
+            const int NumLists = 10;
+            AllLists = new IPowerupList[NumLists];
             AllPowerupsMap = new Dictionary<Type, Powerup>();
 
             UniqueIdGenerator ids = new UniqueIdGenerator(0);
 
+            InitRegularPowerups(in balance, ref ids);
+            InitDefaultWeaponPowerups(in balance, ref ids);
+
+            AllPowerups = AllPowerupsMap.Values.ToList();
+
+            //OnHitList.Get<ShrapnelPowerup>().MaxY = destructor.SizeHalf.y;
+            OnFireList.Get<PestControlPowerup>().Init();
+        }
+
+        private void InitRegularPowerups(in PowerupBalanceManager balance, ref UniqueIdGenerator ids)
+        {
             OnFireList = new OnFireList(ids);
             InitList(OnFireList, in balance);
 
@@ -53,11 +70,21 @@ namespace Assets.Powerups
 
             PassivePowerupList = new PassivePowerupList(ids);
             InitList(PassivePowerupList, in balance);
+        }
 
-            AllPowerups = AllPowerupsMap.Values.ToList();
+        private void InitDefaultWeaponPowerups(in PowerupBalanceManager balance, ref UniqueIdGenerator ids)
+        {
+            OnDefaultWeaponFireList = new OnDefaultWeaponFireList(ids);
+            InitList(OnDefaultWeaponFireList, in balance);
 
-            //OnHitList.Get<ShrapnelPowerup>().MaxY = destructor.SizeHalf.y;
-            OnFireList.Get<PestControlPowerup>().Init();
+            OnDefaultWeaponHitList = new OnDefaultWeaponHitList(ids);
+            InitList(OnDefaultWeaponHitList, in balance);
+
+            OnDefaultWeaponKillList = new OnDefaultWeaponKillList(ids);
+            InitList(OnDefaultWeaponKillList, in balance);
+
+            OnDefaultWeaponLevelUpList = new OnDefaultWeaponLevelUpList(ids);
+            InitList(OnDefaultWeaponLevelUpList, in balance);
         }
 
         private void InitList(IPowerupList list, in PowerupBalanceManager balance)
@@ -65,6 +92,8 @@ namespace Assets.Powerups
             list.Init(AllPowerupsMap, in balance);
             AllLists[list.PowerupManagerIndex] = list;
         }
+
+        #region Regular Powerups
 
         public void OnFire(Vector3 firePosition, PlayerBullet[] bullets)
         {
@@ -95,6 +124,36 @@ namespace Assets.Powerups
             foreach (var powerup in PassivePowerupList.Where(x => x.IsActive))
                 powerup.RunFrame(deltaTime, realDeltaTime);
         }
+
+        #endregion Regular Powerups
+
+
+        #region Default Weapon Powerups
+
+        public void OnDefaultWeaponFire(Vector3 firePosition, DefaultBullet[] bullets)
+        {
+            foreach (var powerup in OnDefaultWeaponFireList.Where(x => x.IsActive))
+                powerup.OnFire(firePosition, bullets);
+        }
+
+        public void OnDefaultWeaponHit(Enemy enemy, DefaultBullet bullet, Vector3 hitPosition)
+        {
+            foreach (var powerup in OnDefaultWeaponHitList.Where(x => x.IsActive))
+                powerup.OnHit(enemy, bullet, hitPosition);
+        }
+
+        public void OnDefaultWeaponKill(Enemy enemy, DefaultBullet bullet)
+        {
+            foreach (var powerup in OnDefaultWeaponKillList.Where(x => x.IsActive))
+                powerup.OnKill(enemy, bullet);
+        }
+
+        #endregion Default Weapon Powerups
+
+
+        #region Get Specific Powerups
+
+        #region Get Specific Regular Powerup
 
         public TPowerup GetFirePowerup<TPowerup>() where TPowerup : OnFirePowerup
         {
@@ -131,5 +190,38 @@ namespace Assets.Powerups
             var ret = PassivePowerupList.Get<TPowerup>();
             return ret;
         }
+
+        #endregion Get Specific Regular Powerup
+
+
+        #region Get Specific Default Weapon Powerup
+
+        public TPowerup GetDefaulWeaponFirePowerup<TPowerup>() where TPowerup : OnDefaultWeaponFirePowerup
+        {
+            var ret = OnDefaultWeaponFireList.Get<TPowerup>();
+            return ret;
+        }
+
+        public TPowerup GetOnDefaultWeaponHitPowerup<TPowerup>() where TPowerup : OnDefaultWeaponHitPowerup
+        {
+            var ret = OnDefaultWeaponHitList.Get<TPowerup>();
+            return ret;
+        }
+
+        public TPowerup GetOnDefaultWeaponKillPowerup<TPowerup>() where TPowerup : OnDefaultWeaponKillPowerup
+        {
+            var ret = OnDefaultWeaponKillList.Get<TPowerup>();
+            return ret;
+        }
+
+        public TPowerup GetOnDefaultWeaponLevelUpPowerup<TPowerup>() where TPowerup : OnDefaultWeaponLevelUpPowerup
+        {
+            var ret = OnDefaultWeaponLevelUpList.Get<TPowerup>();
+            return ret;
+        }
+
+        #endregion Get Specific Regular Powerup
+
+        #endregion GetSpecificPowerups
     }
 }

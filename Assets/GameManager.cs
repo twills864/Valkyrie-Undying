@@ -625,7 +625,12 @@ namespace Assets
             _PowerupManager.OnHit(enemy, bullet, hitPosition);
         }
 
-#region OnEnemyKill
+        public void OnEnemyHitWithDefaultWeapon(Enemy enemy, DefaultBullet bullet, Vector3 hitPosition)
+        {
+            _PowerupManager.OnDefaultWeaponHit(enemy, bullet, hitPosition);
+        }
+
+        #region OnEnemyKill
 
         public void OnEnemyKill(Enemy enemy, PlayerBullet bullet)
         {

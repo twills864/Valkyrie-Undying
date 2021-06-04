@@ -17,6 +17,21 @@ namespace Assets.Pickups
     {
         public Powerup TargetPowerup { get; set; }
 
+        /// <summary>
+        /// Remember the initial sprite color in case it needs to be overridden
+        /// by the default powerup color.
+        /// </summary>
+        public Color InitialSpriteColor;
+        public Color DefaultWeaponSpriteColor;
+
+        protected override void OnEnemyLootPickupSpawn()
+        {
+            if (!TargetPowerup.IsDefaultWeaponPowerup)
+                SpriteColor = InitialSpriteColor;
+            else
+                SpriteColor = DefaultWeaponSpriteColor;
+        }
+
         protected override void OnPickUp()
         {
             TargetPowerup.Level++;

@@ -38,13 +38,29 @@ namespace Assets.Powerups
             foreach(var type in types.Where(x => !disabledPowerups.Contains(x)))
             {
                 var newPowerup = (TPowerUp) ReflectionUtil.CreateNew(type);
+
                 newPowerup.PowerupManagerIndex = PowerupManagerIndex;
                 newPowerup.Init(in balance);
                 this.Add(newPowerup);
+
                 allPowerups[type] = newPowerup;
 
                 GameManager.Instance.AddPowerupMenuPowerupRow(newPowerup);
             }
+        }
+
+        private void InitStandardPowerup(TPowerUp newPowerup, Type type, Dictionary<Type, Powerup> allPowerups, in PowerupBalanceManager balance)
+        {
+
+
+        }
+
+        private void InitDefaultWeaponPowerup(TPowerUp newPowerup, Type type, Dictionary<Type, Powerup> allPowerups, in PowerupBalanceManager balance)
+        {
+            newPowerup.PowerupManagerIndex = PowerupManagerIndex;
+            newPowerup.Init(in balance);
+            this.Add(newPowerup);
+            allPowerups[type] = newPowerup;
         }
 
         /// <summary>

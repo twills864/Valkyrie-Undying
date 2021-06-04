@@ -5167,6 +5167,13 @@ MonoBehaviour:
         Chance:
           Base: 0.01
           Increase: 0.01
+      Rebound:
+        Chance:
+          Base: 0
+          Increase: 0
+        Power:
+          Base: 0
+          Increase: 0
     OnKill:
       Bloodlust:
         Duration:
@@ -5240,6 +5247,18 @@ MonoBehaviour:
         Damage:
           Base: 10
           Increase: 5
+    OnDefaultWeaponFire:
+      Placeholder:
+        Placeholder: 0
+    OnDefaultWeaponHit:
+      Rebound:
+        AngleInDegrees: 45
+    OnDefaultWeaponKill:
+      Placeholder:
+        Placeholder: 0
+    OnDefaultWeaponLevelUp:
+      Placeholder:
+        Placeholder: 0
   _DirectorBalance:
     Difficuly:
       InitialDifficultyRatio: 0
@@ -5247,6 +5266,7 @@ MonoBehaviour:
     EnemyDrops:
       WeaponLevelOverrideChanceFlatAddition: 0.025
       BaseEnemyPowerupDropChance: 0.15
+      DefaultWeaponPowerupOverrideChance: 1
     Experience:
       BaseEnemyExpRate: 0.1
       ExpToFirstLevel: 0.25
@@ -5282,6 +5302,7 @@ MonoBehaviour:
     Pickup:
       Weapon: {r: 0.7529412, g: 1, b: 0, a: 1}
       Powerup: {r: 0, g: 1, b: 0.7529412, a: 1}
+      DefaultWeaponPowerup: {r: 1, g: 1, b: 1, a: 1}
       WeaponLevel: {r: 0, g: 0.40801308, b: 0.9339623, a: 1}
       OneUp: {r: 0, g: 1, b: 0, a: 1}
   _SpaceLarge: {fileID: 805402775}

@@ -48,6 +48,12 @@ namespace Assets.Powerups
         public bool IsActive => Level != 0;
 
         /// <summary>
+        /// Whether or not this powerup is a direct modification
+        /// to the player's default weapon.
+        /// </summary>
+        public virtual bool IsDefaultWeaponPowerup => false;
+
+        /// <summary>
         /// The maximum level that can be achieved by the player.
         /// Some powerups may need a hard upper limit.
         /// </summary>

@@ -27,6 +27,11 @@ namespace Assets.Powerups.Balance
         public OnLevelUpBalance OnLevelUp;
         public PassiveBalance Passive;
 
+        public OnDefaultWeaponFireBalance OnDefaultWeaponFire;
+        public OnDefaultWeaponHitBalance OnDefaultWeaponHit;
+        public OnDefaultWeaponKillBalance OnDefaultWeaponKill;
+        public OnDefaultWeaponLevelUpBalance OnDefaultWeaponLevelUp;
+
         #region OnFire
 
         [Serializable]
@@ -69,6 +74,7 @@ namespace Assets.Powerups.Balance
             public MetronomeBalance Metronome;
             public CollectivePunishmentBalance CollectivePunishment;
             public SmiteBalance Smite;
+            public ReboundBalance Rebound;
 
             [Serializable]
             public struct ShrapnelBalance
@@ -117,6 +123,27 @@ namespace Assets.Powerups.Balance
 
                 [Serializable]
                 public struct ChanceBalance
+                {
+                    public float Base;
+                    public float Increase;
+                }
+            }
+
+            [Serializable]
+            public struct ReboundBalance
+            {
+                public ChanceBalance Chance;
+                public PowerBalance Power;
+
+                [Serializable]
+                public struct ChanceBalance
+                {
+                    public float Base;
+                    public float Increase;
+                }
+
+                [Serializable]
+                public struct PowerBalance
                 {
                     public float Base;
                     public float Increase;
@@ -386,5 +413,70 @@ namespace Assets.Powerups.Balance
         }
 
         #endregion Passive
+
+
+        #region OnDefaultWeaponFire
+
+        [Serializable]
+        public struct OnDefaultWeaponFireBalance
+        {
+            public PlaceholderBalance Placeholder;
+
+            [Serializable]
+            public struct PlaceholderBalance
+            {
+                public float Placeholder;
+            }
+        }
+
+        #endregion OnDefaultWeaponFire
+
+        #region OnDefaultWeaponHit
+
+        [Serializable]
+        public struct OnDefaultWeaponHitBalance
+        {
+            public ReboundBalance Rebound;
+
+            [Serializable]
+            public struct ReboundBalance
+            {
+                public float AngleInDegrees;
+            }
+        }
+
+        #endregion OnDefaultWeaponHit
+
+        #region OnDefaultWeaponKill
+
+        [Serializable]
+        public struct OnDefaultWeaponKillBalance
+        {
+            public PlaceholderBalance Placeholder;
+
+            [Serializable]
+            public struct PlaceholderBalance
+            {
+                public float Placeholder;
+            }
+        }
+
+        #endregion OnDefaultWeaponKill
+
+        #region OnDefaultWeaponLevelUp
+
+        [Serializable]
+        public struct OnDefaultWeaponLevelUpBalance
+        {
+            public PlaceholderBalance Placeholder;
+
+            [Serializable]
+            public struct PlaceholderBalance
+            {
+                public float Placeholder;
+            }
+        }
+
+        #endregion OnLevelUp
     }
 }

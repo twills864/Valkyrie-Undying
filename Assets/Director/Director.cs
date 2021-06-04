@@ -363,7 +363,7 @@ namespace Assets
             }
             else
             {
-                powerup = PoolManager.Instance.PickupPool.GetRandomPowerup(position);
+                powerup = PoolManager.Instance.PickupPool.GetRandomPowerup(position, Balance.EnemyDrops.DefaultWeaponPowerupOverrideChance);
             }
             powerup.OnSpawn();
         }

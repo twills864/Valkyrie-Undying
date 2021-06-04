@@ -333,7 +333,9 @@ namespace Assets.Util
                 float x = RandomUtil.Float(-PosDelta, PosDelta);
                 float y = RandomUtil.Float(-PosDelta, PosDelta);
                 Vector3 spawnPos = new Vector3(x, y) + mousePos;
-                pool.GetRandomPowerup(spawnPos).OnSpawn();
+
+                const float ArbitraryDefaultWeaponOverrideChance = 0.25f;
+                pool.GetRandomPowerup(spawnPos, ArbitraryDefaultWeaponOverrideChance).OnSpawn();
             }
         }
 

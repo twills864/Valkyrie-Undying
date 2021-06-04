@@ -135,3 +135,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _Sprite: {fileID: -4827794034390846724}
+  InitialSpriteColor: {r: 0, g: 1, b: 0.7529412, a: 1}
+  DefaultWeaponSpriteColor: {r: 1, g: 1, b: 1, a: 1}

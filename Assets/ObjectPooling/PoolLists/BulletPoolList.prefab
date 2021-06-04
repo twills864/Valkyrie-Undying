@@ -107,3 +107,5 @@ MonoBehaviour:
     type: 3}
   SentinelProjectilePrefab: {fileID: 9223372036854775807, guid: 2795855d65704b058352086111b378c9,
     type: 3}
+  DefaultExtraPrefab: {fileID: 9961752536229014619, guid: d52a135558234678a1936c803397c323,
+    type: 3}
