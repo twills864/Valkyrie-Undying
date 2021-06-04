@@ -18,8 +18,8 @@ namespace Assets.Powerups
     {
         public override int MaxLevel => 1;
 
-        private Vector2 SpeedLeft { get; set; }
-        private Vector2 SpeedRight => VectorUtil.ScaleX2(SpeedLeft, -1f);
+        private static Vector2 SpeedLeft { get; set; }
+        private static Vector2 SpeedRight => VectorUtil.ScaleX2(SpeedLeft, -1f);
 
         protected override void InitBalance(in PowerupBalanceManager.OnDefaultWeaponHitBalance balance)
         {
@@ -33,7 +33,23 @@ namespace Assets.Powerups
             SpeedLeft = MathUtil.Vector2AtRadianAngle(angle, speed);
         }
 
+        public override void OnLevelUp()
+        {
+            DefaultBullet.ReboundActive = true;
+        }
+
         public override void OnHit(Enemy enemy, DefaultBullet bullet, Vector3 hitPosition)
+        {
+            Rebound(enemy, bullet, hitPosition);
+        }
+
+        public static void ReboundOffScreenEdge(DefaultBullet bullet)
+        {
+            Vector3 hitPosition = bullet.transform.position;
+            Rebound(null, bullet, hitPosition);
+        }
+
+        private static void Rebound(Enemy enemy, DefaultBullet bullet, Vector3 hitPosition)
         {
             DefaultExtraBullet.SpawnNew(hitPosition, SpeedLeft, bullet, enemy);
             DefaultExtraBullet.SpawnNew(hitPosition, SpeedRight, bullet, enemy);

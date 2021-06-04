@@ -17,7 +17,7 @@ namespace Assets.ObjectPooling
             set
             {
                 _target = value;
-                TargetSpawnId = _target.SpawnId;
+                TargetSpawnId = _target?.SpawnId ?? -1;
             }
         }
 

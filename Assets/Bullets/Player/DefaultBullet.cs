@@ -1,6 +1,9 @@
 ﻿using Assets.Bullets.PlayerBullets;
 using Assets.Constants;
 using Assets.Enemies;
+using Assets.Powerups;
+using Assets.ScreenEdgeColliders;
+using Assets.Util;
 using UnityEngine;
 
 namespace Assets.Bullets.PlayerBullets
@@ -10,6 +13,8 @@ namespace Assets.Bullets.PlayerBullets
     {
         public override int Damage => CalculateDamage();
         public override AudioClip FireSound => SoundBank.LaserBasic;
+
+        public static bool ReboundActive { get; set; } = false;
 
         #region Prefabs
 
@@ -48,6 +53,15 @@ namespace Assets.Bullets.PlayerBullets
         protected override void OnCollideWithEnemy(Enemy enemy, Vector3 hitPosition)
         {
             GameManager.Instance.OnEnemyHitWithDefaultWeapon(enemy, this, hitPosition);
+        }
+
+        protected override void OnPlayerBulletTriggerEnter2D(Collider2D collision)
+        {
+            if(ReboundActive && CollisionUtil.IsScreenEdge(collision, out ScreenSide screenSide)
+                && screenSide == ScreenSide.Top)
+            {
+                ReboundPowerup.ReboundOffScreenEdge(this);
+            }
         }
 
         private int CalculateDamage()
