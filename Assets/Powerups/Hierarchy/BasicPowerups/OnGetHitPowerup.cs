@@ -11,7 +11,7 @@ namespace Assets.Powerups
     /// Represents a powerup that will activate when the player takes damage.
     /// </summary>
     /// <inheritdoc/>
-    public abstract class OnGetHitPowerup : Powerup
+    public abstract class OnGetHitPowerup : BasicPowerup
     {
         public override void OnLevelUp() { }
         public abstract void OnGetHit();

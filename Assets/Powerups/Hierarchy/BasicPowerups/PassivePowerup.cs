@@ -11,7 +11,7 @@ namespace Assets.Powerups
     /// Represents a powerup that will run frames when active.
     /// </summary>
     /// <inheritdoc/>
-    public abstract class PassivePowerup : Powerup
+    public abstract class PassivePowerup : BasicPowerup
     {
         public abstract void RunFrame(float deltaTime, float realDeltaTime);
         public override void OnLevelUp() { }

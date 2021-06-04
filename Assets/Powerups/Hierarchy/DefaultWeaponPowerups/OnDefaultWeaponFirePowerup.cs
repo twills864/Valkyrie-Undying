@@ -15,10 +15,8 @@ namespace Assets.Powerups
     /// the default bullet from their main cannon.
     /// </summary>
     /// <inheritdoc/>
-    public abstract class OnDefaultWeaponFirePowerup : Powerup
+    public abstract class OnDefaultWeaponFirePowerup : DefaultWeaponPowerup
     {
-        public sealed override bool IsDefaultWeaponPowerup => true;
-
         public override void OnLevelUp() { }
         public abstract void OnFire(Vector3 position, DefaultBullet[] bullets);
 

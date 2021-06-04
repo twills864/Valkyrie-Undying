@@ -28,8 +28,8 @@ namespace Assets.ObjectPooling
 
 #pragma warning restore 0414
 
-        public List<Powerup> AssignableRegularPowerups { get; private set; }
-        public List<Powerup> AssignableDefaultWeaponPowerups { get; private set; }
+        public List<BasicPowerup> AssignableBasicPowerups { get; private set; }
+        public List<DefaultWeaponPowerup> AssignableDefaultWeaponPowerups { get; private set; }
 
         protected override Color GetDefaultColor(in ColorManager colorManager)
             => Color.white;
@@ -51,8 +51,11 @@ namespace Assets.ObjectPooling
         {
             var ordered = allPowerups.OrderByDescending(x => x.MaxLevel);
 
-            AssignableRegularPowerups = ordered.Where(x => !x.IsDefaultWeaponPowerup).ToList();
-            AssignableDefaultWeaponPowerups = ordered.Where(x => x.IsDefaultWeaponPowerup).ToList();
+            AssignableBasicPowerups = ordered.Where(x => !x.IsDefaultWeaponPowerup)
+                .Select(x => (BasicPowerup)x).ToList();
+
+            AssignableDefaultWeaponPowerups = ordered.Where(x => x.IsDefaultWeaponPowerup)
+                .Select(x => (DefaultWeaponPowerup)x).ToList();
         }
 
         public PowerupPickup GetRandomPowerup(Vector3 position, float defaultWeaponPowerupOverrideChance)
@@ -62,10 +65,12 @@ namespace Assets.ObjectPooling
 
             if (powerup.AreAllPowerupsCheckedOut)
             {
-                if (!powerup.IsDefaultWeaponPowerup)
-                    AssignableRegularPowerups.Remove(powerup);
+                if (powerup is BasicPowerup basic)
+                    AssignableBasicPowerups.Remove(basic);
+                else if (powerup is DefaultWeaponPowerup defaultWeapon)
+                    AssignableDefaultWeaponPowerups.Remove(defaultWeapon);
                 else
-                    AssignableDefaultWeaponPowerups.Remove(powerup);
+                    throw ExceptionUtil.ArgumentException(() => powerup);
             }
 
             var pickup = Get<PowerupPickup>(position);
@@ -84,7 +89,7 @@ namespace Assets.ObjectPooling
             if (AssignableDefaultWeaponPowerups.Any() && RandomUtil.Bool(defaultWeaponPowerupOverrideChance))
                 powerup = RandomUtil.RandomElement(AssignableDefaultWeaponPowerups);
             else
-                powerup = RandomUtil.RandomElement(AssignableRegularPowerups);
+                powerup = RandomUtil.RandomElement(AssignableBasicPowerups);
 
             return powerup;
         }
@@ -99,10 +104,12 @@ namespace Assets.ObjectPooling
         {
             if (powerup.AreAllPowerupsCheckedOut)
             {
-                if (!powerup.IsDefaultWeaponPowerup)
-                    AssignableRegularPowerups.Add(powerup);
+                if (powerup is BasicPowerup basic)
+                    AssignableBasicPowerups.Add(basic);
+                else if (powerup is DefaultWeaponPowerup defaultWeapon)
+                    AssignableDefaultWeaponPowerups.Add(defaultWeapon);
                 else
-                    AssignableDefaultWeaponPowerups.Add(powerup);
+                    throw ExceptionUtil.ArgumentException(() => powerup);
             }
         }
     }

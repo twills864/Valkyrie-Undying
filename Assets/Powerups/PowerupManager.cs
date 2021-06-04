@@ -42,7 +42,7 @@ namespace Assets.Powerups
 
             UniqueIdGenerator ids = new UniqueIdGenerator(0);
 
-            InitRegularPowerups(in balance, ref ids);
+            InitBasicPowerups(in balance, ref ids);
             InitDefaultWeaponPowerups(in balance, ref ids);
 
             AllPowerups = AllPowerupsMap.Values.ToList();
@@ -51,7 +51,7 @@ namespace Assets.Powerups
             OnFireList.Get<PestControlPowerup>().Init();
         }
 
-        private void InitRegularPowerups(in PowerupBalanceManager balance, ref UniqueIdGenerator ids)
+        private void InitBasicPowerups(in PowerupBalanceManager balance, ref UniqueIdGenerator ids)
         {
             OnFireList = new OnFireList(ids);
             InitList(OnFireList, in balance);
@@ -93,7 +93,7 @@ namespace Assets.Powerups
             AllLists[list.PowerupManagerIndex] = list;
         }
 
-        #region Regular Powerups
+        #region Basic Powerups
 
         public void OnFire(Vector3 firePosition, PlayerBullet[] bullets)
         {
@@ -125,7 +125,7 @@ namespace Assets.Powerups
                 powerup.RunFrame(deltaTime, realDeltaTime);
         }
 
-        #endregion Regular Powerups
+        #endregion Basic Powerups
 
 
         #region Default Weapon Powerups
@@ -153,7 +153,7 @@ namespace Assets.Powerups
 
         #region Get Specific Powerups
 
-        #region Get Specific Regular Powerup
+        #region Get Specific Basic Powerup
 
         public TPowerup GetFirePowerup<TPowerup>() where TPowerup : OnFirePowerup
         {
@@ -191,7 +191,7 @@ namespace Assets.Powerups
             return ret;
         }
 
-        #endregion Get Specific Regular Powerup
+        #endregion Get Specific Basic Powerup
 
 
         #region Get Specific Default Weapon Powerup
@@ -220,7 +220,7 @@ namespace Assets.Powerups
             return ret;
         }
 
-        #endregion Get Specific Regular Powerup
+        #endregion Get Specific Default Weapon Powerup
 
         #endregion GetSpecificPowerups
     }

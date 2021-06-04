@@ -14,7 +14,7 @@ namespace Assets.Powerups
     /// to start making additional checks each frame.
     /// </summary>
     /// <inheritdoc/>
-    public abstract class OnLevelUpPowerup : Powerup
+    public abstract class OnLevelUpPowerup : BasicPowerup
     {
         protected sealed override void InitBalance(in PowerupBalanceManager balance)
             => InitBalance(in balance.OnLevelUp);

@@ -14,10 +14,8 @@ namespace Assets.Powerups
     /// using a default bullet.
     /// </summary>
     /// <inheritdoc/>
-    public abstract class OnDefaultWeaponKillPowerup : Powerup
+    public abstract class OnDefaultWeaponKillPowerup : DefaultWeaponPowerup
     {
-        public sealed override bool IsDefaultWeaponPowerup => true;
-
         public override void OnLevelUp() { }
         public abstract void OnKill(Enemy enemy, DefaultBullet bullet);
 

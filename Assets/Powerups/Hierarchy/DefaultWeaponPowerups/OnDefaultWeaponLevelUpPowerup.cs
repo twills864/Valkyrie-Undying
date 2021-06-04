@@ -15,10 +15,8 @@ namespace Assets.Powerups
     /// powerup to give the player.
     /// </summary>
     /// <inheritdoc/>
-    public abstract class OnDefaultWeaponLevelUpPowerup : Powerup
+    public abstract class OnDefaultWeaponLevelUpPowerup : DefaultWeaponPowerup
     {
-        public sealed override bool IsDefaultWeaponPowerup => true;
-
         protected sealed override void InitBalance(in PowerupBalanceManager balance)
             => InitBalance(in balance.OnDefaultWeaponLevelUp);
 

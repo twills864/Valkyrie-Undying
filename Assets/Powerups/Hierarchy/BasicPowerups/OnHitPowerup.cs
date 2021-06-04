@@ -3,25 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Assets.Bullets;
 using Assets.Bullets.PlayerBullets;
+using Assets.Enemies;
 using Assets.Powerups.Balance;
 using UnityEngine;
 
 namespace Assets.Powerups
 {
     /// <summary>
-    /// Represents a powerup that will be applied when the player fires their main cannon.
+    /// Represents a powerup that will be applied when the player hits an enemy.
     /// </summary>
     /// <inheritdoc/>
-    public abstract class OnFirePowerup : Powerup
+    public abstract class OnHitPowerup : BasicPowerup
     {
         public override void OnLevelUp() { }
-        public abstract void OnFire(Vector3 position, PlayerBullet[] bullets);
+        public abstract void OnHit(Enemy enemy, PlayerBullet bullet, Vector3 hitPosition);
 
         protected sealed override void InitBalance(in PowerupBalanceManager balance)
-            => InitBalance(in balance.OnFire);
+            => InitBalance(in balance.OnHit);
 
-        protected abstract void InitBalance(in PowerupBalanceManager.OnFireBalance balance);
+        protected abstract void InitBalance(in PowerupBalanceManager.OnHitBalance balance);
     }
 }

@@ -5266,7 +5266,7 @@ MonoBehaviour:
     EnemyDrops:
       WeaponLevelOverrideChanceFlatAddition: 0.025
       BaseEnemyPowerupDropChance: 0.15
-      DefaultWeaponPowerupOverrideChance: 1
+      DefaultWeaponPowerupOverrideChance: 0.33
     Experience:
       BaseEnemyExpRate: 0.1
       ExpToFirstLevel: 0.25
