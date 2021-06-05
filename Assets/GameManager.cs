@@ -252,8 +252,10 @@ namespace Assets
             _Scoreboard.Init();
 
             SoundManager.Init(_AudioSource);
-
             NotificationManager.Init(_Notification);
+
+            DefaultBullet.StaticInit();
+            DefaultExtraBullet.StaticInit();
 
             _ParticleManager.Init();
 

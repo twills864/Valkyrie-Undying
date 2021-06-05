@@ -22,6 +22,11 @@ namespace Assets.Bullets.PlayerBullets
 
         public PooledObjectTracker<Enemy> Parent { get; private set; }
 
+        public static void StaticInit()
+        {
+
+        }
+
         protected override void OnPlayerBulletInit()
         {
             Parent = new PooledObjectTracker<Enemy>();

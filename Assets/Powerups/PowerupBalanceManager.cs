@@ -470,6 +470,9 @@ namespace Assets.Powerups.Balance
         {
             public PlaceholderBalance Placeholder;
 
+            // PiercingRounds doesn't need prefab adjustment
+            //public PiercingRoundsBalance PiercingRounds;
+
             [Serializable]
             public struct PlaceholderBalance
             {
