@@ -439,6 +439,9 @@ namespace Assets.Powerups.Balance
             public ReboundBalance Rebound;
             public SplinterBalance Splinter;
 
+            // Split doesn't need prefab adjustment
+            //public SplitBalance Split;
+
             [Serializable]
             public struct ReboundBalance
             {
