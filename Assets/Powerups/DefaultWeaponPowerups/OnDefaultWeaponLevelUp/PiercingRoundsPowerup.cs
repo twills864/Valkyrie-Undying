@@ -13,7 +13,8 @@ namespace Assets.Powerups
     /// <summary>
     /// Piercing Rounds causes default bullets to penetrate enemies.
     /// Level 1 - One enemy can be penetrated.
-    /// Level 2 - An unlimited number of enemies can be penetrated.
+    /// Level 2 - Two enemies can be penetrated, and extra bullets
+    ///           can also penetrate one enemy.
     /// </summary>
     /// <inheritdoc/>
     public class PiercingRoundsPowerup : OnDefaultWeaponLevelUpPowerup
@@ -30,7 +31,10 @@ namespace Assets.Powerups
             if (Level == 1)
                 DefaultBullet.MaxPenetration = 1;
             else
-                DefaultBullet.MaxPenetration = int.MaxValue;
+            {
+                DefaultBullet.MaxPenetration = 2;
+                DefaultExtraBullet.MaxPenetration = 1;
+            }
         }
     }
 }

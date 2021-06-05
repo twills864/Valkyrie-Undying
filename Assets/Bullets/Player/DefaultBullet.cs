@@ -23,6 +23,24 @@ namespace Assets.Bullets.PlayerBullets
             AugmentedRounds.Reset();
         }
 
+        #region Prefabs
+
+        [SerializeField]
+        private float _InitialSpeed = GameConstants.PrefabNumber;
+
+        [SerializeField]
+        private float _DefaultExtraBulletScaleRatio = GameConstants.PrefabNumber;
+
+        #endregion Prefabs
+
+
+        #region Prefab Properties
+
+        public float InitialSpeed => _InitialSpeed;
+        public float DefaultExtraBulletScaleRatio => _DefaultExtraBulletScaleRatio;
+
+        #endregion Prefab Properties
+
         #region Penetration
 
         public static int MaxPenetration { get; set; }
@@ -66,24 +84,6 @@ namespace Assets.Bullets.PlayerBullets
 
         #endregion Augmented Rounds
 
-        #region Prefabs
-
-        [SerializeField]
-        private float _InitialSpeed = GameConstants.PrefabNumber;
-
-        [SerializeField]
-        private float _DefaultExtraBulletScaleRatio = GameConstants.PrefabNumber;
-
-        #endregion Prefabs
-
-
-        #region Prefab Properties
-
-        public float InitialSpeed => _InitialSpeed;
-        public float DefaultExtraBulletScaleRatio => _DefaultExtraBulletScaleRatio;
-
-        #endregion Prefab Properties
-
         protected override void OnPlayerBulletInit()
         {
             InitialScale = LocalScale;
@@ -93,12 +93,12 @@ namespace Assets.Bullets.PlayerBullets
         {
             LocalScale = CalculateLocalScale();
             EnemyParticlesScale = CalculateParticlesScale();
+            NumberPenetrated = 0;
         }
 
         public override void OnSpawn()
         {
             Velocity = CalculateVelocity();
-            NumberPenetrated = 0;
         }
 
         protected override void OnPlayerBulletFrameRun(float deltaTime, float realDeltaTime)

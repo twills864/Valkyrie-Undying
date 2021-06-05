@@ -5263,11 +5263,11 @@ MonoBehaviour:
         Placeholder: 0
       AugmentedRounds:
         Size:
-          Base: 1.5
-          Increase: 2
+          Base: 1
+          Increase: 1
         Damage:
           Base: 0.5
-          Increase: 1
+          Increase: 0.5
         Speed:
           Base: 0.5
           Increase: 0.5

@@ -20,21 +20,45 @@ namespace Assets.Bullets.PlayerBullets
 
         public int DefaultExtraDamage { get; set; }
 
-        public PooledObjectTracker<Enemy> Parent { get; private set; }
-
         public static void StaticInit()
         {
-
+            MaxPenetration = 0;
         }
+
+        #region Prefabs
+
+        [SerializeField]
+        private float _DamageScale = GameConstants.PrefabNumber;
+
+        #endregion Prefabs
+
+
+        #region Prefab Properties
+
+        public float DamageScale => _DamageScale;
+
+        #endregion Prefab Properties
+
+        #region Penetration
+
+        public static int MaxPenetration { get; set; }
+        private int NumberPenetrated { get; set; }
+
+        protected override bool AutomaticallyDeactivate => NumberPenetrated >= MaxPenetration;
+
+        #endregion Penetration
+
+        public PooledObjectTracker<Enemy> ParentEnemy { get; private set; }
+
 
         protected override void OnPlayerBulletInit()
         {
-            Parent = new PooledObjectTracker<Enemy>();
+            ParentEnemy = new PooledObjectTracker<Enemy>();
         }
 
         protected override void OnActivate()
         {
-
+            NumberPenetrated = 0;
         }
 
         public override void OnSpawn()
@@ -49,8 +73,13 @@ namespace Assets.Bullets.PlayerBullets
 
         public override bool CollidesWithEnemy(Enemy enemy)
         {
-            bool ret = !Parent.IsTarget(enemy);
+            bool ret = !ParentEnemy.IsTarget(enemy);
             return ret;
+        }
+
+        protected override void OnCollideWithEnemy(Enemy enemy, Vector3 hitPosition)
+        {
+            NumberPenetrated++;
         }
 
         public static DefaultExtraBullet SpawnNew(Vector3 hitPosition, Vector2 velocity, DefaultBullet sourceBullet, Enemy hitEnemy)
@@ -63,8 +92,8 @@ namespace Assets.Bullets.PlayerBullets
         {
             DefaultExtraBullet bullet = PoolManager.Instance.BulletPool.Get<DefaultExtraBullet>(hitPosition, velocity);
 
-            bullet.Parent.Target = hitEnemy;
-            bullet.DefaultExtraDamage = sourceBullet.Damage;
+            bullet.ParentEnemy.Target = hitEnemy;
+            bullet.DefaultExtraDamage = (int) (sourceBullet.Damage * bullet.DamageScale);
 
             bullet.LocalScale = sizeScaleRatio * sourceBullet.LocalScale;
 
