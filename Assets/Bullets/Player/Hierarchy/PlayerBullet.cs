@@ -50,6 +50,7 @@ namespace Assets.Bullets.PlayerBullets
         protected virtual void OnPlayerBulletInit() { }
         protected sealed override void OnBulletInit()
         {
+            EnemyParticlesScale = 1f;
             OnPlayerBulletInit();
         }
 
@@ -122,7 +123,9 @@ namespace Assets.Bullets.PlayerBullets
         }
 
         public int BulletParticles => Particles.BulletParticles;
-        public int EnemyParticles => Particles.EnemyParticles;
+        public int EnemyParticles => (int) (Particles.EnemyParticles * EnemyParticlesScale);
+
+        protected float EnemyParticlesScale { get; set; }
 
         public Color32 ParticleColor => ColorUtil.Opaque(SpriteColor);
 

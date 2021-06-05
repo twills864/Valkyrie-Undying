@@ -239,6 +239,15 @@ namespace Assets
 
         #region Transform LocalScale
 
+        public float LocalScale
+        {
+            get => transform.localScale.x;
+            set
+            {
+                transform.localScale = new Vector3(value, value, transform.localScale.z);
+            }
+        }
+
         public float LocalScaleX
         {
             get => transform.localScale.x;

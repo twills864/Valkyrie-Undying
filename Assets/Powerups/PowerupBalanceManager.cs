@@ -473,10 +473,49 @@ namespace Assets.Powerups.Balance
             // PiercingRounds doesn't need prefab adjustment
             //public PiercingRoundsBalance PiercingRounds;
 
+            public AugmentedRoundsBalance AugmentedRounds;
+
             [Serializable]
             public struct PlaceholderBalance
             {
                 public float Placeholder;
+            }
+
+            [Serializable]
+            public struct AugmentedRoundsBalance
+            {
+                public SizeBalance Size;
+                public DamageBalance Damage;
+                public SpeedBalance Speed;
+                public ParticlesBalance Particles;
+
+                [Serializable]
+                public struct SizeBalance
+                {
+                    public float Base;
+                    public float Increase;
+                }
+
+                [Serializable]
+                public struct DamageBalance
+                {
+                    public float Base;
+                    public float Increase;
+                }
+
+                [Serializable]
+                public struct SpeedBalance
+                {
+                    public float Base;
+                    public float Increase;
+                }
+
+                [Serializable]
+                public struct ParticlesBalance
+                {
+                    public float Base;
+                    public float Increase;
+                }
             }
         }
 
