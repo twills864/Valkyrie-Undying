@@ -140,3 +140,4 @@ MonoBehaviour:
     BulletParticles: 0
     EnemyParticles: 5
   _InitialSpeed: 10
+  _DefaultExtraBulletScaleRatio: 0.55

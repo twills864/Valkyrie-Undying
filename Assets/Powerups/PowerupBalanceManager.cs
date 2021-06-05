@@ -437,9 +437,16 @@ namespace Assets.Powerups.Balance
         public struct OnDefaultWeaponHitBalance
         {
             public ReboundBalance Rebound;
+            public SplinterBalance Splinter;
 
             [Serializable]
             public struct ReboundBalance
+            {
+                public float AngleInDegrees;
+            }
+
+            [Serializable]
+            public struct SplinterBalance
             {
                 public float AngleInDegrees;
             }

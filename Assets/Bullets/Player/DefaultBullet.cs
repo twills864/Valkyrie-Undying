@@ -71,12 +71,16 @@ namespace Assets.Bullets.PlayerBullets
         [SerializeField]
         private float _InitialSpeed = GameConstants.PrefabNumber;
 
+        [SerializeField]
+        private float _DefaultExtraBulletScaleRatio = GameConstants.PrefabNumber;
+
         #endregion Prefabs
 
 
         #region Prefab Properties
 
         public float InitialSpeed => _InitialSpeed;
+        public float DefaultExtraBulletScaleRatio => _DefaultExtraBulletScaleRatio;
 
         #endregion Prefab Properties
 

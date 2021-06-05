@@ -5253,6 +5253,8 @@ MonoBehaviour:
     OnDefaultWeaponHit:
       Rebound:
         AngleInDegrees: 45
+      Splinter:
+        AngleInDegrees: 45
     OnDefaultWeaponKill:
       Placeholder:
         Placeholder: 0

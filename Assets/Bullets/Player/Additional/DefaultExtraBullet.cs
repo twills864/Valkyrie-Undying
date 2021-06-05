@@ -55,10 +55,18 @@ namespace Assets.Bullets.PlayerBullets
 
         public static DefaultExtraBullet SpawnNew(Vector3 hitPosition, Vector2 velocity, DefaultBullet sourceBullet, Enemy hitEnemy)
         {
+            float newScale = sourceBullet.DefaultExtraBulletScaleRatio;
+            return SpawnNew(hitPosition, velocity, sourceBullet, hitEnemy, newScale);
+        }
+
+        public static DefaultExtraBullet SpawnNew(Vector3 hitPosition, Vector2 velocity, DefaultBullet sourceBullet, Enemy hitEnemy, float sizeScaleRatio)
+        {
             DefaultExtraBullet bullet = PoolManager.Instance.BulletPool.Get<DefaultExtraBullet>(hitPosition, velocity);
 
             bullet.Parent.Target = hitEnemy;
             bullet.DefaultExtraDamage = sourceBullet.Damage;
+
+            bullet.LocalScale = sizeScaleRatio * sourceBullet.LocalScale;
 
             return bullet;
         }

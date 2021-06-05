@@ -11,7 +11,8 @@ using UnityEngine;
 namespace Assets.Powerups
 {
     /// <summary>
-    ///
+    /// Spawns two default extra bullets at a default bullet's point of collision,
+    /// each traveling backward at a 45 degree angle.
     /// </summary>
     /// <inheritdoc/>
     public class ReboundPowerup : OnDefaultWeaponHitPowerup
