@@ -1,10 +1,10 @@
 ﻿using Assets.ColorManagers;
 using Assets.UI;
+using Assets.UI.UIElements.EnemyHealthBar;
 using UnityEngine;
 
 namespace Assets.ObjectPooling
 {
-    // Will expand to other UI elements in the future
     /// <inheritdoc/>
     public class UIElementPoolList : PoolList<UIElement>
     {
@@ -20,6 +20,12 @@ namespace Assets.ObjectPooling
         private VictimMarkerCorner VictimMarkerCornerPrefab = null;
         [SerializeField]
         private EnemyHealthBar EnemyHealthBarPrefab = null;
+        //[SerializeField]
+        //private EnemyStatusBarHolder EnemyStatusBarHolderPrefab = null;
+        //[SerializeField]
+        //private EnemyStatusBar EnemyStatusBarPrefab = null;
+        //[SerializeField]
+        //private EnemyStatusSprite EnemyStatusSpritePrefab = null;
         [SerializeField]
         private MetronomeLabel MetronomeLabelPrefab = null;
         [SerializeField]
