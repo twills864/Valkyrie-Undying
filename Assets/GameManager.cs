@@ -294,7 +294,7 @@ namespace Assets
             // Dependency: SpaceUtil, PoolManager
             BfgBulletFallout.StaticInitColors(in _ColorManager);
 
-            // Dependency: _PoolManager, Destructor, Player
+            // Dependency: _PoolManager, Destructor, Player, FireStrategies
             _PowerupManager.Init(in PowerupBalance, _Destructor);
 
             // Dependency: _PowerupManager
@@ -522,7 +522,6 @@ namespace Assets
         public void FirePlayerBullets(PlayerBullet[] bullets)
         {
             _PowerupManager.OnFire(Player.FirePosition, bullets);
-
         }
         public void FirePlayerBullet(PlayerBullet bullet)
         {
@@ -630,6 +629,11 @@ namespace Assets
         public void OnEnemyHitWithDefaultWeapon(Enemy enemy, DefaultBullet bullet, Vector3 hitPosition)
         {
             _PowerupManager.OnDefaultWeaponHit(enemy, bullet, hitPosition);
+        }
+
+        public void OnDefaultWeaponFire(DefaultBullet[] bullets)
+        {
+            _PowerupManager.OnDefaultWeaponFire(Player.FirePosition, bullets);
         }
 
         #region OnEnemyKill

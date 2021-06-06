@@ -5250,6 +5250,9 @@ MonoBehaviour:
     OnDefaultWeaponFire:
       Placeholder:
         Placeholder: 0
+      SnakeBite:
+        Angle: 11.25
+        DamageIncrease: 10
     OnDefaultWeaponHit:
       Rebound:
         AngleInDegrees: 45

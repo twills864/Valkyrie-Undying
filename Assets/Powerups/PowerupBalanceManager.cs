@@ -421,11 +421,19 @@ namespace Assets.Powerups.Balance
         public struct OnDefaultWeaponFireBalance
         {
             public PlaceholderBalance Placeholder;
+            public SnakeBiteBalance SnakeBite;
 
             [Serializable]
             public struct PlaceholderBalance
             {
                 public float Placeholder;
+            }
+
+            [Serializable]
+            public struct SnakeBiteBalance
+            {
+                public float Angle;
+                public int DamageIncrease;
             }
         }
 

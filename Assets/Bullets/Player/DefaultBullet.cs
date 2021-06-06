@@ -41,6 +41,7 @@ namespace Assets.Bullets.PlayerBullets
 
         #endregion Prefab Properties
 
+
         #region Penetration
 
         public static int MaxPenetration { get; set; }
@@ -84,6 +85,9 @@ namespace Assets.Bullets.PlayerBullets
 
         #endregion Augmented Rounds
 
+        public int SnakeBiteDamage { get; set; }
+
+
         protected override void OnPlayerBulletInit()
         {
             InitialScale = LocalScale;
@@ -94,6 +98,7 @@ namespace Assets.Bullets.PlayerBullets
             LocalScale = CalculateLocalScale();
             EnemyParticlesScale = CalculateParticlesScale();
             NumberPenetrated = 0;
+            SnakeBiteDamage = 0;
         }
 
         public override void OnSpawn()
@@ -139,7 +144,7 @@ namespace Assets.Bullets.PlayerBullets
 
             #region Flat Increase
 
-            // None yet
+            damage += SnakeBiteDamage;
 
             #endregion Flat Increase
 
