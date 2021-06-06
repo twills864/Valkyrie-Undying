@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Assets.Constants;
 using Assets.Hierarchy.ColorHandlers;
 using UnityEngine;
 
@@ -12,22 +13,32 @@ namespace Assets.UI.UIElements.EnemyHealthBar
         #region Prefabs
 
         [SerializeField]
-        private EnemyStatusBar _Left = null;
+        private EnemyTemporaryStatusBar _TemporaryStatuses = null;
+
+        [SerializeField]
+        private EnemyPermanentStatusBar _PermanentStatuses = null;
+
+        [SerializeField]
+        private float _OffsetFromCenter = GameConstants.PrefabNumber;
 
         #endregion Prefabs
 
 
         #region Prefab Properties
 
-        public EnemyStatusBar Left => _Left;
+        public EnemyTemporaryStatusBar TemporaryStatuses => _TemporaryStatuses;
+        public EnemyPermanentStatusBar PermanentStatuses => _PermanentStatuses;
+        public float OffsetFromCenter => _OffsetFromCenter;
 
         #endregion Prefab Properties
 
-        private EnemyStatusBar Right { get; set; }
-
         protected override void OnUIElementInit()
         {
-            Right = Instantiate(Left);
+            TemporaryStatuses.PositionX = -OffsetFromCenter;
+            PermanentStatuses.PositionX = OffsetFromCenter;
+
+            TemporaryStatuses.Init();
+            PermanentStatuses.Init();
         }
     }
 }

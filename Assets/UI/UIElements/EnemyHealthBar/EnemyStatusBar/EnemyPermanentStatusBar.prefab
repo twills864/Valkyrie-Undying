@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3401272076325588028
+--- !u!1 &4421888458816821578
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,54 +8,54 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 274906886836713112}
-  - component: {fileID: -3060262879354485778}
+  - component: {fileID: 5412820304013646923}
+  - component: {fileID: 4074244803417192423}
   m_Layer: 0
-  m_Name: EnemyStatusBar
+  m_Name: EnemyPermanentStatusBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &274906886836713112
+--- !u!4 &5412820304013646923
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3401272076325588028}
+  m_GameObject: {fileID: 4421888458816821578}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 5765458371325178970}
+  - {fileID: 7417609625428093906}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-3060262879354485778
+--- !u!114 &4074244803417192423
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3401272076325588028}
+  m_GameObject: {fileID: 4421888458816821578}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bffd0edddf246884c86fb793246c37ca, type: 3}
+  m_Script: {fileID: 11500000, guid: 170c1ec9644b9924297a3886d2191a2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _Burning: {fileID: 7912451312625111756}
---- !u!1001 &1498051977997669706
+  _Burning: {fileID: 6574426402846444868}
+--- !u!1001 &2466150871387605698
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 274906886836713112}
+    m_TransformParent: {fileID: 5412820304013646923}
     m_Modifications:
     - target: {fileID: 2563582692768296206, guid: d3f2fb97caacafc42b02945832f6add0,
         type: 3}
       propertyPath: m_Name
-      value: EnemyStatusSprite
+      value: Burning
       objectReference: {fileID: 0}
     - target: {fileID: 4956531905307402512, guid: d3f2fb97caacafc42b02945832f6add0,
         type: 3}
@@ -112,19 +112,34 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8720247463443203974, guid: d3f2fb97caacafc42b02945832f6add0,
+        type: 3}
+      propertyPath: _LeftAligned
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9112790104933393519, guid: d3f2fb97caacafc42b02945832f6add0,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9112790104933393519, guid: d3f2fb97caacafc42b02945832f6add0,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.5019608
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d3f2fb97caacafc42b02945832f6add0, type: 3}
---- !u!4 &5765458371325178970 stripped
+--- !u!4 &7417609625428093906 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4956531905307402512, guid: d3f2fb97caacafc42b02945832f6add0,
     type: 3}
-  m_PrefabInstance: {fileID: 1498051977997669706}
+  m_PrefabInstance: {fileID: 2466150871387605698}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7912451312625111756 stripped
+--- !u!114 &6574426402846444868 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8720247463443203974, guid: d3f2fb97caacafc42b02945832f6add0,
     type: 3}
-  m_PrefabInstance: {fileID: 1498051977997669706}
+  m_PrefabInstance: {fileID: 2466150871387605698}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1

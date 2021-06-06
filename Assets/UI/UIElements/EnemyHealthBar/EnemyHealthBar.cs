@@ -43,6 +43,8 @@ namespace Assets.UI
             var sprite = gameObject.GetComponent<Renderer>();
             Height = sprite.bounds.size.y;
             HeightHalf = Height * 0.5f;
+
+            StatusBarHolder.Init();
         }
 
         public void SetText(int health)
