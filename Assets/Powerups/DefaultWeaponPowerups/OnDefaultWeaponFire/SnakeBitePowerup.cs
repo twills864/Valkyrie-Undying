@@ -13,11 +13,10 @@ namespace Assets.Powerups
     /// <inheritdoc/>
     public class SnakeBitePowerup : OnDefaultWeaponFirePowerup
     {
-        private const int NumBullets = 2;
-
         public override int MaxLevel => 1;
 
         private int ExtraDamage { get; set; }
+        public float FireSpeedRatio { get; private set; }
 
         private Vector2 SpeedScaleLeft { get; set; }
         private Vector2 SpeedScaleRight => VectorUtil.ScaleX2(SpeedScaleLeft, -1f);
@@ -25,6 +24,7 @@ namespace Assets.Powerups
         protected override void InitBalance(in PowerupBalanceManager.OnDefaultWeaponFireBalance balance)
         {
             ExtraDamage = balance.SnakeBite.DamageIncrease;
+            FireSpeedRatio = balance.SnakeBite.FireSpeedRatio;
 
             float angleOffset = balance.SnakeBite.Angle * Mathf.Deg2Rad;
 
@@ -36,7 +36,7 @@ namespace Assets.Powerups
 
         public override void OnLevelUp()
         {
-            DefaultStrategy.NumBulletsToGet = NumBullets;
+            DefaultStrategy.ApplySnakeBite(this);
         }
 
         public override void OnFire(Vector3 position, DefaultBullet[] bullets)
@@ -50,7 +50,7 @@ namespace Assets.Powerups
 
         private void InitBullet(DefaultBullet bullet, Vector2 velocityScale)
         {
-            bullet.Velocity = bullet.InitialSpeed * velocityScale;
+            bullet.Velocity = bullet.VelocityY * velocityScale;
             bullet.SnakeBiteDamage += ExtraDamage;
         }
     }

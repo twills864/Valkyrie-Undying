@@ -19,7 +19,7 @@ namespace Assets.Powerups
     /// <inheritdoc/>
     public class PiercingRoundsPowerup : OnDefaultWeaponLevelUpPowerup
     {
-        public override int MaxLevel => 2;
+        public override int MaxLevel => 1;
 
         protected override void InitBalance(in PowerupBalanceManager.OnDefaultWeaponLevelUpBalance balance)
         {
@@ -28,13 +28,16 @@ namespace Assets.Powerups
 
         public override void OnLevelUp()
         {
-            if (Level == 1)
-                DefaultBullet.MaxPenetration = 1;
-            else
-            {
-                DefaultBullet.MaxPenetration = 2;
-                DefaultExtraBullet.MaxPenetration = 1;
-            }
+            DefaultBullet.MaxPenetration = 1;
+            DefaultExtraBullet.MaxPenetration = 1;
+
+            //if (Level == 1)
+            //DefaultBullet.MaxPenetration = 1;
+            //else
+            //{
+            //    DefaultBullet.MaxPenetration = 2;
+            //    DefaultExtraBullet.MaxPenetration = 1;
+            //}
         }
     }
 }

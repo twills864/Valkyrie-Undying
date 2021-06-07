@@ -135,8 +135,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _Sprite: {fileID: 2959985393852287726}
-  _BaseDamage: 20
+  _BaseDamage: 999
   _Particles:
     BulletParticles: 0
     EnemyParticles: 0
-  _DamageScale: 0.75
+  _DamageScale: 0.5

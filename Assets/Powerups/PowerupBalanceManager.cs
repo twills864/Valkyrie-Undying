@@ -434,6 +434,7 @@ namespace Assets.Powerups.Balance
             {
                 public float Angle;
                 public int DamageIncrease;
+                public float FireSpeedRatio;
             }
         }
 

@@ -16,7 +16,7 @@ namespace Assets.Powerups
     /// <inheritdoc/>
     public class AugmentedRoundsPowerup : OnDefaultWeaponLevelUpPowerup
     {
-        public override int MaxLevel => 2;
+        public override int MaxLevel => 1;
 
         public float SizeScaleIncrease => SizeIncreaseCalculator.Value;
         private SumLevelValueCalculator SizeIncreaseCalculator { get; set; }
