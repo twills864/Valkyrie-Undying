@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Assets.Constants;
 using Assets.Hierarchy.ColorHandlers;
+using Assets.Util;
 using UnityEngine;
 
 namespace Assets.UI.UIElements.EnemyHealthBar
@@ -19,7 +20,7 @@ namespace Assets.UI.UIElements.EnemyHealthBar
         private EnemyPermanentStatusBar _PermanentStatuses = null;
 
         [SerializeField]
-        private float _OffsetFromCenter = GameConstants.PrefabNumber;
+        private float _HealthBarMargin = GameConstants.PrefabNumber;
 
         #endregion Prefabs
 
@@ -28,16 +29,16 @@ namespace Assets.UI.UIElements.EnemyHealthBar
 
         private EnemyTemporaryStatusBar TemporaryStatuses => _TemporaryStatuses;
         private EnemyPermanentStatusBar PermanentStatuses => _PermanentStatuses;
-        private float OffsetFromCenter => _OffsetFromCenter;
+        private float HealthBarMargin => _HealthBarMargin;
 
         #endregion Prefab Properties
+
+        public Assets.UI.EnemyHealthBar HealthBar { get; set; }
+        public float HealthBarWidth => HealthBar.TextMesh.GetComponent<Renderer>().bounds.size.x;
 
 
         protected override void OnUIElementInit()
         {
-            TemporaryStatuses.LocalPositionX = -OffsetFromCenter;
-            PermanentStatuses.LocalPositionX = OffsetFromCenter;
-
             TemporaryStatuses.Init();
             PermanentStatuses.Init();
         }
@@ -45,6 +46,12 @@ namespace Assets.UI.UIElements.EnemyHealthBar
         public override void OnSpawn()
         {
             transform.localPosition = new Vector3(0, 0, LocalPositionZ);
+
+            float totalOffset = (HealthBarWidth * 0.5f) + HealthBarMargin;
+
+            TemporaryStatuses.LocalPositionX = -totalOffset;
+            PermanentStatuses.LocalPositionX = totalOffset;
+
             TemporaryStatuses.OnSpawn();
             PermanentStatuses.OnSpawn();
         }

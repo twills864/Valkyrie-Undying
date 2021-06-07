@@ -158,6 +158,7 @@ namespace Assets.Enemies
             var healthBarSpawn = transform.position;// + HealthBarOffset;
             HealthBar = PoolManager.Instance.UIElementPool.Get<EnemyHealthBar>(healthBarSpawn);
             UpdateHealthBar();
+            HealthBar.OnSpawn();
 
             WasKilled = false;
 
@@ -253,7 +254,7 @@ namespace Assets.Enemies
         public EnemyHealthBar HealthBar { get; private set; }
         public void UpdateHealthBar() => HealthBar.SetText(CurrentHealth);
 
-        private EnemyStatusBarHolder StatusBar => HealthBar.StatusBarHolder;
+        protected EnemyStatusBarHolder StatusBar => HealthBar.StatusBarHolder;
 
         #endregion Health
 
@@ -422,7 +423,7 @@ namespace Assets.Enemies
 
             foreach (var nextEnemy in CollisionUtil.GetAllEnemiesCollidingWith(ColliderMap.Collider))
             {
-                nextEnemy.Ignite(baseDamage, damageIncreasePerTick, maxDamage);
+                nextEnemy.Ignite(damageIncreasePerTick, damageIncreasePerTick, maxDamage);
             }
         }
 
@@ -501,7 +502,7 @@ namespace Assets.Enemies
             if (CollisionUtil.IsEnemy(collision) && IsBurning)
             {
                 Enemy enemy = collision.GetComponent<Enemy>();
-                enemy.Ignite(InfernoDamage,
+                enemy.Ignite(InfernoDamageIncrease,
                     InfernoDamageIncrease,
                     InfernoDamageMax);
             }

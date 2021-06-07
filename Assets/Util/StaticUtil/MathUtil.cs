@@ -351,5 +351,28 @@ namespace Assets.Util
         }
 
         #endregion Quaternion
+
+        #region Misc
+
+        /// <summary>
+        /// Counts the number of digits in a given <paramref name="number"/>.
+        /// For example, 100 would return 3 digits, and 5 would return 1 digit.
+        /// </summary>
+        /// <param name="number">The number with the digits to count.</param>
+        /// <returns>The number of digits in the specified number.</returns>
+        public static int CountDigits(int number)
+        {
+            int numDigits = 1;
+
+            while(number > 0)
+            {
+                number /= 10;
+                numDigits++;
+            }
+
+            return numDigits;
+        }
+
+        #endregion Misc
     }
 }

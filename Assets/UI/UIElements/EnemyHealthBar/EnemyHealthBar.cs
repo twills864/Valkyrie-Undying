@@ -2,6 +2,7 @@
 using Assets.ObjectPooling;
 using Assets.UI;
 using Assets.UI.UIElements.EnemyHealthBar;
+using Assets.Util;
 using UnityEditor;
 using UnityEngine;
 
@@ -40,6 +41,7 @@ namespace Assets.UI
         protected override void OnUIElementInit()
         {
             StatusBarHolder = PoolManager.Instance.UIElementPool.Get<EnemyStatusBarHolder>();
+            StatusBarHolder.HealthBar = this;
 
             if(!this.IsOriginalPrefab)
                 StatusBarHolder.transform.parent = transform;
@@ -63,6 +65,10 @@ namespace Assets.UI
         protected override void OnActivate()
         {
             SpriteColor = InitialColor;
+        }
+
+        public override void OnSpawn()
+        {
             StatusBarHolder.OnSpawn();
         }
 

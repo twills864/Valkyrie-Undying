@@ -104,6 +104,7 @@ namespace Assets.Enemies
         {
             CurrentHealth -= InfernoDamage;
             FleetingDamageText(InfernoDamage, InfernoDamageAngle, FleetingTextIgniteColor);
+            StatusBar.BurningDamage = InfernoDamage;
 
             InfernoDamage += InfernoDamageIncrease;
 

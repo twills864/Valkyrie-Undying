@@ -47,7 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _TemporaryStatuses: {fileID: 296718159294588581}
   _PermanentStatuses: {fileID: 9147263512380219311}
-  _OffsetFromCenter: 0.75
+  _HealthBarMargin: 0.35
 --- !u!1001 &4343254803961581215
 PrefabInstance:
   m_ObjectHideFlags: 0

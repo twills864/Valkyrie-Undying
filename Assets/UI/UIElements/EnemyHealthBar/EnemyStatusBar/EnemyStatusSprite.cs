@@ -56,6 +56,7 @@ namespace Assets.UI.UIElements.EnemyHealthBar
             set
             {
                 _value = value;
+                TextMesh.text = value.ToString();
 
                 if (value > 0)
                 {

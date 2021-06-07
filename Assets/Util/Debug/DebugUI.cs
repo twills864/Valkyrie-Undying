@@ -186,32 +186,6 @@ namespace Assets.Util
             //_GameManager.RecolorPlayerActivity(newRando);
 
             //DebugUtil.SpawnSpecificEnemy<TankEnemy>();
-
-            var debugStatus = GameManager.Instance._DebugEnemy.HealthBar.StatusBarHolder;
-
-            var permanent = ReflectionUtil.GetMember<UI.UIElements.EnemyHealthBar.EnemyPermanentStatusBar>(debugStatus, "PermanentStatuses");
-            var burning = ReflectionUtil.GetMember<UI.UIElements.EnemyHealthBar.EnemyStatusSprite>(permanent, "Burning");
-
-            //var sprite = ReflectionUtil.GetMember<SpriteRenderer>(burning, "Sprite");
-            var sprite = burning.GetComponent<SpriteRenderer>();
-
-            UnityEngine.Debug.Log("WHERE IS THIS SPRITE?? " + sprite.name, sprite);
-            UnityEngine.Debug.Log("DebugEneny " + sprite.gameObject.name, GameManager.Instance._DebugEnemy);
-            UnityEngine.Debug.Log("DebugEnenySpritreasd " + sprite.gameObject.name, GameManager.Instance._DebugEnemy.GetComponent<SpriteRenderer>());
-
-            burning.SpriteColor = Color.red;
-            UnityEngine.Debug.Break();
-
-            DebugUI.SetDebugLabel("enabled before", sprite.enabled);
-            sprite.enabled = !sprite.enabled;
-            DebugUI.SetDebugLabel("enabled after", sprite.enabled);
-
-            sprite.color = DebugUtil.GetRandomPlayerColor();
-
-            DebugUtil.RedX(sprite.transform.position);
-            DebugUtil.RedX(sprite.transform.localPosition);
-
-            debugStatus.BurningDamage = DebugTextBox.GetInt(0);
         }
 
         public void ShowPowerupMenuButtonPressed(Button button)
