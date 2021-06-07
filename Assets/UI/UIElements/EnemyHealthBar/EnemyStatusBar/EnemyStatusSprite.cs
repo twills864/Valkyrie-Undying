@@ -35,6 +35,9 @@ namespace Assets.UI.UIElements.EnemyHealthBar
         [SerializeField]
         private bool _LeftAligned = false;
 
+        [SerializeField]
+        private bool _HideValue = false;
+
         #endregion Prefabs
 
 
@@ -46,6 +49,7 @@ namespace Assets.UI.UIElements.EnemyHealthBar
         public float TextOffset => _TextOffset;
         public float VerticalMargin => _VerticalMargin;
         private bool LeftAligned => _LeftAligned;
+        private bool HideValue => _HideValue;
 
         #endregion Prefab Properties
 
@@ -56,7 +60,9 @@ namespace Assets.UI.UIElements.EnemyHealthBar
             set
             {
                 _value = value;
-                TextMesh.text = value.ToString();
+
+                if(!HideValue)
+                    TextMesh.text = value.ToString();
 
                 if (value > 0)
                 {

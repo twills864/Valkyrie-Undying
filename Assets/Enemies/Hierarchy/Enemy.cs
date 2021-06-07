@@ -462,13 +462,18 @@ namespace Assets.Enemies
             if (CanVoidPause)
             {
                 if (!IsVoidPaused)
-                {
-                    VoidPausedVelocity = Velocity;
-                    Velocity = Vector2.zero;
-                }
+                    OnVoidPause();
                 VoidPauseCounter++;
             }
         }
+        private void OnVoidPause()
+        {
+            VoidPausedVelocity = Velocity;
+            Velocity = Vector2.zero;
+
+            StatusBar.IsVoidPaused = true;
+        }
+
         public void VoidResume()
         {
             if (CanVoidPause)
@@ -476,8 +481,14 @@ namespace Assets.Enemies
                 VoidPauseCounter--;
 
                 if (!IsVoidPaused)
-                    Velocity = VoidPausedVelocity;
+                    OnVoidResume();
             }
+        }
+
+        private void OnVoidResume()
+        {
+            Velocity = VoidPausedVelocity;
+            StatusBar.IsVoidPaused = false;
         }
 
         #endregion Void

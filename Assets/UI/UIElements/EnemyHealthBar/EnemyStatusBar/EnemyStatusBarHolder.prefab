@@ -47,7 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _TemporaryStatuses: {fileID: 296718159294588581}
   _PermanentStatuses: {fileID: 9147263512380219311}
-  _HealthBarMargin: 0.35
+  _HealthBarMargin: 0.25
 --- !u!1001 &4343254803961581215
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -67,6 +67,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3382586624640438007, guid: 78119f8ef13ec5d4386b5c677d26f50f,
         type: 3}
+      propertyPath: m_Text
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3382586624640438007, guid: 78119f8ef13ec5d4386b5c677d26f50f,
+        type: 3}
       propertyPath: m_Anchor
       value: 5
       objectReference: {fileID: 0}
@@ -83,6 +88,11 @@ PrefabInstance:
     - target: {fileID: 4670460852120520877, guid: 78119f8ef13ec5d4386b5c677d26f50f,
         type: 3}
       propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4670460852120520877, guid: 78119f8ef13ec5d4386b5c677d26f50f,
+        type: 3}
+      propertyPath: _HideValue
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5162083854717315908, guid: 78119f8ef13ec5d4386b5c677d26f50f,
@@ -226,6 +236,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Burning
+      objectReference: {fileID: 0}
+    - target: {fileID: 3827107507742034718, guid: aaf600dda5e2b894cba04a31aaad5ff1,
+        type: 3}
+      propertyPath: m_Text
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3827107507742034718, guid: aaf600dda5e2b894cba04a31aaad5ff1,
         type: 3}
