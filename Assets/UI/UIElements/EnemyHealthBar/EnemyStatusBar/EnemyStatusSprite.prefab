@@ -47,7 +47,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _Sprite: {fileID: 9112790104933393519}
   _TextMesh: {fileID: 1667766891896488412}
+  _TextMeshRenderer: {fileID: 5629985866086762891}
   _TextOffset: 1
+  _VerticalMargin: 0
   _LeftAligned: 0
 --- !u!212 &9112790104933393519
 SpriteRenderer:

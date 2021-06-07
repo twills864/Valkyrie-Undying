@@ -26,19 +26,40 @@ namespace Assets.UI.UIElements.EnemyHealthBar
 
         #region Prefab Properties
 
-        public EnemyTemporaryStatusBar TemporaryStatuses => _TemporaryStatuses;
-        public EnemyPermanentStatusBar PermanentStatuses => _PermanentStatuses;
-        public float OffsetFromCenter => _OffsetFromCenter;
+        private EnemyTemporaryStatusBar TemporaryStatuses => _TemporaryStatuses;
+        private EnemyPermanentStatusBar PermanentStatuses => _PermanentStatuses;
+        private float OffsetFromCenter => _OffsetFromCenter;
 
         #endregion Prefab Properties
 
+
         protected override void OnUIElementInit()
         {
-            TemporaryStatuses.PositionX = -OffsetFromCenter;
-            PermanentStatuses.PositionX = OffsetFromCenter;
+            TemporaryStatuses.LocalPositionX = -OffsetFromCenter;
+            PermanentStatuses.LocalPositionX = OffsetFromCenter;
 
             TemporaryStatuses.Init();
             PermanentStatuses.Init();
+        }
+
+        public override void OnSpawn()
+        {
+            transform.localPosition = new Vector3(0, 0, LocalPositionZ);
+            TemporaryStatuses.OnSpawn();
+            PermanentStatuses.OnSpawn();
+        }
+
+
+        public int BurningDamage
+        {
+            get => PermanentStatuses.BurningDamage;
+            set => PermanentStatuses.BurningDamage = value;
+        }
+
+        public bool IsVoidPaused
+        {
+            get => TemporaryStatuses.IsVoidPaused;
+            set => TemporaryStatuses.IsVoidPaused = value;
         }
     }
 }

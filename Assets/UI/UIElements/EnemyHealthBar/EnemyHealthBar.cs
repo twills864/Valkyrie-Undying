@@ -2,6 +2,7 @@
 using Assets.ObjectPooling;
 using Assets.UI;
 using Assets.UI.UIElements.EnemyHealthBar;
+using UnityEditor;
 using UnityEngine;
 
 namespace Assets.UI
@@ -13,24 +14,22 @@ namespace Assets.UI
         #region Prefabs
 
         [SerializeField]
-        private TextMesh _TextMesh = null;
-
-        [SerializeField]
-        private EnemyStatusBarHolder _StatusBarHolder = null;
+        private TextMesh _TextMesh;
 
         #endregion Prefabs
 
 
         #region Prefab Properties
 
-        private TextMesh TextMesh => _TextMesh;
-        public EnemyStatusBarHolder StatusBarHolder => _StatusBarHolder;
+        public TextMesh TextMesh => _TextMesh;
 
         #endregion Prefab Properties
 
 
         protected override ColorHandler DefaultColorHandler()
             => new TextMeshColorHandler(TextMesh);
+
+        public EnemyStatusBarHolder StatusBarHolder { get; private set; }
 
         private Color InitialColor => Color.white;
         private Color IgniteColor => new Color(1f, 0.5f, 0);
@@ -40,6 +39,11 @@ namespace Assets.UI
 
         protected override void OnUIElementInit()
         {
+            StatusBarHolder = PoolManager.Instance.UIElementPool.Get<EnemyStatusBarHolder>();
+
+            if(!this.IsOriginalPrefab)
+                StatusBarHolder.transform.parent = transform;
+
             var sprite = gameObject.GetComponent<Renderer>();
             Height = sprite.bounds.size.y;
             HeightHalf = Height * 0.5f;
@@ -59,11 +63,13 @@ namespace Assets.UI
         protected override void OnActivate()
         {
             SpriteColor = InitialColor;
+            StatusBarHolder.OnSpawn();
         }
 
-        public void Ignite()
+        public void Ignite(int burningDamage)
         {
-            SpriteColor = IgniteColor;
+            //SpriteColor = IgniteColor;
+            StatusBarHolder.BurningDamage = burningDamage;
         }
 
         public static void StaticInit()

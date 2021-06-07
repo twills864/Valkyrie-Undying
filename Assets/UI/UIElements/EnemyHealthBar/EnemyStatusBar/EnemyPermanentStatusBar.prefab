@@ -57,6 +57,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Burning
       objectReference: {fileID: 0}
+    - target: {fileID: 2563582692768296206, guid: d3f2fb97caacafc42b02945832f6add0,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4956531905307402512, guid: d3f2fb97caacafc42b02945832f6add0,
         type: 3}
       propertyPath: m_RootOrder

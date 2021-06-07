@@ -53,6 +53,8 @@ MonoBehaviour:
     type: 3}
   EnemyHealthBarPrefab: {fileID: 5069002072005299939, guid: ff4bf05291d0f4543aabe356140735a0,
     type: 3}
+  EnemyStatusBarHolderPrefab: {fileID: 5220796082059981281, guid: 075b6d43ae8903749ac41e01877d8b0d,
+    type: 3}
   MetronomeLabelPrefab: {fileID: 7481403881228809246, guid: af0d4ab044ca5b94da0cce76df4c85fd,
     type: 3}
   MortarGuidePrefab: {fileID: 2082298233755226002, guid: 6956a4d5c02caf0458eefc30e06483e7,

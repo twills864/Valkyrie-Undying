@@ -235,6 +235,34 @@ namespace Assets
             }
         }
 
+
+        public float LocalPositionX
+        {
+            get => transform.localPosition.x;
+            set
+            {
+                transform.localPosition = new Vector3(value, transform.localPosition.y, transform.localPosition.z);
+            }
+        }
+
+        public float LocalPositionY
+        {
+            get => transform.localPosition.y;
+            set
+            {
+                transform.localPosition = new Vector3(transform.localPosition.x, value, transform.localPosition.z);
+            }
+        }
+
+        public float LocalPositionZ
+        {
+            get => transform.localPosition.z;
+            set
+            {
+                transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, value);
+            }
+        }
+
         #endregion Transform Position
 
         #region Transform LocalScale

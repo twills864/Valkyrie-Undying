@@ -20,8 +20,8 @@ namespace Assets.ObjectPooling
         private VictimMarkerCorner VictimMarkerCornerPrefab = null;
         [SerializeField]
         private EnemyHealthBar EnemyHealthBarPrefab = null;
-        //[SerializeField]
-        //private EnemyStatusBarHolder EnemyStatusBarHolderPrefab = null;
+        [SerializeField]
+        private EnemyStatusBarHolder EnemyStatusBarHolderPrefab = null;
         //[SerializeField]
         //private EnemyStatusBar EnemyStatusBarPrefab = null;
         //[SerializeField]

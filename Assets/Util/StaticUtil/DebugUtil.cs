@@ -128,34 +128,16 @@ namespace Assets.Util
 
         private static void InputMouseBack(KeyCode keyCode)
         {
-            var moveTo = new MoveTo(GameManager._DebugEnemy, SpaceUtil.WorldMap.Center, 1f);
-            var moveBy = new MoveBy(GameManager._DebugEnemy, new Vector3(1f, 1f), 1f);
-            var ease = new EaseIn(moveTo);
+            if(SpaceUtil.TryGetEnemyUnderMouse(out Enemy enemy))
+            {
+                enemy.Ignite(1, 1, 3);
+            }
 
-            GameManager._DebugEnemy.RunTask(ease);
-
-            //foreach(var enemy in Director.GetAllActiveEnemies())
-            //{
-            //    var moveBy2 = new MoveBy(enemy, new Vector3(1f, 1f), 1f);
-            //    var ease2 = new EaseIn(moveBy2);
-            //    var moveBy22 = new MoveBy(enemy, new Vector3(-1f, -1f), 1f);
-            //    var ease22 = new EaseIn(moveBy22);
-            //    var seq = new Sequence(ease2, ease22);
-            //    enemy.RunTask(seq);
-            //}
-
-            //PoolManager.Instance.PickupPool.Get<WeaponPickup>(SpaceUtil.WorldMap.Top);
-            //GameManager.SpawnPowerup(SpaceUtil.WorldMap.Center);
-
-            //PoolManager.Instance.PickupPool.GetRandomPowerup(SpaceUtil.WorldMap.Center).OnSpawn();
-
-            SpawnSpecificEnemy<BasicEnemy>();
-            SpawnSpecificEnemy<CradleEnemy>();
-            SpawnSpecificEnemy<RingEnemy>();
-            SpawnSpecificEnemy<TankEnemy>();
-            SpawnSpecificEnemy<LaserEnemy>();
-
-            //UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(GameConstants.SceneNameMainMenu, UnityEngine.SceneManagement.LoadSceneMode.Single);
+            //SpawnSpecificEnemy<BasicEnemy>();
+            //SpawnSpecificEnemy<CradleEnemy>();
+            //SpawnSpecificEnemy<RingEnemy>();
+            //SpawnSpecificEnemy<TankEnemy>();
+            //SpawnSpecificEnemy<LaserEnemy>();
         }
 
         private static void InputMouseForward(KeyCode keyCode)

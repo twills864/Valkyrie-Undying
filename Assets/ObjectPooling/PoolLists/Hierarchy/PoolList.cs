@@ -87,6 +87,7 @@ namespace Assets.ObjectPooling
 
             foreach (var prefab in AllPrefabs)
             {
+                prefab.IsOriginalPrefab = true;
                 prefab.Init();
                 prefab.SpriteColor = defaultColor;
             }

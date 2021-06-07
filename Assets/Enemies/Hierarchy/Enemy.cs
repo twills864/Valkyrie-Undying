@@ -10,6 +10,7 @@ using Assets.ObjectPooling;
 using Assets.Particles;
 using Assets.Powerups;
 using Assets.UI;
+using Assets.UI.UIElements.EnemyHealthBar;
 using Assets.Util;
 using UnityEngine;
 
@@ -249,8 +250,10 @@ namespace Assets.Enemies
         protected virtual Vector3 HealthBarOffset => InitialHealthbarOffset;
         protected Vector3 InitialHealthbarOffset { get; private set; }
 
-        public EnemyHealthBar HealthBar { get; set; }
+        public EnemyHealthBar HealthBar { get; private set; }
         public void UpdateHealthBar() => HealthBar.SetText(CurrentHealth);
+
+        private EnemyStatusBarHolder StatusBar => HealthBar.StatusBarHolder;
 
         #endregion Health
 
@@ -404,7 +407,7 @@ namespace Assets.Enemies
             {
                 InfernoDamage = newInfernoDamage;
                 IsBurning = true;
-                HealthBar.Ignite();
+                HealthBar.Ignite(baseDamage);
                 InfernoDamageIncrease = newInfernoDamageIncrease;
             }
             else
@@ -428,6 +431,7 @@ namespace Assets.Enemies
             bool ret;
             if (!DamageKills(InfernoDamage))
             {
+                StatusBar.BurningDamage = InfernoDamage;
                 InfernoDamage += InfernoDamageIncrease;
                 ret = false;
             }
@@ -497,9 +501,9 @@ namespace Assets.Enemies
             if (CollisionUtil.IsEnemy(collision) && IsBurning)
             {
                 Enemy enemy = collision.GetComponent<Enemy>();
-                enemy.Ignite(InfernoPowerup.CurrentBaseDamage,
-                    InfernoPowerup.CurrentDamageIncreasePerTick,
-                    InfernoPowerup.CurrentMaxDamage);
+                enemy.Ignite(InfernoDamage,
+                    InfernoDamageIncrease,
+                    InfernoDamageMax);
             }
         }
 

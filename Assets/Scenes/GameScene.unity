@@ -3951,6 +3951,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8edcff89d67b6cf4ab4bb9aaac586879, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!102 &1249515104 stripped
+TextMesh:
+  m_CorrespondingSourceObject: {fileID: 8871012895706201029, guid: ff4bf05291d0f4543aabe356140735a0,
+    type: 3}
+  m_PrefabInstance: {fileID: 1763085737}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1254498096
 GameObject:
   m_ObjectHideFlags: 0
@@ -5741,12 +5747,82 @@ PrefabInstance:
     - target: {fileID: 399384417934070447, guid: ff4bf05291d0f4543aabe356140735a0,
         type: 3}
       propertyPath: m_SortingLayer
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 399384417934070447, guid: ff4bf05291d0f4543aabe356140735a0,
         type: 3}
       propertyPath: m_SortingLayerID
       value: -1553159797
+      objectReference: {fileID: 0}
+    - target: {fileID: 1270764593174426585, guid: ff4bf05291d0f4543aabe356140735a0,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2446635109200404029, guid: ff4bf05291d0f4543aabe356140735a0,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3106543086961768102, guid: ff4bf05291d0f4543aabe356140735a0,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3106543086961768102, guid: ff4bf05291d0f4543aabe356140735a0,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3106543086961768102, guid: ff4bf05291d0f4543aabe356140735a0,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3284963618621217158, guid: ff4bf05291d0f4543aabe356140735a0,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3771814430945853999, guid: ff4bf05291d0f4543aabe356140735a0,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4621994700946455811, guid: ff4bf05291d0f4543aabe356140735a0,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5069002072005299939, guid: ff4bf05291d0f4543aabe356140735a0,
+        type: 3}
+      propertyPath: _TextMesh
+      value: 
+      objectReference: {fileID: 1249515104}
+    - target: {fileID: 5389689863786730904, guid: ff4bf05291d0f4543aabe356140735a0,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5389689863786730904, guid: ff4bf05291d0f4543aabe356140735a0,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5389689863786730904, guid: ff4bf05291d0f4543aabe356140735a0,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5389689863786730904, guid: ff4bf05291d0f4543aabe356140735a0,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5729396047629932951, guid: ff4bf05291d0f4543aabe356140735a0,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7618366657653334845, guid: ff4bf05291d0f4543aabe356140735a0,
         type: 3}
@@ -5857,6 +5933,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: EnemyHealthBar
+      objectReference: {fileID: 0}
+    - target: {fileID: 8102547133230158055, guid: ff4bf05291d0f4543aabe356140735a0,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8575327839421494030, guid: ff4bf05291d0f4543aabe356140735a0,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8871012895706201029, guid: ff4bf05291d0f4543aabe356140735a0,
         type: 3}

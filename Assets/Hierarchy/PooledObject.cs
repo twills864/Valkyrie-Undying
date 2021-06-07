@@ -64,7 +64,7 @@ namespace Assets
 
         /// <summary>
         /// Subclass-specific functionality to happen when an object is deactivated.
-        /// </summary>o
+        /// </summary>
         protected virtual void OnDeactivate() { }
 
         /// <summary>
@@ -83,5 +83,11 @@ namespace Assets
                 transform.position = InactivePosition;
             }
         }
+
+        /// <summary>
+        /// Detects whether or not this object is the original prefab attached
+        /// to the object pool, or a cloned copy of the original prefab.
+        /// </summary>
+        public bool IsOriginalPrefab { get; set; }
     }
 }

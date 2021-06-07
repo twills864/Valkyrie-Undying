@@ -41,10 +41,26 @@ namespace Assets.UI.UIElements.EnemyHealthBar
 
         #endregion Prefab Properties
 
+        protected override List<EnemyStatusSprite> InitialStatusSprites() => new List<EnemyStatusSprite>()
+        {
+            VoidPaused
+        };
 
         protected override void OnEnemyStatusBarInit()
         {
             VoidPaused.Init();
+        }
+
+        protected override void OnEnemyStatusBarSpawn()
+        {
+            IsVoidPaused = false;
+        }
+
+
+        public bool IsVoidPaused
+        {
+            get => VoidPaused.Value > 0;
+            set => SetAndRecalculate(VoidPaused, value ? 1 : 0);
         }
     }
 }

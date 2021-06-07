@@ -10,26 +10,60 @@ namespace Assets.UI.UIElements.EnemyHealthBar
 {
     public class EnemyStatusSpriteManager
     {
-        //protected override ColorHandler DefaultColorHandler() => new TextMeshColorHandler(TextMesh);
+        private List<EnemyStatusSprite> Sprites { get; set; }
+        private List<EnemyStatusSprite> ActiveSprites { get; set; }
 
-        //#region Prefabs
+        public Vector3 Position { get; set; }
 
-        //[SerializeField]
-        //private TextMesh _TextMesh = null;
+        private float VerticalMargin { get; set; }
 
-        //#endregion Prefabs
+        public EnemyStatusSpriteManager(List<EnemyStatusSprite> sprites)
+        {
+            Sprites = sprites;
+            ActiveSprites = new List<EnemyStatusSprite>(sprites.Count);
 
+            VerticalMargin = sprites.First().VerticalMargin;
+            Position = Vector3.zero;
 
-        //#region Prefab Properties
+            foreach (var sprite in Sprites)
+                sprite.Init();
+        }
 
-        //private TextMesh TextMesh => _TextMesh;
+        public void OnSpawn()
+        {
+            ActiveSprites.Clear();
 
-        //#endregion Prefab Properties
+            foreach (var sprite in Sprites)
+                sprite.OnSpawn();
+        }
 
+        public void RecalculateStatusBar()
+        {
+            RecalculateActiveSprites();
 
-        //protected override void OnUIElementInit()
-        //{
-        //    SpriteColor =
-        //}
+            float totalHeight = (ActiveSprites.Count - 1) * ActiveSprites[0].Height;
+            float totalMargin = (ActiveSprites.Count - 1) * VerticalMargin;
+
+            float offsetY = (totalHeight + totalMargin) * 0.5f;
+
+            foreach(var sprite in ActiveSprites)
+            {
+                sprite.LocalPositionY = offsetY; // + (sprite.Height * 0.5f);
+                offsetY -= (sprite.Height + VerticalMargin);
+            }
+        }
+
+        private void RecalculateActiveSprites()
+        {
+            ActiveSprites.Clear();
+
+            for (int i = 0; i < Sprites.Count; i++)
+            {
+                EnemyStatusSprite sprite = Sprites[i];
+
+                if (sprite.IsActive && !ActiveSprites.Contains(sprite))
+                    ActiveSprites.Add(sprite);
+            }
+        }
     }
 }
