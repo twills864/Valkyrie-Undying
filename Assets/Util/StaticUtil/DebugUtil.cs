@@ -253,6 +253,11 @@ namespace Assets.Util
 
         #endregion Input Engine
 
+
+        #region Visual Feedback
+
+        #region Red X
+
         /// <summary>
         /// Draws a red X for a brief time at the specified position.
         /// </summary>
@@ -298,6 +303,36 @@ namespace Assets.Util
         {
             RedX(position, message.ToString());
         }
+
+        #endregion Red X
+
+        #endregion Visual Feedback
+
+
+        #region Timing
+
+        /// <summary>
+        /// Times a given <paramref name="action"/> using the Stopwatch class,
+        /// and prints the result to the Debug log.
+        /// </summary>
+        /// <param name="name">The name of the action.</param>
+        /// <param name="action">The action to time.</param>
+        /// <returns>The amount of time the action took.</returns>
+        public static TimeSpan TimeAction(Action action, string name = "Action")
+        {
+            var sw = System.Diagnostics.Stopwatch.StartNew();
+            action();
+            sw.Stop();
+
+            TimeSpan elapsed = sw.Elapsed;
+
+            Debug.Log($"[{name}] {elapsed}");
+
+            return elapsed;
+        }
+
+        #endregion Timing
+
 
         #region Get Types
 

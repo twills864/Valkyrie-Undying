@@ -40,7 +40,7 @@ namespace Assets.Sound
 
         #endregion Prefab Properties
 
-        private CircularSelector<string> SongPaths { get; set; }
+        private CircularSelector<AudioClip> Songs { get; set; }
 
         private bool ShouldPlayMusic { get; set; }
         private AudioClip CurrentTrack
@@ -48,11 +48,8 @@ namespace Assets.Sound
             get => MusicPlayer.clip;
             set
             {
-                MusicPlayer.clip?.UnloadAudioData();
-
                 MusicPlayer.clip = value;
                 MusicPlayer.Play();
-                BeginLoadingNextTrack();
 
                 TimeSpan duration = TimeSpan.FromSeconds(value.length);
                 string dbMessage = $"{value.name.Replace('_', ' ')} ({duration})";
@@ -61,8 +58,6 @@ namespace Assets.Sound
             }
         }
         private AsyncAudioClip NextTrack { get; set; }
-
-        private void BeginLoadingNextTrack() => NextTrack = new AsyncAudioClip(SongPaths.GetAndIncrement());
 
         protected override void OnSingletonInit()
         {
@@ -112,27 +107,17 @@ namespace Assets.Sound
             var allPlaylists = Playlist.DeserializePlaylistsFromBuild(PlaylistsTextResourcePath);
 #endif
 
-            SongPaths = new CircularSelector<string>(allPlaylists.SelectMany(x => x.AllResourceNames()));
-            RandomUtil.Shuffle(SongPaths);
+            var songPaths = allPlaylists.SelectMany(x => x.AllResourceNames()).ToList();
+            RandomUtil.Shuffle(songPaths);
 
-            CurrentTrack = Resources.Load<AudioClip>(SongPaths.GetAndIncrement());
-
-            Debug.Log(SongPaths.Count);
-            for (int i = 0; i < SongPaths.Count; i++)
-            {
-                var song = SongPaths[i];
-                Debug.Log($"[{i}] {song}");
-
-                //NotificationManager.AddNotification(song.name);
-            }
-
-            Debug.Log(CurrentTrack.length);
+            Songs = new CircularSelector<AudioClip>(songPaths.Select(x => Resources.Load<AudioClip>(x)));
+            CurrentTrack = Songs.GetAndIncrement();
         }
 
         private void Update()
         {
             if (ShouldPlayMusic && !MusicPlayer.isPlaying)
-                CurrentTrack = NextTrack.Clip;
+                CurrentTrack = Songs.GetAndIncrement();
         }
 
         /// <summary>

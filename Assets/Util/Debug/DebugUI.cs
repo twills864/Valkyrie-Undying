@@ -290,37 +290,6 @@ namespace Assets.Util
         }
 #endregion Debug Labels
 
-#region Debug Timers
-
-        private static Dictionary<string, Stopwatch> DebugTimers { get; set; } = new Dictionary<string, Stopwatch>();
-
-        private static string MissingTimerMessage(string timerName)
-            => $"No such timer {timerName}!";
-        private static void SetMissingTimerLabel(string timerName)
-            => SetDebugLabel(timerName, MissingTimerMessage(timerName));
-
-        public static Stopwatch StartTimer(string timerName)
-        {
-            Stopwatch stopwatch = CollectionUtil.GetOrAddNew(DebugTimers, timerName);
-            stopwatch.Restart();
-
-            return stopwatch;
-        }
-
-        public static void StopTimer(string timerName)
-        {
-            if (DebugTimers.TryGetValue(timerName, out Stopwatch stopwatch))
-            {
-                stopwatch.Stop();
-                SetDebugLabel(timerName, stopwatch.Elapsed);
-            }
-            else
-                SetMissingTimerLabel(timerName);
-        }
-
-
-#endregion Debug Timers
-
 #region Draw GUI
 
         private static GUIStyle GetLabelStyle(TextAnchor textAnchor)
