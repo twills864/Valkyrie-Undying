@@ -113,7 +113,11 @@ namespace Assets.Util
 
         private static void InputLeft(KeyCode keyCode)
         {
-
+            if (SpaceUtil.TryGetEnemyUnderMouse(out Enemy enemy))
+            {
+                enemy.Ignite(1, 1, 3);
+                //enemy.AddPoison(4);
+            }
         }
 
         private static void InputDown(KeyCode keyCode)
@@ -123,14 +127,19 @@ namespace Assets.Util
 
         private static void InputRight(KeyCode keyCode)
         {
-
+            if (SpaceUtil.TryGetEnemyUnderMouse(out Enemy enemy))
+            {
+                //enemy.Ignite(1, 1, 3);
+                enemy.AddPoison(4);
+            }
         }
 
         private static void InputMouseBack(KeyCode keyCode)
         {
             if(SpaceUtil.TryGetEnemyUnderMouse(out Enemy enemy))
             {
-                enemy.Ignite(1, 1, 3);
+                //enemy.Ignite(1, 1, 3);
+                enemy.AddPoison(4);
             }
 
             //SpawnSpecificEnemy<BasicEnemy>();

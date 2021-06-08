@@ -63,6 +63,12 @@ namespace Assets.UI.UIElements.EnemyHealthBar
             set => PermanentStatuses.BurningDamage = value;
         }
 
+        public int PoisonDamage
+        {
+            get => PermanentStatuses.PoisonDamage;
+            set => PermanentStatuses.PoisonDamage = value;
+        }
+
         public bool IsVoidPaused
         {
             get => TemporaryStatuses.IsVoidPaused;

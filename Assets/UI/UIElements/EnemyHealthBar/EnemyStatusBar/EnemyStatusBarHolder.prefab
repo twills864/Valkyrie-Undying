@@ -237,6 +237,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Burning
       objectReference: {fileID: 0}
+    - target: {fileID: 413996103157156233, guid: aaf600dda5e2b894cba04a31aaad5ff1,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1105165943903527186, guid: aaf600dda5e2b894cba04a31aaad5ff1,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1486274321360896952, guid: aaf600dda5e2b894cba04a31aaad5ff1,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.25
+      objectReference: {fileID: 0}
     - target: {fileID: 3827107507742034718, guid: aaf600dda5e2b894cba04a31aaad5ff1,
         type: 3}
       propertyPath: m_Text
@@ -246,6 +261,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Color.rgba
       value: 4278223103
+      objectReference: {fileID: 0}
+    - target: {fileID: 3884450620672418925, guid: aaf600dda5e2b894cba04a31aaad5ff1,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4421888458816821578, guid: aaf600dda5e2b894cba04a31aaad5ff1,
         type: 3}
@@ -331,6 +351,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6681771973022024158, guid: aaf600dda5e2b894cba04a31aaad5ff1,
+        type: 3}
+      propertyPath: m_Color.rgba
+      value: 4278255488
       objectReference: {fileID: 0}
     - target: {fileID: 7417609625428093906, guid: aaf600dda5e2b894cba04a31aaad5ff1,
         type: 3}

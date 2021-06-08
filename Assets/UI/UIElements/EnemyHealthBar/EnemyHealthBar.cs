@@ -78,6 +78,11 @@ namespace Assets.UI
             StatusBarHolder.BurningDamage = burningDamage;
         }
 
+        public void AddPoison(int poisonDamage)
+        {
+            StatusBarHolder.PoisonDamage = poisonDamage;
+        }
+
         public static void StaticInit()
         {
             var healthBar = PoolManager.Instance.UIElementPool.Get<EnemyHealthBar>();

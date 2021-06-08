@@ -115,6 +115,8 @@ namespace Assets.Bullets.PlayerBullets
         {
             GameManager.Instance.OnEnemyHitWithDefaultWeapon(enemy, this, hitPosition);
 
+            enemy.AddPoison(SnakeBiteDamage);
+
             NumberPenetrated++;
         }
 
@@ -144,7 +146,7 @@ namespace Assets.Bullets.PlayerBullets
 
             #region Flat Increase
 
-            damage += SnakeBiteDamage;
+            //damage += SnakeBiteDamage;
 
             #endregion Flat Increase
 

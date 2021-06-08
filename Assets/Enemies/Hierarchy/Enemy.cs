@@ -131,6 +131,7 @@ namespace Assets.Enemies
                 + healthbarOffset;
 
             InfernoTimer = new LoopingFrameTimer(InfernoTickTime);
+            PoisonTimer = new LoopingFrameTimer(PoisonTickTime);
 
             FireStrategy = InitialFireStrategy();
 
@@ -143,6 +144,7 @@ namespace Assets.Enemies
             DeathParticleVelocity = null;
 
             ResetInferno();
+            ResetPoison();
             VoidPauseCounter = 0;
 
             OnEnemyActivate();
@@ -180,6 +182,12 @@ namespace Assets.Enemies
             if (IsBurning && InfernoTimer.UpdateActivates(realDeltaTime))
             {
                 if (BurnKills())
+                    return;
+            }
+
+            if(IsPoisoned && PoisonTimer.UpdateActivates(realDeltaTime))
+            {
+                if (PoisonKills())
                     return;
             }
 
@@ -445,6 +453,55 @@ namespace Assets.Enemies
         }
 
         #endregion Inferno
+
+        #region Poison
+
+        protected virtual float PoisonTickTime => 1.0f;
+        private LoopingFrameTimer PoisonTimer { get; set; }
+
+        protected virtual float PoisonDamageScale => 1f;
+
+        protected int PoisonDamage { get; set; }
+
+        public bool IsPoisoned => PoisonDamage > 0;
+
+        private void ResetPoison()
+        {
+            PoisonTimer.Reset();
+            PoisonDamage = 0;
+        }
+
+        public void AddPoison(int poisonDamage)
+        {
+            if (poisonDamage <= 0)
+                return;
+
+            int newPoisonDamage = (int)(PoisonDamageScale * poisonDamage);
+
+            if (!IsPoisoned || PoisonDamage < poisonDamage)
+            {
+                PoisonDamage = poisonDamage;
+                HealthBar.AddPoison(poisonDamage);
+            }
+        }
+
+        protected virtual bool PoisonKills()
+        {
+            bool ret;
+            if (!DamageKills(PoisonDamage))
+            {
+                ret = false;
+            }
+            else
+            {
+                KillEnemy(null);
+                ret = true;
+            }
+            return ret;
+        }
+
+
+        #endregion Poison
 
         #region Void
 

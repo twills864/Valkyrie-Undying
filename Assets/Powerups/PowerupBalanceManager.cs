@@ -433,7 +433,7 @@ namespace Assets.Powerups.Balance
             public struct SnakeBiteBalance
             {
                 public float Angle;
-                public int DamageIncrease;
+                public int PoisonDamage;
                 public float FireSpeedRatio;
             }
         }

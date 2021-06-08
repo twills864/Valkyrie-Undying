@@ -18,9 +18,9 @@ namespace Assets.UI.UIElements.EnemyHealthBar
         [SerializeField]
         private EnemyStatusSprite _Burning = null;
 
+        [SerializeField]
+        private EnemyStatusSprite _Poison = null;
 
-        //[SerializeField]
-        //private EnemyStatusSprite _Poisoned = null;
         //[SerializeField]
         //private EnemyStatusSprite _Chilled = null;
 
@@ -32,8 +32,8 @@ namespace Assets.UI.UIElements.EnemyHealthBar
         // Increasing DoT
         private EnemyStatusSprite Burning => _Burning;
 
-        //// Constant DoT
-        //private EnemyStatusSprite Poisoned => _Poisoned;
+        // Constant DoT
+        private EnemyStatusSprite Poison => _Poison;
 
         //// Time scale down
         //private EnemyStatusSprite Chilled => _Chilled;
@@ -42,18 +42,21 @@ namespace Assets.UI.UIElements.EnemyHealthBar
 
         protected override List<EnemyStatusSprite> InitialStatusSprites() => new List<EnemyStatusSprite>()
         {
-            Burning
+            Burning,
+            Poison,
         };
 
 
         protected override void OnEnemyStatusBarInit()
         {
             Burning.Init();
+            Poison.Init();
         }
 
         protected override void OnEnemyStatusBarSpawn()
         {
             BurningDamage = 0;
+            PoisonDamage = 0;
 
             //// Modify property field values directly because all statuses will be inactive,
             //// and the status bar doesn't need to be recalculated.
@@ -69,5 +72,10 @@ namespace Assets.UI.UIElements.EnemyHealthBar
             set => SetAndRecalculate(Burning, value);
         }
 
+        public int PoisonDamage
+        {
+            get => Poison.Value;
+            set => SetAndRecalculate(Poison, value);
+        }
     }
 }

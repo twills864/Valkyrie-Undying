@@ -5258,7 +5258,7 @@ MonoBehaviour:
         Placeholder: 0
       SnakeBite:
         Angle: 11.25
-        DamageIncrease: 10
+        PoisonDamage: 5
         FireSpeedRatio: 1.5
     OnDefaultWeaponHit:
       Rebound:
