@@ -113,6 +113,8 @@ namespace Assets.Bullets.PlayerBullets
 
         protected override void OnCollideWithEnemy(Enemy enemy, Vector3 hitPosition)
         {
+            enemy.AddParasites(2);
+
             GameManager.Instance.OnEnemyHitWithDefaultWeapon(enemy, this, hitPosition);
 
             enemy.AddPoison(SnakeBiteDamage);

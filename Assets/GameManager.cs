@@ -371,6 +371,8 @@ namespace Assets
             float playerTime = deltaTime;
             float playerFireScale = deltaTime * PlayerFireDeltaTimeScale * Player.RetributionTimeScale;
 
+            UpdateStatuses(deltaTime);
+
             if (Player.IsAlive)
             {
                 if (CurrentFireStrategy.UpdateActivates(playerFireScale * Player.FireSpeedScale))
@@ -685,6 +687,26 @@ namespace Assets
 #endregion Enemy Bullets
 
 #endregion Enemies
+
+#region Statuses
+
+        private void UpdateStatuses(float deltaTime)
+        {
+            ParasiteSpawnManager.Update();
+        }
+
+#region Parasites
+
+        private ParasiteSpawnManager ParasiteSpawnManager { get; } = new ParasiteSpawnManager();
+
+        public void AddParasites(Vector2 position, int numberToAdd)
+        {
+            ParasiteSpawnManager.AddParasites(position, numberToAdd);
+        }
+
+#endregion Parasites
+
+#endregion Statuses
 
 #region Damage
 

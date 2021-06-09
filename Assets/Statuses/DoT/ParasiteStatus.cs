@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Assets.Bullets.PlayerBullets;
 using Assets.Enemies;
+using Assets.ObjectPooling;
+using UnityEngine;
 
 namespace Assets.Statuses
 {
@@ -26,6 +29,17 @@ namespace Assets.Statuses
         {
             Damage += numberParasites;
             UpdateStatusBar();
+        }
+
+        public void OnDeath()
+        {
+            if (IsActive)
+            {
+                Vector3 spawnPosition = Target.transform.position;
+                int numberParasites = Damage;
+
+                GameManager.Instance.AddParasites(spawnPosition, numberParasites);
+            }
         }
     }
 }

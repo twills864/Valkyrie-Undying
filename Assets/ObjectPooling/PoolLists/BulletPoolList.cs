@@ -83,6 +83,8 @@ namespace Assets.ObjectPooling
         private SentinelProjectileBullet SentinelProjectilePrefab = null;
         [SerializeField]
         private DefaultExtraBullet DefaultExtraPrefab = null;
+        [SerializeField]
+        private ParasiteBullet ParasitePrefab = null;
 
         #endregion Additional Bullets
 
@@ -112,6 +114,8 @@ namespace Assets.ObjectPooling
             BfgBulletSpawner.StaticInit();
             BfgPrefab.InitSpawner();
             BfgPrefab.InitFallout();
+
+            ParasitePrefab.SpriteColor = player.Parasite;
         }
 
         /// <summary>
@@ -149,6 +153,20 @@ namespace Assets.ObjectPooling
             var ret = Get<TGet>(position, velocity);
             ret.BulletLevel = weaponLevel;
             ret.OnSpawn();
+            return ret;
+        }
+
+        /// <summary>
+        /// Accesses the Object Pool indexed by <typeparamref name="T"/>
+        /// and returns a given number of fresh instances from that Pool.
+        /// </summary>
+        /// <typeparam name="TGet">The type of object to return.</typeparam>
+        /// <param name="amountToGet">The number of fresh instances to get.</param>
+        /// <param name="position">The position to give to the fresh instance.</param>
+        /// <returns>The array of fresh instances of <typeparamref name="TGet"/> from the appropriate Object Pool.</returns>
+        public TGet[] GetMany<TGet>(int amountToGet, Vector3 position) where TGet : PlayerBullet
+        {
+            TGet[] ret = LinqUtil.Array(amountToGet, () => Get<TGet>(position));
             return ret;
         }
 

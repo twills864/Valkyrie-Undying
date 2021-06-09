@@ -61,6 +61,7 @@ namespace Assets.ColorManagers.SubManagers
         public Color Retribution;
         public Color Sentinel;
         public Color Void;
+        public Color Parasite;
     }
 
     [Serializable]

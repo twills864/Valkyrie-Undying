@@ -161,6 +161,7 @@ namespace Assets.Enemies
         {
             Burning.Reset();
             Poisoned.Reset();
+            Parasites.Reset();
         }
 
         protected virtual void OnEnemySpawn() { }
@@ -324,10 +325,10 @@ namespace Assets.Enemies
             if (isActiveAndEnabled)
             {
                 WasKilled = true;
-
                 PlaySoundAtCenter(SoundBank.ExplosionShortDeep, 0.8f);
-
                 ParticleDeathEffect(bullet);
+
+                Parasites.OnDeath();
 
                 GameManager.Instance.OnEnemyKill(this, bullet);
                 DeactivateSelf();

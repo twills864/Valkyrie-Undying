@@ -79,6 +79,20 @@ namespace Assets.Util
             return (float)Double(minInclusive, maxExclusive);
         }
 
+        /// <summary>
+        /// Returns a random float [<paramref name="minInclusive"/>,
+        /// <paramref name="maxExclusive"/>).
+        /// Also provides the ratio [0, 1] used to generate the value.
+        /// </summary>
+        /// <returns>A random float [<paramref name="minInclusive"/>,
+        /// <paramref name="maxExclusive"/>).</returns>
+        public static float Float(float minInclusive, float maxExclusive, out float ratio)
+        {
+            float ret = (float)Double(minInclusive, maxExclusive, out double outRatio);
+            ratio = (float)outRatio;
+            return ret;
+        }
+
         #endregion Float
 
         #region Double
@@ -113,6 +127,21 @@ namespace Assets.Util
         {
             double range = maxExclusive - minInclusive;
             double ret = (Random.NextDouble() * range) + minInclusive;
+            return ret;
+        }
+
+        /// <summary>
+        /// Returns a random double [<paramref name="minInclusive"/>,
+        /// <paramref name="maxExclusive"/>).
+        /// Also provides the ratio [0, 1) used to generate the value.
+        /// </summary>
+        /// <returns>A random double [<paramref name="minInclusive"/>,
+        /// <paramref name="maxExclusive"/>).</returns>
+        public static double Double(double minInclusive, double maxExclusive, out double ratio)
+        {
+            double range = maxExclusive - minInclusive;
+            ratio = Random.NextDouble();
+            double ret = (ratio * range) + minInclusive;
             return ret;
         }
 

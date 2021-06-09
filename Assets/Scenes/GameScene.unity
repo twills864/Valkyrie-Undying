@@ -5313,6 +5313,7 @@ MonoBehaviour:
       Retribution: {r: 1, g: 0, b: 0, a: 1}
       Sentinel: {r: 1, g: 1, b: 0, a: 1}
       Void: {r: 1, g: 0, b: 1, a: 1}
+      Parasite: {r: 1, g: 0.078431375, b: 0.5764706, a: 1}
     Enemy:
       Gore:
         DefaultPrimary: {r: 1, g: 0, b: 0, a: 1}

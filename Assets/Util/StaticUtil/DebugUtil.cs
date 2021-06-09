@@ -115,7 +115,7 @@ namespace Assets.Util
         {
             if (SpaceUtil.TryGetEnemyUnderMouse(out Enemy enemy))
             {
-                enemy.AddParasites(1);
+                enemy.AddParasites(3);
                 //enemy.Ignite(1, 1, 3);
             }
         }
