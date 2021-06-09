@@ -49,8 +49,8 @@ namespace Assets.Powerups
 
                 if (enemy.IsBurning)
                 {
-                    shrapnel.FireDamage = enemy.InfernoDamageIncrease;
-                    shrapnel.FireDamageMax = enemy.InfernoDamageMax;
+                    shrapnel.FireDamage = enemy.BurningDamageIncrease;
+                    shrapnel.FireDamageMax = enemy.BurningDamageMax;
                 }
             }
         }

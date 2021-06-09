@@ -1,5 +1,6 @@
 ﻿using Assets.Bullets.PlayerBullets;
 using Assets.Enemies;
+using Assets.Powerups;
 using Assets.Util;
 using UnityEngine;
 
@@ -12,15 +13,11 @@ namespace Assets.Bullets.PlayerBullets
         public override AudioClip FireSound => SoundBank.Flare;
         public override AudioClip HitSound => SoundBank.ExplosionShortestIgnite;
 
-        public static int CurrentBaseDamage { get; set; }
-
         public int DamageIncreasePerTick { get; set; }
         public int MaxDamage { get; set; }
 
-        protected override void OnActivate()
-        {
-            CurrentBaseDamage = BaseDamage;
-        }
+        public override int Damage => InfernoDamage;
+        private int InfernoDamage { get; set; }
 
         protected override void OnCollideWithEnemy(Enemy enemy, Vector3 hitPosition)
         {
@@ -29,6 +26,17 @@ namespace Assets.Bullets.PlayerBullets
 
             if(BulletLevel <= 1)
                 DeactivateSelf();
+        }
+
+        public void OnSpawn(InfernoPowerup powerup, Vector3 firePos)
+        {
+            transform.position = firePos;
+            BulletLevel = powerup.Level;
+            InfernoDamage = powerup.Level;
+            DamageIncreasePerTick = powerup.DamageIncrease;
+            MaxDamage = powerup.MaxDamage;
+
+            PlayFireSound();
         }
     }
 }

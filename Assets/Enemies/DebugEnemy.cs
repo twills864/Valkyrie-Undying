@@ -100,18 +100,18 @@ namespace Assets.Enemies
         }
 
         private Color FleetingTextIgniteColor => new Color(1f, 0.5f, 0);
-        protected override bool BurnKills()
-        {
-            CurrentHealth -= InfernoDamage;
-            FleetingDamageText(InfernoDamage, InfernoDamageAngle, FleetingTextIgniteColor);
-            StatusBar.BurningDamage = InfernoDamage;
+        //protected override bool BurnKills()
+        //{
+        //    CurrentHealth -= InfernoDamage;
+        //    FleetingDamageText(InfernoDamage, InfernoDamageAngle, FleetingTextIgniteColor);
+        //    StatusBar.BurningDamage = InfernoDamage;
 
-            InfernoDamage += InfernoDamageIncrease;
+        //    InfernoDamage += InfernoDamageIncrease;
 
-            RefreshHealthBarText();
+        //    RefreshHealthBarText();
 
-            return false;
-        }
+        //    return false;
+        //}
 
         private FleetingText FleetingDamageText(int damage, float moveX, float moveY, Color color)
         {

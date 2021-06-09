@@ -18,17 +18,11 @@ namespace Assets.Powerups
     {
         public override int MaxLevel => 2;
 
-        public static int CurrentBaseDamage { get; private set; }
-        public static int CurrentDamageIncreasePerTick { get; private set; }
-        public static int CurrentMaxDamage { get; private set; }
-
-        public static float DamageIncreasePerLevel;
-
         protected override void InitBalance(in PowerupBalanceManager.PassiveBalance balance)
         {
             float damageIncreaseBase = balance.Inferno.Damage.Base;
-            DamageIncreasePerLevel = balance.Inferno.Damage.Increase;
-            DamageCalculator = new SumLevelValueCalculator(damageIncreaseBase, DamageIncreasePerLevel);
+            float damageIncreasePerLevel = balance.Inferno.Damage.Increase;
+            DamageCalculator = new SumLevelValueCalculator(damageIncreaseBase, damageIncreasePerLevel);
 
             float maxDamageBase = balance.Inferno.MaxDamage.Base;
             float maxDamageIncrease = balance.Inferno.MaxDamage.Increase;
@@ -42,10 +36,10 @@ namespace Assets.Powerups
         public float FireSpeed => FireSpeedCalculator.Value;
         private ProductLevelValueCalculator FireSpeedCalculator { get; set; }
 
-        private int DamageIncrease => (int) DamageCalculator.Value;
+        public int DamageIncrease => (int) DamageCalculator.Value;
         private SumLevelValueCalculator DamageCalculator { get; set; }
 
-        private int MaxDamage => (int)MaxDamageCalculator.Value;
+        public int MaxDamage => (int)MaxDamageCalculator.Value;
         private SumLevelValueCalculator MaxDamageCalculator { get; set; }
 
         private LoopingFrameTimer FireTimer { get; } = LoopingFrameTimer.Default();
@@ -55,15 +49,11 @@ namespace Assets.Powerups
         {
             InfernoPool = PoolManager.Instance.BulletPool.GetPool<InfernoBullet>();
             var bullet = (InfernoBullet)InfernoPool.Get();
-            CurrentBaseDamage = bullet.Damage;
             bullet.DeactivateSelf();
         }
 
         public override void OnLevelUp()
         {
-            CurrentDamageIncreasePerTick = DamageIncrease;
-            CurrentMaxDamage = MaxDamage;
-
             FireTimer.ActivationInterval = FireSpeed;
             FireTimer.ActivateSelf();
         }
@@ -74,12 +64,8 @@ namespace Assets.Powerups
             {
                 var firePos = Player.Instance.FirePosition;
                 var bullet = (InfernoBullet)InfernoPool.Get();
-                bullet.transform.position = firePos;
-                bullet.BulletLevel = Level;
-                bullet.DamageIncreasePerTick = DamageIncrease;
-                bullet.MaxDamage = MaxDamage;
 
-                bullet.PlayFireSound();
+                bullet.OnSpawn(this, firePos);
             }
         }
     }

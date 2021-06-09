@@ -1,5 +1,6 @@
 ﻿using Assets.Hierarchy.ColorHandlers;
 using Assets.ObjectPooling;
+using Assets.Statuses;
 using Assets.UI;
 using Assets.UI.UIElements.EnemyHealthBar;
 using Assets.Util;
@@ -72,15 +73,14 @@ namespace Assets.UI
             StatusBarHolder.OnSpawn();
         }
 
-        public void Ignite(int burningDamage)
+        public void Ignite(BurningStatus status)
         {
-            //SpriteColor = IgniteColor;
-            StatusBarHolder.BurningDamage = burningDamage;
+            StatusBarHolder.BurningDamage = status.Damage;
         }
 
-        public void AddPoison(int poisonDamage)
+        public void AddPoison(PoisonedStatus status)
         {
-            StatusBarHolder.PoisonDamage = poisonDamage;
+            StatusBarHolder.PoisonDamage = status.Damage;
         }
 
         public static void StaticInit()

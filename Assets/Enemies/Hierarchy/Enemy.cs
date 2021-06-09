@@ -9,6 +9,7 @@ using Assets.Hierarchy.ColorHandlers;
 using Assets.ObjectPooling;
 using Assets.Particles;
 using Assets.Powerups;
+using Assets.Statuses;
 using Assets.UI;
 using Assets.UI.UIElements.EnemyHealthBar;
 using Assets.Util;
@@ -130,8 +131,8 @@ namespace Assets.Enemies
             InitialHealthbarOffset = Vector3.Scale(initialSize, HealthBarOffsetScale)
                 + healthbarOffset;
 
-            InfernoTimer = new LoopingFrameTimer(InfernoTickTime);
-            PoisonTimer = new LoopingFrameTimer(PoisonTickTime);
+            Burning = new BurningStatus(this);
+            Poisoned = new PoisonedStatus(this);
 
             FireStrategy = InitialFireStrategy();
 
@@ -143,11 +144,17 @@ namespace Assets.Enemies
         {
             DeathParticleVelocity = null;
 
-            ResetInferno();
-            ResetPoison();
+            ResetStatuses();
+
             VoidPauseCounter = 0;
 
             OnEnemyActivate();
+        }
+
+        private void ResetStatuses()
+        {
+            Burning.Reset();
+            Poisoned.Reset();
         }
 
         protected virtual void OnEnemySpawn() { }
@@ -179,17 +186,8 @@ namespace Assets.Enemies
         protected virtual void OnEnemyFrame(float deltaTime, float realDeltaTime) { }
         protected sealed override void OnFrameRun(float deltaTime, float realDeltaTime)
         {
-            if (IsBurning && InfernoTimer.UpdateActivates(realDeltaTime))
-            {
-                if (BurnKills())
-                    return;
-            }
-
-            if(IsPoisoned && PoisonTimer.UpdateActivates(realDeltaTime))
-            {
-                if (PoisonKills())
-                    return;
-            }
+            if (StatusesKillEnemy(realDeltaTime))
+                return;
 
             if (!IsVoidPaused)
             {
@@ -201,6 +199,17 @@ namespace Assets.Enemies
 #if UNITY_EDITOR
             DebugUpdate(deltaTime, realDeltaTime);
 #endif
+        }
+
+        private bool StatusesKillEnemy(float realDeltaTime)
+        {
+            // TODO: SET LABEL
+            if (Burning.UpdateKills(realDeltaTime))
+                return true;
+            else if (Poisoned.UpdateKills(realDeltaTime))
+                return true;
+            else
+                return false;
         }
 
         protected virtual void OnEnemyDeactivate() { }
@@ -262,7 +271,7 @@ namespace Assets.Enemies
         public EnemyHealthBar HealthBar { get; private set; }
         public void UpdateHealthBar() => HealthBar.SetText(CurrentHealth);
 
-        protected EnemyStatusBarHolder StatusBar => HealthBar.StatusBarHolder;
+        public EnemyStatusBarHolder StatusBar => HealthBar.StatusBarHolder;
 
         #endregion Health
 
@@ -290,6 +299,19 @@ namespace Assets.Enemies
         {
             if (isActiveAndEnabled && DamageKills(damage))
                 KillEnemy(bullet);
+        }
+
+        public bool StatusDamageKills(DamageOverTimeStatus status)
+        {
+            int damage = status.GetAndUpdateDamage();
+
+            if (DamageKills(damage))
+            {
+                KillEnemy(null);
+                return true;
+            }
+            else
+                return false;
         }
 
         protected virtual void OnDeath() { }
@@ -375,133 +397,37 @@ namespace Assets.Enemies
 
         #region Inferno
 
-        protected virtual float InfernoTickTime => 1.0f;
-        private LoopingFrameTimer InfernoTimer { get; set; }
+        protected BurningStatus Burning { get; set; }
+        public bool IsBurning => Burning.IsActive;
+        public int BurningDamageIncrease => Burning.DamageIncrease;
+        public int BurningDamageMax => Burning.MaxDamage;
 
-        protected virtual float InfernoDamageScale => 1f;
-        public virtual int InfernoDamageIncrease { get; protected set; }
-
-        public int InfernoDamageMax { get; private set; }
-        protected int InfernoDamage
+        public void Ignite(int baseDamage, int damageIncrease, int maxDamage)
         {
-            get => _infernoDamage;
-            set => _infernoDamage = Math.Min(value, InfernoDamageMax);
-        }
-        public bool IsBurning { get; set; }
-
-        private void ResetInferno()
-        {
-            InfernoTimer.Reset();
-            IsBurning = false;
-            InfernoDamage = 0;
-            InfernoDamageIncrease = 0;
-            InfernoDamageMax = 0;
-        }
-
-        public void Ignite(int baseDamage, int damageIncreasePerTick, int maxDamage)
-        {
-            if (baseDamage <= InfernoDamage
-                && damageIncreasePerTick <= InfernoDamageIncrease
-                && maxDamage <= InfernoDamageMax)
+            if (Burning.Ignite(baseDamage, damageIncrease, maxDamage))
             {
-                return;
+                foreach (var nextEnemy in CollisionUtil.GetAllEnemiesCollidingWith(ColliderMap.Collider))
+                    nextEnemy.Ignite(baseDamage, damageIncrease, maxDamage);
             }
-
-            InfernoDamageMax = maxDamage;
-
-            int newInfernoDamageIncrease = (int)(InfernoDamageScale * damageIncreasePerTick);
-            int newInfernoDamage = (int)(InfernoDamageScale * baseDamage) + newInfernoDamageIncrease;
-
-            if (!IsBurning)
-            {
-                InfernoDamage = newInfernoDamage;
-                IsBurning = true;
-                HealthBar.Ignite(baseDamage);
-                InfernoDamageIncrease = newInfernoDamageIncrease;
-            }
-            else
-            {
-                if (InfernoDamageIncrease < newInfernoDamageIncrease)
-                    InfernoDamageIncrease = newInfernoDamageIncrease;
-                if (InfernoDamage < newInfernoDamage)
-                    InfernoDamage = newInfernoDamage;
-                if (InfernoDamageMax < maxDamage)
-                    InfernoDamageMax = maxDamage;
-            }
-
-            foreach (var nextEnemy in CollisionUtil.GetAllEnemiesCollidingWith(ColliderMap.Collider))
-            {
-                nextEnemy.Ignite(damageIncreasePerTick, damageIncreasePerTick, maxDamage);
-            }
-        }
-
-        protected virtual bool BurnKills()
-        {
-            bool ret;
-            if (!DamageKills(InfernoDamage))
-            {
-                StatusBar.BurningDamage = InfernoDamage;
-                InfernoDamage += InfernoDamageIncrease;
-                ret = false;
-            }
-            else
-            {
-                KillEnemy(null);
-                ret = true;
-            }
-            return ret;
         }
 
         #endregion Inferno
 
         #region Poison
 
-        protected virtual float PoisonTickTime => 1.0f;
-        private LoopingFrameTimer PoisonTimer { get; set; }
-
-        protected virtual float PoisonDamageScale => 1f;
-
-        protected int PoisonDamage { get; set; }
-
-        public bool IsPoisoned => PoisonDamage > 0;
-
-        private void ResetPoison()
-        {
-            PoisonTimer.Reset();
-            PoisonDamage = 0;
-        }
+        protected PoisonedStatus Poisoned { get; set; }
+        public bool IsPoisoned => Poisoned.IsActive;
 
         public void AddPoison(int poisonDamage)
         {
             if (poisonDamage <= 0)
                 return;
 
-            int newPoisonDamage = (int)(PoisonDamageScale * poisonDamage);
-
-            if (!IsPoisoned || PoisonDamage < poisonDamage)
-            {
-                PoisonDamage = poisonDamage;
-                HealthBar.AddPoison(poisonDamage);
-            }
+            Poisoned.AddPoison(poisonDamage);
         }
-
-        protected virtual bool PoisonKills()
-        {
-            bool ret;
-            if (!DamageKills(PoisonDamage))
-            {
-                ret = false;
-            }
-            else
-            {
-                KillEnemy(null);
-                ret = true;
-            }
-            return ret;
-        }
-
 
         #endregion Poison
+
 
         #region Void
 
@@ -567,12 +493,11 @@ namespace Assets.Enemies
                 if (Player.Instance.CollidesWithEnemy(this))
                     KillEnemy(null);
             }
+
             if (CollisionUtil.IsEnemy(collision) && IsBurning)
             {
                 Enemy enemy = collision.GetComponent<Enemy>();
-                enemy.Ignite(InfernoDamageIncrease,
-                    InfernoDamageIncrease,
-                    InfernoDamageMax);
+                Burning.IgniteOther(enemy);
             }
         }
 
