@@ -131,12 +131,18 @@ namespace Assets.Enemies
             InitialHealthbarOffset = Vector3.Scale(initialSize, HealthBarOffsetScale)
                 + healthbarOffset;
 
-            Burning = new BurningStatus(this);
-            Poisoned = new PoisonedStatus(this);
+            InitStatuses();
 
             FireStrategy = InitialFireStrategy();
 
             OnEnemyInit();
+        }
+
+        private void InitStatuses()
+        {
+            Burning = new BurningStatus(this);
+            Poisoned = new PoisonedStatus(this);
+            Parasites = new ParasiteStatus(this);
         }
 
         protected virtual void OnEnemyActivate() { }
@@ -203,13 +209,11 @@ namespace Assets.Enemies
 
         private bool StatusesKillEnemy(float realDeltaTime)
         {
-            // TODO: SET LABEL
-            if (Burning.UpdateKills(realDeltaTime))
-                return true;
-            else if (Poisoned.UpdateKills(realDeltaTime))
-                return true;
-            else
-                return false;
+            bool kills = Burning.UpdateKills(realDeltaTime)
+                || Poisoned.UpdateKills(realDeltaTime)
+                || Parasites.UpdateKills(realDeltaTime);
+
+            return kills;
         }
 
         protected virtual void OnEnemyDeactivate() { }
@@ -424,6 +428,17 @@ namespace Assets.Enemies
                 return;
 
             Poisoned.AddPoison(poisonDamage);
+        }
+
+        #endregion Poison
+
+        #region Poison
+
+        protected ParasiteStatus Parasites { get; set; }
+
+        public void AddParasites(int numberParasites)
+        {
+            Parasites.AddParasites(numberParasites);
         }
 
         #endregion Poison

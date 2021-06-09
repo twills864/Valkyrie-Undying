@@ -69,6 +69,13 @@ namespace Assets.UI.UIElements.EnemyHealthBar
             set => PermanentStatuses.PoisonDamage = value;
         }
 
+        public int ParasiteDamage
+        {
+            get => PermanentStatuses.ParasiteDamage;
+            set => PermanentStatuses.ParasiteDamage = value;
+        }
+
+
         public bool IsVoidPaused
         {
             get => TemporaryStatuses.IsVoidPaused;

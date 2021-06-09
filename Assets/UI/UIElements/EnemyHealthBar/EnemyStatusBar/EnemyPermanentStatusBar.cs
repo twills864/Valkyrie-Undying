@@ -21,6 +21,9 @@ namespace Assets.UI.UIElements.EnemyHealthBar
         [SerializeField]
         private EnemyStatusSprite _Poison = null;
 
+        [SerializeField]
+        private EnemyStatusSprite _Parasite = null;
+
         //[SerializeField]
         //private EnemyStatusSprite _Chilled = null;
 
@@ -35,6 +38,9 @@ namespace Assets.UI.UIElements.EnemyHealthBar
         // Constant DoT
         private EnemyStatusSprite Poison => _Poison;
 
+        // Stacking constant DoT
+        private EnemyStatusSprite Parasite => _Parasite;
+
         //// Time scale down
         //private EnemyStatusSprite Chilled => _Chilled;
 
@@ -42,6 +48,7 @@ namespace Assets.UI.UIElements.EnemyHealthBar
 
         protected override List<EnemyStatusSprite> InitialStatusSprites() => new List<EnemyStatusSprite>()
         {
+            Parasite,
             Burning,
             Poison,
         };
@@ -49,8 +56,7 @@ namespace Assets.UI.UIElements.EnemyHealthBar
 
         protected override void OnEnemyStatusBarInit()
         {
-            Burning.Init();
-            Poison.Init();
+            SpriteManager.Init();
         }
 
         protected override void OnEnemyStatusBarSpawn()
@@ -76,6 +82,12 @@ namespace Assets.UI.UIElements.EnemyHealthBar
         {
             get => Poison.Value;
             set => SetAndRecalculate(Poison, value);
+        }
+
+        public int ParasiteDamage
+        {
+            get => Parasite.Value;
+            set => SetAndRecalculate(Parasite, value);
         }
     }
 }

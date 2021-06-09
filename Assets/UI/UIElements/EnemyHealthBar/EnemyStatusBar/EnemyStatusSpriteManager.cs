@@ -29,6 +29,12 @@ namespace Assets.UI.UIElements.EnemyHealthBar
                 sprite.Init();
         }
 
+        public void Init()
+        {
+            foreach (var sprite in Sprites)
+                sprite.Init();
+        }
+
         public void OnSpawn()
         {
             ActiveSprites.Clear();

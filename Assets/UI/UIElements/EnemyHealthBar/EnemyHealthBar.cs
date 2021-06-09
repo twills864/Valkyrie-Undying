@@ -83,6 +83,11 @@ namespace Assets.UI
             StatusBarHolder.PoisonDamage = status.Damage;
         }
 
+        public void AddParasites(ParasiteStatus status)
+        {
+            StatusBarHolder.ParasiteDamage = status.Damage;
+        }
+
         public static void StaticInit()
         {
             var healthBar = PoolManager.Instance.UIElementPool.Get<EnemyHealthBar>();

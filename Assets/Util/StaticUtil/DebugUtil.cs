@@ -115,8 +115,8 @@ namespace Assets.Util
         {
             if (SpaceUtil.TryGetEnemyUnderMouse(out Enemy enemy))
             {
-                enemy.Ignite(1, 1, 3);
-                //enemy.AddPoison(4);
+                enemy.AddParasites(1);
+                //enemy.Ignite(1, 1, 3);
             }
         }
 
@@ -129,7 +129,6 @@ namespace Assets.Util
         {
             if (SpaceUtil.TryGetEnemyUnderMouse(out Enemy enemy))
             {
-                //enemy.Ignite(1, 1, 3);
                 enemy.AddPoison(4);
             }
         }
