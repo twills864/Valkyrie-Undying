@@ -10,19 +10,21 @@ namespace Assets.UI.UIElements.EnemyHealthBar
 {
     public class EnemyStatusSpriteManager
     {
+        private const float WorkingSpriteHeight = 0.35f;
+        private const float VerticalMargin = 0.15f;
+
         private List<EnemyStatusSprite> Sprites { get; set; }
         private List<EnemyStatusSprite> ActiveSprites { get; set; }
 
         public Vector3 Position { get; set; }
 
-        private float VerticalMargin { get; set; }
+
 
         public EnemyStatusSpriteManager(List<EnemyStatusSprite> sprites)
         {
             Sprites = sprites;
             ActiveSprites = new List<EnemyStatusSprite>(sprites.Count);
 
-            VerticalMargin = sprites.First().VerticalMargin;
             Position = Vector3.zero;
 
             foreach (var sprite in Sprites)
@@ -47,7 +49,8 @@ namespace Assets.UI.UIElements.EnemyHealthBar
         {
             RecalculateActiveSprites();
 
-            float totalHeight = (ActiveSprites.Count - 1) * ActiveSprites[0].Height;
+
+            float totalHeight = (ActiveSprites.Count - 1) * WorkingSpriteHeight;
             float totalMargin = (ActiveSprites.Count - 1) * VerticalMargin;
 
             float offsetY = (totalHeight + totalMargin) * 0.5f;
@@ -55,7 +58,7 @@ namespace Assets.UI.UIElements.EnemyHealthBar
             foreach(var sprite in ActiveSprites)
             {
                 sprite.LocalPositionY = offsetY; // + (sprite.Height * 0.5f);
-                offsetY -= (sprite.Height + VerticalMargin);
+                offsetY -= (WorkingSpriteHeight + VerticalMargin);
             }
         }
 

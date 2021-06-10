@@ -11,6 +11,10 @@ All enemy sprites
 Original graphics by Kenney Vleugels (CC0): https://www.kenney.nl/assets/space-shooter-redux
 Arrangement provided by Wisedawn (CC0): https://opengameart.org/content/200-cc0-spaceship-sprites (https://wisedawn.itch.io/)
 
+STATUS SPRITES:
+Burning: Sbed (CC BY 3.0) (http://opengameart.org/content/95-game-icons) (https://game-icons.net/)
+Poisoned: Sbed (CC BY 3.0) (http://opengameart.org/content/95-game-icons) (https://game-icons.net/)
+Void Paused: Guard13007 (CC BY 3.0) (https://guard13007.com) (https://game-icons.net/)
 
 SOUND EFFECTS:
 512 Sound Effects (8-bit style) (CC0) by SubspaceAudio: https://opengameart.org/content/512-sound-effects-8-bit-style

@@ -30,9 +30,6 @@ namespace Assets.UI.UIElements.EnemyHealthBar
         private float _TextOffset = GameConstants.PrefabNumber;
 
         [SerializeField]
-        private float _VerticalMargin = GameConstants.PrefabNumber;
-
-        [SerializeField]
         private bool _LeftAligned = false;
 
         [SerializeField]
@@ -47,7 +44,6 @@ namespace Assets.UI.UIElements.EnemyHealthBar
         private TextMesh TextMesh => _TextMesh;
         private MeshRenderer TextMeshRenderer => _TextMeshRenderer;
         public float TextOffset => _TextOffset;
-        public float VerticalMargin => _VerticalMargin;
         private bool LeftAligned => _LeftAligned;
         private bool HideValue => _HideValue;
 

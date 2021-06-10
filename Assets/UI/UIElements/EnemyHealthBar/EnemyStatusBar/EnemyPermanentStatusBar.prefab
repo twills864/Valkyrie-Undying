@@ -246,6 +246,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9112790104933393519, guid: d3f2fb97caacafc42b02945832f6add0,
         type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 891025da7d4c9aa44a8358c1031fbde5,
+        type: 3}
+    - target: {fileID: 9112790104933393519, guid: d3f2fb97caacafc42b02945832f6add0,
+        type: 3}
       propertyPath: m_Color.b
       value: 0
       objectReference: {fileID: 0}
@@ -351,6 +357,12 @@ PrefabInstance:
       propertyPath: _LeftAligned
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 9112790104933393519, guid: d3f2fb97caacafc42b02945832f6add0,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 9f26d29e62f60a84096850793a0eab8e,
+        type: 3}
     - target: {fileID: 9112790104933393519, guid: d3f2fb97caacafc42b02945832f6add0,
         type: 3}
       propertyPath: m_Color.b
