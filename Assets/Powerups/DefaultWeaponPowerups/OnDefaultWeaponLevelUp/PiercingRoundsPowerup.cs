@@ -5,6 +5,7 @@ using Assets.Constants;
 using Assets.Enemies;
 using Assets.ObjectPooling;
 using Assets.Powerups.Balance;
+using Assets.UI.SpriteBank;
 using Assets.Util;
 using UnityEngine;
 
@@ -20,6 +21,7 @@ namespace Assets.Powerups
     public class PiercingRoundsPowerup : OnDefaultWeaponLevelUpPowerup
     {
         public override int MaxLevel => 1;
+        protected override Sprite GetPowerupSprite(PowerupSpriteBank bank) => bank.PiercingRounds;
 
         protected override void InitBalance(in PowerupBalanceManager.OnDefaultWeaponLevelUpBalance balance)
         {

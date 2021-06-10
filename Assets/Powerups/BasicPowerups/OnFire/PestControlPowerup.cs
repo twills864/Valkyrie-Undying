@@ -3,6 +3,7 @@ using Assets.Bullets.PlayerBullets;
 using Assets.Enemies;
 using Assets.ObjectPooling;
 using Assets.Powerups.Balance;
+using Assets.UI.SpriteBank;
 using Assets.Util;
 using UnityEngine;
 
@@ -16,6 +17,8 @@ namespace Assets.Powerups
     /// <inheritdoc/>
     public class PestControlPowerup : OnFirePowerup
     {
+        protected override Sprite GetPowerupSprite(PowerupSpriteBank bank) => bank.PestControl;
+
         private float BulletDamageBalanceBase { get; set; }
 
         protected override void InitBalance(in PowerupBalanceManager.OnFireBalance balance)

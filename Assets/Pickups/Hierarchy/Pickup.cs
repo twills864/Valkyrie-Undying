@@ -21,14 +21,19 @@ namespace Assets.Pickups
         [SerializeField]
         private SpriteRenderer _Sprite = null;
 
+        [SerializeField]
+        private PickupSpriteHolder _PickupSpriteHolder = null;
+
         #endregion Prefabs
 
 
         #region Prefab Properties
 
         private SpriteRenderer Sprite => _Sprite;
+        private PickupSpriteHolder PickupSpriteHolder => _PickupSpriteHolder;
 
         #endregion Prefab Properties
+
 
         #region Prefab Substitutes
 
@@ -40,6 +45,13 @@ namespace Assets.Pickups
         protected override ColorHandler DefaultColorHandler()
             => new SpriteColorHandler(Sprite);
 
+        public virtual Sprite InitialPickupSprite => SpriteBank.Empty;
+        protected Sprite PickupSprite
+        {
+            get => PickupSpriteHolder.Sprite;
+            set => PickupSpriteHolder.Sprite = value;
+        }
+
         public Vector2 Size { get; private set; }
         private bool HasBeenPickedUp { get; set; }
 
@@ -50,6 +62,9 @@ namespace Assets.Pickups
 
             var renderer = GetComponent<Renderer>();
             Size = renderer.bounds.size;
+
+            if(!IsOriginalPrefab)
+                PickupSpriteHolder?.Init(this, InitialPickupSprite);
 
             OnPickupInit();
         }

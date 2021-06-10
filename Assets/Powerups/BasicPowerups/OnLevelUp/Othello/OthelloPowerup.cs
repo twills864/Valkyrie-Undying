@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Assets.Powerups.Balance;
+using Assets.UI.SpriteBank;
 using Assets.Util;
+using UnityEngine;
 
 namespace Assets.Powerups
 {
@@ -15,6 +17,10 @@ namespace Assets.Powerups
     public class OthelloPowerup : OnLevelUpPowerup
     {
         public override int MaxLevel => 2;
+        protected override Sprite GetPowerupSprite(PowerupSpriteBank bank) => bank.Othello;
+
+        public int Damage => (int)DamageCalculator.Value;
+        private SumLevelValueCalculator DamageCalculator { get; set; }
 
         protected override void InitBalance(in PowerupBalanceManager.OnLevelUpBalance balance)
         {
@@ -23,8 +29,6 @@ namespace Assets.Powerups
             DamageCalculator = new SumLevelValueCalculator(damageBase, damageIncrease);
         }
 
-        public int Damage => (int)DamageCalculator.Value;
-        private SumLevelValueCalculator DamageCalculator { get; set; }
 
         public override void OnLevelUp()
         {

@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 using Assets.Bullets.PlayerBullets;
 using Assets.Enemies;
 using Assets.Powerups.Balance;
+using Assets.UI.SpriteBank;
 using Assets.Util;
+using UnityEngine;
 
 namespace Assets.Powerups
 {
@@ -17,6 +19,13 @@ namespace Assets.Powerups
     public class BloodlustPowerup : OnKillPowerup
     {
         public override int MaxLevel => 2;
+        protected override Sprite GetPowerupSprite(PowerupSpriteBank bank) => bank.Bloodlust;
+
+        private float Duration => DurationCalculator.Value;
+        private SumLevelValueCalculator DurationCalculator { get; set; }
+
+        private float SpeedScale => SpeedScaleLevel.Value;
+        private SumLevelValueCalculator SpeedScaleLevel { get; set; }
 
         protected override void InitBalance(in PowerupBalanceManager.OnKillBalance balance)
         {
@@ -28,12 +37,6 @@ namespace Assets.Powerups
             float speedScaleIncrease = balance.Bloodlust.SpeedScale.Increase;
             SpeedScaleLevel = new SumLevelValueCalculator(baseSpeedScale, speedScaleIncrease);
         }
-
-        private float Duration => DurationCalculator.Value;
-        private SumLevelValueCalculator DurationCalculator { get; set; }
-
-        private float SpeedScale => SpeedScaleLevel.Value;
-        private SumLevelValueCalculator SpeedScaleLevel { get; set; }
 
         private bool ResetFireStrategy => Level > 1;
 

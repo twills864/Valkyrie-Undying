@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Assets.Powerups.Balance;
+using Assets.UI.SpriteBank;
 using Assets.Util;
+using UnityEngine;
 
 namespace Assets.Powerups
 {
@@ -14,6 +16,13 @@ namespace Assets.Powerups
     /// <inheritdoc/>
     public class SentinelPowerup : OnLevelUpPowerup
     {
+        protected override Sprite GetPowerupSprite(PowerupSpriteBank bank) => bank.Sentinel;
+
+        public float RespawnInterval => RespawnIntervalCalculator.Value;
+        private ProductLevelValueCalculator RespawnIntervalCalculator { get; set; }
+
+        public float Radius { get; set; }
+
         protected override void InitBalance(in PowerupBalanceManager.OnLevelUpBalance balance)
         {
             float respawnIntervalBase = balance.Sentinel.RespawnInterval.Base;
@@ -27,10 +36,6 @@ namespace Assets.Powerups
             //DistanceCalculator = new AsymptoteScaleLevelValueCalculator(worldDistanceExponentBase, worldDistanceMaxValue);
         }
 
-        public float RespawnInterval => RespawnIntervalCalculator.Value;
-        private ProductLevelValueCalculator RespawnIntervalCalculator { get; set; }
-
-        public float Radius { get; set; }
         //private AsymptoteScaleLevelValueCalculator DistanceCalculator { get; set; }
 
         public override void OnLevelUp()

@@ -16,6 +16,31 @@ Burning: Sbed (CC BY 3.0) (http://opengameart.org/content/95-game-icons) (https:
 Poisoned: Sbed (CC BY 3.0) (http://opengameart.org/content/95-game-icons) (https://game-icons.net/)
 Void Paused: Guard13007 (CC BY 3.0) (https://guard13007.com) (https://game-icons.net/)
 
+POWERUP SPRITES:
+Augmented Rounds: Lorc (CC BY 3.0) (http://lorcblog.blogspot.com) (https://game-icons.net/)
+Bloodlust: Skoll (CC BY 3.0) (https://game-icons.net/)
+Collective Punishment: Lorc (CC BY 3.0) (http://lorcblog.blogspot.com) (https://game-icons.net/)
+Fire Speed: Delapouite (CC BY 3.0) (https://delapouite.com) (https://game-icons.net/)
+Inferno: Lorc (CC BY 3.0) (http://lorcblog.blogspot.com) (https://game-icons.net/)
+Jettison: Delapouite (CC BY 3.0) (https://delapouite.com) (https://game-icons.net/)
+Monsoon: Lorc (CC BY 3.0) (http://lorcblog.blogspot.com) (https://game-icons.net/)
+Mortar: Delapouite (CC BY 3.0) (https://delapouite.com) (https://game-icons.net/)
+One-Up: Zeromancer (CC0 PDD) (https://game-icons.net/)
+Parapet: Lorc (CC BY 3.0) (http://lorcblog.blogspot.com) (https://game-icons.net/)
+Pest Control: Lorc (CC BY 3.0) (http://lorcblog.blogspot.com) (https://game-icons.net/)
+Piercing Rounds: Delapouite (CC BY 3.0) (https://delapouite.com) (https://game-icons.net/)
+Othello: Lorc (CC BY 3.0) (http://lorcblog.blogspot.com) (https://game-icons.net/)
+Rebound: Lorc (CC BY 3.0) (http://lorcblog.blogspot.com) (https://game-icons.net/)
+Sentinel: Delapouite (CC BY 3.0) (https://delapouite.com) (https://game-icons.net/)
+Shrapnel: Delapouite (CC BY 3.0) (https://delapouite.com) (https://game-icons.net/)
+Smite: Lorc (CC BY 3.0) (http://lorcblog.blogspot.com) (https://game-icons.net/)
+Snake Bite: Delapouite (CC BY 3.0) (https://delapouite.com) (https://game-icons.net/)
+Splinter: Lorc (CC BY 3.0) (http://lorcblog.blogspot.com) (https://game-icons.net/)
+Split: Delapouite (CC BY 3.0) (https://delapouite.com) (https://game-icons.net/)
+Victim: Delapouite (CC BY 3.0) (https://delapouite.com) (https://game-icons.net/)
+Void: Lorc (CC BY 3.0) (http://lorcblog.blogspot.com) (https://game-icons.net/)
+
+
 SOUND EFFECTS:
 512 Sound Effects (8-bit style) (CC0) by SubspaceAudio: https://opengameart.org/content/512-sound-effects-8-bit-style
 Die for the Empire Sound Effects (lasers, bombs, explosions, bullets) (CC-BY-SA 3.0) by TheBlackSword: https://opengameart.org/content/die-for-the-empire-sound-effects-lasers-bombs-explosions-bullets

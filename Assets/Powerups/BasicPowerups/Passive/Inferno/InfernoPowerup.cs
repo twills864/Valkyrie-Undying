@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 using Assets.Bullets.PlayerBullets;
 using Assets.ObjectPooling;
 using Assets.Powerups.Balance;
+using Assets.UI.SpriteBank;
 using Assets.Util;
+using UnityEngine;
 
 namespace Assets.Powerups
 {
@@ -17,6 +19,19 @@ namespace Assets.Powerups
     public class InfernoPowerup : PassivePowerup
     {
         public override int MaxLevel => 2;
+        protected override Sprite GetPowerupSprite(PowerupSpriteBank bank) => bank.Inferno;
+
+        public float FireSpeed => FireSpeedCalculator.Value;
+        private ProductLevelValueCalculator FireSpeedCalculator { get; set; }
+
+        public int DamageIncrease => (int) DamageCalculator.Value;
+        private SumLevelValueCalculator DamageCalculator { get; set; }
+
+        public int MaxDamage => (int)MaxDamageCalculator.Value;
+        private SumLevelValueCalculator MaxDamageCalculator { get; set; }
+
+        private LoopingFrameTimer FireTimer { get; } = LoopingFrameTimer.Default();
+        private ObjectPool<PlayerBullet> InfernoPool { get; set; }
 
         protected override void InitBalance(in PowerupBalanceManager.PassiveBalance balance)
         {
@@ -32,18 +47,6 @@ namespace Assets.Powerups
             float fireSpeedIncrease = balance.Inferno.FireSpeed.ScalePerLevel;
             FireSpeedCalculator = new ProductLevelValueCalculator(fireSpeedBase, fireSpeedIncrease);
         }
-
-        public float FireSpeed => FireSpeedCalculator.Value;
-        private ProductLevelValueCalculator FireSpeedCalculator { get; set; }
-
-        public int DamageIncrease => (int) DamageCalculator.Value;
-        private SumLevelValueCalculator DamageCalculator { get; set; }
-
-        public int MaxDamage => (int)MaxDamageCalculator.Value;
-        private SumLevelValueCalculator MaxDamageCalculator { get; set; }
-
-        private LoopingFrameTimer FireTimer { get; } = LoopingFrameTimer.Default();
-        private ObjectPool<PlayerBullet> InfernoPool { get; set; }
 
         public InfernoPowerup()
         {

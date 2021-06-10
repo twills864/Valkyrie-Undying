@@ -7,6 +7,7 @@ using Assets.Bullets.PlayerBullets;
 using Assets.Enemies;
 using Assets.ObjectPooling;
 using Assets.Powerups.Balance;
+using Assets.UI.SpriteBank;
 using Assets.Util;
 using UnityEngine;
 
@@ -20,6 +21,9 @@ namespace Assets.Powerups
     public class MetronomePowerup : OnHitPowerup
     {
         public const string MetronomeObsolete = "Metronome powerup has been suspended indefinitely.";
+
+        protected override Sprite GetPowerupSprite(PowerupSpriteBank bank) => SpriteBank.Empty;
+
         protected override void InitBalance(in PowerupBalanceManager.OnHitBalance balance)
         {
             //float exponentBase = balance.Metronome.Damage.ExponentBase;

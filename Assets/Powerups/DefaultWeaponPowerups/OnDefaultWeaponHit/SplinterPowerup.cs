@@ -5,6 +5,7 @@ using Assets.Constants;
 using Assets.Enemies;
 using Assets.ObjectPooling;
 using Assets.Powerups.Balance;
+using Assets.UI.SpriteBank;
 using Assets.Util;
 using UnityEngine;
 
@@ -20,6 +21,7 @@ namespace Assets.Powerups
     public class SplinterPowerup : OnDefaultWeaponHitPowerup
     {
         public override int MaxLevel => 2;
+        protected override Sprite GetPowerupSprite(PowerupSpriteBank bank) => bank.Splinter;
 
         private static Vector2 SpeedLeft { get; set; }
         private static Vector2 SpeedRight => VectorUtil.ScaleX2(SpeedLeft, -1f);

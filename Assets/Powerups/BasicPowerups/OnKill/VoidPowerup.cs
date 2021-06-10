@@ -7,7 +7,9 @@ using Assets.Bullets.PlayerBullets;
 using Assets.Enemies;
 using Assets.ObjectPooling;
 using Assets.Powerups.Balance;
+using Assets.UI.SpriteBank;
 using Assets.Util;
+using UnityEngine;
 
 namespace Assets.Powerups
 {
@@ -18,6 +20,13 @@ namespace Assets.Powerups
     public class VoidPowerup : OnKillPowerup
     {
         public override int MaxLevel => 2;
+        protected override Sprite GetPowerupSprite(PowerupSpriteBank bank) => bank.Void;
+
+        private float Duration => DurationCalculator.Value;
+        private SumLevelValueCalculator DurationCalculator { get; set; }
+
+        private float SizeScale => SizeScaleLevel.Value;
+        private SumLevelValueCalculator SizeScaleLevel { get; set; }
 
         protected override void InitBalance(in PowerupBalanceManager.OnKillBalance balance)
         {
@@ -29,12 +38,6 @@ namespace Assets.Powerups
             float sizeScaleIncrease = balance.Void.SizeScale.Increase;
             SizeScaleLevel = new SumLevelValueCalculator(sizeScaleBase, sizeScaleIncrease);
         }
-
-        private float Duration => DurationCalculator.Value;
-        private SumLevelValueCalculator DurationCalculator { get; set; }
-
-        private float SizeScale => SizeScaleLevel.Value;
-        private SumLevelValueCalculator SizeScaleLevel { get; set; }
 
         public override void OnLevelUp()
         {

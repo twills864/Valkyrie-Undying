@@ -7,6 +7,7 @@ using Assets.Bullets.PlayerBullets;
 using Assets.Enemies;
 using Assets.ObjectPooling;
 using Assets.Powerups.Balance;
+using Assets.UI.SpriteBank;
 using Assets.Util;
 using UnityEngine;
 
@@ -18,17 +19,17 @@ namespace Assets.Powerups
     /// <inheritdoc/>
     public class ShrapnelPowerup : OnHitPowerup
     {
+        protected override Sprite GetPowerupSprite(PowerupSpriteBank bank) => bank.Mortar;
+
+        private float ShrapnelChance => ShrapnelChanceCalculator.Value;
+        private SumLevelValueCalculator ShrapnelChanceCalculator { get; set; }
+
         protected override void InitBalance(in PowerupBalanceManager.OnHitBalance balance)
         {
             float shrapnelChanceBase = balance.Shrapnel.SpawnChance.Base;
             float shrapnelIncrease = balance.Shrapnel.SpawnChance.Increase;
             ShrapnelChanceCalculator = new SumLevelValueCalculator(shrapnelChanceBase, shrapnelIncrease);
         }
-
-        private float ShrapnelChance => ShrapnelChanceCalculator.Value;
-        private SumLevelValueCalculator ShrapnelChanceCalculator { get; set; }
-
-        //public float MaxY { get; set; }
 
         public override void OnHit(Enemy enemy, PlayerBullet bullet, Vector3 hitPosition)
         {

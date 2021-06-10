@@ -5,6 +5,7 @@ using Assets.Constants;
 using Assets.Enemies;
 using Assets.ObjectPooling;
 using Assets.Powerups.Balance;
+using Assets.UI.SpriteBank;
 using Assets.Util;
 using UnityEngine;
 
@@ -17,6 +18,7 @@ namespace Assets.Powerups
     public class AugmentedRoundsPowerup : OnDefaultWeaponLevelUpPowerup
     {
         public override int MaxLevel => 1;
+        protected override Sprite GetPowerupSprite(PowerupSpriteBank bank) => bank.AugmentedRounds;
 
         public float SizeScaleIncrease => SizeIncreaseCalculator.Value;
         private SumLevelValueCalculator SizeIncreaseCalculator { get; set; }

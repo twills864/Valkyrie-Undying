@@ -8,6 +8,7 @@ using Assets.Enemies;
 using Assets.ObjectPooling;
 using Assets.Powerups.Balance;
 using Assets.UI;
+using Assets.UI.SpriteBank;
 using Assets.Util;
 using UnityEngine;
 
@@ -19,6 +20,14 @@ namespace Assets.Powerups
     /// <inheritdoc/>
     public class VictimPowerup : PassivePowerup
     {
+        protected override Sprite GetPowerupSprite(PowerupSpriteBank bank) => bank.Victim;
+
+        public float FireTime => FireTimeCalculator.Value;
+        private ProductLevelValueCalculator FireTimeCalculator { get; set; }
+
+        public int Damage => (int)DamageCalculator.Value;
+        private SumLevelValueCalculator DamageCalculator { get; set; }
+
         protected override void InitBalance(in PowerupBalanceManager.PassiveBalance balance)
         {
             float fireSpeedBase = balance.Victim.FireSpeed.Base;
@@ -31,12 +40,6 @@ namespace Assets.Powerups
 
             TouchRadius = balance.Victim.TouchRadius;
         }
-
-        public float FireTime => FireTimeCalculator.Value;
-        private ProductLevelValueCalculator FireTimeCalculator { get; set; }
-
-        public int Damage => (int)DamageCalculator.Value;
-        private SumLevelValueCalculator DamageCalculator { get; set; }
 
         private LoopingFrameTimer FireTimer { get; } = LoopingFrameTimer.Default();
 

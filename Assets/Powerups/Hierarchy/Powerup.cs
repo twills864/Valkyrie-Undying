@@ -5,7 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Assets.ObjectPooling;
 using Assets.Powerups.Balance;
+using Assets.UI.SpriteBank;
 using Assets.Util;
+using UnityEngine;
 
 namespace Assets.Powerups
 {
@@ -58,6 +60,9 @@ namespace Assets.Powerups
         /// Some powerups may need a hard upper limit.
         /// </summary>
         public virtual int MaxLevel => int.MaxValue;
+
+        protected abstract Sprite GetPowerupSprite(PowerupSpriteBank bank);
+        public Sprite PowerupSprite => GetPowerupSprite(SpriteBank.Powerups);
 
         /// <summary>
         /// The level achieved by the player, plus the number of pickups

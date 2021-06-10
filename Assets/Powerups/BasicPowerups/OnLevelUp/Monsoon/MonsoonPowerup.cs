@@ -4,8 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Assets.Powerups.Balance;
+using Assets.UI.SpriteBank;
 using Assets.UnityPrefabStructs;
 using Assets.Util;
+using UnityEngine;
 
 namespace Assets.Powerups
 {
@@ -15,6 +17,16 @@ namespace Assets.Powerups
     /// <inheritdoc/>
     public class MonsoonPowerup : OnLevelUpPowerup
     {
+        protected override Sprite GetPowerupSprite(PowerupSpriteBank bank) => bank.Monsoon;
+
+        private VariantFireSpeed FireSpeed => new VariantFireSpeed(FireSpeedCalculator.Value, VarianceCalculator.Value);
+
+        private ProductLevelValueCalculator FireSpeedCalculator { get; set; }
+        private ProductLevelValueCalculator VarianceCalculator { get; set; }
+
+        public int Damage => (int) DamageCalculator.Value;
+        private SumLevelValueCalculator DamageCalculator { get; set; }
+
         protected override void InitBalance(in PowerupBalanceManager.OnLevelUpBalance balance)
         {
             float fireSpeedIncrease = balance.Monsoon.VariantFireSpeed.Increase;
@@ -29,14 +41,6 @@ namespace Assets.Powerups
             float damageIncrease = balance.Monsoon.Damage.IncreasePerLevel;
             DamageCalculator = new SumLevelValueCalculator(damageBase, damageIncrease);
         }
-
-        private VariantFireSpeed FireSpeed => new VariantFireSpeed(FireSpeedCalculator.Value, VarianceCalculator.Value);
-
-        private ProductLevelValueCalculator FireSpeedCalculator { get; set; }
-        private ProductLevelValueCalculator VarianceCalculator { get; set; }
-
-        public int Damage => (int) DamageCalculator.Value;
-        private SumLevelValueCalculator DamageCalculator { get; set; }
 
         public override void OnLevelUp()
         {

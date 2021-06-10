@@ -6,6 +6,7 @@ using Assets.Enemies;
 using Assets.ObjectPooling;
 using Assets.Powerups.Balance;
 using Assets.UI;
+using Assets.UI.SpriteBank;
 using Assets.Util;
 using UnityEngine;
 
@@ -17,6 +18,8 @@ namespace Assets.Powerups
     /// <inheritdoc/>
     public class MortarPowerup : OnFirePowerup
     {
+        protected override Sprite GetPowerupSprite(PowerupSpriteBank bank) => bank.Mortar;
+
         private float PowerValue => PowerCalculator.Value;
         private SumLevelValueCalculator PowerCalculator { get; set; }
 

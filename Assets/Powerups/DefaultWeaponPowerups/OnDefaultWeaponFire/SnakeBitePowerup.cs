@@ -1,6 +1,7 @@
 using Assets.Bullets.PlayerBullets;
 using Assets.FireStrategies.PlayerFireStrategies;
 using Assets.Powerups.Balance;
+using Assets.UI.SpriteBank;
 using Assets.Util;
 using UnityEngine;
 
@@ -14,6 +15,7 @@ namespace Assets.Powerups
     public class SnakeBitePowerup : OnDefaultWeaponFirePowerup
     {
         public override int MaxLevel => 1;
+        protected override Sprite GetPowerupSprite(PowerupSpriteBank bank) => bank.SnakeBite;
 
         private int PoisonDamage { get; set; }
         public float FireSpeedRatio { get; private set; }

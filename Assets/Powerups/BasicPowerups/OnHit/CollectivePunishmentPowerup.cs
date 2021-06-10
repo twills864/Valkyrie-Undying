@@ -5,6 +5,7 @@ using Assets.Constants;
 using Assets.Enemies;
 using Assets.ObjectPooling;
 using Assets.Powerups.Balance;
+using Assets.UI.SpriteBank;
 using Assets.Util;
 using UnityEngine;
 
@@ -16,6 +17,8 @@ namespace Assets.Powerups
     /// <inheritdoc/>
     public class CollectivePunishmentPowerup : OnHitPowerup
     {
+        protected override Sprite GetPowerupSprite(PowerupSpriteBank bank) => bank.CollectivePunishment;
+
         private float PowerValue => PowerCalculator.Value;
         private SumLevelValueCalculator PowerCalculator { get; set; }
 

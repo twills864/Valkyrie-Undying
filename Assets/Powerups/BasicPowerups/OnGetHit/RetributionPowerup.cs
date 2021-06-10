@@ -7,7 +7,9 @@ using Assets.Bullets.PlayerBullets;
 using Assets.Enemies;
 using Assets.ObjectPooling;
 using Assets.Powerups.Balance;
+using Assets.UI.SpriteBank;
 using Assets.Util;
+using UnityEngine;
 
 namespace Assets.Powerups
 {
@@ -18,6 +20,8 @@ namespace Assets.Powerups
     [Obsolete(ObsoleteMessage)]
     public class RetributionPowerup : OnGetHitPowerup
     {
+        protected override Sprite GetPowerupSprite(PowerupSpriteBank bank) => SpriteBank.Empty;
+
         public const string ObsoleteMessage = "Retribution has become a permanent feature.";
         protected override void InitBalance(in PowerupBalanceManager.OnGetHitBalance balance)
         {
