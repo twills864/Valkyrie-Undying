@@ -29,9 +29,15 @@ namespace Assets.Pickups
         protected override void OnEnemyLootPickupSpawn()
         {
             if (!TargetPowerup.IsDefaultWeaponPowerup)
+            {
                 SpriteColor = InitialSpriteColor;
+                PickupSpriteColor = InitialSpriteColor;
+            }
             else
+            {
                 SpriteColor = DefaultWeaponSpriteColor;
+                PickupSpriteColor = DefaultWeaponSpriteColor;
+            }
 
             PickupSprite = TargetPowerup.PowerupSprite;
         }

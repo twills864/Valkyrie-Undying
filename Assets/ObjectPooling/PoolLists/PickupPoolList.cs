@@ -37,7 +37,9 @@ namespace Assets.ObjectPooling
         protected override void OnInitSprites(in ColorManager colorManager)
         {
             WeaponPrefab.SpriteColor = colorManager.Pickup.Weapon;
+
             WeaponLevelPrefab.SpriteColor = colorManager.Pickup.WeaponLevel;
+
             OneUpPrefab.SpriteColor = colorManager.Pickup.OneUp;
 
             PowerupPrefab.SpriteColor = colorManager.Pickup.Powerup;

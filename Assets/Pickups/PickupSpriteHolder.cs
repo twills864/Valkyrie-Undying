@@ -61,6 +61,7 @@ namespace Assets.Pickups
         protected override void OnInit()
         {
             RecalculateSpriteScale();
+            SpriteColor = Parent.SpriteColor;
         }
 
         private void RecalculateSpriteScale()

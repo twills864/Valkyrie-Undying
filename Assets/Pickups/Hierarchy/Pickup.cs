@@ -51,6 +51,12 @@ namespace Assets.Pickups
             get => PickupSpriteHolder.Sprite;
             set => PickupSpriteHolder.Sprite = value;
         }
+        public Color PickupSpriteColor
+        {
+            get => PickupSpriteHolder.SpriteColor;
+            set => PickupSpriteHolder.SpriteColor = value;
+        }
+
 
         public Vector2 Size { get; private set; }
         private bool HasBeenPickedUp { get; set; }
