@@ -62,6 +62,11 @@ namespace Assets.UI.SpriteBank
         public Sprite Othello { get; private set; }
 
         /// <summary>
+        /// mite
+        /// </summary>
+        public Sprite InfestedRounds { get; private set; }
+
+        /// <summary>
         /// mortar
         /// </summary>
         public Sprite Mortar { get; private set; }
@@ -133,6 +138,7 @@ namespace Assets.UI.SpriteBank
             Monsoon = LoadSprite("heavy-rain");
             Smite = LoadSprite("lightning-dissipation");
             Othello = LoadSprite("mirror-mirror");
+            InfestedRounds = LoadSprite("mite");
             Mortar = LoadSprite("mortar");
             Void = LoadSprite("portal");
             FireSpeed = LoadSprite("reload-gun-barrel");

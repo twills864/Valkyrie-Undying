@@ -30,7 +30,7 @@ Wormhole: Lorc (CC BY 3.0) (http://lorcblog.blogspot.com) (https://game-icons.ne
 
 STATUS SPRITES:
 Burning: Sbed (CC BY 3.0) (http://opengameart.org/content/95-game-icons) (https://game-icons.net/)
-Poisoned: Sbed (CC BY 3.0) (http://opengameart.org/content/95-game-icons) (https://game-icons.net/)
+Poisoned: Lorc (CC BY 3.0) (http://lorcblog.blogspot.com) (https://game-icons.net/)
 Void Paused: Guard13007 (CC BY 3.0) (https://guard13007.com) (https://game-icons.net/)
 
 
@@ -41,6 +41,7 @@ Collective Punishment: Lorc (CC BY 3.0) (http://lorcblog.blogspot.com) (https://
 Fire Speed: Delapouite (CC BY 3.0) (https://delapouite.com) (https://game-icons.net/)
 Heavy Weapons Level Up: Delapouite (CC BY 3.0) (https://delapouite.com) (https://game-icons.net/)
 Inferno: Lorc (CC BY 3.0) (http://lorcblog.blogspot.com) (https://game-icons.net/)
+Infested Rounds: Lorc (CC BY 3.0) (http://lorcblog.blogspot.com) (https://game-icons.net/)
 Jettison: Delapouite (CC BY 3.0) (https://delapouite.com) (https://game-icons.net/)
 Monsoon: Lorc (CC BY 3.0) (http://lorcblog.blogspot.com) (https://game-icons.net/)
 Mortar: Delapouite (CC BY 3.0) (https://delapouite.com) (https://game-icons.net/)

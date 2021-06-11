@@ -425,9 +425,6 @@ namespace Assets.Enemies
 
         public void AddPoison(int poisonDamage)
         {
-            if (poisonDamage <= 0)
-                return;
-
             Poisoned.AddPoison(poisonDamage);
         }
 

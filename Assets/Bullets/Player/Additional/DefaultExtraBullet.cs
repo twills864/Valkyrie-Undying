@@ -20,6 +20,9 @@ namespace Assets.Bullets.PlayerBullets
 
         public int DefaultExtraDamage { get; set; }
 
+        public int SnakeBiteDamage { get; set; }
+        public int ParasiteDamage { get; set; }
+
         public static void StaticInit()
         {
             MaxPenetration = 0;
@@ -59,6 +62,8 @@ namespace Assets.Bullets.PlayerBullets
         protected override void OnActivate()
         {
             NumberPenetrated = 0;
+            SnakeBiteDamage = 0;
+            ParasiteDamage = 0;
         }
 
         public override void OnSpawn()
@@ -79,6 +84,12 @@ namespace Assets.Bullets.PlayerBullets
 
         protected override void OnCollideWithEnemy(Enemy enemy, Vector3 hitPosition)
         {
+            if (SnakeBiteDamage > 0)
+                enemy.AddPoison(SnakeBiteDamage);
+
+            if (ParasiteDamage > 0)
+                enemy.AddParasites(ParasiteDamage);
+
             NumberPenetrated++;
         }
 
@@ -93,7 +104,11 @@ namespace Assets.Bullets.PlayerBullets
             DefaultExtraBullet bullet = PoolManager.Instance.BulletPool.Get<DefaultExtraBullet>(hitPosition, velocity);
 
             bullet.ParentEnemy.Target = hitEnemy;
+
             bullet.DefaultExtraDamage = (int) (sourceBullet.Damage * bullet.DamageScale);
+
+            bullet.SnakeBiteDamage = sourceBullet.SnakeBiteDamage / 2;
+            bullet.ParasiteDamage = sourceBullet.ParasiteDamage / 2;
 
             bullet.LocalScale = sizeScaleRatio * sourceBullet.LocalScale;
 

@@ -5260,6 +5260,10 @@ MonoBehaviour:
         Angle: 11.25
         PoisonDamage: 5
         FireSpeedRatio: 1.5
+      InfestedRounds:
+        NumParasites:
+          Base: 2
+          Increase: 3
     OnDefaultWeaponHit:
       Rebound:
         AngleInDegrees: 45
@@ -5279,11 +5283,11 @@ MonoBehaviour:
           Base: 0.25
           Increase: 0.25
         Speed:
-          Base: 1
-          Increase: 1
+          Base: 0.5
+          Increase: 0.5
         Particles:
-          Base: 1
-          Increase: 2
+          Base: 0.75
+          Increase: 0.75
   _DirectorBalance:
     Difficuly:
       InitialDifficultyRatio: 0

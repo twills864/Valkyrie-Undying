@@ -163,7 +163,8 @@ namespace Assets.Util
 
             SmiteBullet.DebugTestSmite();
 
-            PickupSpam();
+            RainCurrentPowerup();
+            //PickupSpam();
 
             //TestRetribution();
         }
@@ -362,6 +363,13 @@ namespace Assets.Util
                 const float ArbitraryDefaultWeaponOverrideChance = 0.25f;
                 pool.GetRandomPowerup(spawnPos, ArbitraryDefaultWeaponOverrideChance).OnSpawn();
             }
+        }
+
+        private static void RainCurrentPowerup()
+        {
+            Vector3 mousePos = SpaceUtil.WorldPositionUnderMouse();
+            Powerup powerup = DebugUi.PowerupRow.Powerup;
+            PoolManager.Instance.PickupPool.GetSpecificPowerup(mousePos, powerup).OnSpawn();
         }
 
         private static void TestRetribution()

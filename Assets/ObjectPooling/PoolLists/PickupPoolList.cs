@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Assets.ColorManagers;
 using Assets.Pickups;
@@ -63,17 +64,7 @@ namespace Assets.ObjectPooling
         public PowerupPickup GetRandomPowerup(Vector3 position, float defaultWeaponPowerupOverrideChance)
         {
             var powerup = SelectPowerup(defaultWeaponPowerupOverrideChance);
-            powerup.CheckOut();
-
-            if (powerup.AreAllPowerupsCheckedOut)
-            {
-                if (powerup is BasicPowerup basic)
-                    AssignableBasicPowerups.Remove(basic);
-                else if (powerup is DefaultWeaponPowerup defaultWeapon)
-                    AssignableDefaultWeaponPowerups.Remove(defaultWeapon);
-                else
-                    throw ExceptionUtil.ArgumentException(() => powerup);
-            }
+            CheckPowerupOut(powerup);
 
             var pickup = Get<PowerupPickup>(position);
             pickup.TargetPowerup = powerup;
@@ -94,6 +85,76 @@ namespace Assets.ObjectPooling
                 powerup = RandomUtil.RandomElement(AssignableBasicPowerups);
 
             return powerup;
+        }
+
+        /// <summary>
+        /// Gets a PowerupPickup containing a powerup with a specified type.
+        /// </summary>
+        /// <typeparam name="TPowerup">The type of PowerupPickup to get.</typeparam>
+        /// <param name="position">The world position to spawn the PowerupPickup at.</param>
+        /// <returns>The retrieved PowerupPickup.</returns>
+        public PowerupPickup GetSpecificPowerup<TPowerup>(Vector3 position) where TPowerup : Powerup
+        {
+            return GetSpecificPowerup(position, typeof(TPowerup));
+        }
+
+        /// <summary>
+        /// Gets a PowerupPickup containing a powerup with a specified type.
+        /// </summary>
+        /// <param name="powerupType">The type of PowerupPickup to get.</param>
+        /// <param name="position">The world position to spawn the PowerupPickup at.</param>
+        /// <returns>The retrieved PowerupPickup.</returns>
+        public PowerupPickup GetSpecificPowerup(Vector3 position, Type powerupType)
+        {
+            Powerup powerup;
+
+            if (typeof(BasicPowerup).IsAssignableFrom(powerupType))
+                powerup = AssignableBasicPowerups.Find(m => m.GetType() == powerupType);
+            else
+                powerup = AssignableDefaultWeaponPowerups.Find(m => m.GetType() == powerupType);
+
+            return GetSpecificPowerup(position, powerup);
+        }
+
+        /// <summary>
+        /// Gets a PowerupPickup containing the specified <paramref name="powerup"/>.
+        /// </summary>
+        /// <param name="powerup">The powerup to put in the PowerupPickup.</param>
+        /// <param name="position">The world position to spawn the PowerupPickup at.</param>
+        /// <returns>The retrieved PowerupPickup.</returns>
+        public PowerupPickup GetSpecificPowerup(Vector3 position, Powerup powerup)
+        {
+            if (powerup != null)
+            {
+                CheckPowerupOut(powerup);
+
+                var pickup = Get<PowerupPickup>(position);
+                pickup.TargetPowerup = powerup;
+
+                return pickup;
+            }
+            else
+                return null;
+        }
+
+        /// <summary>
+        /// Checks a given <paramref name="powerup"/> out, and
+        /// removes it from the appropriate assignable powerup list if necessary.
+        /// </summary>
+        /// <param name="powerup">The powerup to check out.</param>
+        private void CheckPowerupOut(Powerup powerup)
+        {
+            powerup.CheckOut();
+
+            if (powerup.AreAllPowerupsCheckedOut)
+            {
+                if (powerup is BasicPowerup basic)
+                    AssignableBasicPowerups.Remove(basic);
+                else if (powerup is DefaultWeaponPowerup defaultWeapon)
+                    AssignableDefaultWeaponPowerups.Remove(defaultWeapon);
+                else
+                    throw ExceptionUtil.ArgumentException(() => powerup);
+            }
         }
 
         /// <summary>

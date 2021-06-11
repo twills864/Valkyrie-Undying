@@ -422,6 +422,7 @@ namespace Assets.Powerups.Balance
         {
             public PlaceholderBalance Placeholder;
             public SnakeBiteBalance SnakeBite;
+            public InfestedRoundsBalance InfestedRounds;
 
             [Serializable]
             public struct PlaceholderBalance
@@ -435,6 +436,19 @@ namespace Assets.Powerups.Balance
                 public float Angle;
                 public int PoisonDamage;
                 public float FireSpeedRatio;
+            }
+
+            [Serializable]
+            public struct InfestedRoundsBalance
+            {
+                public NumParasitesBalance NumParasites;
+
+                [Serializable]
+                public struct NumParasitesBalance
+                {
+                    public float Base;
+                    public float Increase;
+                }
             }
         }
 

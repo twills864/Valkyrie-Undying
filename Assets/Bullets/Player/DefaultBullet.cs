@@ -86,7 +86,7 @@ namespace Assets.Bullets.PlayerBullets
         #endregion Augmented Rounds
 
         public int SnakeBiteDamage { get; set; }
-
+        public int ParasiteDamage { get; set; }
 
         protected override void OnPlayerBulletInit()
         {
@@ -99,6 +99,7 @@ namespace Assets.Bullets.PlayerBullets
             EnemyParticlesScale = CalculateParticlesScale();
             NumberPenetrated = 0;
             SnakeBiteDamage = 0;
+            ParasiteDamage = 0;
         }
 
         public override void OnSpawn()
@@ -115,7 +116,11 @@ namespace Assets.Bullets.PlayerBullets
         {
             GameManager.Instance.OnEnemyHitWithDefaultWeapon(enemy, this, hitPosition);
 
-            enemy.AddPoison(SnakeBiteDamage);
+            if(SnakeBiteDamage > 0)
+                enemy.AddPoison(SnakeBiteDamage);
+
+            if(ParasiteDamage > 0)
+                enemy.AddParasites(ParasiteDamage);
 
             NumberPenetrated++;
         }
