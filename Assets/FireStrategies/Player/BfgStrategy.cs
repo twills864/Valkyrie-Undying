@@ -1,6 +1,7 @@
 ﻿using Assets.Bullets.PlayerBullets;
 using Assets.FireStrategyManagers;
 using Assets.ObjectPooling;
+using Assets.UI.SpriteBank;
 using Assets.Util;
 using UnityEngine;
 
@@ -14,6 +15,8 @@ namespace Assets.FireStrategies.PlayerFireStrategies
     /// <inheritdoc/>
     public class BfgStrategy : PlayerFireStrategy<BfgBullet>
     {
+        protected override Sprite GetPickupSprite(HeavyWeaponSpriteBank bank) => bank.Bfg;
+
         protected override float GetFireSpeedRatio(in PlayerFireStrategyManager.PlayerRatio ratios) => ratios.Bfg.ChargeRatio;
 
         protected override string CalculateFireStrategyName() => "Battle-Frenzied Guillotine";

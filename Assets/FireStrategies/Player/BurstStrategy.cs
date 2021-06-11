@@ -4,12 +4,14 @@ using Assets.Util;
 using Assets.ObjectPooling;
 using UnityEngine;
 using Assets.FireStrategyManagers;
+using Assets.UI.SpriteBank;
 
 namespace Assets.FireStrategies.PlayerFireStrategies
 {
     /// <inheritdoc/>
     public class BurstStrategy : PlayerFireStrategy<BurstBullet>
     {
+        protected override Sprite GetPickupSprite(HeavyWeaponSpriteBank bank) => bank.Burst;
         protected override float GetFireSpeedRatio(in PlayerFireStrategyManager.PlayerRatio playerRatios)
             => playerRatios.Burst.FireRatio;
 

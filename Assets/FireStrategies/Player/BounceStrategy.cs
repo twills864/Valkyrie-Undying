@@ -1,5 +1,6 @@
 ﻿using Assets.Bullets.PlayerBullets;
 using Assets.FireStrategyManagers;
+using Assets.UI.SpriteBank;
 using Assets.Util;
 using UnityEngine;
 
@@ -8,6 +9,8 @@ namespace Assets.FireStrategies.PlayerFireStrategies
     /// <inheritdoc/>
     public class BounceStrategy : PlayerFireStrategy<BounceBullet>
     {
+        protected override Sprite GetPickupSprite(HeavyWeaponSpriteBank bank) => bank.Bounce;
+
         protected override float GetFireSpeedRatio(in PlayerFireStrategyManager.PlayerRatio ratios) => ratios.Bounce;
 
         //public override LoopingFrameTimer FireTimer { get; protected set; }

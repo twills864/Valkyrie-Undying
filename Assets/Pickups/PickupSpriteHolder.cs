@@ -18,7 +18,7 @@ namespace Assets.Pickups
         /// <summary>
         /// An acceptable size to fit inside of the hexagonal powerup holder.
         /// </summary>
-        private const float SizeScale = 0.625f;
+        private const float SizeScale = 0.6f;
 
         public override TimeScaleType TimeScale => TimeScaleType.Default;
         protected override ColorHandler DefaultColorHandler() => new SpriteColorHandler(SpriteRenderer);

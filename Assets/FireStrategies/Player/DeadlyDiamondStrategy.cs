@@ -7,6 +7,7 @@ using Assets.FireStrategyManagers;
 using Assets.GameTasks;
 using Assets.ObjectPooling;
 using Assets.Powerups.Balance;
+using Assets.UI.SpriteBank;
 using Assets.Util;
 using UnityEngine;
 
@@ -22,6 +23,8 @@ namespace Assets.FireStrategies.PlayerFireStrategies
         const int NumLanes = (MaxBullets * 2) - 1;
 
         const int MiddleLane = (NumLanes / 2);
+
+        protected override Sprite GetPickupSprite(HeavyWeaponSpriteBank bank) => bank.Diamond;
 
         private FireLaneWithAngle[] FireLanes { get; } = new FireLaneWithAngle[NumLanes];
 

@@ -73,7 +73,7 @@ namespace Assets.Statuses
 
         public void IgniteOther(Enemy other)
         {
-            other.Ignite(Damage, DamageIncrease, MaxDamage);
+            other.Ignite(DamageIncrease, DamageIncrease, MaxDamage);
         }
 
         protected override void OnReset()

@@ -2,6 +2,7 @@
 using Assets.Constants;
 using Assets.FireStrategyManagers;
 using Assets.ObjectPooling;
+using Assets.UI.SpriteBank;
 using Assets.Util;
 using UnityEngine;
 
@@ -12,6 +13,8 @@ namespace Assets.FireStrategies.PlayerFireStrategies
     {
         private const float DefaultFireTime = 0.4f;
         private const int FireCounterMax = 3;
+
+        protected override Sprite GetPickupSprite(HeavyWeaponSpriteBank bank) => bank.Gatling;
 
         protected override float GetFireSpeedRatio(in PlayerFireStrategyManager.PlayerRatio ratios) => ratios.Gatling;
 

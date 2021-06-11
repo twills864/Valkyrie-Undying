@@ -3,6 +3,7 @@ using Assets.Bullets.PlayerBullets;
 using Assets.Constants;
 using Assets.FireStrategyManagers;
 using Assets.ObjectPooling;
+using Assets.UI.SpriteBank;
 using Assets.Util;
 using UnityEngine;
 
@@ -43,6 +44,9 @@ namespace Assets.FireStrategies.PlayerFireStrategies
             float speed = InitialFireSpeed(in manager);
             return new LoopingFrameTimer(speed);
         }
+
+        protected abstract Sprite GetPickupSprite(HeavyWeaponSpriteBank bank);
+        public Sprite PickupSprite => GetPickupSprite(SpriteBank.HeavyWeapons);
 
         public abstract PlayerBullet[] GetBullets(int weaponLevel, Vector3 playerFirePos);
         public abstract PlayerBullet[] GetBullets(int weaponLevel, Vector3 playerFirePos, Vector2 velocity);

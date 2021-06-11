@@ -6,6 +6,7 @@ using Assets.FireStrategyManagers;
 using Assets.GameTasks;
 using Assets.ObjectPooling;
 using Assets.Powerups.Balance;
+using Assets.UI.SpriteBank;
 using Assets.Util;
 using UnityEngine;
 
@@ -26,6 +27,8 @@ namespace Assets.FireStrategies.PlayerFireStrategies
             var renderer = bullet.GetComponent<Renderer>();
             WidthHalf = renderer.bounds.size.x * 0.5f;
         }
+
+        protected override Sprite GetPickupSprite(HeavyWeaponSpriteBank bank) => bank.OneManArmy;
 
         protected override float GetFireSpeedRatio(in PlayerFireStrategyManager.PlayerRatio ratios)
             => ratios.OneManArmy;

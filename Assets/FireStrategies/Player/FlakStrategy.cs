@@ -6,6 +6,7 @@ using Assets.Util;
 using Assets.ObjectPooling;
 using UnityEngine;
 using Assets.FireStrategyManagers;
+using Assets.UI.SpriteBank;
 
 namespace Assets.FireStrategies.PlayerFireStrategies
 {
@@ -18,6 +19,8 @@ namespace Assets.FireStrategies.PlayerFireStrategies
 
         // Bullets fire in loose pyramid shape
         private const int RowsInPyramid = 5;
+
+        protected override Sprite GetPickupSprite(HeavyWeaponSpriteBank bank) => bank.Flak;
 
         protected override float GetFireSpeedRatio(in PlayerFireStrategyManager.PlayerRatio ratios) => ratios.Flak;
 

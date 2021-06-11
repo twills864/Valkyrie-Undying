@@ -2,6 +2,7 @@
 using Assets.FireStrategyManagers;
 using Assets.ObjectPooling;
 using Assets.Powerups;
+using Assets.UI.SpriteBank;
 using Assets.Util;
 using UnityEngine;
 
@@ -15,6 +16,8 @@ namespace Assets.FireStrategies.PlayerFireStrategies
         #endregion
 
         private static DefaultStrategy Instance { get; set; }
+
+        protected override Sprite GetPickupSprite(HeavyWeaponSpriteBank bank) => SpriteBank.Empty;
 
         private int NumBulletsToGet { get; set; }
 

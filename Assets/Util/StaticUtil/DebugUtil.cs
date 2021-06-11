@@ -163,7 +163,7 @@ namespace Assets.Util
 
             SmiteBullet.DebugTestSmite();
 
-            //PickupSpam();
+            PickupSpam();
 
             //TestRetribution();
         }
@@ -348,7 +348,7 @@ namespace Assets.Util
         {
             var pool = PoolManager.Instance.PickupPool;
 
-            const int NumPickups = 10;
+            const int NumPickups = 1;
 
             Vector3 mousePos = SpaceUtil.WorldPositionUnderMouse();
             const float PosDelta = 0.1f;

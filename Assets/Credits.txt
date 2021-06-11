@@ -7,20 +7,39 @@ https://gist.github.com/pavel-fadrhonc/ecbe4ff18e1a4a38a62214bbab69a0e2
 Player sprite
 Kenney Vleugels' Space Shooter Redux (CC0 1.0 Universal): https://www.kenney.nl/assets/space-shooter-redux
 
-All enemy sprites
+All enemy sprites:
 Original graphics by Kenney Vleugels (CC0): https://www.kenney.nl/assets/space-shooter-redux
 Arrangement provided by Wisedawn (CC0): https://opengameart.org/content/200-cc0-spaceship-sprites (https://wisedawn.itch.io/)
+
+
+HEAVY WEAPON SPRITES:
+Atom: Skoll (CC BY 3.0) (https://game-icons.net/)
+Battle-Frenzied Guillotine: Lorc (CC BY 3.0) (http://lorcblog.blogspot.com) (https://game-icons.net/)
+Bounce: Lorc (CC BY 3.0) (http://lorcblog.blogspot.com) (https://game-icons.net/)
+Burst: Lorc (CC BY 3.0) (http://lorcblog.blogspot.com) (https://game-icons.net/)
+Deadly Diamond: Lorc (CC BY 3.0) (http://lorcblog.blogspot.com) (https://game-icons.net/)
+Flak: Lorc (CC BY 3.0) (http://lorcblog.blogspot.com) (https://game-icons.net/)
+Gatling: Skoll (CC BY 3.0) (https://game-icons.net/)
+One-Man Army: Lorc (CC BY 3.0) (http://lorcblog.blogspot.com) (https://game-icons.net/)
+Reflect: Lorc (CC BY 3.0) (http://lorcblog.blogspot.com) (https://game-icons.net/)
+Shotgun: Delapouite (CC BY 3.0) (https://delapouite.com) (https://game-icons.net/)
+Spread: Lorc (CC BY 3.0) (http://lorcblog.blogspot.com) (https://game-icons.net/)
+Trampoline: Delapouite (CC BY 3.0) (https://delapouite.com) (https://game-icons.net/)
+Wormhole: Lorc (CC BY 3.0) (http://lorcblog.blogspot.com) (https://game-icons.net/)
+
 
 STATUS SPRITES:
 Burning: Sbed (CC BY 3.0) (http://opengameart.org/content/95-game-icons) (https://game-icons.net/)
 Poisoned: Sbed (CC BY 3.0) (http://opengameart.org/content/95-game-icons) (https://game-icons.net/)
 Void Paused: Guard13007 (CC BY 3.0) (https://guard13007.com) (https://game-icons.net/)
 
+
 POWERUP SPRITES:
 Augmented Rounds: Lorc (CC BY 3.0) (http://lorcblog.blogspot.com) (https://game-icons.net/)
 Bloodlust: Skoll (CC BY 3.0) (https://game-icons.net/)
 Collective Punishment: Lorc (CC BY 3.0) (http://lorcblog.blogspot.com) (https://game-icons.net/)
 Fire Speed: Delapouite (CC BY 3.0) (https://delapouite.com) (https://game-icons.net/)
+Heavy Weapons Level Up: Delapouite (CC BY 3.0) (https://delapouite.com) (https://game-icons.net/)
 Inferno: Lorc (CC BY 3.0) (http://lorcblog.blogspot.com) (https://game-icons.net/)
 Jettison: Delapouite (CC BY 3.0) (https://delapouite.com) (https://game-icons.net/)
 Monsoon: Lorc (CC BY 3.0) (http://lorcblog.blogspot.com) (https://game-icons.net/)

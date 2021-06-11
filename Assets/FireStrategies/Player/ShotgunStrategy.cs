@@ -4,6 +4,7 @@ using Assets.Util;
 using Assets.ObjectPooling;
 using UnityEngine;
 using Assets.FireStrategyManagers;
+using Assets.UI.SpriteBank;
 
 namespace Assets.FireStrategies.PlayerFireStrategies
 {
@@ -17,6 +18,8 @@ namespace Assets.FireStrategies.PlayerFireStrategies
         private const int MiddleGuaranteedLane = (TotalPelletLanes / 2);
         private const int LeftGuaranteedLane = MiddleGuaranteedLane - 2;
         private const int RightGuaranteedLane = MiddleGuaranteedLane + 2;
+
+        protected override Sprite GetPickupSprite(HeavyWeaponSpriteBank bank) => bank.Shotgun;
 
         protected override float GetFireSpeedRatio(in PlayerFireStrategyManager.PlayerRatio ratios) => ratios.Shotgun;
 

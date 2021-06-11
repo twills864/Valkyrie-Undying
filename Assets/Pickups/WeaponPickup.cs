@@ -12,6 +12,11 @@ namespace Assets.Pickups
     {
         public int FireStrategyIndex { get; set; }
 
+        protected override void OnPickupSpawn()
+        {
+            PickupSprite = GameManager.Instance.FireStrategySprite(FireStrategyIndex);
+        }
+
         protected override void OnPickUp()
         {
             GameManager.Instance.SetFireType(FireStrategyIndex);

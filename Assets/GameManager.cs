@@ -437,8 +437,8 @@ namespace Assets
             {
                 var pickup = _PoolManager.PickupPool.Get<WeaponPickup>();
                 pickup.FireStrategyIndex = GetRandomAssignableFireIndex();
-
                 pickup.transform.position = RandomRainPosition(pickup);
+                pickup.OnSpawn();
             }
         }
 
@@ -479,6 +479,8 @@ namespace Assets
 
         private PlayerFireStrategy CurrentFireStrategy => FireStrategies[FireStrategies.Index];
         private CircularSelector<PlayerFireStrategy> FireStrategies { get; set; }
+
+        public Sprite FireStrategySprite(int index) => FireStrategies[index].PickupSprite;
 
         public int GetRandomAssignableFireIndex()
         {
