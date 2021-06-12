@@ -97,7 +97,7 @@ namespace Assets.Bullets.PlayerBullets
             BfgBulletFallout.ActivateInstance();
         }
 
-        public override void OnSpawn()
+        protected override void OnBulletSpawn()
         {
             float y = transform.position.y + SpaceUtil.WorldMap.HeightHalf;
             PositionY = y;

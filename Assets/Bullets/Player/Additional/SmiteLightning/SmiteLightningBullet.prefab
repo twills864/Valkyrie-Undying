@@ -148,6 +148,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _Sprite: {fileID: 2959985393852287726}
+  _BulletTrailInfo:
+    UseTrail: 0
+    TrailTime: 0
+    TangentCurveScale: 0
   _BaseDamage: 0
   _Particles:
     BulletParticles: 0

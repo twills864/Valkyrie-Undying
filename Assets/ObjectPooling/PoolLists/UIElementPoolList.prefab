@@ -47,6 +47,8 @@ MonoBehaviour:
     type: 3}
   AtomTrailPrefab: {fileID: 1764110798744415782, guid: 4f2a84382f687294ba560b9751df67fc,
     type: 3}
+  BulletTrailPrefab: {fileID: 8936888761030992371, guid: 86d44e958563b9a4eb44c935f8c2d2ab,
+    type: 3}
   VictimMarkerPrefab: {fileID: -4956736669947735502, guid: 3484b86ff8987724ea9c62df28fb2d49,
     type: 3}
   VictimMarkerCornerPrefab: {fileID: -4081759565047746748, guid: fcd10013f5b8dbb4eb2c9a7322819e1b,

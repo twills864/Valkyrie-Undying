@@ -86,7 +86,7 @@ namespace Assets.Bullets.PlayerBullets
             FadeOutSequence.ResetSelf();
         }
 
-        public override void OnSpawn()
+        protected override void OnBulletSpawn()
         {
             PenetrationCount = BulletLevel;
             SetScaleLevel();

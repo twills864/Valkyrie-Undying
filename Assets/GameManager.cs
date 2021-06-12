@@ -408,8 +408,6 @@ namespace Assets
 
             if (clip != null)
                 Player.PlaySoundAtCenter(clip);
-
-            //SoundManager.PlayTestFire();
         }
 
         private void UpdateFireStrategy(float playerTime)

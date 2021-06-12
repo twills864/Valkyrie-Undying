@@ -44,7 +44,7 @@ namespace Assets.Bullets.PlayerBullets
         #endregion Prefab Properties
 
 
-        public override void OnSpawn()
+        protected override void OnBulletSpawn()
         {
             float speed = RandomUtil.Float(SpeedMin, SpeedMax, out float speedRatio);
 

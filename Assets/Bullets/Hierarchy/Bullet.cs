@@ -1,4 +1,5 @@
 ﻿using Assets.Hierarchy.ColorHandlers;
+using Assets.UI;
 using Assets.Util;
 using UnityEngine;
 
@@ -12,12 +13,16 @@ namespace Assets.Bullets
         [SerializeField]
         private SpriteRenderer _Sprite = null;
 
+        [SerializeField]
+        private BulletTrailInfo _BulletTrailInfo = default;
+
         #endregion Prefabs
 
 
         #region Prefab Properties
 
         protected SpriteRenderer Sprite => _Sprite;
+        public BulletTrailInfo BulletTrailInfo => _BulletTrailInfo;
 
         #endregion Prefab Properties
 
@@ -35,6 +40,16 @@ namespace Assets.Bullets
             ColliderMap = new ColliderBoxMap(this);
             OnBulletInit();
         }
+
+        protected virtual void OnBulletSpawn() { }
+        public sealed override void OnSpawn()
+        {
+            if (BulletTrailInfo.UseTrail)
+                BulletTrail.SpawnBulletTrail(this);
+
+            OnBulletSpawn();
+        }
+
 
         protected virtual void OnBulletTriggerExit2D(Collider2D collision) { }
         protected virtual void OnTriggerExit2D(Collider2D collision)

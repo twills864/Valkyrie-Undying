@@ -102,7 +102,7 @@ namespace Assets.Bullets.PlayerBullets
         }
 
         protected virtual void OnPlayerRaycastBulletSpawn() { }
-        public sealed override void OnSpawn()
+        protected override void OnBulletSpawn()
         {
             StartPoint = transform.position;
             Alpha = MaxAlpha;

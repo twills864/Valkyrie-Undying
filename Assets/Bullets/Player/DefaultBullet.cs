@@ -102,7 +102,7 @@ namespace Assets.Bullets.PlayerBullets
             ParasiteDamage = 0;
         }
 
-        public override void OnSpawn()
+        protected override void OnBulletSpawn()
         {
             Velocity = CalculateVelocity();
         }

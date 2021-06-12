@@ -15,6 +15,8 @@ namespace Assets.ObjectPooling
         [SerializeField]
         private AtomTrail AtomTrailPrefab = null;
         [SerializeField]
+        private BulletTrail BulletTrailPrefab = null;
+        [SerializeField]
         private VictimMarker VictimMarkerPrefab = null;
         [SerializeField]
         private VictimMarkerCorner VictimMarkerCornerPrefab = null;
@@ -44,6 +46,7 @@ namespace Assets.ObjectPooling
         {
             Color defaultPlayer = colorManager.DefaultPlayer;
             AtomTrailPrefab.SpriteColor = defaultPlayer;
+            BulletTrailPrefab.SpriteColor = defaultPlayer;
 
             float victimMarkerAlpha = colorManager.UI.VictimMarkerAlpha;
             VictimMarkerCornerPrefab.SpriteColor = colorManager.SetAlpha(defaultPlayer, victimMarkerAlpha);

@@ -128,7 +128,7 @@ namespace Assets.Bullets.PlayerBullets
             Sequence.ResetSelf();
         }
 
-        public override void OnSpawn()
+        protected override void OnBulletSpawn()
         {
             MoveToCenter.ReinitializeMove(transform.position, SpaceUtil.WorldMap.Center);
         }

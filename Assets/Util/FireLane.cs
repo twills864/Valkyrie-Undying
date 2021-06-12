@@ -18,10 +18,12 @@ namespace Assets.Util
             Velocity = velocity;
         }
 
-        public void ApplyToSprite(ValkyrieSprite sprite, Vector3 basePosition)
+        public void ApplyToSprite(PooledObject sprite, Vector3 basePosition)
         {
             sprite.transform.position = basePosition + PositionOffset;
             sprite.Velocity = Velocity;
+
+            sprite.OnSpawn();
         }
     }
 
@@ -38,11 +40,13 @@ namespace Assets.Util
             Angle = angle;
         }
 
-        public void ApplyToSprite(ValkyrieSprite sprite, Vector3 basePosition)
+        public void ApplyToSprite(PooledObject sprite, Vector3 basePosition)
         {
             sprite.transform.position = basePosition + PositionOffset;
             sprite.Velocity = Velocity;
             sprite.RotationDegrees = Angle;
+
+            sprite.OnSpawn();
         }
     }
 }

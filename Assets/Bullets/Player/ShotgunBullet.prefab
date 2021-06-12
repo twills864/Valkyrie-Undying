@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 2320183421881281431}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.71, y: 0, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 1}
+  m_LocalScale: {x: 0.075, y: 0.075, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -135,11 +135,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _Sprite: {fileID: 2959985393852287726}
+  _BulletTrailInfo:
+    UseTrail: 1
+    TrailTime: 0.075
+    TangentCurveScale: 3
   _BaseDamage: 10
   _Particles:
     BulletParticles: 0
     EnemyParticles: 5
-  _BulletVelocityY: 20
+  _BulletVelocityY: 30
   _BulletOffsetX: 0
   _BulletOffsetY: 0
   _BulletSpreadX: 0.2

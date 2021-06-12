@@ -63,6 +63,11 @@ namespace Assets
         }
 
         /// <summary>
+        /// The position this pooled object had before it was deactivated.
+        /// </summary>
+        public Vector3 LastActivePosition { get; private set; }
+
+        /// <summary>
         /// Subclass-specific functionality to happen when an object is deactivated.
         /// </summary>
         protected virtual void OnDeactivate() { }
@@ -80,6 +85,7 @@ namespace Assets
                 //ClearGameTasks();
                 OnDeactivate();
 
+                LastActivePosition = transform.position;
                 transform.position = InactivePosition;
             }
         }

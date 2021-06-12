@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5509132373917844316}
   - component: {fileID: 3851191416017125998}
-  - component: {fileID: 1764110798744415782}
+  - component: {fileID: 8936888761030992371}
   m_Layer: 10
-  m_Name: AtomTrail
+  m_Name: BulletTrail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -82,13 +82,13 @@ TrailRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.037971497
-        inSlope: 0
-        outSlope: 0
+        value: 0.19444275
+        inSlope: -0
+        outSlope: -0
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
-        outWeight: 0.33333334
+        outWeight: 0.49326867
       - serializedVersion: 3
         time: 1
         value: 0
@@ -139,7 +139,7 @@ TrailRenderer:
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
   m_Emitting: 1
---- !u!114 &1764110798744415782
+--- !u!114 &8936888761030992371
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -148,8 +148,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2702411868412459144}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc9e04ec24bd8a440bc827677d1bf513, type: 3}
+  m_Script: {fileID: 11500000, guid: 55d3177985f4ca14aa164c1a2848259d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _TrailTime: 0.5
   _Trail: {fileID: 3851191416017125998}

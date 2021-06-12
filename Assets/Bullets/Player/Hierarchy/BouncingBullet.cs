@@ -57,7 +57,7 @@ namespace Assets.Bullets.PlayerBullets
         }
 
         protected virtual void OnBouncingBulletSpawn() { }
-        public sealed override void OnSpawn()
+        protected override void OnBulletSpawn()
         {
             InitializeNumberBounces();
             OnBouncingBulletSpawn();

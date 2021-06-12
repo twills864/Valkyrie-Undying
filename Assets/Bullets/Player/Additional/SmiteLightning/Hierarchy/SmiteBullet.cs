@@ -71,7 +71,7 @@ namespace Assets.Bullets.PlayerBullets
             OnSmiteBulletInit();
         }
 
-        public sealed override void OnSpawn()
+        protected override void OnBulletSpawn()
         {
             Alpha = 1.0f;
             DamageActive = true;
