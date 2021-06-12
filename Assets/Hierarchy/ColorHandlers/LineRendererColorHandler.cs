@@ -9,8 +9,6 @@ namespace Assets.Hierarchy.ColorHandlers
 {
     public class LineRendererColorHandler : ColorHandler
     {
-        //private const float StartAlphaScale = 0.5f;
-
         private LineRenderer Line;
 
         public override Color Color
@@ -21,9 +19,7 @@ namespace Assets.Hierarchy.ColorHandlers
                 if (Line.startColor != value)
                 {
                     Line.endColor = value;
-
-                    var startColor = new Color(value.r, value.g, value.b, value.a/* * StartAlphaScale*/);
-                    Line.startColor = startColor;
+                    Line.startColor = value;
                 }
             }
         }

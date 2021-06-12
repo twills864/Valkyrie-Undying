@@ -144,8 +144,9 @@ namespace Assets.Powerups
                 {
                     if (sentinel.isActiveAndEnabled)
                     {
-                        float newDistanceRatio = sentinel.CurrentRadius / Radius;
-                        sentinel.RadiusRatio = newDistanceRatio;
+                        //float newDistanceRatio = sentinel.CurrentRadius / Radius;
+                        //sentinel.RadiusRatio = newDistanceRatio;
+                        FireSentinelForward(sentinel);
                     }
 
                     sentinel.MaxRadius = Radius;
@@ -164,7 +165,10 @@ namespace Assets.Powerups
         public void ActivateAllSentinels()
         {
             foreach (var bullet in InactiveBullets)
+            {
                 bullet.ActivateSelf();
+                bullet.OnSpawn();
+            }
         }
 
         public void ActivateRandomSentinel()
@@ -173,7 +177,10 @@ namespace Assets.Powerups
             //var timer = Stopwatch.StartNew();
 
             if (RandomUtil.TryGetRandomElement(InactiveBullets, out PlayerBullet bullet))
+            {
                 bullet.ActivateSelf();
+                bullet.OnSpawn();
+            }
             else if (Level == 1)
                 FireRandomSentinel();
             else
@@ -225,10 +232,12 @@ namespace Assets.Powerups
             SentinelProjectileBullet projectile = SentinelProjectileBullet.GetProjectile(sentinel);
 
             projectile.Velocity = new Vector2(0, projectile.Speed);
+            projectile.OnSpawn();
 
             // Reset Sentinel entrance animation to finish the illusion that
             // the Sentinel was fired and immediately respawned.
             sentinel.ActivateSelf();
+            sentinel.OnSpawn();
         }
 
         public void SentinelTriggered(SentinelBullet sentinel, Enemy enemy)
@@ -253,6 +262,8 @@ namespace Assets.Powerups
                 Vector2 projPos = projectile.transform.position;
                 projectile.Velocity = MathUtil.VelocityVector(projPos, enemyPosition, projectile.Speed)
                     + enemyVelocity;
+
+                projectile.OnSpawn();
 
                 theoreticalHealth -= sentinelDamage;
                 next.DeactivateSelf();

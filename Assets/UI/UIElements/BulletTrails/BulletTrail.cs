@@ -19,7 +19,7 @@ namespace Assets.UI
 
         #region Prefab Properties
 
-        private TrailRenderer Trail => _Trail;
+        public TrailRenderer Trail => _Trail;
 
         #endregion Prefab Properties
 
@@ -47,8 +47,9 @@ namespace Assets.UI
         private FrameTimer DeactivateTimer { get; set; }
         private PooledObjectTracker<Bullet> TargetBulletTracker { get; set; }
 
-        private bool TargetIsAlive => TargetBulletTracker.IsActive;
-        private bool CurrentlyDeactivating { get; set; }
+        private bool CurrentlyDeactivating => DeactivationForced || !TargetBulletTracker.IsActive;
+        private bool HandledDeactivation { get; set; }
+        private bool DeactivationForced { get; set; }
 
         protected sealed override void OnUIElementInit()
         {
@@ -60,42 +61,9 @@ namespace Assets.UI
 
         protected override void OnActivate()
         {
-            CurrentlyDeactivating = false;
+            HandledDeactivation = false;
+            DeactivationForced = false;
         }
-
-        public void StartDeactivation()
-        {
-            Velocity = Vector2.zero;
-        }
-
-        protected override void OnFrameRun(float deltaTime, float realDeltaTime)
-        {
-            DebugUI.SetDebugLabel("Tangent", $"{Trail.widthCurve.keys[0].inTangent} {Trail.widthCurve.keys[0].outTangent}");
-            DeltaTime = deltaTime;
-            RealDeltaTime = realDeltaTime;
-        }
-
-        private float DeltaTime;
-        private float RealDeltaTime;
-        private void LateUpdate()
-        {
-            if (TargetBulletTracker.IsActive)
-            {
-                transform.position = TargetBullet.transform.position;
-            }
-            else
-            {
-                if(!CurrentlyDeactivating)
-                {
-                    CurrentlyDeactivating = true;
-                    transform.position = TargetBullet.LastActivePosition;
-                }
-
-                if (DeactivateTimer.UpdateActivates(DeltaTime))
-                    DeactivateSelf();
-            }
-        }
-
 
         public void OnSpawn(Bullet bullet)
         {
@@ -105,7 +73,7 @@ namespace Assets.UI
 
             TrailTime = trailInfo.TrailTime;
             SpriteColor = bullet.SpriteColor;
-            SetStartWidth(bullet.SpriteMap.Width, trailInfo.TangentCurveScale);
+            SetStartWidth(bullet.BulletTrailWidth, trailInfo.TangentCurveScale);
 
             OnSpawn();
         }
@@ -115,13 +83,48 @@ namespace Assets.UI
             Trail.Clear();
         }
 
-        public static void SpawnBulletTrail(Bullet bullet)
+        protected override void OnFrameRun(float deltaTime, float realDeltaTime)
+        {
+            DeltaTime = deltaTime;
+            RealDeltaTime = realDeltaTime;
+        }
+
+        private float DeltaTime;
+        private float RealDeltaTime;
+        private void LateUpdate()
+        {
+            if (!CurrentlyDeactivating)
+            {
+                transform.position = TargetBullet.transform.position;
+            }
+            else
+            {
+                if(!HandledDeactivation)
+                {
+                    HandledDeactivation = true;
+                    transform.position = TargetBullet.LastActivePosition;
+                }
+
+                if (DeactivateTimer.UpdateActivates(DeltaTime))
+                    DeactivateSelf();
+            }
+        }
+
+        public void ForceDeactivation()
+        {
+            DeactivationForced = true;
+            HandledDeactivation = true;
+            transform.position = TargetBulletTracker.IsActive ? TargetBullet.transform.position : TargetBullet.LastActivePosition;
+        }
+
+
+        public static BulletTrail SpawnBulletTrail(Bullet bullet)
         {
             Vector3 spawnPos = bullet.transform.position;
             var trail = PoolManager.Instance.UIElementPool.Get<BulletTrail>(spawnPos);
             trail.OnSpawn(bullet);
 
-
+            return trail;
         }
 
         private void SetStartWidth(float width, float curveTangentScale)

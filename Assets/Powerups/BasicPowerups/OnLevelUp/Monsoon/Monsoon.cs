@@ -139,6 +139,8 @@ namespace Assets.Powerups
                 raindrop.transform.position = position;
                 raindrop.RaindropDamage = damage;
 
+                raindrop.OnSpawn();
+
                 raindrop.PlayFireSound();
             }
         }

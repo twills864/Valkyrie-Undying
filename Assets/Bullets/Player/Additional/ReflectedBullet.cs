@@ -14,6 +14,10 @@ namespace Assets.Bullets.PlayerBullets
         private int ReflectedDamage { get; set; }
         public override int Damage => ReflectedDamage;
 
+        // The ColliderMap won't be updated when the BulletTrailWidth is needed.
+        // SpriteMap will be.
+        public override float BulletTrailWidth => SpriteMap.Width;
+
         public override AudioClip FireSound => SoundBank.Silence;
 
         private void Init(EnemyBullet source)
@@ -31,6 +35,8 @@ namespace Assets.Bullets.PlayerBullets
             const float velocityScale = 0.75f;
             Velocity = pestControl.Velocity * velocityScale;
 
+            OnSpawn();
+
         }
 
         // Reflect directly upwards
@@ -40,6 +46,8 @@ namespace Assets.Bullets.PlayerBullets
 
             const float velocityScale = 2f;
             Velocity = -velocityScale * source.Velocity;
+
+            OnSpawn();
         }
     }
 }

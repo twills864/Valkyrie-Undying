@@ -10,6 +10,7 @@ namespace Assets.Bullets.PlayerBullets
     public class BounceBullet : BouncingBullet
     {
         public override AudioClip FireSound => SoundBank.LaserPuff;
+        public override float BulletTrailWidth => base.BulletTrailWidth * 0.5f;
 
         #region Prefabs
 

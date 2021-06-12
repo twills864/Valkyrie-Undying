@@ -6,6 +6,7 @@ using Assets.GameTasks;
 using Assets.ObjectPooling;
 using UnityEngine;
 using Assets.Enemies;
+using Assets.Hierarchy.ColorHandlers;
 
 namespace Assets.Bullets.PlayerBullets
 {
@@ -34,6 +35,14 @@ namespace Assets.Bullets.PlayerBullets
         public float EntranceAnimationTime => _EntranceAnimationTime;
 
         #endregion Prefab Properties
+
+        protected override ColorHandler DefaultColorHandler()
+        {
+            var sprite = new SpriteColorHandler(Sprite);
+            var line = new BulletTrailColorHandler(this);
+            var ret = new CollectionColorHandler(sprite, line);
+            return ret;
+        }
 
 
         private CircleCollider2D Collider { get; set; }

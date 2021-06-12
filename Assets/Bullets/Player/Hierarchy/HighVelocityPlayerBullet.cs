@@ -22,6 +22,9 @@ namespace Assets.Bullets.PlayerBullets
             set => _representedVelocity = value;
         }
 
+        // HighVelocityPlayerBullets should have no Collider2D.
+        public override float BulletTrailWidth => SpriteMap.Width;
+
         #region Prefabs
 
         //[SerializeField]

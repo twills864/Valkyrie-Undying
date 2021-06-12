@@ -37,5 +37,14 @@ namespace Assets.Bullets.PlayerBullets
         #endregion Prefab Properties
 
         public override AudioClip FireSound => SoundBank.LaserBrief;
+
+        private float _BulletTrailWidth { get; set; }
+        public override float BulletTrailWidth => _BulletTrailWidth;
+
+        protected override void OnPlayerBulletInit()
+        {
+            // Sprite is rotated 90 degrees in source.
+            _BulletTrailWidth = ColliderMap.Height;
+        }
     }
 }

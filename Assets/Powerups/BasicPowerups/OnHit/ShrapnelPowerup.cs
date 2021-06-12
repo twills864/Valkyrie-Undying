@@ -19,7 +19,7 @@ namespace Assets.Powerups
     /// <inheritdoc/>
     public class ShrapnelPowerup : OnHitPowerup
     {
-        protected override Sprite GetPowerupSprite(PowerupSpriteBank bank) => bank.Mortar;
+        protected override Sprite GetPowerupSprite(PowerupSpriteBank bank) => bank.Shrapnel;
 
         private float ShrapnelChance => ShrapnelChanceCalculator.Value;
         private SumLevelValueCalculator ShrapnelChanceCalculator { get; set; }
@@ -53,6 +53,8 @@ namespace Assets.Powerups
                     shrapnel.FireDamage = enemy.BurningDamageIncrease;
                     shrapnel.FireDamageMax = enemy.BurningDamageMax;
                 }
+
+                shrapnel.OnSpawn();
             }
         }
     }

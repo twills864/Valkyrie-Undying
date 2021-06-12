@@ -126,8 +126,8 @@ MonoBehaviour:
   _Particles:
     BulletParticles: 0
     EnemyParticles: 5
-  _BulletVelocityY: 40
+  _BulletVelocityY: 30
   _BulletOffsetX: 0.05
   _BulletOffsetY: 0.05
   _BulletSpreadX: 6
-  _BulletSpreadY: 12
+  _BulletSpreadY: 8

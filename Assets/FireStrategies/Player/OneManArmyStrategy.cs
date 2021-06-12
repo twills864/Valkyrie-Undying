@@ -47,12 +47,14 @@ namespace Assets.FireStrategies.PlayerFireStrategies
             {
                 for (int i = 0; i < numBullets; i++)
                 {
-                    ret[i].transform.position = spawn;
+                    OneManArmyBullet bullet = ret[i];
+                    bullet.transform.position = spawn;
 
                     if (!SpaceUtil.PointIsInBounds(spawn))
-                        ret[i].RunTask(GameTaskFunc.DeactivateSelf(ret[i]));
+                        bullet.RunTask(GameTaskFunc.DeactivateSelf(bullet));
 
                     spawn.x += offsetX;
+                    bullet.OnSpawn();
                 }
             }
             else
@@ -75,8 +77,11 @@ namespace Assets.FireStrategies.PlayerFireStrategies
 
                 for (int i = 0; i < numBullets; i++)
                 {
-                    ret[i].transform.position = spawn;
+                    OneManArmyBullet bullet = ret[i];
+
+                    bullet.transform.position = spawn;
                     spawn.x += offsetX;
+                    bullet.OnSpawn();
                 }
             }
 

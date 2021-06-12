@@ -49,6 +49,8 @@ namespace Assets.Bullets.PlayerBullets
             velocity += enemyBullet.Velocity;
 
             Velocity = velocity;
+
+            OnSpawn();
         }
     }
 }

@@ -35,6 +35,9 @@ namespace Assets.Bullets
         public ColliderBoxMap ColliderMap { get; private set; }
         public SpriteBoxMap SpriteMap { get; private set; }
 
+        public BulletTrail CurrentBulletTrail { get; private set; }
+        public virtual float BulletTrailWidth => ColliderMap.Width;
+
         protected virtual void OnBulletInit() { }
         protected sealed override void OnInit()
         {
@@ -47,7 +50,9 @@ namespace Assets.Bullets
         public sealed override void OnSpawn()
         {
             if (BulletTrailInfo.UseTrail)
-                BulletTrail.SpawnBulletTrail(this);
+                CurrentBulletTrail = BulletTrail.SpawnBulletTrail(this);
+            else
+                CurrentBulletTrail = null;
 
             OnBulletSpawn();
         }
@@ -67,6 +72,15 @@ namespace Assets.Bullets
         public virtual float FireSoundVolume => 1.0f;
 
         public void PlayFireSound() => PlaySoundAtCenter(FireSound, FireSoundVolume);
+
+        protected void DetachBulletTrail()
+        {
+            CurrentBulletTrail.ForceDeactivation();
+        }
+        protected void AttachNewBulletTrail()
+        {
+            CurrentBulletTrail = BulletTrail.SpawnBulletTrail(this);
+        }
 
     }
 }

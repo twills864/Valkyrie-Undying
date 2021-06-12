@@ -77,6 +77,8 @@ namespace Assets.Powerups
 
             bullet.Velocity = velocity;
 
+            bullet.OnSpawn();
+
             bullet.PlayFireSound();
         }
     }

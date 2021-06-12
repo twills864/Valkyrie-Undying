@@ -5259,7 +5259,7 @@ MonoBehaviour:
       SnakeBite:
         Angle: 11.25
         PoisonDamage: 5
-        FireSpeedRatio: 1.5
+        FireSpeedRatio: 1
       InfestedRounds:
         NumParasites:
           Base: 2

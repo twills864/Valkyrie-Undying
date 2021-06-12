@@ -112,6 +112,8 @@ namespace Assets.Bullets.PlayerBullets
 
             bullet.LocalScale = sizeScaleRatio * sourceBullet.LocalScale;
 
+            bullet.OnSpawn();
+
             return bullet;
         }
     }

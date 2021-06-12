@@ -73,8 +73,12 @@ namespace Assets.Bullets.PlayerBullets
 
             if (transform.position.y > SpaceUtil.WorldMap.Top.y && !WarpDebuffDeactivates())
             {
+                DetachBulletTrail();
+
                 var pos = new Vector3(transform.position.x, SpaceUtil.WorldMap.Bottom.y, 0);
                 transform.position = pos;
+
+                AttachNewBulletTrail();
             }
         }
 
