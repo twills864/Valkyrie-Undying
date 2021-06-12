@@ -105,7 +105,7 @@ namespace Assets.UI
 
             TrailTime = trailInfo.TrailTime;
             SpriteColor = bullet.SpriteColor;
-            SetStartWidth(bullet.ColliderMap.Width, trailInfo.TangentCurveScale);
+            SetStartWidth(bullet.SpriteMap.Width, trailInfo.TangentCurveScale);
 
             OnSpawn();
         }

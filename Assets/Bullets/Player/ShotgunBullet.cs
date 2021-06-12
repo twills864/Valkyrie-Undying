@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Assets.Bullets.PlayerBullets
 {
     /// <inheritdoc/>
-    public class ShotgunBullet : PlayerBullet
+    public class ShotgunBullet : HighVelocityPlayerBullet
     {
         #region Prefabs
 

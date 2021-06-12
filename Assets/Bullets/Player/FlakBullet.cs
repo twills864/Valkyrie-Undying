@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Assets.Bullets.PlayerBullets
 {
     /// <inheritdoc/>
-    public class FlakBullet : PlayerBullet
+    public class FlakBullet : HighVelocityPlayerBullet
     {
         #region Prefabs
 

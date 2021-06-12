@@ -30,6 +30,8 @@ namespace Assets
 
             GetComponent<BoxCollider2D>().size = worldMapSize;
             GetComponent<SpriteRenderer>().enabled = false;
+
+            SpaceUtil.InitDestructorMap(this);
         }
 
 

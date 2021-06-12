@@ -33,11 +33,13 @@ namespace Assets.Bullets
         protected virtual bool ShouldDeactivateOnDestructor => true;
 
         public ColliderBoxMap ColliderMap { get; private set; }
+        public SpriteBoxMap SpriteMap { get; private set; }
 
         protected virtual void OnBulletInit() { }
         protected sealed override void OnInit()
         {
             ColliderMap = new ColliderBoxMap(this);
+            SpriteMap = new SpriteBoxMap(this);
             OnBulletInit();
         }
 

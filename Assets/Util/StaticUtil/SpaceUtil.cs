@@ -36,6 +36,11 @@ namespace Assets.Util
 
         public static float InverseWorldMapHeight { get; private set; }
 
+        /// <summary>
+        /// A BoxMap that represents the region inside the Destructor measured in world space.
+        /// </summary>
+        public static BoxMap DestructorMap { get; private set; }
+
         public static void Init()
         {
             var camera = Camera.main;
@@ -55,6 +60,16 @@ namespace Assets.Util
 
             ScreenSizeToWorldSizeScale = new Vector2(WorldMap.Width / ScreenMap.Width, WorldMap.Height / ScreenMap.Height);
             WorldSizeToScreenSizeScale = new Vector2(ScreenMap.Width / WorldMap.Width, ScreenMap.Height / WorldMap.Height);
+        }
+
+        public static void InitDestructorMap(Destructor destructor)
+        {
+            var bounds = destructor.GetComponent<BoxCollider2D>().bounds;
+
+            var min = Vector3.zero - bounds.extents;
+            var size = bounds.size;
+
+            DestructorMap = new BoxMap(min, size);
         }
 
         #region Set Positions
@@ -324,6 +339,17 @@ namespace Assets.Util
             return PointIsInBounds(sprite.transform.position);
         }
 
+        /// <summary>
+        /// Determines whether or not a given world <paramref name="point"/>
+        /// exists within the bounds of the Destructor governing the game.
+        /// </summary>
+        /// <param name="point">The point to check.</param>
+        /// <returns>True if the point exists inside the Destructor bounds; false otherwise.</returns>
+        public static bool PointIsInDestructor(Vector3 point)
+        {
+            bool inside = SpaceUtil.DestructorMap.ContainsPoint(point);
+            return inside;
+        }
 
 
         /// <summary>

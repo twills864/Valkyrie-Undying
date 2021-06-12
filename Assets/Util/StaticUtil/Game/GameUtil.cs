@@ -54,6 +54,64 @@ namespace Assets.Util
             return false;
         }
 
+
+        /// <summary>
+        /// Attempts to get all enemies in between a given start position
+        /// and a given end position.
+        /// </summary>
+        /// <param name="startPosition">The start position.</param>
+        /// <param name="endPosition">The end position.</param>
+        /// <returns>Each next enemy hit.</returns>
+        public static IEnumerable<EnemyRaycastHit> LinecastGetAllEnemies(Vector2 startPosition, Vector2 endPosition)
+        {
+
+#if UNITY_EDITOR
+            if (startPosition == endPosition)
+            {
+                Debug.Break();
+                System.Diagnostics.Debugger.Break();
+            }
+#endif
+
+            RaycastHit2D[] hits = Physics2D.LinecastAll(startPosition, endPosition, LayerUtil.LayerEnemies);
+
+            foreach (var hit in hits)
+            {
+                var gameObject = hit.collider?.gameObject;
+                var enemy = gameObject.GetComponent<Enemy>();
+                var ret = new EnemyRaycastHit(enemy, hit);
+
+                yield return ret;
+            }
+        }
+
+        /// <summary>
+        /// Gets all enemies in between a given start position
+        /// and a given end position.
+        ///
+        /// Accepts an existing array to place results into as an optimization,
+        /// in case this method needs to be called frequently.
+        /// </summary>
+        /// <param name="startPosition">The start position.</param>
+        /// <param name="endPosition">The end position.</param>
+        /// <param name="nonallocArray">The array to place results into.</param>
+        /// <returns>The number of enemies hit.</returns>
+        public static int LinecastGetAllEnemiesNonAlloc(Vector2 startPosition, Vector2 endPosition, RaycastHit2D[] nonallocArray)
+        {
+
+#if UNITY_EDITOR
+            if (startPosition == endPosition)
+            {
+                Debug.Break();
+                System.Diagnostics.Debugger.Break();
+            }
+#endif
+
+            int numHits = Physics2D.LinecastNonAlloc(startPosition, endPosition, nonallocArray, LayerUtil.LayerEnemies);
+
+            return numHits;
+        }
+
         /// <summary>
         /// Confirms whether or not the player is hit by a raycast from a given start <paramref name="position"/>
         /// in a given <paramref name="direction"/>.

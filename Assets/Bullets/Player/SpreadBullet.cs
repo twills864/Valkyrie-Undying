@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Assets.Bullets.PlayerBullets
 {
     /// <inheritdoc/>
-    public class SpreadBullet : PlayerBullet
+    public class SpreadBullet : HighVelocityPlayerBullet
     {
         public override int Damage => CurrentDamage;
         public int CurrentDamage { get; private set; }

@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 6179308932541899991}
   - component: {fileID: 6444697561732577964}
   - component: {fileID: 3825264339373630114}
-  - component: {fileID: 668638282819174474}
   - component: {fileID: 1656721678954545796}
   m_Layer: 11
   m_Name: SpreadBullet
@@ -29,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 5787446331705891797}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.71, y: 0, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 1}
+  m_LocalScale: {x: 0.085, y: 0.085, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -106,22 +105,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!58 &668638282819174474
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5787446331705891797}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.5
 --- !u!114 &1656721678954545796
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -137,14 +120,14 @@ MonoBehaviour:
   _Sprite: {fileID: 6444697561732577964}
   _BulletTrailInfo:
     UseTrail: 1
-    TrailTime: 0.075
+    TrailTime: 0.02
     TangentCurveScale: 3
   _BaseDamage: 25
   _Particles:
     BulletParticles: 0
     EnemyParticles: 5
   _AdditionalBulletDamage: 25
-  _BulletVelocityY: 30
+  _BulletVelocityY: 40
   _FireRadius: 0.75
   _AngleBetweenLanesInDegrees: 12.5
   _DampX: 0.6

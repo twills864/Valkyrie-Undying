@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 2711872849769043093}
   - component: {fileID: 2959985393852287726}
   - component: {fileID: 5005118660593439456}
-  - component: {fileID: 8729290787829215240}
   - component: {fileID: 9130137281552897155}
   m_Layer: 11
   m_Name: ShotgunBullet
@@ -106,22 +105,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!58 &8729290787829215240
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2320183421881281431}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.5
 --- !u!114 &9130137281552897155
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -143,8 +126,8 @@ MonoBehaviour:
   _Particles:
     BulletParticles: 0
     EnemyParticles: 5
-  _BulletVelocityY: 30
+  _BulletVelocityY: 50
   _BulletOffsetX: 0
   _BulletOffsetY: 0
-  _BulletSpreadX: 0.2
+  _BulletSpreadX: 0.3
   _BulletSpreadY: 0
