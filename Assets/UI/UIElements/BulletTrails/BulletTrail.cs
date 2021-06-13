@@ -25,7 +25,9 @@ namespace Assets.UI
 
 
         protected override ColorHandler DefaultColorHandler()
-            => new TrailColorHandler(Trail);
+            => new BulletTrailColorHandler(Trail);
+
+        private TrailFadeOutColorHandler FullBrightHandler { get; set; }
 
         public Bullet TargetBullet
         {
@@ -57,6 +59,7 @@ namespace Assets.UI
             //DeactivateTimer.ActivateSelf();
 
             TargetBulletTracker = new PooledObjectTracker<Bullet>();
+            FullBrightHandler = new TrailFadeOutColorHandler(Trail);
         }
 
         protected override void OnActivate()
@@ -139,6 +142,11 @@ namespace Assets.UI
             keys[0].outTangent = -width * curveTangentScale; // NEED A PER-BULLET SCALE
             AnimationCurve curve = new AnimationCurve(keys);
             Trail.widthCurve = curve;
+        }
+
+        public void MakeFullBright()
+        {
+            FullBrightHandler.Color = SpriteColor.WithAlpha(1.0f);
         }
     }
 }

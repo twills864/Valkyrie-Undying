@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Assets.Util;
 using UnityEngine;
 
 namespace Assets.Hierarchy.ColorHandlers
 {
-    public class TrailRendererColorHandler : ColorHandler
+    public class TrailFadeOutColorHandler : ColorHandler
     {
         private TrailRenderer Trail;
 
@@ -18,13 +19,13 @@ namespace Assets.Hierarchy.ColorHandlers
             {
                 if (Trail.startColor != value)
                 {
-                    Trail.endColor = value;
                     Trail.startColor = value;
+                    Trail.endColor = value.WithAlpha(0f);
                 }
             }
         }
 
-        public TrailRendererColorHandler(TrailRenderer trail)
+        public TrailFadeOutColorHandler(TrailRenderer trail)
         {
             Trail = trail;
         }

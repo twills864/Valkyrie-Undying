@@ -137,7 +137,7 @@ MonoBehaviour:
   _Sprite: {fileID: 6881880207614373486}
   _BulletTrailInfo:
     UseTrail: 1
-    TrailTime: 0.075
-    TangentCurveScale: 2
+    TrailTime: 0.08
+    TangentCurveScale: 1.5
   _ReflectDamage: 20
   _Speed: -7.5

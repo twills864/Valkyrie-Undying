@@ -72,6 +72,7 @@ namespace Assets.Bullets.PlayerBullets
         protected virtual void OnPlayerRaycastBulletSpawn() { }
         protected override void OnBulletSpawn()
         {
+            CurrentBulletTrail.MakeFullBright();
             NumberPenetrated = 0;
             OnPlayerRaycastBulletSpawn();
         }
