@@ -25,10 +25,12 @@ namespace Assets.FireStrategies.EnemyFireStrategies
             var left = ret[0];
             left.transform.position = VectorUtil.AddX3(enemyFirePos, -left.OffsetX);
             left.Velocity = left.LeftVelocity;
+            left.OnSpawn();
 
             var right = ret[1];
             right.transform.position = VectorUtil.AddX3(enemyFirePos, right.OffsetX);
             right.Velocity = right.RightVelocity;
+            right.OnSpawn();
 
             return ret;
         }

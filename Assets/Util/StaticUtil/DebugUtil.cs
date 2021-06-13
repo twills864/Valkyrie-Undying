@@ -111,6 +111,11 @@ namespace Assets.Util
             PowerupSuite();
         }
 
+        private static void InputE(KeyCode keyCode)
+        {
+            SpawnAllEnemies();
+        }
+
         private static void InputUp(KeyCode keyCode)
         {
             GameManager.DebugDecrementFireType();
@@ -225,6 +230,7 @@ namespace Assets.Util
             new KeyCodeAction(KeyCode.S, InputS),
             new KeyCodeAction(KeyCode.D, InputD),
             new KeyCodeAction(KeyCode.P, InputP),
+            new KeyCodeAction(KeyCode.E, InputE),
             new KeyCodeAction(KeyCode.UpArrow, InputUp),
             new KeyCodeAction(KeyCode.LeftArrow, InputLeft),
             new KeyCodeAction(KeyCode.DownArrow, InputDown),
@@ -395,6 +401,15 @@ namespace Assets.Util
             var ret = SpawnSpecificEnemy<TEnemy>();
             ret.transform.position = position;
             return ret;
+        }
+
+        private static void SpawnAllEnemies()
+        {
+            SpawnSpecificEnemy<BasicEnemy>();
+            SpawnSpecificEnemy<CradleEnemy>();
+            SpawnSpecificEnemy<RingEnemy>();
+            SpawnSpecificEnemy<TankEnemy>();
+            SpawnSpecificEnemy<LaserEnemy>();
         }
 
         private static void PowerupSuite()

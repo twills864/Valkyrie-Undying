@@ -8,7 +8,7 @@ namespace Assets.Enemies
     public class BasicEnemy : PermanentVelocityEnemy
     {
         protected override EnemyFireStrategy InitialFireStrategy()
-            => new VariantLoopingEnemyFireStrategy<BasicEnemyBullet>(VariantFireSpeed);
+            => new BasicEnemyFireStrategy(VariantFireSpeed);
 
         public override AudioClip FireSound => SoundBank.GunPistol;
     }

@@ -226,10 +226,12 @@ namespace Assets
 
         private void InitWithoutDependencies()
         {
-#if !UNITY_EDITOR
+#if UNITY_EDITOR
+            Camera.main.orthographicSize *= 1.5f;
+#else
+
             Camera.main.orthographicSize *= 2.0f;
 #endif
-            Camera.main.orthographicSize *= 1.5f;
 
             SaveUtil.InitializeSave();
 

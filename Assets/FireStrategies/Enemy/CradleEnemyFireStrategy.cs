@@ -24,6 +24,7 @@ namespace Assets.FireStrategies.EnemyFireStrategies
             var ret = base.GetBullets(enemyFirePos);
             CradleEnemyBullet bullet = (CradleEnemyBullet) ret[0];
             bullet.Velocity = bullet.Speed * velocityScale;
+            bullet.OnSpawn();
             return ret;
         }
 

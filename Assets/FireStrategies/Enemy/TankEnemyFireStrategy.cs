@@ -42,6 +42,8 @@ namespace Assets.FireStrategies.EnemyFireStrategies
             FireXFlip *= -1f;
             bullet.Velocity = new Vector2(velocityX, bullet.Speed);
 
+            bullet.OnSpawn();
+
             FireCounter++;
 
             if (FireCounter != 0)

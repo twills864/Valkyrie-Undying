@@ -10,7 +10,7 @@ using Assets.Util;
 
 namespace Assets.FireStrategies.EnemyFireStrategies
 {
-    public class VariantLoopingEnemyFireStrategy<T> : EnemyFireStrategy<T>
+    public abstract class VariantLoopingEnemyFireStrategy<T> : EnemyFireStrategy<T>
         where T : EnemyBullet
     {
         protected float FireSpeed { get; set; }
