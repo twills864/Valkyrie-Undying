@@ -52,11 +52,17 @@ namespace Assets.Pickups
             DebugUI.Instance.PowerupMenuPowerLevelRowSet(TargetPowerup, TargetPowerup.Level);
 
             NotificationManager.AddNotification(TargetPowerup.NotificationName);
+
+            if(TargetPowerup.IsDefaultWeaponPowerup)
+                GameManager.Instance.IncreaseWeaponLevel();
         }
 
         protected override void OnDestructorDeactivation()
         {
             TargetPowerup.CheckIn();
-        }
+
+            if(TargetPowerup.IsDefaultWeaponPowerup)
+                Director.WeaponLevelPickupDestructed();
+    }
     }
 }

@@ -31,6 +31,7 @@ namespace Assets.ObjectPooling
 
         public List<BasicPowerup> AssignableBasicPowerups { get; private set; }
         public List<DefaultWeaponPowerup> AssignableDefaultWeaponPowerups { get; private set; }
+        private PiercingRoundsPowerup PiercingRoundsPowerup { get; set; }
 
         protected override Color GetDefaultColor(in ColorManager colorManager)
             => Color.white;
@@ -59,11 +60,33 @@ namespace Assets.ObjectPooling
 
             AssignableDefaultWeaponPowerups = ordered.Where(x => x.IsDefaultWeaponPowerup)
                 .Select(x => (DefaultWeaponPowerup)x).ToList();
+
+            PiercingRoundsPowerup = AssignableDefaultWeaponPowerups
+                .Where(x => x.GetType() == typeof(PiercingRoundsPowerup))
+                .First() as PiercingRoundsPowerup;
+
+            AssignableDefaultWeaponPowerups.Remove(PiercingRoundsPowerup);
         }
 
-        public PowerupPickup GetRandomPowerup(Vector3 position, float defaultWeaponPowerupOverrideChance)
+        public PowerupPickup GetRandomBasicPowerupPickup(Vector3 position)
         {
-            var powerup = SelectPowerup(defaultWeaponPowerupOverrideChance);
+            var powerup = RandomUtil.RandomElement(AssignableBasicPowerups);
+            return FinishSpawningPowerup(powerup, position);
+        }
+
+        public PowerupPickup GetRandomDefaultWeaponPowerupPickup(Vector3 position)
+        {
+            var powerup = RandomUtil.RandomElement(AssignableDefaultWeaponPowerups);
+            return FinishSpawningPowerup(powerup, position);
+        }
+
+        public PowerupPickup GetPiercingRoundsPickup(Vector3 position)
+        {
+            return FinishSpawningPowerup(PiercingRoundsPowerup, position);
+        }
+
+        private PowerupPickup FinishSpawningPowerup(Powerup powerup, Vector3 position)
+        {
             CheckPowerupOut(powerup);
 
             var pickup = Get<PowerupPickup>(position);
@@ -72,20 +95,8 @@ namespace Assets.ObjectPooling
             return pickup;
         }
 
-        /// <summary>
-        /// Selects a random powerup with a specified chance of selecting a default weapon powerup.
-        /// </summary>
-        private Powerup SelectPowerup(float defaultWeaponPowerupOverrideChance)
-        {
-            Powerup powerup;
 
-            if (AssignableDefaultWeaponPowerups.Any() && RandomUtil.Bool(defaultWeaponPowerupOverrideChance))
-                powerup = RandomUtil.RandomElement(AssignableDefaultWeaponPowerups);
-            else
-                powerup = RandomUtil.RandomElement(AssignableBasicPowerups);
 
-            return powerup;
-        }
 
         /// <summary>
         /// Gets a PowerupPickup containing a powerup with a specified type.

@@ -7,6 +7,7 @@ using UnityEngine;
 
 namespace Assets.Pickups
 {
+    [Obsolete("Weapon levels are now granted by PowerupPickups that hold DefaultWeaponPowerups.")]
     public class WeaponLevelPickup : EnemyLootPickup
     {
         public override Sprite InitialPickupSprite => SpriteBank.HeavyWeaponLevelUp;
