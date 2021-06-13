@@ -144,6 +144,9 @@ namespace Assets
         //[SerializeField]
         //private ProgressBar _ExpBar = null;
 
+        [SerializeField]
+        private PowerupGuiIcon _PowerupGuiIcon = null;
+
         #endregion UI Prefab Properties
 
 
@@ -293,8 +296,8 @@ namespace Assets
             Player.Init(in _FireStrategyManager, in _ColorManager);
             _SpaceLarge.Init();
             _SpaceSmall.Init();
-
             _RemainingLivesBar.Init(spritesOffsetFromTop: 2);
+            PowerupGui.Init(_PowerupGuiIcon);
 
             // Dependency: SpaceUtil, PoolManager
             BfgBulletFallout.StaticInitColors(in _ColorManager);

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Assets.ObjectPooling;
 using Assets.Powerups.Balance;
+using Assets.UI;
 using Assets.UI.SpriteBank;
 using Assets.Util;
 using UnityEngine;
@@ -121,6 +122,8 @@ namespace Assets.Powerups
                 calculator.Level = Level;
 
             OnLevelUp();
+
+            PowerupGui.UpdatePowerup(this);
         }
 
 

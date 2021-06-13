@@ -5348,6 +5348,8 @@ MonoBehaviour:
   _Notification: {fileID: 267117168}
   _GameOverGUI: {fileID: 1600834176}
   _ParticleManager: {fileID: 1530570121}
+  _PowerupGuiIcon: {fileID: 4041277487352733709, guid: 12a245b33afeecc4fb20e1c1af99673d,
+    type: 3}
   _DebugEnemy: {fileID: 5685943112352641347}
   DebugUi: {fileID: 1502814535}
   _Destructor: {fileID: 6556364}
