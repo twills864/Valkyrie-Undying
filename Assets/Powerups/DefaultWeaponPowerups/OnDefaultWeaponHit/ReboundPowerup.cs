@@ -22,7 +22,7 @@ namespace Assets.Powerups
         protected override Sprite GetPowerupSprite(PowerupSpriteBank bank) => bank.Rebound;
 
         private static Vector2 SpeedLeft { get; set; }
-        private static Vector2 SpeedRight => VectorUtil.ScaleX2(SpeedLeft, -1f);
+        private static Vector2 SpeedRight => SpeedLeft.ScaleX(-1f);
 
         protected override void InitBalance(in PowerupBalanceManager.OnDefaultWeaponHitBalance balance)
         {

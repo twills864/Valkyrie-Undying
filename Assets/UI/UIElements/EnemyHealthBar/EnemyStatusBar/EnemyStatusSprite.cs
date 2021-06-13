@@ -93,13 +93,13 @@ namespace Assets.UI.UIElements.EnemyHealthBar
 
             if (!LeftAligned)
             {
-                TextMesh.transform.position = VectorUtil.WithX3(TextMesh.transform.position, -TextOffset);
+                TextMesh.transform.position = TextMesh.transform.position.WithX(-TextOffset);
                 TextMesh.anchor = TextAnchor.MiddleRight;
                 TextMesh.alignment = TextAlignment.Right;
             }
             else
             {
-                TextMesh.transform.position = VectorUtil.WithX3(TextMesh.transform.position, TextOffset);
+                TextMesh.transform.position = TextMesh.transform.position.WithX(TextOffset);
             }
 
             IsEnabled = false;

@@ -21,7 +21,7 @@ namespace Assets.Powerups
         public float FireSpeedRatio { get; private set; }
 
         private Vector2 SpeedScaleLeft { get; set; }
-        private Vector2 SpeedScaleRight => VectorUtil.ScaleX2(SpeedScaleLeft, -1f);
+        private Vector2 SpeedScaleRight => SpeedScaleLeft.ScaleX(-1f);
 
         protected override void InitBalance(in PowerupBalanceManager.OnDefaultWeaponFireBalance balance)
         {

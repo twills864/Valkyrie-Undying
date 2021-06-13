@@ -62,7 +62,7 @@ namespace Assets.Scenes.Options
         private LoopingBackgroundSprite SpaceLarge => _SpaceLarge;
         private LoopingBackgroundSprite SpaceSmall => _SpaceSmall;
         private float OptionMargin => _OptionMargin;
-        private Vector2 BackButtonMargin => VectorUtil.ScaleX2(_BackButtonMargin, -1f);
+        private Vector2 BackButtonMargin => _BackButtonMargin.ScaleX(-1f);
 
         #endregion Prefab Properties
 
@@ -114,7 +114,7 @@ namespace Assets.Scenes.Options
 
             //ToggleGore.transform.position = Vector3.zero;
 
-            Vector3 cornerOffset = BackButtonMargin + VectorUtil.ScaleX2(BackButton.ButtonSize, -1.0f);
+            Vector3 cornerOffset = BackButtonMargin + BackButton.ButtonSize.ScaleX(-1.0f);
             BackButton.transform.position = SpaceUtil.WorldMap.BottomRight + cornerOffset;
 
             MusicVolumeSlider.Value = PlayerPrefs.GetInt(PlayerPrefsUtil.MusicVolumeKey, 100);

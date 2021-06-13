@@ -46,7 +46,7 @@ namespace Assets.Background
 
             float increase = (Speed * scaledTime);
 
-            Sprite.size = VectorUtil.AddY2(Sprite.size, increase);
+            Sprite.size = Sprite.size.AddY(increase);
         }
     }
 }

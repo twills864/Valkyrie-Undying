@@ -57,7 +57,7 @@ namespace Assets.Bullets.PlayerBullets
         private float ScaleInScaleX
         {
             get => ScaleIn.EndValue.x;
-            set => ScaleIn.EndValue = VectorUtil.WithX3(ScaleIn.EndValue, value);
+            set => ScaleIn.EndValue = ScaleIn.EndValue.WithX(value);
         }
 
         private Sequence FadeOutSequence { get; set; }
@@ -66,8 +66,10 @@ namespace Assets.Bullets.PlayerBullets
         protected override void OnPermanentVelocityBulletInit()
         {
             InitialScale = transform.localScale;
-            Vector3 startScale = VectorUtil.WithX3(InitialScale, 0);
-            ScaleIn = new ScaleTo(this, startScale, InitialScale, 1.0f);
+            Vector3 startScale = InitialScale.WithX(0f);
+
+            const float DefaultScaleTime = 1.0f;
+            ScaleIn = new ScaleTo(this, startScale, InitialScale, DefaultScaleTime);
 
             var fadeOut = new FadeTo(this, Alpha, 0, FadeOutTime);
             var deactivateSelf = GameTaskFunc.DeactivateSelf(this);

@@ -83,8 +83,8 @@ namespace Assets.UI.MenuElements
             Vector3 screenPosition = Camera.main.WorldToScreenPoint(worldPosition);
             Slider.transform.position = screenPosition;
 
-            Title.transform.position = VectorUtil.AddX3(worldPosition, -SliderOffsetX);
-            Percent.transform.position = VectorUtil.AddX3(worldPosition, SliderOffsetX);
+            Title.transform.position = worldPosition.AddX(-SliderOffsetX);
+            Percent.transform.position = worldPosition.AddX(SliderOffsetX);
         }
     }
 }

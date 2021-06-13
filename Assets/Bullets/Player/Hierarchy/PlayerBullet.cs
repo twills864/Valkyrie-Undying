@@ -127,7 +127,7 @@ namespace Assets.Bullets.PlayerBullets
 
         protected float EnemyParticlesScale { get; set; }
 
-        public Color32 ParticleColor => ColorUtil.Opaque(SpriteColor);
+        public Color32 ParticleColor => SpriteColor.MakeOpaque();
 
         protected void ParticleHitEffect(Vector3 hitPosition)
         {
