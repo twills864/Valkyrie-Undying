@@ -80,6 +80,13 @@ namespace Assets.Bullets
             }
         }
 
+        protected virtual void OnBulletDeactivate() { }
+        protected sealed override void OnDeactivate()
+        {
+            CurrentBulletTrail = null;
+            OnBulletDeactivate();
+        }
+
         public virtual AudioClip FireSound => SoundBank.Silence;
         public virtual float FireSoundVolume => 1.0f;
 

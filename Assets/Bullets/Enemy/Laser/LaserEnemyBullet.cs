@@ -99,7 +99,7 @@ namespace Assets.Bullets.EnemyBullets
             Behavior.RunFrame(deltaTime);
         }
 
-        protected override void OnDeactivate()
+        protected override void OnBulletDeactivate()
         {
             Parent = null;
         }

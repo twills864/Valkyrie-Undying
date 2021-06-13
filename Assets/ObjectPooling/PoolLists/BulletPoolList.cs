@@ -1,5 +1,9 @@
+using System.Collections.Generic;
+using System.Linq;
+using Assets.Bullets;
 using Assets.Bullets.PlayerBullets;
 using Assets.ColorManagers;
+using Assets.UI;
 using Assets.Util;
 using UnityEngine;
 
@@ -184,5 +188,47 @@ namespace Assets.ObjectPooling
             TGet[] ret = LinqUtil.Array(amountToGet, () => Get<TGet>(position, weaponLevel));
             return ret;
         }
+
+        #region Debug
+
+        public void DebugPrintTrails()
+        {
+            var activeBullets = Pools.SelectMany(x => x)
+                .Where(x => x.isActiveAndEnabled)
+                .OrderBy(x => x.name)
+                ;
+
+
+            Dictionary<BulletTrail, int> counts = new Dictionary<BulletTrail, int>();
+
+            foreach (var bullet in activeBullets)
+            {
+                var trail = bullet.CurrentBulletTrail;
+
+                bullet.Log();
+
+                if (trail != null)
+                {
+                    Debug.Log(trail, trail);
+
+                    if (!counts.ContainsKey(trail))
+                    {
+                        counts[trail] = 0;
+                    }
+                    else
+                    {
+                        Debug.Break();
+                        System.Diagnostics.Debugger.Break();
+                    }
+                    counts[trail]++;
+                }
+                else
+                {
+                    Debug.Log("NULL", bullet);
+                }
+            }
+        }
+
+        #endregion
     }
 }

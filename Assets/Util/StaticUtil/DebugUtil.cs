@@ -103,7 +103,12 @@ namespace Assets.Util
 
         private static void InputD(KeyCode keyCode)
         {
+            PoolManager.Instance.BulletPool.DebugPrintTrails();
+        }
 
+        private static void InputP(KeyCode keyCode)
+        {
+            PowerupSuite();
         }
 
         private static void InputUp(KeyCode keyCode)
@@ -219,6 +224,7 @@ namespace Assets.Util
             new KeyCodeAction(KeyCode.A, InputA),
             new KeyCodeAction(KeyCode.S, InputS),
             new KeyCodeAction(KeyCode.D, InputD),
+            new KeyCodeAction(KeyCode.P, InputP),
             new KeyCodeAction(KeyCode.UpArrow, InputUp),
             new KeyCodeAction(KeyCode.LeftArrow, InputLeft),
             new KeyCodeAction(KeyCode.DownArrow, InputDown),
@@ -389,6 +395,25 @@ namespace Assets.Util
             var ret = SpawnSpecificEnemy<TEnemy>();
             ret.transform.position = position;
             return ret;
+        }
+
+        private static void PowerupSuite()
+        {
+            var spawnTypes = new Type[]
+            {
+                typeof(VictimPowerup),
+                typeof(OthelloPowerup),
+                typeof(FireSpeedPowerup),
+                typeof(SnakeBitePowerup),
+                typeof(VoidPowerup)
+            };
+
+            Vector3 spawnPos = Player.Instance.transform.position;
+
+            foreach(var powerupType in spawnTypes)
+            {
+                PoolManager.Instance.PickupPool.GetSpecificPowerup(spawnPos, powerupType).OnSpawn();
+            }
         }
 
         #endregion Test Methods

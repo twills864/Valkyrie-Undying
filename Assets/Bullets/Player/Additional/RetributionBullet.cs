@@ -219,7 +219,7 @@ namespace Assets.Bullets.PlayerBullets
             Director.SetRetributionTimeScale(this);
         }
 
-        protected override void OnDeactivate()
+        protected override void OnBulletDeactivate()
         {
             transform.localScale = Vector3.zero;
             SetRetributionScales(1.0f);

@@ -119,7 +119,7 @@ namespace Assets.Bullets.PlayerBullets
             }
         }
 
-        protected override void OnDeactivate()
+        protected override void OnBulletDeactivate()
         {
             LocalScaleX = 0;
         }

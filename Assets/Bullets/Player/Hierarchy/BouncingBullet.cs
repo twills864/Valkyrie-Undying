@@ -64,7 +64,7 @@ namespace Assets.Bullets.PlayerBullets
         }
 
         protected virtual void OnBouncingBulletDeactivate() { }
-        protected sealed override void OnDeactivate()
+        protected sealed override void OnBulletDeactivate()
         {
             OnBouncingBulletDeactivate();
         }

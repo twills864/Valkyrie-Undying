@@ -229,6 +229,8 @@ namespace Assets
 #if !UNITY_EDITOR
             Camera.main.orthographicSize *= 2.0f;
 #endif
+            Camera.main.orthographicSize *= 1.5f;
+
             SaveUtil.InitializeSave();
 
             SpaceUtil.Init();

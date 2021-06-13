@@ -81,6 +81,7 @@ namespace Assets.UI
         {
             transform.position = TargetBullet.transform.position;
             Trail.Clear();
+            Trail.emitting = true;
         }
 
         protected override void OnFrameRun(float deltaTime, float realDeltaTime)
@@ -103,6 +104,7 @@ namespace Assets.UI
                 {
                     HandledDeactivation = true;
                     transform.position = TargetBullet.LastActivePosition;
+                    Trail.emitting = false;
                 }
 
                 if (DeactivateTimer.UpdateActivates(DeltaTime))

@@ -95,7 +95,7 @@ namespace Assets.Bullets.PlayerBullets
 
         }
 
-        protected sealed override void OnDeactivate()
+        protected sealed override void OnBulletDeactivate()
         {
             HitEnemies.Clear();
         }
