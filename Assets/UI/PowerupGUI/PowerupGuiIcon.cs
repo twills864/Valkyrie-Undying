@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Assets.Constants;
 using Assets.Hierarchy.ColorHandlers;
 using Assets.Powerups;
+using Assets.Util;
 using UnityEngine;
 
 namespace Assets.UI
@@ -18,6 +19,9 @@ namespace Assets.UI
         private SpriteRenderer _Sprite = null;
 
         [SerializeField]
+        private SpriteRenderer _LevelBackground = null;
+
+        [SerializeField]
         private TextMesh _LevelText = null;
 
         #endregion Prefabs
@@ -26,6 +30,7 @@ namespace Assets.UI
         #region Prefab Properties
 
         private SpriteRenderer Sprite => _Sprite;
+        private SpriteRenderer LevelBackground => _LevelBackground;
         private TextMesh LevelText => _LevelText;
 
         #endregion Prefab Properties
@@ -49,9 +54,15 @@ namespace Assets.UI
         public void UpdateLabel()
         {
             if (Powerup.Level != 1)
+            {
                 LevelText.text = Powerup.Level.ToString();
+                LevelBackground.color = LevelBackground.color.WithAlpha(1f);
+            }
             else
+            {
                 LevelText.text = "";
+                LevelBackground.color = LevelBackground.color.WithAlpha(0f);
+            }
         }
     }
 }

@@ -5232,7 +5232,7 @@ MonoBehaviour:
           Base: {x: 1.55328, y: 0.21333334}
           IncreasePerLevel: {x: 0.25888, y: 0.16}
       Jettison:
-        ScaleXPerLevel: 0.66
+        ScaleXPerLevel: 0.75
         ScaleTime: 1
     Passive:
       Inferno:
