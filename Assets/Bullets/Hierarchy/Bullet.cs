@@ -8,6 +8,8 @@ namespace Assets.Bullets
     /// <inheritdoc/>
     public abstract class Bullet : PooledObject
     {
+        protected virtual bool ShouldDeactivateOnDestructor => true;
+
         #region Prefabs
 
         [SerializeField]
@@ -30,7 +32,17 @@ namespace Assets.Bullets
         protected override ColorHandler DefaultColorHandler()
             => new SpriteColorHandler(Sprite);
 
-        protected virtual bool ShouldDeactivateOnDestructor => true;
+        protected sealed override void OnSpriteColorSet(Color color)
+        {
+            if(CurrentBulletTrail != null)
+                CurrentBulletTrail.SpriteColor = color;
+        }
+
+        protected sealed override void OnAlphaSet(float alpha)
+        {
+            if (CurrentBulletTrail != null)
+                CurrentBulletTrail.Alpha = alpha;
+        }
 
         public ColliderBoxMap ColliderMap { get; private set; }
         public SpriteBoxMap SpriteMap { get; private set; }

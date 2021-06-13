@@ -16,8 +16,6 @@ namespace Assets.Bullets.PlayerBullets
     /// <inheritdoc/>
     public class VoidProjectileBullet : PlayerBullet
     {
-        //public override int Damage => VoidProjectileDamage;
-
         #region Prefabs
 
         [SerializeField]
@@ -36,22 +34,15 @@ namespace Assets.Bullets.PlayerBullets
 
         #endregion Prefab Properties
 
-        protected override ColorHandler DefaultColorHandler()
-        {
-            var sprite = new SpriteColorHandler(Sprite);
-            var line = new BulletTrailColorHandler(this);
-            var ret = new CollectionColorHandler(sprite, line);
-            return ret;
-        }
 
+        protected override ColorHandler DefaultColorHandler() => new SpriteColorHandler(Sprite);
+
+        public override float BulletTrailWidth => SpriteMap.Width;
 
         private CircleCollider2D Collider { get; set; }
         private FuncAfterDelay ActivateCollider { get; set; }
         private VelocityChange VelocityChange { get; set; }
         private ConcurrentGameTask EntranceAnimation { get; set; }
-
-
-        //public int VoidProjectileDamage { get; set; }
 
         protected override void OnPlayerBulletInit()
         {

@@ -100,7 +100,10 @@ namespace Assets.Bullets.PlayerBullets
                 Behavior.RunFrame(deltaTime);
 
                 if (CanShootProjectiles && ProjectileTimer.UpdateActivates(deltaTime))
-                    PoolManager.Instance.BulletPool.Get<VoidProjectileBullet>(transform.position);
+                {
+                    var projectile = PoolManager.Instance.BulletPool.Get<VoidProjectileBullet>(transform.position);
+                    projectile.OnSpawn();
+                }
             }
             else
                 DeactivateSelf();

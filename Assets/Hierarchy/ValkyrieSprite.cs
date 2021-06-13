@@ -85,24 +85,24 @@ namespace Assets
 
             OnFrameRun(deltaTime, realDeltaTime);
 
-//#if DEBUG
-//            if (TotalTime < 0.5f && RetributionTimeScale == 0.0f)
-//            {
-//                Log("RETRIBUTION TIME SCALE = 0.0f (Did you call Init?)");
+            //#if DEBUG
+            //            if (TotalTime < 0.5f && RetributionTimeScale == 0.0f)
+            //            {
+            //                Log("RETRIBUTION TIME SCALE = 0.0f (Did you call Init?)");
 
-//                var renderer = GetComponent<Renderer>();
-//                var boundsOffset = renderer.bounds.size * 0.5f;
-//                var bottomLeft = transform.position - boundsOffset;
+            //                var renderer = GetComponent<Renderer>();
+            //                var boundsOffset = renderer.bounds.size * 0.5f;
+            //                var bottomLeft = transform.position - boundsOffset;
 
-//                var map = new BoxMap(bottomLeft, renderer.bounds.size);
+            //                var map = new BoxMap(bottomLeft, renderer.bounds.size);
 
-//                const float RedXTime = float.Epsilon;
-//                DebugUtil.RedX(map.TopLeft, RedXTime);
-//                DebugUtil.RedX(map.TopRight, RedXTime);
-//                DebugUtil.RedX(map.BottomLeft, RedXTime);
-//                DebugUtil.RedX(map.BottomRight, RedXTime);
-//            }
-//#endif
+            //                const float RedXTime = float.Epsilon;
+            //                DebugUtil.RedX(map.TopLeft, RedXTime);
+            //                DebugUtil.RedX(map.TopRight, RedXTime);
+            //                DebugUtil.RedX(map.BottomLeft, RedXTime);
+            //                DebugUtil.RedX(map.BottomRight, RedXTime);
+            //            }
+            //#endif
         }
 
         #region Retribution
@@ -150,16 +150,26 @@ namespace Assets
         public ColorHandler ColorHandler { get; protected set; }
         protected abstract ColorHandler DefaultColorHandler();
 
+        protected virtual void OnSpriteColorSet(Color color) { }
         public Color SpriteColor
         {
             get => ColorHandler.Color;
-            set => ColorHandler.Color = value;
+            set
+            {
+                ColorHandler.Color = value;
+                OnSpriteColorSet(value);
+            }
         }
 
+        protected virtual void OnAlphaSet(float alpha) { }
         public float Alpha
         {
             get => ColorHandler.Alpha;
-            set => ColorHandler.Alpha = value;
+            set
+            {
+                ColorHandler.Alpha = value;
+                OnAlphaSet(value);
+            }
         }
 
         #endregion Color

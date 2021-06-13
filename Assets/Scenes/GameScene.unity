@@ -5183,10 +5183,10 @@ MonoBehaviour:
     OnKill:
       Bloodlust:
         Duration:
-          Base: 1.25
-          IncreasePerLevel: 0.25
-        SpeedScale:
           Base: 1.5
+          IncreasePerLevel: 0
+        SpeedScale:
+          Base: 1.66
           Increase: 0
       Void:
         Duration:
