@@ -20,7 +20,7 @@ namespace Assets.Powerups
     /// <inheritdoc/>
     public class SplinterPowerup : OnDefaultWeaponHitPowerup
     {
-        public override int MaxLevel => 2;
+        public override int MaxLevel => 1;
         protected override Sprite GetPowerupSprite(PowerupSpriteBank bank) => bank.Splinter;
 
         private static Vector2 SpeedLeft { get; set; }

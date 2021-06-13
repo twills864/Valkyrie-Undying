@@ -12,15 +12,13 @@ using UnityEngine;
 namespace Assets.Powerups
 {
     /// <summary>
-    /// Spawns extra bullets at a default bullet's point of collision
-    /// traveling at a 90 degree angle.
-    /// Level 1 - One bullet on a random side.
-    /// Level 2 - Two bullets total, one on each side.
+    /// Spawns 2 extra bullets at a default bullet's point of collision
+    /// traveling at a 90 degree angle on opposite sides.
     /// </summary>
     /// <inheritdoc/>
     public class SplitPowerup : OnDefaultWeaponHitPowerup
     {
-        public override int MaxLevel => 2;
+        public override int MaxLevel => 1;
         protected override Sprite GetPowerupSprite(PowerupSpriteBank bank) => bank.Split;
 
         private static Vector2 SpeedLeft { get; set; }
@@ -35,16 +33,8 @@ namespace Assets.Powerups
 
         public override void OnHit(Enemy enemy, DefaultBullet bullet, Vector3 hitPosition)
         {
-            if (Level == 1)
-            {
-                Vector2 velocity = RandomUtil.Select(SpeedLeft, SpeedRight);
-                SplitOff(enemy, bullet, hitPosition, velocity);
-            }
-            else
-            {
-                SplitOff(enemy, bullet, hitPosition, SpeedLeft);
-                SplitOff(enemy, bullet, hitPosition, SpeedRight);
-            }
+            SplitOff(enemy, bullet, hitPosition, SpeedLeft);
+            SplitOff(enemy, bullet, hitPosition, SpeedRight);
         }
 
         private static void SplitOff(Enemy enemy, DefaultBullet bullet, Vector3 hitPosition, Vector2 velocity)

@@ -1,5 +1,6 @@
 using Assets.Bullets.PlayerBullets;
 using Assets.FireStrategies.PlayerFireStrategies;
+using Assets.ObjectPooling;
 using Assets.Powerups.Balance;
 using Assets.UI.SpriteBank;
 using Assets.Util;
@@ -46,14 +47,17 @@ namespace Assets.Powerups
             const int IndexLeft = 0;
             const int IndexRight = 1;
 
-            InitBullet(bullets[IndexLeft], SpeedScaleLeft);
-            InitBullet(bullets[IndexRight], SpeedScaleRight);
+            float spawnOffset = bullets[0].ColliderMap.Width;
+
+            InitBullet(bullets[IndexLeft], SpeedScaleLeft, -spawnOffset);
+            InitBullet(bullets[IndexRight], SpeedScaleRight, spawnOffset);
         }
 
-        private void InitBullet(DefaultBullet bullet, Vector2 velocityScale)
+        private void InitBullet(DefaultBullet bullet, Vector2 velocityScale, float spawnOffsetX)
         {
             bullet.Velocity = bullet.VelocityY * velocityScale;
             bullet.SnakeBiteDamage += PoisonDamage;
+            bullet.PositionX += spawnOffsetX;
         }
     }
 }
