@@ -54,7 +54,7 @@ namespace Assets.Bullets.PlayerBullets
                 var bullet = PoolManager.Instance.BulletPool.Get<ParasiteBullet>(Point);
                 bullet.OnSpawn();
 
-                if (NumberToSpawn != 1)
+                if (NumberToSpawn > 1)
                 {
                     NumberToSpawn--;
                     return false;

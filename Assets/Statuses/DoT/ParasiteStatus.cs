@@ -36,7 +36,7 @@ namespace Assets.Statuses
             if (IsActive)
             {
                 Vector3 spawnPosition = Target.transform.position;
-                int numberParasites = Damage;
+                int numberParasites = Damage / 2;
 
                 GameManager.Instance.AddParasites(spawnPosition, numberParasites);
             }

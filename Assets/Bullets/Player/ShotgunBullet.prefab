@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2711872849769043093}
   - component: {fileID: 2959985393852287726}
-  - component: {fileID: 5005118660593439456}
   - component: {fileID: 9130137281552897155}
   m_Layer: 11
   m_Name: ShotgunBullet
@@ -84,27 +83,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!50 &5005118660593439456
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2320183421881281431}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!114 &9130137281552897155
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -122,12 +100,12 @@ MonoBehaviour:
     UseTrail: 1
     TrailTime: 0.075
     TangentCurveScale: 3
-  _BaseDamage: 10
+  _BaseDamage: 13
   _Particles:
     BulletParticles: 0
     EnemyParticles: 5
   _BulletVelocityY: 50
-  _BulletOffsetX: 0
+  _BulletOffsetX: -0.05
   _BulletOffsetY: 0
-  _BulletSpreadX: 0.6
+  _BulletSpreadX: 1.1
   _BulletSpreadY: 0

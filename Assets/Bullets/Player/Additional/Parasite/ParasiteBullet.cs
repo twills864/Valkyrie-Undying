@@ -16,6 +16,7 @@ namespace Assets.Bullets.PlayerBullets
     public class ParasiteBullet : PlayerBullet
     {
         public override AudioClip FireSound => SoundBank.Silence;
+        public override AudioClip HitSound => SoundBank.Silence;
 
         #region Prefabs
 

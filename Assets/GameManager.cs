@@ -230,7 +230,7 @@ namespace Assets
         private void InitWithoutDependencies()
         {
 #if UNITY_EDITOR
-            Camera.main.orthographicSize *= 1.5f;
+            Camera.main.orthographicSize *= 1.25f;
 #else
 
             Camera.main.orthographicSize *= 2.0f;

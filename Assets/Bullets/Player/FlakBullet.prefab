@@ -129,5 +129,5 @@ MonoBehaviour:
   _BulletVelocityY: 30
   _BulletOffsetX: 0.05
   _BulletOffsetY: 0.05
-  _BulletSpreadX: 6
+  _BulletSpreadX: 4
   _BulletSpreadY: 8

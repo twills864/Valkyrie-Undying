@@ -5128,7 +5128,7 @@ MonoBehaviour:
   _FireStrategyManager:
     BaseFireSpeed: 0.75
     PlayerRatios:
-      Shotgun: 1.5
+      Shotgun: 1.75
       Burst:
         FireRatio: 0.05
         ReloadRatio: 1.25
@@ -5140,8 +5140,8 @@ MonoBehaviour:
       Wormhole: 1.8
       Gatling: 1
       Bfg:
-        ChargeRatio: 2.5
-        LaserRatio: 1.5
+        ChargeRatio: 3.5
+        LaserRatio: 2
       OneManArmy: 1.15
       DeadlyDiamond: 0.45
       Reflect: 1

@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 5787446331705891797}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.71, y: 0, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 1}
+  m_LocalScale: {x: 0.11, y: 0.11, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -129,5 +129,5 @@ MonoBehaviour:
   _AdditionalBulletDamage: 25
   _BulletVelocityY: 35
   _FireRadius: 0.75
-  _AngleBetweenLanesInDegrees: 12.5
+  _AngleBetweenLanesInDegrees: 10
   _DampX: 0.6
