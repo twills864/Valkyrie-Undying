@@ -1,4 +1,6 @@
+using System;
 using Assets.Bullets.PlayerBullets;
+using Assets.Constants;
 using Assets.FireStrategies.PlayerFireStrategies;
 using Assets.ObjectPooling;
 using Assets.Powerups.Balance;
@@ -13,6 +15,7 @@ namespace Assets.Powerups
     /// that fire in a V-shaped pattern.
     /// </summary>
     /// <inheritdoc/>
+    [Obsolete(ObsoleteConstants.FollowTheFun)]
     public class SnakeBitePowerup : OnDefaultWeaponFirePowerup
     {
         public override int MaxLevel => 1;

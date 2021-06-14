@@ -5264,6 +5264,10 @@ MonoBehaviour:
         NumParasites:
           Base: 2
           Increase: 3
+      VenomousRounds:
+        PoisonDamage:
+          Base: 5
+          Increase: 5
     OnDefaultWeaponHit:
       Rebound:
         AngleInDegrees: 45

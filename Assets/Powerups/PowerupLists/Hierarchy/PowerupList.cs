@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Assets.Constants;
 using Assets.Powerups.Balance;
 using Assets.Util;
 
@@ -29,13 +30,7 @@ namespace Assets.Powerups
 
             var types = ReflectionUtil.GetTypesSubclassableFrom<TPowerUp>();
 
-            Type[] disabledPowerups = new Type[]
-            {
-                typeof(MetronomePowerup),
-                typeof(RetributionPowerup)
-            };
-
-            foreach(var type in types.Where(x => !disabledPowerups.Contains(x)))
+            foreach(var type in types.Where(t => !ObsoleteConstants.IsObsolete(t)))
             {
                 var newPowerup = (TPowerUp) ReflectionUtil.CreateNew(type);
 

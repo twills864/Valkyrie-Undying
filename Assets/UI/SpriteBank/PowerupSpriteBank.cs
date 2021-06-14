@@ -12,6 +12,11 @@ namespace Assets.UI.SpriteBank
         protected override string SpritePath => "Sprites/Powerups";
 
         /// <summary>
+        /// NULL
+        /// </summary>
+        public Sprite Blank { get; private set; }
+
+        /// <summary>
         /// blood
         /// </summary>
         public Sprite Bloodlust { get; private set; }
@@ -128,6 +133,7 @@ namespace Assets.UI.SpriteBank
 
         private void LoadPowerups()
         {
+            Blank = null;
             Bloodlust = LoadSprite("blood");
             PiercingRounds = LoadSprite("bullet-impacts");
             Jettison = LoadSprite("contract");

@@ -1,4 +1,5 @@
-﻿using Assets.Bullets.PlayerBullets;
+﻿using System;
+using Assets.Bullets.PlayerBullets;
 using Assets.Constants;
 using Assets.Enemies;
 using Assets.Powerups;
@@ -85,7 +86,12 @@ namespace Assets.Bullets.PlayerBullets
 
         #endregion Augmented Rounds
 
+        public int PoisonDamage => SnakeBiteDamage + VenomousRoundsDamage;
+
+        [Obsolete(ObsoleteConstants.FollowTheFun)]
         public int SnakeBiteDamage { get; set; }
+        public int VenomousRoundsDamage { get; set; }
+
         public int ParasiteDamage { get; set; }
 
         protected override void OnPlayerBulletInit()
@@ -99,6 +105,7 @@ namespace Assets.Bullets.PlayerBullets
             EnemyParticlesScale = CalculateParticlesScale();
             NumberPenetrated = 0;
             SnakeBiteDamage = 0;
+            VenomousRoundsDamage = 0;
             ParasiteDamage = 0;
         }
 
@@ -116,8 +123,8 @@ namespace Assets.Bullets.PlayerBullets
         {
             GameManager.Instance.OnEnemyHitWithDefaultWeapon(enemy, this, hitPosition);
 
-            if(SnakeBiteDamage > 0)
-                enemy.AddPoison(SnakeBiteDamage);
+            if(PoisonDamage > 0)
+                enemy.AddPoison(PoisonDamage);
 
             if(ParasiteDamage > 0)
                 enemy.AddParasites(ParasiteDamage);

@@ -153,9 +153,13 @@ MonoBehaviour:
   _Particles:
     BulletParticles: 20
     EnemyParticles: 20
-  _DamagePerLevel: 20
+  _DamagePerLevel: 30
+  _FireDamage:
+    CollisionDamage: 1
+    MaxDamageBase: 5
+    MaxDamageIncrease: 5
   _InitialScaleX: 0.4
-  _ScaleXPerLevel: 0.4
+  _ScaleXPerLevel: 0.5
   _FullBrightTime: 0.3
   _FadeTime: 0.5
   _RepresentedVelocityY: 60

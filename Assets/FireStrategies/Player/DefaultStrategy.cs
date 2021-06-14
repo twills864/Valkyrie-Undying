@@ -1,4 +1,6 @@
-﻿using Assets.Bullets.PlayerBullets;
+﻿using System;
+using Assets.Bullets.PlayerBullets;
+using Assets.Constants;
 using Assets.FireStrategyManagers;
 using Assets.ObjectPooling;
 using Assets.Powerups;
@@ -60,6 +62,7 @@ namespace Assets.FireStrategies.PlayerFireStrategies
             return bullets;
         }
 
+        [Obsolete(ObsoleteConstants.FollowTheFun)]
         public static void ApplySnakeBite(SnakeBitePowerup powerup)
         {
             const int NumSnakeBiteBullets = 2;

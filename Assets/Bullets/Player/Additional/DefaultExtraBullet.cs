@@ -20,7 +20,12 @@ namespace Assets.Bullets.PlayerBullets
 
         public int DefaultExtraDamage { get; set; }
 
+        public int PoisonDamage => SnakeBiteDamage + VenomousRoundsDamage;
+
+        [Obsolete(ObsoleteConstants.FollowTheFun)]
         public int SnakeBiteDamage { get; set; }
+        public int VenomousRoundsDamage { get; set; }
+
         public int ParasiteDamage { get; set; }
 
         public static void StaticInit()
@@ -62,6 +67,7 @@ namespace Assets.Bullets.PlayerBullets
         protected override void OnActivate()
         {
             NumberPenetrated = 0;
+            VenomousRoundsDamage = 0;
             SnakeBiteDamage = 0;
             ParasiteDamage = 0;
         }

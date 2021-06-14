@@ -1,4 +1,5 @@
-﻿using Assets.Bullets.EnemyBullets;
+﻿using System;
+using Assets.Bullets.EnemyBullets;
 using Assets.Bullets.PlayerBullets;
 using Assets.Constants;
 using Assets.Enemies;
@@ -30,6 +31,27 @@ namespace Assets.Bullets.PlayerBullets
         [SerializeField]
         private int _DamagePerLevel = GameConstants.PrefabNumber;
 
+        #region FireDamage
+
+        [Serializable]
+        private struct FireDamage
+        {
+            public int CollisionDamage;
+            public int MaxDamageBase;
+            public int MaxDamageIncrease;
+
+            public int CalculateMaxDamage(int level)
+            {
+                int damage = MaxDamageBase + (level * MaxDamageIncrease);
+                return damage;
+            }
+        }
+
+        #endregion FireDamage
+
+        [SerializeField]
+        private FireDamage _FireDamage = default;
+
 
         [SerializeField]
         private float _InitialScaleX = GameConstants.PrefabNumber;
@@ -53,6 +75,8 @@ namespace Assets.Bullets.PlayerBullets
         #region Prefab Properties
 
         private int DamagePerLevel => _DamagePerLevel;
+        private int FireCollisionDamage => _FireDamage.CollisionDamage;
+        private int MaxFireDamage => _FireDamage.CalculateMaxDamage(BulletLevel);
 
         private float InitialScaleX => _InitialScaleX;
         private float ScaleXPerLevel => _ScaleXPerLevel;
@@ -112,6 +136,12 @@ namespace Assets.Bullets.PlayerBullets
         }
 
         public override bool CollidesWithEnemy(Enemy enemy) => HitBoxActive;
+
+        protected override void OnCollideWithEnemy(Enemy enemy, Vector3 hitPosition)
+        {
+            const int FireDamageIncrease = 1;
+            enemy.Ignite(FireCollisionDamage, FireDamageIncrease, MaxFireDamage);
+        }
 
         protected override void OnPlayerBulletTriggerEnter2D(Collider2D collision)
         {
