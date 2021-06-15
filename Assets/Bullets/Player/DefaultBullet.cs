@@ -13,6 +13,8 @@ namespace Assets.Bullets.PlayerBullets
     public class DefaultBullet : PlayerBullet
     {
         public override int Damage => CalculateDamage();
+        public int ExtraBulletDamage => Damage / 2;
+
         public override AudioClip FireSound => SoundBank.LaserBasic;
 
         public static void StaticInit()
@@ -46,7 +48,7 @@ namespace Assets.Bullets.PlayerBullets
         #region Penetration
 
         public static int MaxPenetration { get; set; }
-        private int NumberPenetrated { get; set; }
+        public int NumberPenetrated { get; private set; }
 
         protected override bool AutomaticallyDeactivate => NumberPenetrated >= MaxPenetration;
 
@@ -178,13 +180,19 @@ namespace Assets.Bullets.PlayerBullets
         private Vector2 CalculateVelocity()
         {
             Vector2 velocity = new Vector2(0, InitialSpeed);
+            float scale = CalculateVelocityScale();
+            velocity *= scale;
 
+            return velocity;
+        }
+
+        public float CalculateVelocityScale()
+        {
             float scaleIncrease = 1f;
 
             scaleIncrease += AugmentedRounds.SpeedScaleIncrease;
 
-            velocity *= scaleIncrease;
-            return velocity;
+            return scaleIncrease;
         }
 
         private float CalculateParticlesScale()

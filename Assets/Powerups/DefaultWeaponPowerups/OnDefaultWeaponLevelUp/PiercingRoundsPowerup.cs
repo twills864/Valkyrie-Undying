@@ -31,7 +31,7 @@ namespace Assets.Powerups
         public override void OnLevelUp()
         {
             DefaultBullet.MaxPenetration = 1;
-            DefaultExtraBullet.MaxPenetration = 1;
+            //DefaultExtraBullet.MaxPenetration = 1;
 
             //if (Level == 1)
             //DefaultBullet.MaxPenetration = 1;

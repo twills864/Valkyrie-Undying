@@ -34,7 +34,7 @@ namespace Assets.Bullets.PlayerBullets
         #region FireDamage
 
         [Serializable]
-        private struct FireDamage
+        private struct BfgFireDamage
         {
             public int CollisionDamage;
             public int MaxDamageBase;
@@ -50,7 +50,7 @@ namespace Assets.Bullets.PlayerBullets
         #endregion FireDamage
 
         [SerializeField]
-        private FireDamage _FireDamage = default;
+        private BfgFireDamage _FireDamage = default;
 
 
         [SerializeField]

@@ -263,7 +263,7 @@ namespace Assets
             NotificationManager.Init(_Notification);
 
             DefaultBullet.StaticInit();
-            DefaultExtraBullet.StaticInit();
+            //DefaultExtraBullet.StaticInit();
 
             _ParticleManager.Init();
 
