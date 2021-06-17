@@ -6,6 +6,7 @@ using Assets.GameTasks;
 using Assets.ObjectPooling;
 using UnityEngine;
 using Assets.Enemies;
+using Assets.Powerups.DefaultBulletBuff;
 
 namespace Assets.Bullets.PlayerBullets
 {
@@ -15,6 +16,7 @@ namespace Assets.Bullets.PlayerBullets
     /// <inheritdoc/>
     public class DefaultExtraBullet : DefaultInfluencedBullet
     {
+        public override int Damage => BulletDamage;
         public override AudioClip FireSound => SoundBank.Silence;
 
         #region Prefabs
@@ -26,33 +28,23 @@ namespace Assets.Bullets.PlayerBullets
 
         #endregion Prefab Properties
 
+        private int BulletDamage { get; set; }
         public PooledObjectTracker<Enemy> ParentEnemy { get; private set; }
-
 
         protected override void OnDefaultInfluencedBulletInit()
         {
             ParentEnemy = new PooledObjectTracker<Enemy>();
         }
 
-        protected override void OnDefaultInfluencedBulletActivate()
-        {
-
-        }
-
-        protected override void OnDefaultInfluencedBulletSpawn()
-        {
-
-        }
-
-        protected override void OnDefaultInfluencedBulletFrameRun(float deltaTime, float realDeltaTime)
-        {
-
-        }
-
         public override bool CollidesWithEnemy(Enemy enemy)
         {
             bool ret = !ParentEnemy.IsTarget(enemy);
             return ret;
+        }
+
+        protected override void OnDefaultInfluencedBulletCollideWithEnemy(Enemy enemy, Vector3 hitPosition)
+        {
+            DefaultBulletBuffs.OnDefaultExtraBulletHit(this, enemy, hitPosition);
         }
 
         public static DefaultExtraBullet SpawnNew(Vector3 hitPosition, Vector2 velocity, DefaultBullet sourceBullet, Enemy hitEnemy)
@@ -64,12 +56,9 @@ namespace Assets.Bullets.PlayerBullets
         public static DefaultExtraBullet SpawnNew(Vector3 hitPosition, Vector2 velocity, DefaultBullet sourceBullet, Enemy hitEnemy, float sizeScaleRatio)
         {
             DefaultExtraBullet bullet = PoolManager.Instance.BulletPool.Get<DefaultExtraBullet>(hitPosition, velocity);
-            bullet.InitFromDefault(sourceBullet, sourceBullet.ExtraBulletDamage);
+            bullet.BulletDamage = sourceBullet.ExtraBulletDamage;
 
             bullet.ParentEnemy.Target = hitEnemy;
-
-            bullet.LocalScale = sizeScaleRatio * sourceBullet.LocalScale;
-
             bullet.OnSpawn();
 
             return bullet;

@@ -5,6 +5,7 @@ using Assets.Constants;
 using Assets.Enemies;
 using Assets.ObjectPooling;
 using Assets.Powerups.Balance;
+using Assets.Powerups.DefaultBulletBuff;
 using Assets.UI.SpriteBank;
 using Assets.Util;
 using UnityEngine;
@@ -15,25 +16,24 @@ namespace Assets.Powerups
     /// Adds parasite damage to fired default bullets.
     /// </summary>
     /// <inheritdoc/>
-    public class InfestedRoundsPowerup : OnDefaultWeaponFirePowerup
+    public class InfestedRoundsPowerup : OnDefaultWeaponLevelUpPowerup
     {
         public override int MaxLevel => 1;
         protected override Sprite GetPowerupSprite(PowerupSpriteBank bank) => bank.InfestedRounds;
 
-        private int NumParasites => (int) NumParasitesCalculator.Value;
+        public int NumParasites => (int) NumParasitesCalculator.Value;
         private SumLevelValueCalculator NumParasitesCalculator { get; set; }
 
-        protected override void InitBalance(in PowerupBalanceManager.OnDefaultWeaponFireBalance balance)
+        protected override void InitBalance(in PowerupBalanceManager.OnDefaultWeaponLevelUpBalance balance)
         {
             float numParasitesBase = balance.InfestedRounds.NumParasites.Base;
             float numParasitesIncrease = balance.InfestedRounds.NumParasites.Increase;
             NumParasitesCalculator = new SumLevelValueCalculator(numParasitesBase, numParasitesIncrease);
         }
 
-        public override void OnFire(Vector3 position, DefaultBullet[] bullets)
+        public override void OnLevelUp()
         {
-            foreach (var bullet in bullets)
-                bullet.ParasiteDamage = NumParasites;
+            DefaultBulletBuffs.InfestedRoundsLevelup(this);
         }
     }
 }

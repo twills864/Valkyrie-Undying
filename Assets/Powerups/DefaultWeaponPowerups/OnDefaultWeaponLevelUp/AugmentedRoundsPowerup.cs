@@ -5,6 +5,7 @@ using Assets.Constants;
 using Assets.Enemies;
 using Assets.ObjectPooling;
 using Assets.Powerups.Balance;
+using Assets.Powerups.DefaultBulletBuff;
 using Assets.UI.SpriteBank;
 using Assets.Util;
 using UnityEngine;
@@ -53,7 +54,7 @@ namespace Assets.Powerups
 
         public override void OnLevelUp()
         {
-            DefaultBullet.AugmentedRoundsLevelUp(this);
+            DefaultBulletBuffs.AugmentedRoundsLevelUp(this);
         }
     }
 }

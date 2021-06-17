@@ -48,7 +48,7 @@ namespace Assets.Powerups
             AllPowerups = AllPowerupsMap.Values.ToList();
 
             //OnHitList.Get<ShrapnelPowerup>().MaxY = destructor.SizeHalf.y;
-            OnFireList.Get<PestControlPowerup>().Init();
+            //OnFireList.Get<PestControlPowerup>().Init();
         }
 
         private void InitBasicPowerups(in PowerupBalanceManager balance, ref UniqueIdGenerator ids)

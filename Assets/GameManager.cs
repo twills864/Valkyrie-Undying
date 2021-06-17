@@ -25,6 +25,7 @@ using Assets.Pickups;
 using UnityEngine.SceneManagement;
 using Assets.Background;
 using Assets.Particles;
+using Assets.Powerups.DefaultBulletBuff;
 
 namespace Assets
 {
@@ -264,6 +265,7 @@ namespace Assets
 
             DefaultBullet.StaticInit();
             //DefaultExtraBullet.StaticInit();
+            DefaultBulletBuffs.Init();
 
             _ParticleManager.Init();
 

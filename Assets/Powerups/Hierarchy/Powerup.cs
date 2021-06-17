@@ -161,6 +161,6 @@ namespace Assets.Powerups
         /// The ValueCalculators that are used to calculate the relative power
         /// of this powerup.
         /// </summary>
-        public List<LevelValueCalculator> LevelValueCalculators { get; set; }
+        private List<LevelValueCalculator> LevelValueCalculators { get; set; }
     }
 }

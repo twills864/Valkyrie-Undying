@@ -422,8 +422,6 @@ namespace Assets.Powerups.Balance
         {
             public PlaceholderBalance Placeholder;
             public SnakeBiteBalance SnakeBite;
-            public InfestedRoundsBalance InfestedRounds;
-            public VenomousRoundsBalance VenomousRounds;
 
             [Serializable]
             public struct PlaceholderBalance
@@ -437,32 +435,6 @@ namespace Assets.Powerups.Balance
                 public float Angle;
                 public int PoisonDamage;
                 public float FireSpeedRatio;
-            }
-
-            [Serializable]
-            public struct InfestedRoundsBalance
-            {
-                public NumParasitesBalance NumParasites;
-
-                [Serializable]
-                public struct NumParasitesBalance
-                {
-                    public float Base;
-                    public float Increase;
-                }
-            }
-
-            [Serializable]
-            public struct VenomousRoundsBalance
-            {
-                public DamageBalance PoisonDamage;
-
-                [Serializable]
-                public struct DamageBalance
-                {
-                    public float Base;
-                    public float Increase;
-                }
             }
         }
 
@@ -521,6 +493,8 @@ namespace Assets.Powerups.Balance
             //public PiercingRoundsBalance PiercingRounds;
 
             public AugmentedRoundsBalance AugmentedRounds;
+            public InfestedRoundsBalance InfestedRounds;
+            public VenomousRoundsBalance VenomousRounds;
 
             [Serializable]
             public struct PlaceholderBalance
@@ -559,6 +533,32 @@ namespace Assets.Powerups.Balance
 
                 [Serializable]
                 public struct ParticlesBalance
+                {
+                    public float Base;
+                    public float Increase;
+                }
+            }
+
+            [Serializable]
+            public struct InfestedRoundsBalance
+            {
+                public NumParasitesBalance NumParasites;
+
+                [Serializable]
+                public struct NumParasitesBalance
+                {
+                    public float Base;
+                    public float Increase;
+                }
+            }
+
+            [Serializable]
+            public struct VenomousRoundsBalance
+            {
+                public DamageBalance PoisonDamage;
+
+                [Serializable]
+                public struct DamageBalance
                 {
                     public float Base;
                     public float Increase;

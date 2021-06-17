@@ -1,5 +1,7 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Assets.Bullets.PlayerBullets;
+using Assets.Constants;
 using Assets.Enemies;
 using Assets.ObjectPooling;
 using Assets.Powerups.Balance;
@@ -15,6 +17,7 @@ namespace Assets.Powerups
     /// reflect it on contact.
     /// </summary>
     /// <inheritdoc/>
+    [Obsolete(ObsoleteConstants.FollowTheFun)]
     public class PestControlPowerup : OnFirePowerup
     {
         protected override Sprite GetPowerupSprite(PowerupSpriteBank bank) => bank.PestControl;

@@ -6,6 +6,7 @@ using Assets.Enemies;
 using Assets.FireStrategies.PlayerFireStrategies;
 using Assets.ObjectPooling;
 using Assets.Powerups.Balance;
+using Assets.Powerups.DefaultBulletBuff;
 using Assets.UI.SpriteBank;
 using Assets.Util;
 using UnityEngine;
@@ -16,24 +17,23 @@ namespace Assets.Powerups
     /// Adds 5 poison damage to the player's default bullets.
     /// </summary>
     /// <inheritdoc/>
-    public class VenomousRoundsPowerup : OnDefaultWeaponFirePowerup
+    public class VenomousRoundsPowerup : OnDefaultWeaponLevelUpPowerup
     {
         protected override Sprite GetPowerupSprite(PowerupSpriteBank bank) => bank.SnakeBite;
 
         public int PoisonDamage => (int) PoisonDamageCalculator.Value;
         private SumLevelValueCalculator PoisonDamageCalculator { get; set; }
 
-        protected override void InitBalance(in PowerupBalanceManager.OnDefaultWeaponFireBalance balance)
+        protected override void InitBalance(in PowerupBalanceManager.OnDefaultWeaponLevelUpBalance balance)
         {
             float poisonDamageBase = balance.VenomousRounds.PoisonDamage.Base;
             float poisonDamageIncrease = balance.VenomousRounds.PoisonDamage.Increase;
             PoisonDamageCalculator = new SumLevelValueCalculator(poisonDamageBase, poisonDamageIncrease);
         }
 
-        public override void OnFire(Vector3 position, DefaultBullet[] bullets)
+        public override void OnLevelUp()
         {
-            foreach (var bullet in bullets)
-                bullet.VenomousRoundsDamage += PoisonDamage;
+            DefaultBulletBuffs.VenomousRoundsLevelup(this);
         }
     }
 }

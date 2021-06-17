@@ -4,6 +4,7 @@ using Assets.Constants;
 using Assets.FireStrategies.PlayerFireStrategies;
 using Assets.ObjectPooling;
 using Assets.Powerups.Balance;
+using Assets.Powerups.DefaultBulletBuff;
 using Assets.UI.SpriteBank;
 using Assets.Util;
 using UnityEngine;
@@ -21,7 +22,7 @@ namespace Assets.Powerups
         public override int MaxLevel => 1;
         protected override Sprite GetPowerupSprite(PowerupSpriteBank bank) => bank.SnakeBite;
 
-        private int PoisonDamage { get; set; }
+        public int PoisonDamage { get; private set; }
         public float FireSpeedRatio { get; private set; }
 
         private Vector2 SpeedScaleLeft { get; set; }
@@ -43,6 +44,7 @@ namespace Assets.Powerups
         public override void OnLevelUp()
         {
             DefaultStrategy.ApplySnakeBite(this);
+            DefaultBulletBuffs.SnakeBiteLevelUp(this);
         }
 
         public override void OnFire(Vector3 position, DefaultBullet[] bullets)
@@ -59,7 +61,6 @@ namespace Assets.Powerups
         private void InitBullet(DefaultBullet bullet, Vector2 velocityScale, float spawnOffsetX)
         {
             bullet.Velocity = bullet.VelocityY * velocityScale;
-            bullet.SnakeBiteDamage += PoisonDamage;
             bullet.PositionX += spawnOffsetX;
         }
     }
