@@ -5302,7 +5302,7 @@ MonoBehaviour:
       DefaultWeaponPowerupOverrideChance: 0.33
     Experience:
       BaseEnemyExpRate: 0.1
-      ExpToFirstLevel: 0.25
+      ExpToFirstLevel: 0.75
       ExtraExpPerLevel: 0.25
     SpawnRate:
       InitialTargetEnemiesOnScreen: 1
@@ -5315,7 +5315,7 @@ MonoBehaviour:
     DefaultEnemy: {r: 1, g: 0, b: 0, a: 1}
     DefaultEnemyAlt: {r: 1, g: 1, b: 1, a: 1}
     Player:
-      DefaultAdditionalRatio: 0.7
+      DefaultAdditionalRatio: 0.5
       OthelloAlpha: 0.5
       Reflected: {r: 1, g: 0, b: 1, a: 1}
       Retribution: {r: 1, g: 0, b: 0, a: 1}
@@ -5984,6 +5984,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SortingLayer
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5352410615180361242, guid: 973e689a2ca4bdf46aaf99e27a2a7e05,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5352410615180361242, guid: 973e689a2ca4bdf46aaf99e27a2a7e05,
         type: 3}

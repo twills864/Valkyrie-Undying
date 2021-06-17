@@ -455,7 +455,7 @@ namespace Assets.Enemies
 
         public void VoidPause()
         {
-            if (CanVoidPause)
+            if (isActiveAndEnabled && CanVoidPause)
             {
                 if (!IsVoidPaused)
                     OnVoidPause();

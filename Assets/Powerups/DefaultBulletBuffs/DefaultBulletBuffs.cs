@@ -117,6 +117,12 @@ namespace Assets.Powerups.DefaultBulletBuff
 
         private static void OnCollideWithEnemy(PlayerBullet bullet, Enemy enemy, Vector3 hitPosition, Func<int, int> ScaleDamage)
         {
+            if (enemy.isActiveAndEnabled)
+                ApplyStatus(enemy, ScaleDamage);
+        }
+
+        private static void ApplyStatus(Enemy enemy, Func<int, int> ScaleDamage)
+        {
             if (PoisonDamage.Total > 0)
                 enemy.AddPoison(ScaleDamage(PoisonDamage.Total));
 

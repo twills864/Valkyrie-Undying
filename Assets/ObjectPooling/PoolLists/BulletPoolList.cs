@@ -100,7 +100,7 @@ namespace Assets.ObjectPooling
         protected override void OnInitSprites(in ColorManager colorManager)
         {
             var player = colorManager.Player;
-            Color defaultAdditional = colorManager.DefaultPlayerAdditionalColor();
+            Color defaultAdditional = colorManager.DefaultPlayerAdditionalColorPseudoAlpha();
 
             ReflectedPrefab.SpriteColor = player.Reflected;
             ShrapnelPrefab.SpriteColor = defaultAdditional;

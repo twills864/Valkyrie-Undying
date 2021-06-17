@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Assets.ColorManagers.SubManagers;
+using Assets.Util;
 using UnityEngine;
 
 namespace Assets.ColorManagers
@@ -30,20 +31,25 @@ namespace Assets.ColorManagers
         [SerializeField]
         public PickupColors Pickup;
 
-        public Color SetAlpha(Color color, float alpha)
+        public Color SetPseudoAlpha(Color color, float alpha)
         {
-            color.a = alpha;
-            return color;
+            Color pseudo = Color.Lerp(Color.black, color, alpha);
+            return pseudo;
         }
 
-        public Color DefaultPlayerAdditionalColor()
+        public Color DefaultPlayerColorWithPseudoAlpha(float alpha)
         {
-            return SetAlpha(DefaultPlayer, Player.DefaultAdditionalRatio);
+            return SetPseudoAlpha(DefaultPlayer, alpha);
         }
 
-        public Color DefaultPlayerColorWithAlpha(float alpha)
+        public Color DefaultPlayerAdditionalColorPseudoAlpha()
         {
-            return SetAlpha(DefaultPlayer, alpha);
+            return SetPseudoAlpha(DefaultPlayer, Player.DefaultAdditionalRatio);
+        }
+
+        public Color DefaultPlayerAdditionalColorRealAlpha()
+        {
+            return DefaultPlayer.WithAlpha(Player.DefaultAdditionalRatio);
         }
     }
 }

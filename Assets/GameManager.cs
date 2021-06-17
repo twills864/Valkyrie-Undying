@@ -344,10 +344,12 @@ namespace Assets
 
         private void InitIndependentColors()
         {
-            var defaultPlayerAdditional = _ColorManager.DefaultPlayerAdditionalColor();
+            Color defaultPlayer = _ColorManager.DefaultPlayer;
+            Color defaultPlayerAdditional = _ColorManager.DefaultPlayerAdditionalColorPseudoAlpha();
+            Color defaultPlayerAdditionalRealAlpha = _ColorManager.DefaultPlayerAdditionalColorRealAlpha();
             //Player.SpriteColor = _ColorManager.DefaultPlayer;
-            _Othello.SpriteColor = _ColorManager.DefaultPlayerColorWithAlpha(_ColorManager.Player.OthelloAlpha);
-            _Monsoon.SpriteColor = defaultPlayerAdditional;
+            _Othello.SpriteColor = defaultPlayer.WithAlpha(_ColorManager.Player.OthelloAlpha);
+            _Monsoon.SpriteColor = defaultPlayerAdditionalRealAlpha;
         }
 
         private void InitGame()

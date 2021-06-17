@@ -1,6 +1,7 @@
 ﻿using Assets.ColorManagers;
 using Assets.UI;
 using Assets.UI.UIElements.EnemyHealthBar;
+using Assets.Util;
 using UnityEngine;
 
 namespace Assets.ObjectPooling
@@ -49,7 +50,7 @@ namespace Assets.ObjectPooling
             BulletTrailPrefab.SpriteColor = defaultPlayer;
 
             float victimMarkerAlpha = colorManager.UI.VictimMarkerAlpha;
-            VictimMarkerCornerPrefab.SpriteColor = colorManager.SetAlpha(defaultPlayer, victimMarkerAlpha);
+            VictimMarkerCornerPrefab.SpriteColor = defaultPlayer.WithAlpha(victimMarkerAlpha);
 
             MortarGuide.StaticInit(in colorManager);
         }
