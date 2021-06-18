@@ -133,7 +133,7 @@ MonoBehaviour:
   _metronomeLabel: {fileID: 0}
   _HealthBarOffsetScale: {x: 0, y: 0.45, z: 0}
   _DifficultyLevel: 3
-  _FirstSpawnMinute: 1
+  _FirstSpawnMinute: 2
   ParticleColor:
     serializedVersion: 2
     rgba: 4278190335

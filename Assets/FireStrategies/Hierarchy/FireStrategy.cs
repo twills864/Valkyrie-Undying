@@ -21,6 +21,7 @@ namespace Assets.FireStrategies
         }
 
         public bool UpdateActivates(float deltaTime) => FireTimer.UpdateActivates(deltaTime);
+        public bool UpdateActivates(float deltaTime, out float overflowDeltaTime) => FireTimer.UpdateActivates(deltaTime, out overflowDeltaTime);
     }
 
     /// <inheritdoc/>

@@ -5302,7 +5302,7 @@ MonoBehaviour:
       DefaultWeaponPowerupOverrideChance: 0.33
     Experience:
       BaseEnemyExpRate: 0.1
-      ExpToFirstLevel: 0.75
+      ExpToFirstLevel: 0.5
       ExtraExpPerLevel: 0.25
     SpawnRate:
       InitialTargetEnemiesOnScreen: 1

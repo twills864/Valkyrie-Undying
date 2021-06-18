@@ -16,6 +16,9 @@ namespace Assets.Bullets.PlayerBullets
     {
         private const float ScreenBuffer = Destructor.Buffer;
 
+        public override float BulletTrailWidth => SpriteMap.Width * 0.8f;
+        public override AudioClip FireSound => SoundBank.ExplosionShortestKnock;
+
         // f(t) = -(t-sqrt(mapHeight))^2 + mapHeight
         // f'(t) = -2(t - sqrt(mapHeight))
         public override Vector2 RepresentedVelocity
@@ -49,8 +52,6 @@ namespace Assets.Bullets.PlayerBullets
         private float BounceXVarianceMax => _BounceXVarianceMax;
 
         #endregion Prefab Properties
-
-        public override AudioClip FireSound => SoundBank.ExplosionShortestKnock;
 
 
         private float ElapsedTime { get; set; }

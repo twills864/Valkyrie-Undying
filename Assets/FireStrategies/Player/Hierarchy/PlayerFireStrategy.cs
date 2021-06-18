@@ -17,6 +17,13 @@ namespace Assets.FireStrategies.PlayerFireStrategies
         /// </summary>
         public string StrategyName { get; }
 
+        /// <summary>
+        /// Whether or not to immediately update this bullet when it's first fired.
+        /// Useful, for example, for HighVelocityPlayerBullets so that the bullets
+        /// immediately spawn with a trail, instead of clumped at the spawn point.
+        /// </summary>
+        public virtual bool UpdateOnFire => true;
+
         public virtual string NotificationName(int weaponLevel)
         {
             string ret;

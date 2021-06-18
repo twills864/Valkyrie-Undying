@@ -15,6 +15,7 @@ namespace Assets.FireStrategies.PlayerFireStrategies
         private const int FireCounterMax = 3;
 
         protected override Sprite GetPickupSprite(HeavyWeaponSpriteBank bank) => bank.Gatling;
+        public override bool UpdateOnFire => false;
 
         protected override float GetFireSpeedRatio(in PlayerFireStrategyManager.PlayerRatio ratios) => ratios.Gatling;
 

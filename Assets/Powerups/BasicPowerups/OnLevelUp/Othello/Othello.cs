@@ -137,7 +137,7 @@ namespace Assets.Powerups
             FadeTo = new FadeTo(this, targetAlpha, FadeInTime);
         }
 
-        public void Fire()
+        public void Fire(float fireStrategyOverflowDt)
         {
             if (gameObject.activeSelf && FireTimer.Activated)
             {
@@ -150,6 +150,8 @@ namespace Assets.Powerups
                     bullet.OthelloDamage = Damage;
 
                     bullet.PositionX += offsetX;
+
+                    bullet.RunFrame(fireStrategyOverflowDt, fireStrategyOverflowDt);
 
                     if (!SpaceUtil.PointIsInBounds(bullet.transform.position))
                         bullet.RunTask(GameTaskFunc.DeactivateSelf(bullet));

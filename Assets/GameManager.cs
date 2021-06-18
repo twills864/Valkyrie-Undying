@@ -387,11 +387,15 @@ namespace Assets
 
             if (Player.IsAlive)
             {
-                if (CurrentFireStrategy.UpdateActivates(playerFireScale * Player.FireSpeedScale))
+                float fireStrategyDt = playerFireScale * Player.FireSpeedScale;
+                if (CurrentFireStrategy.UpdateActivates(fireStrategyDt, out float fireStrategyOverflowDt))
                 {
-                    FireCurrentStrategy();
+                    // Be polite and cap to 1 frame. In case you want to set fire speed to level 999.
+                    const float MaxOverflow = 1f / 60f;
+                    fireStrategyOverflowDt = Math.Min(fireStrategyOverflowDt, MaxOverflow);
+                    FireCurrentStrategy(fireStrategyOverflowDt);
 
-                    _Othello.Fire();
+                    _Othello.Fire(fireStrategyOverflowDt);
                 }
 
                 UpdateFireStrategy(playerTime);
@@ -410,9 +414,16 @@ namespace Assets
             NotificationManager.RunFrame(deltaTime);
         }
 
-        private void FireCurrentStrategy()
+        private void FireCurrentStrategy(float fireStrategyOverflowDt)
         {
             var bullets = CurrentFireStrategy.GetBullets(WeaponLevel, Player.FirePosition);
+
+            if(CurrentFireStrategy.UpdateOnFire)
+            {
+                foreach (var bullet in bullets)
+                    bullet.RunFrame(fireStrategyOverflowDt, fireStrategyOverflowDt);
+            }
+
             FirePlayerBullets(bullets);
 
             var clip = bullets[0]?.FireSound;
@@ -504,7 +515,7 @@ namespace Assets
         {
             // Immediately fire BFG if it's charging
             if (BfgBulletSpawner.Instance.isActiveAndEnabled)
-                FireCurrentStrategy();
+                FireCurrentStrategy(0f);
 
             FireStrategies.Index = index;
             CurrentFireStrategy.Reset();

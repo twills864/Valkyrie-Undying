@@ -16,6 +16,7 @@ namespace Assets.FireStrategies.PlayerFireStrategies
     public class BfgStrategy : PlayerFireStrategy<BfgBullet>
     {
         protected override Sprite GetPickupSprite(HeavyWeaponSpriteBank bank) => bank.Bfg;
+        public override bool UpdateOnFire => false;
 
         protected override float GetFireSpeedRatio(in PlayerFireStrategyManager.PlayerRatio ratios) => ratios.Bfg.ChargeRatio;
 
