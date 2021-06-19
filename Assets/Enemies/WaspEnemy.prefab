@@ -212,6 +212,6 @@ MonoBehaviour:
   _RotateTime: 0.75
   _FireTime: 0.5
   _MinNewDistanceOffset: {x: 1, y: 1}
-  _MaxNewDistanceOffset: {x: 5, y: 5}
-  _WorldEdgeTolerance: 0.5
+  _MaxNewDistanceOffset: {x: 4, y: 4}
+  _WorldEdgeTolerance: {x: 0.5, y: 1}
   _BulletsInBurst: 4

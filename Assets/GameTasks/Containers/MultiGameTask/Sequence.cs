@@ -59,10 +59,12 @@ namespace Assets.GameTasks
                     LogUtil.Log($"({duration}) {finished} : {next}");
                 }
 #endif
-                float overflowDt = CurrentTask.OverflowDeltaTime;
                 CurrentIndex++;
                 CurrentTask.ResetSelf();
-                CurrentTask.RunFrame(overflowDt);
+
+                float overflowDt = CurrentTask.OverflowDeltaTime;
+                if(overflowDt > 0)
+                    CurrentTask.RunFrame(overflowDt);
             }
 
             // A rare edge case could occur when the last tasks have a duration close to 0,

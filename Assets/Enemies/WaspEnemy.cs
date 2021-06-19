@@ -38,8 +38,7 @@ namespace Assets.Enemies
         private Vector2 _MaxNewDistanceOffset = Vector2.zero;
 
         [SerializeField]
-        private float _WorldEdgeTolerance = GameConstants.PrefabNumber;
-        private float WorldEdgeTolerance => _WorldEdgeTolerance;
+        private Vector2 _WorldEdgeTolerance = Vector2.zero;
 
         [SerializeField]
         private int _BulletsInBurst = GameConstants.PrefabNumber;
@@ -55,6 +54,8 @@ namespace Assets.Enemies
         private Vector2 MinNewDistanceOffset => _MinNewDistanceOffset;
         private Vector2 MaxNewDistanceOffset => _MaxNewDistanceOffset;
         private int BulletsInBurst => _BulletsInBurst;
+        private Vector2 WorldEdgeTolerance => _WorldEdgeTolerance;
+
 
         #endregion Prefab Properties
 
@@ -145,7 +146,8 @@ namespace Assets.Enemies
 
         protected override void OnEnemySpawn()
         {
-            NextDestination = PickNewDestination();
+            const float InitialYBoost = 1.0f;
+            NextDestination = PickNewDestination().AddY(-InitialYBoost);
             RotationDegrees = MathUtil.AngleDegreesFromPoints(transform.position, NextDestination);
             FrameBehavior = FrameBehaviors.FlyingToNewDestination0;
         }
@@ -181,31 +183,43 @@ namespace Assets.Enemies
 
             if(offset.x < 0)
             {
-                float minX = SpaceUtil.WorldMap.Left.x + WorldEdgeTolerance;
-                if(newDestination.x < minX)
-                    newDestination.x -= (offset.x * 2f);
+                float minX = SpaceUtil.WorldMap.Left.x + WorldEdgeTolerance.x;
+                if (newDestination.x < minX)
+                    newDestination.x = CompensateNewDestinationOverflow(newDestination.x, minX);
             }
             else
             {
-                float maxX = SpaceUtil.WorldMap.Right.x - WorldEdgeTolerance;
+                float maxX = SpaceUtil.WorldMap.Right.x - WorldEdgeTolerance.x;
                 if (newDestination.x > maxX)
-                    newDestination.x -= (offset.x * 2f);
+                    newDestination.x = CompensateNewDestinationOverflow(newDestination.x, maxX);
             }
 
             if (offset.y < 0)
             {
-                float minY = SpaceUtil.WorldMap.Center.y + WorldEdgeTolerance;
+                float minY = SpaceUtil.WorldMap.Center.y;
                 if (newDestination.y < minY)
-                    newDestination.y -= (offset.y * 2f);
+                    newDestination.y = CompensateNewDestinationOverflow(newDestination.y, minY);
             }
             else
             {
-                float maxY = SpaceUtil.WorldMap.Top.y - WorldEdgeTolerance;
+                float maxY = SpaceUtil.WorldMap.Top.y - WorldEdgeTolerance.y;
                 if (newDestination.y > maxY)
-                    newDestination.y -= (offset.y * 2f);
+                    newDestination.y = CompensateNewDestinationOverflow(newDestination.y, maxY);
+            }
+
+            if(!SpaceUtil.PointIsInBounds(newDestination))
+            {
+
             }
 
             return newDestination;
+        }
+
+        private float CompensateNewDestinationOverflow(float position, float limit)
+        {
+            float overflow = position - limit;
+            float newPosition = position - (overflow * 2f);
+            return newPosition;
         }
 
         private void FlyToNewDestination(float deltaTime)

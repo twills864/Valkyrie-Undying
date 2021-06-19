@@ -171,7 +171,7 @@ namespace Assets.Util
                 }
             }
 
-            SpawnSpecificEnemy<WaspEnemy>();
+            SpawnSpecificEnemy<LaserEnemy>();
 
             //SmiteBullet.DebugTestSmite();
 

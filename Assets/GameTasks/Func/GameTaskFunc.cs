@@ -10,6 +10,7 @@ namespace Assets.GameTasks
     public class GameTaskFunc : FiniteTimeGameTask
     {
         private Action Func;
+        public string MethodName => Func.Method.Name;
 
         public GameTaskFunc(ValkyrieSprite target, Action func) : base(target, float.Epsilon)
         {
@@ -27,5 +28,7 @@ namespace Assets.GameTasks
             GameTaskFunc ret = new GameTaskFunc(runner, deactivateSelf);
             return ret;
         }
+
+        protected override string ToFiniteTimeGameTaskString() => MethodName;
     }
 }
