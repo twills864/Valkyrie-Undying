@@ -15,7 +15,7 @@ namespace Assets.Statuses
         }
 
         // Poison damage is constant.
-        public override int GetAndUpdateDamage() => Damage;
+        public override int GetAndUpdatePower() => Power;
 
         protected override void UpdateStatusBar()
         {
@@ -24,9 +24,9 @@ namespace Assets.Statuses
 
         public void AddPoison(int damage)
         {
-            if (damage > Damage)
+            if (damage > Power)
             {
-                Damage = damage;
+                Power = damage;
                 UpdateStatusBar();
             }
         }

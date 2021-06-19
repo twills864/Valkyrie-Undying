@@ -20,6 +20,8 @@ namespace Assets.Enemies
     /// <inheritdoc/>
     public abstract class Enemy : PooledObject, IVictimHost
     {
+        protected const float ChillScale = 0.75f;
+
         public override string LogTagColor => "#FFB697";
         public override TimeScaleType TimeScale => TimeScaleType.Enemy;
 
@@ -104,6 +106,12 @@ namespace Assets.Enemies
         protected override ColorHandler DefaultColorHandler()
             => new SpriteColorHandler(Sprite);
 
+        public override Vector2 Velocity
+        {
+            get => !IsChilled ? base.Velocity : base.Velocity *= ChillScale;
+            set => base.Velocity = value;
+        }
+
         protected virtual bool ShouldDeactivateOnDestructor => true;
 
         public virtual int ActiveTrackedEnemiesCountContribution => 1;
@@ -143,6 +151,7 @@ namespace Assets.Enemies
             Burning = new BurningStatus(this);
             Poisoned = new PoisonedStatus(this);
             Parasites = new ParasiteStatus(this);
+            Chilled = new ChilledStatus(this);
         }
 
         protected virtual void OnEnemyActivate() { }
@@ -162,6 +171,7 @@ namespace Assets.Enemies
             Burning.Reset();
             Poisoned.Reset();
             Parasites.Reset();
+            Chilled.Reset();
         }
 
         protected virtual void OnEnemySpawn() { }
@@ -198,6 +208,12 @@ namespace Assets.Enemies
 
             if (!IsVoidPaused)
             {
+                UpdateMiscStatuses(deltaTime);
+
+                if (IsChilled)
+                    deltaTime *= ChillScale;
+                    //realDeltaTime *= ChillScale;
+
                 OnEnemyFrame(deltaTime, realDeltaTime);
             }
 
@@ -215,6 +231,11 @@ namespace Assets.Enemies
                 || Parasites.UpdateKills(realDeltaTime);
 
             return kills;
+        }
+
+        private void UpdateMiscStatuses(float deltaTime)
+        {
+            Chilled.Update(deltaTime);
         }
 
         protected virtual void OnEnemyDeactivate() { }
@@ -308,7 +329,7 @@ namespace Assets.Enemies
 
         public bool StatusDamageKills(DamageOverTimeStatus status)
         {
-            int damage = status.GetAndUpdateDamage();
+            int damage = status.GetAndUpdatePower();
 
             if (DamageKills(damage))
             {
@@ -430,7 +451,7 @@ namespace Assets.Enemies
 
         #endregion Poison
 
-        #region Poison
+        #region Parasites
 
         protected ParasiteStatus Parasites { get; set; }
 
@@ -439,7 +460,19 @@ namespace Assets.Enemies
             Parasites.AddParasites(numberParasites);
         }
 
-        #endregion Poison
+        #endregion Parasites
+
+        #region Chilled
+
+        protected ChilledStatus Chilled { get; set; }
+        protected bool IsChilled => Chilled.IsActive;
+
+        public void AddChill(int time)
+        {
+            Chilled.AddChill(time);
+        }
+
+        #endregion Chilled
 
 
         #region Void
@@ -464,7 +497,12 @@ namespace Assets.Enemies
         }
         private void OnVoidPause()
         {
-            VoidPausedVelocity = Velocity;
+            Vector2 velocity = Velocity;
+
+            if (IsChilled)
+                velocity /= ChillScale;
+
+            VoidPausedVelocity = velocity;
             Velocity = Vector2.zero;
 
             StatusBar.IsVoidPaused = true;

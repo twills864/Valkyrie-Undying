@@ -9,20 +9,16 @@ using Assets.Util;
 
 namespace Assets.Statuses
 {
-    public abstract class DamageOverTimeStatus
+    /// <summary>
+    /// Deals a specified amount of damage to the affected enemy each tick.
+    /// </summary>
+    public abstract class DamageOverTimeStatus : TickingStatusEffect
     {
         private const float ActivationInterval = 1.0f;
 
-        protected Enemy Target { get; set; }
-
-        protected LoopingFrameTimer Timer { get; set; }
-
-        public int Damage { get; protected set; }
-        public bool IsActive => Damage > 0;
-
         public bool UpdateKills(float deltaTime)
         {
-            if (IsActive && Timer.UpdateActivates(deltaTime))
+            if (UpdateTicks(deltaTime))
             {
                 bool kills = Target.StatusDamageKills(this);
                 return kills;
@@ -31,23 +27,8 @@ namespace Assets.Statuses
                 return false;
         }
 
-        protected abstract void UpdateStatusBar();
-
-        public abstract int GetAndUpdateDamage();
-
-        public DamageOverTimeStatus(Enemy target)
+        public DamageOverTimeStatus(Enemy target) : base(target)
         {
-            Target = target;
-            Timer = new LoopingFrameTimer(ActivationInterval);
-        }
-
-        protected virtual void OnReset() { }
-        public void Reset()
-        {
-            Timer.Reset();
-            Damage = 0;
-
-            OnReset();
         }
     }
 }

@@ -17,14 +17,14 @@ namespace Assets.Statuses
 
         }
 
-        public override int GetAndUpdateDamage()
+        public override int GetAndUpdatePower()
         {
-            Damage += DamageIncrease;
-            Damage = Math.Min(Damage, MaxDamage);
+            Power += DamageIncrease;
+            Power = Math.Min(Power, MaxDamage);
 
             UpdateStatusBar();
 
-            return Damage;
+            return Power;
         }
 
         protected override void UpdateStatusBar()
@@ -44,9 +44,9 @@ namespace Assets.Statuses
         {
             bool anyImprovements = false;
 
-            if(damage > Damage)
+            if(damage > Power)
             {
-                Damage = damage;
+                Power = damage;
                 anyImprovements = true;
             }
 

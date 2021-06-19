@@ -75,17 +75,22 @@ namespace Assets.UI
 
         public void Ignite(BurningStatus status)
         {
-            StatusBarHolder.BurningDamage = status.Damage;
+            StatusBarHolder.BurningDamage = status.Power;
         }
 
         public void AddPoison(PoisonedStatus status)
         {
-            StatusBarHolder.PoisonDamage = status.Damage;
+            StatusBarHolder.PoisonDamage = status.Power;
         }
 
         public void AddParasites(ParasiteStatus status)
         {
-            StatusBarHolder.ParasiteDamage = status.Damage;
+            StatusBarHolder.ParasiteDamage = status.Power;
+        }
+
+        public void AddChill(ChilledStatus status)
+        {
+            StatusBarHolder.ChilledTime = status.Power;
         }
 
         public static void StaticInit()

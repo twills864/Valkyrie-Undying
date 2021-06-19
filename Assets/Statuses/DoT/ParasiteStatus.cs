@@ -18,7 +18,7 @@ namespace Assets.Statuses
         }
 
         // Parasite damage doesn't change as a result of time.
-        public override int GetAndUpdateDamage() => Damage;
+        public override int GetAndUpdatePower() => Power;
 
         protected override void UpdateStatusBar()
         {
@@ -27,7 +27,7 @@ namespace Assets.Statuses
 
         public void AddParasites(int numberParasites)
         {
-            Damage += numberParasites;
+            Power += numberParasites;
             UpdateStatusBar();
         }
 
@@ -36,7 +36,7 @@ namespace Assets.Statuses
             if (IsActive)
             {
                 Vector3 spawnPosition = Target.transform.position;
-                int numberParasites = Damage / 2;
+                int numberParasites = Power / 2;
 
                 GameManager.Instance.AddParasites(spawnPosition, numberParasites);
             }

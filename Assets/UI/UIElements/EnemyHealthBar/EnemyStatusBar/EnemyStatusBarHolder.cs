@@ -81,5 +81,11 @@ namespace Assets.UI.UIElements.EnemyHealthBar
             get => TemporaryStatuses.IsVoidPaused;
             set => TemporaryStatuses.IsVoidPaused = value;
         }
+
+        public int ChilledTime
+        {
+            get => TemporaryStatuses.ChilledTime;
+            set => TemporaryStatuses.ChilledTime = value;
+        }
     }
 }

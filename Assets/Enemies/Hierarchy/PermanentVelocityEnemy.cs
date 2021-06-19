@@ -22,7 +22,9 @@ namespace Assets.Enemies
 
 
         private Vector2 _velocity;
-        public sealed override Vector2 Velocity => !IsVoidPaused ? _velocity : Vector2.zero;
+        public sealed override Vector2 Velocity => !IsVoidPaused
+            ? (!IsChilled ? _velocity : _velocity * ChillScale)
+            : Vector2.zero;
 
         protected virtual void OnPermanentVelocityEnemyInit() { }
         protected sealed override void OnEnemyInit()

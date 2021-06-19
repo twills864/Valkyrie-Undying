@@ -10,16 +10,19 @@ namespace Assets.UI.UIElements.EnemyHealthBar
         #region Prefabs
 
         [SerializeField]
-        private EnemyStatusSprite _VoidPaused;
+        private EnemyStatusSprite _VoidPaused = null;
+
+        [SerializeField]
+        private EnemyStatusSprite _Chilled = null;
 
         //[SerializeField]
-        //private EnemyStatusSprite _Acidic;
+        //private EnemyStatusSprite _Acidic = null;
 
         //[SerializeField]
-        //private EnemyStatusSprite _Silenced;
+        //private EnemyStatusSprite _Silenced = null;
 
         //[SerializeField]
-        //private EnemyStatusSprite _Shocked;
+        //private EnemyStatusSprite _Shocked = null;
 
         #endregion Prefabs
 
@@ -28,6 +31,9 @@ namespace Assets.UI.UIElements.EnemyHealthBar
 
         // Paused until they exit void
         private EnemyStatusSprite VoidPaused => _VoidPaused;
+
+        // Reduces update speed
+        private EnemyStatusSprite Chilled => _Chilled;
 
         //// Decreasing DoT
         //private EnemyStatusSprite Acidic => _Acidic;
@@ -43,12 +49,14 @@ namespace Assets.UI.UIElements.EnemyHealthBar
 
         protected override List<EnemyStatusSprite> InitialStatusSprites() => new List<EnemyStatusSprite>()
         {
-            VoidPaused
+            VoidPaused,
+            Chilled
         };
 
         protected override void OnEnemyStatusBarInit()
         {
             VoidPaused.Init();
+            Chilled.Init();
         }
 
         protected override void OnEnemyStatusBarSpawn()
@@ -61,6 +69,12 @@ namespace Assets.UI.UIElements.EnemyHealthBar
         {
             get => VoidPaused.Value > 0;
             set => SetAndRecalculate(VoidPaused, value ? 1 : 0);
+        }
+
+        public int ChilledTime
+        {
+            get => Chilled.Value;
+            set => SetAndRecalculate(Chilled, value);
         }
     }
 }
