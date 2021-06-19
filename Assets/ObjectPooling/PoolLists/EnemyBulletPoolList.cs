@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Assets.Bullets.EnemyBullets;
@@ -25,6 +25,8 @@ namespace Assets.ObjectPooling
         private CradleEnemyBullet CradlePrefab = null;
         [SerializeField]
         private LaserEnemyBullet LaserPrefab = null;
+        [SerializeField]
+        private WaspEnemyBullet WaspPrefab = null;
 
 #pragma warning restore 0414
 

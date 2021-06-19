@@ -14,10 +14,16 @@ namespace Assets.GameTasks
 
         private float LastAngle;
 
-        public float RotationDegrees
+        private float RotationDegrees
         {
             get => Target.RotationDegrees;
             set => Target.RotationDegrees = value;
+        }
+
+        public float StartRotationDegrees
+        {
+            get => AngleRange.StartValue;
+            set => AngleRange.StartValue = value;
         }
 
         public float EndRotationDegrees
@@ -54,10 +60,41 @@ namespace Assets.GameTasks
             AngleRange.EndValue = to;
         }
 
+        public void SetMinimumArcAngleRange(float from, float to)
+        {
+            const float FullCircle = 360f;
+            const float HalfCircle = 180f;
+
+            if (Mathf.Abs(from - to) > FullCircle)
+            {
+                if (from < 0)
+                    from += FullCircle;
+                else
+                    to += FullCircle;
+            }
+
+            if (Mathf.Abs(from - to) > HalfCircle)
+            {
+                if (from > to)
+                    from -= FullCircle;
+                else
+                    to -= FullCircle;
+            }
+
+            AngleRange.SetRange(from, to);
+        }
+
         public override void ResetSelf()
         {
             base.ResetSelf();
             LastAngle = AngleRange.StartValue;
+        }
+
+        public static RotateTo Default(ValkyrieSprite target, float duration)
+        {
+            var ret = new RotateTo(target, target.RotationDegrees, duration);
+            ret.FinishSelf();
+            return ret;
         }
 
         protected override string ToFiniteTimeGameTaskString()

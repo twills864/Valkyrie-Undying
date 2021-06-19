@@ -55,3 +55,5 @@ MonoBehaviour:
     type: 3}
   LaserSpawnerPrefab: {fileID: 5957532201926715063, guid: 1399637ebd4acdb47ae99bd5e2a845a0,
     type: 3}
+  WaspPrefab: {fileID: 3793466423408946816, guid: 4257ecb885de48b589edca7992330de9,
+    type: 3}

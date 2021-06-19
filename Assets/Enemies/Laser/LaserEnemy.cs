@@ -97,8 +97,9 @@ namespace Assets.Enemies
 
             var resetRotate = new GameTaskFunc(this, ResetRotate);
             Rotate = new RotateTo(this, 0.0f, RotateTime);
+            var ease = new EaseIn(Rotate);
             var fireLaser = new GameTaskFunc(this, FireLaser);
-            FireSequence = new Sequence(resetRotate, Rotate, fireLaser);
+            FireSequence = new Sequence(resetRotate, ease, fireLaser);
 
             #endregion FireLoop
         }

@@ -10,7 +10,7 @@ namespace Assets.GameTasks
     /// <inheritdoc/>
     public class MoveTo : FiniteMovementGameTask
     {
-        private Vector3 Destination { get; set; }
+        public Vector3 Destination { get; private set; }
 
         private Vector3 StartPosition { get; set; }
         private Vector3 TotalPositionDifference { get; set; }
@@ -41,6 +41,13 @@ namespace Assets.GameTasks
             TotalPositionDifference = destination - startPosition;
 
             Velocity = TotalPositionDifference / Duration;
+        }
+
+        public static MoveTo Default(ValkyrieSprite target, float duration)
+        {
+            var ret = new MoveTo(target, target.transform.position, duration);
+            ret.FinishSelf();
+            return ret;
         }
     }
 }

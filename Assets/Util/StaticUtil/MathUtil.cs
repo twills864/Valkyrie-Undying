@@ -252,7 +252,7 @@ namespace Assets.Util
         /// </summary>
         /// <param name="angle">The angle at which to point the vector.</param>
         /// <returns>The vector at the given angle.</returns>
-        public static Vector2 Vector3AtDegreeAngle(float angle, float length)
+        public static Vector3 Vector3AtDegreeAngle(float angle, float length)
         {
             var ret = Vector3AtDegreeAngle(angle) * length;
             return ret;

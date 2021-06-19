@@ -43,6 +43,13 @@ namespace Assets.Util
             RangeDelta = _endValue - _startValue;
         }
 
+        public void SetRange(float startValue, float endValue)
+        {
+            _startValue = startValue;
+            _endValue = endValue;
+            SetRange();
+        }
+
         private void SetRange()
         {
             RangeDelta = EndValue - StartValue;

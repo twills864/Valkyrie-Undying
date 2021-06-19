@@ -171,9 +171,11 @@ namespace Assets.Util
                 }
             }
 
-            SmiteBullet.DebugTestSmite();
+            SpawnSpecificEnemy<WaspEnemy>();
 
-            RainCurrentPowerup();
+            //SmiteBullet.DebugTestSmite();
+
+            //RainCurrentPowerup();
             //PickupSpam();
 
             //TestRetribution();

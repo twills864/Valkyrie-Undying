@@ -33,7 +33,7 @@ namespace Assets
     public class GameManager : MonoBehaviour
     {
         #region Debug
-        private TestingType CurrentTest = TestingType.NewPowerup;
+        private TestingType CurrentTest = TestingType.NewEnemy;
 
         public static Type OverrideEnemyType => null; // DebugUtil.GetOverrideEnemyType<BasicEnemy>();
 
@@ -279,13 +279,18 @@ namespace Assets
         private void InitWithDependencies()
         {
             // Dependency: PoolManager
-            _DebugEnemy.Init();
-            _DebugEnemy.OnSpawn();
             EnemyHealthBar.StaticInit();
             _Monsoon.Init();
             _SentinelManager.Init();
             InitFireStrategies();
             Director.Init(_DirectorBalance);
+
+            // Dependency: PoolManager, SpaceUtil
+            _DebugEnemy.Init();
+            _DebugEnemy.OnSpawn();
+
+            if (TestingEnemy)
+                _DebugEnemy.transform.position = SpaceUtil.WorldMap.Bottom;
 
             // Dependency: FireStrategies
             SetFireType(DefaultFireTypeIndex, skipMessage: true);
@@ -362,6 +367,11 @@ namespace Assets
             LivesLeft = _StartingExtraLives;
 #endif
 
+#if UNITY_EDITOR
+            if (TestingEnemy)
+                DebugUtil.SpawnSpecificEnemy<WaspEnemy>();
+#endif
+
         }
 
         #endregion Init
@@ -390,8 +400,8 @@ namespace Assets
                 float fireStrategyDt = playerFireScale * Player.FireSpeedScale;
                 if (CurrentFireStrategy.UpdateActivates(fireStrategyDt, out float fireStrategyOverflowDt))
                 {
-                    // Be polite and cap to 1 frame. In case you want to set fire speed to level 999.
-                    const float MaxOverflow = 1f / 60f;
+                    // Be polite and cap to 2 frames. In case you want to set fire speed to level 999.
+                    const float MaxOverflow = 1f / 30f;
                     fireStrategyOverflowDt = Math.Min(fireStrategyOverflowDt, MaxOverflow);
                     FireCurrentStrategy(fireStrategyOverflowDt);
 

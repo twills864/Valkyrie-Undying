@@ -50,5 +50,12 @@ namespace Assets.GameTasks
         {
             Distance = distance;
         }
+
+        public static MoveBy Default(ValkyrieSprite target, float duration)
+        {
+            var ret = new MoveBy(target, Vector3.zero, duration);
+            ret.FinishSelf();
+            return ret;
+        }
     }
 }

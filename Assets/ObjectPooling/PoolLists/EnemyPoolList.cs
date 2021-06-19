@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using Assets.Enemies;
 using UnityEngine;
 using System.Linq;
@@ -26,6 +26,8 @@ namespace Assets.ObjectPooling
         private CradleEnemy CradleEnemyPrefab = null;
         [SerializeField]
         private LaserEnemy LaserEnemyPrefab = null;
+        [SerializeField]
+        private WaspEnemy WaspPrefab = null;
 
 #pragma warning restore 0414
 

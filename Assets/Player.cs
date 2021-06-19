@@ -19,6 +19,7 @@ namespace Assets
     public class Player : ValkyrieSprite, IVictimHost
     {
         public static Player Instance { get; private set; }
+        public static Vector3 Position => Instance.transform.position;
         private static float MobileY { get; set; }
 
         public override string LogTagColor => "#60D3FF";

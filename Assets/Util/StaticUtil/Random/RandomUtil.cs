@@ -262,6 +262,44 @@ namespace Assets.Util
         #region Vectors
 
         /// <summary>
+        /// Returns a random Vector2 [(0, 0), (1, 1)).
+        /// </summary>
+        /// <returns>A random Vector2 [(0, 0), (1, 1)).</returns>
+        public static Vector2 Vector2()
+        {
+            float x = Float();
+            float y = Float();
+            Vector2 ret = new Vector2(x, y);
+            return ret;
+        }
+
+        /// <summary>
+        /// Returns a random Vector2 [(0, 0), (<paramref name="maxExclusive"/>.x, <paramref name="maxExclusive"/>.y)).
+        /// </summary>
+        /// <returns>A random Vector2 [(0, 0), (<paramref name="maxExclusive"/>.x, <paramref name="maxExclusive"/>.y).</returns>
+        public static Vector2 Vector2(Vector2 maxExclusive)
+        {
+            float x = Float(maxExclusive.x);
+            float y = Float(maxExclusive.y);
+            Vector2 ret = new Vector2(x, y);
+            return ret;
+        }
+
+        /// /// <summary>
+        /// Returns a random Vector2 [(<paramref name="minInclusive"/>.x, <paramref name="minInclusive"/>.y),
+        /// (<paramref name="maxExclusive"/>.x, <paramref name="maxExclusive"/>.y).
+        /// </summary>
+        /// <returns>A a random Vector2 [(<paramref name="minInclusive"/>.x, <paramref name="minInclusive"/>.y),
+        /// (<paramref name="maxExclusive"/>.x, <paramref name="maxExclusive"/>.y).</returns>
+        public static Vector2 Vector2(Vector2 minInclusive, Vector2 maxExclusive)
+        {
+            float x = Float(minInclusive.x, maxExclusive.x);
+            float y = Float(minInclusive.y, maxExclusive.y);
+            Vector2 ret = new Vector2(x, y);
+            return ret;
+        }
+
+        /// <summary>
         /// Returns a vector of a specified <paramref name="length"/> in a pseudo-random direction.
         /// </summary>
         /// <param name="length">The length of the vector to return.</param>

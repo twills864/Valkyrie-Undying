@@ -55,3 +55,5 @@ MonoBehaviour:
     type: 3}
   LaserEnemyPrefab: {fileID: 6624820949249215805, guid: a3f6f001d392a6e4a89f56e3304e1620,
     type: 3}
+  WaspPrefab: {fileID: 7545767173633579490, guid: a7627dfb7a7645e9a4e47d582c976eb3,
+    type: 3}
