@@ -11,26 +11,40 @@ namespace Assets.GameTasks.GameTaskLists
 {
     public class GameTaskList : List<GameTask>
     {
+        private bool CurrentlyIterating = false;
+        private HashSet<ValkyrieSprite> TargetsToErase { get; } = new HashSet<ValkyrieSprite>();
+
         public void RunFrames(float deltaTime)
         {
+            CurrentlyIterating = true;
+            TargetsToErase.Clear();
+
             for (int i = Count - 1; i >= 0; i--)
             {
                 var task = this[i];
                 var target = task.Target;
 
-#if DEBUG
-                if (!target.isActiveAndEnabled)
+                if (target.isActiveAndEnabled)
                 {
-                    LogUtil.Log("Disabled task is running in GameTaskList!", target);
-                    System.Diagnostics.Debugger.Break();
+                    if (!target.IsPaused)
+                    {
+                        float scaledTime = deltaTime * target.TimeScaleModifier * target.RetributionTimeScale;
+                        task.RunFrame(scaledTime);
+                        if (task.IsFinished)
+                            RemoveAt(i);
+                    }
                 }
-#endif
+            }
 
-                if (!target.IsPaused)
+            CurrentlyIterating = false;
+
+            if (TargetsToErase.Any())
+            {
+                for (int i = Count - 1; i >= 0; i--)
                 {
-                    float scaledTime = deltaTime * target.TimeScaleModifier * target.RetributionTimeScale;
-                    task.RunFrame(scaledTime);
-                    if (task.IsFinished)
+                    var task = this[i];
+
+                    if (TargetsToErase.Contains(task.Target))
                         RemoveAt(i);
                 }
             }
@@ -38,13 +52,18 @@ namespace Assets.GameTasks.GameTaskLists
 
         public void RemoveTasksRelatedToTarget(ValkyrieSprite target)
         {
-            for (int i = Count - 1; i >= 0; i--)
+            if (!CurrentlyIterating)
             {
-                var task = this[i];
+                for (int i = Count - 1; i >= 0; i--)
+                {
+                    var task = this[i];
 
-                if (task.Target == target)
-                    RemoveAt(i);
+                    if (task.Target == target)
+                        RemoveAt(i);
+                }
             }
+            else
+                TargetsToErase.Add(target);
         }
     }
 }

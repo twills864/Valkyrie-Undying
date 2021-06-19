@@ -191,8 +191,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 997fb63582884caab263bb4d5a5ea6b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _InitialSpawnHealth: 150
-  _HealthScaling: 1.5
+  _InitialSpawnHealth: 175
+  _HealthScaling: 1.75
   _ExpRatioOverride:
     ShouldOverride: 0
     Multiplier: 0
@@ -209,9 +209,9 @@ MonoBehaviour:
     serializedVersion: 2
     rgba: 4294967295
   _TravelTime: 1
-  _RotateTime: 1
-  _FireTime: 1
-  _MinNewDistanceOffset: {x: 1, y: 1.5}
-  _MaxNewDistanceOffset: {x: 2, y: 3}
+  _RotateTime: 0.75
+  _FireTime: 0.5
+  _MinNewDistanceOffset: {x: 1, y: 1}
+  _MaxNewDistanceOffset: {x: 5, y: 5}
   _WorldEdgeTolerance: 0.5
   _BulletsInBurst: 4

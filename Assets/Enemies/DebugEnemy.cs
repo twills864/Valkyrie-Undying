@@ -78,7 +78,7 @@ namespace Assets.Enemies
 
         protected override void OnEnemySpawn()
         {
-#if !UNITY_EDITOR
+#if !UNITY_EDITOR2
             // Despawn next frame
             var deactivate = GameTaskFunc.DeactivateSelf(this);
             RunTask(deactivate);

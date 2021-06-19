@@ -279,7 +279,6 @@ namespace Assets
         private void InitWithDependencies()
         {
             // Dependency: PoolManager
-            EnemyHealthBar.StaticInit();
             _Monsoon.Init();
             _SentinelManager.Init();
             InitFireStrategies();
@@ -291,6 +290,10 @@ namespace Assets
 
             if (TestingEnemy)
                 _DebugEnemy.transform.position = SpaceUtil.WorldMap.Bottom;
+
+            // Dependency: PoolManager
+            // Must take place after DebugEnemy.Init() to prevent status bar glitches.
+            EnemyHealthBar.StaticInit();
 
             // Dependency: FireStrategies
             SetFireType(DefaultFireTypeIndex, skipMessage: true);

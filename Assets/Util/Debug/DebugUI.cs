@@ -186,6 +186,7 @@ namespace Assets.Util
             //_GameManager.RecolorPlayerActivity(newRando);
 
             //DebugUtil.SpawnSpecificEnemy<TankEnemy>();
+            DebugUtil.SpawnSpecificEnemy<WaspEnemy>();
         }
 
         public void ShowPowerupMenuButtonPressed(Button button)
