@@ -23,9 +23,9 @@ namespace Assets.Util
         public int Total { get => _total; private set => _total = value; }
 
         public int Item1 { get => _item1; set => UpdateItem(ref _item1, value); }
-        public int Item2 { get => _item2; set => UpdateItem(ref _item1, value); }
-        public int Item3 { get => _item3; set => UpdateItem(ref _item1, value); }
-        public int Item4 { get => _item4; set => UpdateItem(ref _item1, value); }
+        public int Item2 { get => _item2; set => UpdateItem(ref _item2, value); }
+        public int Item3 { get => _item3; set => UpdateItem(ref _item3, value); }
+        public int Item4 { get => _item4; set => UpdateItem(ref _item4, value); }
 
         private void UpdateItem(ref int item, int value)
         {

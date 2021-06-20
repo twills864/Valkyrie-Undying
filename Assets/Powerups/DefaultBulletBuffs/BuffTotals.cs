@@ -55,4 +55,15 @@ namespace Assets.Powerups.DefaultBulletBuff
 
         public int MutingRoundsTime { get => SegmentedTotal.Item1; set => SegmentedTotal.Item1 = value; }
     }
+
+
+    public struct DamageScaleIncreaseTotal
+    {
+        private SegmentedTotalF SegmentedTotal;
+        public float Total => SegmentedTotal.Total;
+        public void Reset() => SegmentedTotal.Reset();
+
+        public float AugmentedRoundsIncrease { get => SegmentedTotal.Item1; set => SegmentedTotal.Item1 = value; }
+        public float CryogenicRoundsIncrease { get => SegmentedTotal.Item2; set => SegmentedTotal.Item2 = value; }
+    }
 }

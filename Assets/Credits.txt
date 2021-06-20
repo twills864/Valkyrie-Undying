@@ -39,6 +39,7 @@ POWERUP SPRITES:
 Augmented Rounds: Lorc (CC BY 3.0) (http://lorcblog.blogspot.com) (https://game-icons.net/)
 Bloodlust: Skoll (CC BY 3.0) (https://game-icons.net/)
 Collective Punishment: Lorc (CC BY 3.0) (http://lorcblog.blogspot.com) (https://game-icons.net/)
+Cryogenic Rounds: Delapouite (CC BY 3.0) (https://delapouite.com) (https://game-icons.net/)
 Fire Speed: Delapouite (CC BY 3.0) (https://delapouite.com) (https://game-icons.net/)
 Heavy Weapons Level Up: Delapouite (CC BY 3.0) (https://delapouite.com) (https://game-icons.net/)
 Inferno: Lorc (CC BY 3.0) (http://lorcblog.blogspot.com) (https://game-icons.net/)

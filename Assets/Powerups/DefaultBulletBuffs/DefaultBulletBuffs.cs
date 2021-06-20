@@ -17,7 +17,7 @@ namespace Assets.Powerups.DefaultBulletBuff
         private static FireDamage _FireDamage = default;
         #endregion Property Field
 
-        public static float DamageScaleIncrease => AugmentedRounds.DamageScaleIncrease;
+        public static float DamageScaleIncrease => DamageScaleIncreaseTotal.Total;
         public static float SizeScaleIncrease => AugmentedRounds.DamageScaleIncrease;
         public static float SpeedScaleIncrease => AugmentedRounds.SpeedScaleIncrease;
         public static float ParticlesScaleIncrease => AugmentedRounds.ParticlesScaleIncrease;
@@ -55,6 +55,7 @@ namespace Assets.Powerups.DefaultBulletBuff
         private static ChilledTimeTotal ChilledTime;
         private static SilenceTimeTotal SilenceTime;
 
+        private static DamageScaleIncreaseTotal DamageScaleIncreaseTotal;
 
         #region Augmented Rounds
 
@@ -88,6 +89,8 @@ namespace Assets.Powerups.DefaultBulletBuff
             AcidDamage.Reset();
             ChilledTime.Reset();
             SilenceTime.Reset();
+
+            DamageScaleIncreaseTotal.Reset();
 
             AugmentedRounds.Reset();
         }
@@ -135,8 +138,8 @@ namespace Assets.Powerups.DefaultBulletBuff
             //if (AcidDamage.Total > 0)
             //    enemy.AddAcid(ScaleDamage(AcidDamage.Total));
 
-            //if (ChilledTime.Total > 0)
-            //    enemy.AddChill(ScaleDamage(ChilledTime.Total));
+            if (ChilledTime.Total > 0)
+                enemy.AddChill(ScaleDamage(ChilledTime.Total));
 
             //if (SilenceTime.Total > 0)
             //    enemy.Silence(ScaleDamage(SilenceTime.Total));
@@ -148,6 +151,7 @@ namespace Assets.Powerups.DefaultBulletBuff
         public static void AugmentedRoundsLevelUp(AugmentedRoundsPowerup powerup)
         {
             AugmentedRounds.DamageScaleIncrease = powerup.DamageScaleIncrease;
+            DamageScaleIncreaseTotal.AugmentedRoundsIncrease = powerup.DamageScaleIncrease;
             AugmentedRounds.SizeScaleIncrease = powerup.SizeScaleIncrease;
             AugmentedRounds.SpeedScaleIncrease = powerup.SpeedScaleIncrease;
             AugmentedRounds.ParticlesScaleIncrease = powerup.ParticlesScaleIncrease;
@@ -171,6 +175,12 @@ namespace Assets.Powerups.DefaultBulletBuff
         public static void VenomousRoundsLevelup(VenomousRoundsPowerup powerup)
         {
             PoisonDamage.VenomousRoundsDamage = powerup.PoisonDamage;
+        }
+
+        public static void CryogenicRoundsLevelup(CryogenicRoundsPowerup powerup)
+        {
+            ChilledTime.CryogenicRoundsTime = powerup.ChillTime;
+            DamageScaleIncreaseTotal.CryogenicRoundsIncrease = powerup.DamageScaleIncrease;
         }
 
         #endregion

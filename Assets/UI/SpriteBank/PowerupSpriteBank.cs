@@ -57,6 +57,11 @@ namespace Assets.UI.SpriteBank
         public Sprite Monsoon { get; private set; }
 
         /// <summary>
+        /// ice-iris
+        /// </summary>
+        public Sprite CryogenicRounds { get; private set; }
+
+        /// <summary>
         /// lightningdissipation
         /// </summary>
         public Sprite Smite { get; private set; }
@@ -142,6 +147,7 @@ namespace Assets.UI.SpriteBank
             Inferno = LoadSprite("flame-tunnel");
             Sentinel = LoadSprite("guards");
             Monsoon = LoadSprite("heavy-rain");
+            CryogenicRounds = LoadSprite("ice-iris");
             Smite = LoadSprite("lightning-dissipation");
             Othello = LoadSprite("mirror-mirror");
             InfestedRounds = LoadSprite("mite");

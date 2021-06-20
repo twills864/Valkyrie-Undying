@@ -33,7 +33,7 @@ namespace Assets
     public class GameManager : MonoBehaviour
     {
         #region Debug
-        private TestingType CurrentTest = TestingType.NewEnemy;
+        private TestingType CurrentTest = TestingType.Nothing;
 
         public static Type OverrideEnemyType => null; // DebugUtil.GetOverrideEnemyType<BasicEnemy>();
 

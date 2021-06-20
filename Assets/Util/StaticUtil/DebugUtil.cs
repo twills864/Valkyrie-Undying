@@ -116,6 +116,11 @@ namespace Assets.Util
             SpawnAllEnemies();
         }
 
+        private static void InputC(KeyCode keyCode)
+        {
+            RainCurrentPowerup();
+        }
+
         private static void InputUp(KeyCode keyCode)
         {
             GameManager.DebugDecrementFireType();
@@ -233,6 +238,7 @@ namespace Assets.Util
             new KeyCodeAction(KeyCode.D, InputD),
             new KeyCodeAction(KeyCode.P, InputP),
             new KeyCodeAction(KeyCode.E, InputE),
+            new KeyCodeAction(KeyCode.C, InputC),
             new KeyCodeAction(KeyCode.UpArrow, InputUp),
             new KeyCodeAction(KeyCode.LeftArrow, InputLeft),
             new KeyCodeAction(KeyCode.DownArrow, InputDown),

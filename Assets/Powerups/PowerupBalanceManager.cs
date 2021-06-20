@@ -495,6 +495,7 @@ namespace Assets.Powerups.Balance
             public AugmentedRoundsBalance AugmentedRounds;
             public InfestedRoundsBalance InfestedRounds;
             public VenomousRoundsBalance VenomousRounds;
+            public CryogenicRoundsBalance CryogenicRounds;
 
             [Serializable]
             public struct PlaceholderBalance
@@ -559,6 +560,27 @@ namespace Assets.Powerups.Balance
 
                 [Serializable]
                 public struct DamageBalance
+                {
+                    public float Base;
+                    public float Increase;
+                }
+            }
+
+            [Serializable]
+            public struct CryogenicRoundsBalance
+            {
+                public ChillTimeBalance ChillTime;
+                public DamageIncreaseBalance DamageScaleIncrease;
+
+                [Serializable]
+                public struct ChillTimeBalance
+                {
+                    public float Base;
+                    public float Increase;
+                }
+
+                [Serializable]
+                public struct DamageIncreaseBalance
                 {
                     public float Base;
                     public float Increase;

@@ -5292,6 +5292,13 @@ MonoBehaviour:
         PoisonDamage:
           Base: 6
           Increase: 9
+      CryogenicRounds:
+        ChillTime:
+          Base: 2
+          Increase: 4
+        DamageScaleIncrease:
+          Base: 0.1
+          Increase: 0.2
   _DirectorBalance:
     Difficuly:
       InitialDifficultyRatio: 0
