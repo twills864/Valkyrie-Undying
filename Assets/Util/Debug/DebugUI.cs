@@ -186,10 +186,11 @@ namespace Assets.Util
             //_GameManager.RecolorPlayerActivity(newRando);
 
             //DebugUtil.SpawnSpecificEnemy<TankEnemy>();
-            DebugUtil.SpawnSpecificEnemy<WaspEnemy>();
+            //DebugUtil.SpawnSpecificEnemy<WaspEnemy>();
+            DebugUtil.SpawnSpecificEnemy<NomadEnemy>();
 
-            foreach (var enemy in Director.GetAllActiveEnemies())
-                enemy.AddChill(3);
+            //foreach (var enemy in Director.GetAllActiveEnemies())
+            //    enemy.AddChill(3);
         }
 
         public void ShowPowerupMenuButtonPressed(Button button)

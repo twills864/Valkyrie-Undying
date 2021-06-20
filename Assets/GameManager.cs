@@ -33,7 +33,7 @@ namespace Assets
     public class GameManager : MonoBehaviour
     {
         #region Debug
-        private TestingType CurrentTest = TestingType.Nothing;
+        private TestingType CurrentTest = TestingType.NewEnemy;
 
         public static Type OverrideEnemyType => null; // DebugUtil.GetOverrideEnemyType<BasicEnemy>();
 
@@ -372,7 +372,7 @@ namespace Assets
 
 #if UNITY_EDITOR
             if (TestingEnemy)
-                DebugUtil.SpawnSpecificEnemy<WaspEnemy>();
+                DebugUtil.SpawnSpecificEnemy<NomadEnemy>();
 #endif
 
         }

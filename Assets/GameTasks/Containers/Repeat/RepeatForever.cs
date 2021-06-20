@@ -20,6 +20,11 @@ namespace Assets.GameTasks
             InnerTask = innerTask;
         }
 
+        public RepeatForever(params FiniteTimeGameTask[] innerTasks) : base(innerTasks[0].Target)
+        {
+            InnerTask = new Sequence(innerTasks);
+        }
+
         public override void RunFrame(float deltaTime)
         {
             while(InnerTask.FrameRunFinishes(deltaTime))

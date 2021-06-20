@@ -104,6 +104,15 @@ namespace Assets.GameTasks
             Duration = InnerTasks.Sum(x => x.Duration);
         }
 
+        public void SkipCurrentTask()
+        {
+            float remainingTime = CurrentTask.TimeUntilActivation;
+            CurrentTask.FinishSelf();
+
+            Timer.Increment(remainingTime);
+            //CurrentIndex++;
+        }
+
 
         /// <summary>
         /// The default Sequence game task constructor.

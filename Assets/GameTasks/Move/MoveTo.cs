@@ -10,37 +10,62 @@ namespace Assets.GameTasks
     /// <inheritdoc/>
     public class MoveTo : FiniteMovementGameTask
     {
-        public Vector3 Destination { get; private set; }
+        #region Property Fields
+        private Vector3 _destination;
+        private Vector3 _totalPositionDifference;
+        private Vector3 _startPosition;
+        #endregion Property Fields
 
-        private Vector3 StartPosition { get; set; }
-        private Vector3 TotalPositionDifference { get; set; }
-
-        public MoveTo(ValkyrieSprite target, Vector3 from, Vector3 to, float duration) : base(target, duration)
+        public Vector3 Destination
         {
-            Destination = to;
-            StartPosition = from;
-            TotalPositionDifference = to - from;
+            get => _destination;
+            set
+            {
+                _destination = value;
+                TotalPositionDifference = value - StartPosition;
+            }
+        }
 
+        public Vector3 StartPosition
+        {
+            get => _startPosition;
+            set
+            {
+                _startPosition = value;
+                TotalPositionDifference = Destination - value;
+            }
+        }
+
+        public Vector3 TotalPositionDifference
+        {
+            get => _totalPositionDifference;
+            private set
+            {
+                _totalPositionDifference = value;
+                DistanceChanged();
+            }
+        }
+
+        private void DistanceChanged()
+        {
             Velocity = TotalPositionDifference / Duration;
         }
 
-        public MoveTo(ValkyrieSprite target, Vector3 to, float duration) : base(target, duration)
+        public MoveTo(ValkyrieSprite target, Vector3 from, Vector3 to, float duration) : base(target, duration)
         {
-            Destination = to;
-            StartPosition = target.transform.position;
-            TotalPositionDifference = to - StartPosition;
+            _destination = to;
+            StartPosition = from;
+        }
 
-            Velocity = TotalPositionDifference / Duration;
+        public MoveTo(ValkyrieSprite target, Vector3 to, float duration) : this(target, target.transform.position, to, duration)
+        {
+
         }
 
         public void ReinitializeMove(Vector3 startPosition, Vector3 destination)
         {
+            _destination = destination;
             StartPosition = startPosition;
-            Destination = destination;
-
-            TotalPositionDifference = destination - startPosition;
-
-            Velocity = TotalPositionDifference / Duration;
         }
 
         public static MoveTo Default(ValkyrieSprite target, float duration)

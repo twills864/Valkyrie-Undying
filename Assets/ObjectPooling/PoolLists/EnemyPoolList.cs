@@ -28,6 +28,8 @@ namespace Assets.ObjectPooling
         private LaserEnemy LaserEnemyPrefab = null;
         [SerializeField]
         private WaspEnemy WaspPrefab = null;
+        [SerializeField]
+        private NomadEnemy NomadPrefab = null;
 
 #pragma warning restore 0414
 

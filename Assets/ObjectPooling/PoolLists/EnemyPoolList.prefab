@@ -57,3 +57,5 @@ MonoBehaviour:
     type: 3}
   WaspPrefab: {fileID: 7545767173633579490, guid: a7627dfb7a7645e9a4e47d582c976eb3,
     type: 3}
+  NomadPrefab: {fileID: 3711070703632246093, guid: b5c9e9f5179044e6997d2212ab8e7718,
+    type: 3}

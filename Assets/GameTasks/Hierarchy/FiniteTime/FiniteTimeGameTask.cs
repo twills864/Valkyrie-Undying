@@ -35,6 +35,8 @@ namespace Assets.GameTasks
         public float RatioRemaining => Timer.RatioRemaining;
         public float OverflowDeltaTime => Timer.OverflowDeltaTime;
 
+        public float TimeUntilActivation => Timer.TimeUntilActivation;
+
         public FiniteTimeGameTask(ValkyrieSprite target, float duration) : base(target)
         {
             Duration = duration;
