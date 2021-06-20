@@ -24,12 +24,21 @@ namespace Assets.FireStrategies.EnemyFireStrategies
 
         public override EnemyBullet[] GetBullets(Vector3 enemyFirePos)
         {
-            var bullets = base.GetBullets(enemyFirePos);
+            var bullets = PoolManager.Instance.EnemyBulletPool.GetMany<NomadEnemyBullet>(2);
 
-            foreach (var bullet in bullets)
-                bullet.OnSpawn();
+            NomadEnemyBullet left = bullets[0];
+            InitBullet(left, enemyFirePos, -left.SpawnOffsetX);
+
+            NomadEnemyBullet right = bullets[1];
+            InitBullet(right, enemyFirePos, right.SpawnOffsetX);
 
             return bullets;
+        }
+
+        private void InitBullet(NomadEnemyBullet bullet, Vector3 enemyFirePos, float spawnOffsetX)
+        {
+            bullet.transform.position = enemyFirePos.AddX(spawnOffsetX);
+            bullet.OnSpawn();
         }
     }
 }

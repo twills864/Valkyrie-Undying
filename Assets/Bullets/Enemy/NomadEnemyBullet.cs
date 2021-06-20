@@ -16,15 +16,15 @@ namespace Assets.Bullets.EnemyBullets
     {
         #region Prefabs
 
-        //[SerializeField]
-        //private float _Speed = GameConstants.PrefabNumber;
+        [SerializeField]
+        private float _SpawnOffsetX = GameConstants.PrefabNumber;
 
         #endregion Prefabs
 
 
         #region Prefab Properties
 
-        //public float Speed => _Speed;
+        public float SpawnOffsetX => _SpawnOffsetX;
 
         #endregion Prefab Properties
 

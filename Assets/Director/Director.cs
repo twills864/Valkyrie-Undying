@@ -45,7 +45,7 @@ namespace Assets
         private static EnemyPoolList EnemyPoolList { get; set; }
 
         private static int EnemiesSpawned { get; set; }
-        public static int EnemyHealthIncrease => EnemiesSpawned;
+        public static int EnemyHealthIncrease => (int) (EnemiesSpawned * 1.5f);
 
         private static int WeaponLevelsInPlay { get; set; }
         private static bool CanSpawnWeaponLevelUp => WeaponLevelsInPlay < GameConstants.MaxWeaponLevel;

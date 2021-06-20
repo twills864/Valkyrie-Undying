@@ -235,7 +235,7 @@ MonoBehaviour:
     serializedVersion: 2
     rgba: 4294967295
   _FlyInTime: 2
-  _RotateTime: 0.35
+  _RotateTime: 0.5
   _TraverseScreenTime: 7
   _VariantFireSpeed:
     FireSpeed: 1.25

@@ -64,8 +64,6 @@ namespace Assets.Enemies
         protected override EnemyFireStrategy InitialFireStrategy()
             => new NomadEnemyStrategy(VariantFireSpeed);
 
-        private PositionRotator Rotator { get; set; }
-
         public LoopingFrameTimer FireTimer => FireStrategy.FireTimer;
 
         private Vector2 InitialSize { get; set; }
@@ -74,7 +72,7 @@ namespace Assets.Enemies
         private EaseIn InitialFlyInEase { get; set; }
 
         private RotateTo RotateDown { get; set; }
-        private EaseIn RotateDownEase { get; set; }
+        private EaseInOut RotateDownEase { get; set; }
 
         private MoveTo MoveRight { get; set; }
         private MoveTo MoveLeft { get; set; }
@@ -86,8 +84,6 @@ namespace Assets.Enemies
 
         protected override void OnEnemyInit()
         {
-            Rotator = new PositionRotator(this);
-
             // Swap X and Y, since sprite spawns at 90 degree angle.
             InitialSize = SpriteMap.Size.WithX(SpriteMap.Size.y).WithY(SpriteMap.Size.x);
 
@@ -96,7 +92,7 @@ namespace Assets.Enemies
 
             const float AngleDown = 270f;
             RotateDown = new RotateTo(this, 0f, AngleDown, RotateTime);
-            RotateDownEase = new EaseIn(RotateDown);
+            RotateDownEase = new EaseInOut(RotateDown);
 
             float xRight = SpaceUtil.WorldMap.Right.x - (InitialSize.x * 0.5f);
             Vector3 destinationRight = new Vector3(xRight, 0);
@@ -133,6 +129,8 @@ namespace Assets.Enemies
             float firstDestinationX = flyingLeft ? MoveLeft.Destination.x : MoveRight.Destination.x;
             Vector3 firstDestination = new Vector3(firstDestinationX, targetY);
 
+            RotationDegrees = MathUtil.AngleDegreesFromPoints(transform.position, firstDestination);
+
             InitialFlyIn.ReinitializeMove(transform.position, firstDestination);
 
             MoveRight.StartPosition = MoveRight.StartPosition.WithY(targetY);
@@ -155,14 +153,16 @@ namespace Assets.Enemies
             if (!InitialFlyInEase.IsFinished)
             {
                 bool flyInFinished = InitialFlyInEase.FrameRunFinishes(deltaTime);
-                Rotator.RunFrame(deltaTime);
 
                 if (flyInFinished)
+                {
                     RotateDown.StartRotationDegrees = RotationDegrees;
+                    RotateDownEase.ResetSelf();
+                }
             }
-            else if (!RotateDown.IsFinished)
+            else if (!RotateDownEase.IsFinished)
             {
-                RotateDown.RunFrame(deltaTime);
+                RotateDownEase.RunFrame(deltaTime);
             }
             else
             {

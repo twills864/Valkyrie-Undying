@@ -142,3 +142,4 @@ MonoBehaviour:
   _ReflectDamage: 20
   _PermanentVelocityX: 0
   _PermanentVelocityY: -5
+  _SpawnOffsetX: 0.45
