@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using Assets.Bullets.EnemyBullets;
+using Assets.Components;
 using Assets.Constants;
 using Assets.FireStrategies.EnemyFireStrategies;
 using Assets.GameTasks;
@@ -26,10 +27,19 @@ namespace Assets.Enemies
         private float _FlyInTime = GameConstants.PrefabNumber;
 
         [SerializeField]
+        private float _RotateTime = GameConstants.PrefabNumber;
+
+        [SerializeField]
         private float _TraverseScreenTime = GameConstants.PrefabNumber;
 
         [SerializeField]
         private VariantFireSpeed _VariantFireSpeed = default;
+
+        [SerializeField]
+        private float _HoverDistance = GameConstants.PrefabNumber;
+
+        [SerializeField]
+        private float _HoverDistanceTime = GameConstants.PrefabNumber;
 
         #endregion Prefabs
 
@@ -39,15 +49,22 @@ namespace Assets.Enemies
         private float FlyInTime => _FlyInTime;
         private float TraverseScreenTime => _TraverseScreenTime;
 
+        private float RotateTime => _RotateTime;
+
         protected VariantFireSpeed VariantFireSpeed => _VariantFireSpeed;
         protected float FireSpeed => _VariantFireSpeed.FireSpeed;
         protected float FireSpeedVariance => _VariantFireSpeed.FireSpeedVariance;
+
+        private float HoverDistance => _HoverDistance;
+        private float HoverDistanceTime => _HoverDistanceTime;
 
         #endregion Prefab Properties
 
 
         protected override EnemyFireStrategy InitialFireStrategy()
             => new NomadEnemyStrategy(VariantFireSpeed);
+
+        private PositionRotator Rotator { get; set; }
 
         public LoopingFrameTimer FireTimer => FireStrategy.FireTimer;
 
@@ -56,18 +73,30 @@ namespace Assets.Enemies
         private MoveTo InitialFlyIn { get; set; }
         private EaseIn InitialFlyInEase { get; set; }
 
+        private RotateTo RotateDown { get; set; }
+        private EaseIn RotateDownEase { get; set; }
+
         private MoveTo MoveRight { get; set; }
         private MoveTo MoveLeft { get; set; }
 
         private Sequence RepeatSequence { get; set; }
         private RepeatForever RepeatMoves { get; set; }
 
+        private RepeatForever HoverRepeat { get; set; }
+
         protected override void OnEnemyInit()
         {
-            InitialSize = SpriteMap.Size;
+            Rotator = new PositionRotator(this);
+
+            // Swap X and Y, since sprite spawns at 90 degree angle.
+            InitialSize = SpriteMap.Size.WithX(SpriteMap.Size.y).WithY(SpriteMap.Size.x);
 
             InitialFlyIn = MoveTo.Default(this, FlyInTime);
             InitialFlyInEase = new EaseIn(InitialFlyIn);
+
+            const float AngleDown = 270f;
+            RotateDown = new RotateTo(this, 0f, AngleDown, RotateTime);
+            RotateDownEase = new EaseIn(RotateDown);
 
             float xRight = SpaceUtil.WorldMap.Right.x - (InitialSize.x * 0.5f);
             Vector3 destinationRight = new Vector3(xRight, 0);
@@ -83,11 +112,16 @@ namespace Assets.Enemies
 
             RepeatSequence = new Sequence(easeRight, easeLeft);
             RepeatMoves = new RepeatForever(RepeatSequence);
-        }
 
-        protected override void OnEnemyActivate()
-        {
 
+            Vector3 hoverDistance = new Vector3(0, HoverDistance);
+            var hoverDown = new MoveBy(this, -hoverDistance, HoverDistanceTime);
+            var hoverUp = new MoveBy(this, hoverDistance, HoverDistanceTime);
+
+            var hoverDownEase = new EaseInOut(hoverDown);
+            var hoverUpEase = new EaseInOut(hoverUp);
+
+            HoverRepeat = new RepeatForever(hoverDownEase, hoverUpEase);
         }
 
         protected override void OnEnemySpawn()
@@ -112,17 +146,33 @@ namespace Assets.Enemies
 
             if (!flyingLeft)
                 RepeatSequence.SkipCurrentTask();
+
+            HoverRepeat.ResetSelf();
         }
 
         protected override void OnEnemyFrame(float deltaTime, float realDeltaTime)
         {
             if (!InitialFlyInEase.IsFinished)
-                InitialFlyInEase.RunFrame(deltaTime);
+            {
+                bool flyInFinished = InitialFlyInEase.FrameRunFinishes(deltaTime);
+                Rotator.RunFrame(deltaTime);
+
+                if (flyInFinished)
+                    RotateDown.StartRotationDegrees = RotationDegrees;
+            }
+            else if (!RotateDown.IsFinished)
+            {
+                RotateDown.RunFrame(deltaTime);
+            }
             else
+            {
                 RepeatMoves.RunFrame(deltaTime);
 
-            if (FireTimer.UpdateActivates(deltaTime))
-                FireBullets();
+                if (FireTimer.UpdateActivates(deltaTime))
+                    FireBullets();
+            }
+
+            HoverRepeat.RunFrame(deltaTime);
         }
 
         private void FireBullets()
