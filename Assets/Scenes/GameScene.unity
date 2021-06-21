@@ -5269,8 +5269,6 @@ MonoBehaviour:
       Placeholder:
         Placeholder: 0
     OnDefaultWeaponLevelUp:
-      Placeholder:
-        Placeholder: 0
       AugmentedRounds:
         Size:
           Base: 0.5
@@ -5290,8 +5288,8 @@ MonoBehaviour:
           Increase: 2
       VenomousRounds:
         PoisonDamage:
-          Base: 6
-          Increase: 9
+          Base: 5
+          Increase: 7
       CryogenicRounds:
         ChillTime:
           Base: 2
@@ -5299,6 +5297,10 @@ MonoBehaviour:
         DamageScaleIncrease:
           Base: 0.1
           Increase: 0.2
+      AcidicRounds:
+        AcidDamage:
+          Base: 8
+          Increase: 10
   _DirectorBalance:
     Difficuly:
       InitialDifficultyRatio: 0

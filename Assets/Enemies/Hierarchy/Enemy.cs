@@ -20,7 +20,7 @@ namespace Assets.Enemies
     /// <inheritdoc/>
     public abstract class Enemy : PooledObject, IVictimHost
     {
-        protected const float ChillScale = 0.75f;
+        protected const float ChillScale = 0.5f;
 
         public override string LogTagColor => "#FFB697";
         public override TimeScaleType TimeScale => TimeScaleType.Enemy;

@@ -1,4 +1,5 @@
 ﻿using Assets.Constants;
+using Assets.Enemies;
 using UnityEngine;
 
 namespace Assets.Bullets.PlayerBullets
@@ -27,6 +28,9 @@ namespace Assets.Bullets.PlayerBullets
         [SerializeField]
         private float _DampX = GameConstants.PrefabNumber;
 
+        [SerializeField]
+        private int _ChillTime = GameConstants.PrefabNumber;
+
         #endregion Prefabs
 
 
@@ -37,8 +41,14 @@ namespace Assets.Bullets.PlayerBullets
         public float FireRadius => _FireRadius;
         public float AngleBetweenLanesInDegrees => _AngleBetweenLanesInDegrees;
         public float DampX => _DampX;
+        private int ChillTime => _ChillTime;
 
         #endregion Prefab Properties
+
+        protected override void OnCollideWithEnemy(Enemy enemy, Vector3 hitPosition)
+        {
+            enemy.AddChill(ChillTime);
+        }
 
 
         public void SetDamage(bool isMainBullet)

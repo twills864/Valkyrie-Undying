@@ -49,16 +49,16 @@ namespace Assets.UI.UIElements.EnemyHealthBar
 
         protected override List<EnemyStatusSprite> InitialStatusSprites() => new List<EnemyStatusSprite>()
         {
-            Chilled,
             Acidic,
+            Chilled,
             VoidPaused,
         };
 
         protected override void OnEnemyStatusBarInit()
         {
-            VoidPaused.Init();
             Acidic.Init();
             Chilled.Init();
+            VoidPaused.Init();
         }
 
         protected override void OnEnemyStatusBarSpawn()

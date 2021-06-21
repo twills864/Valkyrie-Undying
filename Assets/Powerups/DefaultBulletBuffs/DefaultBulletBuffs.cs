@@ -135,8 +135,8 @@ namespace Assets.Powerups.DefaultBulletBuff
             if (IsBurning)
                 enemy.Ignite(ScaleDamage(FireCollisionDamage), ScaleDamage(FireDamageIncreasePerTick), FireMaxDamage);
 
-            //if (AcidDamage.Total > 0)
-            //    enemy.AddAcid(ScaleDamage(AcidDamage.Total));
+            if (AcidDamage.Total > 0)
+                enemy.AddAcid(ScaleDamage(AcidDamage.Total));
 
             if (ChilledTime.Total > 0)
                 enemy.AddChill(ScaleDamage(ChilledTime.Total));
@@ -181,6 +181,11 @@ namespace Assets.Powerups.DefaultBulletBuff
         {
             ChilledTime.CryogenicRoundsTime = powerup.ChillTime;
             DamageScaleIncreaseTotal.CryogenicRoundsIncrease = powerup.DamageScaleIncrease;
+        }
+
+        public static void PiercingRoundsLevelup(AcidicRoundsPowerup powerup)
+        {
+            AcidDamage.AcidicRoundsDamage = powerup.AcidDamage;
         }
 
         #endregion

@@ -37,6 +37,7 @@ Void Paused: Guard13007 (CC BY 3.0) (https://guard13007.com) (https://game-icons
 
 
 POWERUP SPRITES:
+Acidic Rounds: Sbed (CC BY 3.0) (http://opengameart.org/content/95-game-icons) (https://game-icons.net/)
 Augmented Rounds: Lorc (CC BY 3.0) (http://lorcblog.blogspot.com) (https://game-icons.net/)
 Bloodlust: Skoll (CC BY 3.0) (https://game-icons.net/)
 Collective Punishment: Lorc (CC BY 3.0) (http://lorcblog.blogspot.com) (https://game-icons.net/)

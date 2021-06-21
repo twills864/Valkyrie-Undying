@@ -17,6 +17,11 @@ namespace Assets.UI.SpriteBank
         public Sprite Blank { get; private set; }
 
         /// <summary>
+        /// acid
+        /// </summary>
+        public Sprite AcidicRounds { get; private set; }
+
+        /// <summary>
         /// blood
         /// </summary>
         public Sprite Bloodlust { get; private set; }
@@ -139,6 +144,7 @@ namespace Assets.UI.SpriteBank
         private void LoadPowerups()
         {
             Blank = null;
+            AcidicRounds = LoadSprite("acid");
             Bloodlust = LoadSprite("blood");
             PiercingRounds = LoadSprite("bullet-impacts");
             Jettison = LoadSprite("contract");
