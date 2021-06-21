@@ -15,8 +15,8 @@ namespace Assets.UI.UIElements.EnemyHealthBar
         [SerializeField]
         private EnemyStatusSprite _Chilled = null;
 
-        //[SerializeField]
-        //private EnemyStatusSprite _Acidic = null;
+        [SerializeField]
+        private EnemyStatusSprite _Acidic = null;
 
         //[SerializeField]
         //private EnemyStatusSprite _Silenced = null;
@@ -35,8 +35,8 @@ namespace Assets.UI.UIElements.EnemyHealthBar
         // Reduces update speed
         private EnemyStatusSprite Chilled => _Chilled;
 
-        //// Decreasing DoT
-        //private EnemyStatusSprite Acidic => _Acidic;
+        // Decreasing DoT
+        private EnemyStatusSprite Acidic => _Acidic;
 
         //// Can't fire bullets
         //private EnemyStatusSprite Silenced => _Silenced;
@@ -49,19 +49,21 @@ namespace Assets.UI.UIElements.EnemyHealthBar
 
         protected override List<EnemyStatusSprite> InitialStatusSprites() => new List<EnemyStatusSprite>()
         {
+            Chilled,
+            Acidic,
             VoidPaused,
-            Chilled
         };
 
         protected override void OnEnemyStatusBarInit()
         {
             VoidPaused.Init();
+            Acidic.Init();
             Chilled.Init();
         }
 
         protected override void OnEnemyStatusBarSpawn()
         {
-            IsVoidPaused = false;
+
         }
 
 
@@ -75,6 +77,12 @@ namespace Assets.UI.UIElements.EnemyHealthBar
         {
             get => Chilled.Value;
             set => SetAndRecalculate(Chilled, value);
+        }
+
+        public int AcidDamage
+        {
+            get => Acidic.Value;
+            set => SetAndRecalculate(Acidic, value);
         }
     }
 }

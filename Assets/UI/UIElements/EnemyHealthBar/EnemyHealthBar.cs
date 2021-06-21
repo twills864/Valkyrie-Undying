@@ -88,6 +88,11 @@ namespace Assets.UI
             StatusBarHolder.ParasiteDamage = status.Power;
         }
 
+        public void AddAcid(AcidicStatus status)
+        {
+            StatusBarHolder.AcidDamage = status.Power;
+        }
+
         public void AddChill(ChilledStatus status)
         {
             StatusBarHolder.ChilledTime = status.Power;

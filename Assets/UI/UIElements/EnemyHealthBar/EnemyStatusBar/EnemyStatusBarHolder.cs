@@ -75,7 +75,6 @@ namespace Assets.UI.UIElements.EnemyHealthBar
             set => PermanentStatuses.ParasiteDamage = value;
         }
 
-
         public bool IsVoidPaused
         {
             get => TemporaryStatuses.IsVoidPaused;
@@ -86,6 +85,12 @@ namespace Assets.UI.UIElements.EnemyHealthBar
         {
             get => TemporaryStatuses.ChilledTime;
             set => TemporaryStatuses.ChilledTime = value;
+        }
+
+        public int AcidDamage
+        {
+            get => TemporaryStatuses.AcidDamage;
+            set => TemporaryStatuses.AcidDamage = value;
         }
     }
 }

@@ -146,7 +146,7 @@ namespace Assets.Util
         {
             if (SpaceUtil.TryGetEnemyUnderMouse(out Enemy enemy))
             {
-                enemy.AddPoison(4);
+                enemy.AddAcid(4);
             }
         }
 

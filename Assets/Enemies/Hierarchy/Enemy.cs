@@ -152,6 +152,7 @@ namespace Assets.Enemies
             Poisoned = new PoisonedStatus(this);
             Parasites = new ParasiteStatus(this);
             Chilled = new ChilledStatus(this);
+            Acidic = new AcidicStatus(this);
         }
 
         protected virtual void OnEnemyActivate() { }
@@ -172,6 +173,7 @@ namespace Assets.Enemies
             Poisoned.Reset();
             Parasites.Reset();
             Chilled.Reset();
+            Acidic.Reset();
         }
 
         protected virtual void OnEnemySpawn() { }
@@ -228,7 +230,8 @@ namespace Assets.Enemies
         {
             bool kills = Burning.UpdateKills(realDeltaTime)
                 || Poisoned.UpdateKills(realDeltaTime)
-                || Parasites.UpdateKills(realDeltaTime);
+                || Parasites.UpdateKills(realDeltaTime)
+                || Acidic.UpdateKills(realDeltaTime);
 
             return kills;
         }
@@ -526,6 +529,17 @@ namespace Assets.Enemies
         }
 
         #endregion Void
+
+        #region Acid
+
+        protected AcidicStatus Acidic { get; set; }
+
+        public void AddAcid(int acidDamage)
+        {
+            Acidic.AddAcid(acidDamage);
+        }
+
+        #endregion Acid
 
         #endregion Powerup Effects
 

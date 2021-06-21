@@ -29,6 +29,7 @@ Wormhole: Lorc (CC BY 3.0) (http://lorcblog.blogspot.com) (https://game-icons.ne
 
 
 STATUS SPRITES:
+Acid: Lorc (CC BY 3.0) (http://lorcblog.blogspot.com) (https://game-icons.net/)
 Burning: Sbed (CC BY 3.0) (http://opengameart.org/content/95-game-icons) (https://game-icons.net/)
 Chilled: Lorc (CC BY 3.0) (http://lorcblog.blogspot.com) (https://game-icons.net/)
 Poisoned: Lorc (CC BY 3.0) (http://lorcblog.blogspot.com) (https://game-icons.net/)

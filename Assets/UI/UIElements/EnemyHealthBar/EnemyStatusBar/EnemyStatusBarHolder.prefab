@@ -55,6 +55,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6909120258649354781}
     m_Modifications:
+    - target: {fileID: 24102436461405048, guid: 78119f8ef13ec5d4386b5c677d26f50f,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1776423037117852061, guid: 78119f8ef13ec5d4386b5c677d26f50f,
         type: 3}
       propertyPath: m_Enabled
@@ -69,6 +74,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2386266604300731565, guid: 78119f8ef13ec5d4386b5c677d26f50f,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.25
       objectReference: {fileID: 0}
     - target: {fileID: 2950288035575972985, guid: 78119f8ef13ec5d4386b5c677d26f50f,
         type: 3}
@@ -94,6 +104,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Color.rgba
       value: 4294902015
+      objectReference: {fileID: 0}
+    - target: {fileID: 3459671647960518300, guid: 78119f8ef13ec5d4386b5c677d26f50f,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4174562575830421064, guid: 78119f8ef13ec5d4386b5c677d26f50f,
         type: 3}
@@ -189,6 +204,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Temporary
+      objectReference: {fileID: 0}
+    - target: {fileID: 7568187567747286731, guid: 78119f8ef13ec5d4386b5c677d26f50f,
+        type: 3}
+      propertyPath: m_Anchor
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7568187567747286731, guid: 78119f8ef13ec5d4386b5c677d26f50f,
+        type: 3}
+      propertyPath: m_Alignment
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7568187567747286731, guid: 78119f8ef13ec5d4386b5c677d26f50f,
+        type: 3}
+      propertyPath: m_Color.rgba
+      value: 4278255360
       objectReference: {fileID: 0}
     - target: {fileID: 8211509216924453934, guid: 78119f8ef13ec5d4386b5c677d26f50f,
         type: 3}
