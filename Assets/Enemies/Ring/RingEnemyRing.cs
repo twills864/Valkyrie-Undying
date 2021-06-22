@@ -9,6 +9,7 @@ namespace Assets.Enemies
     {
         private const float HealthbarFadeTime = 0.5f;
         public override bool CanVoidPause => false;
+        public override bool CanChill => false;
         public override bool InfluencesDirectorGameBalance => false;
         public override int ActiveTrackedEnemiesCountContribution => 0;
         public override AudioClip FireSound => SoundBank.Silence;

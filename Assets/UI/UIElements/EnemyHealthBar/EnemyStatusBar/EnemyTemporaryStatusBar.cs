@@ -49,16 +49,16 @@ namespace Assets.UI.UIElements.EnemyHealthBar
 
         protected override List<EnemyStatusSprite> InitialStatusSprites() => new List<EnemyStatusSprite>()
         {
-            Acidic,
-            Chilled,
             VoidPaused,
+            Chilled,
+            Acidic,
         };
 
         protected override void OnEnemyStatusBarInit()
         {
-            Acidic.Init();
-            Chilled.Init();
             VoidPaused.Init();
+            Chilled.Init();
+            Acidic.Init();
         }
 
         protected override void OnEnemyStatusBarSpawn()
@@ -70,7 +70,13 @@ namespace Assets.UI.UIElements.EnemyHealthBar
         public bool IsVoidPaused
         {
             get => VoidPaused.Value > 0;
-            set => SetAndRecalculate(VoidPaused, value ? 1 : 0);
+            set
+            {
+                SetAndRecalculate(VoidPaused, value ? 1 : 0);
+
+                if(!value)
+                    RecalculateStatusBar();
+            }
         }
 
         public int ChilledTime

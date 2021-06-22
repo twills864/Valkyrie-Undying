@@ -467,12 +467,15 @@ namespace Assets.Enemies
 
         #region Chilled
 
+        public virtual bool CanChill => true;
+
         protected ChilledStatus Chilled { get; set; }
         protected bool IsChilled => Chilled.IsActive;
 
         public void AddChill(int time)
         {
-            Chilled.AddChill(time);
+            if(CanChill)
+                Chilled.AddChill(time);
         }
 
         #endregion Chilled
