@@ -114,7 +114,7 @@ namespace Assets.Util
         private static void InputE(KeyCode keyCode)
         {
             SpawnSpecificEnemy<NomadEnemy>();
-            //SpawnSpecificEnemy<WaspEnemy>();
+            SpawnSpecificEnemy<WaspEnemy>();
             //SpawnAllEnemies();
         }
 

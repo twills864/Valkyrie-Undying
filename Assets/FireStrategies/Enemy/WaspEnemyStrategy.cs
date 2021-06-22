@@ -33,5 +33,34 @@ namespace Assets.FireStrategies.EnemyFireStrategies
 
             return bullets;
         }
+
+        public EnemyBullet[] FireBehind(Vector3 behindFirePos, float angleDegrees, float spreadAngleOffset)
+        {
+            const int NumBullets = 3;
+
+            var bullets = PoolManager.Instance.EnemyBulletPool.GetMany<WaspEnemyBullet>(NumBullets);
+
+            const float AngleCircleQuarter = 90f;
+            float angleNormal = angleDegrees - AngleCircleQuarter;
+            Vector3 bulletOffset = MathUtil.Vector3AtDegreeAngle(angleNormal, bullets[0].SpriteMap.Width * 2f);
+
+            const float AngleCircleHalf = 180f;
+            angleDegrees = angleDegrees + AngleCircleHalf;
+
+            float currentAngle = angleDegrees - ((NumBullets / 2) * spreadAngleOffset);
+            Vector3 currentBulletOffset = bulletOffset * -(NumBullets / 2);
+            foreach (var bullet in bullets)
+            {
+                bullet.transform.position = behindFirePos + currentBulletOffset;
+                bullet.Velocity = MathUtil.Vector2AtDegreeAngle(currentAngle, bullet.Speed);
+                bullet.OnSpawn();
+
+                currentAngle += spreadAngleOffset;
+                currentBulletOffset += bulletOffset;
+            }
+
+
+            return bullets;
+        }
     }
 }

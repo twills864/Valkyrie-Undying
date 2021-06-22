@@ -17,6 +17,12 @@ namespace Assets.GameTasks
         protected FiniteTimeGameTask InnerTask { get; set; }
         protected TimeModifyingFrameTimer TimeModifyingTimer { get; private set; }
 
+        protected override void OnDurationSet(float value)
+        {
+            if (InnerTask != null)
+                InnerTask.Duration = value;
+        }
+
         public TimeModifyingGameTask(FiniteTimeGameTask innerTask) : base(innerTask.Target, innerTask.Duration)
         {
             InnerTask = innerTask;

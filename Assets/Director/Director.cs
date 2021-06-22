@@ -24,6 +24,7 @@ namespace Assets
     {
         public static float TotalTime { get; private set; }
         public static float RetributionTimeScale { get; private set; } = 1.0f;
+        public static bool RetributionActive => RetributionTimeScale != 1.0f;
 
         private static DirectorBalance Balance;
 

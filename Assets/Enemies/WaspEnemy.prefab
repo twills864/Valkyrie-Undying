@@ -208,10 +208,12 @@ MonoBehaviour:
   ParticleColorAlt:
     serializedVersion: 2
     rgba: 4294967295
+  _InitialTravelSpeed: 5
   _TravelTime: 1.1
   _RotateTime: 0.66
-  _FireTime: 0.4
+  _FireTime: 0.5
   _MinNewDistanceOffset: {x: 1, y: 1}
   _MaxNewDistanceOffset: {x: 4, y: 4}
   _WorldEdgeTolerance: {x: 0.5, y: 1}
-  _BulletsInBurst: 5
+  _BulletsInBurst: 4
+  _FireBehindSpreadAngle: 15

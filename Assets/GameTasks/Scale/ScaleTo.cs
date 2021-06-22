@@ -25,17 +25,11 @@ namespace Assets.GameTasks
             set => ScaleValue.EndValue = value;
         }
 
-        public override float Duration
+        protected override void OnDurationSet(float value)
         {
-            get => base.Duration;
-            set
-            {
-                base.Duration = value;
-
-                // First time Duration gets set, ScaleValue will be null.
-                if(ScaleValue != null)
-                    ScaleValue.Duration = value;
-            }
+            // First time Duration gets set, ScaleValue will be null.
+            if (ScaleValue != null)
+                ScaleValue.Duration = value;
         }
 
         public ScaleTo(ValkyrieSprite target, float scale, float duration)

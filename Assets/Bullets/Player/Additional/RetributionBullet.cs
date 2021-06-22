@@ -23,7 +23,7 @@ namespace Assets.Bullets.PlayerBullets
 
         #region Property Fields
 
-        private bool _ShouldEraseBullet;
+        //private bool _ShouldEraseBullet;
 
         #endregion Property Fields
 
@@ -60,11 +60,11 @@ namespace Assets.Bullets.PlayerBullets
         private MoveTo MoveToCenter { get; set; }
         private Sequence Sequence { get; set; }
 
-        private bool ShouldEraseBullet
-        {
-            get { _ShouldEraseBullet = !_ShouldEraseBullet; return _ShouldEraseBullet; }
-            set => _ShouldEraseBullet = !value;
-        }
+        private bool ShouldEraseBullet => false;
+        //{
+        //    get { _ShouldEraseBullet = !_ShouldEraseBullet; return _ShouldEraseBullet; }
+        //    set => _ShouldEraseBullet = !value;
+        //}
 
         // Currently unused
         //private List<ValkyrieSprite> ManagedMiscSprites { get; set; }
@@ -117,7 +117,7 @@ namespace Assets.Bullets.PlayerBullets
 
             IsExploding = true;
 
-            ShouldEraseBullet = true;
+            //ShouldEraseBullet = true;
 
             //ManagedMiscSprites.Clear();
             ManagedEnemies.Clear();

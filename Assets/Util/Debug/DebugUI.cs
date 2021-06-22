@@ -189,8 +189,8 @@ namespace Assets.Util
             //DebugUtil.SpawnSpecificEnemy<WaspEnemy>();
             DebugUtil.SpawnSpecificEnemy<NomadEnemy>();
 
-            foreach (var enemy in Director.GetAllActiveEnemies())
-                enemy.AddAcid(9);
+            //foreach (var enemy in Director.GetAllActiveEnemies())
+            //    enemy.AddAcid(9);
         }
 
         public void ShowPowerupMenuButtonPressed(Button button)

@@ -234,11 +234,11 @@ MonoBehaviour:
   ParticleColorAlt:
     serializedVersion: 2
     rgba: 4294967295
-  _FlyInTime: 2
+  _InitialTravelSpeed: 3
   _RotateTime: 0.5
   _TraverseScreenTime: 7
   _VariantFireSpeed:
     FireSpeed: 1.25
     FireSpeedVariance: 0.25
-  _HoverDistance: 0.5
+  _HoverDistance: 0.35
   _HoverDistanceTime: 2.1

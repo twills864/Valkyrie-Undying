@@ -122,11 +122,11 @@ MonoBehaviour:
     UseTrail: 1
     TrailTime: 0.02
     TangentCurveScale: 3
-  _BaseDamage: 25
+  _BaseDamage: 20
   _Particles:
     BulletParticles: 0
     EnemyParticles: 5
-  _AdditionalBulletDamage: 25
+  _AdditionalBulletDamage: 20
   _BulletVelocityY: 35
   _FireRadius: 0.75
   _AngleBetweenLanesInDegrees: 10

@@ -24,7 +24,7 @@ namespace Assets.Enemies
         #region Prefabs
 
         [SerializeField]
-        private float _FlyInTime = GameConstants.PrefabNumber;
+        private float _InitialTravelSpeed = GameConstants.PrefabNumber;
 
         [SerializeField]
         private float _RotateTime = GameConstants.PrefabNumber;
@@ -46,7 +46,7 @@ namespace Assets.Enemies
 
         #region Prefab Properties
 
-        private float FlyInTime => _FlyInTime;
+        private float InitialTravelSpeed => _InitialTravelSpeed;
         private float TraverseScreenTime => _TraverseScreenTime;
 
         private float RotateTime => _RotateTime;
@@ -71,6 +71,22 @@ namespace Assets.Enemies
         private MoveTo InitialFlyIn { get; set; }
         private EaseIn InitialFlyInEase { get; set; }
 
+        private Vector3 InitialDestination
+        {
+            get => InitialFlyIn.Destination;
+            set
+            {
+                Vector3 newDistance = value - transform.position;
+
+                // time = distance / speed
+                const float FlatAddition = 0.25f;
+                InitialFlyInEase.Duration = (newDistance.magnitude / InitialTravelSpeed) + FlatAddition;
+
+                InitialFlyInEase.ResetSelf();
+                InitialFlyIn.ReinitializeMove(transform.position, value);
+            }
+        }
+
         private RotateTo RotateDown { get; set; }
         private EaseInOut RotateDownEase { get; set; }
 
@@ -87,7 +103,7 @@ namespace Assets.Enemies
             // Swap X and Y, since sprite spawns at 90 degree angle.
             InitialSize = SpriteMap.Size.WithX(SpriteMap.Size.y).WithY(SpriteMap.Size.x);
 
-            InitialFlyIn = MoveTo.Default(this, FlyInTime);
+            InitialFlyIn = MoveTo.Default(this, 1.0f);
             InitialFlyInEase = new EaseIn(InitialFlyIn);
 
             const float AngleDown = 270f;
@@ -131,7 +147,7 @@ namespace Assets.Enemies
 
             RotationDegrees = MathUtil.AngleDegreesFromPoints(transform.position, firstDestination);
 
-            InitialFlyIn.ReinitializeMove(transform.position, firstDestination);
+            InitialDestination = firstDestination;
 
             MoveRight.StartPosition = MoveRight.StartPosition.WithY(targetY);
             MoveRight.Destination = MoveRight.Destination.WithY(targetY);
@@ -144,8 +160,6 @@ namespace Assets.Enemies
 
             if (!flyingLeft)
                 RepeatSequence.SkipCurrentTask();
-
-            HoverRepeat.ResetSelf();
         }
 
         protected override void OnEnemyFrame(float deltaTime, float realDeltaTime)
@@ -158,21 +172,23 @@ namespace Assets.Enemies
                 {
                     RotateDown.StartRotationDegrees = RotationDegrees;
                     RotateDownEase.ResetSelf();
+                    HoverRepeat.ResetSelf();
                 }
-            }
-            else if (!RotateDownEase.IsFinished)
-            {
-                RotateDownEase.RunFrame(deltaTime);
             }
             else
             {
-                RepeatMoves.RunFrame(deltaTime);
+                HoverRepeat.RunFrame(deltaTime);
 
-                if (FireTimer.UpdateActivates(deltaTime))
-                    FireBullets();
+                if (!RotateDownEase.IsFinished)
+                    RotateDownEase.RunFrame(deltaTime);
+                else
+                {
+                    RepeatMoves.RunFrame(deltaTime);
+
+                    if (FireTimer.UpdateActivates(deltaTime))
+                        FireBullets();
+                }
             }
-
-            HoverRepeat.RunFrame(deltaTime);
         }
 
         private void FireBullets()

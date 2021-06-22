@@ -15,15 +15,17 @@ namespace Assets.GameTasks
         /// <summary>
         /// The duration that this Task will run for.
         /// </summary>
-        public virtual float Duration
+        public float Duration
         {
             get => _duration;
             set
             {
                 _duration = value;
                 Timer = DefaultFrameTimer(value);
+                OnDurationSet(value);
             }
         }
+        protected virtual void OnDurationSet(float value) { }
 
         protected virtual FrameTimer DefaultFrameTimer(float duration)
         {

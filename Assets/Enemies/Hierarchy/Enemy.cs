@@ -522,10 +522,13 @@ namespace Assets.Enemies
             }
         }
 
+        protected virtual void OnEnemyVoidResume() { }
         private void OnVoidResume()
         {
             Velocity = VoidPausedVelocity;
             StatusBar.IsVoidPaused = false;
+
+            OnEnemyVoidResume();
         }
 
         #endregion Void

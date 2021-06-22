@@ -11,6 +11,7 @@ namespace Assets.Bullets.PlayerBullets
     public abstract class HighVelocityPlayerBullet : PlayerBullet
     {
         protected override bool AutomaticallyDeactivate => false;
+        public override float TimeScaleModifier => !SpawnedDuringRetribution ? base.RetributionTimeScale : Director.RetributionTimeScale;
 
         private Vector3 _representedVelocity { get; set; }
         public override Vector2 RepresentedVelocity => _representedVelocity;
@@ -24,6 +25,9 @@ namespace Assets.Bullets.PlayerBullets
 
         // HighVelocityPlayerBullets should have no Collider2D.
         public override float BulletTrailWidth => SpriteMap.Width;
+
+        // Collisions will be handled manually.
+        public sealed override bool CollidesWithEnemy(Enemy enemy) => false;
 
         #region Prefabs
 
@@ -51,11 +55,11 @@ namespace Assets.Bullets.PlayerBullets
         protected override ColorHandler DefaultColorHandler()
             => new SpriteColorHandler(Sprite);
 
+
         private const int MaxRaycastHits = 8;
         protected RaycastHit2D[] RaycastHits { get; set; }
 
-        // Collisions will be handled manually.
-        public sealed override bool CollidesWithEnemy(Enemy enemy) => false;
+        private bool SpawnedDuringRetribution { get; set; }
 
         protected sealed override void OnPlayerBulletInit()
         {
@@ -74,6 +78,7 @@ namespace Assets.Bullets.PlayerBullets
         {
             CurrentBulletTrail.MakeFullBright();
             NumberPenetrated = 0;
+            SpawnedDuringRetribution = Director.RetributionActive;
             OnPlayerRaycastBulletSpawn();
         }
 
