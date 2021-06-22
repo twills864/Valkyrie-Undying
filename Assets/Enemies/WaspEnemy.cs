@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using Assets.Bullets.EnemyBullets;
+using Assets.Components;
 using Assets.Constants;
 using Assets.FireStrategies.EnemyFireStrategies;
 using Assets.GameTasks;
@@ -73,6 +74,8 @@ namespace Assets.Enemies
 
         protected override EnemyFireStrategy InitialFireStrategy()
             => new WaspEnemyStrategy();
+
+        public override Vector2 RepresentedVelocity => RepresentedVelocityTracker.RepresentedVelocity;
 
         private WaspEnemyStrategy WaspFireStrategy { get; set; }
 
@@ -179,6 +182,8 @@ namespace Assets.Enemies
 
         private LoopingFrameTimer FireTimer { get; set; }
 
+        private RepresentedVelocityTracker RepresentedVelocityTracker { get; set; }
+
         protected override void OnEnemyInit()
         {
             WaspFireStrategy = (WaspEnemyStrategy)FireStrategy;
@@ -196,6 +201,8 @@ namespace Assets.Enemies
             VoidResumeRotateEase = new EaseIn(VoidResumeRotate);
 
             FireTimer = new LoopingFrameTimer(FireTime);
+
+            RepresentedVelocityTracker = new RepresentedVelocityTracker(this);
         }
 
         protected override void OnEnemySpawn()
@@ -205,6 +212,8 @@ namespace Assets.Enemies
             RotationDegrees = MathUtil.AngleDegreesFromPoints(transform.position, InitialDestination);
 
             FrameBehavior = FrameBehaviors.InitialFlyIn0;
+
+            RepresentedVelocityTracker.OnSpawn();
         }
 
         protected override void OnEnemyFrame(float deltaTime, float realDeltaTime)
@@ -232,6 +241,8 @@ namespace Assets.Enemies
                 default:
                     throw ExceptionUtil.ArgumentException(() => FrameBehavior);
             }
+
+            RepresentedVelocityTracker.RunFrame(deltaTime, realDeltaTime);
         }
 
         #region PickNewDestination
@@ -380,5 +391,11 @@ namespace Assets.Enemies
         }
 
         #endregion FrameBehaviors.VoidResumedRotateToPlayer
+
+        private void LateUpdate()
+        {
+            RepresentedVelocityTracker.OnLateUpdate();
+        }
+
     }
 }

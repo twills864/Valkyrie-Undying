@@ -45,7 +45,7 @@ namespace Assets.Bullets.PlayerBullets
         private void SetTarget(Enemy newTarget)
         {
             var velocity = MathUtil.VelocityVector(transform.position, newTarget.transform.position, Speed)
-                        + newTarget.Velocity;
+                        + newTarget.RepresentedVelocity;
             Velocity = velocity;
         }
 

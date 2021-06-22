@@ -17,6 +17,6 @@ namespace Assets.Components
             Host = host;
         }
 
-        public abstract void RunFrame(float deltaTime);
+        public abstract void RunFrame(float deltaTime, float realDeltaTime);
     }
 }

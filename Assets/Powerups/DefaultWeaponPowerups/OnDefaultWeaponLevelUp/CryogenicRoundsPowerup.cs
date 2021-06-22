@@ -18,6 +18,7 @@ namespace Assets.Powerups
     /// <inheritdoc/>
     public class CryogenicRoundsPowerup : OnDefaultWeaponLevelUpPowerup
     {
+        public override int MaxLevel => 1;
         protected override Sprite GetPowerupSprite(PowerupSpriteBank bank) => bank.CryogenicRounds;
 
         public int ChillTime => (int)ChillTimeCalculator.Value;

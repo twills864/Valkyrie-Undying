@@ -113,8 +113,10 @@ namespace Assets.Util
 
         private static void InputE(KeyCode keyCode)
         {
-            SpawnSpecificEnemy<RingEnemy>();
-            //SpawnSpecificEnemy<NomadEnemy>();
+            //SpawnSpecificEnemy<RingEnemy>();
+            SpawnSpecificEnemy<LaserEnemy>();
+            SpawnSpecificEnemy<NomadEnemy>();
+            SpawnSpecificEnemy<WaspEnemy>();
             //SpawnAllEnemies();
         }
 

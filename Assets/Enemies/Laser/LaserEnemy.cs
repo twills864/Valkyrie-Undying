@@ -35,6 +35,8 @@ namespace Assets.Enemies
         #endregion Prefab Properties
 
 
+        public override Vector2 RepresentedVelocity => RepresentedVelocityTracker.RepresentedVelocity;
+
         private enum FrameBehaviors
         {
             RunFlyInFrame0,
@@ -74,6 +76,8 @@ namespace Assets.Enemies
 
         private LaserEnemyBullet CurrentLaser { get; set; }
 
+        private RepresentedVelocityTracker RepresentedVelocityTracker { get; set; }
+
         protected override void OnEnemyInit()
         {
             var sprite = GetComponent<SpriteRenderer>();
@@ -101,6 +105,8 @@ namespace Assets.Enemies
             var fireLaser = new GameTaskFunc(this, FireLaser);
             FireSequence = new Sequence(resetRotate, ease, fireLaser);
 
+            RepresentedVelocityTracker = new RepresentedVelocityTracker(this);
+
             #endregion FireLoop
         }
 
@@ -110,6 +116,7 @@ namespace Assets.Enemies
             FrameBehavior = FrameBehaviors.RunFlyInFrame0;
             FlyIn.ResetSelf();
             FireSequence.ResetSelf();
+            RepresentedVelocityTracker.OnSpawn();
         }
 
         private void AssignMoves()
@@ -154,16 +161,19 @@ namespace Assets.Enemies
                 default:
                     throw ExceptionUtil.ArgumentException(() => FrameBehavior);
             }
+
+            RepresentedVelocityTracker.RunFrame(deltaTime, realDeltaTime);
         }
 
         private void RunFlyInFrame0(float deltaTime)
         {
-            Rotator.RunFrame(deltaTime);
             if (FlyIn.FrameRunFinishes(deltaTime))
             {
                 FrameBehavior = FrameBehaviors.RunFireFrame1;
                 RunFireFrame1(FlyIn.OverflowDeltaTime);
             }
+
+            Rotator.RunFrame(deltaTime, deltaTime);
         }
         private void RunFireFrame1(float deltaTime)
         {
@@ -229,6 +239,11 @@ namespace Assets.Enemies
                 else
                     CurrentLaser.Parent = null;
             }
+        }
+
+        private void LateUpdate()
+        {
+            RepresentedVelocityTracker.OnLateUpdate();
         }
     }
 }

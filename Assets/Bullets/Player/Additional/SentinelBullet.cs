@@ -1,4 +1,5 @@
 ﻿using Assets.Bullets.PlayerBullets;
+using Assets.Components;
 using Assets.Constants;
 using Assets.Enemies;
 using Assets.GameTasks;
@@ -59,9 +60,12 @@ namespace Assets.Bullets.PlayerBullets
             set => TravelTimer.RatioComplete = value;
         }
 
+        private RepresentedVelocityTracker RepresentedVelocityTracker { get; set; }
+
         protected override void OnPlayerBulletInit()
         {
             TravelTimer = new EaseInTimer(TravelTime);
+            RepresentedVelocityTracker = new RepresentedVelocityTracker(this);
         }
 
         protected override void OnActivate()
@@ -72,11 +76,17 @@ namespace Assets.Bullets.PlayerBullets
         protected override void OnPlayerBulletFrameRun(float deltaTime, float realDeltaTime)
         {
             TravelTimer.Increment(deltaTime);
+            RepresentedVelocityTracker.RunFrame(deltaTime, realDeltaTime);
         }
 
         protected override void OnCollideWithEnemy(Enemy enemy, Vector3 hitPosition)
         {
             SentinelManager.Instance.SentinelTriggered(this, enemy);
+        }
+
+        private void LateUpdate()
+        {
+            RepresentedVelocityTracker.OnLateUpdate();
         }
     }
 }

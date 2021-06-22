@@ -64,7 +64,11 @@ namespace Assets.Enemies
         protected override EnemyFireStrategy InitialFireStrategy()
             => new NomadEnemyStrategy(VariantFireSpeed);
 
+        public override Vector2 RepresentedVelocity => RepresentedVelocityTracker.RepresentedVelocity;
+
         public LoopingFrameTimer FireTimer => FireStrategy.FireTimer;
+
+        private RepresentedVelocityTracker RepresentedVelocityTracker { get; set; }
 
         private Vector2 InitialSize { get; set; }
 
@@ -134,6 +138,8 @@ namespace Assets.Enemies
             var hoverUpEase = new EaseInOut(hoverUp);
 
             HoverRepeat = new RepeatForever(hoverDownEase, hoverUpEase);
+
+            RepresentedVelocityTracker = new RepresentedVelocityTracker(this);
         }
 
         protected override void OnEnemySpawn()
@@ -160,6 +166,8 @@ namespace Assets.Enemies
 
             if (!flyingLeft)
                 RepeatSequence.SkipCurrentTask();
+
+            RepresentedVelocityTracker.OnSpawn();
         }
 
         protected override void OnEnemyFrame(float deltaTime, float realDeltaTime)
@@ -189,12 +197,19 @@ namespace Assets.Enemies
                         FireBullets();
                 }
             }
+
+            RepresentedVelocityTracker.RunFrame(deltaTime, realDeltaTime);
         }
 
         private void FireBullets()
         {
             var bullets = FireStrategy.GetBullets(FirePosition);
             PlayFireSound();
+        }
+
+        private void LateUpdate()
+        {
+            RepresentedVelocityTracker.OnLateUpdate();
         }
     }
 }

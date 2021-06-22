@@ -15,7 +15,7 @@ namespace Assets.Components
         {
         }
 
-        public override void RunFrame(float deltaTime)
+        public override void RunFrame(float deltaTime, float realDeltaTime)
         {
             Vector3 thisPos = Host.transform.position;
             if (thisPos != LastPosition)

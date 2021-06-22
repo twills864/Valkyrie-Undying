@@ -62,6 +62,8 @@ namespace Assets
             float representedDt = deltaTime * TimeScaleModifier;
 
             RunFrame(representedDt, deltaTime);
+
+            //Debug.DrawRay(transform.position, RepresentedVelocity, Color.red, float.Epsilon);
         }
 
         /// <summary>
