@@ -3697,7 +3697,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.042
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -5133,9 +5133,9 @@ MonoBehaviour:
         FireRatio: 0.05
         ReloadRatio: 1.25
       Bounce: 1
-      Atom: 0.8
-      Spread: 0.9
-      Flak: 1
+      Atom: 1.2
+      Spread: 0.95
+      Flak: 1.1
       Trampoline: 1
       Wormhole: 1.8
       Gatling: 1
