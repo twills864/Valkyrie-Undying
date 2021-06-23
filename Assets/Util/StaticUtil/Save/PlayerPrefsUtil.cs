@@ -9,9 +9,9 @@ namespace Assets.Util
 
         public const string MusicVolumeKey = "MusicVolume";
         public const string SoundEffectVolumeKey = "SoundEffectVolume";
+        public const string ActivePlaylistsKey = "ActivePlaylists";
 
         public const string ToggleGoreKey = "Gore";
-
 
         public const int TrueInt = 1;
         public const int FalseInt = 0;

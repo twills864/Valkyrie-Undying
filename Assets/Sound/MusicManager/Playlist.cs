@@ -13,10 +13,49 @@ namespace Assets.Sound
     [DebuggerDisplay("{Name} - {Songs.Count} Song(s)")]
     public class Playlist
     {
+        private const string DefaultPlaylistName = "Default";
+        // Choose a character that can't appear in a Windows file name
+        private const char ActivePlaylistsSourceSeperator = '|';
+
         public string Name { get; }
         public string ResourcesBasePath { get; }
 
         public List<string> Songs { get; }
+
+
+        private static string ActivePlaylistsSource
+        {
+            get => PlayerPrefs.GetString(PlayerPrefsUtil.ActivePlaylistsKey, DefaultPlaylistName);
+            set => PlayerPrefs.SetString(PlayerPrefsUtil.ActivePlaylistsKey, value);
+        }
+
+        public static List<string> ActivePlaylists
+        {
+            get
+            {
+                List<string> value = ActivePlaylistsSource
+                  .Split(new char[] { ActivePlaylistsSourceSeperator }, StringSplitOptions.RemoveEmptyEntries)
+                  .ToList();
+
+                if (!value.Any())
+                    value.Add(DefaultPlaylistName);
+
+                return value;
+            }
+            set
+            {
+                if(value.Any())
+                    ActivePlaylistsSource = String.Join(ActivePlaylistsSourceSeperator.ToString(), value);
+                else
+                {
+                    List<string> toSet = new List<string>(value);
+                    toSet.Add(DefaultPlaylistName);
+                    ActivePlaylistsSource = String.Join(ActivePlaylistsSourceSeperator.ToString(), toSet);
+                }
+
+                // TODO: Reload Music Manager
+            }
+        }
 
         public Playlist(DirectoryInfo dir)
         {

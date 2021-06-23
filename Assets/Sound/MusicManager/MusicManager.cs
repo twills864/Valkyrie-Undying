@@ -22,7 +22,7 @@ namespace Assets.Sound
         private static string PlaylistSerializationPath => $@"{Application.dataPath}\Resources\{PlaylistsTextResourcePath}.txt";
 
         // Can't set this as a prefab because it has to be consistent between instances.
-        public const float MaxMusicVolume = 0.45f;
+        public const float MaxMusicVolume = 0.8f;
 
         protected override ColorHandler DefaultColorHandler() => new NullColorHandler();
 
@@ -83,7 +83,7 @@ namespace Assets.Sound
             string FilesPath = $@"{Application.dataPath}\Resources\Audio\Music\";
 
             DirectoryInfo music = new DirectoryInfo(FilesPath);
-            var lists = music.GetDirectories();
+            DirectoryInfo[] lists = music.GetDirectories();
 
             List<Playlist> allPlaylists = lists.Select(x => new Playlist(x)).ToList();
 
@@ -102,12 +102,14 @@ namespace Assets.Sound
 #if UNITY_EDITOR
             // Don't call build version because that resource file was initialized when the game started,
             // and won't have the updated changes if any were applied.
-            var allPlaylists = Playlist.DeserializePlaylists(PlaylistSerializationPath);
+            List<Playlist> allPlaylists = Playlist.DeserializePlaylists(PlaylistSerializationPath);
 #else
-            var allPlaylists = Playlist.DeserializePlaylistsFromBuild(PlaylistsTextResourcePath);
+            List<Playlist> allPlaylists = Playlist.DeserializePlaylistsFromBuild(PlaylistsTextResourcePath);
 #endif
-
-            var songPaths = allPlaylists.SelectMany(x => x.AllResourceNames()).ToList();
+            List<string> activePlaylists = Playlist.ActivePlaylists;
+            List<string> songPaths = allPlaylists
+                .Where(playlist => activePlaylists.Contains(playlist.Name))
+                .SelectMany(x => x.AllResourceNames()).ToList();
             RandomUtil.Shuffle(songPaths);
 
             Songs = new CircularSelector<AudioClip>(songPaths.Select(x => Resources.Load<AudioClip>(x)));
