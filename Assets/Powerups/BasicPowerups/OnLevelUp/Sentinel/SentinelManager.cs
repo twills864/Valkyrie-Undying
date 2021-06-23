@@ -81,6 +81,11 @@ namespace Assets.Powerups
 
             if (RespawnTimer.UpdateActivates(deltaTime))
                 ActivateRandomSentinel();
+        }
+
+        private void LateUpdate()
+        {
+            transform.position = Player.Position;
 
             float angle = Rotation;
             for (int i = 0; i < NumSentinel; i++)
@@ -94,15 +99,12 @@ namespace Assets.Powerups
                     var ratio = sentinel.RadiusRatio;
                     var newPos = MathUtil.ScaledPositionBetween(transform.position, destination, ratio);
                     sentinel.transform.position = newPos;
+
+                    sentinel.RepresentedVelocityTrackerLateUpdate();
                 }
 
                 angle += AngleDelta;
             }
-        }
-
-        private void LateUpdate()
-        {
-            transform.position = Player.Instance.transform.position;
         }
 
         /// <summary>
@@ -111,6 +113,7 @@ namespace Assets.Powerups
         /// </summary>
         /// <param name="sentinel">The sentinel to calculate the represented velocity for.</param>
         /// <returns>The sentinel's represented velocity.</returns>
+        [Obsolete("Replaced with RepresentedVelocityTracker in SentinelBullet")]
         public Vector2 CalculateRepresentedVelocity(SentinelBullet sentinel)
         {
             int index = sentinel.Index;

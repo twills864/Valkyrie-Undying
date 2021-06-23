@@ -16,7 +16,8 @@ namespace Assets.Bullets.PlayerBullets
         protected override bool ShouldMarkSelfCollision => false;
         public override AudioClip FireSound => SoundBank.LaserGritty;
 
-        public override Vector2 RepresentedVelocity => SentinelManager.Instance.CalculateRepresentedVelocity(this);
+        // SentinelManager.Instance.CalculateRepresentedVelocity(this);
+        public override Vector2 RepresentedVelocity => RepresentedVelocityTracker.RepresentedVelocity;
 
         #region Prefabs
 
@@ -73,6 +74,11 @@ namespace Assets.Bullets.PlayerBullets
             TravelTimer.Reset();
         }
 
+        protected override void OnBulletSpawn()
+        {
+            RepresentedVelocityTracker.OnSpawn();
+        }
+
         protected override void OnPlayerBulletFrameRun(float deltaTime, float realDeltaTime)
         {
             TravelTimer.Increment(deltaTime);
@@ -84,7 +90,7 @@ namespace Assets.Bullets.PlayerBullets
             SentinelManager.Instance.SentinelTriggered(this, enemy);
         }
 
-        private void LateUpdate()
+        public void RepresentedVelocityTrackerLateUpdate()
         {
             RepresentedVelocityTracker.OnLateUpdate();
         }

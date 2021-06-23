@@ -63,7 +63,8 @@ namespace Assets
 
             RunFrame(representedDt, deltaTime);
 
-            //Debug.DrawRay(transform.position, RepresentedVelocity, Color.red, float.Epsilon);
+            //if(this is Assets.Enemies.Enemy || this is SentinelBullet)
+            //    Debug.DrawRay(transform.position, RepresentedVelocity, Color.red, float.Epsilon);
         }
 
         /// <summary>

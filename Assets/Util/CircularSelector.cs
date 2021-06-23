@@ -33,7 +33,25 @@ namespace Assets.Util
         /// <summary>
         /// The current element being represented.
         /// </summary>
-        public T Current => this[Index];
+        public T Current
+        {
+            get => this[Index];
+            set => this[Index] = value;
+        }
+
+        /// <summary>
+        /// The index of the previously-represented element.
+        /// </summary>
+        private int PreviousIndex => Index != 0 ? Index - 1 : Count - 1;
+
+        /// <summary>
+        /// The previously-represented element.
+        /// </summary>
+        public T Previous
+        {
+            get => this[PreviousIndex];
+            set => this[PreviousIndex] = value;
+        }
 
         /// <summary>
         /// Increments next current element to be represented.
@@ -66,6 +84,17 @@ namespace Assets.Util
             T ret = Current;
             Increment();
             return ret;
+        }
+
+        /// <summary>
+        /// Sets the element currently being represented, and
+        /// increments to the next element to be represented.
+        /// </summary>
+        /// <returns></returns>
+        public void SetAndIncrement(T value)
+        {
+            Current = value;
+            Increment();
         }
     }
 }

@@ -7144,6 +7144,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6407143415112826488, guid: 8c020f3976e4b9b44b824671404f7b7e,
+        type: 3}
+      propertyPath: _AngularVelocity
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7871444640607229033, guid: 8c020f3976e4b9b44b824671404f7b7e, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 8c020f3976e4b9b44b824671404f7b7e, type: 3}
