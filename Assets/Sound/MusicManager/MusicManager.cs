@@ -24,6 +24,9 @@ namespace Assets.Sound
         // Can't set this as a prefab because it has to be consistent between instances.
         public const float MaxMusicVolume = 0.8f;
 
+        public static MusicManager MusicManagerInstance => (MusicManager)Instance;
+        public static List<Playlist> AllPlaylists => new List<Playlist>(MusicManagerInstance.AllPlaylistsSource);
+
         protected override ColorHandler DefaultColorHandler() => new NullColorHandler();
 
         #region Prefabs
@@ -40,6 +43,7 @@ namespace Assets.Sound
 
         #endregion Prefab Properties
 
+        private List<Playlist> AllPlaylistsSource { get; set; }
         private CircularSelector<AudioClip> Songs { get; set; }
 
         private bool ShouldPlayMusic { get; set; }
@@ -65,9 +69,13 @@ namespace Assets.Sound
 
 #if UNITY_EDITOR
             GenerateSoundtrackFile();
+#endif
+            LoadMusic();
+
+#if UNITY_EDITOR
             if (MusicPlayer.playOnAwake)
 #endif
-                LoadMusic();
+                ReloadActiveSongs();
         }
 
         #region Soundtrack
@@ -97,17 +105,21 @@ namespace Assets.Sound
 
         private void LoadMusic()
         {
-            ShouldPlayMusic = true;
-
 #if UNITY_EDITOR
             // Don't call build version because that resource file was initialized when the game started,
             // and won't have the updated changes if any were applied.
-            List<Playlist> allPlaylists = Playlist.DeserializePlaylists(PlaylistSerializationPath);
+            AllPlaylistsSource = Playlist.DeserializePlaylists(PlaylistSerializationPath);
 #else
-            List<Playlist> allPlaylists = Playlist.DeserializePlaylistsFromBuild(PlaylistsTextResourcePath);
+            AllPlaylistsSource = Playlist.DeserializePlaylistsFromBuild(PlaylistsTextResourcePath);
 #endif
+        }
+
+        public void ReloadActiveSongs()
+        {
+            ShouldPlayMusic = true;
+
             List<string> activePlaylists = Playlist.ActivePlaylists;
-            List<string> songPaths = allPlaylists
+            List<string> songPaths = AllPlaylistsSource
                 .Where(playlist => activePlaylists.Contains(playlist.Name))
                 .SelectMany(x => x.AllResourceNames()).ToList();
             RandomUtil.Shuffle(songPaths);
@@ -129,9 +141,7 @@ namespace Assets.Sound
         public static void SetMusicVolume(float percent)
         {
             float volume = percent * MaxMusicVolume * 0.01f;
-
-            MusicManager instance = (MusicManager) MusicManager.Instance;
-            instance.MusicPlayer.volume = volume;
+            MusicManagerInstance.MusicPlayer.volume = volume;
 
             PlayerPrefs.SetInt(PlayerPrefsUtil.MusicVolumeKey, (int)percent);
         }

@@ -18,8 +18,6 @@ namespace Assets.Scenes.Options
 {
     public class OptionsManager : MonoBehaviour
     {
-
-
         #region Prefabs
 
         [SerializeField]
@@ -49,6 +47,15 @@ namespace Assets.Scenes.Options
         [SerializeField]
         private Vector2 _BackButtonMargin = Vector2.zero;
 
+        [SerializeField]
+        private TextMeshHolder _PlaylistsTitle = null;
+
+        [SerializeField]
+        private PlaylistCheckbox _PlaylistCheckboxTemplate = null;
+
+        [SerializeField]
+        private MusicManager _MusicManager = null;
+
         #endregion Prefabs
 
 
@@ -63,11 +70,16 @@ namespace Assets.Scenes.Options
         private LoopingBackgroundSprite SpaceSmall => _SpaceSmall;
         private float OptionMargin => _OptionMargin;
         private Vector2 BackButtonMargin => _BackButtonMargin.ScaleX(-1f);
+        private TextMeshHolder PlaylistsTitle => _PlaylistsTitle;
+        private PlaylistCheckbox PlaylistCheckboxTemplate => _PlaylistCheckboxTemplate;
+        private MusicManager MusicManager => _MusicManager;
 
         #endregion Prefab Properties
 
         private bool SceneIsLoading => GameSceneLoad != null;
         private AsyncOperation GameSceneLoad { get; set; }
+
+        private List<PlaylistCheckbox> PlaylistCheckboxes { get; set; }
 
         private void Awake()
         {
@@ -119,12 +131,57 @@ namespace Assets.Scenes.Options
 
             MusicVolumeSlider.Value = PlayerPrefs.GetInt(PlayerPrefsUtil.MusicVolumeKey, 100);
             SoundEffectVolumeSlider.Value = PlayerPrefs.GetInt(PlayerPrefsUtil.SoundEffectVolumeKey, 100);
+
+            if(!MusicManager.MusicManagerInstance.InitCalled)
+                MusicManager.Init();
+
+            InitPlaylists();
+        }
+
+        private void InitPlaylists()
+        {
+            PlaylistCheckboxes = new List<PlaylistCheckbox>();
+
+            Vector3 nextPosition = SpaceUtil.WorldMap.Center;
+            PlaylistsTitle.transform.position = nextPosition;
+
+            var allPlaylists = MusicManager.AllPlaylists;
+            var activePlaylists = Playlist.ActivePlaylists;
+
+            float offsetY = PlaylistCheckboxTemplate.VerticalOffset;
+            foreach(var playlist in allPlaylists)
+            {
+                nextPosition.y -= offsetY;
+
+                PlaylistCheckbox playlistCheckbox = Instantiate(PlaylistCheckboxTemplate);
+                bool isOn = activePlaylists.Contains(playlist.Name);
+                playlistCheckbox.Init(playlist, isOn, nextPosition.y);
+
+                PlaylistCheckboxes.Add(playlistCheckbox);
+            }
         }
 
         public void BackButtonPressed()
         {
             if (!SceneIsLoading)
+            {
+                ReloadPlaylists();
                 SceneManager.LoadSceneAsync(GameConstants.SceneNameMainMenu, LoadSceneMode.Single);
+            }
+        }
+
+        private void ReloadPlaylists()
+        {
+            if(PlaylistCheckboxes.Where(x => x.IsChanged).Any())
+            {
+                List<string> activePlaylists = PlaylistCheckboxes
+                    .Where(x => x.Value)
+                    .Select(x => x.PlaylistName)
+                    .ToList();
+
+                Playlist.ActivePlaylists = activePlaylists;
+                MusicManager.MusicManagerInstance.ReloadActiveSongs();
+            }
         }
 
         public void MusicVolumeChanged(float value)

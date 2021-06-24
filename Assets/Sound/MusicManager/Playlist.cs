@@ -44,12 +44,11 @@ namespace Assets.Sound
             }
             set
             {
-                if(value.Any())
+                if (value.Any())
                     ActivePlaylistsSource = String.Join(ActivePlaylistsSourceSeperator.ToString(), value);
                 else
                 {
-                    List<string> toSet = new List<string>(value);
-                    toSet.Add(DefaultPlaylistName);
+                    List<string> toSet = new List<string>() { DefaultPlaylistName };
                     ActivePlaylistsSource = String.Join(ActivePlaylistsSourceSeperator.ToString(), toSet);
                 }
 

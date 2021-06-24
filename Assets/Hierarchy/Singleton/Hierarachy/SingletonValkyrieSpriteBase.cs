@@ -13,6 +13,8 @@ namespace Assets
 
         protected abstract SingletonValkyrieSpriteBase InstanceToCompare { get; set; }
 
+        public bool InitCalled { get; private set; }
+
         private void Awake()
         {
             if (InstanceToCompare != null && InstanceToCompare != this)
@@ -25,13 +27,16 @@ namespace Assets
             {
                 InstanceToCompare = this;
                 DontDestroyOnLoad(gameObject);
-                Init();
+
+                if (!InitCalled)
+                    Init();
             }
         }
 
         protected abstract void OnSingletonInit();
         protected sealed override void OnInit()
         {
+            InitCalled = true;
             OnSceneChange();
             OnSingletonInit();
         }
