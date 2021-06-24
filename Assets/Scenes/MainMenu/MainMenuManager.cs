@@ -15,7 +15,12 @@ namespace Assets.Scenes.MainMenu
 {
     public class MainMenuManager : MonoBehaviour
     {
+        public static DifficultyScale SelectedDifficultyScale { get; set; } = DifficultyScale.VeryHard;
+
         #region Prefabs
+
+        [SerializeField]
+        private float _ButtonOffset = GameConstants.PrefabNumber;
 
         [SerializeField]
         private TextMeshHolder _Title = null;
@@ -32,16 +37,40 @@ namespace Assets.Scenes.MainMenu
         [SerializeField]
         private LoopingBackgroundSprite _SpaceSmall = null;
 
+        [SerializeField]
+        private ButtonHolder _PlayVeryEasy = null;
+
+        [SerializeField]
+        private ButtonHolder _PlayEasy = null;
+
+        [SerializeField]
+        private ButtonHolder _PlayMedium = null;
+
+        [SerializeField]
+        private ButtonHolder _PlayHard = null;
+
+        [SerializeField]
+        private ButtonHolder _PlayVeryHard = null;
+
         #endregion Prefabs
 
 
         #region Prefab Properties
 
-        public TextMeshHolder Title => _Title;
-        public ButtonHolder PlayButton => _PlayButton;
-        public ButtonHolder OptionsButton => _OptionsButton;
-        public LoopingBackgroundSprite SpaceLarge => _SpaceLarge;
-        public LoopingBackgroundSprite SpaceSmall => _SpaceSmall;
+        private float ButtonOffset => _ButtonOffset;
+        private float ButtonOffsetHalf => ButtonOffset * 0.5f;
+
+        private TextMeshHolder Title => _Title;
+        private ButtonHolder PlayButton => _PlayButton;
+        private ButtonHolder OptionsButton => _OptionsButton;
+        private LoopingBackgroundSprite SpaceLarge => _SpaceLarge;
+        private LoopingBackgroundSprite SpaceSmall => _SpaceSmall;
+
+        private ButtonHolder PlayEasy => _PlayEasy;
+        private ButtonHolder PlayVeryEasy => _PlayVeryEasy;
+        private ButtonHolder PlayMedium => _PlayMedium;
+        private ButtonHolder PlayHard => _PlayHard;
+        private ButtonHolder PlayVeryHard => _PlayVeryHard;
 
         #endregion Prefab Properties
 
@@ -64,8 +93,21 @@ namespace Assets.Scenes.MainMenu
             Title.Init();
 
             Title.PositionY = SpaceUtil.WorldMap.Top.y - Title.BoxMap.Height;
-            PlayButton.PositionY = SpaceUtil.WorldMap.Center.y;
-            OptionsButton.PositionY = (SpaceUtil.WorldMap.Center.y + SpaceUtil.WorldMap.Bottom.y) * 0.5f;
+
+            Vector2 buttonSize = PlayButton.ButtonSize;
+            Vector2 buttonSizeHalf = buttonSize * 0.5f;
+
+            PlayButton.PositionY = SpaceUtil.WorldMap.Center.y + buttonSizeHalf.y + ButtonOffsetHalf;
+            OptionsButton.PositionY = SpaceUtil.WorldMap.Center.y - buttonSizeHalf.y - ButtonOffsetHalf;
+
+            PlayVeryEasy.PositionY = SpaceUtil.WorldMap.Center.y + ((buttonSize.y + ButtonOffset) * 2);
+            PlayEasy.PositionY = SpaceUtil.WorldMap.Center.y + (buttonSize.y + ButtonOffset);
+            PlayMedium.PositionY = SpaceUtil.WorldMap.Center.y;
+            PlayHard.PositionY = SpaceUtil.WorldMap.Center.y - (buttonSize.y + ButtonOffset);
+            PlayVeryHard.PositionY = SpaceUtil.WorldMap.Center.y - ((buttonSize.y + ButtonOffset) * 2);
+
+            SetPlayAndOptionButtonsEnabled(true);
+            SetDifficultyButtonsEnabled(false);
         }
 
         private void Update()
@@ -78,17 +120,48 @@ namespace Assets.Scenes.MainMenu
             //}
         }
 
+        private void SetPlayAndOptionButtonsEnabled(bool enabled)
+        {
+            PlayButton.gameObject.SetActive(enabled);
+            OptionsButton.gameObject.SetActive(enabled);
+        }
+
+        private void SetDifficultyButtonsEnabled(bool enabled)
+        {
+            PlayEasy.gameObject.SetActive(enabled);
+            PlayVeryEasy.gameObject.SetActive(enabled);
+            PlayMedium.gameObject.SetActive(enabled);
+            PlayHard.gameObject.SetActive(enabled);
+            PlayVeryHard.gameObject.SetActive(enabled);
+        }
+
         public void PlayGameButtonPressed()
         {
-            //GameSceneLoad.allowSceneActivation = true;
-            if(!SceneIsLoading)
-                GameSceneLoad = SceneManager.LoadSceneAsync(GameConstants.SceneNameGame, LoadSceneMode.Single);
+            SetPlayAndOptionButtonsEnabled(false);
+            SetDifficultyButtonsEnabled(true);
         }
 
         public void OptionsButtonPressed()
         {
             if (!SceneIsLoading)
-                SceneManager.LoadSceneAsync(GameConstants.SceneNameOptions, LoadSceneMode.Single);
+                GameSceneLoad = SceneManager.LoadSceneAsync(GameConstants.SceneNameOptions, LoadSceneMode.Single);
         }
+
+        private void PlayDifficultyPressed(DifficultyScale selectedScale)
+        {
+            SelectedDifficultyScale = selectedScale;
+
+            if (!SceneIsLoading)
+            {
+                GameSceneLoad = SceneManager.LoadSceneAsync(GameConstants.SceneNameGame, LoadSceneMode.Single);
+                SetDifficultyButtonsEnabled(false);
+            }
+        }
+
+        public void PlayVeryEasyPressed() => PlayDifficultyPressed(DifficultyScale.VeryEasy);
+        public void PlayEasyPressed() => PlayDifficultyPressed(DifficultyScale.Easy);
+        public void PlayMediumPressed() => PlayDifficultyPressed(DifficultyScale.Medium);
+        public void PlayHardPressed() => PlayDifficultyPressed(DifficultyScale.Hard);
+        public void PlayVeryHardPressed() => PlayDifficultyPressed(DifficultyScale.VeryHard);
     }
 }

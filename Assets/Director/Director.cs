@@ -10,6 +10,7 @@ using Assets.Enemies;
 using Assets.GameTasks;
 using Assets.ObjectPooling;
 using Assets.Pickups;
+using Assets.Scenes.MainMenu;
 using Assets.UI;
 using Assets.Util;
 using UnityEngine;
@@ -28,8 +29,26 @@ namespace Assets
 
         private static DirectorBalance Balance;
 
+        #region Difficulty
+
+        private static float CurrentDifficulty => DifficultyRatio.CurrentValue * DifficultyScaleRatio;
+
         private static BalancedRatio DifficultyRatio { get; set; }
-        private static float CurrentDifficulty => DifficultyRatio.CurrentValue;
+        private static float DifficultyScaleRatio { get; set; }
+
+        #region Difficulty Scales
+
+        private const float DifficultyScalePerDifficultyLevel = 0.25f;
+
+        // DifficultyScale goes from 0 to 4 inclusive.
+        // DifficultyScaleRatio can therefore be 0, 0.25f, 0.5f, 0.75f, or 1f.
+        private static DifficultyScale CurrentDifficultyScale
+        {
+            set => DifficultyScaleRatio = ((int)value) * DifficultyScalePerDifficultyLevel;
+        }
+        #endregion Difficulty Scales
+
+        #endregion Difficulty
 
         private static ExperienceManager Exp;
 
@@ -57,6 +76,7 @@ namespace Assets
         public static void Init(DirectorBalance balance)
         {
             Balance = balance;
+            CurrentDifficultyScale = MainMenuManager.SelectedDifficultyScale;
             EnemiesKilledSinceLastSpawn = 0;
             EnemySpawnTimer = new LoopingFrameTimer(Balance.SpawnRate.InitialSpawnTime); // new InactiveLoopingFrameTimer();
             TargetTimeToKill = new FrameTimer(2f * EnemySpawnTimer.ActivationInterval);
@@ -73,11 +93,11 @@ namespace Assets
             float difficultyStep = Balance.Difficuly.DifficultyRatioStep;
             DifficultyRatio = new BalancedRatio(initialDifficuly, difficultyStep);
 
-            Exp = new ExperienceManager(Balance);
+            Exp = new ExperienceManager(Balance, DifficultyScaleRatio);
 
             InitSpawnMechanics();
 
-            DebugUI.SetDebugLabel("Difficulty", () => CurrentDifficulty);
+            DebugUI.SetDebugLabel("Difficulty", () => $"({DifficultyScaleRatio} x ) {CurrentDifficulty}");
             DebugUI.SetDebugLabel("Exp", () => Exp.DebugLabel);
             DebugUI.SetDebugLabel("TargetEnemies", () => TargetEnemiesOnScreen);
             DebugUI.SetDebugLabel("Spawn Rate", () => CalculateSpawnTimerModifier());

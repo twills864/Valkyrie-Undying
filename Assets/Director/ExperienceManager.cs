@@ -20,16 +20,21 @@ namespace Assets.DirectorHelpers
         public float ExpToNextLevel { get; private set; }
         public float ExpToNextLevelIncrease { get; private set; }
         public float BaseEnemyExpRate { get; private set; }
+        private float DifficultyBonus { get; set; }
 
         private ProgressBar ExpBar { get; set; }
 
-        public ExperienceManager(DirectorBalance balance)
+        public ExperienceManager(DirectorBalance balance, float difficultyScaleRatio)
         {
             CurrentLevel = 0;
             CurrentExp = 0;
             ExpToNextLevel = balance.Experience.ExpToFirstLevel;
             ExpToNextLevelIncrease = balance.Experience.ExtraExpPerLevel;
             BaseEnemyExpRate = balance.Experience.BaseEnemyExpRate;
+
+            // difficultyScaleRatio is [0, 1]
+            // Easier difficulties need greater difficulty bonuses
+            DifficultyBonus = 2.0f - difficultyScaleRatio;
 
             ExpBar = PoolManager.Instance.UIElementPool.Get<ProgressBar>();
             InitExpBar();
@@ -46,7 +51,7 @@ namespace Assets.DirectorHelpers
 
         public bool KilledEnemyLevelsUp(Enemy enemy)
         {
-            float expGain = enemy.ExpMultiplier * BaseEnemyExpRate;
+            float expGain = enemy.ExpMultiplier * BaseEnemyExpRate * DifficultyBonus;
             CurrentExp += expGain;
 
 

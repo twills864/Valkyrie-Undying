@@ -47,7 +47,7 @@ namespace Assets.Util
 
         public void IncreaseRatio(string reason)
         {
-            Player.Instance.CreateFleetingTextAtCenter(reason).SpriteColor = Color.green;
+            //Player.Instance.CreateFleetingTextAtCenter(reason).SpriteColor = Color.green;
             IncreaseRatio();
         }
         public void IncreaseRatio()
@@ -63,7 +63,7 @@ namespace Assets.Util
 
         public void DecreaseRatio(string reason)
         {
-            Player.Instance.CreateFleetingTextAtCenter(reason).SpriteColor = Color.red;
+            //Player.Instance.CreateFleetingTextAtCenter(reason).SpriteColor = Color.red;
             DecreaseRatio();
         }
         public void DecreaseRatio()
