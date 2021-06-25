@@ -10,6 +10,7 @@ using Assets.UI.MenuElements;
 using Assets.Util;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace Assets.Scenes.MainMenu
 {
@@ -147,21 +148,31 @@ namespace Assets.Scenes.MainMenu
                 GameSceneLoad = SceneManager.LoadSceneAsync(GameConstants.SceneNameOptions, LoadSceneMode.Single);
         }
 
-        private void PlayDifficultyPressed(DifficultyScale selectedScale)
+        private void PlayDifficultyPressed(DifficultyScale selectedScale, Button button)
         {
             SelectedDifficultyScale = selectedScale;
 
             if (!SceneIsLoading)
             {
                 GameSceneLoad = SceneManager.LoadSceneAsync(GameConstants.SceneNameGame, LoadSceneMode.Single);
-                SetDifficultyButtonsEnabled(false);
+
+                void DeactivateIfNotSelectedButton(ButtonHolder b)
+                {
+                    if (b.Button != button)
+                        b.gameObject.SetActive(false);
+                }
+                DeactivateIfNotSelectedButton(PlayEasy);
+                DeactivateIfNotSelectedButton(PlayVeryEasy);
+                DeactivateIfNotSelectedButton(PlayMedium);
+                DeactivateIfNotSelectedButton(PlayHard);
+                DeactivateIfNotSelectedButton(PlayVeryHard);
             }
         }
 
-        public void PlayVeryEasyPressed() => PlayDifficultyPressed(DifficultyScale.VeryEasy);
-        public void PlayEasyPressed() => PlayDifficultyPressed(DifficultyScale.Easy);
-        public void PlayMediumPressed() => PlayDifficultyPressed(DifficultyScale.Medium);
-        public void PlayHardPressed() => PlayDifficultyPressed(DifficultyScale.Hard);
-        public void PlayVeryHardPressed() => PlayDifficultyPressed(DifficultyScale.VeryHard);
+        public void PlayVeryEasyPressed(Button button) => PlayDifficultyPressed(DifficultyScale.VeryEasy, button);
+        public void PlayEasyPressed(Button button) => PlayDifficultyPressed(DifficultyScale.Easy, button);
+        public void PlayMediumPressed(Button button) => PlayDifficultyPressed(DifficultyScale.Medium, button);
+        public void PlayHardPressed(Button button) => PlayDifficultyPressed(DifficultyScale.Hard, button);
+        public void PlayVeryHardPressed(Button button) => PlayDifficultyPressed(DifficultyScale.VeryHard, button);
     }
 }
