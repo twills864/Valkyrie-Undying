@@ -103,5 +103,5 @@ crashlytics-build.properties
 /[Aa]ssets/Resources/Audio/Music/*
 !/[Aa]ssets/Resources/Audio/Music/Default/*
 !/[Aa]ssets/Resources/Audio/Music/Default.meta
-!/[Aa]ssets/Resources/Audio/Music/Playlists.txt
-!/[Aa]ssets/Resources/Audio/Music/Playlists.txt.meta
+!/[Aa]ssets/Resources/Audio/Music/DefaultPlaylist.txt
+!/[Aa]ssets/Resources/Audio/Music/DefaultPlaylist.txt.meta

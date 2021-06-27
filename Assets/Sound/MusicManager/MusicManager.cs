@@ -18,8 +18,13 @@ namespace Assets.Sound
     /// </summary>
     public class MusicManager : SingletonValkyrieSprite
     {
-        private const string PlaylistsTextResourcePath = @"Audio\Music\Playlists";
-        private static string PlaylistSerializationPath => $@"{Application.dataPath}\Resources\{PlaylistsTextResourcePath}.txt";
+        private const string AudioMusicResourcePath = @"Audio\Music\";
+
+        private const string DefaultPlaylistTextResourcePath = AudioMusicResourcePath + "DefaultPlaylist";
+        private const string ExtraPlaylistsTextResourcePath = AudioMusicResourcePath + "ExtraPlaylists";
+
+        private static string DefaultPlaylistSerializationPath => $@"{Application.dataPath}\Resources\{DefaultPlaylistTextResourcePath}.txt";
+        private static string ExtraPlaylistsSerializationPath => $@"{Application.dataPath}\Resources\{ExtraPlaylistsTextResourcePath}.txt";
 
         // Can't set this as a prefab because it has to be consistent between instances.
         public const float MaxMusicVolume = 0.8f;
@@ -68,7 +73,7 @@ namespace Assets.Sound
             SetMusicVolume(PlayerPrefs.GetInt(PlayerPrefsUtil.MusicVolumeKey, 100));
 
 #if UNITY_EDITOR
-            GenerateSoundtrackFile();
+            GenerateSoundtrackFiles();
 #endif
             LoadMusic();
 
@@ -86,18 +91,26 @@ namespace Assets.Sound
         // For example, the subdirectory "Resources\Audio\Music\Default\" will contain
         //     the default royalty-free soundtrack.
         // Users may add their own subdirectories representing new playlists.
-        private void GenerateSoundtrackFile()
+        // Additional user playlists will be saved under ExtraPlaylists.txt,
+        // while the default soundtrack will be saved under DefaultPlaylist.txt.
+        private void GenerateSoundtrackFiles()
         {
             string FilesPath = $@"{Application.dataPath}\Resources\Audio\Music\";
 
             DirectoryInfo music = new DirectoryInfo(FilesPath);
             DirectoryInfo[] lists = music.GetDirectories();
 
-            List<Playlist> allPlaylists = lists.Select(x => new Playlist(x)).ToList();
+            List<Playlist> allPlaylists = lists
+                .Select(x => new Playlist(x)).ToList();
 
-            string[] lines = Playlist.SerializePlaylists(allPlaylists);
-            File.WriteAllLines(PlaylistSerializationPath, lines);
+            // One playlist, but Playlist.SerialzePlaylists expects a List<Playist>
+            List<Playlist> defaultPlaylist = allPlaylists.Where(x => x.Name == Playlist.DefaultPlaylistName).ToList();
+            string[] defaultLines = Playlist.SerializePlaylists(defaultPlaylist);
+            File.WriteAllLines(DefaultPlaylistSerializationPath, defaultLines);
 
+            List<Playlist> extraPlaylists = allPlaylists.Where(x => x.Name != Playlist.DefaultPlaylistName).ToList();
+            string[] extraLines = Playlist.SerializePlaylists(extraPlaylists);
+            File.WriteAllLines(ExtraPlaylistsSerializationPath, extraLines);
         }
 #endif
 
@@ -108,9 +121,10 @@ namespace Assets.Sound
 #if UNITY_EDITOR
             // Don't call build version because that resource file was initialized when the game started,
             // and won't have the updated changes if any were applied.
-            AllPlaylistsSource = Playlist.DeserializePlaylists(PlaylistSerializationPath);
+            AllPlaylistsSource = Playlist.DeserializePlaylists(DefaultPlaylistSerializationPath, ExtraPlaylistsSerializationPath);
 #else
-            AllPlaylistsSource = Playlist.DeserializePlaylistsFromBuild(PlaylistsTextResourcePath);
+
+            AllPlaylistsSource = Playlist.DeserializePlaylistsFromBuild(DefaultPlaylistTextResourcePath, ExtraPlaylistsTextResourcePath);
 #endif
         }
 

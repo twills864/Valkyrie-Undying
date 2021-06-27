@@ -13,7 +13,7 @@ namespace Assets.Sound
     [DebuggerDisplay("{Name} - {Songs.Count} Song(s)")]
     public class Playlist
     {
-        private const string DefaultPlaylistName = "Default";
+        public const string DefaultPlaylistName = "Default";
         // Choose a character that can't appear in a Windows file name
         private const char ActivePlaylistsSourceSeperator = '|';
 
@@ -80,6 +80,9 @@ namespace Assets.Sound
 
         public static string[] SerializePlaylists(List<Playlist> playlists)
         {
+            if (!playlists.Any())
+                return new string[0];
+
             StringBuilder sb = new StringBuilder();
 
             var playlist = playlists[0];
@@ -117,38 +120,63 @@ namespace Assets.Sound
                 sb.AppendLine(song);
         }
 
-        public static List<Playlist> DeserializePlaylistsFromBuild(string resourcePath)
+        public static List<Playlist> DeserializePlaylistsFromBuild(string defaultResourcePath, string extraResourcePath)
         {
+            // Environment.NewLine may differ depending on build target
             const string EnvironmentNewLine = "\r\n";
             const string NewLine = "\n";
 
-            TextAsset textFile = (TextAsset)Resources.Load(resourcePath);
-            string deserialized = textFile.text;
+            string[] GetLines(string _resourcePath)
+            {
+                TextAsset textFile = (TextAsset)Resources.Load(_resourcePath);
 
-            // Environment.NewLine may differ depending on build target
-            string[] lines = deserialized.Replace(EnvironmentNewLine, NewLine)
-                .Split(new string[] { NewLine }, StringSplitOptions.None)
-                .ToArray();
+                if (textFile == null)
+                    return new string[0];
 
-            return DeserializePlaylists(lines);
+                string deserialized = textFile.text;
+
+                string[] lines = deserialized.Replace(EnvironmentNewLine, NewLine)
+                    .Split(new string[] { NewLine }, StringSplitOptions.None)
+                    .ToArray();
+
+                return lines;
+            }
+
+            string[] defaultLines = GetLines(defaultResourcePath);
+            string[] extraLines = GetLines(extraResourcePath);
+
+            return DeserializePlaylists(defaultLines, extraLines);
         }
 
-        public static List<Playlist> DeserializePlaylists(string serializationFilePath)
+        public static List<Playlist> DeserializePlaylists(string defaultSerializationFilePath, string extraSerializationFilePath)
         {
-            var lines = File.ReadAllLines(serializationFilePath);
-            var playlists = Playlist.DeserializePlaylists(lines);
+            var defaultLines = File.ReadAllLines(defaultSerializationFilePath);
+            var extraLines = File.ReadAllLines(extraSerializationFilePath);
+            var playlists = Playlist.DeserializePlaylists(defaultLines, extraLines);
 
             return playlists;
         }
 
-        public static List<Playlist> DeserializePlaylists(string[] lines)
+        private static List<Playlist> DeserializePlaylists(string[] defaultPlaylistLines, string[] extraPlaylistLines)
         {
             List<Playlist> playlists = new List<Playlist>();
+
+            DeserializePlaylistIntoList(defaultPlaylistLines, playlists);
+            DeserializePlaylistIntoList(extraPlaylistLines, playlists);
+
+            return playlists;
+        }
+
+        private static void DeserializePlaylistIntoList(string[] lines, List<Playlist> playlists)
+        {
+            // In case we're deserializing an empty extra playlist set
+            if (lines.Length <= 1)
+                return;
 
             int currentLineNumber = 0;
 
             int maxLine = lines.Length;
-            while(currentLineNumber < maxLine)
+            while (currentLineNumber < maxLine)
             {
                 string name = lines[currentLineNumber++];
                 string resourcesBasePath = lines[currentLineNumber++];
@@ -171,9 +199,8 @@ namespace Assets.Sound
                 Playlist playlist = new Playlist(name, resourcesBasePath, songs);
                 playlists.Add(playlist);
             }
-
-            return playlists;
         }
+
 
         private Playlist(string name, string resourcesBasePath, List<string> songs)
         {
