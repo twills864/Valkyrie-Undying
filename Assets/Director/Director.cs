@@ -379,11 +379,7 @@ namespace Assets
             Pickup powerup;
             if(CanSpawnWeaponLevelUp && RandomUtil.Bool(WeaponLevelOverrideChance))
             {
-                // Spawn Piercing Rounds at level 5
-                if(WeaponLevelsInPlay != (GameConstants.MaxWeaponLevel - 1))
-                    powerup = PoolManager.Instance.PickupPool.GetRandomDefaultWeaponPowerupPickup(position);
-                else
-                    powerup = PoolManager.Instance.PickupPool.GetPiercingRoundsPickup(position);
+                powerup = PoolManager.Instance.PickupPool.GetRandomDefaultWeaponPowerupPickup(position);
                 WeaponLevelsInPlay++;
             }
             else

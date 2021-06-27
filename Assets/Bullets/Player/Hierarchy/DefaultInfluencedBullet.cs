@@ -34,7 +34,9 @@ namespace Assets.Bullets.PlayerBullets
         #region Penetration
 
         private int NumberPenetrated { get; set; }
-        protected sealed override bool AutomaticallyDeactivate => NumberPenetrated >= DefaultBulletBuffs.BulletPenetration;
+        public bool CanPenetrate => NumberPenetrated == 0
+            && DefaultBulletBuffs.BulletPenetrationChance > 0;
+        protected sealed override bool AutomaticallyDeactivate => !CanPenetrate || !RandomUtil.Bool(DefaultBulletBuffs.BulletPenetrationChance);
 
         #endregion Penetration
 

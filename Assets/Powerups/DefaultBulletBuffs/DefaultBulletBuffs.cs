@@ -22,7 +22,7 @@ namespace Assets.Powerups.DefaultBulletBuff
         public static float SpeedScaleIncrease => AugmentedRounds.SpeedScaleIncrease;
         public static float ParticlesScaleIncrease => AugmentedRounds.ParticlesScaleIncrease;
 
-        public static int BulletPenetration { get; private set; }
+        public static float BulletPenetrationChance { get; private set; }
 
         private static PosionDamageTotal PoisonDamage;
         private static ParasiteDamageTotal ParasiteDamage;
@@ -81,7 +81,7 @@ namespace Assets.Powerups.DefaultBulletBuff
 
         public static void Init()
         {
-            BulletPenetration = 0;
+            BulletPenetrationChance = 0;
 
             PoisonDamage.Reset();
             ParasiteDamage.Reset();
@@ -159,7 +159,7 @@ namespace Assets.Powerups.DefaultBulletBuff
 
         public static void PiercingRoundsLevelup(PiercingRoundsPowerup powerup)
         {
-            BulletPenetration = 1;
+            BulletPenetrationChance = powerup.PierceChance;
         }
 
         public static void InfestedRoundsLevelup(InfestedRoundsPowerup powerup)

@@ -487,9 +487,7 @@ namespace Assets.Powerups.Balance
         [Serializable]
         public struct OnDefaultWeaponLevelUpBalance
         {
-            // PiercingRounds doesn't need prefab adjustment
-            //public PiercingRoundsBalance PiercingRounds;
-
+            public PiercingRoundsBalance PiercingRounds;
             public AugmentedRoundsBalance AugmentedRounds;
             public InfestedRoundsBalance InfestedRounds;
             public VenomousRoundsBalance VenomousRounds;
@@ -587,6 +585,19 @@ namespace Assets.Powerups.Balance
 
                 [Serializable]
                 public struct DamageBalance
+                {
+                    public float Base;
+                    public float Increase;
+                }
+            }
+
+            [Serializable]
+            public struct PiercingRoundsBalance
+            {
+                public PierceChanceBalance PierceChance;
+
+                [Serializable]
+                public struct PierceChanceBalance
                 {
                     public float Base;
                     public float Increase;

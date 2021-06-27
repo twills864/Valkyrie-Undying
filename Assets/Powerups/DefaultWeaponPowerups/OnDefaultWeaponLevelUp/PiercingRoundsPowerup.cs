@@ -13,8 +13,8 @@ using UnityEngine;
 namespace Assets.Powerups
 {
     /// <summary>
-    /// Piercing Rounds causes default bullets to penetrate enemies.
-    /// Level 1 - One enemy can be penetrated. Extra bullets also receive this effect.
+    /// Piercing Rounds give default bullets a chance to penetrate enemies.
+    /// Extra bullets can also receive this effect.
     /// </summary>
     /// <inheritdoc/>
     public class PiercingRoundsPowerup : OnDefaultWeaponLevelUpPowerup
@@ -22,9 +22,14 @@ namespace Assets.Powerups
         public override int MaxLevel => 1;
         protected override Sprite GetPowerupSprite(PowerupSpriteBank bank) => bank.PiercingRounds;
 
+        public float PierceChance => PierceChanceCalculator.Value;
+        private SumLevelValueCalculator PierceChanceCalculator { get; set; }
+
         protected override void InitBalance(in PowerupBalanceManager.OnDefaultWeaponLevelUpBalance balance)
         {
-            // No action necessary.
+            float pierceChanceBase = balance.PiercingRounds.PierceChance.Base;
+            float pierceChanceIncrease = balance.PiercingRounds.PierceChance.Increase;
+            PierceChanceCalculator = new SumLevelValueCalculator(pierceChanceBase, pierceChanceIncrease);
         }
 
         public override void OnLevelUp()

@@ -5289,6 +5289,10 @@ MonoBehaviour:
       Placeholder:
         Placeholder: 0
     OnDefaultWeaponLevelUp:
+      PiercingRounds:
+        PierceChance:
+          Base: 0.4
+          Increase: 0.6
       AugmentedRounds:
         Size:
           Base: 0.5

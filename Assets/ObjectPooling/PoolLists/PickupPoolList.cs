@@ -31,7 +31,6 @@ namespace Assets.ObjectPooling
 
         public List<BasicPowerup> AssignableBasicPowerups { get; private set; }
         public List<DefaultWeaponPowerup> AssignableDefaultWeaponPowerups { get; private set; }
-        private PiercingRoundsPowerup PiercingRoundsPowerup { get; set; }
 
         protected override Color GetDefaultColor(in ColorManager colorManager)
             => Color.white;
@@ -60,12 +59,6 @@ namespace Assets.ObjectPooling
 
             AssignableDefaultWeaponPowerups = ordered.Where(x => x.IsDefaultWeaponPowerup)
                 .Select(x => (DefaultWeaponPowerup)x).ToList();
-
-            PiercingRoundsPowerup = AssignableDefaultWeaponPowerups
-                .Where(x => x.GetType() == typeof(PiercingRoundsPowerup))
-                .First() as PiercingRoundsPowerup;
-
-            AssignableDefaultWeaponPowerups.Remove(PiercingRoundsPowerup);
         }
 
         public PowerupPickup GetRandomBasicPowerupPickup(Vector3 position)
@@ -80,10 +73,10 @@ namespace Assets.ObjectPooling
             return FinishSpawningPowerup(powerup, position);
         }
 
-        public PowerupPickup GetPiercingRoundsPickup(Vector3 position)
-        {
-            return FinishSpawningPowerup(PiercingRoundsPowerup, position);
-        }
+        //public PowerupPickup GetPiercingRoundsPickup(Vector3 position)
+        //{
+        //    return FinishSpawningPowerup(PiercingRoundsPowerup, position);
+        //}
 
         private PowerupPickup FinishSpawningPowerup(Powerup powerup, Vector3 position)
         {
