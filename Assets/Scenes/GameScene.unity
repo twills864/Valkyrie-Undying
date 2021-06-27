@@ -700,7 +700,7 @@ PrefabInstance:
     - target: {fileID: 6309635329795138238, guid: 698c4a53c4cd8c14c83978de516a347e,
         type: 3}
       propertyPath: ClampVelocityModule.dampen
-      value: 0.15
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 6309635329795138238, guid: 698c4a53c4cd8c14c83978de516a347e,
         type: 3}
@@ -731,6 +731,11 @@ PrefabInstance:
         type: 3}
       propertyPath: InitialModule.startSize.scalar
       value: 0.085
+      objectReference: {fileID: 0}
+    - target: {fileID: 6309635329795138238, guid: 698c4a53c4cd8c14c83978de516a347e,
+        type: 3}
+      propertyPath: ClampVelocityModule.separateAxis
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6309635329795138238, guid: 698c4a53c4cd8c14c83978de516a347e,
         type: 3}
@@ -1044,8 +1049,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6560101276494375404, guid: 698c4a53c4cd8c14c83978de516a347e,
         type: 3}
+      propertyPath: _VelocityScaleMax
+      value: 0.14
+      objectReference: {fileID: 0}
+    - target: {fileID: 6560101276494375404, guid: 698c4a53c4cd8c14c83978de516a347e,
+        type: 3}
+      propertyPath: _VelocityScale.Max
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6560101276494375404, guid: 698c4a53c4cd8c14c83978de516a347e,
+        type: 3}
+      propertyPath: _VelocityScale.Min
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6560101276494375404, guid: 698c4a53c4cd8c14c83978de516a347e,
+        type: 3}
       propertyPath: _VelocityNoiseScale
-      value: 0.55
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 6560101276494375404, guid: 698c4a53c4cd8c14c83978de516a347e,
         type: 3}
@@ -1601,7 +1621,7 @@ PrefabInstance:
     - target: {fileID: -3656931483786500923, guid: b92bfad65cffc2e459dbb5de41720cfa,
         type: 3}
       propertyPath: m_PlayOnAwake
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 570298417519334424, guid: b92bfad65cffc2e459dbb5de41720cfa,
         type: 3}

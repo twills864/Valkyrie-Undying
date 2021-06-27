@@ -142,7 +142,8 @@ MonoBehaviour:
   _BaseDamage: 100
   _Particles:
     BulletParticles: 0
-    EnemyParticles: 10
+    EnemyParticles: 30
+  _DamageDealtToTarget: 300
   _TimeUntilNextSpawn: 0.02
   _MinWidth: 0.25
   _MaxWidth: 1.25

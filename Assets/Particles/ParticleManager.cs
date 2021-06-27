@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Assets.Constants;
 using Assets.Hierarchy.ColorHandlers;
+using Assets.UnityPrefabStructs;
 using Assets.Util;
 using UnityEngine;
 using static UnityEngine.ParticleSystem;
@@ -21,6 +22,9 @@ namespace Assets.Particles
         #region Prefabs
 
         [SerializeField]
+        private float _VelocityScaleMax = default;
+
+        [SerializeField]
         private float _VelocityNoiseScale = GameConstants.PrefabNumber;
 
         [SerializeField]
@@ -35,6 +39,7 @@ namespace Assets.Particles
         public float VelocityNoiseScale => _VelocityNoiseScale;
         public float VelocityNoiseOffset => _VelocityNoiseOffset;
         public float PositionNoiseOffset => _PositionNoiseOffset;
+        private float VelocityScaleMax => _VelocityScaleMax;
 
         #region Prefab Properties
 
@@ -83,8 +88,8 @@ namespace Assets.Particles
 
         public void EmitInColliderBounds(Collider2D collider, Vector3 velocity, int count, params Color32[] color)
         {
-            const float VelocityClamp = 0.5f;
-            velocity *= VelocityClamp;
+            //const float VelocityClamp = 0.5f;
+            //velocity *= VelocityClamp;
 
             Vector2[] points = RandomUtil.RandomsPointsInsiderCollider(collider, count);
 
@@ -108,13 +113,30 @@ namespace Assets.Particles
             const float ScaleMax = 1f;
             //float scaleMax = 1f + VelocityNoiseScale;
 
-            velocity.x += RandomUtil.Float(-VelocityNoiseOffset, VelocityNoiseOffset);
-            velocity.x *= RandomUtil.Float(scaleMin, ScaleMax);
+            Vector2 normalVelocity = RandomUtil.Bool()
+                ? new Vector2(-velocity.y, velocity.x)
+                : new Vector2(velocity.y, -velocity.x);
 
-            velocity.y += RandomUtil.Float(-VelocityNoiseOffset, VelocityNoiseOffset);
-            velocity.y *= RandomUtil.Float(scaleMin, ScaleMax);
+            //Debug.DrawRay(Player.Position, velocity, Color.red, 1.0f);
+            //Debug.DrawRay(Player.Position, normalVelocity, Color.cyan, 1.0f);
+
+            float normalScale = RandomUtil.Float(0f, VelocityScaleMax);
+            velocity.x += (normalScale * normalVelocity.x);
+            velocity.y += (normalScale * normalVelocity.y);
+
+            velocity *= RandomUtil.Float(scaleMin, ScaleMax);
 
             return velocity;
+
+            //float averageOfValues = (velocity.x + velocity.y) * 0.5f;
+
+            //velocity.x += RandomUtil.Float(-VelocityNoiseOffset, VelocityNoiseOffset);
+            //velocity.x *= RandomUtil.Float(scaleMin, ScaleMax);
+
+            //velocity.y += RandomUtil.Float(-VelocityNoiseOffset, VelocityNoiseOffset);
+            //velocity.y *= RandomUtil.Float(scaleMin, ScaleMax);
+
+            //return velocity;
         }
 
         private Vector3 AddPositionNoise(Vector3 position)

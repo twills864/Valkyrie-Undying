@@ -17,7 +17,7 @@ namespace Assets.Bullets.PlayerBullets
     /// <inheritdoc/>
     public abstract class SmiteBullet : PlayerBullet
     {
-        public sealed override int Damage => SmiteDamage;
+        public sealed override int Damage => DamageOnHitAny;
         protected override bool AutomaticallyDeactivate => false;
         protected sealed override bool ShouldMarkSelfCollision => false;
         public override AudioClip FireSound => SoundBank.ExplosionMediumZap;
@@ -43,7 +43,8 @@ namespace Assets.Bullets.PlayerBullets
 
         public List<PooledObjectTracker<Enemy>> HitEnemies { get; } = new List<PooledObjectTracker<Enemy>>();
 
-        public int SmiteDamage { get; set; }
+        public int DamageOnHitAny { get; set; }
+        public int DamageOnHitTarget { get; set; }
         public abstract float Scale { get; set; }
 
         public PooledObjectTracker<Enemy> TargetEnemy { get; } = new PooledObjectTracker<Enemy>();
@@ -104,7 +105,8 @@ namespace Assets.Bullets.PlayerBullets
         {
             Previous = existingLink;
             Head = existingLink.Head;
-            SmiteDamage = existingLink.SmiteDamage;
+            DamageOnHitAny = existingLink.DamageOnHitAny;
+            DamageOnHitTarget = existingLink.DamageOnHitTarget;
             TargetEnemy.CloneFrom(existingLink.TargetEnemy);
             TargetPosition = existingLink.TargetPosition;
 
@@ -127,9 +129,9 @@ namespace Assets.Bullets.PlayerBullets
         {
             Head.HitEnemies.Add(enemy);
 
-            if (TargetEnemy.IsTarget(enemy) && enemy.DiesOnSmite)
+            if (TargetEnemy.IsTarget(enemy) && enemy.FullDamageOnSmite)
             {
-                enemy.KillEnemy(this);
+                enemy.TrueDamage(DamageOnHitTarget, this);
                 DeactivateAllLinks();
             }
         }

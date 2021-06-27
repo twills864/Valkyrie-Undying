@@ -215,6 +215,11 @@ namespace Assets
         /// </summary>
         public static AudioClip ForceField4 { get; private set; }
 
+        /// <summary>
+        /// laserSmall_004
+        /// </summary>
+        public static AudioClip LaserSmall { get; private set; }
+
         public static void Init()
         {
             Flare = LoadSoundEffect("flameThrower");
@@ -250,6 +255,7 @@ namespace Assets
             LaserDramatic = LoadSoundEffect("superLaser");
             WaterDrop = LoadSoundEffect("weird_03");
             WaterDrip = LoadSoundEffect("weird_04");
+            LaserSmall = LoadSoundEffect("laserSmall_004");
 
             ForceField0 = LoadSoundEffect("forceField_000");
             ForceField1 = LoadSoundEffect("forceField_001");

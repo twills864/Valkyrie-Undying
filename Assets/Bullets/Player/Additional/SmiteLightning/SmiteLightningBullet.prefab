@@ -155,4 +155,4 @@ MonoBehaviour:
   _BaseDamage: 0
   _Particles:
     BulletParticles: 0
-    EnemyParticles: 10
+    EnemyParticles: 30

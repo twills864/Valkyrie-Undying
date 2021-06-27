@@ -45,8 +45,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39ec74c559b9c214190db676652d74fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _VelocityNoiseScale: 0
-  _PositionNoiseOffset: 0
+  _VelocityScaleMax: 0.125
+  _VelocityNoiseScale: 0.9
+  _VelocityNoiseOffset: 1
+  _PositionNoiseOffset: 0.1125
 --- !u!198 &6309635329795138238
 ParticleSystem:
   m_ObjectHideFlags: 0

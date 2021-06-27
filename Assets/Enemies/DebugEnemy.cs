@@ -13,7 +13,6 @@ namespace Assets.Enemies
     public class DebugEnemy : Enemy
     {
         protected override bool ShouldDeactivateOnDestructor => false;
-        public override bool DiesOnSmite => false;
         public override AudioClip FireSound => SoundBank.GunPistol;
 
         #region Prefabs

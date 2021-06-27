@@ -180,9 +180,9 @@ namespace Assets.Util
                 }
             }
 
-            SpawnSpecificEnemy<LaserEnemy>();
+            //SpawnSpecificEnemy<LaserEnemy>();
 
-            //SmiteBullet.DebugTestSmite();
+            SmiteBullet.DebugTestSmite();
 
             //RainCurrentPowerup();
             //PickupSpam();

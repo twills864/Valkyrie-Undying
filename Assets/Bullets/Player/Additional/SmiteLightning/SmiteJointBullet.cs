@@ -24,6 +24,8 @@ namespace Assets.Bullets.PlayerBullets
         }
 
         #region Prefabs
+        [SerializeField]
+        private int _DamageDealtToTarget = GameConstants.PrefabNumber;
 
         [SerializeField]
         private float _TimeUntilNextSpawn = GameConstants.PrefabNumber;
@@ -50,6 +52,7 @@ namespace Assets.Bullets.PlayerBullets
         private float MaxWidth => _MaxWidth;
         private float MaxAngleDelta => _MaxAngleDelta;
         public float FadeOutTime => _FadeOutTime;
+        private int DamageDealtToTarget => _DamageDealtToTarget;
 
         #endregion Prefab Properties
 
@@ -180,7 +183,8 @@ namespace Assets.Bullets.PlayerBullets
             TargetEnemy.Target = target;
             TargetPosition = target.transform.position;
 
-            SmiteDamage = BaseDamage;
+            DamageOnHitAny = BaseDamage;
+            DamageOnHitTarget = DamageDealtToTarget;
 
             NextBranchTimer.ActivateSelf();
             SpawnNextBranch();

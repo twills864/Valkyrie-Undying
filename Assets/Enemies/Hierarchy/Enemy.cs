@@ -366,7 +366,7 @@ namespace Assets.Enemies
 
         #region Smite
 
-        public virtual bool DiesOnSmite => true;
+        public virtual bool FullDamageOnSmite => true;
 
         #endregion Smite
 

@@ -17,6 +17,7 @@ namespace Assets.Powerups
     /// <inheritdoc/>
     public class CollectivePunishmentPowerup : OnHitPowerup
     {
+        public override int MaxLevel => 1;
         protected override Sprite GetPowerupSprite(PowerupSpriteBank bank) => bank.CollectivePunishment;
 
         private float PowerValue => PowerCalculator.Value;
