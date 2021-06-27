@@ -375,6 +375,7 @@ namespace Assets
                 DebugUtil.SpawnSpecificEnemy<NomadEnemy>();
 #endif
 
+            DebugUI.SetDebugLabel("MusicLoadTime", Sound.MusicManager.LoadTime);
         }
 
         #endregion Init

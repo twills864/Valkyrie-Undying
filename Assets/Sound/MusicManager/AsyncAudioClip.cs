@@ -12,12 +12,46 @@ namespace Assets.Sound
     /// </summary>
     public class AsyncAudioClip
     {
-        public AudioClip Clip => (AudioClip) Request.asset;
-        private ResourceRequest Request { get; }
+        public AudioClip Clip { get; private set; }
+
+        public bool IsLoaded
+        {
+            get
+            {
+                if (Request.isDone)
+                {
+                    SetClip();
+                    return true;
+                }
+                else
+                    return false;
+            }
+        }
+
+        public void BeginLoading()
+        {
+            if (Request == null)
+                Request = Resources.LoadAsync<AudioClip>(Path);
+        }
+
+        public void ForceLoad()
+        {
+            if (Request == null)
+            {
+                Request = Resources.LoadAsync<AudioClip>(Path);
+                //Request.priority = (int)ThreadPriority.High;
+                SetClip();
+            }
+        }
+
+        public void SetClip() => Clip = (AudioClip)Request.asset;
+
+        private string Path { get; }
+        private ResourceRequest Request { get; set; }
 
         public AsyncAudioClip(string path)
         {
-            Request = Resources.LoadAsync<AudioClip>(path);
+            Path = path;
         }
     }
 }

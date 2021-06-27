@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -18,6 +19,8 @@ namespace Assets.Sound
     /// </summary>
     public class MusicManager : SingletonValkyrieSprite
     {
+        public static TimeSpan LoadTime { get; private set; }
+
         private const string AudioMusicResourcePath = @"Audio\Music\";
 
         private const string DefaultPlaylistTextResourcePath = AudioMusicResourcePath + "DefaultPlaylist";
@@ -49,7 +52,7 @@ namespace Assets.Sound
         #endregion Prefab Properties
 
         private List<Playlist> AllPlaylistsSource { get; set; }
-        private CircularSelector<AudioClip> Songs { get; set; }
+        private CircularSelector<AsyncAudioClip> Songs { get; set; }
 
         private bool ShouldPlayMusic { get; set; }
         private AudioClip CurrentTrack
@@ -66,7 +69,6 @@ namespace Assets.Sound
                 DebugUI.SetDebugLabel("SONG", dbMessage);
             }
         }
-        private AsyncAudioClip NextTrack { get; set; }
 
         protected override void OnSingletonInit()
         {
@@ -138,14 +140,33 @@ namespace Assets.Sound
                 .SelectMany(x => x.AllResourceNames()).ToList();
             RandomUtil.Shuffle(songPaths);
 
-            Songs = new CircularSelector<AudioClip>(songPaths.Select(x => Resources.Load<AudioClip>(x)));
-            CurrentTrack = Songs.GetAndIncrement();
+            Songs = new CircularSelector<AsyncAudioClip>(songPaths.Select(x => new AsyncAudioClip(x)));
+            Songs.Current.ForceLoad();
+
+            LoadTime = DebugUtil.TimeAction(() => CurrentTrack = Songs.GetAndIncrement().Clip);
+
+            StartCoroutine(LoadRestOfSongs());
         }
 
         private void Update()
         {
             if (ShouldPlayMusic && !MusicPlayer.isPlaying)
-                CurrentTrack = Songs.GetAndIncrement();
+                CurrentTrack = Songs.GetAndIncrement().Clip;
+        }
+
+        private IEnumerator LoadRestOfSongs()
+        {
+            // The current song was already loaded.
+            // Begin loading rest of the songs on the next frame
+            // after the rest of the game initialization takes place.
+            yield return null;
+
+            foreach (var song in Songs)
+            {
+                song.BeginLoading();
+                while (!song.IsLoaded)
+                    yield return null;
+            }
         }
 
         /// <summary>
