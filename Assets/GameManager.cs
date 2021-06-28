@@ -125,6 +125,9 @@ namespace Assets
         [SerializeField]
         private SentinelManager _SentinelManager = null;
 
+        [SerializeField]
+        private TargetPracticeTarget _TargetPracticeTarget = null;
+
         #endregion Powerup Prefab Properties
 
 
@@ -675,6 +678,12 @@ namespace Assets
             _PowerupManager.OnDefaultWeaponFire(Player.FirePosition, bullets);
         }
 
+        public void SpawnTargetPractice(TargetPracticePowerup powerup)
+        {
+            var target = Instantiate(_TargetPracticeTarget);
+            target.Init();
+        }
+
         #region OnEnemyKill
 
         public void OnEnemyKill(Enemy enemy, PlayerBullet bullet)
@@ -693,7 +702,7 @@ namespace Assets
             }
         }
 
-#endregion OnEnemyKill
+        #endregion OnEnemyKill
 
 #endregion Powerups
 

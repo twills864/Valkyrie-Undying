@@ -52,6 +52,11 @@ namespace Assets.UI.SpriteBank
         public Sprite Inferno { get; private set; }
 
         /// <summary>
+        /// flying-target
+        /// </summary>
+        public Sprite TargetPractice { get; private set; }
+
+        /// <summary>
         /// guards
         /// </summary>
         public Sprite Sentinel { get; private set; }
@@ -151,6 +156,7 @@ namespace Assets.UI.SpriteBank
             Victim = LoadSprite("crosshair");
             Shrapnel = LoadSprite("exploding-planet");
             Inferno = LoadSprite("flame-tunnel");
+            TargetPractice = LoadSprite("flying-target");
             Sentinel = LoadSprite("guards");
             Monsoon = LoadSprite("heavy-rain");
             CryogenicRounds = LoadSprite("ice-iris");

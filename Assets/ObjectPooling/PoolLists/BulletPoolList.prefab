@@ -111,3 +111,5 @@ MonoBehaviour:
     type: 3}
   ParasitePrefab: {fileID: 6056706012610085168, guid: 4578ba65358942e3b2142d21ba9850dd,
     type: 3}
+  TargetPracticePrefab: {fileID: 0612302378721721064, guid: 51e7707570e9480d8b064b632fabf3cc,
+    type: 3}

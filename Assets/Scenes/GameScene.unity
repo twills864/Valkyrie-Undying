@@ -5254,6 +5254,10 @@ MonoBehaviour:
       Jettison:
         ScaleXPerLevel: 0.75
         ScaleTime: 1
+      TargetPractice:
+        Power:
+          Base: 0
+          Increase: 0
     Passive:
       Inferno:
         FireSpeed:
@@ -5381,6 +5385,8 @@ MonoBehaviour:
   _PowerupMenu: {fileID: 2066797313}
   _Monsoon: {fileID: 2109226220}
   _SentinelManager: {fileID: 1652808086}
+  _TargetPracticeTarget: {fileID: 6549911811787357336, guid: e6fc41d660ef5ea479e5e1a8f64814c5,
+    type: 3}
   _RemainingLivesBar: {fileID: 1897031525}
   _Notification: {fileID: 267117168}
   _GameOverGUI: {fileID: 1600834176}

@@ -89,6 +89,8 @@ namespace Assets.ObjectPooling
         private DefaultExtraBullet DefaultExtraPrefab = null;
         [SerializeField]
         private ParasiteBullet ParasitePrefab = null;
+        [SerializeField]
+        private TargetPracticeBullet TargetPracticePrefab = null;
 
         #endregion Additional Bullets
 

@@ -248,6 +248,7 @@ namespace Assets.Powerups.Balance
             public SentinelBalance Sentinel;
             public ParapetBalance Parapet;
             public JettisonBalance Jettison;
+            public TargetPracticeBalance TargetPractice;
 
             [Serializable]
             public struct OthelloBalance
@@ -347,6 +348,19 @@ namespace Assets.Powerups.Balance
             {
                 public float ScaleXPerLevel;
                 public float ScaleTime;
+            }
+
+            [Serializable]
+            public struct TargetPracticeBalance
+            {
+                public PowerBalance Power;
+
+                [Serializable]
+                public struct PowerBalance
+                {
+                    public float Base;
+                    public float Increase;
+                }
             }
         }
 
