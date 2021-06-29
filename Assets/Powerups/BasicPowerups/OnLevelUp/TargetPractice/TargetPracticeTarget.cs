@@ -16,6 +16,8 @@ namespace Assets.Powerups
 {
     public class TargetPracticeTarget : ValkyrieSprite
     {
+        public const float Radius = 0.5f;
+
         public override TimeScaleType TimeScale => TimeScaleType.Player;
 
         #region Prefabs
@@ -64,24 +66,33 @@ namespace Assets.Powerups
         protected override void OnInit()
         {
             var initialSize = GetComponent<Renderer>().bounds.size;
-            SpawnMin = new Vector2(SpaceUtil.WorldMap.Left.x + initialSize.x, SpaceUtil.WorldMap.Center.y);
-            SpawnMax = new Vector2(SpaceUtil.WorldMap.Right.x - initialSize.x, SpaceUtil.WorldMap.Top.y - initialSize.y);
+
+            float spawnMinX = SpaceUtil.WorldMap.Left.x + initialSize.x;
+            float spawnMinY = (SpaceUtil.WorldMap.Bottom.y + SpaceUtil.WorldMap.Center.y) * 0.5f;
+            SpawnMin = new Vector2(spawnMinX, spawnMinY);
+
+            float spawnMaxX = SpaceUtil.WorldMap.Right.x - initialSize.x;
+            float spawnMaxY = (SpaceUtil.WorldMap.Center.y + SpaceUtil.WorldMap.Top.y) * 0.5f;
+            SpawnMax = new Vector2(spawnMaxX, spawnMaxY);
 
             var activateCanCollide = new GameTaskFunc(this, () => CanCollide = true);
 
-            var entranceFadeIn = new FadeTo(this, 0f, 1f, FadeTime);
+            float fullBrightAlpha = Alpha;
+
+            var entranceFadeIn = new FadeTo(this, 0f, fullBrightAlpha, FadeTime);
             var entranceScaleIn = new ScaleTo(this, float.Epsilon, LocalScale, FadeTime);
             var entranceSequence = new Sequence(entranceFadeIn, entranceScaleIn, activateCanCollide);
 
-            const float FullBrightAlpha = 1.0f;
-            var fadeOut = new FadeTo(this, FullBrightAlpha, TravelAlpha, FadeTime);
+            var fadeOut = new FadeTo(this, fullBrightAlpha, TravelAlpha, FadeTime);
+            var fadeOutEase = new EaseIn3(fadeOut);
             var scaleOut = new ScaleTo(this, LocalScale, TravelSizeScale, FadeTime);
-            var fadeOutConcurrence = new ConcurrentGameTask(fadeOut, scaleOut);
+            var scaleOutEase = new EaseIn3(scaleOut);
+            var fadeOutConcurrence = new ConcurrentGameTask(fadeOutEase, scaleOutEase);
 
             TravelMove = MoveTo.Default(this, 1.0f);
             TravelMoveEase = new EaseInOut(TravelMove);
 
-            var fadeIn = new FadeTo(this, TravelAlpha, FullBrightAlpha, FadeTime);
+            var fadeIn = new FadeTo(this, TravelAlpha, fullBrightAlpha, FadeTime);
             var scaleIn = new ScaleTo(this, TravelSizeScale, LocalScale, FadeTime);
             var fadeInConcurrence = new ConcurrentGameTask(fadeIn, scaleIn);
 
@@ -139,12 +150,9 @@ namespace Assets.Powerups
 
             void SetVelocity(TargetPracticeBullet bullet, float velocityX, float velocityY)
             {
-                Vector2 velocity = new Vector2(velocityX, velocityY);
-                bullet.Velocity = velocity;
-
-                const float PositionClamp = 0.1f;
-                Vector2 positionOffset = velocity * PositionClamp;
-                bullet.transform.position = transform.position + (Vector3)positionOffset;
+                bullet.transform.position = transform.position;
+                bullet.Velocity = new Vector2(velocityX, velocityY);
+                bullet.OnSpawn();
             }
 
             // Spawn diagonals
@@ -162,6 +170,8 @@ namespace Assets.Powerups
 
             var up = NextBullet();
             SetVelocity(up, 0f, speed);
+
+            PlaySoundAtCenter(SoundBank.TargetConfirm);
         }
     }
 }

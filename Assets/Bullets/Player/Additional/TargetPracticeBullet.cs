@@ -5,6 +5,8 @@ using Assets.Constants;
 using Assets.GameTasks;
 using Assets.ObjectPooling;
 using UnityEngine;
+using Assets.Powerups;
+using Assets.Enemies;
 
 namespace Assets.Bullets.PlayerBullets
 {
@@ -21,36 +23,31 @@ namespace Assets.Bullets.PlayerBullets
         [SerializeField]
         private float _Speed = GameConstants.PrefabNumber;
 
+        [SerializeField]
+        private int _NumberParasites = GameConstants.PrefabNumber;
+
         #endregion Prefabs
 
 
         #region Prefab Properties
 
         public float Speed => _Speed;
+        private int NumberParasites => _NumberParasites;
 
         #endregion Prefab Properties
 
 
         public int TargetPracticeDamage { get; set; }
 
-        protected override void OnPlayerBulletInit()
-        {
-
-        }
-
-        protected override void OnActivate()
-        {
-
-        }
-
         protected override void OnBulletSpawn()
         {
-
+            Vector3 positionOffset = (Velocity / Speed) * TargetPracticeTarget.Radius;
+            transform.position += positionOffset;
         }
 
-        protected override void OnPlayerBulletFrameRun(float deltaTime, float realDeltaTime)
+        protected override void OnCollideWithEnemy(Enemy enemy, Vector3 hitPosition)
         {
-
+            enemy.AddParasites(NumberParasites);
         }
     }
 }

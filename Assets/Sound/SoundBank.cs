@@ -220,6 +220,16 @@ namespace Assets
         /// </summary>
         public static AudioClip LaserSmall { get; private set; }
 
+        /// <summary>
+        /// sfx_coin_double3
+        /// </summary>
+        public static AudioClip Coin { get; private set; }
+
+        /// <summary>
+        /// sfx_coin_single2
+        /// </summary>
+        public static AudioClip TargetConfirm { get; private set; }
+
         public static void Init()
         {
             Flare = LoadSoundEffect("flameThrower");
@@ -256,6 +266,8 @@ namespace Assets
             WaterDrop = LoadSoundEffect("weird_03");
             WaterDrip = LoadSoundEffect("weird_04");
             LaserSmall = LoadSoundEffect("laserSmall_004");
+            Coin = LoadSoundEffect("sfx_coin_double3");
+            TargetConfirm = LoadSoundEffect("sfx_coin_single2");
 
             ForceField0 = LoadSoundEffect("forceField_000");
             ForceField1 = LoadSoundEffect("forceField_001");

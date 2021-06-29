@@ -144,3 +144,4 @@ MonoBehaviour:
     BulletParticles: 0
     EnemyParticles: 5
   _Speed: 8
+  _NumberParasites: 3
