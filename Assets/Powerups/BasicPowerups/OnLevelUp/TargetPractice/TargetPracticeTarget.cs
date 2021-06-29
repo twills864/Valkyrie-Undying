@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Assets.Bullets.PlayerBullets;
 using Assets.Constants;
 using Assets.GameTasks;
+using Assets.Hierarchy;
 using Assets.Hierarchy.ColorHandlers;
 using Assets.ObjectPooling;
 using Assets.UnityPrefabStructs;
@@ -14,7 +15,7 @@ using UnityEngine;
 
 namespace Assets.Powerups
 {
-    public class TargetPracticeTarget : ValkyrieSprite
+    public class TargetPracticeTarget : ValkyrieSprite, IRaycastTrigger
     {
         public const float Radius = 0.5f;
 
@@ -107,12 +108,21 @@ namespace Assets.Powerups
         private void OnTriggerEnter2D(Collider2D collision)
         {
             if (CanCollide && CollisionUtil.IsPlayerBullet(collision))
-            {
-                CanCollide = false;
-                ExplodeBullets();
-                ResetTravelSequence();
-                RunTask(TravelSequence);
-            }
+                HandleExplosion();
+        }
+
+        public void ManuallyTriggerExplosion()
+        {
+            if (CanCollide)
+                HandleExplosion();
+        }
+
+        private void HandleExplosion()
+        {
+            CanCollide = false;
+            ExplodeBullets();
+            ResetTravelSequence();
+            RunTask(TravelSequence);
         }
 
         private void ResetTravelSequence()
@@ -173,5 +183,7 @@ namespace Assets.Powerups
 
             PlaySoundAtCenter(SoundBank.TargetConfirm);
         }
+
+        public void ActivateTrigger(Vector2 hitPoint) => ManuallyTriggerExplosion();
     }
 }

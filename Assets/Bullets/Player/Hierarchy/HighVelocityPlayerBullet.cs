@@ -1,6 +1,7 @@
 ﻿using Assets.Constants;
 using Assets.Enemies;
 using Assets.GameTasks;
+using Assets.Hierarchy;
 using Assets.Hierarchy.ColorHandlers;
 using Assets.Util;
 using UnityEngine;
@@ -93,23 +94,26 @@ namespace Assets.Bullets.PlayerBullets
         {
             Vector3 nextPosition = transform.position + (Vector3) (RepresentedVelocity * deltaTime);
 
-            int numEnemies = GameUtil.LinecastGetAllEnemiesNonAlloc(transform.position, nextPosition, RaycastHits);
+            int numEnemies = GameUtil.LinecastGetAllEnemiesAndRaycastTriggersNonAlloc(transform.position, nextPosition, RaycastHits);
 
             for(int i = 0; i < numEnemies; i++)
             {
                 var hit = RaycastHits[i];
-                var enemy = hit.collider.GetComponent<Enemy>();
-
-                transform.position = hit.point;
-                enemy.CollideWithBullet(this);
-
-                NumberPenetrated++;
-
-                if (NumberPenetrated >= MaxPenetration)
+                if (hit.collider.TryGetComponent<Enemy>(out var enemy))
                 {
-                    DeactivateSelf();
-                    return;
+                    transform.position = hit.point;
+                    enemy.CollideWithBullet(this);
+
+                    NumberPenetrated++;
+
+                    if (NumberPenetrated >= MaxPenetration)
+                    {
+                        DeactivateSelf();
+                        return;
+                    }
                 }
+                else if(hit.collider.TryGetComponent<IRaycastTrigger>(out var trigger))
+                    trigger.ActivateTrigger(hit.point);
             }
 
             if (SpaceUtil.PointIsInDestructor(nextPosition))

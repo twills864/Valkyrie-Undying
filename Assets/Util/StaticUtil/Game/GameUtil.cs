@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Assets.Constants;
 using Assets.Enemies;
+using Assets.Hierarchy;
 using UnityEngine;
 
 namespace Assets.Util
@@ -42,10 +43,15 @@ namespace Assets.Util
             foreach (var hit in hits)
             {
                 var gameObject = hit.collider?.gameObject;
-                if (gameObject != null && gameObject.TryGetComponent<Enemy>(out enemy))
+                if (gameObject != null)
                 {
-                    raycastHit = hit;
-                    return true;
+                    if (gameObject.TryGetComponent<Enemy>(out enemy))
+                    {
+                        raycastHit = hit;
+                        return true;
+                    }
+                    else if(gameObject.TryGetComponent<IRaycastTrigger>(out IRaycastTrigger trigger))
+                        trigger.ActivateTrigger(hit.point);
                 }
             }
 
@@ -78,15 +84,19 @@ namespace Assets.Util
             foreach (var hit in hits)
             {
                 var gameObject = hit.collider?.gameObject;
-                var enemy = gameObject.GetComponent<Enemy>();
-                var ret = new EnemyRaycastHit(enemy, hit);
 
-                yield return ret;
+                if (gameObject.TryGetComponent<Enemy>(out var enemy))
+                {
+                    var ret = new EnemyRaycastHit(enemy, hit);
+                    yield return ret;
+                }
+                else if (gameObject.TryGetComponent<IRaycastTrigger>(out IRaycastTrigger trigger))
+                    trigger.ActivateTrigger(hit.point);
             }
         }
 
         /// <summary>
-        /// Gets all enemies in between a given start position
+        /// Gets all enemies and IRaycastTriggers in between a given start position
         /// and a given end position.
         ///
         /// Accepts an existing array to place results into as an optimization,
@@ -96,7 +106,7 @@ namespace Assets.Util
         /// <param name="endPosition">The end position.</param>
         /// <param name="nonallocArray">The array to place results into.</param>
         /// <returns>The number of enemies hit.</returns>
-        public static int LinecastGetAllEnemiesNonAlloc(Vector2 startPosition, Vector2 endPosition, RaycastHit2D[] nonallocArray)
+        public static int LinecastGetAllEnemiesAndRaycastTriggersNonAlloc(Vector2 startPosition, Vector2 endPosition, RaycastHit2D[] nonallocArray)
         {
 
 #if UNITY_EDITOR
