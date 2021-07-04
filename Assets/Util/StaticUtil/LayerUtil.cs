@@ -9,6 +9,10 @@ using UnityEngine;
 
 namespace Assets.Util
 {
+    /// <summary>
+    /// Contains definitions for the physics layers
+    /// specific Unity GameObjects will be located on.
+    /// </summary>
     public static class LayerUtil
     {
         public const int SourceLayerEnemyBullets = 8;

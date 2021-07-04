@@ -11,6 +11,7 @@ namespace Assets.GameTasks
     /// <summary>
     /// Modifies a time scale using the function y = x^2.
     /// </summary>
+    /// <inheritdoc/>
     public class EaseOut : TimeModifyingGameTask
     {
         public EaseOut(FiniteTimeGameTask innerTask) : base(innerTask)

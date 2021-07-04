@@ -8,6 +8,9 @@ using LogUtilAssets.Util.StaticUtil;
 
 namespace Assets.Util
 {
+    /// <summary>
+    /// Contains useful methods for generating descriptive exceptions to be used in code.
+    /// </summary>
     public static class ExceptionUtil
     {
         /// <summary>

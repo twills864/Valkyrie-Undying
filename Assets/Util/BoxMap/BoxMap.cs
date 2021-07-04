@@ -2,7 +2,10 @@
 
 namespace Assets.Util
 {
-    // Precalculates BoxMap information based on constant information.
+    /// <summary>
+    /// Precalculates BoxMap information based on constant information.
+    /// </summary>
+    /// <inheritdoc />
     public class BoxMap : IBoxMap
     {
         public Vector3 TopLeft { get; }

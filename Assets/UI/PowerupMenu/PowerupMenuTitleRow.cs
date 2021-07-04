@@ -8,6 +8,10 @@ using UnityEngine.UI;
 
 namespace Assets.UI.PowerupMenu
 {
+    /// <summary>
+    /// A row in the powerup menu that displays what type of powerups are listed below.
+    /// </summary>
+    /// <inheritdoc/>
     public class PowerupMenuTitleRow : MonoBehaviour
     {
         #region Prefabs

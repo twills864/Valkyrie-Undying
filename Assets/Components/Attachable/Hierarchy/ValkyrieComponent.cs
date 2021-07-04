@@ -8,6 +8,13 @@ using UnityEngine;
 
 namespace Assets.Components
 {
+    /// <summary>
+    /// Represents a component that can be attached to a
+    /// GameObject in the Unity editor.
+    ///
+    /// Currently unused.
+    /// </summary>
+    /// <inheritdoc/>
     public abstract class AttachableValkyrieComponent : Loggable
     {
         [SerializeField]

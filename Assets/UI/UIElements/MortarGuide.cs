@@ -12,6 +12,10 @@ using UnityEngine;
 
 namespace Assets.UI
 {
+    /// <summary>
+    /// The guiding lines that show where the Mortar power will fire.
+    /// </summary>
+    /// <inheritdoc/>
     public class MortarGuide : UIElement
     {
         public static MortarGuide Instance { get; set; }

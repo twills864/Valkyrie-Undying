@@ -7,6 +7,11 @@ using Assets.GameTasks;
 
 namespace Assets.UI
 {
+    /// <summary>
+    /// Represents an element of the game that's visible to the player, but
+    /// doesn't impact the game functionally.
+    /// </summary>
+    /// <inheritdoc/>
     public abstract class UIElement : PooledObject
     {
         public override TimeScaleType TimeScale => TimeScaleType.UIElement;

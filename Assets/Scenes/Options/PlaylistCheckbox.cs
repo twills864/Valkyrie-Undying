@@ -12,6 +12,11 @@ using UnityEngine.UI;
 
 namespace Assets.Scenes.Options
 {
+    /// <summary>
+    /// A Unity Toggle that contains additional functionality to display
+    /// and manage available playlists in the game.
+    /// </summary>
+    /// <inheritdoc/>
     public class PlaylistCheckbox : ValkyrieSprite
     {
         #region Property Fields

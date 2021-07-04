@@ -4,6 +4,11 @@ using UnityEngine;
 
 namespace Assets.ScreenEdgeColliders
 {
+    /// <summary>
+    /// An invisible GameObject that can be used to detect when another GameObject
+    /// has collided with the edge of the screen.
+    /// </summary>
+    /// <inheritdoc/>
     public class ScreenEdgeCollider : MonoBehaviour
     {
         private float ColliderWidth = 1.0f;

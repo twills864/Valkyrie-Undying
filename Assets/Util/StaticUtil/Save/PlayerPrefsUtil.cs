@@ -2,6 +2,10 @@
 
 namespace Assets.Util
 {
+    /// <summary>
+    /// Contains useful methods and constants for saving game data
+    /// in accordance with Unity's good-practice saving systems.
+    /// </summary>
     public static class PlayerPrefsUtil
     {
         public const string LastWeaponIndexKey = "LastWeaponIndex";

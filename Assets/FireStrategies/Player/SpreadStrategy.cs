@@ -8,6 +8,9 @@ using Assets.UI.SpriteBank;
 
 namespace Assets.FireStrategies.PlayerFireStrategies
 {
+    /// <summary>
+    /// Fires many Spread bullets in a very large cone-shaped spread.
+    /// </summary>
     /// <inheritdoc/>
     public class SpreadStrategy : PlayerFireStrategy<SpreadBullet>
     {

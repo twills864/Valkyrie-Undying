@@ -5,6 +5,10 @@ using UnityEngine;
 
 namespace Assets.Bullets.PlayerBullets
 {
+    /// <summary>
+    /// The bullet fired from the rain cloud spawned
+    /// after collecting the Monsoon powerup.
+    /// </summary>
     /// <inheritdoc/>
     public class RaindropBullet : PermanentVelocityPlayerBullet
     {

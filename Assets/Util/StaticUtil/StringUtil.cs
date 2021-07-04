@@ -3,6 +3,9 @@ using System.Text;
 
 namespace Assets.Util
 {
+    /// <summary>
+    /// Contains useful methods for manipulating strings.
+    /// </summary>
     public static class StringUtil
     {
         #region Substrings

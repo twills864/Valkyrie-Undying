@@ -9,6 +9,10 @@ using UnityEngine.UI;
 
 namespace Assets.Enemies
 {
+    /// <summary>
+    /// An invincible enemy used to test new features
+    /// that only appears while developing from the editor.
+    /// </summary>
     /// <inheritdoc/>
     public class DebugEnemy : Enemy
     {

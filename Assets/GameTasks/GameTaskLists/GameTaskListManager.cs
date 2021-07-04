@@ -8,6 +8,9 @@ using Assets.Util;
 
 namespace Assets.GameTasks.GameTaskLists
 {
+    /// <summary>
+    /// Manages the list of GameTasks currently being handled by the GameManager.
+    /// </summary>
     public class GameTaskListManager
     {
         private GameTaskList Tasks { get; } = new GameTaskList();

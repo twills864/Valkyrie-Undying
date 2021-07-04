@@ -9,6 +9,11 @@ using UnityEngine;
 
 namespace Assets.Bullets.PlayerBullets
 {
+    /// <summary>
+    /// The bullet spawned after an enemy's death as part of the Void powerup.
+    /// This bullet will Void Pause enemies it collides with, and will spawn
+    /// smaller bullets from its center while it's active.
+    /// </summary>
     /// <inheritdoc/>
     public class VoidBullet : VoidEffectBullet
     {

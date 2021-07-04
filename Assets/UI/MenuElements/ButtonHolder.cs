@@ -10,6 +10,11 @@ using UnityEngine.UI;
 
 namespace Assets.UI.MenuElements
 {
+    /// <summary>
+    /// A Unity component container that can apply Valkyrie Sprite effects
+    /// to a Unity Button.
+    /// </summary>
+    /// <inheritdoc/>
     public class ButtonHolder : ValkyrieSprite
     {
         public override TimeScaleType TimeScale => TimeScaleType.Default;

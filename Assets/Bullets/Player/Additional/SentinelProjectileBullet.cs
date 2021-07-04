@@ -9,7 +9,8 @@ using UnityEngine;
 namespace Assets.Bullets.PlayerBullets
 {
     /// <summary>
-    ///
+    /// The bullet that fires in the place of a Sentinel bullet any time
+    /// the Sentinel bullet needs to deviate from its player-orbiting behavior.
     /// </summary>
     /// <inheritdoc/>
     public class SentinelProjectileBullet : PlayerBullet

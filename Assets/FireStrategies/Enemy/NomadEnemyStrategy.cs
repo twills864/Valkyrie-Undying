@@ -12,7 +12,7 @@ using UnityEngine;
 namespace Assets.FireStrategies.EnemyFireStrategies
 {
     /// <summary>
-    ///
+    /// Fires two Nomad enemy bullets straight down with a specified x-offset from one another.
     /// </summary>
     /// <inheritdoc/>
     public class NomadEnemyStrategy : VariantLoopingEnemyFireStrategy<NomadEnemyBullet>

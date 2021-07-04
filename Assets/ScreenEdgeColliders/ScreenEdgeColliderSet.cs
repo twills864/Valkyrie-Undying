@@ -3,6 +3,10 @@ using UnityEngine;
 
 namespace Assets.ScreenEdgeColliders
 {
+    /// <summary>
+    /// A collection of one ScreenEdgeCollider for each side of the screen.
+    /// </summary>
+    /// <inheritdoc/>
     public class ScreenEdgeColliderSet : MonoBehaviour
     {
         #region Prefabs

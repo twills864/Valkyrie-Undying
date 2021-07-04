@@ -8,6 +8,11 @@ using UnityEngine;
 
 namespace Assets.Bullets.PlayerBullets
 {
+    /// <summary>
+    /// Represents a bullet that will activate the Void Pause status effect
+    /// while it's colliding with an enemy. This bullet will also either
+    /// destroy or reflect enemy bullets that it collides with.
+    /// </summary>
     /// <inheritdoc/>
     public abstract class VoidEffectBullet : PlayerBullet
     {

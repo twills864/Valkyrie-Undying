@@ -16,6 +16,7 @@ namespace Assets.Powerups
     /// Adds chill time to each enemy hit.
     /// </summary>
     /// <inheritdoc/>
+    [Obsolete(ObsoleteConstants.FollowTheFun)]
     public class CryogenicRoundsPowerup : OnDefaultWeaponLevelUpPowerup
     {
         public override int MaxLevel => 1;

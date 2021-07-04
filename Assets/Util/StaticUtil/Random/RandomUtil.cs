@@ -8,6 +8,10 @@ using Random = System.Random;
 
 namespace Assets.Util
 {
+    /// <summary>
+    /// Contains useful methods for generating or evaluating uniformly-random results.
+    /// </summary>
+    /// <inheritdoc />
     public static class RandomUtil
     {
         private static System.Random Random { get; } = new Random();

@@ -9,6 +9,10 @@ using LogUtilAssets;
 
 namespace Assets.GameTasks
 {
+    /// <summary>
+    /// Represents a task containing some form of common functionality
+    /// that will be performed to a specified ValkyrieSprite.
+    /// </summary>
     /// <inheritdoc/>
     public abstract class GameTask
     {

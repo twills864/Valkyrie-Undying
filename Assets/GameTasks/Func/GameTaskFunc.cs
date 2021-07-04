@@ -7,6 +7,13 @@ using UnityEngine;
 
 namespace Assets.GameTasks
 {
+    /// <summary>
+    /// Runs a given Action as soon as the GameTask is activated.
+    /// Automatically applies a duration of float.Epsilon to give the illusion
+    /// of taking no time, while also allowing for convenient application of
+    /// timer activation rules.
+    /// </summary>
+    /// <inheritdoc/>
     public class GameTaskFunc : FiniteTimeGameTask
     {
         private Action Func;

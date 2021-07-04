@@ -6,6 +6,9 @@ using UnityEngine;
 
 namespace Assets.FireStrategies.EnemyFireStrategies
 {
+    /// <summary>
+    /// Contains the logic used to spawn enemy bullets in accordance with their functionality.
+    /// </summary>
     /// <inheritdoc/>
     public abstract class EnemyFireStrategy : FireStrategy<EnemyBullet>
     {

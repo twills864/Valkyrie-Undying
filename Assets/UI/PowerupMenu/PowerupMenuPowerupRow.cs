@@ -10,6 +10,11 @@ using Assets.Util;
 
 namespace Assets.UI.PowerupMenu
 {
+    /// <summary>
+    /// An individual row within the powerup menu that contains a powerup
+    /// and controls to set its level.
+    /// </summary>
+    /// <inheritdoc/>
     public class PowerupMenuPowerupRow : MonoBehaviour
     {
         #region Prefabs

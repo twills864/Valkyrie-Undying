@@ -8,6 +8,10 @@ using UnityEngine;
 
 namespace Assets.GameTasks
 {
+    /// <summary>
+    /// Runs a given Action every frame the GameTask is active.
+    /// </summary>
+    /// <inheritdoc/>
     public class FuncOverTime : FiniteTimeGameTask
     {
         private Action Action { get; set; }

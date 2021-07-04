@@ -6,6 +6,9 @@ using UnityEngine;
 
 namespace Assets.ObjectPooling
 {
+    /// <summary>
+    /// A PoolList that contains UIElement pools.
+    /// </summary>
     /// <inheritdoc/>
     public class UIElementPoolList : PoolList<UIElement>
     {

@@ -6,6 +6,7 @@ namespace Assets.Util
     /// Tracks the given MonoBehaviour, and
     /// dynamically calculates BoxMap information as needed.
     /// </summary>
+    /// <inheritdoc/>
     public abstract class TrackedBoxMap : IBoxMap
     {
         protected MonoBehaviour Target { get; }

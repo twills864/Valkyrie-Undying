@@ -5,6 +5,10 @@ using UnityEngine;
 
 namespace Assets.Bullets.PlayerBullets
 {
+    /// <summary>
+    /// The bullet fired from the player's mirror clone Othello
+    /// after collecting the Othello powerup.
+    /// </summary>
     /// <inheritdoc/>
     public class OthelloBullet : PermanentVelocityPlayerBullet
     {

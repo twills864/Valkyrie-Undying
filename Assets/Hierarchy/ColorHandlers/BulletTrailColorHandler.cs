@@ -10,6 +10,10 @@ using UnityEngine;
 
 namespace Assets.Hierarchy.ColorHandlers
 {
+    /// <summary>
+    /// Sets the color of a given BulletTrail's TrailRenderer.
+    /// </summary>
+    /// <inheritdoc/>
     public class BulletTrailColorHandler : ColorHandler
     {
         private TrailRenderer Trail;

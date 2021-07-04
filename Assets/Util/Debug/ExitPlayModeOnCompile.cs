@@ -2,6 +2,11 @@
 using UnityEngine;
 
 #if UNITY_EDITOR
+/// <summary>
+/// By default, the Unity editor doesn't stop playing if the code is recompiled.
+/// This breaks some functionality of the game, and this class is necessary
+/// to automatically stop the player on recompiling.
+/// </summary>
 [InitializeOnLoad]
 public static class ExitPlayModeOnCompile
 {

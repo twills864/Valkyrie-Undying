@@ -8,6 +8,11 @@ using UnityEngine;
 
 namespace Assets.Hierarchy.ColorHandlers
 {
+    /// <summary>
+    /// Sets the color of a given TrailRenderer, while also
+    /// applying a fade-out effect.
+    /// </summary>
+    /// <inheritdoc/>
     public class TrailFadeOutColorHandler : ColorHandler
     {
         private TrailRenderer Trail;

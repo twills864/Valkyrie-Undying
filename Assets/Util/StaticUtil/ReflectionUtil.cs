@@ -7,6 +7,9 @@ using UnityEngine;
 
 namespace Assets.Util
 {
+    /// <summary>
+    /// Contains useful methods for leveraging C# Reflection in code.
+    /// </summary>
     public static class ReflectionUtil
     {
         private const string StrictlyDebugging = "This method should only be used for debugging. "

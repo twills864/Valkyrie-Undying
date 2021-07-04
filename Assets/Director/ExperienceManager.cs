@@ -12,6 +12,11 @@ using UnityEngine;
 
 namespace Assets.DirectorHelpers
 {
+    /// <summary>
+    /// Manages the player's experience by updating the experience bar
+    /// when experience is gained, and indicating to the Director when
+    /// gaining experience causes the player to level up.
+    /// </summary>
     [DebuggerDisplay("{DebugLabel}")]
     public struct ExperienceManager
     {

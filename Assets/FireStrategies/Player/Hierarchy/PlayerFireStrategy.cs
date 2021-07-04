@@ -9,6 +9,9 @@ using UnityEngine;
 
 namespace Assets.FireStrategies.PlayerFireStrategies
 {
+    /// <summary>
+    /// Contains the logic used to spawn player bullets in accordance with the functionality of the bullet type.
+    /// </summary>
     /// <inheritdoc/>
     public abstract class PlayerFireStrategy : FireStrategy<PlayerBullet>
     {

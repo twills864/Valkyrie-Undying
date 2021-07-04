@@ -7,6 +7,10 @@ using UnityEngine;
 
 namespace Assets.Hierarchy.ColorHandlers
 {
+    /// <summary>
+    /// Sets the color of a given Unity TextMesh.
+    /// </summary>
+    /// <inheritdoc/>
     public class TextMeshColorHandler : ColorHandler
     {
         private TextMesh Mesh;

@@ -9,6 +9,11 @@ using UnityEngine;
 
 namespace Assets.UI
 {
+    /// <summary>
+    /// Manages each PowerupGuiIcon that appears on the bottom of the screen
+    /// after collecting a new powerup.
+    /// </summary>
+    /// <inheritdoc/>
     public static class PowerupGui
     {
         private const float ScreenMargin = 0.25f;

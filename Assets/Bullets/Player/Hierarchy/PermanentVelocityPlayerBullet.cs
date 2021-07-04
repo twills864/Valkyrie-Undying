@@ -3,6 +3,10 @@ using UnityEngine;
 
 namespace Assets.Bullets.PlayerBullets
 {
+    /// <summary>
+    /// Represents a player bullet whose velocity will be assigned
+    /// as soon as the instance is created, and will never change.
+    /// </summary>
     /// <inheritdoc/>
     public abstract class PermanentVelocityPlayerBullet : PlayerBullet
     {

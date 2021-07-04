@@ -15,7 +15,8 @@ using UnityEngine;
 namespace Assets.Powerups
 {
     /// <summary>
-    /// The player can click an enemy that will be the victim of homing bullets.
+    /// Automatically targets a single enemy at a time to be the victim of homing bullets.
+    /// The player may also click an enemy to specifically set the target victim.
     /// </summary>
     /// <inheritdoc/>
     public class VictimPowerup : PassivePowerup

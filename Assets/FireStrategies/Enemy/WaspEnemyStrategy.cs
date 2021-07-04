@@ -11,7 +11,10 @@ using UnityEngine;
 namespace Assets.FireStrategies.EnemyFireStrategies
 {
     /// <summary>
+    /// Fires Wasp enemy bullets directly toward the player's position.
     ///
+    /// Additionally, fires a spread of Wasp bullets behind the Wasp
+    /// when it jumps to a new location.
     /// </summary>
     /// <inheritdoc/>
     public class WaspEnemyStrategy : EnemyFireStrategy<WaspEnemyBullet>

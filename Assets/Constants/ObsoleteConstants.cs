@@ -3,6 +3,9 @@ using System.Reflection;
 
 namespace Assets.Constants
 {
+    /// <summary>
+    /// Contains constants explaining why a given feature is obsolete.
+    /// </summary>
     public static class ObsoleteConstants
     {
         //public const string SpeedOfDevelopment =
@@ -11,6 +14,8 @@ namespace Assets.Constants
 
         public const string EngineOverhaul = "Deprecated as part of the Valkyrie engine overhaul.";
         public const string FollowTheFun = "This feature is fully functional, but isn't fun.";
+        public const string NotProductionReady = "This feature isn't yet ready for production.";
+        public const string CurrentlyUnused = "This feature is presumed to by fully functional, but isn't current used.";
 
         /// <summary>
         /// Returns true if the given type has the Obsolete attribute.

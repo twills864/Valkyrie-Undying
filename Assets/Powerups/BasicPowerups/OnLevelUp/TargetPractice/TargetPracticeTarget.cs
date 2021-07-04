@@ -15,6 +15,10 @@ using UnityEngine;
 
 namespace Assets.Powerups
 {
+    /// <summary>
+    /// The target spawned by the Target Practice powerup.
+    /// </summary>
+    /// <inheritdoc/>
     public class TargetPracticeTarget : ValkyrieSprite, IRaycastTrigger
     {
         public const float Radius = 0.5f;

@@ -10,6 +10,10 @@ using UnityEngine;
 
 namespace Assets.Util
 {
+    /// <summary>
+    /// Contains useful functionality common either to this game, or to Unity itself.
+    /// </summary>
+    /// <inheritdoc />
     public static class GameUtil
     {
         /// <summary>

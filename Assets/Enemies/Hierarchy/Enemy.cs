@@ -17,6 +17,10 @@ using UnityEngine;
 
 namespace Assets.Enemies
 {
+    /// <summary>
+    /// Represents an enemy that will attack the player, and must take a
+    /// specified number of damage before being killed.
+    /// </summary>
     /// <inheritdoc/>
     public abstract class Enemy : PooledObject, IVictimHost
     {
@@ -41,11 +45,6 @@ namespace Assets.Enemies
         // The rate at which the spawn health of this enemy increases as the game progresses.
         [SerializeField]
         private float _HealthScaling = GameConstants.PrefabNumber;
-
-        // Powerup drop chance multiplier will default to the HealthScaling value.
-        // It can be overridden here.
-        //[SerializeField]
-        //private EnemyPowerupDropChanceOverride _PowerupDropChanceOverride = default;
 
         // Exp multiplier will default to the HealthScaling value.
         // It can be overridden here.

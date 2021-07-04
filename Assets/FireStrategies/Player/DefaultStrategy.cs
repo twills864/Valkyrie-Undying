@@ -10,6 +10,11 @@ using UnityEngine;
 
 namespace Assets.FireStrategies.PlayerFireStrategies
 {
+    /// <summary>
+    /// By default, fires a single Default bullet directly up.
+    /// This behavior may be modified when the player collects powerups
+    /// that affect the default fire strategy.
+    /// </summary>
     /// <inheritdoc/>
     public class DefaultStrategy : PlayerFireStrategy<DefaultBullet>
     {

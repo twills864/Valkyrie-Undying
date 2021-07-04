@@ -9,6 +9,11 @@ using UnityEngine;
 
 namespace Assets.GameTasks.GameTaskLists
 {
+    /// <summary>
+    /// Represents a lit of GameTasks currently being managed by the GameManager.
+    /// Contains logic to ensure that ValkyrieSprites deactivated during each frame run
+    /// safely have their relevant GameTasks removed from this list.
+    /// </summary>
     public class GameTaskList : List<GameTask>
     {
         private bool CurrentlyIterating = false;

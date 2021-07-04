@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Assets.Powerups
 {
+    /// <inheritdoc/>
     public class OnKillList : PowerupList<OnKillPowerup>
     {
         public OnKillList(int powerupManagerIndex) : base(powerupManagerIndex)

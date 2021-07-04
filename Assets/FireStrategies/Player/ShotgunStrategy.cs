@@ -8,6 +8,10 @@ using Assets.UI.SpriteBank;
 
 namespace Assets.FireStrategies.PlayerFireStrategies
 {
+    /// <summary>
+    /// Fires a spread of Shotgun bullets in a rough cone shape.
+    /// The number of bullets in the spread increases with the bullet level.
+    /// </summary>
     /// <inheritdoc/>
     public class ShotgunStrategy : PlayerFireStrategy<ShotgunBullet>
     {

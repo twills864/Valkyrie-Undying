@@ -7,6 +7,11 @@ using UnityEngine;
 
 namespace Assets.Components
 {
+    /// <summary>
+    /// Tracks a given ValkyrieSprite's velocity, and ensures that it's always
+    /// rotated to face the direction it's traveling in.
+    /// </summary>
+    /// <inheritdoc/>
     public class VelocityRotator : ValkyrieComponent
     {
         private Vector2 LastVelocity;

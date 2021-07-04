@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace Assets.Util
 {
+    /// <summary>
+    /// Contains useful methods for common necessary math calculations.
+    /// </summary>
     public static class MathUtil
     {
         public const float Pi2f = Mathf.PI * 2f;

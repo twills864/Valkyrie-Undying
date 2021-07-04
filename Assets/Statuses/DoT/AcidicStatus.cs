@@ -10,6 +10,7 @@ namespace Assets.Statuses
     /// <summary>
     /// Deals a decreasing amount of damage over time.
     /// </summary>
+    /// <inheritdoc/>
     public class AcidicStatus : DamageOverTimeStatus
     {
         private const int DamageDecreasePerTick = 1;

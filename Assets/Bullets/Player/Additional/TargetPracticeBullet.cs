@@ -11,7 +11,8 @@ using Assets.Enemies;
 namespace Assets.Bullets.PlayerBullets
 {
     /// <summary>
-    ///
+    /// The bullet that explodes out of a Target Practice powerup's target
+    /// after it is activated by a player bullet.
     /// </summary>
     /// <inheritdoc/>
     public class TargetPracticeBullet : PlayerBullet

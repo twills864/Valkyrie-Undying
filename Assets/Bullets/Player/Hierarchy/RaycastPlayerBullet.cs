@@ -7,6 +7,13 @@ using UnityEngine;
 
 namespace Assets.Bullets.PlayerBullets
 {
+    /// <summary>
+    /// Represents a bullet which lacks a Unity Collider component,
+    /// and instead collides with enemies by raycasting the entire screen
+    /// in a specified direction as soon as the bullet is spawned.
+    ///
+    /// Currently only used for Gatling bullets.
+    /// </summary>
     /// <inheritdoc/>
     public abstract class RaycastPlayerBullet : PlayerBullet
     {

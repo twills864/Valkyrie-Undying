@@ -16,6 +16,10 @@ using UnityEngine;
 
 namespace Assets.Powerups
 {
+    /// <summary>
+    /// Manages the bullets spawned by the Sentinel powerup.
+    /// </summary>
+    /// <inheritdoc/>
     public class SentinelManager : ValkyrieSprite
     {
         #region Prefabs

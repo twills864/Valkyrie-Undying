@@ -14,7 +14,7 @@ using UnityEngine;
 namespace Assets.Powerups
 {
     /// <summary>
-    /// Adds 5 poison damage to the player's default bullets.
+    /// Adds poison damage to the player's default bullets.
     /// </summary>
     /// <inheritdoc/>
     public class VenomousRoundsPowerup : OnDefaultWeaponLevelUpPowerup

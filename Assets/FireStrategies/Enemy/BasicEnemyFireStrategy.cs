@@ -11,6 +11,10 @@ using UnityEngine;
 
 namespace Assets.FireStrategies.EnemyFireStrategies
 {
+    /// <summary>
+    /// Fires Basic enemy bullets in a straight line down.
+    /// </summary>
+    /// <inheritdoc/>
     public class BasicEnemyFireStrategy : VariantLoopingEnemyFireStrategy<BasicEnemyBullet>
     {
         public BasicEnemyFireStrategy(VariantFireSpeed variantFireSpeed)

@@ -16,6 +16,10 @@ using UnityEngine.UI;
 
 namespace Assets.Scenes.Options
 {
+    /// <summary>
+    /// Manages the logic of the Options menu.
+    /// </summary>
+    /// <inheritdoc/>
     public class OptionsManager : MonoBehaviour
     {
         #region Prefabs

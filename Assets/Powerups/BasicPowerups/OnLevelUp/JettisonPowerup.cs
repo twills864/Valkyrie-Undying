@@ -13,7 +13,7 @@ using UnityEngine;
 namespace Assets.Powerups
 {
     /// <summary>
-    ///
+    /// Shrinks the player's x-scale to make dodging damage easier.
     /// </summary>
     /// <inheritdoc/>
     public class JettisonPowerup : OnLevelUpPowerup

@@ -2,6 +2,9 @@
 
 namespace Assets.Util
 {
+    /// <summary>
+    /// Tracks the BoxMap of a given GameObject using its Collider's bounds.
+    /// </summary>
     /// <inheritdoc />
     public class ColliderBoxMap : TrackedBoxMap
     {

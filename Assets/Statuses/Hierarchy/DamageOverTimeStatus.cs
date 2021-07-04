@@ -13,6 +13,7 @@ namespace Assets.Statuses
     /// Represents a status effect that's active for a set amount of time.
     /// It will count down each second, and deactivate when its power is 0.
     /// </summary>
+    /// <inheritdoc/>
     public abstract class CountdownStatus : TickingStatusEffect
     {
         public void Update(float deltaTime)

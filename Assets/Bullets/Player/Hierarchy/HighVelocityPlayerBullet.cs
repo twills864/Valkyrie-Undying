@@ -8,6 +8,11 @@ using UnityEngine;
 
 namespace Assets.Bullets.PlayerBullets
 {
+    /// <summary>
+    /// Represents a bullet that is intended to travel at high velocities.
+    /// These bullets should have no Unity Collider component, and instead
+    /// use raycasting to determine when enemies are hit.
+    /// </summary>
     /// <inheritdoc/>
     public abstract class HighVelocityPlayerBullet : PlayerBullet
     {

@@ -6,6 +6,9 @@ using UnityEngine;
 
 namespace Assets.FireStrategies.PlayerFireStrategies
 {
+    /// <summary>
+    /// Fires a single Atom bullet directly up.
+    /// </summary>
     /// <inheritdoc/>
     public class AtomStrategy : PlayerFireStrategy<AtomBullet>
     {

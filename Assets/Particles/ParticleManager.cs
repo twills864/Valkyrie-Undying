@@ -12,6 +12,11 @@ using static UnityEngine.ParticleSystem;
 
 namespace Assets.Particles
 {
+    /// <summary>
+    /// Handles all particles that will spawn in the game,
+    /// usually as a result of an enemy taking damage or being killed.
+    /// </summary>
+    /// <inheritdoc/>
     public class ParticleManager : ValkyrieSprite
     {
         public static ParticleManager Instance { get; private set; }

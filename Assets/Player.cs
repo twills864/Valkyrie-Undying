@@ -15,6 +15,9 @@ using UnityEngine;
 
 namespace Assets
 {
+    /// <summary>
+    /// The main player character of the game.
+    /// </summary>
     /// <inheritdoc/>
     public class Player : ValkyrieSprite, IVictimHost
     {

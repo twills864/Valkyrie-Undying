@@ -7,6 +7,9 @@ using UnityEngine;
 
 namespace Assets.Util
 {
+    /// <summary>
+    /// Contains useful methods involving Unity physics collisions.
+    /// </summary>
     public static class CollisionUtil
     {
         public const string TagDestructor = "Destructor";

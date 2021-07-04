@@ -11,6 +11,11 @@ using UnityEngine;
 
 namespace Assets.Enemies
 {
+    /// <summary>
+    /// An enemy that quickly flies in to a specified location.
+    /// From this location, it will continuously rotate towards a new
+    /// random point on the bottom of the screen, and then fire a laser.
+    /// </summary>
     /// <inheritdoc/>
     public class LaserEnemy : Enemy
     {

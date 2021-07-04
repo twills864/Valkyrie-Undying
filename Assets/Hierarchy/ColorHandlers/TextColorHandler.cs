@@ -8,6 +8,10 @@ using UnityEngine.UI;
 
 namespace Assets.Hierarchy.ColorHandlers
 {
+    /// <summary>
+    /// Sets the color of a given Unity Text.
+    /// </summary>
+    /// <inheritdoc/>
     public class TextColorHandler : ColorHandler
     {
         private Text Text;

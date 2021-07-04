@@ -10,6 +10,11 @@ using UnityEngine.UI;
 
 namespace Assets.UI.MenuElements
 {
+    /// <summary>
+    /// A Unity component container that can apply Valkyrie Sprite effects
+    /// to a Unity TextMesh.
+    /// </summary>
+    /// <inheritdoc/>
     public class TextMeshHolder : ValkyrieSprite
     {
         public override TimeScaleType TimeScale => TimeScaleType.Default;

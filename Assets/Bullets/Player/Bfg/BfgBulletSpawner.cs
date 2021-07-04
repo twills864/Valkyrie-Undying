@@ -13,6 +13,12 @@ using UnityEngine;
 
 namespace Assets.Bullets.PlayerBullets
 {
+    /// <summary>
+    /// The bullet used to represent the Battle-Frenzied Guillotine charging up.
+    /// Has no Unity Collider component, and is not intended to interact with
+    /// any game object in any way.
+    /// </summary>
+    /// <inheritdoc/>
     public class BfgBulletSpawner : PlayerBullet
     {
         public static BfgBulletSpawner Instance { get; set; }

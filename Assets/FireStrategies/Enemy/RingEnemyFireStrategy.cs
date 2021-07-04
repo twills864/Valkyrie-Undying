@@ -11,6 +11,10 @@ using UnityEngine;
 
 namespace Assets.FireStrategies.EnemyFireStrategies
 {
+    /// <summary>
+    /// Fires two Ring enemy bullets diagonally-down with a specified x-velocity offset.
+    /// </summary>
+    /// <inheritdoc/>
     public class RingEnemyFireStrategy : VariantLoopingEnemyFireStrategy<RingEnemyBullet>
     {
         public RingEnemyFireStrategy(VariantFireSpeed variantFireSpeed)

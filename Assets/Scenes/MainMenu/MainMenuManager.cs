@@ -14,6 +14,10 @@ using UnityEngine.UI;
 
 namespace Assets.Scenes.MainMenu
 {
+    /// <summary>
+    /// Manages the logic of the main menu.
+    /// </summary>
+    /// <inheritdoc/>
     public class MainMenuManager : MonoBehaviour
     {
         public static DifficultyScale SelectedDifficultyScale { get; set; } = DifficultyScale.VeryHard;

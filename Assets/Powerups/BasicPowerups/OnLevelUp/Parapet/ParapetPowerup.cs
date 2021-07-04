@@ -12,7 +12,8 @@ using UnityEngine;
 namespace Assets.Powerups
 {
     /// <summary>
-    ///
+    /// Spawns two reflective barriers that always remain above
+    /// the player one half screen width away.
     /// </summary>
     /// <inheritdoc/>
     public class ParapetPowerup : OnLevelUpPowerup

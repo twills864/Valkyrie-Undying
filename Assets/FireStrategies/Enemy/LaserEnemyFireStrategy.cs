@@ -12,6 +12,11 @@ using UnityEngine;
 
 namespace Assets.FireStrategies.EnemyFireStrategies
 {
+    /// <summary>
+    /// Fires a Laser enemy's laser by calculating the position and rotation needed
+    /// to give the bullet the appearance of being fired from the front of the Laser enemy.
+    /// </summary>
+    /// <inheritdoc/>
     public class LaserEnemyFireStrategy : EnemyFireStrategy<LaserEnemyBullet>
     {
         public LaserEnemyFireStrategy() : this(PoolManager.Instance.EnemyBulletPool.GetPrefab<LaserEnemyBullet>())

@@ -7,6 +7,11 @@ using UnityEngine;
 
 namespace Assets.Util
 {
+    /// <summary>
+    /// Represents a range of values between a given start value
+    /// and a given end value.
+    /// </summary>
+    /// <typeparam name="T">The type of range to represent.</typeparam>
     public abstract class ValueRange<T> where T : struct
     {
         #region Property Fields

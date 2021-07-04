@@ -7,6 +7,12 @@ using UnityEngine;
 
 namespace Assets.Bullets.PlayerBullets
 {
+    /// <summary>
+    /// The bullet spawned as part of the Shrapnel powerup.
+    /// Shrapnel bullets will spawn after an enemy is hit
+    /// at the point of collision, and will not damage the enemy
+    /// that caused the Shrapnel bullet to be spawned.
+    /// </summary>
     /// <inheritdoc/>
     public class ShrapnelBullet : PlayerBullet
     {

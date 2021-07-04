@@ -8,6 +8,11 @@ using UnityEngine;
 
 namespace Assets.UI.PowerupMenu
 {
+    /// <summary>
+    /// A debug GUI that displays all powerups in the game, and allows
+    /// the developer to arbitrarily set their levels.
+    /// </summary>
+    /// <inheritdoc/>
     public class PowerupMenu : MonoBehaviour
     {
         public static PowerupMenu Instance { get; private set; }

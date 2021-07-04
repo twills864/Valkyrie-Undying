@@ -7,6 +7,11 @@ using UnityEngine;
 
 namespace Assets.UI.UIElements.EnemyHealthBar
 {
+    /// <summary>
+    /// The prefab that holds and manages an instance of an EnemyTemporaryStatusBar
+    /// and an EnemyPermanentStatusBar.
+    /// </summary>
+    /// <inheritdoc/>
     public class EnemyStatusBarHolder : UIElement
     {
         protected override ColorHandler DefaultColorHandler() => new NullColorHandler();

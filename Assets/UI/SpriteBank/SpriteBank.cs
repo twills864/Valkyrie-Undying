@@ -9,6 +9,11 @@ using UnityEngine;
 
 namespace Assets
 {
+    /// <summary>
+    /// Contains all sprites in the game that can be loaded in as resources
+    /// and be assigned at runtime.
+    /// </summary>
+    /// <inheritdoc/>
     public static class SpriteBank
     {
         /// <summary>

@@ -10,6 +10,12 @@ using UnityEngine;
 
 namespace Assets.Statuses
 {
+    /// <summary>
+    /// Deals a constant amount of damage over time.
+    /// The amount of damage is additive each time parasite damage
+    /// is applied, and can be increased indefinitely.
+    /// </summary>
+    /// <inheritdoc/>
     public class ParasiteStatus : DamageOverTimeStatus
     {
         public ParasiteStatus(Enemy target) : base(target)

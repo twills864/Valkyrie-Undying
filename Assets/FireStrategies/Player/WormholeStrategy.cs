@@ -6,6 +6,9 @@ using UnityEngine;
 
 namespace Assets.FireStrategies.PlayerFireStrategies
 {
+    /// <summary>
+    /// Fires a single Wormhole bullet directly up.
+    /// </summary>
     /// <inheritdoc/>
     public class WormholeStrategy : PlayerFireStrategy<WormholeBullet>
     {

@@ -8,8 +8,10 @@ using System.Threading.Tasks;
 
 namespace Assets.Util
 {
-    // Class adapted from source code provided by automatetheplanet.com
-    // https://www.automatetheplanet.com/get-property-names-using-lambda-expressions/
+    /// <summary>
+    /// Class adapted from source code provided by automatetheplanet.com
+    /// https://www.automatetheplanet.com/get-property-names-using-lambda-expressions/
+    /// </summary>
     internal static class LambdaUtil
     {
         /// <summary>

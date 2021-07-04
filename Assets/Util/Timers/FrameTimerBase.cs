@@ -2,6 +2,11 @@
 
 namespace Assets.Util
 {
+    /// <summary>
+    /// Calculates the amount of time that has passed by adding the
+    /// amount of time that has passed since the last frame each frame.
+    /// </summary>
+    /// <inheritdoc/>
     public abstract class FrameTimerBase
     {
         private float _activationInterval;

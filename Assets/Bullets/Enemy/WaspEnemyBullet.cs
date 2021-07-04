@@ -9,7 +9,8 @@ using UnityEngine;
 namespace Assets.Bullets.EnemyBullets
 {
     /// <summary>
-    ///
+    /// The bullet fired by the Wasp enemy.
+    /// This bullet travels in a straight line directly toward the player.
     /// </summary>
     /// <inheritdoc/>
     public class WaspEnemyBullet : EnemyBullet

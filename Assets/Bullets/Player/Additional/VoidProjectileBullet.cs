@@ -11,7 +11,7 @@ using Assets.Hierarchy.ColorHandlers;
 namespace Assets.Bullets.PlayerBullets
 {
     /// <summary>
-    ///
+    /// The bullet fired from the center of a Void bullet while it's active.
     /// </summary>
     /// <inheritdoc/>
     public class VoidProjectileBullet : PlayerBullet

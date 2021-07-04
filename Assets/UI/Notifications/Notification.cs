@@ -10,6 +10,11 @@ using UnityEngine;
 
 namespace Assets.UI
 {
+    /// <summary>
+    /// A message that will be displayed after a significant game event,
+    /// such as gaining a new powerup, collecting a one-up, etc.
+    /// </summary>
+    /// <inheritdoc/>
     public class Notification : ValkyrieSprite
     {
         #region Prefabs

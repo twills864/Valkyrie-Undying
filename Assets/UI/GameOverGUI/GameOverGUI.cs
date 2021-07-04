@@ -10,6 +10,11 @@ using UnityEngine.UI;
 
 namespace Assets.UI
 {
+    /// <summary>
+    /// The menu displayed when the player takes damage after losing all of their lives.
+    /// Shows the player's score, their high score, and a button to play again.
+    /// </summary>
+    /// <inheritdoc/>
     public class GameOverGUI : MonoBehaviour
     {
         #region Prefab Fields

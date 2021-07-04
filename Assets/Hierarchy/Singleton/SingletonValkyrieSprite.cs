@@ -10,6 +10,7 @@ namespace Assets
     /// <summary>
     /// Variation of SingletonValkyrieSprite that allows a single object of each subclass.
     /// </summary>
+    /// <inheritdoc/>
     public abstract class SingletonValkyrieSprite : SingletonValkyrieSpriteBase
     {
         public static SingletonValkyrieSpriteBase Instance { get; private set; }

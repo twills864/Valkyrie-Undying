@@ -7,6 +7,10 @@ using UnityEngine;
 
 namespace Assets.Hierarchy.ColorHandlers
 {
+    /// <summary>
+    /// Sets the color of a given LineRenderer.
+    /// </summary>
+    /// <inheritdoc/>
     public class LineRendererColorHandler : ColorHandler
     {
         private LineRenderer Line;

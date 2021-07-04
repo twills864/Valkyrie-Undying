@@ -7,6 +7,9 @@ using Assets.Util;
 
 namespace Assets.UI
 {
+    /// <summary>
+    /// Manages the way notifications will be displayed in sequential order.
+    /// </summary>
     public static class NotificationManager
     {
         private static Queue<string> Queue = new Queue<string>();

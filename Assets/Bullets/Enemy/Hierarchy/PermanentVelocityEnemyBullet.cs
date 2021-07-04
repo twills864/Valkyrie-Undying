@@ -2,6 +2,10 @@
 
 namespace Assets.Bullets.EnemyBullets
 {
+    /// <summary>
+    /// Represents an enemy bullet whose velocity will be assigned
+    /// as soon as the instance is created, and will never change.
+    /// </summary>
     /// <inheritdoc/>
     public abstract class PermanentVelocityEnemyBullet : EnemyBullet
     {

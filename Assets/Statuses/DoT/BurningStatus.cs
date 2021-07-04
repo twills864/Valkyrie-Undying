@@ -7,6 +7,10 @@ using Assets.Enemies;
 
 namespace Assets.Statuses
 {
+    /// <summary>
+    /// Deals an increasing amount of damage over time.
+    /// </summary>
+    /// <inheritdoc/>
     public class BurningStatus : DamageOverTimeStatus
     {
         public int DamageIncrease { get; set; }

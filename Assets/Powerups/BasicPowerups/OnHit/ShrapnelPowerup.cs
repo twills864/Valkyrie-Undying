@@ -14,7 +14,7 @@ using UnityEngine;
 namespace Assets.Powerups
 {
     /// <summary>
-    /// Randomly spawns damaging shrapnel behind a hit enemy.
+    /// Provides a chance to spawns damaging shrapnel at the point of collision when an enemy is hit.
     /// </summary>
     /// <inheritdoc/>
     public class ShrapnelPowerup : OnHitPowerup

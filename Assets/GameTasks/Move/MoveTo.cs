@@ -7,6 +7,10 @@ using UnityEngine;
 
 namespace Assets.GameTasks
 {
+    /// <summary>
+    /// Moves the target ValkyrieSprite to a specified position
+    /// over a specified period of time.
+    /// </summary>
     /// <inheritdoc/>
     public class MoveTo : FiniteMovementGameTask
     {

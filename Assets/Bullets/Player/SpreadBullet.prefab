@@ -131,4 +131,4 @@ MonoBehaviour:
   _FireRadius: 0.75
   _AngleBetweenLanesInDegrees: 10
   _DampX: 0.6
-  _ChillTime: 3
+  _ChillTime: 4

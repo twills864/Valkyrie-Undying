@@ -12,7 +12,11 @@ using UnityEngine;
 namespace Assets.Powerups
 {
     /// <summary>
+    /// Provides a small chance to spawn a powerful lightning bolt that will
+    /// target the enemy that was hit.
     ///
+    /// The lightning bolt is strong enough to instantly kill enemies in the
+    /// early game, but deals a finite amount of damage to balance the late game.
     /// </summary>
     /// <inheritdoc/>
     public class SmitePowerup : OnHitPowerup

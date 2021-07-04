@@ -7,6 +7,10 @@ using UnityEngine;
 
 namespace Assets.Pickups
 {
+    /// <summary>
+    /// A pickup that grants the player an extra heavy weapon bullet level.
+    /// </summary>
+    /// <inheritdoc/>
     [Obsolete("Weapon levels are now granted by PowerupPickups that hold DefaultWeaponPowerups.")]
     public class WeaponLevelPickup : EnemyLootPickup
     {

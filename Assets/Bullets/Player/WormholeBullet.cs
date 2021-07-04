@@ -7,6 +7,11 @@ using UnityEngine;
 
 namespace Assets.Bullets.PlayerBullets
 {
+    /// <summary>
+    /// A bullet that will warp through an enemy, and will warp from the
+    /// top of the screen back to the bottom of the screen.
+    /// The number of times this bullet can warp will increase with the bullet level.
+    /// </summary>
     /// <inheritdoc/>
     public class WormholeBullet : PlayerBullet
     {

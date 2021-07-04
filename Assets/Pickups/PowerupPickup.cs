@@ -13,6 +13,10 @@ using UnityEngine;
 
 namespace Assets.Pickups
 {
+    /// <summary>
+    /// A pickup that grants the player the Powerup it's currently holding.
+    /// </summary>
+    /// <inheritdoc/>
     public class PowerupPickup : EnemyLootPickup
     {
         public Powerup TargetPowerup { get; set; }

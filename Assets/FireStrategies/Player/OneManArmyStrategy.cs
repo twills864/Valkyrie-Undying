@@ -13,7 +13,11 @@ using UnityEngine;
 namespace Assets.FireStrategies.PlayerFireStrategies
 {
     /// <summary>
-    ///
+    /// Fires many One Man Army bullets along a horizontal line.
+    /// The number of bullets in this line increases with the bullet level.
+    /// At the maximum bullet level, the horizontal line on which the bullets spawn
+    /// is guaranteed to remain in bounds, ensuring that each bullet stays in bounds
+    /// even if the player is near the edge of the screen.
     /// </summary>
     /// <inheritdoc/>
     public class OneManArmyStrategy : PlayerFireStrategy<OneManArmyBullet>

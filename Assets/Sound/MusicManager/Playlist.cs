@@ -10,6 +10,10 @@ using UnityEngine;
 
 namespace Assets.Sound
 {
+    /// <summary>
+    /// Represents a collection of paths that lead to
+    /// songs to be played by the MusicManager.
+    /// </summary>
     [DebuggerDisplay("{Name} - {Songs.Count} Song(s)")]
     public class Playlist
     {

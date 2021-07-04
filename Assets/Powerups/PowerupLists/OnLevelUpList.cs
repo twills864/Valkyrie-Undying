@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Assets.Powerups
 {
+    /// <inheritdoc/>
     public class OnLevelUpList : PowerupList<OnLevelUpPowerup>
     {
         public OnLevelUpList(int powerupManagerIndex) : base(powerupManagerIndex)

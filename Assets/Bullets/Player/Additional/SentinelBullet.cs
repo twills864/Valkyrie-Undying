@@ -9,6 +9,10 @@ using UnityEngine;
 
 namespace Assets.Bullets.PlayerBullets
 {
+    /// <summary>
+    /// The bullet spawned after the player collects the Sentinel powerup.
+    /// This bullet will orbit the player, and is managed by the SentinelManager class.
+    /// </summary>
     /// <inheritdoc/>
     public class SentinelBullet : PlayerBullet
     {

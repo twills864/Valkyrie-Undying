@@ -9,6 +9,11 @@ using UnityEngine;
 
 namespace Assets.UI
 {
+    /// <summary>
+    /// Represents the progress of an action as a bar that becomes more full
+    /// the more complete the action is.
+    /// </summary>
+    /// <inheritdoc/>
     public class ProgressBar : UIElement
     {
         #region Property Fields

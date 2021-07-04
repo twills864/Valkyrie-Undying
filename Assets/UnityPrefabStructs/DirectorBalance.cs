@@ -7,6 +7,10 @@ using Assets.Util;
 
 namespace Assets
 {
+    /// <summary>
+    /// Allows the Director to be fine-tuned from the Unity editor.
+    /// </summary>
+    /// <inheritdoc/>
     [Serializable]
     public struct DirectorBalance
     {

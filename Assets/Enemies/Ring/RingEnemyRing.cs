@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace Assets.Enemies
 {
+    /// <summary>
+    /// The ring that surrounds and protects the Ring enemy.
+    /// </summary>
     /// <inheritdoc/>
     public class RingEnemyRing : PermanentVelocityEnemy
     {

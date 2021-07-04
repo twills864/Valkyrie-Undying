@@ -2,6 +2,10 @@
 
 namespace Assets.Util
 {
+    /// <summary>
+    /// A timer that activates for one frame after reaching a specified threshold,
+    /// before automatically resetting itself and starting the timing again.
+    /// </summary>
     /// <inheritdoc/>
     [DebuggerDisplay("{DebuggerDisplay}")]
     public class LoopingFrameTimer : FrameTimerBase

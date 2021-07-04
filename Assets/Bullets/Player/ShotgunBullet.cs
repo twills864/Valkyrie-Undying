@@ -3,6 +3,10 @@ using UnityEngine;
 
 namespace Assets.Bullets.PlayerBullets
 {
+    /// <summary>
+    /// A bullet that fires as part of a spread of bullets fired in a rough cone shape.
+    /// The number of bullets in the spread increases with the bullet level.
+    /// </summary>
     /// <inheritdoc/>
     public class ShotgunBullet : HighVelocityPlayerBullet
     {

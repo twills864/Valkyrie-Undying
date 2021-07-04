@@ -9,6 +9,13 @@ using UnityEngine;
 
 namespace Assets
 {
+    /// <summary>
+    /// The highest-level superclass of Unity GameObjects in the game.
+    /// Represents a GameObject that has a managed frame behavior,
+    /// a managed Velocity system, a managed color system, a customizable time scale,
+    /// and many other convenient properties and methods for common game functionalities.
+    /// </summary>
+    /// <inheritdoc/>
     [FinalDebugViewLevelAttribute]
     public abstract class ValkyrieSprite : Loggable
     {

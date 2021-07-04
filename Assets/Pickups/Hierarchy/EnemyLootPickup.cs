@@ -11,6 +11,10 @@ using UnityEngine;
 
 namespace Assets.Pickups
 {
+    /// <summary>
+    /// Represents a Pickup that will only appear after killing an enemy.
+    /// </summary>
+    /// <inheritdoc/>
     public abstract class EnemyLootPickup : Pickup
     {
         private const float LeftRotation = 360f;

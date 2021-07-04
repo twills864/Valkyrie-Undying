@@ -8,8 +8,11 @@ using UnityEngine;
 namespace Assets.Bullets.PlayerBullets
 {
     /// <summary>
-    /// Travels across the screen with a y-position described by the following function:
+    /// A bullet that travels across the screen with a y-position described by the following function:
     /// f(t) = -(t-sqrt(mapHeight))^2 + mapHeight
+    ///
+    /// This bullet will obtain a random x-velocity after hitting an enemy,
+    /// and can bounce upward again by colliding with the player, or any relevant powerups.
     /// </summary>
     /// <inheritdoc/>
     public class TrampolineBullet : BouncingBullet

@@ -6,6 +6,11 @@ using System.Threading.Tasks;
 
 namespace Assets.Util
 {
+    /// <summary>
+    /// A float value that will grow from a specified start value to a
+    /// specified end value over a specified amount of time.
+    /// </summary>
+    /// <inheritdoc/>
     public class FloatValueOverTime : ValueOverTime<float>
     {
         public override float Value => StartValue + (Timer.RatioComplete * ValueDifference);

@@ -15,6 +15,9 @@ using UnityEngine;
 
 namespace Assets.Util
 {
+    /// <summary>
+    /// Contains methods useful for debugging the game.
+    /// </summary>
     public static class DebugUtil
     {
         public static string DebugEnemyName = "DebugEnemy";

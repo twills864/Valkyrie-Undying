@@ -11,6 +11,11 @@ using UnityEngine.UI;
 
 namespace Assets.UI.MenuElements
 {
+    /// <summary>
+    /// A Unity component container that can apply Valkyrie Sprite effects
+    /// to a Unity Slider that represents a percentage from 0 to 100.
+    /// </summary>
+    /// <inheritdoc/>
     public class PercentSlider : ValkyrieSprite
     {
         public override TimeScaleType TimeScale => TimeScaleType.Default;

@@ -7,6 +7,10 @@ using Assets.Util;
 
 namespace Assets
 {
+    /// <summary>
+    /// Allows a given enemy's experience reward to be fine-tuned from the Unity editor.
+    /// </summary>
+    /// <inheritdoc/>
     [Serializable]
     public struct EnemyExpOverride
     {

@@ -11,6 +11,11 @@ using UnityEngine;
 
 namespace Assets.UI
 {
+    /// <summary>
+    /// Renders a Powerup icon on the bottom of the screen after
+    /// collecting a new powerup.
+    /// </summary>
+    /// <inheritdoc/>
     public class PowerupGuiIcon : ValkyrieSprite
     {
         #region Prefabs

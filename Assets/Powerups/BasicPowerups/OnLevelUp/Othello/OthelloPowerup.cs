@@ -11,7 +11,9 @@ using UnityEngine;
 namespace Assets.Powerups
 {
     /// <summary>
-    /// Spawns a passive rain cloud behind the player that rains bullets on enemies.
+    /// Spawns a mirror self that fires bullets alongside the player.
+    /// This mirror self maintains the mirror position across the
+    /// center of the screen from the player, and doesn't take damage.
     /// </summary>
     /// <inheritdoc/>
     public class OthelloPowerup : OnLevelUpPowerup

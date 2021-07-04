@@ -10,6 +10,9 @@ using UnityEngine;
 
 namespace Assets.ObjectPooling
 {
+    /// <summary>
+    /// A PoolList that contains Pickup pools.
+    /// </summary>
     /// <inheritdoc/>
     public class PickupPoolList : PoolList<Pickup>
     {

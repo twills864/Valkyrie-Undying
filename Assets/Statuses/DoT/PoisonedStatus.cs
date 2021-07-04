@@ -7,6 +7,10 @@ using Assets.Enemies;
 
 namespace Assets.Statuses
 {
+    /// <summary>
+    /// Deals a constant amount of damage over time.
+    /// </summary>
+    /// <inheritdoc/>
     public class PoisonedStatus : DamageOverTimeStatus
     {
         public PoisonedStatus(Enemy target) : base(target)

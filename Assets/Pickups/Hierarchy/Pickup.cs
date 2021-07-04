@@ -11,6 +11,11 @@ using UnityEngine;
 
 namespace Assets.Pickups
 {
+    /// <summary>
+    /// Represents an object that the player can collide with
+    /// to activate a positive effect.
+    /// </summary>
+    /// <inheritdoc/>
     public abstract class Pickup : PooledObject
     {
         public override string LogTagColor => "#999999";

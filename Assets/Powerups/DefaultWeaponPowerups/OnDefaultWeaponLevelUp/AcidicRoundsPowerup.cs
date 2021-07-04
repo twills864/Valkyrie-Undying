@@ -13,7 +13,7 @@ using UnityEngine;
 namespace Assets.Powerups
 {
     /// <summary>
-    ///
+    /// Adds acid damage to the player's default bullets.
     /// </summary>
     /// <inheritdoc/>
     public class AcidicRoundsPowerup : OnDefaultWeaponLevelUpPowerup

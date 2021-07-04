@@ -8,6 +8,10 @@ using UnityEngine;
 
 namespace Assets.GameTasks
 {
+    /// <summary>
+    /// Runs a specified Action after a given delay.
+    /// Acts as a simplified version of a Sequence containing a Delay and a GameTaskFunc.
+    /// </summary>
     /// <inheritdoc/>
     public class FuncAfterDelay : FiniteTimeGameTask
     {

@@ -14,7 +14,8 @@ using UnityEngine;
 namespace Assets.FireStrategies.PlayerFireStrategies
 {
     /// <summary>
-    ///
+    /// Fires bullets in a spread with an oscillating number of bullets.
+    /// The maximum number of bullets in the spread increases with the bullet level.
     /// </summary>
     /// <inheritdoc/>
     public class DeadlyDiamondStrategy : PlayerFireStrategy<DeadlyDiamondBullet>

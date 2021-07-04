@@ -13,7 +13,7 @@ namespace Assets.Powerups
 {
     /// <summary>
     /// Splits the player's default weapon into two separate shots
-    /// that fire in a V-shaped pattern.
+    /// that fire in a V-shaped pattern, and adds poison damage to each.
     /// </summary>
     /// <inheritdoc/>
     [Obsolete(ObsoleteConstants.FollowTheFun)]

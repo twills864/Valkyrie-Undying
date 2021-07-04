@@ -4,6 +4,10 @@ using UnityEngine;
 
 namespace Assets.Bullets.PlayerBullets
 {
+    /// <summary>
+    /// A bullet that will be fired as a burst of bullets fired in quick succession.
+    /// The number of bullets in the burst will increase with the bullet level.
+    /// </summary>
     /// <inheritdoc/>
     public class BurstBullet : PlayerBullet
     {

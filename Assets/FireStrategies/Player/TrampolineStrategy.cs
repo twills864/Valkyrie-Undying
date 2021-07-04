@@ -6,6 +6,9 @@ using UnityEngine;
 
 namespace Assets.FireStrategies.PlayerFireStrategies
 {
+    /// <summary>
+    /// Fires a single Trampoline bullet directly up.
+    /// </summary>
     /// <inheritdoc/>
     public class TrampolineStrategy : PlayerFireStrategy<TrampolineBullet>
     {

@@ -8,6 +8,10 @@ using UnityEngine;
 
 namespace Assets.GameTasks
 {
+    /// <summary>
+    /// Scales the target ValkyrieSprite to a specified scale
+    /// over a specified period of time.
+    /// </summary>
     /// <inheritdoc/>
     public class ScaleTo : FiniteTimeGameTask
     {

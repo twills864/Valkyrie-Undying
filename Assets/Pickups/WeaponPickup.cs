@@ -8,6 +8,10 @@ using UnityEngine;
 
 namespace Assets.Pickups
 {
+    /// <summary>
+    /// A pickup that gives the player a heavy weapon for a brief period of time.
+    /// </summary>
+    /// <inheritdoc/>
     public class WeaponPickup : Pickup
     {
         public int FireStrategyIndex { get; set; }

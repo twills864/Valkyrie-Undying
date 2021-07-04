@@ -6,6 +6,10 @@ using UnityEngine;
 
 namespace Assets.Bullets.PlayerBullets
 {
+    /// <summary>
+    /// The bullet fired as part of the Victim powerup.
+    /// Victim bullets fire in a straight line directly toward the targeted enemy.
+    /// </summary>
     /// <inheritdoc/>
     public class VictimBullet : PlayerBullet
     {

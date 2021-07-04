@@ -8,6 +8,10 @@ using UnityEngine;
 
 namespace Assets.Pickups
 {
+    /// <summary>
+    /// A pickup that grants the player an extra life.
+    /// </summary>
+    /// <inheritdoc/>
     public class OneUpPickup : Pickup
     {
         public override Sprite InitialPickupSprite => SpriteBank.OneUp;

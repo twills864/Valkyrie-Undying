@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace Assets.Util
 {
+    /// <summary>
+    /// Contains useful methods involving the screen space and world space of the game.
+    /// </summary>
     public static class SpaceUtil
     {
         /// <summary>

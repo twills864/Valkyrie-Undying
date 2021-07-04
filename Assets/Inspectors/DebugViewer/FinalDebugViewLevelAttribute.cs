@@ -7,6 +7,10 @@ using System.Threading.Tasks;
 
 namespace Assets
 {
+    /// <summary>
+    /// Prevents the DebugViewer class from inspecting higher-level superclasses.
+    /// </summary>
+    /// <inheritdoc/>
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct)]
     public class FinalDebugViewLevelAttribute : Attribute
     {

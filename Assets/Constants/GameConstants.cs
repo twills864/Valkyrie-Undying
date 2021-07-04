@@ -2,6 +2,9 @@
 
 namespace Assets.Constants
 {
+    /// <summary>
+    /// Contains constant values specified to the flow of the game.
+    /// </summary>
     public static class GameConstants
     {
         /// <summary>

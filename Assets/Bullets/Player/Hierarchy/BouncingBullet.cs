@@ -11,6 +11,10 @@ using UnityEngine;
 
 namespace Assets.Bullets.PlayerBullets
 {
+    /// <summary>
+    /// Represents a bullet that can bounce a finite number of times
+    /// before deactivating.
+    /// </summary>
     /// <inheritdoc/>
     public abstract class BouncingBullet : PlayerBullet
     {

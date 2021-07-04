@@ -7,6 +7,13 @@ using UnityEngine;
 
 namespace Assets.Util
 {
+    /// <summary>
+    /// Represents a value that will start at a specified value,
+    /// and end at another specified value after a specified amount of time,
+    /// linearly interpolating the current represented value until
+    /// it's complete.
+    /// </summary>
+    /// <inheritdoc/>
     public abstract class ValueOverTime<T> where T : struct
     {
         #region Property Fields

@@ -12,6 +12,7 @@ namespace Assets.GameTasks
     /// Modifies a time scale using the function y = x(2-x)
     /// Acts as a philosophical reversal of the EaseOut time scale.
     /// </summary>
+    /// <inheritdoc/>
     public class EaseIn : TimeModifyingGameTask
     {
         public EaseIn(FiniteTimeGameTask innerTask) : base(innerTask)

@@ -9,7 +9,8 @@ using UnityEngine;
 namespace Assets.Bullets.PlayerBullets
 {
     /// <summary>
-    ///
+    /// A bullet that will be fired a spread with an oscillating number of bullets.
+    /// The maximum number of bullets in the spread increases with the bullet level.
     /// </summary>
     /// <inheritdoc/>
     public class DeadlyDiamondBullet : PlayerBullet

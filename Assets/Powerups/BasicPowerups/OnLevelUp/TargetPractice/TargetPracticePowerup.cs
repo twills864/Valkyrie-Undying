@@ -12,9 +12,12 @@ using UnityEngine;
 namespace Assets.Powerups
 {
     /// <summary>
-    ///
+    /// Spawns a target that explodes into several bullets after being
+    /// shot by the player. The bullets that shoot the target
+    /// are not consumed in this process.
     /// </summary>
     /// <inheritdoc/>
+    [Obsolete(ObsoleteConstants.NotProductionReady)]
     public class TargetPracticePowerup : OnLevelUpPowerup
     {
         protected override Sprite GetPowerupSprite(PowerupSpriteBank bank) => bank.TargetPractice;

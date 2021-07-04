@@ -9,6 +9,11 @@ using UnityEngine;
 
 namespace Assets.UI
 {
+    /// <summary>
+    /// Holds a Unity LineRenderer. Useful for when a GameObject needs
+    /// multiple LineRenderer components, which Unity does not support.
+    /// </summary>
+    /// <inheritdoc/>
     public class LineRendererHost : UIElement
     {
         #region Prefabs

@@ -12,6 +12,7 @@ namespace Assets.GameTasks
     /// Modifies a time scale using the following Bézier curve:
     /// y = (x^2)(3 - 2x)
     /// </summary>
+    /// <inheritdoc/>
     public class EaseInOut : TimeModifyingGameTask
     {
         public EaseInOut(FiniteTimeGameTask innerTask) : base(innerTask)

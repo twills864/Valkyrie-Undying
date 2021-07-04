@@ -6,6 +6,10 @@ using UnityEngine;
 
 namespace Assets.Bullets.PlayerBullets
 {
+    /// <summary>
+    /// The bullet fired periodically when the player has the Inferno powerup.
+    /// This bullet adds burning damage to any enemy hit.
+    /// </summary>
     /// <inheritdoc/>
     public class InfernoBullet : PermanentVelocityPlayerBullet
     {

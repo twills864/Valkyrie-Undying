@@ -9,6 +9,14 @@ using UnityEngine;
 
 namespace Assets.Bullets.PlayerBullets
 {
+    /// <summary>
+    /// A bullet that will hit an enemy, bounce in a random direction, and
+    /// change its velocity over time to again be traveling towards the enemy.
+    ///
+    /// The effect resembles electrons orbiting the nucleus of an atom, and will
+    /// hit an enemy multiple times before deactivating. The number of times
+    /// a bullet can hit increases with the bullet level.
+    /// </summary>
     /// <inheritdoc/>
     public class AtomBullet : BouncingBullet
     {

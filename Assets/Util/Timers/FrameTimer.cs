@@ -2,6 +2,10 @@
 
 namespace Assets.Util
 {
+    /// <summary>
+    /// A timer that activates after reaching a specified threshold,
+    /// and remains active until it's reset.
+    /// </summary>
     /// <inheritdoc/>
     public class FrameTimer : FrameTimerBase
     {

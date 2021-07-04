@@ -14,7 +14,9 @@ using UnityEngine;
 namespace Assets.Powerups
 {
     /// <summary>
-    /// Opens a void on killing an enemy.
+    /// Opens a void on killing an enemy. This void Void Pauses any enemies
+    /// it collides with, and also spawns smallers bullets from it center
+    /// while it's open.
     /// </summary>
     /// <inheritdoc/>
     public class VoidPowerup : OnKillPowerup

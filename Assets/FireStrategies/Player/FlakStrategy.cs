@@ -10,6 +10,9 @@ using Assets.UI.SpriteBank;
 
 namespace Assets.FireStrategies.PlayerFireStrategies
 {
+    /// <summary>
+    /// Fires a spread of Flak bullets with randomly-generated vertical and horizontal velocities.
+    /// </summary>
     /// <inheritdoc/>
     public class FlakStrategy : PlayerFireStrategy<FlakBullet>
     {

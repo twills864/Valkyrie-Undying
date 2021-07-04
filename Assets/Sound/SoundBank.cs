@@ -8,6 +8,9 @@ using UnityEngine;
 
 namespace Assets
 {
+    /// <summary>
+    /// Contains all sound effects that can be played by the game.
+    /// </summary>
     public static class SoundBank
     {
         private const string PathSoundEffect = "Audio/Sounds/";

@@ -4,6 +4,9 @@ using UnityEngine.UI;
 
 namespace Assets.Util.AssetsDebug
 {
+    /// <summary>
+    /// Allows the developer to type a value to be used in the code for debugging purposes.
+    /// </summary>
     public class DebugTextBox
     {
         private InputField InputField { get; set; }

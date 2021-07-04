@@ -7,6 +7,11 @@ using Assets.Util;
 
 namespace Assets
 {
+    /// <summary>
+    /// Allows information about how long a player should remain invincible after taking damage
+    /// to be fine-tuned from the Unity editor.
+    /// </summary>
+    /// <inheritdoc/>
     [Serializable]
     public struct PlayerIFrames
     {

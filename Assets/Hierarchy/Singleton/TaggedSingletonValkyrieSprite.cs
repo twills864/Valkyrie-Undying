@@ -12,6 +12,7 @@ namespace Assets
     /// Variation of SingletonValkyrieSprite that allows multiple objects of the same class
     /// by assigning each one a unique tag.
     /// </summary>
+    /// <inheritdoc/>
     public abstract class TaggedSingletonValkyrieSprite : SingletonValkyrieSpriteBase
     {
         private static Dictionary<string, SingletonValkyrieSpriteBase> Instances

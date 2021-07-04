@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace Assets.UI
 {
+    /// <summary>
+    /// The trail that follows an Atom bullet.
+    /// </summary>
     /// <inheritdoc/>
     public class AtomTrail : UIElement
     {

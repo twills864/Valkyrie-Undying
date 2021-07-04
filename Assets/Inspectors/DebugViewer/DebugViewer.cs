@@ -8,9 +8,13 @@ using System.Threading.Tasks;
 
 namespace Assets
 {
-    // Based on the FlattenHierarchyProxy by Jared Bar.
-    // https://stackoverflow.com/a/4818542
-    // http://blogs.msdn.com/b/jaredpar/archive/2010/02/19/flattening-class-hierarchies-when-debugging-c.aspx
+    /// <summary>
+    /// Conveniently displays the properties of the tagged object in the debugger view.
+    ///
+    /// Based on the FlattenHierarchyProxy by Jared Bar.
+    /// https://stackoverflow.com/a/4818542
+    /// http://blogs.msdn.com/b/jaredpar/archive/2010/02/19/flattening-class-hierarchies-when-debugging-c.aspx
+    /// </summary>
     [DebuggerTypeProxy(typeof(DebugViewerDebugView))]
     public sealed class DebugViewer
     {

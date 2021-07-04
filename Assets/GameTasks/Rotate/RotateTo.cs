@@ -8,6 +8,11 @@ using UnityEngine;
 
 namespace Assets.GameTasks
 {
+    /// <summary>
+    /// Rotates the target ValkyrieSprite to a specified angle in degrees
+    /// over a specified period of time.
+    /// </summary>
+    /// <inheritdoc/>
     public class RotateTo : FiniteTimeGameTask
     {
         private FloatRange AngleRange;

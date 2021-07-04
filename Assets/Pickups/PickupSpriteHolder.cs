@@ -13,6 +13,7 @@ namespace Assets.Pickups
     /// <summary>
     /// Renders a sprite in the middle of a pickup.
     /// </summary>
+    /// <inheritdoc/>
     public class PickupSpriteHolder : ValkyrieSprite
     {
         /// <summary>

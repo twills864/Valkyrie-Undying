@@ -8,6 +8,12 @@ using UnityEngine;
 
 namespace Assets.Enemies
 {
+    /// <summary>
+    /// An enemy that's protected by an outer ring that must be destroyed
+    /// before this enemy is exposed, unless the player can penetrate
+    /// that ring in some way.
+    /// It fires two bullets at a time diagonally-downward.
+    /// </summary>
     /// <inheritdoc/>
     public class RingEnemy : PermanentVelocityEnemy
     {

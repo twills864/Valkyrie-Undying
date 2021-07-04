@@ -4,6 +4,10 @@ using UnityEngine;
 
 namespace Assets.Bullets.PlayerBullets
 {
+    /// <summary>
+    /// A bullet that will fire in a very large cone-shaped spread,
+    /// and will add chill time to any enemies hit.
+    /// </summary>
     /// <inheritdoc/>
     public class SpreadBullet : HighVelocityPlayerBullet
     {

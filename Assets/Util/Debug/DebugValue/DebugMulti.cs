@@ -3,6 +3,10 @@ using System.Linq;
 
 namespace Assets.Util.AssetsDebug
 {
+    /// <summary>
+    /// Evaluates multiple Funcs for debugging purposes.
+    /// </summary>
+    /// <inheritdoc />
     public class DebugMulti : DebugValue
     {
         private Func<Object>[] _Funcs;

@@ -11,7 +11,9 @@ using Assets.Bullets.EnemyBullets;
 namespace Assets.Bullets.PlayerBullets
 {
     /// <summary>
-    ///
+    /// The reflective barrier that spawns after collecting the Parapet powerup.
+    /// This barrier always remains above the player one half screen width away,
+    /// and is managed by the ParapetManager class.
     /// </summary>
     /// <inheritdoc/>
     public class ParapetBullet : VoidEffectBullet

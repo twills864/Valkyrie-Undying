@@ -8,6 +8,10 @@ using UnityEngine;
 
 namespace Assets.GameTasks
 {
+    /// <summary>
+    /// Applies the current value of a given FloatValueOverTime using custom specified Action.
+    /// </summary>
+    /// <inheritdoc/>
     public class ApplyFloatValueOverTime : FiniteTimeGameTask
     {
         private FloatValueOverTime Range { get; set; }

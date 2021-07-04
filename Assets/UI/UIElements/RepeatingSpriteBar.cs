@@ -10,6 +10,12 @@ using UnityEngine;
 
 namespace Assets.UI
 {
+    /// <summary>
+    /// A bar that renders a sprite repeating an arbitrary number of times.
+    /// If the sprites would go beyond the visible screen, the space
+    /// between the sprites decreases to show them all.
+    /// </summary>
+    /// <inheritdoc/>
     public class RepeatingSpriteBar : UIElement
     {
         #region Prefabs

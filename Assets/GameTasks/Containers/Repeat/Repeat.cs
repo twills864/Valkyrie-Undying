@@ -11,6 +11,7 @@ namespace Assets.GameTasks
     /// <summary>
     /// Repeats the given FiniteTimeGameTask a finite number of times.
     /// </summary>
+    /// <inheritdoc/>
     public class Repeat : FiniteTimeGameTask
     {
         protected FiniteTimeGameTask InnerTask { get; set; }

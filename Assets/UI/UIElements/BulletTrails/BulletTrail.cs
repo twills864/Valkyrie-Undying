@@ -6,6 +6,9 @@ using UnityEngine;
 
 namespace Assets.UI
 {
+    /// <summary>
+    /// The trail that's rendered behind bullets decoratively.
+    /// </summary>
     /// <inheritdoc/>
     public class BulletTrail : UIElement
     {

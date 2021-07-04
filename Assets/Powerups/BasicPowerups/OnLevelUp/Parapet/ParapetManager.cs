@@ -10,6 +10,10 @@ using UnityEngine;
 
 namespace Assets.Powerups
 {
+    /// <summary>
+    /// Manages the positions of the Parapet powerup's barriers
+    /// in accordance with the player's position.
+    /// </summary>
     public class ParapetManager
     {
         private ParapetBullet LeftParapet { get; set; }

@@ -7,6 +7,10 @@ using UnityEngine;
 
 namespace Assets.Enemies
 {
+    /// <summary>
+    /// A large, slow enemy that flies straight down, and fires
+    /// several bullets in a row in a burst.
+    /// </summary>
     /// <inheritdoc/>
     public class TankEnemy : PermanentVelocityEnemy
     {

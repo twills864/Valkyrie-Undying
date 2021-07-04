@@ -8,7 +8,7 @@ using UnityEngine;
 namespace Assets.Bullets.PlayerBullets
 {
     /// <summary>
-    ///
+    /// The bullet fired from the bottom corners of the screen as part of the Mortar powerup.
     /// </summary>
     /// <inheritdoc/>
     public class MortarBullet : PlayerBullet

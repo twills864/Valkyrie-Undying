@@ -7,6 +7,12 @@ using Assets.Util;
 
 namespace Assets
 {
+    /// <summary>
+    /// Manages the time scales of individual types of GameObjects in the game.
+    ///
+    /// Currently largely unimplemented.
+    /// </summary>
+    /// <inheritdoc/>
     public static class TimeScaleManager
     {
         public static float Player = 1.0f;

@@ -7,6 +7,11 @@ using UnityEngine;
 
 namespace Assets.Hierarchy.ColorHandlers
 {
+    /// <summary>
+    /// Sets the color of a given TrailRenderer.
+    /// Designed for use by TrailRenderers not associated with the Bullet Trail system.
+    /// </summary>
+    /// <inheritdoc/>
     public class TrailColorHandler : ColorHandler
     {
         private TrailRenderer Trail;

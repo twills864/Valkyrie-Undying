@@ -9,7 +9,8 @@ using UnityEngine;
 namespace Assets.Bullets.EnemyBullets
 {
     /// <summary>
-    ///
+    /// The bullet fired by the Nomad enemy.
+    /// This bullet travels straight down.
     /// </summary>
     /// <inheritdoc/>
     public class NomadEnemyBullet : PermanentVelocityEnemyBullet

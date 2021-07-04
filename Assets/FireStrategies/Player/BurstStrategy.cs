@@ -8,6 +8,11 @@ using Assets.UI.SpriteBank;
 
 namespace Assets.FireStrategies.PlayerFireStrategies
 {
+    /// <summary>
+    /// Fires a series of Burst bullets upwards with a
+    /// random x-velocity offset in quick succession.
+    /// The number of bullets in each burst increase with the bullet level.
+    /// </summary>
     /// <inheritdoc/>
     public class BurstStrategy : PlayerFireStrategy<BurstBullet>
     {

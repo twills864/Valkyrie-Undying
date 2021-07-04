@@ -7,6 +7,11 @@ using UnityEngine;
 
 namespace Assets.Util
 {
+    /// <summary>
+    /// A range of Vector3 values between a given start value
+    /// and a given end value.
+    /// </summary>
+    /// <inheritdoc/>
     public struct Vector3Range : IValueRange<Vector3>
     {
         #region Property Fields

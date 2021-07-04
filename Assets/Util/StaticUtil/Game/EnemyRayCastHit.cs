@@ -8,6 +8,9 @@ using UnityEngine;
 
 namespace Assets.Util
 {
+    /// <summary>
+    /// Contains information relevant to a RayCast hitting an enemy.
+    /// </summary>
     public struct EnemyRaycastHit
     {
         public Enemy Enemy;

@@ -7,6 +7,11 @@ using Assets.Constants;
 
 namespace Assets
 {
+    /// <summary>
+    /// Which unique type of object best represents a given GameObject
+    /// to use to calculate its current time scale.
+    /// </summary>
+    /// <inheritdoc/>
     public enum TimeScaleType
     {
         Default,

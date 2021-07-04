@@ -11,7 +11,10 @@ using Assets.Bullets.EnemyBullets;
 namespace Assets.Bullets.PlayerBullets
 {
     /// <summary>
-    ///
+    /// A bullet that will slowly travel upward, scale in to a specified width,
+    /// and reflect any enemy bullets it collides with.
+    /// The bullet becomes wider with higher bullet levels, and can penetrate
+    /// one additional enemy with each level.
     /// </summary>
     /// <inheritdoc/>
     public class ReflectBullet : PermanentVelocityPlayerBullet

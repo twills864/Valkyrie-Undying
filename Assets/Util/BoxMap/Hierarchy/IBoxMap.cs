@@ -2,7 +2,9 @@
 
 namespace Assets.Util
 {
-    // Easily allows you to get various information and locations about a given box area
+    /// <summary>
+    /// Contains size and location information about a given rectangular area
+    /// </summary>
     public interface IBoxMap
     {
         Vector3 TopLeft { get; }

@@ -6,6 +6,11 @@ using System.Threading.Tasks;
 
 namespace Assets.Util
 {
+    /// <summary>
+    /// A range of float values between a given start value
+    /// and a given end value.
+    /// </summary>
+    /// <inheritdoc/>
     public struct FloatRange : IValueRange<float>
     {
         #region Property Fields

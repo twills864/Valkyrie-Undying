@@ -8,6 +8,12 @@ using UnityEngine;
 
 namespace Assets.Components
 {
+    /// <summary>
+    /// Represents a component that will handle common game functionality
+    /// for a specified host ValkyrieSprite, and will be managed by the
+    /// host itself, instead of being attached to a GameObject in the Unity editor.
+    /// </summary>
+    /// <inheritdoc/>
     public abstract class ValkyrieComponent
     {
         protected ValkyrieSprite Host { get; private set; }

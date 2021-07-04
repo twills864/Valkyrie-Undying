@@ -10,7 +10,8 @@ using Assets.Enemies;
 namespace Assets.Bullets.PlayerBullets
 {
     /// <summary>
-    ///
+    /// A bullet that will explode out of an enemy with the Infested status effect.
+    /// Any enemy this bullet touches adds 1 parasite damage.
     /// </summary>
     /// <inheritdoc/>
     public class ParasiteBullet : PlayerBullet

@@ -13,6 +13,10 @@ using static Assets.Enemies.TankEnemy;
 
 namespace Assets.FireStrategies.EnemyFireStrategies
 {
+    /// <summary>
+    /// Fires a burst of Tank enemy bullets in quick succession.
+    /// </summary>
+    /// <inheritdoc/>
     public class TankEnemyFireStrategy : VariantLoopingEnemyFireStrategy<TankEnemyBullet>
     {
         private TankVariantFireSpeedExtra FireSpeedExtra;

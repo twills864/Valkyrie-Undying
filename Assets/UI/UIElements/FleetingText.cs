@@ -6,6 +6,10 @@ using UnityEngine;
 
 namespace Assets.UI
 {
+    /// <summary>
+    /// A label that flies directly up from a given point,
+    /// and fades out after a brief moment.
+    /// </summary>
     /// <inheritdoc/>
     public class FleetingText : UIElement
     {

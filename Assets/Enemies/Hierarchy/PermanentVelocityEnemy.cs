@@ -3,6 +3,10 @@ using UnityEngine;
 
 namespace Assets.Enemies
 {
+    /// <summary>
+    /// Represents an enemy whose velocity will be assigned
+    /// as soon as the instance is created, and will never change.
+    /// </summary>
     /// <inheritdoc/>
     public abstract class PermanentVelocityEnemy : AutomaticFireStrategyEnemy
     {

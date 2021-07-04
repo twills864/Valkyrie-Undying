@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Assets.Powerups
 {
+    /// <inheritdoc/>
     public class OnDefaultWeaponLevelUpList : PowerupList<OnDefaultWeaponLevelUpPowerup>
     {
         public OnDefaultWeaponLevelUpList(int powerupManagerIndex) : base(powerupManagerIndex)

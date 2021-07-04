@@ -9,6 +9,10 @@ using UnityEngine;
 
 namespace Assets
 {
+    /// <summary>
+    /// Manages a series of AudioSources used to play sound effects
+    /// with a specified pan and volume.
+    /// </summary>
     public static class SoundManager
     {
         private const string PathSoundEffect = "Audio/Sounds/";

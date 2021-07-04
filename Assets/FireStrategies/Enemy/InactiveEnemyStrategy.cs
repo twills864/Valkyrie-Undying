@@ -4,6 +4,9 @@ using Assets.Util;
 
 namespace Assets.FireStrategies.EnemyFireStrategies
 {
+    /// <summary>
+    /// Represents a fire strategy that will never activate or attempt to fire.
+    /// </summary>
     /// <inheritdoc/>
     public class InactiveEnemyStrategy : EnemyFireStrategy<BasicEnemyBullet>
     {

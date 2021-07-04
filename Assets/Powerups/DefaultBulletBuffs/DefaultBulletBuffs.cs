@@ -11,6 +11,9 @@ using UnityEngine;
 
 namespace Assets.Powerups.DefaultBulletBuff
 {
+    /// <summary>
+    /// Contains all buffs that may be applied to DefaultInfluencedBullets.
+    /// </summary>
     public static class DefaultBulletBuffs
     {
         #region Property Fields

@@ -29,6 +29,9 @@ using Assets.Powerups.DefaultBulletBuff;
 
 namespace Assets
 {
+    /// <summary>
+    /// Manages the logic of the main playable game's screen.
+    /// </summary>
     /// <inheritdoc/>
     public class GameManager : MonoBehaviour
     {

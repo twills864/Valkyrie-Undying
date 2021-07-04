@@ -7,6 +7,10 @@ using UnityEngine;
 
 namespace Assets.UI.UIElements.EnemyHealthBar
 {
+    /// <summary>
+    /// The status bar that will hold status effects that don't go away until the enemy dies.
+    /// </summary>
+    /// <inheritdoc/>
     public class EnemyPermanentStatusBar : EnemyStatusBarBase
     {
         #region Property Fields

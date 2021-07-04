@@ -10,6 +10,10 @@ using UnityEngine;
 
 namespace Assets.Bullets.PlayerBullets
 {
+    /// <summary>
+    /// The default bullet fired by the player when they don't have
+    /// any heavy weapons actively firing.
+    /// </summary>
     /// <inheritdoc/>
     public class DefaultBullet : DefaultInfluencedBullet
     {

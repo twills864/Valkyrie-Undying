@@ -6,6 +6,11 @@ using UnityEngine;
 
 namespace Assets.Bullets.PlayerBullets
 {
+    /// <summary>
+    /// A bullet that will hit an enemy, then bounce off and fly towards
+    /// a randomly-picked target enemy.
+    /// The number of times a bullet can bounce increases with the bullet level.
+    /// </summary>
     /// <inheritdoc/>
     public class BounceBullet : BouncingBullet
     {

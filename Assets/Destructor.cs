@@ -3,7 +3,12 @@ using UnityEngine;
 
 namespace Assets
 {
-    // The object that detects when objects have left the scene, and therefore should be removed
+    /// <summary>
+    /// The invisible object that encompasses the entire visible screen
+    /// plus a small buffer, and detects when objects have left the scene.
+    /// These leaving objects should usually be deactivated or otherwise
+    /// removed from the scene.
+    /// </summary>
     /// <inheritdoc/>
     public class Destructor : MonoBehaviour
     {

@@ -11,7 +11,9 @@ using Assets.Enemies;
 namespace Assets.Bullets.PlayerBullets
 {
     /// <summary>
-    ///
+    /// Represents the joint between two lines of a Smite lightning bolt.
+    /// While it contains a bulk of the logic that makes the Smite powerup work,
+    /// it currently has no visible render element.
     /// </summary>
     /// <inheritdoc/>
     public class SmiteJointBullet : SmiteBullet

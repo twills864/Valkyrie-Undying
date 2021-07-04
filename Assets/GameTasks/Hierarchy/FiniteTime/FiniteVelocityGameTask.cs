@@ -7,6 +7,10 @@ using UnityEngine;
 
 namespace Assets.GameTasks
 {
+    /// <summary>
+    /// Represents a GameTask that will change the velocity of its target
+    /// over a finite amount of time.
+    /// </summary>
     /// <inheritdoc/>
     public abstract class FiniteVelocityGameTask : FiniteMovementGameTask
     {

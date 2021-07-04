@@ -9,12 +9,16 @@ using UnityEngine;
 
 namespace Assets.Util
 {
+    /// <summary>
+    /// Contains useful methods to save and load all information
+    /// that either needs to be saved between game sessions,
+    /// or should be saved.
+    /// </summary>
+    /// <inheritdoc />
     public static class SaveUtil
     {
         #region Property Fields
-
         private static List<Powerup> s_allPowerups;
-
         #endregion Property Fields
 
         private const string _SaveFileName = "Valkyrie.dat";

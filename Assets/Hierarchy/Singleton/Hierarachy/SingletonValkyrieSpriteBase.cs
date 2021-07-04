@@ -7,6 +7,11 @@ using Assets.Hierarchy.ColorHandlers;
 
 namespace Assets
 {
+    /// <summary>
+    /// Represents a ValkyrieSprite that will only allow a single represented instance,
+    /// allowing them to easily persist between game scenes.
+    /// </summary>
+    /// <inheritdoc/>
     public abstract class SingletonValkyrieSpriteBase : ValkyrieSprite
     {
         public override TimeScaleType TimeScale => TimeScaleType.Default;

@@ -9,7 +9,7 @@ using UnityEngine;
 namespace Assets.Bullets.PlayerBullets
 {
     /// <summary>
-    ///
+    /// Represents the visible line between two joints of a Smite powerup lightning bolt.
     /// </summary>
     /// <inheritdoc/>
     public class SmiteLightningBullet : SmiteBullet

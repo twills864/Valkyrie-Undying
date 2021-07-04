@@ -6,12 +6,15 @@ using System.Reflection;
 
 #if UNITY_EDITOR
 
+/// <summary>
 /// This just exposes the Sorting Layer / Order in MeshRenderer since it's there
 /// but not displayed in the inspector. Getting MeshRenderer to render in front
 /// of a SpriteRenderer is pretty hard without this.
 /// Adapted from https://gist.github.com/sinbad/bd0c49bc462289fa1a018ffd70d806e3
 /// With changes from https://forum.unity.com/threads/extending-mesh-renderer-component-with-a-custom-editor.949176/
 /// to preserve the Unity MeshRenderer GUI.
+/// </summary>
+/// <inheritdoc/>
 [CustomEditor(typeof(MeshRenderer))]
 [CanEditMultipleObjects]
 public class MeshRendererSortingEditor : Editor

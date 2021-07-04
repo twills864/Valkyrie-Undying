@@ -6,6 +6,9 @@ using UnityEngine;
 
 namespace Assets.FireStrategies.PlayerFireStrategies
 {
+    /// <summary>
+    /// Fires a single Bounce bullet directly up.
+    /// </summary>
     /// <inheritdoc/>
     public class BounceStrategy : PlayerFireStrategy<BounceBullet>
     {

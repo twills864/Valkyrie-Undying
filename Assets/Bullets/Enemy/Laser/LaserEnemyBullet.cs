@@ -9,6 +9,15 @@ using UnityEngine;
 
 namespace Assets.Bullets.EnemyBullets
 {
+    /// <summary>
+    /// The bullet fired by the Laser enemy. This bullet will fade in
+    /// to a slightly transparent color in order to show the player
+    /// where it will activate. The laser then activates, damaging the player
+    /// if the player is in the laser's path on the frame that it activates.
+    ///
+    /// Unlike other enemy bullets, this player bullet does not have
+    /// a Unity Collider component.
+    /// </summary>
     /// <inheritdoc/>
     public class LaserEnemyBullet : EnemyBullet
     {

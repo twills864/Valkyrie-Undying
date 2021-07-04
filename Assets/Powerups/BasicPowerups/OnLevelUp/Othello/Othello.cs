@@ -16,8 +16,9 @@ using UnityEngine;
 namespace Assets.Powerups
 {
     /// <summary>
-    /// A mirror self that fires bullets alongside the player.
+    /// The mirror self spawned by the Othello powerup.
     /// </summary>
+    /// <inheritdoc/>
     public class Othello : ValkyrieSprite
     {
         public static Othello Instance { get; set; }

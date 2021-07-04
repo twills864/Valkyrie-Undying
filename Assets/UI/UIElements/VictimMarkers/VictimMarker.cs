@@ -9,6 +9,10 @@ using UnityEngine;
 
 namespace Assets.UI
 {
+    /// <summary>
+    /// Uses four VictimMarkerCorners to designate the current target
+    /// of the Victim powerup.
+    /// </summary>
     /// <inheritdoc/>
     public class VictimMarker : UIElement
     {

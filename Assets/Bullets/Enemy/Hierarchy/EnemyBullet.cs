@@ -6,6 +6,10 @@ using UnityEngine;
 
 namespace Assets.Bullets.EnemyBullets
 {
+    /// <summary>
+    /// Represents any bullet that can be fired by an enemy
+    /// and will damage the player if it collides with them.
+    /// </summary>
     /// <inheritdoc/>
     public abstract class EnemyBullet : Bullet
     {

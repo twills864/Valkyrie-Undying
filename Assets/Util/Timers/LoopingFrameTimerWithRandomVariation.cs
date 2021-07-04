@@ -3,6 +3,10 @@ using Assets.UnityPrefabStructs;
 
 namespace Assets.Util
 {
+    /// <summary>
+    /// A LoopingFrameTimer that has a random amount of additional time
+    /// in the positive or negative direction with each loop.
+    /// </summary>
     /// <inheritdoc/>
     [DebuggerDisplay("{DebuggerDisplay}")]
     public class LoopingFrameTimerWithRandomVariation : LoopingFrameTimer

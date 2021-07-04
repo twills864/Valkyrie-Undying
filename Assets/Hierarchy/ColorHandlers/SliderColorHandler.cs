@@ -8,6 +8,10 @@ using UnityEngine.UI;
 
 namespace Assets.Hierarchy.ColorHandlers
 {
+    /// <summary>
+    /// Sets the color of a given Unity Slider.
+    /// </summary>
+    /// <inheritdoc/>
     public class SliderColorHandler : ColorHandler
     {
         private Slider Slider;

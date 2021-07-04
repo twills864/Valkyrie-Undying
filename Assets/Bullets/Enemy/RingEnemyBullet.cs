@@ -3,6 +3,11 @@ using UnityEngine;
 
 namespace Assets.Bullets.EnemyBullets
 {
+    /// <summary>
+    /// The bullet fired by the Ring enemy.
+    /// This bullet travels in a straight line, either diagonally down-left
+    /// or diagonally down-right.
+    /// </summary>
     /// <inheritdoc/>
     public class RingEnemyBullet : EnemyBullet
     {

@@ -3,6 +3,14 @@ using UnityEngine;
 
 namespace Assets.Util
 {
+    /// <summary>
+    /// A timer that activates after reaching a specified threshold,
+    /// and remains active until it's reset.
+    ///
+    /// Contains an overflow buffer that can "hold" a small amount of
+    /// extra time, in case a timer is designed to be constantly updated,
+    /// but not deactivated until it's handled manually.
+    /// </summary>
     /// <inheritdoc/>
     public class FrameTimerWithBuffer : FrameTimerBase
     {

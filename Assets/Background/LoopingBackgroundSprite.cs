@@ -7,6 +7,10 @@ using UnityEngine.UI;
 
 namespace Assets.Background
 {
+    /// <summary>
+    /// Represents a sprite that will repeat indefinitely,
+    /// designed to be used as a decoration for the background.
+    /// </summary>
     /// <inheritdoc/>
     public class LoopingBackgroundSprite : TaggedSingletonValkyrieSprite
     {

@@ -7,6 +7,10 @@ using UnityEngine;
 
 namespace Assets.UI.SpriteBank
 {
+    /// <summary>
+    /// A SpecializedSpriteBank that contains sprites representing powerups.
+    /// </summary>
+    /// <inheritdoc/>
     public class PowerupSpriteBank : SpecializedSpriteBank
     {
         protected override string SpritePath => "Sprites/Powerups";

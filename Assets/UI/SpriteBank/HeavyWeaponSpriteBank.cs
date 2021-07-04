@@ -7,6 +7,10 @@ using UnityEngine;
 
 namespace Assets.UI.SpriteBank
 {
+    /// <summary>
+    /// A SpecializedSpriteBank that contains sprites representing heavy weapon fire strategies.
+    /// </summary>
+    /// <inheritdoc/>
     public class HeavyWeaponSpriteBank : SpecializedSpriteBank
     {
         protected override string SpritePath => "Sprites/HeavyWeapons";

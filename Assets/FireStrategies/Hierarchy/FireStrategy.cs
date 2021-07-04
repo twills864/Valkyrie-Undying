@@ -4,6 +4,9 @@ using Assets.Util;
 
 namespace Assets.FireStrategies
 {
+    /// <summary>
+    /// Contains the logic used to spawn bullets in accordance with their functionality.
+    /// </summary>
     /// <inheritdoc/>
     public abstract class FireStrategy
     {

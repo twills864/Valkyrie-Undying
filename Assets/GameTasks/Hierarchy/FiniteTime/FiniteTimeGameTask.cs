@@ -7,10 +7,15 @@ using Assets.Util;
 
 namespace Assets.GameTasks
 {
+    /// <summary>
+    /// Represents a GameTask that will run to completion in a known and finite amount of time.
+    /// </summary>
     /// <inheritdoc/>
     public abstract class FiniteTimeGameTask : GameTask
     {
+        #region Property Fields
         private float _duration;
+        #endregion Property Fields
 
         /// <summary>
         /// The duration that this Task will run for.

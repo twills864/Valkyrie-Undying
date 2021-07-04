@@ -5,6 +5,10 @@ using UnityEngine;
 
 namespace Assets.UI
 {
+    /// <summary>
+    /// A straight line used as one element of the VictimMarker
+    /// that designates the current target of the Victim powerup.
+    /// </summary>
     /// <inheritdoc/>
     public class VictimMarkerCorner : UIElement
     {

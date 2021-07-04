@@ -10,6 +10,11 @@ using UnityEngine;
 
 namespace Assets.FireStrategies.EnemyFireStrategies
 {
+    /// <summary>
+    /// Fires Cradle enemy bullets with a given velocity scale
+    /// that matches the current rotation of the Cradle enemy.
+    /// </summary>
+    /// <inheritdoc/>
     public class CradleEnemyFireStrategy : EnemyFireStrategy<CradleEnemyBullet>
     {
         public CradleEnemyFireStrategy() : this(PoolManager.Instance.EnemyBulletPool.GetPrefab<CradleEnemyBullet>())

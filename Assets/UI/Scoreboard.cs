@@ -5,6 +5,10 @@ using UnityEngine;
 
 namespace Assets.UI
 {
+    /// <summary>
+    /// The label that displays how many points the player currently has.
+    /// </summary>
+    /// <inheritdoc/>
     public class Scoreboard : MonoBehaviour
     {
         public static Scoreboard Instance { get; set; }

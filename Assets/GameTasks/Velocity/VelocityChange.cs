@@ -8,6 +8,11 @@ using UnityEngine;
 
 namespace Assets.GameTasks
 {
+    /// <summary>
+    /// Changes the Velocity value of the target ValkyrieSprite
+    /// between two specified values over a specified period of time.
+    /// </summary>
+    /// <inheritdoc/>
     public class VelocityChange : FiniteVelocityGameTask
     {
         private Vector2Range VelocityRange;

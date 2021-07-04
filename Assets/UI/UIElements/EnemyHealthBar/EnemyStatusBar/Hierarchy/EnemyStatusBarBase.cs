@@ -7,6 +7,11 @@ using UnityEngine;
 
 namespace Assets.UI.UIElements.EnemyHealthBar
 {
+    /// <summary>
+    /// Represents a status bar that will display an icon for each status effect
+    /// an enemy has, and optionally a number describing the power of the effect.
+    /// </summary>
+    /// <inheritdoc/>
     public abstract class EnemyStatusBarBase : UIElement
     {
         protected sealed override ColorHandler DefaultColorHandler() => new NullColorHandler();

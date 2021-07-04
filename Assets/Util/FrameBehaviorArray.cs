@@ -6,6 +6,13 @@ using System.Threading.Tasks;
 
 namespace Assets.Util
 {
+    /// <summary>
+    /// Contains an array of Actions that each represent one of many possible
+    /// behaviors a given GameObject should be running on a given frame.
+    /// For example, an enemy may have vastly different functionality when it's
+    /// first flying in to the screen compared to when it is actively attacking
+    /// the player.
+    /// </summary>
     public struct FrameBehaviorArray
     {
         public int BehaviorIndex;

@@ -1,4 +1,5 @@
-﻿using Assets.Bullets.EnemyBullets;
+﻿using System;
+using Assets.Bullets.EnemyBullets;
 using Assets.Bullets.PlayerBullets;
 using Assets.Constants;
 using Assets.Enemies;
@@ -7,7 +8,11 @@ using UnityEngine;
 
 namespace Assets.Bullets.PlayerBullets
 {
+    /// <summary>
+    /// The bullet fired by the now-deprecated Pest Control powerup.
+    /// </summary>
     /// <inheritdoc/>
+    [Obsolete(ObsoleteConstants.FollowTheFun)]
     public class PestControlBullet : PlayerBullet
     {
         protected override bool ShouldMarkSelfCollision => false;

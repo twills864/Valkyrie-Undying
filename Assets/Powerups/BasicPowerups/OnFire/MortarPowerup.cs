@@ -13,7 +13,15 @@ using UnityEngine;
 namespace Assets.Powerups
 {
     /// <summary>
+    /// Activates two mortars at the bottom corners of the screen.
+    /// Each mortar is constantly aiming at the point in space directly
+    /// above the player with a y-coordinate equal to the center of the screen.
     ///
+    /// A mortar fires each time the player fires their main cannon,
+    /// with a reasonable minimum delay between mortar shots.
+    ///
+    /// If the player fires multiple bullets at once, both mortars
+    /// may fire simultaneously.
     /// </summary>
     /// <inheritdoc/>
     public class MortarPowerup : OnFirePowerup

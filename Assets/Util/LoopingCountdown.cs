@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Assets.Util
 {
+    /// <summary>
+    /// A countdown that activates after being checked a given number of times.
+    /// </summary>
     public struct LoopingCountdown
     {
         private int Counter;

@@ -7,6 +7,10 @@ using UnityEngine;
 
 namespace Assets.UI.UIElements.EnemyHealthBar
 {
+    /// <summary>
+    /// The sprite rendered on the status bar when an enemy has a status effect.
+    /// </summary>
+    /// <inheritdoc/>
     public class EnemyStatusSprite : UIElement
     {
         #region Property Fields

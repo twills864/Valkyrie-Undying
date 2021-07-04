@@ -10,6 +10,9 @@ using UnityEngine;
 
 namespace Assets.UI
 {
+    /// <summary>
+    /// The label that displays the current Metronome power of a given enemy.
+    /// </summary>
     /// <inheritdoc/>
     [Obsolete(MetronomePowerup.MetronomeObsolete)]
     public class MetronomeLabel : UIElement

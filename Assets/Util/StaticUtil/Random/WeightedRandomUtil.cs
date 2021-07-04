@@ -8,6 +8,11 @@ using Random = System.Random;
 
 namespace Assets.Util
 {
+    /// <summary>
+    /// Contains useful methods for generating or evaluating random results
+    /// that need to be biased towards a certain value.
+    /// </summary>
+    /// <inheritdoc />
     public static class WeightedRandomUtil
     {
         private const float RatioClamp = 0.999f;

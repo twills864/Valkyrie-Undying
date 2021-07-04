@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Assets.Powerups
 {
+    /// <inheritdoc/>
     public class PassivePowerupList : PowerupList<PassivePowerup>
     {
         public PassivePowerupList(int powerupManagerIndex) : base(powerupManagerIndex)

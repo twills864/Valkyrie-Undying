@@ -10,6 +10,9 @@ using UnityEngine;
 
 namespace Assets.Util
 {
+    /// <summary>
+    /// Contains all information that needs to be saved between game sessions.
+    /// </summary>
     [Serializable]
     public class SaveData
     {

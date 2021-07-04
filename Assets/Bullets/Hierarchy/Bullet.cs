@@ -5,6 +5,9 @@ using UnityEngine;
 
 namespace Assets.Bullets
 {
+    /// <summary>
+    /// Represents a bullet either fired by the player, or by an enemy.
+    /// </summary>
     /// <inheritdoc/>
     public abstract class Bullet : PooledObject
     {

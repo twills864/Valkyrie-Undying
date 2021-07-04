@@ -7,6 +7,7 @@ using Assets.Powerups.Balance;
 
 namespace Assets.Powerups
 {
+    /// <inheritdoc/>
     public class OnDefaultWeaponHitList : PowerupList<OnDefaultWeaponHitPowerup>
     {
         public OnDefaultWeaponHitList(int powerupManagerIndex) : base(powerupManagerIndex)

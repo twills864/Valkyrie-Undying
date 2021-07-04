@@ -15,6 +15,10 @@ using UnityEngine;
 
 namespace Assets.Powerups
 {
+    /// <summary>
+    /// The rain cloud spawned by the Monsoon powerup.
+    /// </summar>
+    /// <inheritdoc/>
     public class Monsoon : ValkyrieSprite
     {
         public static Monsoon Instance { get; set; }

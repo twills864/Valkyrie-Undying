@@ -10,6 +10,9 @@ using UnityEngine;
 
 namespace Assets.ObjectPooling
 {
+    /// <summary>
+    /// A PoolList that contains EnemyBullet pools.
+    /// </summary>
     /// <inheritdoc/>
     public class EnemyBulletPoolList : PoolList<EnemyBullet>
     {

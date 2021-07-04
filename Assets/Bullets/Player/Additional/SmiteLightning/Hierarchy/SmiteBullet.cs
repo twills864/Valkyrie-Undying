@@ -12,7 +12,9 @@ using Assets.Bullets.EnemyBullets;
 namespace Assets.Bullets.PlayerBullets
 {
     /// <summary>
-    ///
+    /// The Smite powerup's lightning bolt effect is made of a series of smaller connected bullets.
+    /// This class represents one of these smaller bullets in the bolt.
+    /// Contains functionality to store each bullet as an element in a linked list representing the bolt.
     /// </summary>
     /// <inheritdoc/>
     public abstract class SmiteBullet : PlayerBullet

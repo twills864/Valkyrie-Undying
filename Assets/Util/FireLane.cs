@@ -7,6 +7,11 @@ using UnityEngine;
 
 namespace Assets.Util
 {
+    /// <summary>
+    /// Information about a bullet fired being fired as part of a spread
+    /// that shows how much its position should be offset from the initial
+    /// fire point, and what its velocity should be.
+    /// </summary>
     public struct FireLane
     {
         public Vector3 PositionOffset;
@@ -27,6 +32,12 @@ namespace Assets.Util
         }
     }
 
+    /// <summary>
+    /// Information about a bullet fired being fired as part of a spread
+    /// that shows how much its position should be offset from the initial
+    /// fire point, what its velocity should be, and what angle the sprite
+    /// should be rotated to.
+    /// </summary>
     public struct FireLaneWithAngle
     {
         public Vector3 PositionOffset;

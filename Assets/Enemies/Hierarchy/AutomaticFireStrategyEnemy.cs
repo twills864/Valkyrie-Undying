@@ -11,6 +11,11 @@ using UnityEngine;
 
 namespace Assets.Enemies
 {
+    /// <summary>
+    /// Represents an enemy that will automatically and peridoically
+    /// fire bullets with a random delay.
+    /// </summary>
+    /// <inheritdoc/>
     public abstract class AutomaticFireStrategyEnemy : Enemy
     {
         #region Prefabs

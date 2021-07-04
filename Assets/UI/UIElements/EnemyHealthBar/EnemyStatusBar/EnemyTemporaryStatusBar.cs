@@ -5,6 +5,10 @@ using UnityEngine;
 
 namespace Assets.UI.UIElements.EnemyHealthBar
 {
+    /// <summary>
+    /// The status bar that will hold status effects that may go away before the enemy dies.
+    /// </summary>
+    /// <inheritdoc/>
     public class EnemyTemporaryStatusBar : EnemyStatusBarBase
     {
         #region Prefabs

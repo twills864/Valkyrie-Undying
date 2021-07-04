@@ -7,6 +7,14 @@ using System.Threading.Tasks;
 
 namespace Assets.ObjectPooling
 {
+    /// <summary>
+    /// Tracks a given PooledObject, and provides methods to determine
+    /// whether or not a given PooledObject is both the same one assigned
+    /// to the tracker, and that it hasn't been deactivated and reactivated
+    /// since the original was assigned.
+    /// </summary>
+    /// <typeparam name="T">The type of PooledObject to track.</typeparam>
+    /// <inheritdoc/>
     [DebuggerDisplay("({TargetSpawnId}) {Target}")]
     public class PooledObjectTracker<T> where T : PooledObject
     {

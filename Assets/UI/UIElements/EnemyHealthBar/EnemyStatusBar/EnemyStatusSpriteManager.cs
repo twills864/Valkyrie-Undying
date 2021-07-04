@@ -8,6 +8,9 @@ using UnityEngine;
 
 namespace Assets.UI.UIElements.EnemyHealthBar
 {
+    /// <summary>
+    /// Sorts and displays all status effects currently experienced by an enemy.
+    /// </summary>
     public class EnemyStatusSpriteManager
     {
         private const float WorkingSpriteHeight = 0.35f;

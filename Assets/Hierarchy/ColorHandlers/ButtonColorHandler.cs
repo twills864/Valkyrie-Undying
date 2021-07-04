@@ -8,6 +8,10 @@ using UnityEngine.UI;
 
 namespace Assets.Hierarchy.ColorHandlers
 {
+    /// <summary>
+    /// Sets the color of a given Unity button.
+    /// </summary>
+    /// <inheritdoc/>
     public class ButtonColorHandler : ColorHandler
     {
         private Button Button;

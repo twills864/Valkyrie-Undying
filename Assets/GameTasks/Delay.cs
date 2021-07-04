@@ -8,6 +8,11 @@ using UnityEngine;
 
 namespace Assets.GameTasks
 {
+    /// <summary>
+    /// Deliberately does nothing over a specified period of time.
+    /// Designed to be used as part of a Sequence which might require
+    /// a delay before activating some functionality.
+    /// </summary>
     /// <inheritdoc/>
     public class Delay : FiniteTimeGameTask
     {

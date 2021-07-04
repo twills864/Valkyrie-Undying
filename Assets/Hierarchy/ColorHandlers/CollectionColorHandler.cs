@@ -7,6 +7,10 @@ using UnityEngine;
 
 namespace Assets.Hierarchy.ColorHandlers
 {
+    /// <summary>
+    /// Sets the colors of several ColorHandlers at once.
+    /// </summary>
+    /// <inheritdoc/>
     public class CollectionColorHandler : ColorHandler
     {
         private ColorHandler[] Handlers;

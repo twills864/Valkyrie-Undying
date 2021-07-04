@@ -14,6 +14,11 @@ using UnityEngine;
 
 namespace Assets.Bullets.PlayerBullets
 {
+    /// <summary>
+    /// The background illumination effect that appears after
+    /// firing the Battle-Frenzied Guillotine.
+    /// </summary>
+    /// <inheritdoc/>
     public class BfgBulletFallout : PlayerBullet
     {
         private static BfgBulletFallout Instance { get; set; }

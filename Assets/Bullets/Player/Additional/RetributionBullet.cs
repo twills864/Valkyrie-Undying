@@ -12,6 +12,12 @@ using UnityEngine;
 
 namespace Assets.Bullets.PlayerBullets
 {
+    /// <summary>
+    /// The explosion activated after the player takes damage.
+    /// The retribution bullet scales in to eventually cover the entire screen,
+    /// drastically slowing down the time scale of every object it collides with
+    /// before resuming the normal game speed over time.
+    /// </summary>
     /// <inheritdoc/>
     public class RetributionBullet : PermanentVelocityPlayerBullet
     {

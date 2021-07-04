@@ -13,7 +13,7 @@ using UnityEngine;
 namespace Assets.FireStrategies.PlayerFireStrategies
 {
     /// <summary>
-    ///
+    /// Fires a single Reflect bullet directly up.
     /// </summary>
     /// <inheritdoc/>
     public class ReflectStrategy : PlayerFireStrategy<ReflectBullet>

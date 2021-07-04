@@ -12,6 +12,10 @@ using UnityEngine.UI;
 
 namespace Assets.Util
 {
+    /// <summary>
+    /// A GUI that contains several developer tools to be used for debugging purposes.
+    /// </summary>
+    /// <inheritdoc />
     public class DebugUI : MonoBehaviour
     {
         public const int DebugLabelFontSize = 20;

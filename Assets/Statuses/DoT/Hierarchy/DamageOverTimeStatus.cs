@@ -12,6 +12,7 @@ namespace Assets.Statuses
     /// <summary>
     /// Deals a specified amount of damage to the affected enemy each tick.
     /// </summary>
+    /// <inheritdoc/>
     public abstract class DamageOverTimeStatus : TickingStatusEffect
     {
         private const float ActivationInterval = 1.0f;

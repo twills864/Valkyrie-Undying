@@ -3,6 +3,10 @@ using UnityEngine;
 
 namespace Assets.Bullets.PlayerBullets
 {
+    /// <summary>
+    /// A bullet that will be fired in a spread of bullets
+    /// with randomly-generated vertical and horizontal velocities.
+    /// </summary>
     /// <inheritdoc/>
     public class FlakBullet : HighVelocityPlayerBullet
     {

@@ -10,6 +10,11 @@ using Assets.Util;
 
 namespace Assets.UI.PowerupMenu
 {
+    /// <summary>
+    /// The debug powerup row that appears outside the powerup menu
+    /// as part of the normal debug UI.
+    /// </summary>
+    /// <inheritdoc/>
     public class GameSceneDebugPowerupRow : MonoBehaviour
     {
         #region Prefabs

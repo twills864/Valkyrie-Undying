@@ -8,6 +8,10 @@ using UnityEngine;
 
 namespace Assets.FireStrategies.PlayerFireStrategies
 {
+    /// <summary>
+    /// Fires a single Gatling bullet with a random spread.
+    /// The bullet spread and fire speed both improve with higher bullet levels.
+    /// </summary>
     /// <inheritdoc/>
     public class GatlingStrategy : PlayerFireStrategy<GatlingBullet>
     {

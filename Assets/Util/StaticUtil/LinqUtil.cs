@@ -3,6 +3,9 @@ using System.Runtime.CompilerServices;
 
 namespace Assets.Util
 {
+    /// <summary>
+    /// Contains useful methods that generate or otherwise manipulate collections.
+    /// </summary>
     public static class LinqUtil
     {
         /// <summary>

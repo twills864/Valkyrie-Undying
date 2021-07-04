@@ -9,6 +9,9 @@ using Assets.Constants;
 
 namespace Assets.ObjectPooling
 {
+    /// <summary>
+    /// A PoolList that contains Enemy pools.
+    /// </summary>
     /// <inheritdoc/>
     public class EnemyPoolList : PoolList<Enemy>
     {

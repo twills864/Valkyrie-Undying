@@ -6,6 +6,11 @@ using UnityEngine;
 
 namespace Assets.Bullets.PlayerBullets
 {
+    /// <summary>
+    /// The bullet produced after reflecting an enemy bullet.
+    /// This bullet will base its appearance and behavior based on the
+    /// size and velocity of the enemy bullet being reflected.
+    /// </summary>
     /// <inheritdoc/>
     public class ReflectedBullet : PlayerBullet
     {

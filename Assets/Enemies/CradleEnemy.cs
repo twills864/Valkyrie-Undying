@@ -8,6 +8,10 @@ using UnityEngine;
 
 namespace Assets.Enemies
 {
+    /// <summary>
+    /// An enemy that rotates back and forth, firing bullets diagonally-down at each end
+    /// of the rotation, and straight down in the middle of it.
+    /// </summary>
     /// <inheritdoc/>
     public class CradleEnemy : Enemy
     {

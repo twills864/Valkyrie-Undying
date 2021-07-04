@@ -14,6 +14,12 @@ namespace Assets.Powerups
         int PowerupManagerIndex { get; }
         void Init(Dictionary<Type, Powerup> allPowerups, in PowerupBalanceManager balance);
     }
+
+    /// <summary>
+    /// Represents a list of Powerups.
+    /// </summary>
+    /// <typeparam name="TPowerUp">The type of powerup to represent.</typeparam>
+    /// <inheritdoc/>
     public abstract class PowerupList<TPowerUp> : List<TPowerUp>, IPowerupList where TPowerUp : Powerup
     {
         public int PowerupManagerIndex { get; set; }

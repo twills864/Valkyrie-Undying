@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace Assets.Util
 {
+    /// <summary>
+    /// Contains useful methods for manipulating C# collections.
+    /// </summary>
     public static class CollectionUtil
     {
         /// <summary>

@@ -7,6 +7,11 @@ using UnityEngine;
 
 namespace Assets.GameTasks
 {
+    /// <summary>
+    /// Changes the position of the target ValkyrieSprite
+    /// by a specified amount over a specified period of time.
+    /// </summary>
+    /// <inheritdoc/>
     public class MoveBy : FiniteMovementGameTask
     {
         private Vector3 _distance;

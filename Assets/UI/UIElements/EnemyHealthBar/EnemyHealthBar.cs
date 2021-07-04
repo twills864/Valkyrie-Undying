@@ -9,6 +9,11 @@ using UnityEngine;
 
 namespace Assets.UI
 {
+    /// <summary>
+    /// Displays the remaining number of hit points an enemy has left
+    /// as a numerical value.
+    /// </summary>
+    /// <inheritdoc/>
     public class EnemyHealthBar : UIElement
     {
         public static float HealthBarHeight { get; private set; }

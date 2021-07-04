@@ -9,6 +9,11 @@ using UnityEngine;
 
 namespace Assets.Bullets.PlayerBullets
 {
+    /// <summary>
+    /// The bullet fired after the Battle-Frenzied Guillotine is done charging its pre-fire shot.
+    /// It collides with an unlimited number of enemies for a brief period of time
+    /// after its activation, before fading out and eventually despawning.
+    /// </summary>
     /// <inheritdoc/>
     public class BfgBullet : PlayerBullet
     {

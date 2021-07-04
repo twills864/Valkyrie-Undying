@@ -8,6 +8,11 @@ using UnityEngine;
 
 namespace Assets.Components
 {
+    /// <summary>
+    /// Tracks a given ValkyrieSprite's position, and calculates its represented velocity
+    /// by taking the average distance over time from the last few frames.
+    /// </summary>
+    /// <inheritdoc/>
     public class RepresentedVelocityTracker : ValkyrieComponent
     {
         private const int FrameHistoryLength = 4;

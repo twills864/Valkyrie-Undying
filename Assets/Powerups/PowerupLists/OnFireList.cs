@@ -7,6 +7,7 @@ using Assets.Powerups.Balance;
 
 namespace Assets.Powerups
 {
+    /// <inheritdoc/>
     public class OnFireList : PowerupList<OnFirePowerup>
     {
         public OnFireList(int powerupManagerIndex) : base(powerupManagerIndex)

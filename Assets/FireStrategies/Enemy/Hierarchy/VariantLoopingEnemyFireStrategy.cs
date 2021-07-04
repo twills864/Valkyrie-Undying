@@ -10,6 +10,12 @@ using Assets.Util;
 
 namespace Assets.FireStrategies.EnemyFireStrategies
 {
+    /// <summary>
+    /// A fire strategy that periodically fires a specified enemy bullet
+    /// with a given fixed delay and random delay variance.
+    /// </summary>
+    /// <typeparam name="T">The type of enemy bullet to fire.</typeparam>
+    /// <inheritdoc/>
     public abstract class VariantLoopingEnemyFireStrategy<T> : EnemyFireStrategy<T>
         where T : EnemyBullet
     {
