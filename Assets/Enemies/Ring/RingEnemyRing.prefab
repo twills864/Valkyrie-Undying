@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5374573577975716727}
   - component: {fileID: 608344714588277876}
   - component: {fileID: 6916010081278206620}
-  - component: {fileID: 8387141582971678222}
+  - component: {fileID: 488791305089014905}
   m_Layer: 9
   m_Name: RingEnemyRing
   m_TagString: Enemy
@@ -144,8 +144,8 @@ MonoBehaviour:
     FireSpeed: 0
     FireSpeedVariance: 0
   _PermanentVelocity: {x: 0, y: 0}
---- !u!58 &8387141582971678222
-CircleCollider2D:
+--- !u!60 &488791305089014905
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -158,5 +158,52 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 2.5599997
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 5.12, y: 5.12}
+    newSize: {x: 5.12, y: 5.12}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.88, y: -2.4299998}
+      - {x: 1.13, y: -2.32}
+      - {x: 1.18, y: -2.3}
+      - {x: 1.3399999, y: -2.21}
+      - {x: 1.5899999, y: -2.03}
+      - {x: 1.7199999, y: -1.92}
+      - {x: 2.03, y: -1.5899999}
+      - {x: 2.24, y: -1.29}
+      - {x: 2.3899999, y: -0.96999997}
+      - {x: 2.4299998, y: -0.87}
+      - {x: 2.5, y: -0.68}
+      - {x: 2.55, y: -0.47}
+      - {x: 2.56, y: -0.32999998}
+      - {x: 2.54, y: 0.45999998}
+      - {x: 2.3, y: 1.18}
+      - {x: 1.6963681, y: 1.9199935}
+      - {x: 0.93948704, y: 2.4145746}
+      - {x: 0.015424576, y: 2.575969}
+      - {x: -1.02, y: 2.37}
+      - {x: -2.1399999, y: 1.4499999}
+      - {x: -2.54, y: 0.45999998}
+      - {x: -2.5693421, y: -0.15153967}
+      - {x: -2.446963, y: -0.7953952}
+      - {x: -2.21, y: -1.3399999}
+      - {x: -2.1599998, y: -1.42}
+      - {x: -1.5999999, y: -2.03}
+      - {x: -1.1857026, y: -2.2934813}
+      - {x: -0.35999998, y: -2.56}
+      - {x: 0.56, y: -2.52}
+      - {x: 0.68, y: -2.49}
+    - - {x: 1.3208363, y: -1.1762763}
+      - {x: -0.0022487938, y: -1.6829336}
+      - {x: -1.3188778, y: -1.0786855}
+      - {x: -1.772592, y: -0.014472153}
+      - {x: -1.3744842, y: 1.3802466}
+      - {x: -0.029570118, y: 1.8376358}
+      - {x: 1.2757864, y: 1.2973042}
+      - {x: 1.7114805, y: 0.029930938}

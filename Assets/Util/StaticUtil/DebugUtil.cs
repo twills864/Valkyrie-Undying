@@ -417,7 +417,7 @@ namespace Assets.Util
             return ret;
         }
 
-        private static void SpawnAllEnemies()
+        public static void SpawnAllEnemies()
         {
             SpawnSpecificEnemy<BasicEnemy>();
             SpawnSpecificEnemy<CradleEnemy>();

@@ -191,7 +191,8 @@ namespace Assets.Util
 
             //DebugUtil.SpawnSpecificEnemy<TankEnemy>();
             //DebugUtil.SpawnSpecificEnemy<WaspEnemy>();
-            DebugUtil.SpawnSpecificEnemy<NomadEnemy>();
+            //DebugUtil.SpawnSpecificEnemy<NomadEnemy>();
+            DebugUtil.SpawnAllEnemies();
 
             //foreach (var enemy in Director.GetAllActiveEnemies())
             //    enemy.AddAcid(9);
