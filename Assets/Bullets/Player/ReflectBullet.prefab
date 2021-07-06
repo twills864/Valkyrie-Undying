@@ -158,4 +158,4 @@ MonoBehaviour:
   _DefaultScaleMultiplier: 1
   _ScalePerLevel: 0.55
   _ScaleTimePerLevel: 0.18
-  _FadeOutTime: 0.8
+  _FadeOutTime: 0.6

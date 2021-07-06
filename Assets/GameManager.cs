@@ -191,6 +191,9 @@ namespace Assets
         private float _OneUpRainTime = GameConstants.PrefabNumber;
 
         [SerializeField]
+        private float _InitialOneUpRainDelay = GameConstants.PrefabNumber;
+
+        [SerializeField]
         private Sprite _LifeSprite = null;
 
         [SerializeField]
@@ -252,10 +255,9 @@ namespace Assets
 
             WeaponResetTimer = new FrameTimer(InitialWeaponTime);
             WeaponRainTimer = new LoopingFrameTimer(WeaponRainTime);
-            WeaponRainTimer.TimeUntilActivation = 0.1f;
 
             OneUpRainTimer = new LoopingFrameTimer(OneUpRainTime);
-            OneUpRainTimer.TimeUntilActivation = 5f;
+            OneUpRainTimer.TimeUntilActivation = InitialOneUpRainDelay;
 
             _PowerupMenu.Init();
             _PowerupMenu.transform.position += new Vector3(0, 0, 0);
@@ -511,6 +513,7 @@ namespace Assets
         public float InitialWeaponTime => _InitialWeaponTime;
         public float WeaponRainTime => _WeaponRainTime;
         public float OneUpRainTime => _OneUpRainTime;
+        public float InitialOneUpRainDelay => _InitialOneUpRainDelay;
         public int WeaponLevel { get; set; }
         public float WeaponTimeMax { get; set; } = 10f;
         public FrameTimer WeaponResetTimer { get; set; }

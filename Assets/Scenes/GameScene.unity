@@ -5401,6 +5401,7 @@ MonoBehaviour:
   _InitialWeaponTime: 15
   _WeaponRainTime: 35
   _OneUpRainTime: 111
+  _InitialOneUpRainDelay: 3
   _LifeSprite: {fileID: 21300000, guid: 447eb817a26506049801485b5cb2fbc1, type: 3}
   _AudioSource: {fileID: 1106150299}
 --- !u!4 &1640542552

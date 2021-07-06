@@ -26,11 +26,5 @@ namespace Assets.FireStrategies.PlayerFireStrategies
 
         protected override float GetFireSpeedRatio(in PlayerFireStrategyManager.PlayerRatio ratios)
             => ratios.Reflect;
-
-        public override PlayerBullet[] GetBullets(int weaponLevel, Vector3 playerFirePos)
-        {
-            var ret = base.GetBullets(weaponLevel, playerFirePos);
-            return ret;
-        }
     }
 }

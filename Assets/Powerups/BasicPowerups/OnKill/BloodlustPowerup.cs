@@ -18,7 +18,7 @@ namespace Assets.Powerups
     /// <inheritdoc/>
     public class BloodlustPowerup : OnKillPowerup
     {
-        public override int MaxLevel => 2;
+        public override int MaxLevel => 1;
         protected override Sprite GetPowerupSprite(PowerupSpriteBank bank) => bank.Bloodlust;
 
         private float Duration => DurationCalculator.Value;
