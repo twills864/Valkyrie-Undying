@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 6413809968075619597}
   - component: {fileID: 7132623997797876986}
   - component: {fileID: 2313512956062553081}
-  - component: {fileID: 6309029274381990922}
   - component: {fileID: 8153722176740878649}
+  - component: {fileID: 6309029274381990922}
   m_Layer: 9
   m_Name: CradleEnemy
   m_TagString: Enemy
@@ -111,39 +111,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &6309029274381990922
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8308138074271894753}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95faf3a3d18e2724c90cea96c47354b3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _InitialSpawnHealth: 120
-  _HealthScaling: 1.2
-  _ExpRatioOverride:
-    ShouldOverride: 0
-    Multiplier: 0
-  _Sprite: {fileID: 7132623997797876986}
-  _VictimMarkerDistance: 0.5
-  _metronomeLabel: {fileID: 0}
-  _HealthBarOffsetScale: {x: 0, y: 0.5, z: 0}
-  _DifficultyLevel: 2
-  _FirstSpawnMinute: 1
-  ParticleColor:
-    serializedVersion: 2
-    rgba: 4278190335
-  ParticleColorAlt:
-    serializedVersion: 2
-    rgba: 4294967295
-  _SwivelAngle: 35
-  _InitialTravelTime: 2
-  _FinalTravelSpeed: 0.3
-  _RotateTime: 2
 --- !u!60 &8153722176740878649
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -175,3 +142,36 @@ PolygonCollider2D:
       - {x: -0.39098358, y: -0.12719095}
       - {x: -0.005142199, y: -0.3504318}
       - {x: 0.36978152, y: -0.2089566}
+--- !u!114 &6309029274381990922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8308138074271894753}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95faf3a3d18e2724c90cea96c47354b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _InitialSpawnHealth: 120
+  _HealthScaling: 1.2
+  _ExpRatioOverride:
+    ShouldOverride: 0
+    Multiplier: 0
+  _Sprite: {fileID: 7132623997797876986}
+  _VictimMarkerDistance: 0.5
+  _metronomeLabel: {fileID: 0}
+  _HealthBarOffsetScale: {x: 0, y: 0.5, z: 0}
+  _DifficultyLevel: 2
+  _FirstSpawnMinute: 0.75
+  ParticleColor:
+    serializedVersion: 2
+    rgba: 4278190335
+  ParticleColorAlt:
+    serializedVersion: 2
+    rgba: 4294967295
+  _SwivelAngle: 35
+  _InitialTravelTime: 2
+  _FinalTravelSpeed: 0.3
+  _RotateTime: 2

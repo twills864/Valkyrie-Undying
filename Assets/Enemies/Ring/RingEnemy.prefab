@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 3928909037743493871}
   - component: {fileID: 970539357841599256}
   - component: {fileID: 5737330965556706331}
-  - component: {fileID: 1858196081328302337}
   - component: {fileID: 648843407322911302}
+  - component: {fileID: 1858196081328302337}
   m_Layer: 9
   m_Name: RingEnemy
   m_TagString: Enemy
@@ -111,40 +111,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &1858196081328302337
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2073987155568075523}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b576ffeacb216244faed94ae1d4d2cfe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _InitialSpawnHealth: 75
-  _HealthScaling: 0.75
-  _ExpRatioOverride:
-    ShouldOverride: 1
-    Multiplier: 1.5
-  _Sprite: {fileID: 970539357841599256}
-  _VictimMarkerDistance: 0.7
-  _metronomeLabel: {fileID: 0}
-  _HealthBarOffsetScale: {x: 0, y: 0.45, z: 0}
-  _DifficultyLevel: 3
-  _FirstSpawnMinute: 2
-  ParticleColor:
-    serializedVersion: 2
-    rgba: 4278190335
-  ParticleColorAlt:
-    serializedVersion: 2
-    rgba: 4294967295
-  _VariantFireSpeed:
-    FireSpeed: 3
-    FireSpeedVariance: 0.5
-  _PermanentVelocity: {x: 0, y: 0}
-  _MinimumTravelTime: 2
 --- !u!60 &648843407322911302
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -176,3 +142,37 @@ PolygonCollider2D:
       - {x: -0.2446556, y: -0.4026947}
       - {x: 0.2356201, y: -0.40290064}
       - {x: 0.43579292, y: 0.18049617}
+--- !u!114 &1858196081328302337
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2073987155568075523}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b576ffeacb216244faed94ae1d4d2cfe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _InitialSpawnHealth: 75
+  _HealthScaling: 0.75
+  _ExpRatioOverride:
+    ShouldOverride: 1
+    Multiplier: 1.5
+  _Sprite: {fileID: 970539357841599256}
+  _VictimMarkerDistance: 0.7
+  _metronomeLabel: {fileID: 0}
+  _HealthBarOffsetScale: {x: 0, y: 0.45, z: 0}
+  _DifficultyLevel: 3
+  _FirstSpawnMinute: 1.5
+  ParticleColor:
+    serializedVersion: 2
+    rgba: 4278190335
+  ParticleColorAlt:
+    serializedVersion: 2
+    rgba: 4294967295
+  _VariantFireSpeed:
+    FireSpeed: 3
+    FireSpeedVariance: 0.5
+  _PermanentVelocity: {x: 0, y: 0}
+  _MinimumTravelTime: 2
