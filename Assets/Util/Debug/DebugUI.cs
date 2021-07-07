@@ -1,4 +1,6 @@
-﻿using System;
+﻿//#define SHOWLABELS
+
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -287,10 +289,12 @@ namespace Assets.Util
 
         private static void DrawDebugLabels()
         {
+#if SHOWLABELS
             DrawDebugLabel(MouseLabelKvp);
             DrawDebugLabel(ObjectUnderMouseKvp);
             foreach (var kvp in DebugLabelValues)
                 DrawDebugLabel(kvp);
+#endif
         }
         private static void DrawDebugLabel(KeyValuePair<string, DebugValue> kvp)
         {
@@ -312,6 +316,7 @@ namespace Assets.Util
 
         public void OnGUI()
         {
+#if SHOWLABELS
             Vector2 guiOffset = new Vector2(DebugBorderOffset, DebugBorderOffset);
 
             var leftStyle = GetLabelStyle(TextAnchor.MiddleLeft);
@@ -333,6 +338,7 @@ namespace Assets.Util
             GUILayout.BeginArea(fpsLabelPos, leftStyle);
             GUILayout.Label(fpsLabelMessage);
             GUILayout.EndArea();
+#endif
         }
 
 #endregion Draw GUI
