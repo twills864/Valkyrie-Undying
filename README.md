@@ -1,5 +1,5 @@
 # Valkyrie Undying
-A 2-D mobile arcade space shooter inspired both by classics like Galaga, and also by modern roguelikes such as Risk of Rain. Fight a horde enemy spaceships using an ever-increasing stockpile of powerups, and whatever heavy weapons you can find.
+A 2-D mobile arcade space shooter inspired both by classics like Galaga, and also by modern roguelikes such as Risk of Rain. Fight a horde of enemy spaceships using an ever-increasing stockpile of powerups, and whatever heavy weapons you can find.
 
 Valkyrie Undying currently features:<br/>
 - 7 unique enemies
